@@ -24,6 +24,24 @@ const validated = tokenSchema.parse(rawResponse) // Valida em runtime
 import { loginApiV1AuthLoginPost } from '~/generated/sinapse/client/...'
 ```
 
+### Impacto no Build (Tree-Shaking)
+
+O Kubb gera **muitos arquivos** (~1.000+), mas **apenas o que você importa vai para o build final**:
+
+| Componente             | No código gerado | No build final                |
+| ---------------------- | ---------------- | ----------------------------- |
+| `generated/sinapse/`   | 5.8 MB           | -                             |
+| Tipos TypeScript       | ~200 arquivos    | **0 KB** (removidos no build) |
+| Schemas Zod não usados | ~200 arquivos    | **0 KB** (tree-shaking)       |
+| Schemas Zod usados     | 2-3 arquivos     | **~2 KB**                     |
+| Cliente HTTP           | ~100 arquivos    | **0 KB** (não importamos)     |
+
+**Por que isso funciona:**
+
+- **Tipos** (`import type`) são removidos no build (existem apenas em compile-time)
+- **Tree-shaking** do bundler (Vite/Rollup) remove código não importado
+- **Apenas schemas Zod** que você usa são incluídos no bundle final
+
 ---
 
 ## Sumário

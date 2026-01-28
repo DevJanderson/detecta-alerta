@@ -317,5 +317,7 @@ Cada diretório principal tem seu próprio `CLAUDE.md` com instruções específ
 | [layers/1-base/app/composables/CLAUDE.md](layers/1-base/app/composables/CLAUDE.md) | Padrões de composables              |
 | [layers/2-example/CLAUDE.md](layers/2-example/CLAUDE.md)                           | Template para criar features        |
 | [layers/3-auth/CLAUDE.md](layers/3-auth/CLAUDE.md)                                 | Autenticação BFF, login, logout     |
+| [docs/BFF.md](docs/BFF.md)                                                         | O que é BFF e por que usar          |
+| [docs/KUBB.md](docs/KUBB.md)                                                       | Kubb + BFF, geração de código       |
 | [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking         |
 | [docs/server.md](docs/server.md)                                                   | Nitro API routes, segurança, testes |
