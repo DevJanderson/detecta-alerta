@@ -36,7 +36,7 @@ const redirectTo = computed(() => {
 
       <!-- Footer -->
       <p class="mt-6 text-center text-xs text-muted-foreground">
-        &copy; {{ new Date().getFullYear() }} ITpS - Instituto de Tecnologia para Saúde
+        &copy; {{ new Date().getFullYear() }} ITpS - Instituto Todos pela Saúde
       </p>
     </div>
   </div>
