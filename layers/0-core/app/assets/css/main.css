@@ -143,53 +143,55 @@
 :root {
   --radius: 0.625rem;
 
-  /* Cores Semânticas - Light Mode */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.2 0 0);
+  /* Cores Semânticas - Usando cores da marca */
+  --background: var(--color-base-0);
+  --foreground: var(--color-base-900);
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0 0);
+  --card: var(--color-base-0);
+  --card-foreground: var(--color-base-900);
 
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0 0);
+  --popover: var(--color-base-0);
+  --popover-foreground: var(--color-base-900);
 
-  /* Primary usa o vermelho/coral da marca (950) */
-  --primary: oklch(0.5 0.2 20);
-  --primary-foreground: oklch(1 0 0);
+  /* Primary = Brand Primary */
+  --primary: var(--color-brand-primary-700);
+  --primary-foreground: var(--color-base-0);
 
-  /* Secondary usa o azul da marca (900) */
-  --secondary: oklch(0.45 0.13 240);
-  --secondary-foreground: oklch(1 0 0);
+  /* Secondary = Brand Secondary */
+  --secondary: var(--color-brand-secondary-700);
+  --secondary-foreground: var(--color-base-0);
 
-  --muted: oklch(0.955 0 0);
-  --muted-foreground: oklch(0.54 0 0);
+  /* Muted = Base neutro */
+  --muted: var(--color-base-100);
+  --muted-foreground: var(--color-base-600);
 
-  --accent: oklch(0.955 0 0);
-  --accent-foreground: oklch(0.2 0 0);
+  /* Accent = Brand Tertiary */
+  --accent: var(--color-brand-tertiary-100);
+  --accent-foreground: var(--color-base-900);
 
-  /* Destructive usa danger */
-  --destructive: oklch(0.58 0.22 25);
+  /* Destructive = Danger */
+  --destructive: var(--color-danger-600);
 
-  --border: oklch(0.9 0 0);
-  --input: oklch(0.9 0 0);
-  --ring: oklch(0.5 0.2 20);
+  --border: var(--color-base-200);
+  --input: var(--color-base-200);
+  --ring: var(--color-brand-primary-500);
 
   /* Charts usando cores da marca */
-  --chart-1: oklch(0.5 0.2 20);
-  --chart-2: oklch(0.45 0.13 240);
-  --chart-3: oklch(0.65 0.18 145);
-  --chart-4: oklch(0.8 0.17 75);
-  --chart-5: oklch(0.75 0.025 160);
+  --chart-1: var(--color-brand-primary-600);
+  --chart-2: var(--color-brand-secondary-600);
+  --chart-3: var(--color-success-500);
+  --chart-4: var(--color-alert-500);
+  --chart-5: var(--color-brand-tertiary-400);
 
   /* Sidebar */
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.2 0 0);
-  --sidebar-primary: oklch(0.5 0.2 20);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.955 0 0);
-  --sidebar-accent-foreground: oklch(0.2 0 0);
-  --sidebar-border: oklch(0.9 0 0);
-  --sidebar-ring: oklch(0.5 0.2 20);
+  --sidebar: var(--color-base-50);
+  --sidebar-foreground: var(--color-base-900);
+  --sidebar-primary: var(--color-brand-primary-700);
+  --sidebar-primary-foreground: var(--color-base-0);
+  --sidebar-accent: var(--color-base-100);
+  --sidebar-accent-foreground: var(--color-base-900);
+  --sidebar-border: var(--color-base-200);
+  --sidebar-ring: var(--color-brand-primary-500);
 }
 
 @layer base {

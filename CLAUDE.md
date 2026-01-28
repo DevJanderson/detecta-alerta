@@ -39,6 +39,73 @@ npx shadcn-vue@latest add <componente>
 
 Componentes ficam em `layers/1-base/app/components/ui/` (auto-import).
 
+## Design System - Cores
+
+Arquivo de cores: `layers/0-core/app/assets/css/main.css`
+Visualização: http://localhost:3000/styles
+
+### Cores da Marca (usar estas)
+
+| Cor                 | Classe Tailwind               | Uso                              |
+| ------------------- | ----------------------------- | -------------------------------- |
+| **brand-primary**   | `bg-brand-primary-{50-950}`   | Vermelho/Coral - CTAs, destaques |
+| **brand-secondary** | `bg-brand-secondary-{50-950}` | Azul - Links, ações secundárias  |
+| **brand-tertiary**  | `bg-brand-tertiary-{50-500}`  | Verde/Cinza - Acentos sutis      |
+| **base**            | `bg-base-{0-950}`             | Neutros/Cinzas - Textos, fundos  |
+| **success**         | `bg-success-{50-950}`         | Verde - Feedback positivo        |
+| **alert**           | `bg-alert-{50-950}`           | Amarelo - Avisos                 |
+| **danger**          | `bg-danger-{50-950}`          | Vermelho - Erros                 |
+
+### Cores Semânticas (shadcn/ui)
+
+Usam as cores da marca internamente:
+
+| Semântica               | Origem              | Uso                |
+| ----------------------- | ------------------- | ------------------ |
+| `bg-primary`            | brand-primary-700   | Botões principais  |
+| `bg-secondary`          | brand-secondary-700 | Botões secundários |
+| `bg-destructive`        | danger-600          | Ações destrutivas  |
+| `bg-muted`              | base-100            | Fundos sutis       |
+| `bg-accent`             | brand-tertiary-100  | Destaques leves    |
+| `text-foreground`       | base-900            | Texto principal    |
+| `text-muted-foreground` | base-600            | Texto secundário   |
+
+### Exemplos de Uso
+
+```vue
+<!-- Feedback de sucesso -->
+<div class="rounded-lg bg-success-100 p-4">
+  <p class="text-success-800">Operação concluída!</p>
+</div>
+
+<!-- Feedback de erro -->
+<div class="rounded-lg bg-danger-100 p-4">
+  <p class="text-danger-800">Algo deu errado.</p>
+</div>
+
+<!-- Alerta/Aviso -->
+<div class="rounded-lg bg-alert-100 p-4">
+  <p class="text-alert-800">Atenção!</p>
+</div>
+
+<!-- Botão com cor da marca -->
+<button class="bg-brand-primary-600 hover:bg-brand-primary-700 text-base-0">
+  Ação Principal
+</button>
+
+<!-- Usando semânticas do shadcn -->
+<Button variant="default">Primary</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="destructive">Deletar</Button>
+```
+
+### Regras
+
+1. **Preferir cores da marca** (`brand-*`, `success`, `alert`, `danger`) para elementos customizados
+2. **Usar semânticas** (`primary`, `secondary`, `muted`) para componentes shadcn/ui
+3. **Tons baixos (50-200)** para fundos, **tons altos (600-900)** para textos
+4. **Nunca usar cores hardcoded** - sempre usar as variáveis do design system
+
 ## Arquitetura
 
 Nuxt 4 + shadcn-vue + Tailwind CSS v4 + **Nuxt Layers**.
