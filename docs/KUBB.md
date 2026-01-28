@@ -162,17 +162,27 @@ import { pluginTs } from '@kubb/plugin-ts'
 import { pluginZod } from '@kubb/plugin-zod'
 import { pluginClient } from '@kubb/plugin-client'
 
-/**
- * Plugins compartilhados para todas as APIs
- */
-function createPlugins() {
-  return [
+export default defineConfig({
+  name: 'minha-api',
+  root: '.',
+  input: {
+    path: './openapi/minha-api.json'
+  },
+  output: {
+    path: './generated/minha-api',
+    clean: true,
+    // OBRIGATÓRIO: Remove extensão .ts dos imports
+    // Compatibilidade com bundlers e verbatimModuleSyntax
+    extension: {
+      '.ts': ''
+    }
+  },
+  plugins: [
     pluginOas(),
     pluginTs({
       output: {
         path: './types',
-        barrelType: 'named',
-        extName: ''
+        barrelType: 'named'
       },
       group: {
         type: 'tag',
@@ -184,23 +194,20 @@ function createPlugins() {
     pluginZod({
       output: {
         path: './zod',
-        barrelType: 'named',
-        extName: ''
+        barrelType: 'named'
       },
       group: {
         type: 'tag',
         name: ({ group }) => `${group}Schemas`
       },
-      typed: true,
-      dateType: 'string',
-      inferred: true,
-      importType: true
+      // IMPORTANTE: NÃO usar typed, inferred ou importType
+      // Essas opções geram imports incompatíveis com verbatimModuleSyntax
+      dateType: 'string'
     }),
     pluginClient({
       output: {
         path: './client',
-        barrelType: 'named',
-        extName: ''
+        barrelType: 'named'
       },
       group: {
         type: 'tag',
@@ -211,22 +218,19 @@ function createPlugins() {
       pathParamsType: 'object'
     })
   ]
-}
-
-export default defineConfig({
-  name: 'minha-api',
-  root: '.',
-  input: {
-    path: './openapi/minha-api.json'
-  },
-  output: {
-    path: './generated/minha-api',
-    clean: true,
-    extension: {}
-  },
-  plugins: createPlugins()
 })
 ```
+
+### Compatibilidade com TypeScript do Projeto
+
+Este projeto usa `verbatimModuleSyntax: true` no TypeScript. Isso exige:
+
+| Configuração           | Valor           | Motivo                                                                 |
+| ---------------------- | --------------- | ---------------------------------------------------------------------- |
+| `output.extension`     | `{ '.ts': '' }` | Remove extensões dos imports (evita erro `allowImportingTsExtensions`) |
+| `pluginZod.typed`      | **NÃO USAR**    | Gera `import { ToZod }` que conflita com `verbatimModuleSyntax`        |
+| `pluginZod.inferred`   | **NÃO USAR**    | Mesmo problema acima                                                   |
+| `pluginZod.importType` | **NÃO USAR**    | Mesmo problema acima                                                   |
 
 ### 3. Adicionar scripts ao `package.json`
 
@@ -787,6 +791,34 @@ export default defineNuxtConfig({
 ```
 
 > **Nota sobre caminhos:** Use `~/layers/...` para referenciar arquivos no `nuxt.config.ts` de layers. Caminhos relativos não funcionam.
+
+---
+
+## Troubleshooting
+
+### Erros Comuns
+
+| Erro                                   | Causa                            | Solução                                                              |
+| -------------------------------------- | -------------------------------- | -------------------------------------------------------------------- |
+| `allowImportingTsExtensions`           | Imports com `.ts` no final       | Adicionar `extension: { '.ts': '' }` no output global                |
+| `verbatimModuleSyntax` + `ToZod`       | pluginZod com `typed`/`inferred` | Remover essas opções do pluginZod                                    |
+| `Cannot find module '~/generated/...'` | Arquivos não gerados             | Executar `npm run api:generate`                                      |
+| Tipos não reconhecidos no IDE          | Cache do TypeScript              | Reiniciar o servidor TS (VS Code: Cmd+Shift+P → "Restart TS Server") |
+
+### Regenerar após Mudanças
+
+Se a spec OpenAPI mudar:
+
+```bash
+npm run api:generate
+```
+
+Se houver problemas de cache:
+
+```bash
+rm -rf generated/
+npm run api:generate
+```
 
 ---
 
