@@ -1,0 +1,108 @@
+/**
+ * Testes E2E para fluxo de autenticação
+ */
+
+import { test, expect } from '@playwright/test'
+
+test.describe('Autenticação', () => {
+  test.describe('Página de Login', () => {
+    test('deve exibir formulário de login', async ({ page }) => {
+      await page.goto('/auth/login')
+
+      // Verifica elementos do formulário
+      await expect(page.locator('h1')).toContainText('Detecta Alerta')
+      await expect(page.locator('input#username')).toBeVisible()
+      await expect(page.locator('input#password')).toBeVisible()
+      await expect(page.locator('button[type="submit"]')).toBeVisible()
+    })
+
+    test('deve ter link para recuperar senha', async ({ page }) => {
+      await page.goto('/auth/login')
+
+      const link = page.locator('a[href="/auth/reset-password"]')
+      await expect(link).toBeVisible()
+      await expect(link).toContainText('Esqueci minha senha')
+    })
+
+    test('deve mostrar/ocultar senha ao clicar no ícone', async ({ page }) => {
+      await page.goto('/auth/login')
+
+      const passwordInput = page.locator('input#password')
+      const toggleButton = page
+        .locator('button')
+        .filter({ has: page.locator('svg') })
+        .last()
+
+      // Inicialmente deve ser type="password"
+      await expect(passwordInput).toHaveAttribute('type', 'password')
+
+      // Clica para mostrar
+      await toggleButton.click()
+      await expect(passwordInput).toHaveAttribute('type', 'text')
+
+      // Clica para ocultar
+      await toggleButton.click()
+      await expect(passwordInput).toHaveAttribute('type', 'password')
+    })
+
+    test('botão de submit deve estar desabilitado sem credenciais', async ({ page }) => {
+      await page.goto('/auth/login')
+
+      const submitButton = page.locator('button[type="submit"]')
+      await expect(submitButton).toBeDisabled()
+    })
+
+    test('botão de submit deve estar habilitado com credenciais', async ({ page }) => {
+      await page.goto('/auth/login')
+
+      await page.fill('input#username', 'usuario@teste.com')
+      await page.fill('input#password', 'senha123')
+
+      const submitButton = page.locator('button[type="submit"]')
+      await expect(submitButton).toBeEnabled()
+    })
+  })
+
+  test.describe('Página de Reset de Senha', () => {
+    test('deve exibir formulário de recuperação', async ({ page }) => {
+      await page.goto('/auth/reset-password')
+
+      await expect(page.locator('h1')).toContainText('Detecta Alerta')
+      await expect(page.locator('input#email')).toBeVisible()
+      await expect(page.locator('button[type="submit"]')).toBeVisible()
+    })
+
+    test('deve validar email inválido', async ({ page }) => {
+      await page.goto('/auth/reset-password')
+
+      await page.fill('input#email', 'emailinvalido')
+
+      await expect(page.locator('text=Digite um email válido')).toBeVisible()
+    })
+
+    test('deve ter link para voltar ao login', async ({ page }) => {
+      await page.goto('/auth/reset-password')
+
+      const link = page.locator('a[href="/auth/login"]')
+      await expect(link).toBeVisible()
+    })
+  })
+
+  test.describe('Navegação', () => {
+    test('deve navegar de login para reset de senha', async ({ page }) => {
+      await page.goto('/auth/login')
+
+      await page.click('a[href="/auth/reset-password"]')
+
+      await expect(page).toHaveURL('/auth/reset-password')
+    })
+
+    test('deve navegar de reset de senha para login', async ({ page }) => {
+      await page.goto('/auth/reset-password')
+
+      await page.click('a[href="/auth/login"]')
+
+      await expect(page).toHaveURL('/auth/login')
+    })
+  })
+})

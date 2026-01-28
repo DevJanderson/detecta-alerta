@@ -123,6 +123,7 @@ layers/                 # TUDO fica aqui
   0-core/               # Fundação: app.vue, error.vue, CSS global
   1-base/               # UI: shadcn-vue, utils, tipos globais
   2-example/            # Feature layer de exemplo (copiar para novas)
+  3-auth/               # Autenticação BFF (Backend-for-Frontend)
   4-landing/            # Landing page
 server/                 # API routes (Nitro)
 tests/                  # unit/, integration/, e2e/
@@ -137,7 +138,7 @@ openapi/                # Especificações OpenAPI
 ### Ordem de Prioridade (Layers)
 
 ```
-4-landing > 2-example > 1-base > 0-core
+4-landing > 3-auth > 2-example > 1-base > 0-core
 ```
 
 Número maior = maior prioridade = sobrescreve layers anteriores.
@@ -297,10 +298,11 @@ output: {
 
 Cada diretório principal tem seu próprio `CLAUDE.md` com instruções específicas:
 
-| Documento                                                                          | Conteúdo                       |
-| ---------------------------------------------------------------------------------- | ------------------------------ |
-| [layers/0-core/CLAUDE.md](layers/0-core/CLAUDE.md)                                 | app.vue, error.vue, CSS global |
-| [layers/1-base/app/components/CLAUDE.md](layers/1-base/app/components/CLAUDE.md)   | shadcn-vue, componentes        |
-| [layers/1-base/app/composables/CLAUDE.md](layers/1-base/app/composables/CLAUDE.md) | Padrões de composables         |
-| [layers/2-example/CLAUDE.md](layers/2-example/CLAUDE.md)                           | Template para criar features   |
-| [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking    |
+| Documento                                                                          | Conteúdo                        |
+| ---------------------------------------------------------------------------------- | ------------------------------- |
+| [layers/0-core/CLAUDE.md](layers/0-core/CLAUDE.md)                                 | app.vue, error.vue, CSS global  |
+| [layers/1-base/app/components/CLAUDE.md](layers/1-base/app/components/CLAUDE.md)   | shadcn-vue, componentes         |
+| [layers/1-base/app/composables/CLAUDE.md](layers/1-base/app/composables/CLAUDE.md) | Padrões de composables          |
+| [layers/2-example/CLAUDE.md](layers/2-example/CLAUDE.md)                           | Template para criar features    |
+| [layers/3-auth/CLAUDE.md](layers/3-auth/CLAUDE.md)                                 | Autenticação BFF, login, logout |
+| [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking     |

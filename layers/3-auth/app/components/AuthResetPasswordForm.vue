@@ -1,0 +1,110 @@
+<script setup lang="ts">
+import { Mail, Loader2, ArrowLeft, CheckCircle } from 'lucide-vue-next'
+
+const authStore = useAuthStore()
+
+// Form state
+const email = ref('')
+const isSubmitted = ref(false)
+const successMessage = ref('')
+
+// Computed
+const canSubmit = computed(() => email.value.trim() && !authStore.isLoading)
+
+const isValidEmail = computed(() => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email.value)
+})
+
+// Methods
+async function handleSubmit() {
+  if (!canSubmit.value || !isValidEmail.value) return
+
+  const result = await authStore.resetPassword({
+    email: email.value.trim()
+  })
+
+  if (result.success) {
+    isSubmitted.value = true
+    successMessage.value = result.message
+  }
+}
+
+function resetForm() {
+  email.value = ''
+  isSubmitted.value = false
+  successMessage.value = ''
+  authStore.clearError()
+}
+</script>
+
+<template>
+  <div>
+    <!-- Estado de sucesso -->
+    <div v-if="isSubmitted" class="space-y-4 text-center">
+      <div class="flex justify-center">
+        <div class="rounded-full bg-success-100 p-3">
+          <CheckCircle class="h-8 w-8 text-success-600" />
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <h3 class="text-lg font-semibold">Email enviado!</h3>
+        <p class="text-sm text-muted-foreground">
+          {{ successMessage }}
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <NuxtLink to="/auth/login">
+          <Button variant="outline" class="w-full">
+            <ArrowLeft class="mr-2 h-4 w-4" />
+            Voltar para o login
+          </Button>
+        </NuxtLink>
+
+        <Button variant="ghost" class="w-full" @click="resetForm"> Enviar para outro email </Button>
+      </div>
+    </div>
+
+    <!-- Formulário -->
+    <form v-else class="space-y-4" @submit.prevent="handleSubmit">
+      <!-- Erro -->
+      <Alert v-if="authStore.error" variant="destructive">
+        <AlertDescription>{{ authStore.error }}</AlertDescription>
+      </Alert>
+
+      <p class="text-sm text-muted-foreground">
+        Digite seu email cadastrado. Enviaremos um link para redefinir sua senha.
+      </p>
+
+      <!-- Email -->
+      <div class="space-y-2">
+        <Label for="email">Email</Label>
+        <Input
+          id="email"
+          v-model="email"
+          type="email"
+          placeholder="seu@email.com"
+          autocomplete="email"
+          :disabled="authStore.isLoading"
+        />
+        <p v-if="email && !isValidEmail" class="text-sm text-danger-600">Digite um email válido</p>
+      </div>
+
+      <!-- Botão submit -->
+      <Button type="submit" class="w-full" :disabled="!canSubmit || !isValidEmail">
+        <Loader2 v-if="authStore.isLoading" class="mr-2 h-4 w-4 animate-spin" />
+        <Mail v-else class="mr-2 h-4 w-4" />
+        Enviar link de recuperação
+      </Button>
+
+      <!-- Link voltar -->
+      <div class="text-center">
+        <NuxtLink to="/auth/login" class="text-sm text-brand-secondary-600 hover:underline">
+          Voltar para o login
+        </NuxtLink>
+      </div>
+    </form>
+  </div>
+</template>

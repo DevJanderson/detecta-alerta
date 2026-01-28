@@ -88,6 +88,14 @@ export default defineNuxtConfig({
     methodsToProtect: ['POST', 'PUT', 'PATCH', 'DELETE']
   },
 
+  // Desabilitar CSRF para rotas de auth (usa cookies httpOnly para segurança)
+  routeRules: {
+    '/api/auth/login': { csurf: false },
+    '/api/auth/logout': { csurf: false },
+    '/api/auth/refresh': { csurf: false },
+    '/api/auth/reset-password': { csurf: false }
+  },
+
   // VeeValidate - validação de formulários
   veeValidate: {
     autoImports: true,
@@ -112,7 +120,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     // Private (server only)
-    // apiSecret: '', // NUXT_API_SECRET
+    sinapseApiUrl: '', // NUXT_SINAPSE_API_URL
 
     // Public (exposed to client)
     public: {
