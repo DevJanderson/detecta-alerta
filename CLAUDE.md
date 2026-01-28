@@ -256,12 +256,42 @@ const casos = await listarCasosApiV1AgravosCasosGet({ limit: 10 })
 npm run api:generate
 ```
 
-### Configuração (`kubb.config.ts`)
+### Configuração Importante (`kubb.config.ts`)
 
-- **output.extension**: Remove `.ts` dos imports para compatibilidade com bundlers
-- **pluginTs**: Gera tipos TypeScript agrupados por tag
-- **pluginZod**: Gera schemas Zod (sem `typed`/`inferred` para compatibilidade com `verbatimModuleSyntax`)
-- **pluginClient**: Gera cliente fetch que retorna `data` diretamente
+O projeto usa `verbatimModuleSyntax: true` no TypeScript, o que exige configurações específicas:
+
+```typescript
+output: {
+  path: './generated/sinapse',
+  clean: true,
+  // OBRIGATÓRIO: Remove extensão .ts dos imports
+  // Sem isso: erro "allowImportingTsExtensions"
+  extension: { '.ts': '' },
+},
+```
+
+**Regras para plugins:**
+
+| Plugin         | Configuração                                   | Motivo                                                          |
+| -------------- | ---------------------------------------------- | --------------------------------------------------------------- |
+| `pluginZod`    | **NÃO usar** `typed: true` ou `inferred: true` | Gera `import { ToZod }` que conflita com `verbatimModuleSyntax` |
+| `pluginTs`     | Usar normalmente                               | Sem restrições                                                  |
+| `pluginClient` | Usar normalmente                               | Sem restrições                                                  |
+
+### Adicionar Nova API
+
+1. Adicionar spec OpenAPI em `openapi/<nome>-api.json`
+2. Criar nova config em `kubb.config.ts` ou arquivo separado
+3. Ajustar `output.path` para `./generated/<nome>`
+4. Executar `npm run api:generate`
+
+### Troubleshooting
+
+| Erro                           | Solução                                               |
+| ------------------------------ | ----------------------------------------------------- |
+| `allowImportingTsExtensions`   | Adicionar `extension: { '.ts': '' }` no output        |
+| `verbatimModuleSyntax` + ToZod | Remover `typed: true` e `inferred: true` do pluginZod |
+| Tipos não reconhecidos         | Verificar se `generated/` não está no `.gitignore`    |
 
 ## Documentação por Diretório
 
