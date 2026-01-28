@@ -19,16 +19,16 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'pt-BR' },
-      title: 'Nuxt 4 Layers Template',
+      title: 'Detecta Alerta',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           name: 'description',
           content:
-            'Template profissional para Nuxt 4 com shadcn-vue, Tailwind CSS v4 e arquitetura de Layers.'
+            'Plataforma de vigilância e monitoramento epidemiológico em tempo real para o Brasil.'
         },
-        { name: 'theme-color', content: '#000000' }
+        { name: 'theme-color', content: '#e63946' }
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     }
@@ -49,7 +49,6 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vee-validate/nuxt',
     '@nuxt/image',
-    '@nuxtjs/color-mode',
     'nuxt-security',
     'nuxt-csurf'
   ],
@@ -98,13 +97,6 @@ export default defineNuxtConfig({
       FieldArray: 'VeeFieldArray',
       ErrorMessage: 'VeeErrorMessage'
     }
-  },
-
-  // Color Mode - dark/light mode
-  colorMode: {
-    classSuffix: '',
-    preference: 'light',
-    fallback: 'light'
   },
 
   // Nuxt Image - otimização de imagens
