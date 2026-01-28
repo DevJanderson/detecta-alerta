@@ -1,0 +1,38 @@
+export {
+  createNoticiaApiV1NoticiasPost201Schema,
+  createNoticiaApiV1NoticiasPost422Schema,
+  createNoticiaApiV1NoticiasPostMutationRequestSchema,
+  createNoticiaApiV1NoticiasPostMutationResponseSchema
+} from './createNoticiaApiV1NoticiasPostSchema'
+export {
+  deleteNoticiaApiV1NoticiasUniqueIdDeletePathParamsSchema,
+  deleteNoticiaApiV1NoticiasUniqueIdDelete204Schema,
+  deleteNoticiaApiV1NoticiasUniqueIdDelete422Schema,
+  deleteNoticiaApiV1NoticiasUniqueIdDeleteMutationResponseSchema
+} from './deleteNoticiaApiV1NoticiasUniqueIdDeleteSchema'
+export {
+  getNoticiaApiV1NoticiasUniqueIdGetPathParamsSchema,
+  getNoticiaApiV1NoticiasUniqueIdGet200Schema,
+  getNoticiaApiV1NoticiasUniqueIdGet422Schema,
+  getNoticiaApiV1NoticiasUniqueIdGetQueryResponseSchema
+} from './getNoticiaApiV1NoticiasUniqueIdGetSchema'
+export {
+  getNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGetPathParamsSchema,
+  getNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGetQueryParamsSchema,
+  getNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGet200Schema,
+  getNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGet422Schema,
+  getNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGetQueryResponseSchema
+} from './getNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGetSchema'
+export {
+  listNoticiasApiV1NoticiasGetQueryParamsSchema,
+  listNoticiasApiV1NoticiasGet200Schema,
+  listNoticiasApiV1NoticiasGet422Schema,
+  listNoticiasApiV1NoticiasGetQueryResponseSchema
+} from './listNoticiasApiV1NoticiasGetSchema'
+export {
+  updateNoticiaApiV1NoticiasUniqueIdPutPathParamsSchema,
+  updateNoticiaApiV1NoticiasUniqueIdPut200Schema,
+  updateNoticiaApiV1NoticiasUniqueIdPut422Schema,
+  updateNoticiaApiV1NoticiasUniqueIdPutMutationRequestSchema,
+  updateNoticiaApiV1NoticiasUniqueIdPutMutationResponseSchema
+} from './updateNoticiaApiV1NoticiasUniqueIdPutSchema'

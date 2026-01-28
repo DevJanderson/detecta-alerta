@@ -1,0 +1,44 @@
+{
+  "properties": {
+    "id_fonte": {
+      "type": "integer",
+      "title": "Id Fonte",
+      "description": "ID do paciente (anonimizado)"
+    },
+    "cd_sexo": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Cd Sexo",
+      "description": "Código do sexo"
+    },
+    "idade": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Idade",
+      "description": "Idade em anos"
+    },
+    "idade_meses": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Idade Meses",
+      "description": "Idade em meses (para bebes)"
+    },
+    "cd_situacao_gestacional": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Cd Situacao Gestacional",
+      "description": "Código situação gestacional"
+    },
+    "cd_raca_cor": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Cd Raca Cor",
+      "description": "Código raça/cor"
+    },
+    "cd_escolaridade": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Cd Escolaridade",
+      "description": "Código escolaridade"
+    }
+  },
+  "type": "object",
+  "required": ["id_fonte"],
+  "title": "DenguePacienteResponse",
+  "description": "Dados demográficos do paciente.",
+  "x-readme-ref-name": "DenguePacienteResponse"
+}

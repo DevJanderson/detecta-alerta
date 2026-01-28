@@ -1,0 +1,42 @@
+{
+  "properties": {
+    "place_id": { "type": "string", "title": "Place Id" },
+    "name": { "type": "string", "title": "Name" },
+    "formatted_address": { "type": "string", "title": "Formatted Address" },
+    "google_maps_url": { "type": "string", "title": "Google Maps Url" },
+    "lat": { "anyOf": [{ "type": "number" }, { "type": "null" }], "title": "Lat" },
+    "lng": { "anyOf": [{ "type": "number" }, { "type": "null" }], "title": "Lng" },
+    "types": { "items": { "type": "string" }, "type": "array", "title": "Types" },
+    "city": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "City" },
+    "state": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "State" },
+    "country": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Country" },
+    "postal_code": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Postal Code" },
+    "neighborhood": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Neighborhood"
+    },
+    "phone_number": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Phone Number"
+    },
+    "website": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Website" },
+    "rating": { "anyOf": [{ "type": "number" }, { "type": "null" }], "title": "Rating" },
+    "user_ratings_total": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "User Ratings Total"
+    },
+    "opening_hours": { "items": { "type": "string" }, "type": "array", "title": "Opening Hours" },
+    "exists_in_database": {
+      "type": "boolean",
+      "title": "Exists In Database",
+      "description": "Se já existe no banco de dados",
+      "default": false
+    },
+    "cached_at": { "type": "string", "format": "date-time", "title": "Cached At" }
+  },
+  "type": "object",
+  "required": ["place_id", "name", "formatted_address", "google_maps_url", "cached_at"],
+  "title": "PlaceDetailsResponse",
+  "description": "Schema para resposta com detalhes de um lugar.",
+  "x-readme-ref-name": "PlaceDetailsResponse"
+}

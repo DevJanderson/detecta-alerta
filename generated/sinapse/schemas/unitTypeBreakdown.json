@@ -1,0 +1,30 @@
+{
+  "properties": {
+    "unit_type": { "type": "string", "title": "Unit Type" },
+    "count": { "type": "integer", "title": "Count" },
+    "average_occupation": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Average Occupation"
+    },
+    "occupancy_level": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Occupancy Level",
+      "description": "Nível de ocupação: low, moderate, high"
+    },
+    "trend": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Trend",
+      "description": "Tendência temporal: up, down, stable"
+    },
+    "alert_status": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Alert Status",
+      "description": "Status de alerta epidemiológico para este tipo: green, yellow, red"
+    }
+  },
+  "type": "object",
+  "required": ["unit_type", "count"],
+  "title": "UnitTypeBreakdown",
+  "description": "Schema para breakdown por tipo de unidade.",
+  "x-readme-ref-name": "UnitTypeBreakdown"
+}

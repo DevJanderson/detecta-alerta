@@ -1,0 +1,29 @@
+{
+  "properties": {
+    "place_id": { "type": "string", "title": "Place Id" },
+    "is_valid": { "type": "boolean", "title": "Is Valid" },
+    "is_health_facility": { "type": "boolean", "title": "Is Health Facility" },
+    "exists_in_database": { "type": "boolean", "title": "Exists In Database" },
+    "name": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Name" },
+    "formatted_address": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Formatted Address"
+    },
+    "types": { "items": { "type": "string" }, "type": "array", "title": "Types" },
+    "suggested_unit_type": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Suggested Unit Type",
+      "description": "Tipo sugerido (ubs, upa, pet_shop, pet_atend, drogarias)"
+    },
+    "validation_messages": {
+      "items": { "type": "string" },
+      "type": "array",
+      "title": "Validation Messages"
+    }
+  },
+  "type": "object",
+  "required": ["place_id", "is_valid", "is_health_facility", "exists_in_database"],
+  "title": "PlaceValidationResponse",
+  "description": "Schema para resposta de validação.",
+  "x-readme-ref-name": "PlaceValidationResponse"
+}

@@ -1,0 +1,123 @@
+{
+  "properties": {
+    "filters": {
+      "description": "Filtros aplicados",
+      "properties": {
+        "hours": {
+          "type": "integer",
+          "title": "Hours",
+          "description": "Últimas N horas consultadas"
+        },
+        "job_type": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Job Type",
+          "description": "Tipo de job filtrado"
+        },
+        "status": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Status",
+          "description": "Status filtrado"
+        }
+      },
+      "type": "object",
+      "required": ["hours"],
+      "title": "JobsFiltersInfo",
+      "x-readme-ref-name": "JobsFiltersInfo"
+    },
+    "pagination": {
+      "description": "Informações de paginação",
+      "properties": {
+        "cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Cursor",
+          "description": "Cursor atual"
+        },
+        "limit": {
+          "type": "integer",
+          "title": "Limit",
+          "description": "Limite de itens por página"
+        },
+        "next_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Next Cursor",
+          "description": "Cursor para próxima página"
+        },
+        "previous_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Previous Cursor",
+          "description": "Cursor para página anterior"
+        },
+        "has_next": {
+          "type": "boolean",
+          "title": "Has Next",
+          "description": "Se há próxima página"
+        },
+        "has_previous": {
+          "type": "boolean",
+          "title": "Has Previous",
+          "description": "Se há página anterior"
+        }
+      },
+      "type": "object",
+      "required": ["limit", "has_next", "has_previous"],
+      "title": "JobsPaginationInfo",
+      "x-readme-ref-name": "JobsPaginationInfo"
+    },
+    "data": {
+      "items": {
+        "properties": {
+          "job_id": { "type": "string", "title": "Job Id", "description": "ID único do job" },
+          "job_type": { "type": "string", "title": "Job Type", "description": "Tipo do job ETL" },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "Status atual (queued, running, completed, failed)"
+          },
+          "started_at": {
+            "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+            "title": "Started At",
+            "description": "Quando começou a processar"
+          },
+          "completed_at": {
+            "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+            "title": "Completed At",
+            "description": "Quando terminou"
+          },
+          "error_message": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Error Message",
+            "description": "Mensagem de erro se houver"
+          },
+          "records_processed": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Records Processed",
+            "description": "Registros processados"
+          },
+          "duration_seconds": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Duration Seconds",
+            "description": "Duração em segundos"
+          }
+        },
+        "type": "object",
+        "required": ["job_id", "job_type", "status"],
+        "title": "ETLJobStatusResponse",
+        "description": "Schema de resposta para status de job ETL.",
+        "x-readme-ref-name": "ETLJobStatusResponse"
+      },
+      "type": "array",
+      "title": "Data",
+      "description": "Lista de jobs"
+    },
+    "total_found": {
+      "type": "integer",
+      "title": "Total Found",
+      "description": "Total de jobs encontrados com os filtros"
+    }
+  },
+  "type": "object",
+  "required": ["filters", "pagination", "data", "total_found"],
+  "title": "ETLJobsListResponse",
+  "description": "Schema de resposta com filtros e paginação para lista de jobs.",
+  "x-readme-ref-name": "ETLJobsListResponse"
+}

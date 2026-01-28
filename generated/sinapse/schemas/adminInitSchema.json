@@ -1,0 +1,59 @@
+{
+  "properties": {
+    "nome": {
+      "type": "string",
+      "title": "Nome",
+      "description": "Nome completo do administrador",
+      "example": "Administrador do Sistema"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "Email",
+      "description": "Email do administrador",
+      "example": "admin@sinapse.com"
+    },
+    "senha": {
+      "type": "string",
+      "minLength": 8,
+      "title": "Senha",
+      "description": "Senha do administrador (mínimo 8 caracteres)",
+      "example": "Admin@123"
+    },
+    "telefone": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Telefone",
+      "description": "Telefone do administrador",
+      "example": "(11) 98765-4321"
+    },
+    "estado": {
+      "anyOf": [{ "type": "string", "maxLength": 2 }, { "type": "null" }],
+      "title": "Estado",
+      "description": "Estado",
+      "example": "SP"
+    },
+    "cidade": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Cidade",
+      "description": "Cidade",
+      "example": "São Paulo"
+    },
+    "funcao": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Funcao",
+      "description": "Função/Cargo",
+      "default": "Administrador do Sistema"
+    },
+    "instituicao": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Instituicao",
+      "description": "Instituição",
+      "default": "SINAPSE"
+    }
+  },
+  "type": "object",
+  "required": ["nome", "email", "senha"],
+  "title": "AdminInitSchema",
+  "description": "Schema para dados do administrador na inicialização.",
+  "x-readme-ref-name": "AdminInitSchema"
+}

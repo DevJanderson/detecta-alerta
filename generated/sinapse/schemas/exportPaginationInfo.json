@@ -1,0 +1,20 @@
+{
+  "properties": {
+    "limit": {
+      "type": "integer",
+      "title": "Limit",
+      "description": "Número de registros por página"
+    },
+    "next_cursor": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Next Cursor",
+      "description": "Cursor para próxima página"
+    },
+    "has_more": { "type": "boolean", "title": "Has More", "description": "Se há mais registros" }
+  },
+  "type": "object",
+  "required": ["limit", "has_more"],
+  "title": "ExportPaginationInfo",
+  "description": "Informações de paginação para export JSON.",
+  "x-readme-ref-name": "ExportPaginationInfo"
+}

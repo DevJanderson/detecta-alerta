@@ -1,0 +1,13 @@
+{
+  "properties": {
+    "name": { "type": "string", "maxLength": 200, "minLength": 1, "title": "Name" },
+    "description": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Description" },
+    "id": { "type": "integer", "title": "Id" },
+    "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+    "updated_at": { "type": "string", "format": "date-time", "title": "Updated At" }
+  },
+  "type": "object",
+  "required": ["name", "id", "created_at", "updated_at"],
+  "title": "Sintoma",
+  "x-readme-ref-name": "Sintoma"
+}

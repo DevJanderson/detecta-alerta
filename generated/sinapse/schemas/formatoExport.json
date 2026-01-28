@@ -1,0 +1,30 @@
+{
+  "properties": {
+    "formato": {
+      "type": "string",
+      "title": "Formato",
+      "description": "Nome do formato (csv, json, parquet)"
+    },
+    "mime_type": { "type": "string", "title": "Mime Type", "description": "MIME type do formato" },
+    "suporta_streaming": {
+      "type": "boolean",
+      "title": "Suporta Streaming",
+      "description": "Se suporta streaming"
+    },
+    "max_registros": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Max Registros",
+      "description": "Máximo de registros (null = ilimitado)"
+    },
+    "max_registros_pagina": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Max Registros Pagina",
+      "description": "Máximo por página (para JSON)"
+    }
+  },
+  "type": "object",
+  "required": ["formato", "mime_type", "suporta_streaming"],
+  "title": "FormatoExport",
+  "description": "Informações de um formato de exportação.",
+  "x-readme-ref-name": "FormatoExport"
+}

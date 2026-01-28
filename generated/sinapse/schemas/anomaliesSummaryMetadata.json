@@ -1,0 +1,42 @@
+{
+  "properties": {
+    "total_units_with_anomalies": {
+      "type": "integer",
+      "title": "Total Units With Anomalies",
+      "description": "Total de unidades com anomalias"
+    },
+    "total_returned": {
+      "type": "integer",
+      "title": "Total Returned",
+      "description": "Total retornado na página atual"
+    },
+    "total_anomaly_occurrences": {
+      "type": "integer",
+      "title": "Total Anomaly Occurrences",
+      "description": "Total de ocorrências de anomalias"
+    },
+    "anomalies_by_severity": {
+      "additionalProperties": { "type": "integer" },
+      "type": "object",
+      "title": "Anomalies By Severity",
+      "description": "Contagem por severidade"
+    },
+    "anomalies_by_pattern": {
+      "additionalProperties": { "type": "integer" },
+      "type": "object",
+      "title": "Anomalies By Pattern",
+      "description": "Contagem por padrão"
+    }
+  },
+  "type": "object",
+  "required": [
+    "total_units_with_anomalies",
+    "total_returned",
+    "total_anomaly_occurrences",
+    "anomalies_by_severity",
+    "anomalies_by_pattern"
+  ],
+  "title": "AnomaliesSummaryMetadata",
+  "description": "Metadados de resumo das anomalias.",
+  "x-readme-ref-name": "AnomaliesSummaryMetadata"
+}

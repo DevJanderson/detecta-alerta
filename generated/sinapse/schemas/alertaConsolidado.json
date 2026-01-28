@@ -1,0 +1,35 @@
+{
+  "properties": {
+    "id": { "type": "string", "title": "Id" },
+    "tipo": { "type": "string", "title": "Tipo" },
+    "severidade": { "type": "string", "pattern": "^(baixa|media|alta)$", "title": "Severidade" },
+    "titulo": { "type": "string", "title": "Titulo" },
+    "descricao": { "type": "string", "title": "Descricao" },
+    "data_deteccao": { "type": "string", "format": "date-time", "title": "Data Deteccao" },
+    "regioes_afetadas": {
+      "items": { "type": "string" },
+      "type": "array",
+      "title": "Regioes Afetadas"
+    },
+    "doencas_relacionadas": {
+      "items": { "type": "string" },
+      "type": "array",
+      "title": "Doencas Relacionadas"
+    },
+    "quantidade_noticias": { "type": "integer", "minimum": 0, "title": "Quantidade Noticias" },
+    "recomendacao": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Recomendacao" }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "tipo",
+    "severidade",
+    "titulo",
+    "descricao",
+    "data_deteccao",
+    "quantidade_noticias"
+  ],
+  "title": "AlertaConsolidado",
+  "description": "Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador único\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Título descritivo\n    descricao: Descrição detalhada\n    data_deteccao: Quando foi detectado\n    regioes_afetadas: Regiões afetadas\n    doencas_relacionadas: Doenças relacionadas\n    quantidade_noticias: Total de notícias relacionadas\n    recomendacao: Recomendação de ação",
+  "x-readme-ref-name": "AlertaConsolidado"
+}

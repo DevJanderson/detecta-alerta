@@ -1,0 +1,48 @@
+{
+  "properties": {
+    "center_lat": { "type": "number", "title": "Center Lat" },
+    "center_lng": { "type": "number", "title": "Center Lng" },
+    "radius_meters": { "type": "integer", "title": "Radius Meters" },
+    "total_results": { "type": "integer", "title": "Total Results" },
+    "results": {
+      "items": {
+        "properties": {
+          "place_id": { "type": "string", "title": "Place Id" },
+          "name": { "type": "string", "title": "Name" },
+          "vicinity": { "type": "string", "title": "Vicinity" },
+          "google_maps_url": { "type": "string", "title": "Google Maps Url" },
+          "lat": { "type": "number", "title": "Lat" },
+          "lng": { "type": "number", "title": "Lng" },
+          "distance_meters": { "type": "number", "title": "Distance Meters" },
+          "types": { "items": { "type": "string" }, "type": "array", "title": "Types" },
+          "rating": { "anyOf": [{ "type": "number" }, { "type": "null" }], "title": "Rating" },
+          "exists_in_database": {
+            "type": "boolean",
+            "title": "Exists In Database",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "place_id",
+          "name",
+          "vicinity",
+          "google_maps_url",
+          "lat",
+          "lng",
+          "distance_meters"
+        ],
+        "title": "PlaceNearbyResult",
+        "description": "Schema para resultado de busca nearby.",
+        "x-readme-ref-name": "PlaceNearbyResult"
+      },
+      "type": "array",
+      "title": "Results"
+    }
+  },
+  "type": "object",
+  "required": ["center_lat", "center_lng", "radius_meters", "total_results", "results"],
+  "title": "PlaceNearbyResponse",
+  "description": "Schema para resposta de busca nearby.",
+  "x-readme-ref-name": "PlaceNearbyResponse"
+}

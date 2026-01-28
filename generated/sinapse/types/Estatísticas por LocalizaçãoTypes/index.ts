@@ -1,0 +1,50 @@
+export type {
+  GetCitiesWithStatsApiV1DetectaStatsCitiesGetQueryParams,
+  GetCitiesWithStatsApiV1DetectaStatsCitiesGet200,
+  GetCitiesWithStatsApiV1DetectaStatsCitiesGet422,
+  GetCitiesWithStatsApiV1DetectaStatsCitiesGetQueryResponse,
+  GetCitiesWithStatsApiV1DetectaStatsCitiesGetQuery
+} from './GetCitiesWithStatsApiV1DetectaStatsCitiesGet'
+export type {
+  GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGetPathParams,
+  GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGetQueryParams,
+  GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGet200,
+  GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGet422,
+  GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGetQueryResponse,
+  GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGetQuery
+} from './GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGet'
+export type {
+  GetDailyStatsApiV1DetectaStatsDailyGetQueryParams,
+  GetDailyStatsApiV1DetectaStatsDailyGet200,
+  GetDailyStatsApiV1DetectaStatsDailyGet422,
+  GetDailyStatsApiV1DetectaStatsDailyGetQueryResponse,
+  GetDailyStatsApiV1DetectaStatsDailyGetQuery
+} from './GetDailyStatsApiV1DetectaStatsDailyGet'
+export type {
+  GetRealTimeDataApiV1DetectaStatsRealTimeGetQueryParams,
+  GetRealTimeDataApiV1DetectaStatsRealTimeGet200,
+  GetRealTimeDataApiV1DetectaStatsRealTimeGet422,
+  GetRealTimeDataApiV1DetectaStatsRealTimeGetQueryResponse,
+  GetRealTimeDataApiV1DetectaStatsRealTimeGetQuery
+} from './GetRealTimeDataApiV1DetectaStatsRealTimeGet'
+export type {
+  GetRegionsStatsApiV1DetectaStatsRegionsGetQueryParams,
+  GetRegionsStatsApiV1DetectaStatsRegionsGet200,
+  GetRegionsStatsApiV1DetectaStatsRegionsGet422,
+  GetRegionsStatsApiV1DetectaStatsRegionsGetQueryResponse,
+  GetRegionsStatsApiV1DetectaStatsRegionsGetQuery
+} from './GetRegionsStatsApiV1DetectaStatsRegionsGet'
+export type {
+  GetStatesStatsApiV1DetectaStatsStatesGetQueryParams,
+  GetStatesStatsApiV1DetectaStatsStatesGet200,
+  GetStatesStatsApiV1DetectaStatsStatesGet422,
+  GetStatesStatsApiV1DetectaStatsStatesGetQueryResponse,
+  GetStatesStatsApiV1DetectaStatsStatesGetQuery
+} from './GetStatesStatsApiV1DetectaStatsStatesGet'
+export type {
+  GetStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGetQueryParams,
+  GetStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGet200,
+  GetStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGet422,
+  GetStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGetQueryResponse,
+  GetStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGetQuery
+} from './GetStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGet'

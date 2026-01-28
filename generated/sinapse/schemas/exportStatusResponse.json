@@ -1,0 +1,96 @@
+{
+  "properties": {
+    "export_id": {
+      "type": "string",
+      "title": "Export Id",
+      "description": "ID único da exportação"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "description": "Status: pending, processing, completed, failed"
+    },
+    "format": { "type": "string", "title": "Format", "description": "Formato do export" },
+    "data_type": {
+      "type": "string",
+      "title": "Data Type",
+      "description": "Tipo de dados exportados"
+    },
+    "filters_applied": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Filters Applied",
+      "description": "Filtros que foram aplicados"
+    },
+    "fields_selected": {
+      "items": { "type": "string" },
+      "type": "array",
+      "title": "Fields Selected",
+      "description": "Campos selecionados"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At",
+      "description": "Data/hora de criação"
+    },
+    "completed_at": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Completed At",
+      "description": "Data/hora de conclusão"
+    },
+    "estimated_size_mb": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Estimated Size Mb",
+      "description": "Tamanho estimado em MB"
+    },
+    "actual_size_mb": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Actual Size Mb",
+      "description": "Tamanho real em MB"
+    },
+    "estimated_rows": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Estimated Rows",
+      "description": "Número estimado de linhas"
+    },
+    "actual_rows": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Actual Rows",
+      "description": "Número real de linhas"
+    },
+    "progress_percentage": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Progress Percentage",
+      "description": "Progresso em percentual"
+    },
+    "download_url": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Download Url",
+      "description": "URL para download quando pronto"
+    },
+    "expires_at": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Expires At",
+      "description": "Quando o download expira"
+    },
+    "error_message": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Error Message",
+      "description": "Mensagem de erro se falhou"
+    }
+  },
+  "type": "object",
+  "required": [
+    "export_id",
+    "status",
+    "format",
+    "data_type",
+    "filters_applied",
+    "fields_selected",
+    "created_at"
+  ],
+  "title": "ExportStatusResponse",
+  "description": "Schema para status de exportação.",
+  "x-readme-ref-name": "ExportStatusResponse"
+}

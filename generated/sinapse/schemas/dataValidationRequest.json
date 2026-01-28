@@ -1,0 +1,69 @@
+{
+  "properties": {
+    "data": {
+      "items": {
+        "properties": {
+          "place_id": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 3,
+            "title": "Place Id",
+            "description": "ID da unidade"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date",
+            "description": "Data da medição"
+          },
+          "hour": {
+            "type": "integer",
+            "maximum": 23,
+            "minimum": 0,
+            "title": "Hour",
+            "description": "Hora (0-23)"
+          },
+          "percentage": {
+            "type": "number",
+            "maximum": 100,
+            "minimum": 0,
+            "title": "Percentage",
+            "description": "Percentual de ocupação"
+          },
+          "source": {
+            "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
+            "title": "Source",
+            "description": "Identificador da fonte"
+          }
+        },
+        "type": "object",
+        "required": ["place_id", "date", "hour", "percentage"],
+        "title": "HourlyDataInput",
+        "description": "Schema para entrada de dados horários individual.",
+        "example": {
+          "date": "2025-01-04",
+          "hour": 14,
+          "percentage": 75.5,
+          "place_id": "UBS_SP_001",
+          "source": "collector-01"
+        },
+        "x-readme-ref-name": "HourlyDataInput"
+      },
+      "type": "array",
+      "minItems": 1,
+      "title": "Data",
+      "description": "Dados para validar"
+    },
+    "validate_only": {
+      "type": "boolean",
+      "title": "Validate Only",
+      "description": "Se True, apenas valida sem inserir",
+      "default": true
+    }
+  },
+  "type": "object",
+  "required": ["data"],
+  "title": "DataValidationRequest",
+  "description": "Schema para validação prévia de dados (dry-run).",
+  "x-readme-ref-name": "DataValidationRequest"
+}

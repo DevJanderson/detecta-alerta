@@ -1,0 +1,49 @@
+{
+  "properties": {
+    "place_id": { "type": "string", "title": "Place Id" },
+    "title": { "type": "string", "title": "Title" },
+    "unit_type": { "type": "string", "title": "Unit Type" },
+    "city": { "type": "string", "title": "City" },
+    "state": { "type": "string", "title": "State" },
+    "last_received": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Last Received"
+    },
+    "hours_since_last_data": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Hours Since Last Data"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "description": "healthy, warning, critical, never_received"
+    },
+    "last_data": {
+      "anyOf": [
+        {
+          "properties": {
+            "date": { "type": "string", "title": "Date" },
+            "hour": { "type": "integer", "title": "Hour" },
+            "percentage": {
+              "anyOf": [{ "type": "number" }, { "type": "null" }],
+              "title": "Percentage"
+            },
+            "received_at": { "type": "string", "format": "date-time", "title": "Received At" }
+          },
+          "type": "object",
+          "required": ["date", "hour", "received_at"],
+          "title": "LastDataInfo",
+          "description": "Informações do último dado coletado.",
+          "x-readme-ref-name": "LastDataInfo"
+        },
+        { "type": "null" }
+      ],
+      "description": "Último dado coletado (se include_last_data=true)"
+    }
+  },
+  "type": "object",
+  "required": ["place_id", "title", "unit_type", "city", "state", "status"],
+  "title": "UnitHealthStatus",
+  "description": "Status de saúde da coleta de uma unidade.",
+  "x-readme-ref-name": "UnitHealthStatus"
+}

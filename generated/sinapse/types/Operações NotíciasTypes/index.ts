@@ -1,0 +1,28 @@
+export type {
+  BulkCreateNoticiasApiV1NoticiasOperacoesBulkPost200,
+  BulkCreateNoticiasApiV1NoticiasOperacoesBulkPost422,
+  BulkCreateNoticiasApiV1NoticiasOperacoesBulkPostMutationRequest,
+  BulkCreateNoticiasApiV1NoticiasOperacoesBulkPostMutationResponse,
+  BulkCreateNoticiasApiV1NoticiasOperacoesBulkPostMutation
+} from './BulkCreateNoticiasApiV1NoticiasOperacoesBulkPost'
+export type {
+  ListDoencasApiV1NoticiasOperacoesDoencasGetQueryParams,
+  ListDoencasApiV1NoticiasOperacoesDoencasGet200,
+  ListDoencasApiV1NoticiasOperacoesDoencasGet422,
+  ListDoencasApiV1NoticiasOperacoesDoencasGetQueryResponse,
+  ListDoencasApiV1NoticiasOperacoesDoencasGetQuery
+} from './ListDoencasApiV1NoticiasOperacoesDoencasGet'
+export type {
+  ListRegioesApiV1NoticiasOperacoesRegioesGetQueryParams,
+  ListRegioesApiV1NoticiasOperacoesRegioesGet200,
+  ListRegioesApiV1NoticiasOperacoesRegioesGet422,
+  ListRegioesApiV1NoticiasOperacoesRegioesGetQueryResponse,
+  ListRegioesApiV1NoticiasOperacoesRegioesGetQuery
+} from './ListRegioesApiV1NoticiasOperacoesRegioesGet'
+export type {
+  ListSintomasApiV1NoticiasOperacoesSintomasGetQueryParams,
+  ListSintomasApiV1NoticiasOperacoesSintomasGet200,
+  ListSintomasApiV1NoticiasOperacoesSintomasGet422,
+  ListSintomasApiV1NoticiasOperacoesSintomasGetQueryResponse,
+  ListSintomasApiV1NoticiasOperacoesSintomasGetQuery
+} from './ListSintomasApiV1NoticiasOperacoesSintomasGet'

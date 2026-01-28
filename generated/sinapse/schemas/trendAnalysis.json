@@ -1,0 +1,47 @@
+{
+  "properties": {
+    "place_id": { "type": "string", "title": "Place Id" },
+    "analysis_date": { "type": "string", "format": "date", "title": "Analysis Date" },
+    "short_term_trend": {
+      "type": "string",
+      "title": "Short Term Trend",
+      "description": "Tendência curto prazo: up, down, stable"
+    },
+    "long_term_trend": {
+      "type": "string",
+      "title": "Long Term Trend",
+      "description": "Tendência longo prazo: up, down, stable"
+    },
+    "predicted_next_week": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Predicted Next Week",
+      "description": "Previsão próxima semana"
+    },
+    "confidence_level": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Confidence Level",
+      "description": "Nível de confiança (0-100)"
+    },
+    "anomaly_detected": {
+      "type": "boolean",
+      "title": "Anomaly Detected",
+      "description": "Se detectou anomalia",
+      "default": false
+    },
+    "anomaly_description": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Anomaly Description"
+    },
+    "recommendations": {
+      "items": { "type": "string" },
+      "type": "array",
+      "title": "Recommendations",
+      "description": "Recomendações baseadas na análise"
+    }
+  },
+  "type": "object",
+  "required": ["place_id", "analysis_date", "short_term_trend", "long_term_trend"],
+  "title": "TrendAnalysis",
+  "description": "Schema para análise de tendências.",
+  "x-readme-ref-name": "TrendAnalysis"
+}

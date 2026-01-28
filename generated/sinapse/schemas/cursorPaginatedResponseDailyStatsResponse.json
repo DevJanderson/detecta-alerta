@@ -1,0 +1,141 @@
+{
+  "properties": {
+    "data": {
+      "items": {
+        "properties": {
+          "place_id": {
+            "type": "string",
+            "title": "Place Id",
+            "description": "ID único da unidade"
+          },
+          "unit_name": { "type": "string", "title": "Unit Name", "description": "Nome da unidade" },
+          "city": { "type": "string", "title": "City", "description": "Cidade" },
+          "state": { "type": "string", "title": "State", "description": "Estado (UF)" },
+          "unit_type": {
+            "type": "string",
+            "title": "Unit Type",
+            "description": "Tipo de unidade (ubs, upa, drogarias, etc)"
+          },
+          "date": {
+            "type": "string",
+            "title": "Date",
+            "description": "Data das estatísticas (YYYY-MM-DD)"
+          },
+          "average_percentage": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Average Percentage",
+            "description": "Média diária de ocupação (%)"
+          },
+          "data_points": {
+            "type": "integer",
+            "title": "Data Points",
+            "description": "Quantidade de leituras horárias usadas"
+          },
+          "moving_average": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Moving Average",
+            "description": "Média móvel de 42 dias (%)"
+          },
+          "moving_std": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Moving Std",
+            "description": "Desvio padrão móvel"
+          },
+          "z_score": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Z Score",
+            "description": "Z-score para detecção de anomalias"
+          },
+          "trend": {
+            "type": "string",
+            "title": "Trend",
+            "description": "Tendência: up, down ou stable"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "Status de severidade: green, yellow ou red"
+          }
+        },
+        "type": "object",
+        "required": [
+          "place_id",
+          "unit_name",
+          "city",
+          "state",
+          "unit_type",
+          "date",
+          "data_points",
+          "trend",
+          "status"
+        ],
+        "title": "DailyStatsResponse",
+        "description": "Schema de resposta para estatísticas diárias.",
+        "example": {
+          "average_percentage": 65.5,
+          "city": "São Paulo",
+          "data_points": 12,
+          "date": "2025-01-15",
+          "moving_average": 45.2,
+          "moving_std": 12.3,
+          "place_id": "UNIT_EXAMPLE_001",
+          "state": "SP",
+          "status": "yellow",
+          "trend": "up",
+          "unit_name": "UBS Exemplo Central",
+          "unit_type": "ubs",
+          "z_score": 1.65
+        },
+        "x-readme-ref-name": "DailyStatsResponse"
+      },
+      "type": "array",
+      "title": "Data",
+      "description": "Lista de itens da página atual"
+    },
+    "pagination": {
+      "description": "Metadados de paginação",
+      "properties": {
+        "next_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Next Cursor",
+          "description": "Cursor para próxima página (None se última página)"
+        },
+        "previous_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Previous Cursor",
+          "description": "Cursor para página anterior (None se primeira página)"
+        },
+        "has_next": {
+          "type": "boolean",
+          "title": "Has Next",
+          "description": "Indica se existe próxima página"
+        },
+        "has_previous": {
+          "type": "boolean",
+          "title": "Has Previous",
+          "description": "Indica se existe página anterior"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "title": "Limit",
+          "description": "Número de itens retornados nesta página"
+        }
+      },
+      "type": "object",
+      "required": ["has_next", "has_previous", "limit"],
+      "title": "PaginationMeta",
+      "example": {
+        "has_next": true,
+        "has_previous": false,
+        "limit": 50,
+        "next_cursor": "eyJpZCI6MTAwfQ=="
+      },
+      "x-readme-ref-name": "PaginationMeta"
+    }
+  },
+  "type": "object",
+  "required": ["data", "pagination"],
+  "title": "CursorPaginatedResponse[DailyStatsResponse]",
+  "x-readme-ref-name": "CursorPaginatedResponse_DailyStatsResponse_"
+}

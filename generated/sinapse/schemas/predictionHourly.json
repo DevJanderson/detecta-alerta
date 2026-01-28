@@ -1,0 +1,40 @@
+{
+  "properties": {
+    "datetime": {
+      "type": "string",
+      "title": "Datetime",
+      "description": "Data e hora prevista (ISO 8601)"
+    },
+    "hour": { "type": "integer", "title": "Hour", "description": "Hora do dia (0-23)" },
+    "predicted_percentage": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Predicted Percentage",
+      "description": "Ocupação prevista (%)"
+    },
+    "lower_bound": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Lower Bound",
+      "description": "Limite inferior do intervalo de confiança (%)"
+    },
+    "upper_bound": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Upper Bound",
+      "description": "Limite superior do intervalo de confiança (%)"
+    },
+    "confidence": {
+      "type": "number",
+      "title": "Confidence",
+      "description": "Nível de confiança (0.5-0.99)"
+    },
+    "sample_size": {
+      "type": "integer",
+      "title": "Sample Size",
+      "description": "Tamanho da amostra histórica"
+    }
+  },
+  "type": "object",
+  "required": ["datetime", "hour", "confidence", "sample_size"],
+  "title": "PredictionHourly",
+  "description": "Previsão para uma hora específica.",
+  "x-readme-ref-name": "PredictionHourly"
+}

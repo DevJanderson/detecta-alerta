@@ -1,0 +1,31 @@
+{
+  "properties": {
+    "date": { "type": "string", "title": "Date", "description": "Data da anomalia (YYYY-MM-DD)" },
+    "value": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Value",
+      "description": "Valor observado (%)"
+    },
+    "expected": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Expected",
+      "description": "Valor esperado (%)"
+    },
+    "z_score": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Z Score",
+      "description": "Z-score da anomalia"
+    },
+    "type": { "type": "string", "title": "Type", "description": "Tipo: spike, high, drop, low" },
+    "deviation": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Deviation",
+      "description": "Desvio absoluto (%)"
+    }
+  },
+  "type": "object",
+  "required": ["date", "type"],
+  "title": "AnomalyOccurrence",
+  "description": "Ocorrência individual de anomalia.",
+  "x-readme-ref-name": "AnomalyOccurrence"
+}

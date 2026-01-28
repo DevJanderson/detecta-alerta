@@ -1,0 +1,12 @@
+export type {
+  GetHealthCheckStatusApiV1DetectaHealthCheckStatusGetQueryParams,
+  GetHealthCheckStatusApiV1DetectaHealthCheckStatusGet200,
+  GetHealthCheckStatusApiV1DetectaHealthCheckStatusGet422,
+  GetHealthCheckStatusApiV1DetectaHealthCheckStatusGetQueryResponse,
+  GetHealthCheckStatusApiV1DetectaHealthCheckStatusGetQuery
+} from './GetHealthCheckStatusApiV1DetectaHealthCheckStatusGet'
+export type {
+  TriggerHealthCheckApiV1DetectaHealthCheckTriggerPost202,
+  TriggerHealthCheckApiV1DetectaHealthCheckTriggerPostMutationResponse,
+  TriggerHealthCheckApiV1DetectaHealthCheckTriggerPostMutation
+} from './TriggerHealthCheckApiV1DetectaHealthCheckTriggerPost'

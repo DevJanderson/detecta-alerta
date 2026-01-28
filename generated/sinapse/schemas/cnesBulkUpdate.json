@@ -1,0 +1,65 @@
+{
+  "properties": {
+    "filtros": {
+      "properties": {
+        "search": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Search",
+          "description": "Busca textual"
+        },
+        "co_unidade": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Co Unidade"
+        },
+        "place_id": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Place Id" },
+        "estado": {
+          "anyOf": [{ "type": "string", "maxLength": 2 }, { "type": "null" }],
+          "title": "Estado"
+        },
+        "municipio": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Municipio" },
+        "classificacoes": {
+          "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+          "title": "Classificacoes",
+          "description": "Lista de classificações"
+        },
+        "min_profissionais": {
+          "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }],
+          "title": "Min Profissionais"
+        },
+        "max_profissionais": {
+          "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }],
+          "title": "Max Profissionais"
+        }
+      },
+      "type": "object",
+      "title": "CnesFilter",
+      "description": "Filtros para busca avançada",
+      "x-readme-ref-name": "CnesFilter"
+    },
+    "atualizacoes": {
+      "properties": {
+        "co_unidade": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Co Unidade"
+        },
+        "place_id": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Place Id" },
+        "detecta_classification": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Detecta Classification"
+        },
+        "num_profissionais_unicos": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Num Profissionais Unicos"
+        }
+      },
+      "type": "object",
+      "title": "CnesUpdate",
+      "x-readme-ref-name": "CnesUpdate"
+    }
+  },
+  "type": "object",
+  "required": ["filtros", "atualizacoes"],
+  "title": "CnesBulkUpdate",
+  "description": "Schema para atualização em massa",
+  "x-readme-ref-name": "CnesBulkUpdate"
+}

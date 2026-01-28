@@ -29,6 +29,10 @@ npm run test:run           # Vitest (uma execução)
 npm run test -- path/to/file.test.ts  # Executar teste específico
 npm run test:e2e           # Playwright E2E
 npm run test:e2e:install   # Instala browsers (primeiro uso)
+
+# API Client (Kubb)
+npm run api:generate       # Gera cliente a partir do OpenAPI
+npm run api:watch          # Regenera automaticamente ao alterar spec
 ```
 
 ## Componentes shadcn-vue
@@ -122,6 +126,8 @@ layers/                 # TUDO fica aqui
   4-landing/            # Landing page
 server/                 # API routes (Nitro)
 tests/                  # unit/, integration/, e2e/
+generated/              # Cliente API gerado (Kubb) - NÃO EDITAR
+openapi/                # Especificações OpenAPI
 ```
 
 > Use hífen (`-`) no nome das layers, não ponto. Layers em `~/layers` são auto-registradas.
@@ -209,6 +215,53 @@ setCookie(event, 'token', value, { httpOnly: true, secure: true, sameSite: 'stri
 const result = schema.safeParse(body)
 if (!result.success) throw createError({ statusCode: 400 })
 ```
+
+## API Client (Kubb)
+
+Cliente TypeScript gerado automaticamente a partir da especificação OpenAPI.
+
+### Estrutura
+
+```
+openapi/
+  sinapse-api.json          # Especificação OpenAPI da API Sinapse
+generated/
+  sinapse/
+    client/                 # Funções de chamada à API (fetch)
+    types/                  # Tipos TypeScript
+    zod/                    # Schemas Zod para validação
+    index.ts                # Barrel file exportando tudo
+kubb.config.ts              # Configuração do Kubb
+```
+
+### Uso
+
+```typescript
+// Importar tipos
+import type { CasoAgravo, Cnes } from '~/generated/sinapse'
+
+// Importar schemas Zod
+import { casoAgravoSchema } from '~/generated/sinapse'
+
+// Importar funções do cliente
+import { listarCasosApiV1AgravosCasosGet } from '~/generated/sinapse'
+
+// Exemplo de uso
+const casos = await listarCasosApiV1AgravosCasosGet({ limit: 10 })
+```
+
+### Regenerar após mudanças no OpenAPI
+
+```bash
+npm run api:generate
+```
+
+### Configuração (`kubb.config.ts`)
+
+- **output.extension**: Remove `.ts` dos imports para compatibilidade com bundlers
+- **pluginTs**: Gera tipos TypeScript agrupados por tag
+- **pluginZod**: Gera schemas Zod (sem `typed`/`inferred` para compatibilidade com `verbatimModuleSyntax`)
+- **pluginClient**: Gera cliente fetch que retorna `data` diretamente
 
 ## Documentação por Diretório
 

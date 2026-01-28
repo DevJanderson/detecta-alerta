@@ -1,0 +1,5 @@
+export { dengueDicionrioDeDadosService } from './dengueDicionrioDeDadosService'
+export { getDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGet } from './getDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGet'
+export { getDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGet } from './getDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGet'
+export { getDicionarioTransformacoesApiV1ArbovirosesDengueDicionarioTransformacoesGet } from './getDicionarioTransformacoesApiV1ArbovirosesDengueDicionarioTransformacoesGet'
+export { getDicionarioVisaoGeralApiV1ArbovirosesDengueDicionarioGet } from './getDicionarioVisaoGeralApiV1ArbovirosesDengueDicionarioGet'

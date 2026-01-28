@@ -1,0 +1,24 @@
+{
+  "properties": {
+    "job_id": { "type": "string", "title": "Job Id", "description": "ID único do job" },
+    "job_type": { "type": "string", "title": "Job Type", "description": "Tipo do job ETL" },
+    "status": { "type": "string", "title": "Status", "description": "Status atual do job" },
+    "triggered_by": {
+      "type": "integer",
+      "title": "Triggered By",
+      "description": "ID do usuário que disparou"
+    },
+    "triggered_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Triggered At",
+      "description": "Quando foi disparado"
+    },
+    "message": { "type": "string", "title": "Message", "description": "Mensagem descritiva" }
+  },
+  "type": "object",
+  "required": ["job_id", "job_type", "status", "triggered_by", "triggered_at", "message"],
+  "title": "ETLJobResponse",
+  "description": "Schema de resposta para job ETL criado.",
+  "x-readme-ref-name": "ETLJobResponse"
+}

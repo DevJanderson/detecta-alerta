@@ -1,0 +1,100 @@
+{
+  "properties": {
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "description": "success, partial_success, failed"
+    },
+    "ingestion_id": {
+      "type": "string",
+      "title": "Ingestion Id",
+      "description": "ID único da ingestão para rastreamento"
+    },
+    "received": {
+      "type": "integer",
+      "minimum": 0,
+      "title": "Received",
+      "description": "Total de registros recebidos"
+    },
+    "processed": {
+      "type": "integer",
+      "minimum": 0,
+      "title": "Processed",
+      "description": "Registros processados com sucesso"
+    },
+    "failed": {
+      "type": "integer",
+      "minimum": 0,
+      "title": "Failed",
+      "description": "Registros com falha",
+      "default": 0
+    },
+    "duplicated": {
+      "type": "integer",
+      "minimum": 0,
+      "title": "Duplicated",
+      "description": "Registros duplicados (ignorados)",
+      "default": 0
+    },
+    "errors": {
+      "anyOf": [
+        {
+          "items": {
+            "properties": {
+              "index": {
+                "anyOf": [{ "type": "integer" }, { "type": "null" }],
+                "title": "Index",
+                "description": "Índice do registro no batch"
+              },
+              "place_id": {
+                "anyOf": [{ "type": "string" }, { "type": "null" }],
+                "title": "Place Id"
+              },
+              "error": { "type": "string", "title": "Error", "description": "Descrição do erro" },
+              "field": {
+                "anyOf": [{ "type": "string" }, { "type": "null" }],
+                "title": "Field",
+                "description": "Campo com erro"
+              }
+            },
+            "type": "object",
+            "required": ["error"],
+            "title": "IngestionError",
+            "description": "Schema para erro individual na ingestão.",
+            "x-readme-ref-name": "IngestionError"
+          },
+          "type": "array"
+        },
+        { "type": "null" }
+      ],
+      "title": "Errors",
+      "description": "Lista de erros"
+    },
+    "warnings": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Warnings",
+      "description": "Avisos"
+    },
+    "processing_time_ms": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Processing Time Ms",
+      "description": "Tempo de processamento em ms"
+    }
+  },
+  "type": "object",
+  "required": ["status", "ingestion_id", "received", "processed"],
+  "title": "IngestionResponse",
+  "description": "Schema para resposta de ingestão.",
+  "example": {
+    "duplicated": 2,
+    "errors": [{ "error": "Unidade não encontrada", "index": 15, "place_id": "INVALID_001" }],
+    "failed": 3,
+    "ingestion_id": "ing_20250104_abc123",
+    "processed": 95,
+    "processing_time_ms": 245.6,
+    "received": 100,
+    "status": "partial_success",
+    "warnings": ["5 registros com dados futuros foram ajustados"]
+  },
+  "x-readme-ref-name": "IngestionResponse"
+}

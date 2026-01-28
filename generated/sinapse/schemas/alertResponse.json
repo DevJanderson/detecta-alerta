@@ -1,0 +1,58 @@
+{
+  "properties": {
+    "alert_id": { "type": "string", "title": "Alert Id" },
+    "place_id": { "type": "string", "title": "Place Id" },
+    "unit_name": { "type": "string", "title": "Unit Name" },
+    "alert_type": {
+      "type": "string",
+      "title": "Alert Type",
+      "description": "Tipo: high_occupancy, low_data_quality, anomaly"
+    },
+    "severity": {
+      "type": "string",
+      "title": "Severity",
+      "description": "Severidade: low, medium, high, critical"
+    },
+    "description": { "type": "string", "title": "Description" },
+    "metric_value": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Metric Value"
+    },
+    "threshold_value": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Threshold Value"
+    },
+    "detected_at": { "type": "string", "format": "date-time", "title": "Detected At" },
+    "resolved_at": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Resolved At"
+    },
+    "duration_hours": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Duration Hours"
+    },
+    "recommended_action": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Recommended Action"
+    },
+    "auto_resolved": {
+      "type": "boolean",
+      "title": "Auto Resolved",
+      "description": "Se foi resolvido automaticamente",
+      "default": false
+    }
+  },
+  "type": "object",
+  "required": [
+    "alert_id",
+    "place_id",
+    "unit_name",
+    "alert_type",
+    "severity",
+    "description",
+    "detected_at"
+  ],
+  "title": "AlertResponse",
+  "description": "Schema para alertas ativos.",
+  "x-readme-ref-name": "AlertResponse"
+}

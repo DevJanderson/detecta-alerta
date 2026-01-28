@@ -1,0 +1,33 @@
+export type {
+  ListarEstadosApiV1IbgeEstadosGetQueryParams,
+  ListarEstadosApiV1IbgeEstadosGet200,
+  ListarEstadosApiV1IbgeEstadosGet422,
+  ListarEstadosApiV1IbgeEstadosGetQueryResponse,
+  ListarEstadosApiV1IbgeEstadosGetQuery
+} from './ListarEstadosApiV1IbgeEstadosGet'
+export type {
+  ListarFaixasEtariasApiV1IbgeFaixasEtariasGet200,
+  ListarFaixasEtariasApiV1IbgeFaixasEtariasGetQueryResponse,
+  ListarFaixasEtariasApiV1IbgeFaixasEtariasGetQuery
+} from './ListarFaixasEtariasApiV1IbgeFaixasEtariasGet'
+export type {
+  ListarMunicipiosApiV1IbgeMunicipiosGetQueryParams,
+  ListarMunicipiosApiV1IbgeMunicipiosGet200,
+  ListarMunicipiosApiV1IbgeMunicipiosGet422,
+  ListarMunicipiosApiV1IbgeMunicipiosGetQueryResponse,
+  ListarMunicipiosApiV1IbgeMunicipiosGetQuery
+} from './ListarMunicipiosApiV1IbgeMunicipiosGet'
+export type {
+  ObterMunicipioApiV1IbgeMunicipiosCodigoIbgeGetPathParams,
+  ObterMunicipioApiV1IbgeMunicipiosCodigoIbgeGet200,
+  ObterMunicipioApiV1IbgeMunicipiosCodigoIbgeGet422,
+  ObterMunicipioApiV1IbgeMunicipiosCodigoIbgeGetQueryResponse,
+  ObterMunicipioApiV1IbgeMunicipiosCodigoIbgeGetQuery
+} from './ObterMunicipioApiV1IbgeMunicipiosCodigoIbgeGet'
+export type {
+  ObterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGetPathParams,
+  ObterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGet200,
+  ObterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGet422,
+  ObterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGetQueryResponse,
+  ObterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGetQuery
+} from './ObterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGet'

@@ -1,0 +1,308 @@
+{
+  "properties": {
+    "reference_date": {
+      "type": "string",
+      "title": "Reference Date",
+      "description": "Data de referência (YYYY-MM-DD)"
+    },
+    "aggregation_level": {
+      "type": "string",
+      "title": "Aggregation Level",
+      "description": "Nível de agregação: unit, city, state"
+    },
+    "filters": {
+      "anyOf": [
+        {
+          "properties": {
+            "aggregation": {
+              "type": "string",
+              "title": "Aggregation",
+              "description": "Nível de agregação: unit, city, state"
+            },
+            "date_ref": {
+              "type": "string",
+              "title": "Date Ref",
+              "description": "Data de referência (YYYY-MM-DD)"
+            },
+            "include_coords": {
+              "type": "boolean",
+              "title": "Include Coords",
+              "description": "Se coordenadas foram incluídas"
+            },
+            "state": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "title": "State",
+              "description": "Filtro de estado (UF)"
+            },
+            "region": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "title": "Region",
+              "description": "Filtro de região"
+            },
+            "city": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "title": "City",
+              "description": "Filtro de cidade"
+            },
+            "unit_type": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "title": "Unit Type",
+              "description": "Filtro de tipo de unidade"
+            }
+          },
+          "type": "object",
+          "required": ["aggregation", "date_ref", "include_coords"],
+          "title": "HeatmapFiltersMetadata",
+          "description": "Metadados dos filtros aplicados em /heatmap.",
+          "x-readme-ref-name": "HeatmapFiltersMetadata"
+        },
+        { "type": "null" }
+      ],
+      "description": "Filtros aplicados"
+    },
+    "pagination": {
+      "description": "Metadados de paginação",
+      "properties": {
+        "cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Cursor",
+          "description": "Cursor da página atual"
+        },
+        "limit": {
+          "type": "integer",
+          "title": "Limit",
+          "description": "Limite de itens por página"
+        },
+        "next_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Next Cursor",
+          "description": "Cursor para próxima página"
+        },
+        "previous_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Previous Cursor",
+          "description": "Cursor para página anterior"
+        },
+        "has_next": {
+          "type": "boolean",
+          "title": "Has Next",
+          "description": "Se há próxima página"
+        },
+        "has_previous": {
+          "type": "boolean",
+          "title": "Has Previous",
+          "description": "Se há página anterior"
+        }
+      },
+      "type": "object",
+      "required": ["limit", "has_next", "has_previous"],
+      "title": "TrendPaginationMetadata",
+      "x-readme-ref-name": "TrendPaginationMetadata"
+    },
+    "data": {
+      "items": {
+        "properties": {
+          "id": { "type": "string", "title": "Id", "description": "ID único do ponto" },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Nome da unidade/cidade/estado"
+          },
+          "value": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Value",
+            "description": "Valor de ocupação (%)"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "Status: no_data, low, moderate, high, critical"
+          },
+          "city": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "City",
+            "description": "Cidade (apenas aggregation=unit)"
+          },
+          "state": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "State",
+            "description": "Estado (aggregation=unit ou aggregation=city)"
+          },
+          "unit_count": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Unit Count",
+            "description": "Total de unidades (aggregation=city ou aggregation=state)"
+          },
+          "city_count": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "City Count",
+            "description": "Total de cidades (apenas aggregation=state)"
+          },
+          "coordinates": {
+            "anyOf": [
+              {
+                "properties": {
+                  "lat": { "type": "number", "title": "Lat", "description": "Latitude" },
+                  "lng": { "type": "number", "title": "Lng", "description": "Longitude" }
+                },
+                "type": "object",
+                "required": ["lat", "lng"],
+                "title": "HeatmapCoordinates",
+                "description": "Coordenadas geográficas.",
+                "x-readme-ref-name": "HeatmapCoordinates"
+              },
+              { "type": "null" }
+            ],
+            "description": "Coordenadas geográficas (se include_coords=true)"
+          }
+        },
+        "type": "object",
+        "required": ["id", "name", "status"],
+        "title": "HeatmapDataPoint",
+        "description": "Ponto de dados no mapa de calor.",
+        "x-readme-ref-name": "HeatmapDataPoint"
+      },
+      "type": "array",
+      "title": "Data",
+      "description": "Pontos de dados do mapa"
+    },
+    "legend": {
+      "description": "Legenda de cores",
+      "properties": {
+        "low": {
+          "description": "Ocupação baixa (0-40%)",
+          "properties": {
+            "min": {
+              "type": "integer",
+              "title": "Min",
+              "description": "Valor mínimo do intervalo"
+            },
+            "max": {
+              "type": "integer",
+              "title": "Max",
+              "description": "Valor máximo do intervalo"
+            },
+            "color": {
+              "type": "string",
+              "title": "Color",
+              "description": "Código de cor hexadecimal"
+            }
+          },
+          "type": "object",
+          "required": ["min", "max", "color"],
+          "title": "HeatmapLegendItem",
+          "x-readme-ref-name": "HeatmapLegendItem"
+        },
+        "moderate": {
+          "description": "Ocupação moderada (40-70%)",
+          "properties": {
+            "min": {
+              "type": "integer",
+              "title": "Min",
+              "description": "Valor mínimo do intervalo"
+            },
+            "max": {
+              "type": "integer",
+              "title": "Max",
+              "description": "Valor máximo do intervalo"
+            },
+            "color": {
+              "type": "string",
+              "title": "Color",
+              "description": "Código de cor hexadecimal"
+            }
+          },
+          "type": "object",
+          "required": ["min", "max", "color"],
+          "title": "HeatmapLegendItem",
+          "x-readme-ref-name": "HeatmapLegendItem"
+        },
+        "high": {
+          "description": "Ocupação alta (70-85%)",
+          "properties": {
+            "min": {
+              "type": "integer",
+              "title": "Min",
+              "description": "Valor mínimo do intervalo"
+            },
+            "max": {
+              "type": "integer",
+              "title": "Max",
+              "description": "Valor máximo do intervalo"
+            },
+            "color": {
+              "type": "string",
+              "title": "Color",
+              "description": "Código de cor hexadecimal"
+            }
+          },
+          "type": "object",
+          "required": ["min", "max", "color"],
+          "title": "HeatmapLegendItem",
+          "x-readme-ref-name": "HeatmapLegendItem"
+        },
+        "critical": {
+          "description": "Ocupação crítica (85-100%)",
+          "properties": {
+            "min": {
+              "type": "integer",
+              "title": "Min",
+              "description": "Valor mínimo do intervalo"
+            },
+            "max": {
+              "type": "integer",
+              "title": "Max",
+              "description": "Valor máximo do intervalo"
+            },
+            "color": {
+              "type": "string",
+              "title": "Color",
+              "description": "Código de cor hexadecimal"
+            }
+          },
+          "type": "object",
+          "required": ["min", "max", "color"],
+          "title": "HeatmapLegendItem",
+          "x-readme-ref-name": "HeatmapLegendItem"
+        }
+      },
+      "type": "object",
+      "required": ["low", "moderate", "high", "critical"],
+      "title": "HeatmapLegend",
+      "x-readme-ref-name": "HeatmapLegend"
+    },
+    "statistics": {
+      "anyOf": [
+        {
+          "properties": {
+            "min": { "type": "number", "title": "Min", "description": "Valor mínimo de ocupação" },
+            "max": { "type": "number", "title": "Max", "description": "Valor máximo de ocupação" },
+            "mean": { "type": "number", "title": "Mean", "description": "Média de ocupação" },
+            "total_points": {
+              "type": "integer",
+              "title": "Total Points",
+              "description": "Total de pontos no mapa"
+            },
+            "points_with_data": {
+              "type": "integer",
+              "title": "Points With Data",
+              "description": "Pontos com dados (não NULL)"
+            }
+          },
+          "type": "object",
+          "required": ["min", "max", "mean", "total_points", "points_with_data"],
+          "title": "HeatmapStatistics",
+          "description": "Estatísticas gerais do mapa de calor.",
+          "x-readme-ref-name": "HeatmapStatistics"
+        },
+        { "type": "null" }
+      ],
+      "description": "Estatísticas gerais (se houver dados)"
+    }
+  },
+  "type": "object",
+  "required": ["reference_date", "aggregation_level", "pagination", "data", "legend"],
+  "title": "HeatmapResponse",
+  "description": "Schema de resposta para o endpoint /heatmap.",
+  "x-readme-ref-name": "HeatmapResponse"
+}

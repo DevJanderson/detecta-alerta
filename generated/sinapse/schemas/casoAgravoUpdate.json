@@ -1,0 +1,66 @@
+{
+  "properties": {
+    "classificacao_final": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": ["confirmado", "suspeito", "descartado", "inconclusivo"],
+          "title": "ClassificacaoFinal",
+          "description": "Classificação final do caso.",
+          "x-readme-ref-name": "ClassificacaoFinal"
+        },
+        { "type": "null" }
+      ]
+    },
+    "tipo_caso": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": ["autoctone", "importado", "indeterminado"],
+          "title": "TipoCaso",
+          "description": "Tipo de caso.",
+          "x-readme-ref-name": "TipoCaso"
+        },
+        { "type": "null" }
+      ]
+    },
+    "data_coleta": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Data Coleta"
+    },
+    "data_encerramento": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Data Encerramento"
+    },
+    "sintomas": {
+      "anyOf": [
+        { "additionalProperties": { "type": "boolean" }, "type": "object" },
+        { "type": "null" }
+      ],
+      "title": "Sintomas"
+    },
+    "comorbidades": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Comorbidades"
+    },
+    "hospitalizado": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+      "title": "Hospitalizado"
+    },
+    "uti": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Uti" },
+    "obito": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Obito" },
+    "data_obito": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Data Obito"
+    },
+    "dados_especificos": {
+      "anyOf": [{ "additionalProperties": true, "type": "object" }, { "type": "null" }],
+      "title": "Dados Especificos"
+    },
+    "observacoes": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Observacoes" }
+  },
+  "type": "object",
+  "title": "CasoAgravoUpdate",
+  "description": "Schema para atualização de caso.",
+  "x-readme-ref-name": "CasoAgravoUpdate"
+}

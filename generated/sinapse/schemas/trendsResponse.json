@@ -1,0 +1,290 @@
+{
+  "properties": {
+    "period": {
+      "description": "Metadados do período de análise",
+      "properties": {
+        "start_date": {
+          "type": "string",
+          "title": "Start Date",
+          "description": "Data de início da análise (YYYY-MM-DD)"
+        },
+        "end_date": {
+          "type": "string",
+          "title": "End Date",
+          "description": "Data de término da análise (YYYY-MM-DD)"
+        },
+        "days_requested": {
+          "type": "integer",
+          "title": "Days Requested",
+          "description": "Dias solicitados pelo usuário"
+        },
+        "days_actual": {
+          "type": "integer",
+          "title": "Days Actual",
+          "description": "Dias efetivamente analisados"
+        },
+        "data_available": {
+          "type": "boolean",
+          "title": "Data Available",
+          "description": "Se há dados disponíveis no sistema"
+        },
+        "latest_data_date": {
+          "type": "string",
+          "title": "Latest Data Date",
+          "description": "Data do dado mais recente no sistema (YYYY-MM-DD)"
+        }
+      },
+      "type": "object",
+      "required": [
+        "start_date",
+        "end_date",
+        "days_requested",
+        "days_actual",
+        "data_available",
+        "latest_data_date"
+      ],
+      "title": "TrendPeriodMetadata",
+      "x-readme-ref-name": "TrendPeriodMetadata"
+    },
+    "filters": {
+      "description": "Filtros aplicados",
+      "properties": {
+        "trend_type": {
+          "type": "string",
+          "title": "Trend Type",
+          "description": "Tipo de tendência: all, increasing, decreasing, stable"
+        },
+        "min_confidence": {
+          "type": "number",
+          "title": "Min Confidence",
+          "description": "Confiança mínima requerida (%)"
+        },
+        "state": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "State",
+          "description": "Filtro de estado (UF)"
+        },
+        "region": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Region",
+          "description": "Filtro de região"
+        },
+        "city": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "City",
+          "description": "Filtro de cidade"
+        },
+        "unit_type": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Unit Type",
+          "description": "Filtro de tipo de unidade"
+        }
+      },
+      "type": "object",
+      "required": ["trend_type", "min_confidence"],
+      "title": "TrendFiltersMetadata",
+      "x-readme-ref-name": "TrendFiltersMetadata"
+    },
+    "pagination": {
+      "description": "Metadados de paginação",
+      "properties": {
+        "cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Cursor",
+          "description": "Cursor da página atual"
+        },
+        "limit": {
+          "type": "integer",
+          "title": "Limit",
+          "description": "Limite de itens por página"
+        },
+        "next_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Next Cursor",
+          "description": "Cursor para próxima página"
+        },
+        "previous_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Previous Cursor",
+          "description": "Cursor para página anterior"
+        },
+        "has_next": {
+          "type": "boolean",
+          "title": "Has Next",
+          "description": "Se há próxima página"
+        },
+        "has_previous": {
+          "type": "boolean",
+          "title": "Has Previous",
+          "description": "Se há página anterior"
+        }
+      },
+      "type": "object",
+      "required": ["limit", "has_next", "has_previous"],
+      "title": "TrendPaginationMetadata",
+      "x-readme-ref-name": "TrendPaginationMetadata"
+    },
+    "trends": {
+      "items": {
+        "properties": {
+          "place_id": {
+            "type": "string",
+            "title": "Place Id",
+            "description": "ID único da unidade"
+          },
+          "unit_name": { "type": "string", "title": "Unit Name", "description": "Nome da unidade" },
+          "city": { "type": "string", "title": "City", "description": "Cidade" },
+          "state": { "type": "string", "title": "State", "description": "Estado (UF)" },
+          "unit_type": { "type": "string", "title": "Unit Type", "description": "Tipo de unidade" },
+          "trend_direction": {
+            "type": "string",
+            "title": "Trend Direction",
+            "description": "Direção da tendência: increasing, decreasing, stable"
+          },
+          "change_rate": {
+            "type": "number",
+            "title": "Change Rate",
+            "description": "Taxa de mudança (%)"
+          },
+          "initial_avg": {
+            "type": "number",
+            "title": "Initial Avg",
+            "description": "Média no início do período (%)"
+          },
+          "recent_avg": {
+            "type": "number",
+            "title": "Recent Avg",
+            "description": "Média recente no período (%)"
+          },
+          "avg_occupation": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Avg Occupation",
+            "description": "Ocupação média geral (%)"
+          },
+          "min_occupation": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Min Occupation",
+            "description": "Ocupação mínima (%)"
+          },
+          "max_occupation": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Max Occupation",
+            "description": "Ocupação máxima (%)"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence",
+            "description": "Confiança da detecção (0-100)"
+          },
+          "analysis_period_days": {
+            "type": "integer",
+            "title": "Analysis Period Days",
+            "description": "Dias de análise"
+          }
+        },
+        "type": "object",
+        "required": [
+          "place_id",
+          "unit_name",
+          "city",
+          "state",
+          "unit_type",
+          "trend_direction",
+          "change_rate",
+          "initial_avg",
+          "recent_avg",
+          "confidence",
+          "analysis_period_days"
+        ],
+        "title": "TrendItem",
+        "description": "Item individual de tendência detectada.",
+        "example": {
+          "analysis_period_days": 30,
+          "avg_occupation": 48.5,
+          "change_rate": 15.5,
+          "city": "São Paulo",
+          "confidence": 85.3,
+          "initial_avg": 45.2,
+          "max_occupation": 65,
+          "min_occupation": 35,
+          "place_id": "ChIJAbc123",
+          "recent_avg": 52.2,
+          "state": "SP",
+          "trend_direction": "increasing",
+          "unit_name": "UBS Central",
+          "unit_type": "ubs"
+        },
+        "x-readme-ref-name": "TrendItem"
+      },
+      "type": "array",
+      "title": "Trends",
+      "description": "Lista de tendências detectadas"
+    },
+    "total_analyzed": {
+      "type": "integer",
+      "title": "Total Analyzed",
+      "description": "Total de unidades analisadas"
+    },
+    "total_matching_filters": {
+      "type": "integer",
+      "title": "Total Matching Filters",
+      "description": "Total após aplicar filtros"
+    },
+    "total_returned": {
+      "type": "integer",
+      "title": "Total Returned",
+      "description": "Total retornado na página atual"
+    }
+  },
+  "type": "object",
+  "required": [
+    "period",
+    "filters",
+    "pagination",
+    "trends",
+    "total_analyzed",
+    "total_matching_filters",
+    "total_returned"
+  ],
+  "title": "TrendsResponse",
+  "description": "Schema de resposta completo para o endpoint /trends.",
+  "example": {
+    "filters": { "min_confidence": 60, "state": "SP", "trend_type": "all", "unit_type": "ubs" },
+    "pagination": {
+      "has_next": true,
+      "has_previous": false,
+      "limit": 20,
+      "next_cursor": "eyJpbmRleCI6MjB9"
+    },
+    "period": {
+      "data_available": true,
+      "days_actual": 30,
+      "days_requested": 30,
+      "end_date": "2025-10-09",
+      "latest_data_date": "2025-10-09",
+      "start_date": "2025-09-09"
+    },
+    "total_analyzed": 331,
+    "total_matching_filters": 276,
+    "total_returned": 20,
+    "trends": [
+      {
+        "analysis_period_days": 30,
+        "avg_occupation": 48.5,
+        "change_rate": 15.5,
+        "city": "São Paulo",
+        "confidence": 85.3,
+        "initial_avg": 45.2,
+        "max_occupation": 65,
+        "min_occupation": 35,
+        "place_id": "ChIJAbc123",
+        "recent_avg": 52.2,
+        "state": "SP",
+        "trend_direction": "increasing",
+        "unit_name": "UBS Central",
+        "unit_type": "ubs"
+      }
+    ]
+  },
+  "x-readme-ref-name": "TrendsResponse"
+}

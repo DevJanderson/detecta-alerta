@@ -1,0 +1,168 @@
+{
+  "properties": {
+    "daily_aggregation_enabled": {
+      "type": "boolean",
+      "title": "Daily Aggregation Enabled",
+      "description": "Se agregação diária está habilitada"
+    },
+    "daily_aggregation_hour": {
+      "type": "integer",
+      "maximum": 23,
+      "minimum": 0,
+      "title": "Daily Aggregation Hour",
+      "description": "Hora do dia para rodar agregação diária"
+    },
+    "weekly_aggregation_enabled": {
+      "type": "boolean",
+      "title": "Weekly Aggregation Enabled",
+      "description": "Se agregação semanal está habilitada"
+    },
+    "weekly_aggregation_day": {
+      "type": "integer",
+      "maximum": 6,
+      "minimum": 0,
+      "title": "Weekly Aggregation Day",
+      "description": "Dia da semana (0=segunda)"
+    },
+    "weekly_aggregation_hour": {
+      "type": "integer",
+      "maximum": 23,
+      "minimum": 0,
+      "title": "Weekly Aggregation Hour",
+      "description": "Hora para rodar agregação semanal"
+    },
+    "data_retention_days": {
+      "type": "integer",
+      "minimum": 30,
+      "title": "Data Retention Days",
+      "description": "Dias de retenção de dados brutos"
+    },
+    "cleanup_enabled": {
+      "type": "boolean",
+      "title": "Cleanup Enabled",
+      "description": "Se limpeza automática está habilitada"
+    },
+    "cleanup_hour": {
+      "type": "integer",
+      "maximum": 23,
+      "minimum": 0,
+      "title": "Cleanup Hour",
+      "description": "Hora para rodar limpeza"
+    },
+    "batch_size": {
+      "type": "integer",
+      "maximum": 10000,
+      "minimum": 100,
+      "title": "Batch Size",
+      "description": "Tamanho do batch para processamento",
+      "default": 1000
+    },
+    "parallel_workers": {
+      "type": "integer",
+      "maximum": 10,
+      "minimum": 1,
+      "title": "Parallel Workers",
+      "description": "Número de workers paralelos",
+      "default": 4
+    },
+    "moving_avg_days": {
+      "type": "integer",
+      "title": "Moving Avg Days",
+      "description": "Dias para média móvel",
+      "default": 42
+    },
+    "z_score_yellow": {
+      "type": "number",
+      "title": "Z Score Yellow",
+      "description": "Threshold para status yellow",
+      "default": 0.65
+    },
+    "z_score_red": {
+      "type": "number",
+      "title": "Z Score Red",
+      "description": "Threshold para status red",
+      "default": 1.5
+    },
+    "trend_threshold": {
+      "type": "number",
+      "title": "Trend Threshold",
+      "description": "Threshold de mudança para tendência",
+      "default": 0.05
+    },
+    "min_data_points_for_stats": {
+      "type": "integer",
+      "title": "Min Data Points For Stats",
+      "description": "Pontos mínimos para estatísticas",
+      "default": 7
+    },
+    "min_std_dev": {
+      "type": "number",
+      "title": "Min Std Dev",
+      "description": "Desvio padrão mínimo para evitar overflow",
+      "default": 1
+    },
+    "max_z_score": {
+      "type": "number",
+      "title": "Max Z Score",
+      "description": "Z-score máximo permitido (cap em ±10 sigma)",
+      "default": 10
+    },
+    "status_green_threshold": {
+      "type": "number",
+      "title": "Status Green Threshold",
+      "description": "Z-score máximo para status verde (normal)",
+      "default": 0
+    },
+    "status_yellow_threshold": {
+      "type": "number",
+      "title": "Status Yellow Threshold",
+      "description": "Z-score máximo para status amarelo (atenção)",
+      "default": 0.65
+    },
+    "status_red_threshold": {
+      "type": "number",
+      "title": "Status Red Threshold",
+      "description": "Z-score mínimo para status vermelho (crítico)",
+      "default": 1.5
+    },
+    "moving_avg_weeks": {
+      "type": "integer",
+      "title": "Moving Avg Weeks",
+      "description": "Semanas para média móvel semanal",
+      "default": 6
+    },
+    "min_weeks_for_stats": {
+      "type": "integer",
+      "title": "Min Weeks For Stats",
+      "description": "Semanas mínimas para estatísticas",
+      "default": 2
+    },
+    "daily_stats_retention_days": {
+      "type": "integer",
+      "title": "Daily Stats Retention Days",
+      "description": "Dias de retenção para estatísticas diárias (2 anos)",
+      "default": 730
+    },
+    "weekly_stats_retention_days": {
+      "type": "integer",
+      "title": "Weekly Stats Retention Days",
+      "description": "Dias de retenção para estatísticas semanais (3 anos)",
+      "default": 1095
+    }
+  },
+  "additionalProperties": true,
+  "type": "object",
+  "required": [
+    "daily_aggregation_enabled",
+    "daily_aggregation_hour",
+    "weekly_aggregation_enabled",
+    "weekly_aggregation_day",
+    "weekly_aggregation_hour",
+    "data_retention_days",
+    "cleanup_enabled",
+    "cleanup_hour"
+  ],
+  "title": "ETLParametersResponse",
+  "description": "Schema de resposta para parâmetros ETL.",
+  "x-readme-ref-name": "ETLParametersResponse"
+}

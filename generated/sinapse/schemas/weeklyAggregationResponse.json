@@ -1,0 +1,194 @@
+{
+  "properties": {
+    "aggregation_level": {
+      "type": "string",
+      "title": "Aggregation Level",
+      "description": "Nível: unit, city, state, region"
+    },
+    "aggregation_key": {
+      "type": "string",
+      "title": "Aggregation Key",
+      "description": "Chave de identificação"
+    },
+    "unit_type": {
+      "type": "string",
+      "title": "Unit Type",
+      "description": "Tipo de unidade ou 'all'"
+    },
+    "week_ending_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Week Ending Date",
+      "description": "Data de término da semana"
+    },
+    "metrics": {
+      "properties": {
+        "unit_name": {
+          "type": "string",
+          "title": "Unit Name",
+          "description": "Nome da unidade/região"
+        },
+        "epidemiological_week": {
+          "type": "string",
+          "title": "Epidemiological Week",
+          "description": "Semana epidemiológica (YYYY-WNN)"
+        },
+        "location_lat": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Location Lat",
+          "description": "Latitude da unidade (apenas para level=unit)"
+        },
+        "location_lng": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Location Lng",
+          "description": "Longitude da unidade (apenas para level=unit)"
+        },
+        "average_occupancy_all": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Average Occupancy All",
+          "description": "Média de ocupação geral (%)"
+        },
+        "data_points_all": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Data Points All",
+          "description": "Total de pontos de dados"
+        },
+        "moving_avg_all": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Moving Avg All",
+          "description": "Média móvel 42 dias - geral"
+        },
+        "z_score_all": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Z Score All",
+          "description": "Z-score geral"
+        },
+        "trend_all": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Trend All",
+          "description": "Tendência geral: up, down, stable"
+        },
+        "average_occupancy_weekday": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Average Occupancy Weekday",
+          "description": "Média ocupação dias úteis (%)"
+        },
+        "data_points_weekday": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Data Points Weekday",
+          "description": "Pontos de dados em dias úteis"
+        },
+        "moving_avg_weekday": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Moving Avg Weekday",
+          "description": "Média móvel 42 dias - dias úteis"
+        },
+        "z_score_weekday": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Z Score Weekday",
+          "description": "Z-score dias úteis"
+        },
+        "trend_weekday": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Trend Weekday",
+          "description": "Tendência dias úteis"
+        },
+        "average_occupancy_weekend": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Average Occupancy Weekend",
+          "description": "Média ocupação fins de semana (%)"
+        },
+        "data_points_weekend": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Data Points Weekend",
+          "description": "Pontos de dados em fins de semana"
+        },
+        "moving_avg_weekend": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Moving Avg Weekend",
+          "description": "Média móvel 42 dias - fins de semana"
+        },
+        "z_score_weekend": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Z Score Weekend",
+          "description": "Z-score fins de semana"
+        },
+        "trend_weekend": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Trend Weekend",
+          "description": "Tendência fins de semana"
+        },
+        "alert_status": {
+          "type": "string",
+          "title": "Alert Status",
+          "description": "Status global (pior caso): green, yellow, red"
+        },
+        "status_all": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Status All",
+          "description": "Status métrica geral: green, yellow, red"
+        },
+        "status_weekday": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Status Weekday",
+          "description": "Status métrica weekday: green, yellow, red"
+        },
+        "status_weekend": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Status Weekend",
+          "description": "Status métrica weekend: green, yellow, red"
+        },
+        "alert_reason": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Alert Reason",
+          "description": "Razão do alerta (ex: Anomalia em dias úteis)"
+        },
+        "vs_previous_week_all": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Vs Previous Week All",
+          "description": "Variação vs semana anterior - geral (%)"
+        },
+        "vs_previous_week_weekday": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Vs Previous Week Weekday",
+          "description": "Variação vs semana anterior - dias úteis (%)"
+        },
+        "vs_previous_week_weekend": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Vs Previous Week Weekend",
+          "description": "Variação vs semana anterior - fins de semana (%)"
+        },
+        "calculated_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Calculated At",
+          "description": "Data/hora do cálculo"
+        },
+        "confidence_level": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Confidence Level",
+          "description": "Nível de confiança: high, medium, low"
+        }
+      },
+      "type": "object",
+      "required": ["unit_name", "epidemiological_week", "alert_status", "calculated_at"],
+      "title": "EpidemiologicalMetrics",
+      "description": "Métricas epidemiológicas detalhadas",
+      "x-readme-ref-name": "EpidemiologicalMetrics"
+    },
+    "min_percentage": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Min Percentage"
+    },
+    "max_percentage": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Max Percentage"
+    },
+    "units_count": { "anyOf": [{ "type": "integer" }, { "type": "null" }], "title": "Units Count" }
+  },
+  "type": "object",
+  "required": ["aggregation_level", "aggregation_key", "unit_type", "week_ending_date", "metrics"],
+  "title": "WeeklyAggregationResponse",
+  "description": "Schema para resposta de agregação semanal com métricas segmentadas.",
+  "x-readme-ref-name": "WeeklyAggregationResponse"
+}

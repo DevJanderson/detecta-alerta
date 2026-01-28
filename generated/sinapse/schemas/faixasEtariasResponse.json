@@ -1,0 +1,40 @@
+{
+  "properties": {
+    "total": { "type": "integer", "title": "Total", "description": "Total de faixas" },
+    "items": {
+      "items": {
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "title": "Codigo",
+            "description": "Código da faixa (ex: 'fx_0_4')"
+          },
+          "descricao": {
+            "type": "string",
+            "title": "Descricao",
+            "description": "Descrição (ex: '0 a 4 anos')"
+          },
+          "idade_min": { "type": "integer", "title": "Idade Min", "description": "Idade mínima" },
+          "idade_max": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Idade Max",
+            "description": "Idade máxima (None = 80+)"
+          }
+        },
+        "type": "object",
+        "required": ["codigo", "descricao", "idade_min"],
+        "title": "FaixaEtariaMetadataResponse",
+        "description": "Metadados das faixas etárias disponíveis.",
+        "x-readme-ref-name": "FaixaEtariaMetadataResponse"
+      },
+      "type": "array",
+      "title": "Items",
+      "description": "Faixas disponíveis"
+    }
+  },
+  "type": "object",
+  "required": ["total", "items"],
+  "title": "FaixasEtariasResponse",
+  "description": "Lista de faixas etárias disponíveis.",
+  "x-readme-ref-name": "FaixasEtariasResponse"
+}

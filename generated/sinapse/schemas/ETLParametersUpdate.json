@@ -1,0 +1,129 @@
+{
+  "properties": {
+    "daily_aggregation_enabled": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+      "title": "Daily Aggregation Enabled",
+      "description": "Habilitar agregação diária automática"
+    },
+    "daily_aggregation_hour": {
+      "anyOf": [{ "type": "integer", "maximum": 23, "minimum": 0 }, { "type": "null" }],
+      "title": "Daily Aggregation Hour",
+      "description": "Hora do dia (0-23)"
+    },
+    "weekly_aggregation_enabled": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+      "title": "Weekly Aggregation Enabled",
+      "description": "Habilitar agregação semanal automática"
+    },
+    "weekly_aggregation_day": {
+      "anyOf": [{ "type": "integer", "maximum": 6, "minimum": 0 }, { "type": "null" }],
+      "title": "Weekly Aggregation Day",
+      "description": "Dia da semana (0=segunda, 6=domingo)"
+    },
+    "weekly_aggregation_hour": {
+      "anyOf": [{ "type": "integer", "maximum": 23, "minimum": 0 }, { "type": "null" }],
+      "title": "Weekly Aggregation Hour",
+      "description": "Hora do dia (0-23)"
+    },
+    "data_retention_days": {
+      "anyOf": [{ "type": "integer", "maximum": 730, "minimum": 30 }, { "type": "null" }],
+      "title": "Data Retention Days",
+      "description": "Retenção de dados brutos (30-730 dias)"
+    },
+    "cleanup_enabled": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+      "title": "Cleanup Enabled",
+      "description": "Habilitar limpeza automática de dados antigos"
+    },
+    "cleanup_hour": {
+      "anyOf": [{ "type": "integer", "maximum": 23, "minimum": 0 }, { "type": "null" }],
+      "title": "Cleanup Hour",
+      "description": "Hora para limpeza (0-23)"
+    },
+    "batch_size": {
+      "anyOf": [{ "type": "integer", "maximum": 10000, "minimum": 100 }, { "type": "null" }],
+      "title": "Batch Size",
+      "description": "Tamanho do batch (100-10000)"
+    },
+    "parallel_workers": {
+      "anyOf": [{ "type": "integer", "maximum": 10, "minimum": 1 }, { "type": "null" }],
+      "title": "Parallel Workers",
+      "description": "Workers paralelos (1-10)"
+    },
+    "moving_avg_days": {
+      "anyOf": [{ "type": "integer", "maximum": 90, "minimum": 21 }, { "type": "null" }],
+      "title": "Moving Avg Days",
+      "description": "Dias para média móvel (21-90). Recomendado: 42 dias (6 semanas)"
+    },
+    "z_score_yellow": {
+      "anyOf": [{ "type": "number", "maximum": 2, "minimum": 0.3 }, { "type": "null" }],
+      "title": "Z Score Yellow",
+      "description": "Threshold para status yellow (0.3-2.0). Recomendado: 0.65"
+    },
+    "z_score_red": {
+      "anyOf": [{ "type": "number", "maximum": 3, "minimum": 0.8 }, { "type": "null" }],
+      "title": "Z Score Red",
+      "description": "Threshold para status red (0.8-3.0). Recomendado: 1.5"
+    },
+    "trend_threshold": {
+      "anyOf": [{ "type": "number", "maximum": 0.5, "minimum": 0.01 }, { "type": "null" }],
+      "title": "Trend Threshold",
+      "description": "Threshold de mudança percentual para tendência (0.01-0.5)"
+    },
+    "min_data_points_for_stats": {
+      "anyOf": [{ "type": "integer", "maximum": 30, "minimum": 3 }, { "type": "null" }],
+      "title": "Min Data Points For Stats",
+      "description": "Pontos mínimos para calcular estatísticas (3-30)"
+    },
+    "min_std_dev": {
+      "anyOf": [{ "type": "number", "maximum": 5, "minimum": 0.5 }, { "type": "null" }],
+      "title": "Min Std Dev",
+      "description": "Desvio padrão mínimo para evitar divisão por zero (0.5-5.0)"
+    },
+    "max_z_score": {
+      "anyOf": [{ "type": "number", "maximum": 15, "minimum": 5 }, { "type": "null" }],
+      "title": "Max Z Score",
+      "description": "Z-score máximo permitido (cap em 5-15 sigma). Recomendado: 10"
+    },
+    "status_green_threshold": {
+      "anyOf": [{ "type": "number", "maximum": 1, "minimum": 0 }, { "type": "null" }],
+      "title": "Status Green Threshold",
+      "description": "Z-score máximo para status verde (0.0-1.0)"
+    },
+    "status_yellow_threshold": {
+      "anyOf": [{ "type": "number", "maximum": 2, "minimum": 0.3 }, { "type": "null" }],
+      "title": "Status Yellow Threshold",
+      "description": "Z-score máximo para status amarelo (0.3-2.0). Deve ser < red_threshold"
+    },
+    "status_red_threshold": {
+      "anyOf": [{ "type": "number", "maximum": 3, "minimum": 0.8 }, { "type": "null" }],
+      "title": "Status Red Threshold",
+      "description": "Z-score mínimo para status vermelho (0.8-3.0). Deve ser > yellow_threshold"
+    },
+    "moving_avg_weeks": {
+      "anyOf": [{ "type": "integer", "maximum": 12, "minimum": 4 }, { "type": "null" }],
+      "title": "Moving Avg Weeks",
+      "description": "Semanas para média móvel semanal (4-12). Recomendado: 6"
+    },
+    "min_weeks_for_stats": {
+      "anyOf": [{ "type": "integer", "maximum": 8, "minimum": 2 }, { "type": "null" }],
+      "title": "Min Weeks For Stats",
+      "description": "Semanas mínimas para estatísticas (2-8). Recomendado: 3"
+    },
+    "daily_stats_retention_days": {
+      "anyOf": [{ "type": "integer", "maximum": 3650, "minimum": 90 }, { "type": "null" }],
+      "title": "Daily Stats Retention Days",
+      "description": "Dias de retenção para estatísticas diárias (90-3650). Recomendado: 730 (2 anos)"
+    },
+    "weekly_stats_retention_days": {
+      "anyOf": [{ "type": "integer", "maximum": 3650, "minimum": 180 }, { "type": "null" }],
+      "title": "Weekly Stats Retention Days",
+      "description": "Dias de retenção para estatísticas semanais (180-3650). Recomendado: 1095 (3 anos)"
+    }
+  },
+  "additionalProperties": true,
+  "type": "object",
+  "title": "ETLParametersUpdate",
+  "description": "Schema para atualização de parâmetros ETL com validações de range e consistência.",
+  "x-readme-ref-name": "ETLParametersUpdate"
+}

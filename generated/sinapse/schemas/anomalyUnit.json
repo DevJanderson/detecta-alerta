@@ -1,0 +1,89 @@
+{
+  "properties": {
+    "place_id": { "type": "string", "title": "Place Id", "description": "ID único da unidade" },
+    "unit_name": { "type": "string", "title": "Unit Name", "description": "Nome da unidade" },
+    "city": { "type": "string", "title": "City", "description": "Cidade" },
+    "state": { "type": "string", "title": "State", "description": "Estado (UF)" },
+    "unit_type": { "type": "string", "title": "Unit Type", "description": "Tipo de unidade" },
+    "anomaly_count": {
+      "type": "integer",
+      "title": "Anomaly Count",
+      "description": "Número de anomalias detectadas"
+    },
+    "pattern": {
+      "type": "string",
+      "title": "Pattern",
+      "description": "Padrão: consecutive, sporadic"
+    },
+    "severity": {
+      "type": "string",
+      "title": "Severity",
+      "description": "Severidade: critical, high, medium, low"
+    },
+    "recommendation": {
+      "type": "string",
+      "title": "Recommendation",
+      "description": "Recomendação de ação"
+    },
+    "anomalies": {
+      "items": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "title": "Date",
+            "description": "Data da anomalia (YYYY-MM-DD)"
+          },
+          "value": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Value",
+            "description": "Valor observado (%)"
+          },
+          "expected": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Expected",
+            "description": "Valor esperado (%)"
+          },
+          "z_score": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Z Score",
+            "description": "Z-score da anomalia"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "description": "Tipo: spike, high, drop, low"
+          },
+          "deviation": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Deviation",
+            "description": "Desvio absoluto (%)"
+          }
+        },
+        "type": "object",
+        "required": ["date", "type"],
+        "title": "AnomalyOccurrence",
+        "description": "Ocorrência individual de anomalia.",
+        "x-readme-ref-name": "AnomalyOccurrence"
+      },
+      "type": "array",
+      "title": "Anomalies",
+      "description": "Lista de ocorrências"
+    }
+  },
+  "type": "object",
+  "required": [
+    "place_id",
+    "unit_name",
+    "city",
+    "state",
+    "unit_type",
+    "anomaly_count",
+    "pattern",
+    "severity",
+    "recommendation",
+    "anomalies"
+  ],
+  "title": "AnomalyUnit",
+  "description": "Unidade com anomalias detectadas.",
+  "x-readme-ref-name": "AnomalyUnit"
+}

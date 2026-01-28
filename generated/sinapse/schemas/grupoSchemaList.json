@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "nome": { "type": "string", "title": "Nome" },
+    "descricao": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Descricao" },
+    "ativo": { "type": "boolean", "title": "Ativo", "default": true },
+    "id": { "type": "integer", "title": "Id" },
+    "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+    "updated_at": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Updated At"
+    }
+  },
+  "type": "object",
+  "required": ["nome", "id", "created_at"],
+  "title": "GrupoSchemaList",
+  "x-readme-ref-name": "GrupoSchemaList"
+}

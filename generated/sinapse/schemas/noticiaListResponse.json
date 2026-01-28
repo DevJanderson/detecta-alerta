@@ -1,0 +1,269 @@
+{
+  "properties": {
+    "filters": {
+      "properties": {
+        "search_term": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Search Term",
+          "description": "Termo de busca aplicado"
+        },
+        "diseases": {
+          "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+          "title": "Diseases",
+          "description": "Doenças filtradas"
+        },
+        "symptoms": {
+          "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+          "title": "Symptoms",
+          "description": "Sintomas filtrados"
+        },
+        "regions": {
+          "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+          "title": "Regions",
+          "description": "Regiões filtradas"
+        },
+        "states": {
+          "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+          "title": "States",
+          "description": "Estados filtrados"
+        },
+        "sources": {
+          "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+          "title": "Sources",
+          "description": "Fontes filtradas"
+        },
+        "status": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Status",
+          "description": "Status filtrado"
+        },
+        "min_relevance": {
+          "anyOf": [{ "type": "number" }, { "type": "null" }],
+          "title": "Min Relevance",
+          "description": "Relevância mínima"
+        }
+      },
+      "type": "object",
+      "title": "NoticiaFilterInfo",
+      "description": "Informações sobre filtros aplicados na listagem.",
+      "x-readme-ref-name": "NoticiaFilterInfo"
+    },
+    "pagination": {
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "title": "Limit",
+          "description": "Limite de itens solicitado"
+        },
+        "returned": {
+          "type": "integer",
+          "title": "Returned",
+          "description": "Quantidade de itens retornados nesta página"
+        },
+        "next_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Next Cursor",
+          "description": "Cursor para próxima página"
+        },
+        "previous_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Previous Cursor",
+          "description": "Cursor para página anterior"
+        },
+        "has_next": {
+          "type": "boolean",
+          "title": "Has Next",
+          "description": "Se há próxima página"
+        },
+        "has_previous": {
+          "type": "boolean",
+          "title": "Has Previous",
+          "description": "Se há página anterior"
+        }
+      },
+      "type": "object",
+      "required": ["limit", "returned", "has_next", "has_previous"],
+      "title": "PaginationInfo",
+      "description": "Informações de paginação cursor-based.",
+      "x-readme-ref-name": "PaginationInfo"
+    },
+    "data": {
+      "items": {
+        "properties": {
+          "title": { "type": "string", "maxLength": 500, "minLength": 1, "title": "Title" },
+          "content": { "type": "string", "minLength": 1, "title": "Content" },
+          "scraped_time": {
+            "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
+            "title": "Scraped Time"
+          },
+          "scraped_date": {
+            "anyOf": [{ "type": "string", "format": "date" }, { "type": "string" }],
+            "title": "Scraped Date"
+          },
+          "urls": {
+            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+            "title": "Urls"
+          },
+          "source": {
+            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+            "title": "Source"
+          },
+          "url_img": {
+            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+            "title": "Url Img",
+            "description": "Array de URLs de imagens"
+          },
+          "source_icon": {
+            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+            "title": "Source Icon",
+            "description": "Array de URLs dos ícones/logos das fontes"
+          },
+          "published_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "string", "format": "date" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Published At"
+          },
+          "fact_description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Fact Description"
+          },
+          "fact_date_occurred": {
+            "anyOf": [
+              { "type": "string", "format": "date" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Fact Date Occurred"
+          },
+          "relevance_score": {
+            "type": "number",
+            "maximum": 10,
+            "minimum": 0,
+            "title": "Relevance Score",
+            "default": 0
+          },
+          "status": {
+            "type": "string",
+            "pattern": "^(active|archived|flagged)$",
+            "title": "Status",
+            "default": "active"
+          },
+          "llm_status": { "type": "boolean", "title": "Llm Status", "default": false },
+          "id": { "type": "integer", "title": "Id" },
+          "unique_id": { "type": "string", "format": "uuid", "title": "Unique Id" },
+          "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+          "updated_at": { "type": "string", "format": "date-time", "title": "Updated At" },
+          "deleted_at": {
+            "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+            "title": "Deleted At"
+          },
+          "doencas": {
+            "items": {
+              "properties": {
+                "name": { "type": "string", "maxLength": 200, "minLength": 1, "title": "Name" },
+                "description": {
+                  "anyOf": [{ "type": "string" }, { "type": "null" }],
+                  "title": "Description"
+                },
+                "cid_code": {
+                  "anyOf": [{ "type": "string", "maxLength": 20 }, { "type": "null" }],
+                  "title": "Cid Code"
+                },
+                "id": { "type": "integer", "title": "Id" },
+                "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+                "updated_at": { "type": "string", "format": "date-time", "title": "Updated At" }
+              },
+              "type": "object",
+              "required": ["name", "id", "created_at", "updated_at"],
+              "title": "Doenca",
+              "x-readme-ref-name": "Doenca"
+            },
+            "type": "array",
+            "title": "Doencas",
+            "default": []
+          },
+          "sintomas": {
+            "items": {
+              "properties": {
+                "name": { "type": "string", "maxLength": 200, "minLength": 1, "title": "Name" },
+                "description": {
+                  "anyOf": [{ "type": "string" }, { "type": "null" }],
+                  "title": "Description"
+                },
+                "id": { "type": "integer", "title": "Id" },
+                "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+                "updated_at": { "type": "string", "format": "date-time", "title": "Updated At" }
+              },
+              "type": "object",
+              "required": ["name", "id", "created_at", "updated_at"],
+              "title": "Sintoma",
+              "x-readme-ref-name": "Sintoma"
+            },
+            "type": "array",
+            "title": "Sintomas",
+            "default": []
+          },
+          "regioes": {
+            "items": {
+              "properties": {
+                "name": { "type": "string", "maxLength": 200, "minLength": 1, "title": "Name" },
+                "city": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "City" },
+                "state": {
+                  "anyOf": [{ "type": "string", "maxLength": 2 }, { "type": "null" }],
+                  "title": "State"
+                },
+                "country": {
+                  "type": "string",
+                  "maxLength": 100,
+                  "title": "Country",
+                  "default": "Brasil"
+                },
+                "latitude": {
+                  "anyOf": [{ "type": "number" }, { "type": "null" }],
+                  "title": "Latitude"
+                },
+                "longitude": {
+                  "anyOf": [{ "type": "number" }, { "type": "null" }],
+                  "title": "Longitude"
+                },
+                "id": { "type": "integer", "title": "Id" },
+                "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+                "updated_at": { "type": "string", "format": "date-time", "title": "Updated At" }
+              },
+              "type": "object",
+              "required": ["name", "id", "created_at", "updated_at"],
+              "title": "Regiao",
+              "x-readme-ref-name": "Regiao"
+            },
+            "type": "array",
+            "title": "Regioes",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "content",
+          "scraped_date",
+          "id",
+          "unique_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "Noticia",
+        "x-readme-ref-name": "Noticia"
+      },
+      "type": "array",
+      "title": "Data"
+    }
+  },
+  "type": "object",
+  "required": ["filters", "pagination", "data"],
+  "title": "NoticiaListResponse",
+  "description": "Resposta paginada cursor-based para listagem de notícias.",
+  "x-readme-ref-name": "NoticiaListResponse"
+}

@@ -1,0 +1,25 @@
+{
+  "properties": {
+    "search": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Search" },
+    "place_id": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Place Id" },
+    "title": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Title" },
+    "unit_type": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Unit Type" },
+    "city": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "City" },
+    "state": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "State" },
+    "region": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Region" },
+    "neighborhood": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Neighborhood"
+    },
+    "real_time": { "anyOf": [{ "type": "integer" }, { "type": "null" }], "title": "Real Time" },
+    "active": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Active" },
+    "ibge_code": { "anyOf": [{ "type": "integer" }, { "type": "null" }], "title": "Ibge Code" },
+    "user_id": { "anyOf": [{ "type": "integer" }, { "type": "null" }], "title": "User Id" },
+    "order_by": { "type": "string", "title": "Order By", "default": "created_at" },
+    "direction": { "type": "string", "title": "Direction", "default": "desc" }
+  },
+  "type": "object",
+  "title": "UnitFiltersMetadata",
+  "description": "Metadados dos filtros aplicados na listagem de unidades.",
+  "x-readme-ref-name": "UnitFiltersMetadata"
+}

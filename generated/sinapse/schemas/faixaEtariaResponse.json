@@ -1,0 +1,34 @@
+{
+  "properties": {
+    "faixa_etaria": {
+      "type": "string",
+      "title": "Faixa Etaria",
+      "description": "Faixa etária (ex: '0-4', '5-9')"
+    },
+    "populacao_total": {
+      "type": "integer",
+      "title": "Populacao Total",
+      "description": "Total da faixa"
+    },
+    "populacao_masculina": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Populacao Masculina",
+      "description": "Masculino"
+    },
+    "populacao_feminina": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Populacao Feminina",
+      "description": "Feminino"
+    },
+    "percentual": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Percentual",
+      "description": "Percentual sobre total"
+    }
+  },
+  "type": "object",
+  "required": ["faixa_etaria", "populacao_total"],
+  "title": "FaixaEtariaResponse",
+  "description": "População por faixa etária.",
+  "x-readme-ref-name": "FaixaEtariaResponse"
+}

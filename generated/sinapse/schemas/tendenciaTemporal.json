@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "direcao": {
+      "type": "string",
+      "pattern": "^(crescente|decrescente|estavel)$",
+      "title": "Direcao"
+    },
+    "variacao_percentual": { "type": "number", "title": "Variacao Percentual" },
+    "dias_analisados": { "type": "integer", "exclusiveMinimum": 0, "title": "Dias Analisados" }
+  },
+  "type": "object",
+  "required": ["direcao", "variacao_percentual", "dias_analisados"],
+  "title": "TendenciaTemporal",
+  "description": "Tendência identificada na série temporal.\n\nAttributes:\n    direcao: Direção da tendência (crescente, decrescente, estável)\n    variacao_percentual: Variação percentual no período\n    dias_analisados: Número de dias analisados",
+  "x-readme-ref-name": "TendenciaTemporal"
+}

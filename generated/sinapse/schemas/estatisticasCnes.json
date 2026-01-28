@@ -1,0 +1,39 @@
+{
+  "properties": {
+    "total_estabelecimentos": { "type": "integer", "title": "Total Estabelecimentos" },
+    "total_registros": { "type": "integer", "title": "Total Registros" },
+    "total_profissionais": { "type": "integer", "title": "Total Profissionais" },
+    "media_profissionais_por_estabelecimento": {
+      "type": "number",
+      "title": "Media Profissionais Por Estabelecimento"
+    },
+    "por_classificacao": {
+      "additionalProperties": { "type": "integer" },
+      "type": "object",
+      "title": "Por Classificacao"
+    },
+    "por_estado": {
+      "additionalProperties": { "type": "integer" },
+      "type": "object",
+      "title": "Por Estado"
+    },
+    "top_estabelecimentos": {
+      "items": { "additionalProperties": true, "type": "object" },
+      "type": "array",
+      "title": "Top Estabelecimentos"
+    }
+  },
+  "type": "object",
+  "required": [
+    "total_estabelecimentos",
+    "total_registros",
+    "total_profissionais",
+    "media_profissionais_por_estabelecimento",
+    "por_classificacao",
+    "por_estado",
+    "top_estabelecimentos"
+  ],
+  "title": "EstatisticasCnes",
+  "description": "Estatísticas gerais do CNES",
+  "x-readme-ref-name": "EstatisticasCnes"
+}

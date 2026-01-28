@@ -1,0 +1,19 @@
+{
+  "properties": {
+    "cursor": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Cursor" },
+    "limit": { "type": "integer", "title": "Limit" },
+    "returned": { "type": "integer", "title": "Returned" },
+    "has_next": { "type": "boolean", "title": "Has Next" },
+    "has_previous": { "type": "boolean", "title": "Has Previous" },
+    "next_cursor": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Next Cursor" },
+    "previous_cursor": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Previous Cursor"
+    }
+  },
+  "type": "object",
+  "required": ["limit", "returned", "has_next", "has_previous"],
+  "title": "HealthCheckPagination",
+  "description": "Metadados de paginação.",
+  "x-readme-ref-name": "HealthCheckPagination"
+}

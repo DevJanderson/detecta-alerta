@@ -1,0 +1,38 @@
+{
+  "properties": {
+    "severity": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Severity",
+      "description": "Filtro de severidade"
+    },
+    "alert_type": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Alert Type",
+      "description": "Filtro de tipo de alerta"
+    },
+    "city": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "City",
+      "description": "Filtro de cidade"
+    },
+    "state": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "State",
+      "description": "Filtro de estado"
+    },
+    "region": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Region",
+      "description": "Filtro de região"
+    },
+    "unit_type": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Unit Type",
+      "description": "Filtro de tipo de unidade"
+    }
+  },
+  "type": "object",
+  "title": "AlertFiltersMetadata",
+  "description": "Metadados dos filtros aplicados em alertas.",
+  "x-readme-ref-name": "AlertFiltersMetadata"
+}

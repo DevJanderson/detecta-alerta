@@ -1,0 +1,262 @@
+{
+  "properties": {
+    "title": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 3,
+      "title": "Title",
+      "description": "Nome da unidade"
+    },
+    "unit_type": {
+      "type": "string",
+      "maxLength": 15,
+      "title": "Unit Type",
+      "description": "Tipo: ubs, upa, drogarias, pet_shop, pet_atend"
+    },
+    "address": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 5,
+      "title": "Address",
+      "description": "Endereço completo"
+    },
+    "neighborhood": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 2,
+      "title": "Neighborhood",
+      "description": "Bairro"
+    },
+    "city": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 2,
+      "title": "City",
+      "description": "Cidade"
+    },
+    "state": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 2,
+      "title": "State",
+      "description": "Estado"
+    },
+    "ibge_code": {
+      "type": "integer",
+      "exclusiveMaximum": 9999999,
+      "exclusiveMinimum": 1000000,
+      "title": "Ibge Code",
+      "description": "Código IBGE do município"
+    },
+    "location_lat": {
+      "type": "number",
+      "maximum": 90,
+      "minimum": -90,
+      "title": "Location Lat",
+      "description": "Latitude"
+    },
+    "location_lng": {
+      "type": "number",
+      "maximum": 180,
+      "minimum": -180,
+      "title": "Location Lng",
+      "description": "Longitude"
+    },
+    "url": {
+      "type": "string",
+      "maxLength": 255,
+      "minLength": 5,
+      "title": "Url",
+      "description": "URL de referência"
+    },
+    "real_time": {
+      "type": "integer",
+      "maximum": 2,
+      "minimum": 0,
+      "title": "Real Time",
+      "description": "Indicador de tempo real (0=sem dados, 1=parcial, 2=completo)"
+    },
+    "total_score": {
+      "anyOf": [{ "type": "number", "maximum": 5, "minimum": 0 }, { "type": "null" }],
+      "title": "Total Score",
+      "description": "Avaliação média"
+    },
+    "reviews_count": {
+      "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }],
+      "title": "Reviews Count",
+      "description": "Quantidade de avaliações"
+    },
+    "place_id": { "type": "string", "title": "Place Id" },
+    "active": { "type": "boolean", "title": "Active" },
+    "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+    "updated_at": { "type": "string", "format": "date-time", "title": "Updated At" },
+    "deleted_at": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Deleted At"
+    },
+    "operational_profile": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": ["FULL_WEEK", "WEEKDAY_ONLY", "PARTIAL_WEEKEND", "UNKNOWN"],
+          "title": "OperationalProfileEnum",
+          "description": "Perfis operacionais das unidades de saúde.",
+          "x-readme-ref-name": "OperationalProfileEnum"
+        },
+        { "type": "null" }
+      ],
+      "description": "Perfil operacional da unidade"
+    },
+    "profile_classified_at": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Profile Classified At",
+      "description": "Data da classificação do perfil"
+    },
+    "profile_confidence": {
+      "anyOf": [{ "type": "number", "maximum": 1, "minimum": 0 }, { "type": "null" }],
+      "title": "Profile Confidence",
+      "description": "Confiança da classificação (0-1)"
+    },
+    "region": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Region",
+      "description": "Região do Brasil (N, NE, CO, SE, S)"
+    },
+    "current_occupancy": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Current Occupancy",
+      "description": "Ocupação atual (%)"
+    },
+    "status": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Status",
+      "description": "Status baseado na ocupação (green, yellow, red)"
+    },
+    "last_update_date": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Last Update Date",
+      "description": "Data da última atualização (YYYY-MM-DD)"
+    },
+    "last_update_hour": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Last Update Hour",
+      "description": "Hora da última atualização (0-23)"
+    },
+    "last_update_datetime": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Last Update Datetime",
+      "description": "Timestamp completo da última atualização"
+    },
+    "epidemiological_week": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Epidemiological Week",
+      "description": "Semana epidemiológica (ex: 2024-W15)"
+    },
+    "data_points_day": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Data Points Day",
+      "description": "Quantidade de registros no dia da última atualização"
+    },
+    "data_points_week": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Data Points Week",
+      "description": "Quantidade de registros na semana epidemiológica"
+    },
+    "average_occupancy_week": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Average Occupancy Week",
+      "description": "Média de ocupação da semana epidemiológica"
+    },
+    "average_occupancy_week_weekday": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Average Occupancy Week Weekday",
+      "description": "Média de ocupação dias úteis"
+    },
+    "average_occupancy_week_weekend": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Average Occupancy Week Weekend",
+      "description": "Média de ocupação fins de semana"
+    },
+    "data_points_week_weekday": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Data Points Week Weekday",
+      "description": "Registros em dias úteis na semana"
+    },
+    "data_points_week_weekend": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Data Points Week Weekend",
+      "description": "Registros em fins de semana na semana"
+    },
+    "moving_avg_all_42d": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Moving Avg All 42D",
+      "description": "Média móvel 42 dias - todos os pontos"
+    },
+    "moving_avg_weekday_42d": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Moving Avg Weekday 42D",
+      "description": "Média móvel 42 dias - dias úteis"
+    },
+    "moving_avg_weekend_42d": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Moving Avg Weekend 42D",
+      "description": "Média móvel 42 dias - fins de semana"
+    },
+    "z_score_all": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Z Score All",
+      "description": "Z-score geral"
+    },
+    "z_score_weekday": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Z Score Weekday",
+      "description": "Z-score dias úteis"
+    },
+    "z_score_weekend": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Z Score Weekend",
+      "description": "Z-score fins de semana"
+    },
+    "alert_reason": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Alert Reason",
+      "description": "Razão do alerta epidemiológico"
+    },
+    "profile_adjusted_average": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Profile Adjusted Average",
+      "description": "Média ajustada pelo perfil operacional"
+    },
+    "profile_z_score": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Profile Z Score",
+      "description": "Z-score comparado com unidades do mesmo perfil"
+    },
+    "profile_comparison_group": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Profile Comparison Group",
+      "description": "Grupo de comparação (perfil_tipo)"
+    }
+  },
+  "type": "object",
+  "required": [
+    "title",
+    "unit_type",
+    "address",
+    "neighborhood",
+    "city",
+    "state",
+    "ibge_code",
+    "location_lat",
+    "location_lng",
+    "url",
+    "real_time",
+    "place_id",
+    "active",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "UnitResponse",
+  "description": "Schema de resposta detalhado para unidade.",
+  "x-readme-ref-name": "UnitResponse"
+}

@@ -1,0 +1,234 @@
+{
+  "properties": {
+    "period": {
+      "additionalProperties": { "type": "string" },
+      "type": "object",
+      "title": "Period",
+      "description": "Período de análise (start_date, end_date)"
+    },
+    "filters": {
+      "description": "Filtros aplicados",
+      "properties": {
+        "days": { "type": "integer", "title": "Days", "description": "Período de análise em dias" },
+        "z_threshold": {
+          "type": "number",
+          "title": "Z Threshold",
+          "description": "Threshold Z-score para anomalia"
+        },
+        "min_data_points": {
+          "type": "integer",
+          "title": "Min Data Points",
+          "description": "Mínimo de pontos para análise"
+        },
+        "state": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "State",
+          "description": "Filtro de estado"
+        },
+        "region": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Region",
+          "description": "Filtro de região"
+        },
+        "city": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "City",
+          "description": "Filtro de cidade"
+        },
+        "unit_type": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Unit Type",
+          "description": "Filtro de tipo de unidade"
+        }
+      },
+      "type": "object",
+      "required": ["days", "z_threshold", "min_data_points"],
+      "title": "AnomalyFiltersMetadata",
+      "x-readme-ref-name": "AnomalyFiltersMetadata"
+    },
+    "pagination": {
+      "description": "Metadados de paginação",
+      "properties": {
+        "cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Cursor",
+          "description": "Cursor da página atual"
+        },
+        "limit": {
+          "type": "integer",
+          "title": "Limit",
+          "description": "Limite de itens por página"
+        },
+        "next_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Next Cursor",
+          "description": "Cursor para próxima página"
+        },
+        "previous_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Previous Cursor",
+          "description": "Cursor para página anterior"
+        },
+        "has_next": {
+          "type": "boolean",
+          "title": "Has Next",
+          "description": "Se há próxima página"
+        },
+        "has_previous": {
+          "type": "boolean",
+          "title": "Has Previous",
+          "description": "Se há página anterior"
+        }
+      },
+      "type": "object",
+      "required": ["limit", "has_next", "has_previous"],
+      "title": "TrendPaginationMetadata",
+      "x-readme-ref-name": "TrendPaginationMetadata"
+    },
+    "summary": {
+      "description": "Resumo e estatísticas",
+      "properties": {
+        "total_units_with_anomalies": {
+          "type": "integer",
+          "title": "Total Units With Anomalies",
+          "description": "Total de unidades com anomalias"
+        },
+        "total_returned": {
+          "type": "integer",
+          "title": "Total Returned",
+          "description": "Total retornado na página atual"
+        },
+        "total_anomaly_occurrences": {
+          "type": "integer",
+          "title": "Total Anomaly Occurrences",
+          "description": "Total de ocorrências de anomalias"
+        },
+        "anomalies_by_severity": {
+          "additionalProperties": { "type": "integer" },
+          "type": "object",
+          "title": "Anomalies By Severity",
+          "description": "Contagem por severidade"
+        },
+        "anomalies_by_pattern": {
+          "additionalProperties": { "type": "integer" },
+          "type": "object",
+          "title": "Anomalies By Pattern",
+          "description": "Contagem por padrão"
+        }
+      },
+      "type": "object",
+      "required": [
+        "total_units_with_anomalies",
+        "total_returned",
+        "total_anomaly_occurrences",
+        "anomalies_by_severity",
+        "anomalies_by_pattern"
+      ],
+      "title": "AnomaliesSummaryMetadata",
+      "x-readme-ref-name": "AnomaliesSummaryMetadata"
+    },
+    "anomalies": {
+      "items": {
+        "properties": {
+          "place_id": {
+            "type": "string",
+            "title": "Place Id",
+            "description": "ID único da unidade"
+          },
+          "unit_name": { "type": "string", "title": "Unit Name", "description": "Nome da unidade" },
+          "city": { "type": "string", "title": "City", "description": "Cidade" },
+          "state": { "type": "string", "title": "State", "description": "Estado (UF)" },
+          "unit_type": { "type": "string", "title": "Unit Type", "description": "Tipo de unidade" },
+          "anomaly_count": {
+            "type": "integer",
+            "title": "Anomaly Count",
+            "description": "Número de anomalias detectadas"
+          },
+          "pattern": {
+            "type": "string",
+            "title": "Pattern",
+            "description": "Padrão: consecutive, sporadic"
+          },
+          "severity": {
+            "type": "string",
+            "title": "Severity",
+            "description": "Severidade: critical, high, medium, low"
+          },
+          "recommendation": {
+            "type": "string",
+            "title": "Recommendation",
+            "description": "Recomendação de ação"
+          },
+          "anomalies": {
+            "items": {
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "title": "Date",
+                  "description": "Data da anomalia (YYYY-MM-DD)"
+                },
+                "value": {
+                  "anyOf": [{ "type": "number" }, { "type": "null" }],
+                  "title": "Value",
+                  "description": "Valor observado (%)"
+                },
+                "expected": {
+                  "anyOf": [{ "type": "number" }, { "type": "null" }],
+                  "title": "Expected",
+                  "description": "Valor esperado (%)"
+                },
+                "z_score": {
+                  "anyOf": [{ "type": "number" }, { "type": "null" }],
+                  "title": "Z Score",
+                  "description": "Z-score da anomalia"
+                },
+                "type": {
+                  "type": "string",
+                  "title": "Type",
+                  "description": "Tipo: spike, high, drop, low"
+                },
+                "deviation": {
+                  "anyOf": [{ "type": "number" }, { "type": "null" }],
+                  "title": "Deviation",
+                  "description": "Desvio absoluto (%)"
+                }
+              },
+              "type": "object",
+              "required": ["date", "type"],
+              "title": "AnomalyOccurrence",
+              "description": "Ocorrência individual de anomalia.",
+              "x-readme-ref-name": "AnomalyOccurrence"
+            },
+            "type": "array",
+            "title": "Anomalies",
+            "description": "Lista de ocorrências"
+          }
+        },
+        "type": "object",
+        "required": [
+          "place_id",
+          "unit_name",
+          "city",
+          "state",
+          "unit_type",
+          "anomaly_count",
+          "pattern",
+          "severity",
+          "recommendation",
+          "anomalies"
+        ],
+        "title": "AnomalyUnit",
+        "description": "Unidade com anomalias detectadas.",
+        "x-readme-ref-name": "AnomalyUnit"
+      },
+      "type": "array",
+      "title": "Anomalies",
+      "description": "Lista de unidades com anomalias"
+    }
+  },
+  "type": "object",
+  "required": ["period", "filters", "pagination", "summary", "anomalies"],
+  "title": "AnomaliesResponse",
+  "description": "Schema de resposta paginado para o endpoint /anomalies.",
+  "x-readme-ref-name": "AnomaliesResponse"
+}

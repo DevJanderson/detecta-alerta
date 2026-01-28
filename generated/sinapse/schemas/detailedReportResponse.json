@@ -1,0 +1,65 @@
+{
+  "properties": {
+    "unit_info": { "additionalProperties": true, "type": "object", "title": "Unit Info" },
+    "period_start": { "type": "string", "format": "date", "title": "Period Start" },
+    "period_end": { "type": "string", "format": "date", "title": "Period End" },
+    "days_analyzed": { "type": "integer", "title": "Days Analyzed" },
+    "period_statistics": {
+      "additionalProperties": { "type": "number" },
+      "type": "object",
+      "title": "Period Statistics"
+    },
+    "daily_evolution": {
+      "items": { "additionalProperties": true, "type": "object" },
+      "type": "array",
+      "title": "Daily Evolution"
+    },
+    "weekday_analysis": {
+      "additionalProperties": { "type": "number" },
+      "type": "object",
+      "title": "Weekday Analysis"
+    },
+    "hourly_patterns": {
+      "additionalProperties": { "type": "number" },
+      "type": "object",
+      "title": "Hourly Patterns"
+    },
+    "vs_previous_period": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Vs Previous Period"
+    },
+    "vs_city_average": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Vs City Average"
+    },
+    "vs_state_average": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Vs State Average"
+    },
+    "data_quality_score": {
+      "type": "number",
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Data Quality Score"
+    },
+    "recommendations": {
+      "items": { "type": "string" },
+      "type": "array",
+      "title": "Recommendations"
+    },
+    "generated_at": { "type": "string", "format": "date-time", "title": "Generated At" }
+  },
+  "type": "object",
+  "required": [
+    "unit_info",
+    "period_start",
+    "period_end",
+    "days_analyzed",
+    "period_statistics",
+    "data_quality_score",
+    "generated_at"
+  ],
+  "title": "DetailedReportResponse",
+  "description": "Schema para relatório detalhado de unidade.",
+  "x-readme-ref-name": "DetailedReportResponse"
+}

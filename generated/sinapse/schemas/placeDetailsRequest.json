@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "google_api_key": {
+      "type": "string",
+      "title": "Google Api Key",
+      "description": "Google Places API key (obrigatório)"
+    },
+    "place_id": { "type": "string", "title": "Place Id", "description": "Google Place ID" }
+  },
+  "type": "object",
+  "required": ["google_api_key", "place_id"],
+  "title": "PlaceDetailsRequest",
+  "description": "Schema para requisição de detalhes de um lugar.",
+  "x-readme-ref-name": "PlaceDetailsRequest"
+}

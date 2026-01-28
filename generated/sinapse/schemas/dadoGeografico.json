@@ -1,0 +1,40 @@
+{
+  "properties": {
+    "nome": { "type": "string", "title": "Nome" },
+    "estado": {
+      "anyOf": [{ "type": "string", "maxLength": 2 }, { "type": "null" }],
+      "title": "Estado"
+    },
+    "cidade": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Cidade" },
+    "quantidade_noticias": { "type": "integer", "minimum": 0, "title": "Quantidade Noticias" },
+    "percentual_total": {
+      "type": "number",
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Percentual Total"
+    },
+    "media_relevancia": {
+      "type": "number",
+      "maximum": 10,
+      "minimum": 0,
+      "title": "Media Relevancia"
+    },
+    "principais_doencas": {
+      "items": { "additionalProperties": true, "type": "object" },
+      "type": "array",
+      "title": "Principais Doencas"
+    },
+    "coordenadas": {
+      "anyOf": [
+        { "additionalProperties": { "type": "number" }, "type": "object" },
+        { "type": "null" }
+      ],
+      "title": "Coordenadas"
+    }
+  },
+  "type": "object",
+  "required": ["nome", "quantidade_noticias", "percentual_total", "media_relevancia"],
+  "title": "DadoGeografico",
+  "description": "Dados de uma unidade geográfica.\n\nAttributes:\n    nome: Nome da região\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de notícias\n    percentual_total: Percentual do total\n    media_relevancia: Média de relevância das notícias\n    principais_doencas: Principais doenças mencionadas\n    coordenadas: Coordenadas geográficas (opcional)",
+  "x-readme-ref-name": "DadoGeografico"
+}

@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "nome": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Nome" },
+    "descricao": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Descricao" },
+    "ativo": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Ativo" },
+    "permissoes_ids": {
+      "anyOf": [{ "items": { "type": "integer" }, "type": "array" }, { "type": "null" }],
+      "title": "Permissoes Ids",
+      "description": "IDs das permissões do grupo"
+    }
+  },
+  "type": "object",
+  "title": "GrupoSchemaUpdate",
+  "x-readme-ref-name": "GrupoSchemaUpdate"
+}

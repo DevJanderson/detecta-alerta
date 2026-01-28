@@ -1,0 +1,7 @@
+{
+  "type": "string",
+  "enum": ["autoctone", "importado", "indeterminado"],
+  "title": "TipoCaso",
+  "description": "Tipo de caso.",
+  "x-readme-ref-name": "TipoCaso"
+}

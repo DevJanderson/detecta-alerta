@@ -1,0 +1,36 @@
+{
+  "properties": {
+    "total": { "type": "integer", "title": "Total" },
+    "page": { "type": "integer", "title": "Page" },
+    "size": { "type": "integer", "title": "Size" },
+    "pages": { "type": "integer", "title": "Pages" },
+    "grupos": {
+      "items": {
+        "properties": {
+          "nome": { "type": "string", "title": "Nome" },
+          "descricao": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Descricao"
+          },
+          "ativo": { "type": "boolean", "title": "Ativo", "default": true },
+          "id": { "type": "integer", "title": "Id" },
+          "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+          "updated_at": {
+            "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": ["nome", "id", "created_at"],
+        "title": "GrupoSchemaList",
+        "x-readme-ref-name": "GrupoSchemaList"
+      },
+      "type": "array",
+      "title": "Grupos"
+    }
+  },
+  "type": "object",
+  "required": ["total", "page", "size", "pages", "grupos"],
+  "title": "GruposPaginadosSchema",
+  "x-readme-ref-name": "GruposPaginadosSchema"
+}

@@ -1,0 +1,30 @@
+{
+  "properties": {
+    "id_fonte": { "type": "integer", "title": "Id Fonte", "description": "ID da notificação" },
+    "cd_tipo_autoctonia": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Cd Tipo Autoctonia",
+      "description": "Código tipo autoctonia (1=autoctone)"
+    },
+    "sigla_uf_infeccao": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Sigla Uf Infeccao",
+      "description": "UF provável de infecção"
+    },
+    "nome_municipio_infeccao": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Nome Municipio Infeccao",
+      "description": "Nome do município de infecção"
+    },
+    "cd_doenca_relacionada_trabalho": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Cd Doenca Relacionada Trabalho",
+      "description": "Código doença relacionada ao trabalho"
+    }
+  },
+  "type": "object",
+  "required": ["id_fonte"],
+  "title": "DengueGeograficoResponse",
+  "description": "Fonte geográfica/local provável de infecção.",
+  "x-readme-ref-name": "DengueGeograficoResponse"
+}

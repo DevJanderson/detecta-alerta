@@ -1,0 +1,127 @@
+{
+  "properties": {
+    "filters": {
+      "description": "Filtros aplicados na consulta",
+      "properties": {
+        "search": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Search" },
+        "place_id": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Place Id" },
+        "title": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Title" },
+        "unit_type": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Unit Type" },
+        "city": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "City" },
+        "state": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "State" },
+        "region": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Region" },
+        "neighborhood": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Neighborhood"
+        },
+        "real_time": { "anyOf": [{ "type": "integer" }, { "type": "null" }], "title": "Real Time" },
+        "active": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Active" },
+        "ibge_code": { "anyOf": [{ "type": "integer" }, { "type": "null" }], "title": "Ibge Code" },
+        "user_id": { "anyOf": [{ "type": "integer" }, { "type": "null" }], "title": "User Id" },
+        "order_by": { "type": "string", "title": "Order By", "default": "created_at" },
+        "direction": { "type": "string", "title": "Direction", "default": "desc" }
+      },
+      "type": "object",
+      "title": "UnitFiltersMetadata",
+      "x-readme-ref-name": "UnitFiltersMetadata"
+    },
+    "pagination": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Pagination",
+      "description": "Metadados de paginação cursor-based"
+    },
+    "data": {
+      "items": {
+        "properties": {
+          "place_id": { "type": "string", "title": "Place Id" },
+          "title": { "type": "string", "title": "Title" },
+          "unit_type": { "type": "string", "title": "Unit Type" },
+          "address": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Address" },
+          "neighborhood": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Neighborhood"
+          },
+          "city": { "type": "string", "title": "City" },
+          "state": { "type": "string", "title": "State" },
+          "ibge_code": { "type": "integer", "title": "Ibge Code" },
+          "location_lat": { "type": "number", "title": "Location Lat" },
+          "location_lng": { "type": "number", "title": "Location Lng" },
+          "url": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Url" },
+          "real_time": {
+            "type": "integer",
+            "title": "Real Time",
+            "description": "0=sem dados, 1=parcial, 2=completo"
+          },
+          "total_score": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Total Score"
+          },
+          "reviews_count": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Reviews Count"
+          },
+          "active": { "type": "boolean", "title": "Active" },
+          "operational_profile": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": ["FULL_WEEK", "WEEKDAY_ONLY", "PARTIAL_WEEKEND", "UNKNOWN"],
+                "title": "OperationalProfileEnum",
+                "description": "Perfis operacionais das unidades de saúde.",
+                "x-readme-ref-name": "OperationalProfileEnum"
+              },
+              { "type": "null" }
+            ]
+          },
+          "region": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Region",
+            "description": "Região do Brasil (N, NE, CO, SE, S)"
+          },
+          "current_occupancy": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Current Occupancy"
+          },
+          "status": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Status" },
+          "last_update_date": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Last Update Date"
+          },
+          "last_update_hour": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Last Update Hour"
+          },
+          "epidemiological_week": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Epidemiological Week"
+          }
+        },
+        "type": "object",
+        "required": [
+          "place_id",
+          "title",
+          "unit_type",
+          "city",
+          "state",
+          "ibge_code",
+          "location_lat",
+          "location_lng",
+          "real_time",
+          "active"
+        ],
+        "title": "UnitInList",
+        "description": "Schema de resposta simplificado para listagem de unidades.",
+        "x-readme-ref-name": "UnitInList"
+      },
+      "type": "array",
+      "title": "Data",
+      "description": "Lista de unidades"
+    }
+  },
+  "type": "object",
+  "required": ["filters", "pagination", "data"],
+  "title": "UnitsListResponse",
+  "description": "Resposta estruturada para listagem de unidades (seguindo padrão ADR-029).",
+  "x-readme-ref-name": "UnitsListResponse"
+}

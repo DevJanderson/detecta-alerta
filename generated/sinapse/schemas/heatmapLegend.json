@@ -1,0 +1,57 @@
+{
+  "properties": {
+    "low": {
+      "description": "Ocupação baixa (0-40%)",
+      "properties": {
+        "min": { "type": "integer", "title": "Min", "description": "Valor mínimo do intervalo" },
+        "max": { "type": "integer", "title": "Max", "description": "Valor máximo do intervalo" },
+        "color": { "type": "string", "title": "Color", "description": "Código de cor hexadecimal" }
+      },
+      "type": "object",
+      "required": ["min", "max", "color"],
+      "title": "HeatmapLegendItem",
+      "x-readme-ref-name": "HeatmapLegendItem"
+    },
+    "moderate": {
+      "description": "Ocupação moderada (40-70%)",
+      "properties": {
+        "min": { "type": "integer", "title": "Min", "description": "Valor mínimo do intervalo" },
+        "max": { "type": "integer", "title": "Max", "description": "Valor máximo do intervalo" },
+        "color": { "type": "string", "title": "Color", "description": "Código de cor hexadecimal" }
+      },
+      "type": "object",
+      "required": ["min", "max", "color"],
+      "title": "HeatmapLegendItem",
+      "x-readme-ref-name": "HeatmapLegendItem"
+    },
+    "high": {
+      "description": "Ocupação alta (70-85%)",
+      "properties": {
+        "min": { "type": "integer", "title": "Min", "description": "Valor mínimo do intervalo" },
+        "max": { "type": "integer", "title": "Max", "description": "Valor máximo do intervalo" },
+        "color": { "type": "string", "title": "Color", "description": "Código de cor hexadecimal" }
+      },
+      "type": "object",
+      "required": ["min", "max", "color"],
+      "title": "HeatmapLegendItem",
+      "x-readme-ref-name": "HeatmapLegendItem"
+    },
+    "critical": {
+      "description": "Ocupação crítica (85-100%)",
+      "properties": {
+        "min": { "type": "integer", "title": "Min", "description": "Valor mínimo do intervalo" },
+        "max": { "type": "integer", "title": "Max", "description": "Valor máximo do intervalo" },
+        "color": { "type": "string", "title": "Color", "description": "Código de cor hexadecimal" }
+      },
+      "type": "object",
+      "required": ["min", "max", "color"],
+      "title": "HeatmapLegendItem",
+      "x-readme-ref-name": "HeatmapLegendItem"
+    }
+  },
+  "type": "object",
+  "required": ["low", "moderate", "high", "critical"],
+  "title": "HeatmapLegend",
+  "description": "Legenda de cores do mapa de calor.",
+  "x-readme-ref-name": "HeatmapLegend"
+}

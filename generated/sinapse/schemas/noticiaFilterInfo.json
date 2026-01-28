@@ -1,0 +1,48 @@
+{
+  "properties": {
+    "search_term": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Search Term",
+      "description": "Termo de busca aplicado"
+    },
+    "diseases": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Diseases",
+      "description": "Doenças filtradas"
+    },
+    "symptoms": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Symptoms",
+      "description": "Sintomas filtrados"
+    },
+    "regions": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Regions",
+      "description": "Regiões filtradas"
+    },
+    "states": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "States",
+      "description": "Estados filtrados"
+    },
+    "sources": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Sources",
+      "description": "Fontes filtradas"
+    },
+    "status": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Status",
+      "description": "Status filtrado"
+    },
+    "min_relevance": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Min Relevance",
+      "description": "Relevância mínima"
+    }
+  },
+  "type": "object",
+  "title": "NoticiaFilterInfo",
+  "description": "Informações sobre filtros aplicados na listagem.",
+  "x-readme-ref-name": "NoticiaFilterInfo"
+}

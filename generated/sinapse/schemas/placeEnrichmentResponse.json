@@ -1,0 +1,29 @@
+{
+  "properties": {
+    "place_id": { "type": "string", "title": "Place Id" },
+    "fields_updated": {
+      "items": { "type": "string" },
+      "type": "array",
+      "title": "Fields Updated",
+      "description": "Campos que foram atualizados"
+    },
+    "original_data": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Original Data",
+      "description": "Dados originais antes da atualização"
+    },
+    "new_data": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "New Data",
+      "description": "Novos dados após atualização"
+    },
+    "enriched_at": { "type": "string", "format": "date-time", "title": "Enriched At" }
+  },
+  "type": "object",
+  "required": ["place_id", "fields_updated", "original_data", "new_data", "enriched_at"],
+  "title": "PlaceEnrichmentResponse",
+  "description": "Schema para resposta de enriquecimento.",
+  "x-readme-ref-name": "PlaceEnrichmentResponse"
+}

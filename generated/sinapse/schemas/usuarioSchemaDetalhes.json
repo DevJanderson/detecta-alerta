@@ -1,0 +1,102 @@
+{
+  "properties": {
+    "id": { "type": "integer", "title": "Id" },
+    "nome": { "type": "string", "title": "Nome" },
+    "email": { "type": "string", "format": "email", "title": "Email" },
+    "ativo": { "type": "boolean", "title": "Ativo", "default": true },
+    "telefone": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Telefone",
+      "description": "Telefone no formato (99) 99999-9999"
+    },
+    "estado": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Estado",
+      "description": "Estado (UF)",
+      "example": "SP"
+    },
+    "cidade": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Cidade" },
+    "funcao": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Funcao",
+      "example": "gestor"
+    },
+    "instituicao": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Instituicao",
+      "example": "Instituto de Pesquisa X"
+    },
+    "desativado_em": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Desativado Em"
+    },
+    "ultimo_login": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Ultimo Login"
+    },
+    "criado_por_id": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Criado Por Id"
+    },
+    "atualizado_por_id": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Atualizado Por Id"
+    },
+    "created_at": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Created At"
+    },
+    "updated_at": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Updated At"
+    },
+    "permissoes": {
+      "items": {
+        "properties": {
+          "nome": { "type": "string", "title": "Nome" },
+          "descricao": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Descricao"
+          },
+          "id": { "type": "integer", "title": "Id" }
+        },
+        "type": "object",
+        "required": ["nome", "id"],
+        "title": "PermissaoAcessoSchemaList",
+        "x-readme-ref-name": "PermissaoAcessoSchemaList"
+      },
+      "type": "array",
+      "title": "Permissoes",
+      "default": []
+    },
+    "grupos": {
+      "items": {
+        "properties": {
+          "nome": { "type": "string", "title": "Nome" },
+          "descricao": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Descricao"
+          },
+          "ativo": { "type": "boolean", "title": "Ativo", "default": true },
+          "id": { "type": "integer", "title": "Id" },
+          "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+          "updated_at": {
+            "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": ["nome", "id", "created_at"],
+        "title": "GrupoSchemaList",
+        "x-readme-ref-name": "GrupoSchemaList"
+      },
+      "type": "array",
+      "title": "Grupos",
+      "default": []
+    }
+  },
+  "type": "object",
+  "required": ["id", "nome", "email"],
+  "title": "UsuarioSchemaDetalhes",
+  "x-readme-ref-name": "UsuarioSchemaDetalhes"
+}

@@ -1,0 +1,63 @@
+{
+  "properties": {
+    "total_campos_categoricos": {
+      "type": "integer",
+      "title": "Total Campos Categoricos",
+      "description": "Total de campos categóricos"
+    },
+    "campo_filtrado": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Campo Filtrado",
+      "description": "Campo específico filtrado (se houver)"
+    },
+    "categorias": {
+      "additionalProperties": {
+        "properties": {
+          "nome_original": {
+            "type": "string",
+            "title": "Nome Original",
+            "description": "Nome original no SINAN"
+          },
+          "descricao": {
+            "type": "string",
+            "title": "Descricao",
+            "description": "Descrição do campo"
+          },
+          "valores": {
+            "items": {
+              "properties": {
+                "codigo": { "type": "string", "title": "Codigo", "description": "Código do valor" },
+                "descricao": {
+                  "type": "string",
+                  "title": "Descricao",
+                  "description": "Descrição do valor"
+                }
+              },
+              "type": "object",
+              "required": ["codigo", "descricao"],
+              "title": "ValorCategoria",
+              "description": "Valor de uma categoria.",
+              "x-readme-ref-name": "ValorCategoria"
+            },
+            "type": "array",
+            "title": "Valores",
+            "description": "Valores possíveis"
+          }
+        },
+        "type": "object",
+        "required": ["nome_original", "descricao", "valores"],
+        "title": "CampoCategoria",
+        "description": "Campo categórico com seus valores possíveis.",
+        "x-readme-ref-name": "CampoCategoria"
+      },
+      "type": "object",
+      "title": "Categorias",
+      "description": "Categorias por campo"
+    }
+  },
+  "type": "object",
+  "required": ["total_campos_categoricos", "categorias"],
+  "title": "DicionarioCategoriasResponse",
+  "description": "Resposta das categorias do dicionário.",
+  "x-readme-ref-name": "DicionarioCategoriasResponse"
+}

@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "state": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "State" },
+    "city": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "City" },
+    "region": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Region" },
+    "unit_type": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Unit Type" }
+  },
+  "type": "object",
+  "title": "ReportFiltersMetadata",
+  "description": "Metadados dos filtros aplicados no relatório.",
+  "x-readme-ref-name": "ReportFiltersMetadata"
+}

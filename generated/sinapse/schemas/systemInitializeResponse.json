@@ -1,0 +1,31 @@
+{
+  "properties": {
+    "message": { "type": "string", "title": "Message", "description": "Mensagem de sucesso" },
+    "admin_email": {
+      "type": "string",
+      "title": "Admin Email",
+      "description": "Email do admin criado"
+    },
+    "permissions_created": {
+      "type": "integer",
+      "title": "Permissions Created",
+      "description": "Número de permissões criadas"
+    },
+    "groups_created": {
+      "type": "integer",
+      "title": "Groups Created",
+      "description": "Número de grupos criados"
+    }
+  },
+  "type": "object",
+  "required": ["message", "admin_email", "permissions_created", "groups_created"],
+  "title": "SystemInitializeResponse",
+  "description": "Resposta da inicialização do sistema.",
+  "example": {
+    "admin_email": "admin@sinapse.com",
+    "groups_created": 5,
+    "message": "Sistema inicializado com sucesso!",
+    "permissions_created": 18
+  },
+  "x-readme-ref-name": "SystemInitializeResponse"
+}

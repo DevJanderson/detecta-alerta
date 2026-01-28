@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "username": {
+      "type": "string",
+      "title": "Username",
+      "description": "Email ou username do usuário"
+    },
+    "password": { "type": "string", "title": "Password", "description": "Senha do usuário" }
+  },
+  "type": "object",
+  "required": ["username", "password"],
+  "title": "LoginRequest",
+  "description": "Schema para requisição de login simplificada.",
+  "x-readme-ref-name": "LoginRequest"
+}

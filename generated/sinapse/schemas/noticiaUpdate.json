@@ -1,0 +1,79 @@
+{
+  "properties": {
+    "title": {
+      "anyOf": [{ "type": "string", "maxLength": 500, "minLength": 1 }, { "type": "null" }],
+      "title": "Title"
+    },
+    "content": {
+      "anyOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }],
+      "title": "Content"
+    },
+    "scraped_time": {
+      "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
+      "title": "Scraped Time"
+    },
+    "scraped_date": {
+      "anyOf": [{ "type": "string", "format": "date" }, { "type": "string" }, { "type": "null" }],
+      "title": "Scraped Date"
+    },
+    "urls": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Urls"
+    },
+    "source": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Source"
+    },
+    "url_img": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Url Img",
+      "description": "Array de URLs de imagens"
+    },
+    "source_icon": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Source Icon",
+      "description": "Array de URLs dos ícones/logos das fontes"
+    },
+    "published_at": {
+      "anyOf": [
+        { "type": "string", "format": "date-time" },
+        { "type": "string", "format": "date" },
+        { "type": "string" },
+        { "type": "null" }
+      ],
+      "title": "Published At"
+    },
+    "fact_description": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Fact Description"
+    },
+    "fact_date_occurred": {
+      "anyOf": [{ "type": "string", "format": "date" }, { "type": "string" }, { "type": "null" }],
+      "title": "Fact Date Occurred"
+    },
+    "relevance_score": {
+      "anyOf": [{ "type": "number", "maximum": 10, "minimum": 0 }, { "type": "null" }],
+      "title": "Relevance Score"
+    },
+    "status": {
+      "anyOf": [{ "type": "string", "pattern": "^(active|archived|flagged)$" }, { "type": "null" }],
+      "title": "Status"
+    },
+    "llm_status": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Llm Status" },
+    "diseases": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Diseases"
+    },
+    "symptoms": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Symptoms"
+    },
+    "regions": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Regions"
+    }
+  },
+  "type": "object",
+  "title": "NoticiaUpdate",
+  "x-readme-ref-name": "NoticiaUpdate"
+}

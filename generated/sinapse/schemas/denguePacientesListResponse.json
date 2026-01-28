@@ -1,0 +1,125 @@
+{
+  "properties": {
+    "filters": {
+      "description": "Filtros aplicados",
+      "properties": {
+        "ano": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Ano",
+          "description": "Ano filtrado"
+        },
+        "uf": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Uf",
+          "description": "UF filtrada"
+        },
+        "municipio": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Municipio",
+          "description": "Código IBGE do município filtrado"
+        },
+        "semana_epidemiologica": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Semana Epidemiologica",
+          "description": "Semana epidemiológica filtrada"
+        }
+      },
+      "type": "object",
+      "title": "FilterInfo",
+      "x-readme-ref-name": "FilterInfo"
+    },
+    "pagination": {
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "title": "Limit",
+          "description": "Limite de itens solicitado"
+        },
+        "returned": {
+          "type": "integer",
+          "title": "Returned",
+          "description": "Quantidade de itens retornados nesta página"
+        },
+        "next_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Next Cursor",
+          "description": "Cursor para próxima página"
+        },
+        "previous_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Previous Cursor",
+          "description": "Cursor para página anterior"
+        },
+        "has_next": {
+          "type": "boolean",
+          "title": "Has Next",
+          "description": "Se há próxima página"
+        },
+        "has_previous": {
+          "type": "boolean",
+          "title": "Has Previous",
+          "description": "Se há página anterior"
+        }
+      },
+      "type": "object",
+      "required": ["limit", "returned", "has_next", "has_previous"],
+      "title": "PaginationInfo",
+      "description": "Informações de paginação",
+      "x-readme-ref-name": "PaginationInfo"
+    },
+    "data": {
+      "items": {
+        "properties": {
+          "id_fonte": {
+            "type": "integer",
+            "title": "Id Fonte",
+            "description": "ID do paciente (anonimizado)"
+          },
+          "cd_sexo": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Cd Sexo",
+            "description": "Código do sexo"
+          },
+          "idade": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Idade",
+            "description": "Idade em anos"
+          },
+          "idade_meses": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Idade Meses",
+            "description": "Idade em meses (para bebes)"
+          },
+          "cd_situacao_gestacional": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Cd Situacao Gestacional",
+            "description": "Código situação gestacional"
+          },
+          "cd_raca_cor": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Cd Raca Cor",
+            "description": "Código raça/cor"
+          },
+          "cd_escolaridade": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Cd Escolaridade",
+            "description": "Código escolaridade"
+          }
+        },
+        "type": "object",
+        "required": ["id_fonte"],
+        "title": "DenguePacienteResponse",
+        "description": "Dados demográficos do paciente.",
+        "x-readme-ref-name": "DenguePacienteResponse"
+      },
+      "type": "array",
+      "title": "Data",
+      "description": "Lista de pacientes"
+    }
+  },
+  "type": "object",
+  "required": ["filters", "pagination", "data"],
+  "title": "DenguePacientesListResponse",
+  "description": "Resposta paginada de pacientes.",
+  "x-readme-ref-name": "DenguePacientesListResponse"
+}

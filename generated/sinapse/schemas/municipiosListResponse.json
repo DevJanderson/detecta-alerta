@@ -1,0 +1,84 @@
+{
+  "properties": {
+    "pagination": {
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "title": "Limit",
+          "description": "Limite de itens solicitado"
+        },
+        "returned": {
+          "type": "integer",
+          "title": "Returned",
+          "description": "Quantidade de itens retornados nesta página"
+        },
+        "next_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Next Cursor",
+          "description": "Cursor para próxima página"
+        },
+        "previous_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Previous Cursor",
+          "description": "Cursor para página anterior"
+        },
+        "has_next": {
+          "type": "boolean",
+          "title": "Has Next",
+          "description": "Se há próxima página"
+        },
+        "has_previous": {
+          "type": "boolean",
+          "title": "Has Previous",
+          "description": "Se há página anterior"
+        }
+      },
+      "type": "object",
+      "required": ["limit", "returned", "has_next", "has_previous"],
+      "title": "PaginationInfo",
+      "description": "Informações de paginação",
+      "x-readme-ref-name": "PaginationInfo"
+    },
+    "data": {
+      "items": {
+        "properties": {
+          "codigo_ibge": {
+            "type": "integer",
+            "title": "Codigo Ibge",
+            "description": "Código IBGE do município (7 dígitos)"
+          },
+          "nome": { "type": "string", "title": "Nome", "description": "Nome do município" },
+          "uf": { "type": "string", "title": "Uf", "description": "Sigla da UF (2 caracteres)" },
+          "populacao_total": {
+            "type": "integer",
+            "title": "Populacao Total",
+            "description": "População total estimada"
+          },
+          "populacao_masculina": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Populacao Masculina",
+            "description": "População masculina"
+          },
+          "populacao_feminina": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Populacao Feminina",
+            "description": "População feminina"
+          }
+        },
+        "type": "object",
+        "required": ["codigo_ibge", "nome", "uf", "populacao_total"],
+        "title": "MunicipioResponse",
+        "description": "Resposta de município com população.",
+        "x-readme-ref-name": "MunicipioResponse"
+      },
+      "type": "array",
+      "title": "Data",
+      "description": "Lista de municípios"
+    }
+  },
+  "type": "object",
+  "required": ["pagination", "data"],
+  "title": "MunicipiosListResponse",
+  "description": "Resposta paginada de municípios.",
+  "x-readme-ref-name": "MunicipiosListResponse"
+}

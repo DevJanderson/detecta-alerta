@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "valido": { "type": "boolean", "title": "Valido" },
+    "erros": { "items": { "type": "string" }, "type": "array", "title": "Erros", "default": [] },
+    "avisos": { "items": { "type": "string" }, "type": "array", "title": "Avisos", "default": [] }
+  },
+  "type": "object",
+  "required": ["valido"],
+  "title": "ValidacaoResult",
+  "description": "Resultado da validação de dados",
+  "x-readme-ref-name": "ValidacaoResult"
+}

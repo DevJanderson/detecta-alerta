@@ -1,0 +1,187 @@
+{
+  "properties": {
+    "numero_notificacao": {
+      "type": "string",
+      "maxLength": 50,
+      "minLength": 1,
+      "title": "Numero Notificacao"
+    },
+    "agravo_id": { "type": "integer", "title": "Agravo Id" },
+    "paciente_id": { "anyOf": [{ "type": "integer" }, { "type": "null" }], "title": "Paciente Id" },
+    "paciente_nome": {
+      "anyOf": [{ "type": "string", "maxLength": 200 }, { "type": "null" }],
+      "title": "Paciente Nome"
+    },
+    "paciente_idade": {
+      "anyOf": [{ "type": "integer", "maximum": 150, "minimum": 0 }, { "type": "null" }],
+      "title": "Paciente Idade"
+    },
+    "paciente_sexo": {
+      "anyOf": [{ "type": "string", "pattern": "^[MF]$" }, { "type": "null" }],
+      "title": "Paciente Sexo"
+    },
+    "municipio_residencia": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Municipio Residencia"
+    },
+    "municipio_notificacao": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Municipio Notificacao"
+    },
+    "estado_residencia": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$",
+      "title": "Estado Residencia"
+    },
+    "estado_notificacao": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$",
+      "title": "Estado Notificacao"
+    },
+    "data_notificacao": { "type": "string", "format": "date-time", "title": "Data Notificacao" },
+    "data_primeiros_sintomas": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Data Primeiros Sintomas"
+    },
+    "data_coleta": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Data Coleta"
+    },
+    "data_encerramento": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Data Encerramento"
+    },
+    "classificacao_inicial": {
+      "type": "string",
+      "enum": ["confirmado", "suspeito", "descartado", "inconclusivo"],
+      "title": "ClassificacaoFinal",
+      "description": "Classificação final do caso.",
+      "x-readme-ref-name": "ClassificacaoFinal",
+      "default": "suspeito"
+    },
+    "classificacao_final": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": ["confirmado", "suspeito", "descartado", "inconclusivo"],
+          "title": "ClassificacaoFinal",
+          "description": "Classificação final do caso.",
+          "x-readme-ref-name": "ClassificacaoFinal"
+        },
+        { "type": "null" }
+      ]
+    },
+    "tipo_caso": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": ["autoctone", "importado", "indeterminado"],
+          "title": "TipoCaso",
+          "description": "Tipo de caso.",
+          "x-readme-ref-name": "TipoCaso"
+        },
+        { "type": "null" }
+      ]
+    },
+    "sintomas": {
+      "additionalProperties": { "type": "boolean" },
+      "type": "object",
+      "title": "Sintomas"
+    },
+    "comorbidades": { "items": { "type": "string" }, "type": "array", "title": "Comorbidades" },
+    "hospitalizado": { "type": "boolean", "title": "Hospitalizado", "default": false },
+    "uti": { "type": "boolean", "title": "Uti", "default": false },
+    "obito": { "type": "boolean", "title": "Obito", "default": false },
+    "data_obito": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Data Obito"
+    },
+    "dados_especificos": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Dados Especificos"
+    },
+    "fonte_notificacao": {
+      "anyOf": [{ "type": "string", "maxLength": 100 }, { "type": "null" }],
+      "title": "Fonte Notificacao"
+    },
+    "unidade_notificadora_id": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Unidade Notificadora Id"
+    },
+    "profissional_id": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Profissional Id"
+    },
+    "observacoes": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Observacoes" },
+    "id": { "type": "integer", "title": "Id" },
+    "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+    "updated_at": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Updated At"
+    },
+    "agravo": {
+      "anyOf": [
+        {
+          "properties": {
+            "codigo": { "type": "string", "maxLength": 50, "minLength": 1, "title": "Codigo" },
+            "nome": { "type": "string", "maxLength": 200, "minLength": 1, "title": "Nome" },
+            "descricao": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "title": "Descricao"
+            },
+            "cid10_codes": {
+              "items": { "type": "string" },
+              "type": "array",
+              "title": "Cid10 Codes"
+            },
+            "notificacao_obrigatoria": {
+              "type": "boolean",
+              "title": "Notificacao Obrigatoria",
+              "default": true
+            },
+            "ativo": { "type": "boolean", "title": "Ativo", "default": true },
+            "configuracoes": {
+              "additionalProperties": true,
+              "type": "object",
+              "title": "Configuracoes"
+            },
+            "id": { "type": "integer", "title": "Id" },
+            "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+            "updated_at": {
+              "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+              "title": "Updated At"
+            }
+          },
+          "type": "object",
+          "required": ["codigo", "nome", "id", "created_at"],
+          "title": "Agravo",
+          "description": "Schema completo de agravo.",
+          "x-readme-ref-name": "Agravo"
+        },
+        { "type": "null" }
+      ]
+    }
+  },
+  "type": "object",
+  "required": [
+    "numero_notificacao",
+    "agravo_id",
+    "municipio_residencia",
+    "municipio_notificacao",
+    "estado_residencia",
+    "estado_notificacao",
+    "data_notificacao",
+    "data_primeiros_sintomas",
+    "id",
+    "created_at"
+  ],
+  "title": "CasoAgravo",
+  "description": "Schema completo de caso.",
+  "x-readme-ref-name": "CasoAgravo"
+}

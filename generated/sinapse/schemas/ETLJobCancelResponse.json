@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "title": "Success",
+      "description": "true se cancelamento foi solicitado"
+    },
+    "job_id": { "type": "string", "title": "Job Id", "description": "ID do job cancelado" },
+    "message": { "type": "string", "title": "Message", "description": "Mensagem de confirmação" }
+  },
+  "type": "object",
+  "required": ["success", "job_id", "message"],
+  "title": "ETLJobCancelResponse",
+  "description": "Schema de resposta para cancelamento de job.",
+  "x-readme-ref-name": "ETLJobCancelResponse"
+}

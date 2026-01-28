@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "campos": { "type": "string", "title": "Campos", "description": "URL para lista de campos" },
+    "categorias": { "type": "string", "title": "Categorias", "description": "URL para categorias" },
+    "transformacoes": {
+      "type": "string",
+      "title": "Transformacoes",
+      "description": "URL para transformações"
+    }
+  },
+  "type": "object",
+  "required": ["campos", "categorias", "transformacoes"],
+  "title": "LinksInfo",
+  "description": "Links para recursos relacionados do dicionário.",
+  "x-readme-ref-name": "LinksInfo"
+}

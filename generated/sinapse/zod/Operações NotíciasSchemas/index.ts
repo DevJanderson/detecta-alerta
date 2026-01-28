@@ -1,0 +1,24 @@
+export {
+  bulkCreateNoticiasApiV1NoticiasOperacoesBulkPost200Schema,
+  bulkCreateNoticiasApiV1NoticiasOperacoesBulkPost422Schema,
+  bulkCreateNoticiasApiV1NoticiasOperacoesBulkPostMutationRequestSchema,
+  bulkCreateNoticiasApiV1NoticiasOperacoesBulkPostMutationResponseSchema
+} from './bulkCreateNoticiasApiV1NoticiasOperacoesBulkPostSchema'
+export {
+  listDoencasApiV1NoticiasOperacoesDoencasGetQueryParamsSchema,
+  listDoencasApiV1NoticiasOperacoesDoencasGet200Schema,
+  listDoencasApiV1NoticiasOperacoesDoencasGet422Schema,
+  listDoencasApiV1NoticiasOperacoesDoencasGetQueryResponseSchema
+} from './listDoencasApiV1NoticiasOperacoesDoencasGetSchema'
+export {
+  listRegioesApiV1NoticiasOperacoesRegioesGetQueryParamsSchema,
+  listRegioesApiV1NoticiasOperacoesRegioesGet200Schema,
+  listRegioesApiV1NoticiasOperacoesRegioesGet422Schema,
+  listRegioesApiV1NoticiasOperacoesRegioesGetQueryResponseSchema
+} from './listRegioesApiV1NoticiasOperacoesRegioesGetSchema'
+export {
+  listSintomasApiV1NoticiasOperacoesSintomasGetQueryParamsSchema,
+  listSintomasApiV1NoticiasOperacoesSintomasGet200Schema,
+  listSintomasApiV1NoticiasOperacoesSintomasGet422Schema,
+  listSintomasApiV1NoticiasOperacoesSintomasGetQueryResponseSchema
+} from './listSintomasApiV1NoticiasOperacoesSintomasGetSchema'

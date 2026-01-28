@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "periodo_analise": {
+      "additionalProperties": { "type": "string", "format": "date" },
+      "type": "object",
+      "title": "Periodo Analise",
+      "description": "Período da análise com 'inicio' e 'fim'"
+    },
+    "filtros_aplicados": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Filtros Aplicados",
+      "description": "Filtros aplicados na análise"
+    },
+    "data_geracao": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Data Geracao",
+      "description": "Data/hora de geração da análise"
+    },
+    "versao_analise": {
+      "type": "string",
+      "title": "Versao Analise",
+      "description": "Versão do algoritmo de análise",
+      "default": "0.0.1"
+    }
+  },
+  "type": "object",
+  "required": ["periodo_analise", "data_geracao"],
+  "title": "MetadadosAnalise",
+  "description": "Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado",
+  "x-readme-ref-name": "MetadadosAnalise"
+}

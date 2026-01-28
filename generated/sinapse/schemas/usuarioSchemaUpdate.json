@@ -1,0 +1,44 @@
+{
+  "properties": {
+    "nome": { "type": "string", "title": "Nome" },
+    "email": { "type": "string", "format": "email", "title": "Email" },
+    "ativo": { "type": "boolean", "title": "Ativo", "default": true },
+    "telefone": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Telefone",
+      "description": "Telefone no formato (99) 99999-9999"
+    },
+    "estado": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Estado",
+      "description": "Estado (UF)",
+      "example": "SP"
+    },
+    "cidade": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Cidade" },
+    "funcao": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Funcao",
+      "example": "gestor"
+    },
+    "instituicao": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Instituicao",
+      "example": "Instituto de Pesquisa X"
+    },
+    "senha": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Senha" },
+    "permissoes_ids": {
+      "anyOf": [{ "items": { "type": "integer" }, "type": "array" }, { "type": "null" }],
+      "title": "Permissoes Ids",
+      "description": "IDs das permissões diretas do usuário"
+    },
+    "grupos_ids": {
+      "anyOf": [{ "items": { "type": "integer" }, "type": "array" }, { "type": "null" }],
+      "title": "Grupos Ids",
+      "description": "IDs dos grupos do usuário"
+    }
+  },
+  "type": "object",
+  "required": ["nome", "email"],
+  "title": "UsuarioSchemaUpdate",
+  "x-readme-ref-name": "UsuarioSchemaUpdate"
+}

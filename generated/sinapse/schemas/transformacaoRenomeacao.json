@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "original": { "type": "string", "title": "Original", "description": "Nome original" },
+    "novo": { "type": "string", "title": "Novo", "description": "Nome novo" }
+  },
+  "type": "object",
+  "required": ["original", "novo"],
+  "title": "TransformacaoRenomeacao",
+  "description": "Transformação de renomeação de campo.",
+  "x-readme-ref-name": "TransformacaoRenomeacao"
+}

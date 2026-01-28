@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "state": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "State" },
+    "city": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "City" },
+    "unit_type": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Unit Type" },
+    "status_filter": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Status Filter"
+    }
+  },
+  "type": "object",
+  "title": "HealthCheckFilters",
+  "description": "Filtros aplicados na busca.",
+  "x-readme-ref-name": "HealthCheckFilters"
+}

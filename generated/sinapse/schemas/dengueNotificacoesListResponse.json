@@ -1,0 +1,135 @@
+{
+  "properties": {
+    "filters": {
+      "description": "Filtros aplicados",
+      "properties": {
+        "ano": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Ano",
+          "description": "Ano filtrado"
+        },
+        "uf": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Uf",
+          "description": "UF filtrada"
+        },
+        "municipio": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Municipio",
+          "description": "Código IBGE do município filtrado"
+        },
+        "semana_epidemiologica": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Semana Epidemiologica",
+          "description": "Semana epidemiológica filtrada"
+        }
+      },
+      "type": "object",
+      "title": "FilterInfo",
+      "x-readme-ref-name": "FilterInfo"
+    },
+    "pagination": {
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "title": "Limit",
+          "description": "Limite de itens solicitado"
+        },
+        "returned": {
+          "type": "integer",
+          "title": "Returned",
+          "description": "Quantidade de itens retornados nesta página"
+        },
+        "next_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Next Cursor",
+          "description": "Cursor para próxima página"
+        },
+        "previous_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Previous Cursor",
+          "description": "Cursor para página anterior"
+        },
+        "has_next": {
+          "type": "boolean",
+          "title": "Has Next",
+          "description": "Se há próxima página"
+        },
+        "has_previous": {
+          "type": "boolean",
+          "title": "Has Previous",
+          "description": "Se há página anterior"
+        }
+      },
+      "type": "object",
+      "required": ["limit", "returned", "has_next", "has_previous"],
+      "title": "PaginationInfo",
+      "description": "Informações de paginação",
+      "x-readme-ref-name": "PaginationInfo"
+    },
+    "data": {
+      "items": {
+        "properties": {
+          "id_fonte": {
+            "type": "integer",
+            "title": "Id Fonte",
+            "description": "ID da notificação"
+          },
+          "id_municipio_notificacao_ibge": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Id Municipio Notificacao Ibge",
+            "description": "Código IBGE do município"
+          },
+          "sigla_uf_notificacao": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Sigla Uf Notificacao",
+            "description": "Sigla da UF"
+          },
+          "data_notificacao": {
+            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+            "title": "Data Notificacao",
+            "description": "Data da notificação"
+          },
+          "data_primeiros_sintomas": {
+            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+            "title": "Data Primeiros Sintomas",
+            "description": "Data dos primeiros sintomas"
+          },
+          "data_encerramento": {
+            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+            "title": "Data Encerramento",
+            "description": "Data de encerramento"
+          },
+          "semana_epidemiologica_primeiros_sintomas": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Semana Epidemiologica Primeiros Sintomas",
+            "description": "Semana epidemiológica"
+          },
+          "cd_classificacao_final": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Cd Classificacao Final",
+            "description": "Código da classificação final"
+          },
+          "cd_criterio_confirmacao": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Cd Criterio Confirmacao",
+            "description": "Código do critério de confirmação"
+          }
+        },
+        "type": "object",
+        "required": ["id_fonte"],
+        "title": "DengueNotificacaoResponse",
+        "description": "Notificação detalhada de dengue.",
+        "x-readme-ref-name": "DengueNotificacaoResponse"
+      },
+      "type": "array",
+      "title": "Data",
+      "description": "Lista de notificações"
+    }
+  },
+  "type": "object",
+  "required": ["filters", "pagination", "data"],
+  "title": "DengueNotificacoesListResponse",
+  "description": "Resposta paginada de notificações.",
+  "x-readme-ref-name": "DengueNotificacoesListResponse"
+}

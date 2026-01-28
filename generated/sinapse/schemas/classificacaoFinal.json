@@ -1,0 +1,7 @@
+{
+  "type": "string",
+  "enum": ["confirmado", "suspeito", "descartado", "inconclusivo"],
+  "title": "ClassificacaoFinal",
+  "description": "Classificação final do caso.",
+  "x-readme-ref-name": "ClassificacaoFinal"
+}

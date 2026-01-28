@@ -1,0 +1,6 @@
+export { generateComparativeReportApiV1DetectaReportsComparativePost } from './generateComparativeReportApiV1DetectaReportsComparativePost'
+export { generateCustomReportApiV1DetectaReportsGeneratePost } from './generateCustomReportApiV1DetectaReportsGeneratePost'
+export { getDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGet } from './getDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGet'
+export { getExecutiveSummaryApiV1DetectaReportsSummaryGet } from './getExecutiveSummaryApiV1DetectaReportsSummaryGet'
+export { getReportTemplatesApiV1DetectaReportsTemplatesGet } from './getReportTemplatesApiV1DetectaReportsTemplatesGet'
+export { relatriosDetectaService } from './relatriosDetectaService'

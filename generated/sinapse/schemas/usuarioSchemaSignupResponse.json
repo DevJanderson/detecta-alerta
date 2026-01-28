@@ -1,0 +1,34 @@
+{
+  "properties": {
+    "nome": { "type": "string", "title": "Nome" },
+    "email": { "type": "string", "format": "email", "title": "Email" },
+    "ativo": { "type": "boolean", "title": "Ativo", "default": true },
+    "telefone": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Telefone",
+      "description": "Telefone no formato (99) 99999-9999"
+    },
+    "estado": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Estado",
+      "description": "Estado (UF)",
+      "example": "SP"
+    },
+    "cidade": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Cidade" },
+    "funcao": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Funcao",
+      "example": "gestor"
+    },
+    "instituicao": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Instituicao",
+      "example": "Instituto de Pesquisa X"
+    }
+  },
+  "type": "object",
+  "required": ["nome", "email"],
+  "title": "UsuarioSchemaSignupResponse",
+  "description": "Schema de resposta para o endpoint signup - sem mostrar permissões",
+  "x-readme-ref-name": "UsuarioSchemaSignupResponse"
+}

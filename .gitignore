@@ -47,3 +47,6 @@ coverage
 
 # Misc
 *.tsbuildinfo
+
+# Kubb (cache interno)
+**/.kubb/

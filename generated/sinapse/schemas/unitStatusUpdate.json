@@ -1,0 +1,14 @@
+{
+  "properties": {
+    "active": {
+      "type": "boolean",
+      "title": "Active",
+      "description": "Define se a unidade deve estar ativa (true) ou desativada (false)"
+    }
+  },
+  "type": "object",
+  "required": ["active"],
+  "title": "UnitStatusUpdate",
+  "description": "Schema para atualização de status da unidade.",
+  "x-readme-ref-name": "UnitStatusUpdate"
+}

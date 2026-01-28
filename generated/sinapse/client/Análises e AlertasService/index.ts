@@ -1,0 +1,6 @@
+export { anlisesEAlertasService } from './anlisesEAlertasService'
+export { detectAnomaliesApiV1DetectaAnalyticsAnomaliesGet } from './detectAnomaliesApiV1DetectaAnalyticsAnomaliesGet'
+export { getActiveAlertsApiV1DetectaAnalyticsAlertsGet } from './getActiveAlertsApiV1DetectaAnalyticsAlertsGet'
+export { getHeatmapDataApiV1DetectaAnalyticsHeatmapGet } from './getHeatmapDataApiV1DetectaAnalyticsHeatmapGet'
+export { getPredictionsApiV1DetectaAnalyticsPredictionsGet } from './getPredictionsApiV1DetectaAnalyticsPredictionsGet'
+export { getTrendsApiV1DetectaAnalyticsTrendsGet } from './getTrendsApiV1DetectaAnalyticsTrendsGet'

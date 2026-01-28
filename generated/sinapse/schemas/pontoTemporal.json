@@ -1,0 +1,29 @@
+{
+  "properties": {
+    "periodo": { "type": "string", "format": "date", "title": "Periodo" },
+    "quantidade_noticias": { "type": "integer", "minimum": 0, "title": "Quantidade Noticias" },
+    "media_relevancia": {
+      "type": "number",
+      "maximum": 10,
+      "minimum": 0,
+      "title": "Media Relevancia"
+    },
+    "principais_doencas": {
+      "items": { "additionalProperties": true, "type": "object" },
+      "type": "array",
+      "title": "Principais Doencas",
+      "description": "Lista com nome da doença e quantidade"
+    },
+    "principais_regioes": {
+      "items": { "additionalProperties": true, "type": "object" },
+      "type": "array",
+      "title": "Principais Regioes",
+      "description": "Lista com nome da região e quantidade"
+    }
+  },
+  "type": "object",
+  "required": ["periodo", "quantidade_noticias", "media_relevancia"],
+  "title": "PontoTemporal",
+  "description": "Representa um ponto no tempo com suas métricas.\n\nAttributes:\n    periodo: Data do período\n    quantidade_noticias: Quantidade de notícias no período\n    media_relevancia: Média do score de relevância no período\n    principais_doencas: Top 3 doenças mencionadas no período\n    principais_regioes: Top 3 regiões mencionadas no período",
+  "x-readme-ref-name": "PontoTemporal"
+}

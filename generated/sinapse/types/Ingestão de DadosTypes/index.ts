@@ -1,0 +1,21 @@
+export type {
+  IngestBulkDataApiV1DetectaDataBulkPost201,
+  IngestBulkDataApiV1DetectaDataBulkPost422,
+  IngestBulkDataApiV1DetectaDataBulkPostMutationRequest,
+  IngestBulkDataApiV1DetectaDataBulkPostMutationResponse,
+  IngestBulkDataApiV1DetectaDataBulkPostMutation
+} from './IngestBulkDataApiV1DetectaDataBulkPost'
+export type {
+  IngestHourlyDataApiV1DetectaDataHourlyPost201,
+  IngestHourlyDataApiV1DetectaDataHourlyPost422,
+  IngestHourlyDataApiV1DetectaDataHourlyPostMutationRequest,
+  IngestHourlyDataApiV1DetectaDataHourlyPostMutationResponse,
+  IngestHourlyDataApiV1DetectaDataHourlyPostMutation
+} from './IngestHourlyDataApiV1DetectaDataHourlyPost'
+export type {
+  ValidateDataApiV1DetectaDataValidatePost200,
+  ValidateDataApiV1DetectaDataValidatePost422,
+  ValidateDataApiV1DetectaDataValidatePostMutationRequest,
+  ValidateDataApiV1DetectaDataValidatePostMutationResponse,
+  ValidateDataApiV1DetectaDataValidatePostMutation
+} from './ValidateDataApiV1DetectaDataValidatePost'

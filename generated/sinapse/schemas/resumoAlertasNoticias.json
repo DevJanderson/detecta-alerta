@@ -1,0 +1,122 @@
+{
+  "properties": {
+    "metadata": {
+      "properties": {
+        "periodo_analise": {
+          "additionalProperties": { "type": "string", "format": "date" },
+          "type": "object",
+          "title": "Periodo Analise",
+          "description": "Período da análise com 'inicio' e 'fim'"
+        },
+        "filtros_aplicados": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Filtros Aplicados",
+          "description": "Filtros aplicados na análise"
+        },
+        "data_geracao": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Data Geracao",
+          "description": "Data/hora de geração da análise"
+        },
+        "versao_analise": {
+          "type": "string",
+          "title": "Versao Analise",
+          "description": "Versão do algoritmo de análise",
+          "default": "0.0.1"
+        }
+      },
+      "type": "object",
+      "required": ["periodo_analise", "data_geracao"],
+      "title": "MetadadosAnalise",
+      "description": "Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado",
+      "x-readme-ref-name": "MetadadosAnalise"
+    },
+    "total_alertas_ativos": { "type": "integer", "minimum": 0, "title": "Total Alertas Ativos" },
+    "alertas_por_severidade": {
+      "additionalProperties": { "type": "integer" },
+      "type": "object",
+      "title": "Alertas Por Severidade"
+    },
+    "alertas": {
+      "items": {
+        "properties": {
+          "id": { "type": "string", "title": "Id" },
+          "tipo": { "type": "string", "title": "Tipo" },
+          "severidade": {
+            "type": "string",
+            "pattern": "^(baixa|media|alta)$",
+            "title": "Severidade"
+          },
+          "titulo": { "type": "string", "title": "Titulo" },
+          "descricao": { "type": "string", "title": "Descricao" },
+          "data_deteccao": { "type": "string", "format": "date-time", "title": "Data Deteccao" },
+          "regioes_afetadas": {
+            "items": { "type": "string" },
+            "type": "array",
+            "title": "Regioes Afetadas"
+          },
+          "doencas_relacionadas": {
+            "items": { "type": "string" },
+            "type": "array",
+            "title": "Doencas Relacionadas"
+          },
+          "quantidade_noticias": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Quantidade Noticias"
+          },
+          "recomendacao": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Recomendacao"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "tipo",
+          "severidade",
+          "titulo",
+          "descricao",
+          "data_deteccao",
+          "quantidade_noticias"
+        ],
+        "title": "AlertaConsolidado",
+        "description": "Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador único\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Título descritivo\n    descricao: Descrição detalhada\n    data_deteccao: Quando foi detectado\n    regioes_afetadas: Regiões afetadas\n    doencas_relacionadas: Doenças relacionadas\n    quantidade_noticias: Total de notícias relacionadas\n    recomendacao: Recomendação de ação",
+        "x-readme-ref-name": "AlertaConsolidado"
+      },
+      "type": "array",
+      "title": "Alertas"
+    },
+    "indicadores": {
+      "items": {
+        "properties": {
+          "nome": { "type": "string", "title": "Nome" },
+          "valor_atual": { "type": "number", "title": "Valor Atual" },
+          "valor_esperado": { "type": "number", "title": "Valor Esperado" },
+          "variacao_percentual": { "type": "number", "title": "Variacao Percentual" },
+          "status": { "type": "string", "pattern": "^(normal|atencao|alerta)$", "title": "Status" }
+        },
+        "type": "object",
+        "required": ["nome", "valor_atual", "valor_esperado", "variacao_percentual", "status"],
+        "title": "IndicadorMonitorado",
+        "description": "Indicador sendo monitorado para alertas.\n\nAttributes:\n    nome: Nome do indicador\n    valor_atual: Valor atual\n    valor_esperado: Valor esperado/normal\n    variacao_percentual: Variação em relação ao esperado\n    status: Status do indicador",
+        "x-readme-ref-name": "IndicadorMonitorado"
+      },
+      "type": "array",
+      "title": "Indicadores"
+    }
+  },
+  "type": "object",
+  "required": [
+    "metadata",
+    "total_alertas_ativos",
+    "alertas_por_severidade",
+    "alertas",
+    "indicadores"
+  ],
+  "title": "ResumoAlertasNoticias",
+  "description": "Resumo dos alertas do sistema de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados",
+  "x-readme-ref-name": "ResumoAlertasNoticias"
+}

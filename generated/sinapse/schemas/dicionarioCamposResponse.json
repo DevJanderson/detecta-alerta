@@ -1,0 +1,65 @@
+{
+  "properties": {
+    "total": { "type": "integer", "title": "Total", "description": "Total de campos retornados" },
+    "filtros_aplicados": {
+      "additionalProperties": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+      "type": "object",
+      "title": "Filtros Aplicados",
+      "description": "Filtros aplicados na consulta"
+    },
+    "campos": {
+      "items": {
+        "properties": {
+          "nome_original": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Nome Original",
+            "description": "Nome original no SINAN/Bronze"
+          },
+          "nome_padronizado": {
+            "type": "string",
+            "title": "Nome Padronizado",
+            "description": "Nome padronizado na camada Silver"
+          },
+          "tipo": {
+            "type": "string",
+            "title": "Tipo",
+            "description": "Tipo de dado (string, integer, date, boolean)"
+          },
+          "descricao": {
+            "type": "string",
+            "title": "Descricao",
+            "description": "Descrição do campo"
+          },
+          "nullable": {
+            "type": "boolean",
+            "title": "Nullable",
+            "description": "Se o campo pode ser nulo"
+          },
+          "grupo": {
+            "type": "string",
+            "title": "Grupo",
+            "description": "Grupo funcional do campo"
+          },
+          "exemplo": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Exemplo",
+            "description": "Exemplo de valor"
+          }
+        },
+        "type": "object",
+        "required": ["nome_padronizado", "tipo", "descricao", "nullable", "grupo"],
+        "title": "CampoMetadados",
+        "description": "Metadados de um campo do dicionário.",
+        "x-readme-ref-name": "CampoMetadados"
+      },
+      "type": "array",
+      "title": "Campos",
+      "description": "Lista de campos"
+    }
+  },
+  "type": "object",
+  "required": ["total", "filtros_aplicados", "campos"],
+  "title": "DicionarioCamposResponse",
+  "description": "Resposta da lista de campos do dicionário.",
+  "x-readme-ref-name": "DicionarioCamposResponse"
+}

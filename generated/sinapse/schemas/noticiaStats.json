@@ -1,0 +1,44 @@
+{
+  "properties": {
+    "total_count": { "type": "integer", "title": "Total Count" },
+    "active_count": { "type": "integer", "title": "Active Count" },
+    "archived_count": { "type": "integer", "title": "Archived Count" },
+    "flagged_count": { "type": "integer", "title": "Flagged Count" },
+    "date_range": { "additionalProperties": true, "type": "object", "title": "Date Range" },
+    "top_diseases": {
+      "items": { "additionalProperties": true, "type": "object" },
+      "type": "array",
+      "title": "Top Diseases"
+    },
+    "top_symptoms": {
+      "items": { "additionalProperties": true, "type": "object" },
+      "type": "array",
+      "title": "Top Symptoms"
+    },
+    "top_regions": {
+      "items": { "additionalProperties": true, "type": "object" },
+      "type": "array",
+      "title": "Top Regions"
+    },
+    "top_sources": {
+      "items": { "additionalProperties": true, "type": "object" },
+      "type": "array",
+      "title": "Top Sources"
+    }
+  },
+  "type": "object",
+  "required": [
+    "total_count",
+    "active_count",
+    "archived_count",
+    "flagged_count",
+    "date_range",
+    "top_diseases",
+    "top_symptoms",
+    "top_regions",
+    "top_sources"
+  ],
+  "title": "NoticiaStats",
+  "description": "Estatísticas de notícias.",
+  "x-readme-ref-name": "NoticiaStats"
+}

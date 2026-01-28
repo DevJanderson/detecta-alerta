@@ -1,0 +1,155 @@
+{
+  "properties": {
+    "metadata": {
+      "properties": {
+        "periodo_analise": {
+          "additionalProperties": { "type": "string", "format": "date" },
+          "type": "object",
+          "title": "Periodo Analise",
+          "description": "Período da análise com 'inicio' e 'fim'"
+        },
+        "filtros_aplicados": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Filtros Aplicados",
+          "description": "Filtros aplicados na análise"
+        },
+        "data_geracao": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Data Geracao",
+          "description": "Data/hora de geração da análise"
+        },
+        "versao_analise": {
+          "type": "string",
+          "title": "Versao Analise",
+          "description": "Versão do algoritmo de análise",
+          "default": "0.0.1"
+        }
+      },
+      "type": "object",
+      "required": ["periodo_analise", "data_geracao"],
+      "title": "MetadadosAnalise",
+      "description": "Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado",
+      "x-readme-ref-name": "MetadadosAnalise"
+    },
+    "serie_temporal": {
+      "items": {
+        "properties": {
+          "periodo": { "type": "string", "format": "date", "title": "Periodo" },
+          "quantidade_noticias": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Quantidade Noticias"
+          },
+          "media_relevancia": {
+            "type": "number",
+            "maximum": 10,
+            "minimum": 0,
+            "title": "Media Relevancia"
+          },
+          "principais_doencas": {
+            "items": { "additionalProperties": true, "type": "object" },
+            "type": "array",
+            "title": "Principais Doencas",
+            "description": "Lista com nome da doença e quantidade"
+          },
+          "principais_regioes": {
+            "items": { "additionalProperties": true, "type": "object" },
+            "type": "array",
+            "title": "Principais Regioes",
+            "description": "Lista com nome da região e quantidade"
+          }
+        },
+        "type": "object",
+        "required": ["periodo", "quantidade_noticias", "media_relevancia"],
+        "title": "PontoTemporal",
+        "description": "Representa um ponto no tempo com suas métricas.\n\nAttributes:\n    periodo: Data do período\n    quantidade_noticias: Quantidade de notícias no período\n    media_relevancia: Média do score de relevância no período\n    principais_doencas: Top 3 doenças mencionadas no período\n    principais_regioes: Top 3 regiões mencionadas no período",
+        "x-readme-ref-name": "PontoTemporal"
+      },
+      "type": "array",
+      "title": "Serie Temporal"
+    },
+    "estatisticas_periodo": {
+      "properties": {
+        "total_noticias": { "type": "integer", "minimum": 0, "title": "Total Noticias" },
+        "media_por_dia": { "type": "number", "minimum": 0, "title": "Media Por Dia" },
+        "dia_pico": {
+          "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+          "title": "Dia Pico"
+        },
+        "quantidade_pico": { "type": "integer", "minimum": 0, "title": "Quantidade Pico" },
+        "media_relevancia_geral": {
+          "type": "number",
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Media Relevancia Geral"
+        }
+      },
+      "type": "object",
+      "required": ["total_noticias", "media_por_dia", "quantidade_pico", "media_relevancia_geral"],
+      "title": "EstatisticasPeriodo",
+      "description": "Estatísticas agregadas do período analisado.\n\nAttributes:\n    total_noticias: Total de notícias no período\n    media_por_dia: Média de notícias por dia\n    dia_pico: Dia com maior número de notícias\n    quantidade_pico: Quantidade de notícias no dia de pico\n    media_relevancia_geral: Média geral do score de relevância",
+      "x-readme-ref-name": "EstatisticasPeriodo"
+    },
+    "tendencia": {
+      "properties": {
+        "direcao": {
+          "type": "string",
+          "pattern": "^(crescente|decrescente|estavel)$",
+          "title": "Direcao"
+        },
+        "variacao_percentual": { "type": "number", "title": "Variacao Percentual" },
+        "dias_analisados": { "type": "integer", "exclusiveMinimum": 0, "title": "Dias Analisados" }
+      },
+      "type": "object",
+      "required": ["direcao", "variacao_percentual", "dias_analisados"],
+      "title": "TendenciaTemporal",
+      "description": "Tendência identificada na série temporal.\n\nAttributes:\n    direcao: Direção da tendência (crescente, decrescente, estável)\n    variacao_percentual: Variação percentual no período\n    dias_analisados: Número de dias analisados",
+      "x-readme-ref-name": "TendenciaTemporal"
+    },
+    "alertas": {
+      "items": {
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "title": "Tipo",
+            "description": "Tipo do alerta (aumento_subito, novo_padrao, etc)"
+          },
+          "severidade": {
+            "type": "string",
+            "pattern": "^(baixa|media|alta)$",
+            "title": "Severidade"
+          },
+          "data_deteccao": { "type": "string", "format": "date", "title": "Data Deteccao" },
+          "mensagem": { "type": "string", "title": "Mensagem" },
+          "quantidade_noticias": { "type": "integer", "minimum": 0, "title": "Quantidade Noticias" }
+        },
+        "type": "object",
+        "required": ["tipo", "severidade", "data_deteccao", "mensagem", "quantidade_noticias"],
+        "title": "AlertaTemporal",
+        "description": "Alerta identificado na análise temporal.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade (baixa, media, alta)\n    data_deteccao: Data onde o alerta foi identificado\n    mensagem: Descrição do alerta\n    quantidade_noticias: Quantidade de notícias relacionadas",
+        "x-readme-ref-name": "AlertaTemporal"
+      },
+      "type": "array",
+      "title": "Alertas"
+    },
+    "doencas_em_alta": {
+      "items": { "additionalProperties": true, "type": "object" },
+      "type": "array",
+      "title": "Doencas Em Alta",
+      "description": "Doenças com maior crescimento"
+    },
+    "regioes_em_destaque": {
+      "items": { "additionalProperties": true, "type": "object" },
+      "type": "array",
+      "title": "Regioes Em Destaque",
+      "description": "Regiões com maior atividade"
+    }
+  },
+  "type": "object",
+  "required": ["metadata", "serie_temporal", "estatisticas_periodo", "tendencia"],
+  "title": "AnaliseTemporalNoticias",
+  "description": "Resultado completo da análise temporal de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    serie_temporal: Lista de pontos temporais\n    estatisticas_periodo: Estatísticas agregadas do período\n    tendencia: Tendência identificada\n    alertas: Lista de alertas temporais\n    doencas_em_alta: Doenças com maior crescimento no período\n    regioes_em_destaque: Regiões com maior atividade",
+  "x-readme-ref-name": "AnaliseTemporalNoticias"
+}

@@ -1,0 +1,40 @@
+{
+  "properties": {
+    "days": { "type": "integer", "title": "Days", "description": "Período de análise em dias" },
+    "z_threshold": {
+      "type": "number",
+      "title": "Z Threshold",
+      "description": "Threshold Z-score para anomalia"
+    },
+    "min_data_points": {
+      "type": "integer",
+      "title": "Min Data Points",
+      "description": "Mínimo de pontos para análise"
+    },
+    "state": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "State",
+      "description": "Filtro de estado"
+    },
+    "region": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Region",
+      "description": "Filtro de região"
+    },
+    "city": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "City",
+      "description": "Filtro de cidade"
+    },
+    "unit_type": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Unit Type",
+      "description": "Filtro de tipo de unidade"
+    }
+  },
+  "type": "object",
+  "required": ["days", "z_threshold", "min_data_points"],
+  "title": "AnomalyFiltersMetadata",
+  "description": "Metadados dos filtros aplicados em anomalias.",
+  "x-readme-ref-name": "AnomalyFiltersMetadata"
+}

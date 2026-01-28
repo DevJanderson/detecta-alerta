@@ -1,0 +1,103 @@
+{
+  "properties": {
+    "versao": {
+      "type": "string",
+      "title": "Versao",
+      "description": "Versão do pipeline de transformação"
+    },
+    "total_transformacoes": {
+      "type": "integer",
+      "title": "Total Transformacoes",
+      "description": "Total de transformações documentadas"
+    },
+    "transformacoes": {
+      "items": {
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "title": "Tipo",
+            "description": "Tipo de transformação (renomeacao, derivacao, limpeza, deduplicacao)"
+          },
+          "descricao": {
+            "type": "string",
+            "title": "Descricao",
+            "description": "Descrição da transformação"
+          },
+          "criterio": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Criterio",
+            "description": "Critério SQL (para deduplicação)"
+          },
+          "campos": {
+            "anyOf": [
+              {
+                "items": {
+                  "properties": {
+                    "original": {
+                      "type": "string",
+                      "title": "Original",
+                      "description": "Nome original"
+                    },
+                    "novo": { "type": "string", "title": "Novo", "description": "Nome novo" }
+                  },
+                  "type": "object",
+                  "required": ["original", "novo"],
+                  "title": "TransformacaoRenomeacao",
+                  "description": "Transformação de renomeação de campo.",
+                  "x-readme-ref-name": "TransformacaoRenomeacao"
+                },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Campos",
+            "description": "Lista de renomeações"
+          },
+          "campo_novo": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Campo Novo",
+            "description": "Nome do campo derivado"
+          },
+          "formula": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Formula",
+            "description": "Fórmula de derivação"
+          },
+          "campos_afetados": {
+            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+            "title": "Campos Afetados",
+            "description": "Campos afetados"
+          },
+          "regra": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Regra",
+            "description": "Regra de limpeza"
+          },
+          "detalhes": {
+            "anyOf": [{ "additionalProperties": true, "type": "object" }, { "type": "null" }],
+            "title": "Detalhes",
+            "description": "Detalhes adicionais"
+          }
+        },
+        "type": "object",
+        "required": ["tipo", "descricao"],
+        "title": "Transformacao",
+        "description": "Transformação aplicada nos dados.",
+        "x-readme-ref-name": "Transformacao"
+      },
+      "type": "array",
+      "title": "Transformacoes",
+      "description": "Lista de transformações"
+    },
+    "notas": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Notas",
+      "description": "Notas adicionais"
+    }
+  },
+  "type": "object",
+  "required": ["versao", "total_transformacoes", "transformacoes"],
+  "title": "DicionarioTransformacoesResponse",
+  "description": "Resposta das transformações do dicionário.",
+  "x-readme-ref-name": "DicionarioTransformacoesResponse"
+}

@@ -1,0 +1,199 @@
+{
+  "properties": {
+    "metadata": {
+      "properties": {
+        "periodo_analise": {
+          "additionalProperties": { "type": "string", "format": "date" },
+          "type": "object",
+          "title": "Periodo Analise",
+          "description": "Período da análise com 'inicio' e 'fim'"
+        },
+        "filtros_aplicados": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Filtros Aplicados",
+          "description": "Filtros aplicados na análise"
+        },
+        "data_geracao": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Data Geracao",
+          "description": "Data/hora de geração da análise"
+        },
+        "versao_analise": {
+          "type": "string",
+          "title": "Versao Analise",
+          "description": "Versão do algoritmo de análise",
+          "default": "0.0.1"
+        }
+      },
+      "type": "object",
+      "required": ["periodo_analise", "data_geracao"],
+      "title": "MetadadosAnalise",
+      "description": "Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado",
+      "x-readme-ref-name": "MetadadosAnalise"
+    },
+    "distribuicao_estadual": {
+      "items": {
+        "properties": {
+          "nome": { "type": "string", "title": "Nome" },
+          "estado": {
+            "anyOf": [{ "type": "string", "maxLength": 2 }, { "type": "null" }],
+            "title": "Estado"
+          },
+          "cidade": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Cidade" },
+          "quantidade_noticias": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Quantidade Noticias"
+          },
+          "percentual_total": {
+            "type": "number",
+            "maximum": 100,
+            "minimum": 0,
+            "title": "Percentual Total"
+          },
+          "media_relevancia": {
+            "type": "number",
+            "maximum": 10,
+            "minimum": 0,
+            "title": "Media Relevancia"
+          },
+          "principais_doencas": {
+            "items": { "additionalProperties": true, "type": "object" },
+            "type": "array",
+            "title": "Principais Doencas"
+          },
+          "coordenadas": {
+            "anyOf": [
+              { "additionalProperties": { "type": "number" }, "type": "object" },
+              { "type": "null" }
+            ],
+            "title": "Coordenadas"
+          }
+        },
+        "type": "object",
+        "required": ["nome", "quantidade_noticias", "percentual_total", "media_relevancia"],
+        "title": "DadoGeografico",
+        "description": "Dados de uma unidade geográfica.\n\nAttributes:\n    nome: Nome da região\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de notícias\n    percentual_total: Percentual do total\n    media_relevancia: Média de relevância das notícias\n    principais_doencas: Principais doenças mencionadas\n    coordenadas: Coordenadas geográficas (opcional)",
+        "x-readme-ref-name": "DadoGeografico"
+      },
+      "type": "array",
+      "title": "Distribuicao Estadual"
+    },
+    "distribuicao_municipal": {
+      "items": {
+        "properties": {
+          "nome": { "type": "string", "title": "Nome" },
+          "estado": {
+            "anyOf": [{ "type": "string", "maxLength": 2 }, { "type": "null" }],
+            "title": "Estado"
+          },
+          "cidade": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Cidade" },
+          "quantidade_noticias": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Quantidade Noticias"
+          },
+          "percentual_total": {
+            "type": "number",
+            "maximum": 100,
+            "minimum": 0,
+            "title": "Percentual Total"
+          },
+          "media_relevancia": {
+            "type": "number",
+            "maximum": 10,
+            "minimum": 0,
+            "title": "Media Relevancia"
+          },
+          "principais_doencas": {
+            "items": { "additionalProperties": true, "type": "object" },
+            "type": "array",
+            "title": "Principais Doencas"
+          },
+          "coordenadas": {
+            "anyOf": [
+              { "additionalProperties": { "type": "number" }, "type": "object" },
+              { "type": "null" }
+            ],
+            "title": "Coordenadas"
+          }
+        },
+        "type": "object",
+        "required": ["nome", "quantidade_noticias", "percentual_total", "media_relevancia"],
+        "title": "DadoGeografico",
+        "description": "Dados de uma unidade geográfica.\n\nAttributes:\n    nome: Nome da região\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de notícias\n    percentual_total: Percentual do total\n    media_relevancia: Média de relevância das notícias\n    principais_doencas: Principais doenças mencionadas\n    coordenadas: Coordenadas geográficas (opcional)",
+        "x-readme-ref-name": "DadoGeografico"
+      },
+      "type": "array",
+      "title": "Distribuicao Municipal"
+    },
+    "concentracoes": {
+      "items": {
+        "properties": {
+          "estados_afetados": {
+            "items": { "type": "string" },
+            "type": "array",
+            "title": "Estados Afetados"
+          },
+          "total_noticias": { "type": "integer", "minimum": 0, "title": "Total Noticias" },
+          "percentual_nacional": {
+            "type": "number",
+            "maximum": 100,
+            "minimum": 0,
+            "title": "Percentual Nacional"
+          },
+          "doenca_predominante": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Doenca Predominante"
+          }
+        },
+        "type": "object",
+        "required": ["estados_afetados", "total_noticias", "percentual_nacional"],
+        "title": "ConcentracaoGeografica",
+        "description": "Área de concentração de notícias.\n\nAttributes:\n    estados_afetados: Lista de estados na concentração\n    total_noticias: Total de notícias na área\n    percentual_nacional: Percentual em relação ao total nacional\n    doenca_predominante: Doença mais mencionada na área",
+        "x-readme-ref-name": "ConcentracaoGeografica"
+      },
+      "type": "array",
+      "title": "Concentracoes"
+    },
+    "alertas": {
+      "items": {
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "title": "Tipo",
+            "description": "Tipo do alerta (concentracao_regional, nova_regiao, etc)"
+          },
+          "severidade": {
+            "type": "string",
+            "pattern": "^(baixa|media|alta)$",
+            "title": "Severidade"
+          },
+          "localizacao": { "items": { "type": "string" }, "type": "array", "title": "Localizacao" },
+          "mensagem": { "type": "string", "title": "Mensagem" },
+          "quantidade_noticias": { "type": "integer", "minimum": 0, "title": "Quantidade Noticias" }
+        },
+        "type": "object",
+        "required": ["tipo", "severidade", "localizacao", "mensagem", "quantidade_noticias"],
+        "title": "AlertaGeografico",
+        "description": "Alerta geográfico identificado.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade do alerta\n    localizacao: Estados ou cidades afetadas\n    mensagem: Descrição do alerta\n    quantidade_noticias: Quantidade de notícias relacionadas",
+        "x-readme-ref-name": "AlertaGeografico"
+      },
+      "type": "array",
+      "title": "Alertas"
+    },
+    "estados_sem_noticias": {
+      "items": { "type": "string" },
+      "type": "array",
+      "title": "Estados Sem Noticias",
+      "description": "Estados sem notícias no período"
+    }
+  },
+  "type": "object",
+  "required": ["metadata", "distribuicao_estadual"],
+  "title": "AnaliseGeograficaNoticias",
+  "description": "Resultado completo da análise geográfica de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    distribuicao_estadual: Distribuição por estado\n    distribuicao_municipal: Top municípios (quando disponível)\n    concentracoes: Áreas de concentração identificadas\n    alertas: Alertas geográficos identificados\n    estados_sem_noticias: Estados sem notícias no período",
+  "x-readme-ref-name": "AnaliseGeograficaNoticias"
+}

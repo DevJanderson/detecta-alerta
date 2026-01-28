@@ -1,0 +1,58 @@
+{
+  "properties": {
+    "id": { "type": "string", "title": "Id", "description": "ID único do ponto" },
+    "name": { "type": "string", "title": "Name", "description": "Nome da unidade/cidade/estado" },
+    "value": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Value",
+      "description": "Valor de ocupação (%)"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "description": "Status: no_data, low, moderate, high, critical"
+    },
+    "city": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "City",
+      "description": "Cidade (apenas aggregation=unit)"
+    },
+    "state": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "State",
+      "description": "Estado (aggregation=unit ou aggregation=city)"
+    },
+    "unit_count": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Unit Count",
+      "description": "Total de unidades (aggregation=city ou aggregation=state)"
+    },
+    "city_count": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "City Count",
+      "description": "Total de cidades (apenas aggregation=state)"
+    },
+    "coordinates": {
+      "anyOf": [
+        {
+          "properties": {
+            "lat": { "type": "number", "title": "Lat", "description": "Latitude" },
+            "lng": { "type": "number", "title": "Lng", "description": "Longitude" }
+          },
+          "type": "object",
+          "required": ["lat", "lng"],
+          "title": "HeatmapCoordinates",
+          "description": "Coordenadas geográficas.",
+          "x-readme-ref-name": "HeatmapCoordinates"
+        },
+        { "type": "null" }
+      ],
+      "description": "Coordenadas geográficas (se include_coords=true)"
+    }
+  },
+  "type": "object",
+  "required": ["id", "name", "status"],
+  "title": "HeatmapDataPoint",
+  "description": "Ponto de dados no mapa de calor.",
+  "x-readme-ref-name": "HeatmapDataPoint"
+}

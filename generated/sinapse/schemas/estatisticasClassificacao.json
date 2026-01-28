@@ -1,0 +1,28 @@
+{
+  "properties": {
+    "classificacao": { "type": "string", "title": "Classificacao" },
+    "total_estabelecimentos": { "type": "integer", "title": "Total Estabelecimentos" },
+    "total_profissionais": { "type": "integer", "title": "Total Profissionais" },
+    "media_profissionais": { "type": "number", "title": "Media Profissionais" },
+    "min_profissionais": { "type": "integer", "title": "Min Profissionais" },
+    "max_profissionais": { "type": "integer", "title": "Max Profissionais" },
+    "estabelecimentos_por_estado": {
+      "additionalProperties": { "type": "integer" },
+      "type": "object",
+      "title": "Estabelecimentos Por Estado"
+    }
+  },
+  "type": "object",
+  "required": [
+    "classificacao",
+    "total_estabelecimentos",
+    "total_profissionais",
+    "media_profissionais",
+    "min_profissionais",
+    "max_profissionais",
+    "estabelecimentos_por_estado"
+  ],
+  "title": "EstatisticasClassificacao",
+  "description": "Estatísticas por classificação",
+  "x-readme-ref-name": "EstatisticasClassificacao"
+}

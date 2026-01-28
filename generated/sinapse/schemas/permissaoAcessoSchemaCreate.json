@@ -1,0 +1,10 @@
+{
+  "properties": {
+    "nome": { "type": "string", "title": "Nome" },
+    "descricao": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Descricao" }
+  },
+  "type": "object",
+  "required": ["nome"],
+  "title": "PermissaoAcessoSchemaCreate",
+  "x-readme-ref-name": "PermissaoAcessoSchemaCreate"
+}

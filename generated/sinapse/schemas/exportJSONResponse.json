@@ -1,0 +1,77 @@
+{
+  "properties": {
+    "filters": {
+      "description": "Filtros aplicados",
+      "properties": {
+        "ano_inicio": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Ano Inicio",
+          "description": "Ano de início"
+        },
+        "ano_fim": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Ano Fim",
+          "description": "Ano de fim"
+        },
+        "uf": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Uf",
+          "description": "UF filtrada"
+        },
+        "mes": {
+          "anyOf": [{ "type": "integer" }, { "type": "null" }],
+          "title": "Mes",
+          "description": "Mês filtrado (1-12)"
+        },
+        "municipio": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Municipio",
+          "description": "Município filtrado"
+        },
+        "classificacao_final": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Classificacao Final",
+          "description": "Classificação final filtrada"
+        }
+      },
+      "type": "object",
+      "title": "ExportFiltersInfo",
+      "x-readme-ref-name": "ExportFiltersInfo"
+    },
+    "pagination": {
+      "description": "Informações de paginação",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "title": "Limit",
+          "description": "Número de registros por página"
+        },
+        "next_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Next Cursor",
+          "description": "Cursor para próxima página"
+        },
+        "has_more": {
+          "type": "boolean",
+          "title": "Has More",
+          "description": "Se há mais registros"
+        }
+      },
+      "type": "object",
+      "required": ["limit", "has_more"],
+      "title": "ExportPaginationInfo",
+      "x-readme-ref-name": "ExportPaginationInfo"
+    },
+    "data": {
+      "items": { "additionalProperties": true, "type": "object" },
+      "type": "array",
+      "title": "Data",
+      "description": "Dados exportados"
+    }
+  },
+  "type": "object",
+  "required": ["filters", "pagination", "data"],
+  "title": "ExportJSONResponse",
+  "description": "Resposta de exportação JSON paginada.",
+  "x-readme-ref-name": "ExportJSONResponse"
+}

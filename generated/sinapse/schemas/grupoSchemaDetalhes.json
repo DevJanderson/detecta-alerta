@@ -1,0 +1,40 @@
+{
+  "properties": {
+    "nome": { "type": "string", "title": "Nome" },
+    "descricao": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Descricao" },
+    "ativo": { "type": "boolean", "title": "Ativo", "default": true },
+    "id": { "type": "integer", "title": "Id" },
+    "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+    "updated_at": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Updated At"
+    },
+    "permissoes": {
+      "items": {
+        "properties": {
+          "nome": { "type": "string", "title": "Nome" },
+          "descricao": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Descricao"
+          },
+          "id": { "type": "integer", "title": "Id" }
+        },
+        "type": "object",
+        "required": ["nome", "id"],
+        "title": "PermissaoAcessoSchemaList",
+        "x-readme-ref-name": "PermissaoAcessoSchemaList"
+      },
+      "type": "array",
+      "title": "Permissoes"
+    },
+    "total_usuarios": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Total Usuarios",
+      "default": 0
+    }
+  },
+  "type": "object",
+  "required": ["nome", "id", "created_at", "permissoes"],
+  "title": "GrupoSchemaDetalhes",
+  "x-readme-ref-name": "GrupoSchemaDetalhes"
+}

@@ -1,0 +1,122 @@
+{
+  "properties": {
+    "checked_at": { "type": "string", "format": "date-time", "title": "Checked At" },
+    "filters": {
+      "properties": {
+        "state": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "State" },
+        "city": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "City" },
+        "unit_type": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Unit Type" },
+        "status_filter": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Status Filter"
+        }
+      },
+      "type": "object",
+      "title": "HealthCheckFilters",
+      "description": "Filtros aplicados na busca.",
+      "x-readme-ref-name": "HealthCheckFilters"
+    },
+    "summary": {
+      "properties": {
+        "total_units_24h": { "type": "integer", "title": "Total Units 24H" },
+        "healthy_units": { "type": "integer", "title": "Healthy Units" },
+        "warning_units": { "type": "integer", "title": "Warning Units" },
+        "critical_units": { "type": "integer", "title": "Critical Units" },
+        "never_received_units": { "type": "integer", "title": "Never Received Units" },
+        "threshold_hours": { "type": "integer", "title": "Threshold Hours" }
+      },
+      "type": "object",
+      "required": [
+        "total_units_24h",
+        "healthy_units",
+        "warning_units",
+        "critical_units",
+        "never_received_units",
+        "threshold_hours"
+      ],
+      "title": "HealthCheckSummary",
+      "description": "Resumo estatístico.",
+      "x-readme-ref-name": "HealthCheckSummary"
+    },
+    "pagination": {
+      "properties": {
+        "cursor": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Cursor" },
+        "limit": { "type": "integer", "title": "Limit" },
+        "returned": { "type": "integer", "title": "Returned" },
+        "has_next": { "type": "boolean", "title": "Has Next" },
+        "has_previous": { "type": "boolean", "title": "Has Previous" },
+        "next_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Next Cursor"
+        },
+        "previous_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Previous Cursor"
+        }
+      },
+      "type": "object",
+      "required": ["limit", "returned", "has_next", "has_previous"],
+      "title": "HealthCheckPagination",
+      "description": "Metadados de paginação.",
+      "x-readme-ref-name": "HealthCheckPagination"
+    },
+    "units": {
+      "items": {
+        "properties": {
+          "place_id": { "type": "string", "title": "Place Id" },
+          "title": { "type": "string", "title": "Title" },
+          "unit_type": { "type": "string", "title": "Unit Type" },
+          "city": { "type": "string", "title": "City" },
+          "state": { "type": "string", "title": "State" },
+          "last_received": {
+            "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+            "title": "Last Received"
+          },
+          "hours_since_last_data": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Hours Since Last Data"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "healthy, warning, critical, never_received"
+          },
+          "last_data": {
+            "anyOf": [
+              {
+                "properties": {
+                  "date": { "type": "string", "title": "Date" },
+                  "hour": { "type": "integer", "title": "Hour" },
+                  "percentage": {
+                    "anyOf": [{ "type": "number" }, { "type": "null" }],
+                    "title": "Percentage"
+                  },
+                  "received_at": { "type": "string", "format": "date-time", "title": "Received At" }
+                },
+                "type": "object",
+                "required": ["date", "hour", "received_at"],
+                "title": "LastDataInfo",
+                "description": "Informações do último dado coletado.",
+                "x-readme-ref-name": "LastDataInfo"
+              },
+              { "type": "null" }
+            ],
+            "description": "Último dado coletado (se include_last_data=true)"
+          }
+        },
+        "type": "object",
+        "required": ["place_id", "title", "unit_type", "city", "state", "status"],
+        "title": "UnitHealthStatus",
+        "description": "Status de saúde da coleta de uma unidade.",
+        "x-readme-ref-name": "UnitHealthStatus"
+      },
+      "type": "array",
+      "title": "Units"
+    }
+  },
+  "type": "object",
+  "required": ["checked_at", "filters", "summary", "pagination", "units"],
+  "title": "HealthCheckStatusResponse",
+  "description": "Resposta do status geral do health check.",
+  "x-readme-ref-name": "HealthCheckStatusResponse"
+}

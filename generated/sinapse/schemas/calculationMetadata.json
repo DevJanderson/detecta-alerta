@@ -1,0 +1,46 @@
+{
+  "properties": {
+    "moving_avg_window_days": {
+      "type": "integer",
+      "title": "Moving Avg Window Days",
+      "description": "Janela temporal da média móvel em dias (padrão: 42)"
+    },
+    "moving_avg_window_weeks": {
+      "type": "integer",
+      "title": "Moving Avg Window Weeks",
+      "description": "Janela temporal da média móvel em semanas (padrão: 6)"
+    },
+    "min_weeks_for_stats": {
+      "type": "integer",
+      "title": "Min Weeks For Stats",
+      "description": "Mínimo de semanas necessárias para cálculo estatístico (padrão: 2)"
+    },
+    "z_score_yellow_threshold": {
+      "type": "number",
+      "title": "Z Score Yellow Threshold",
+      "description": "Threshold de Z-score para alerta yellow (padrão: 0.65)"
+    },
+    "z_score_red_threshold": {
+      "type": "number",
+      "title": "Z Score Red Threshold",
+      "description": "Threshold de Z-score para alerta red (padrão: 1.5)"
+    },
+    "min_std_dev": {
+      "type": "number",
+      "title": "Min Std Dev",
+      "description": "Desvio padrão mínimo para cálculo de Z-score (padrão: 1.0)"
+    }
+  },
+  "type": "object",
+  "required": [
+    "moving_avg_window_days",
+    "moving_avg_window_weeks",
+    "min_weeks_for_stats",
+    "z_score_yellow_threshold",
+    "z_score_red_threshold",
+    "min_std_dev"
+  ],
+  "title": "CalculationMetadata",
+  "description": "Metadados sobre os parâmetros de configuração usados no cálculo das métricas.\n\nGarante transparência e reprodutibilidade dos cálculos estatísticos.\nTodos os valores são obtidos de ETLConfig no momento do cálculo.",
+  "x-readme-ref-name": "CalculationMetadata"
+}

@@ -1,0 +1,39 @@
+{
+  "properties": {
+    "trend_type": {
+      "type": "string",
+      "title": "Trend Type",
+      "description": "Tipo de tendência: all, increasing, decreasing, stable"
+    },
+    "min_confidence": {
+      "type": "number",
+      "title": "Min Confidence",
+      "description": "Confiança mínima requerida (%)"
+    },
+    "state": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "State",
+      "description": "Filtro de estado (UF)"
+    },
+    "region": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Region",
+      "description": "Filtro de região"
+    },
+    "city": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "City",
+      "description": "Filtro de cidade"
+    },
+    "unit_type": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Unit Type",
+      "description": "Filtro de tipo de unidade"
+    }
+  },
+  "type": "object",
+  "required": ["trend_type", "min_confidence"],
+  "title": "TrendFiltersMetadata",
+  "description": "Metadados dos filtros aplicados na análise de tendências.",
+  "x-readme-ref-name": "TrendFiltersMetadata"
+}

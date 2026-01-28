@@ -1,0 +1,71 @@
+{
+  "properties": {
+    "period": {
+      "properties": {
+        "start_date": { "type": "string", "format": "date", "title": "Start Date" },
+        "end_date": { "type": "string", "format": "date", "title": "End Date" },
+        "days_analyzed": { "type": "integer", "title": "Days Analyzed" }
+      },
+      "type": "object",
+      "required": ["start_date", "end_date", "days_analyzed"],
+      "title": "PeriodMetadata",
+      "description": "Metadados do período analisado.",
+      "x-readme-ref-name": "PeriodMetadata"
+    },
+    "filters": {
+      "properties": {
+        "state": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "State" },
+        "city": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "City" },
+        "region": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Region" },
+        "unit_type": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Unit Type" }
+      },
+      "type": "object",
+      "title": "ReportFiltersMetadata",
+      "description": "Metadados dos filtros aplicados no relatório.",
+      "x-readme-ref-name": "ReportFiltersMetadata"
+    },
+    "total_units": { "type": "integer", "title": "Total Units" },
+    "active_units": { "type": "integer", "title": "Active Units" },
+    "units_by_type": {
+      "additionalProperties": { "type": "integer" },
+      "type": "object",
+      "title": "Units By Type"
+    },
+    "average_occupation": { "type": "number", "title": "Average Occupation" },
+    "max_occupation": { "type": "number", "title": "Max Occupation" },
+    "min_occupation": { "type": "number", "title": "Min Occupation" },
+    "std_deviation": { "type": "number", "title": "Std Deviation" },
+    "top_occupation_units": {
+      "items": { "additionalProperties": true, "type": "object" },
+      "type": "array",
+      "title": "Top Occupation Units"
+    },
+    "critical_units_count": {
+      "type": "integer",
+      "title": "Critical Units Count",
+      "description": "Unidades com ocupação > 85%",
+      "default": 0
+    },
+    "data_completeness_percentage": { "type": "number", "title": "Data Completeness Percentage" },
+    "units_with_recent_data": { "type": "integer", "title": "Units With Recent Data" },
+    "key_insights": { "items": { "type": "string" }, "type": "array", "title": "Key Insights" },
+    "generated_at": { "type": "string", "format": "date-time", "title": "Generated At" }
+  },
+  "type": "object",
+  "required": [
+    "period",
+    "filters",
+    "total_units",
+    "active_units",
+    "average_occupation",
+    "max_occupation",
+    "min_occupation",
+    "std_deviation",
+    "data_completeness_percentage",
+    "units_with_recent_data",
+    "generated_at"
+  ],
+  "title": "ReportSummaryResponse",
+  "description": "Schema para resumo executivo.",
+  "x-readme-ref-name": "ReportSummaryResponse"
+}

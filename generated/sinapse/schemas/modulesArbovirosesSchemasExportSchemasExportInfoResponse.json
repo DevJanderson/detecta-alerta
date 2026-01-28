@@ -1,0 +1,143 @@
+{
+  "properties": {
+    "formatos_disponiveis": {
+      "items": {
+        "properties": {
+          "formato": {
+            "type": "string",
+            "title": "Formato",
+            "description": "Nome do formato (csv, json, parquet)"
+          },
+          "mime_type": {
+            "type": "string",
+            "title": "Mime Type",
+            "description": "MIME type do formato"
+          },
+          "suporta_streaming": {
+            "type": "boolean",
+            "title": "Suporta Streaming",
+            "description": "Se suporta streaming"
+          },
+          "max_registros": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Max Registros",
+            "description": "Máximo de registros (null = ilimitado)"
+          },
+          "max_registros_pagina": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Max Registros Pagina",
+            "description": "Máximo por página (para JSON)"
+          }
+        },
+        "type": "object",
+        "required": ["formato", "mime_type", "suporta_streaming"],
+        "title": "FormatoExport",
+        "description": "Informações de um formato de exportação.",
+        "x-readme-ref-name": "FormatoExport"
+      },
+      "type": "array",
+      "title": "Formatos Disponiveis",
+      "description": "Formatos disponiveis"
+    },
+    "estatisticas": {
+      "description": "Estatisticas do dataset",
+      "properties": {
+        "total_registros": {
+          "type": "integer",
+          "title": "Total Registros",
+          "description": "Total de registros disponíveis"
+        },
+        "periodo": {
+          "additionalProperties": { "type": "string" },
+          "type": "object",
+          "title": "Periodo",
+          "description": "Período dos dados (inicio, fim)"
+        },
+        "tamanho_estimado_csv_gb": {
+          "type": "number",
+          "title": "Tamanho Estimado Csv Gb",
+          "description": "Tamanho estimado do CSV em GB"
+        },
+        "tamanho_estimado_parquet_gb": {
+          "type": "number",
+          "title": "Tamanho Estimado Parquet Gb",
+          "description": "Tamanho estimado do Parquet em GB"
+        }
+      },
+      "type": "object",
+      "required": [
+        "total_registros",
+        "periodo",
+        "tamanho_estimado_csv_gb",
+        "tamanho_estimado_parquet_gb"
+      ],
+      "title": "EstatisticasExport",
+      "x-readme-ref-name": "EstatisticasExport"
+    },
+    "filtros_disponiveis": {
+      "items": { "type": "string" },
+      "type": "array",
+      "title": "Filtros Disponiveis",
+      "description": "Filtros disponiveis para exportacao"
+    },
+    "rate_limit": {
+      "type": "string",
+      "title": "Rate Limit",
+      "description": "Limite de requisicoes de export"
+    },
+    "restricoes": {
+      "description": "Restricoes de uso (fase de testes)",
+      "properties": {
+        "fase": { "type": "string", "title": "Fase", "description": "Fase atual (TESTES)" },
+        "ano_minimo": {
+          "type": "integer",
+          "title": "Ano Minimo",
+          "description": "Ano minimo permitido"
+        },
+        "uf": { "type": "string", "title": "Uf", "description": "Se UF e obrigatoria" },
+        "max_registros": {
+          "type": "integer",
+          "title": "Max Registros",
+          "description": "Maximo de registros por export"
+        },
+        "tamanho_max_estimado_csv_mb": {
+          "type": "number",
+          "title": "Tamanho Max Estimado Csv Mb",
+          "description": "Tamanho maximo CSV em MB"
+        },
+        "tamanho_max_estimado_parquet_mb": {
+          "type": "number",
+          "title": "Tamanho Max Estimado Parquet Mb",
+          "description": "Tamanho maximo Parquet em MB"
+        }
+      },
+      "type": "object",
+      "required": [
+        "fase",
+        "ano_minimo",
+        "uf",
+        "max_registros",
+        "tamanho_max_estimado_csv_mb",
+        "tamanho_max_estimado_parquet_mb"
+      ],
+      "title": "ExportRestricoesInfo",
+      "x-readme-ref-name": "ExportRestricoesInfo"
+    },
+    "observacao": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Observacao",
+      "description": "Observacoes adicionais"
+    }
+  },
+  "type": "object",
+  "required": [
+    "formatos_disponiveis",
+    "estatisticas",
+    "filtros_disponiveis",
+    "rate_limit",
+    "restricoes"
+  ],
+  "title": "ExportInfoResponse",
+  "description": "Informacoes sobre opcoes de exportacao.",
+  "x-readme-ref-name": "modules__arboviroses__schemas__export_schemas__ExportInfoResponse"
+}

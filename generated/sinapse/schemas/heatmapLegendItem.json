@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "min": { "type": "integer", "title": "Min", "description": "Valor mínimo do intervalo" },
+    "max": { "type": "integer", "title": "Max", "description": "Valor máximo do intervalo" },
+    "color": { "type": "string", "title": "Color", "description": "Código de cor hexadecimal" }
+  },
+  "type": "object",
+  "required": ["min", "max", "color"],
+  "title": "HeatmapLegendItem",
+  "description": "Item da legenda do mapa de calor.",
+  "x-readme-ref-name": "HeatmapLegendItem"
+}

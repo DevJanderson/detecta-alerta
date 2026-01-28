@@ -1,0 +1,209 @@
+{
+  "properties": {
+    "data": {
+      "items": {
+        "properties": {
+          "unit_name": {
+            "type": "string",
+            "title": "Unit Name",
+            "description": "Nome da unidade/região"
+          },
+          "epidemiological_week": {
+            "type": "string",
+            "title": "Epidemiological Week",
+            "description": "Semana epidemiológica (YYYY-WNN)"
+          },
+          "location_lat": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Location Lat",
+            "description": "Latitude da unidade (apenas para level=unit)"
+          },
+          "location_lng": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Location Lng",
+            "description": "Longitude da unidade (apenas para level=unit)"
+          },
+          "average_occupancy_all": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Average Occupancy All",
+            "description": "Média de ocupação geral (%)"
+          },
+          "data_points_all": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Data Points All",
+            "description": "Total de pontos de dados"
+          },
+          "moving_avg_all": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Moving Avg All",
+            "description": "Média móvel 42 dias - geral"
+          },
+          "z_score_all": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Z Score All",
+            "description": "Z-score geral"
+          },
+          "trend_all": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Trend All",
+            "description": "Tendência geral: up, down, stable"
+          },
+          "average_occupancy_weekday": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Average Occupancy Weekday",
+            "description": "Média ocupação dias úteis (%)"
+          },
+          "data_points_weekday": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Data Points Weekday",
+            "description": "Pontos de dados em dias úteis"
+          },
+          "moving_avg_weekday": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Moving Avg Weekday",
+            "description": "Média móvel 42 dias - dias úteis"
+          },
+          "z_score_weekday": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Z Score Weekday",
+            "description": "Z-score dias úteis"
+          },
+          "trend_weekday": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Trend Weekday",
+            "description": "Tendência dias úteis"
+          },
+          "average_occupancy_weekend": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Average Occupancy Weekend",
+            "description": "Média ocupação fins de semana (%)"
+          },
+          "data_points_weekend": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Data Points Weekend",
+            "description": "Pontos de dados em fins de semana"
+          },
+          "moving_avg_weekend": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Moving Avg Weekend",
+            "description": "Média móvel 42 dias - fins de semana"
+          },
+          "z_score_weekend": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Z Score Weekend",
+            "description": "Z-score fins de semana"
+          },
+          "trend_weekend": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Trend Weekend",
+            "description": "Tendência fins de semana"
+          },
+          "alert_status": {
+            "type": "string",
+            "title": "Alert Status",
+            "description": "Status global (pior caso): green, yellow, red"
+          },
+          "status_all": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Status All",
+            "description": "Status métrica geral: green, yellow, red"
+          },
+          "status_weekday": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Status Weekday",
+            "description": "Status métrica weekday: green, yellow, red"
+          },
+          "status_weekend": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Status Weekend",
+            "description": "Status métrica weekend: green, yellow, red"
+          },
+          "alert_reason": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Alert Reason",
+            "description": "Razão do alerta (ex: Anomalia em dias úteis)"
+          },
+          "vs_previous_week_all": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Vs Previous Week All",
+            "description": "Variação vs semana anterior - geral (%)"
+          },
+          "vs_previous_week_weekday": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Vs Previous Week Weekday",
+            "description": "Variação vs semana anterior - dias úteis (%)"
+          },
+          "vs_previous_week_weekend": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Vs Previous Week Weekend",
+            "description": "Variação vs semana anterior - fins de semana (%)"
+          },
+          "calculated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Calculated At",
+            "description": "Data/hora do cálculo"
+          },
+          "confidence_level": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Confidence Level",
+            "description": "Nível de confiança: high, medium, low"
+          }
+        },
+        "type": "object",
+        "required": ["unit_name", "epidemiological_week", "alert_status", "calculated_at"],
+        "title": "EpidemiologicalMetrics",
+        "description": "Schema para métricas epidemiológicas segmentadas (ADR-017).\n\nVersão 2.0 (ADR-027): Campos duplicados removidos para reduzir redundância.\n- place_id, unit_type, week_ending_date: Movidos para WeeklyAggregationResponse\n- calculation_params: Movido para nível raiz da resposta",
+        "x-readme-ref-name": "EpidemiologicalMetrics"
+      },
+      "type": "array",
+      "title": "Data",
+      "description": "Lista de itens da página atual"
+    },
+    "pagination": {
+      "description": "Metadados de paginação",
+      "properties": {
+        "next_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Next Cursor",
+          "description": "Cursor para próxima página (None se última página)"
+        },
+        "previous_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Previous Cursor",
+          "description": "Cursor para página anterior (None se primeira página)"
+        },
+        "has_next": {
+          "type": "boolean",
+          "title": "Has Next",
+          "description": "Indica se existe próxima página"
+        },
+        "has_previous": {
+          "type": "boolean",
+          "title": "Has Previous",
+          "description": "Indica se existe página anterior"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "title": "Limit",
+          "description": "Número de itens retornados nesta página"
+        }
+      },
+      "type": "object",
+      "required": ["has_next", "has_previous", "limit"],
+      "title": "PaginationMeta",
+      "example": {
+        "has_next": true,
+        "has_previous": false,
+        "limit": 50,
+        "next_cursor": "eyJpZCI6MTAwfQ=="
+      },
+      "x-readme-ref-name": "PaginationMeta"
+    }
+  },
+  "type": "object",
+  "required": ["data", "pagination"],
+  "title": "CursorPaginatedResponse[EpidemiologicalMetrics]",
+  "x-readme-ref-name": "CursorPaginatedResponse_EpidemiologicalMetrics_"
+}

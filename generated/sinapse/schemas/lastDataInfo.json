@@ -1,0 +1,13 @@
+{
+  "properties": {
+    "date": { "type": "string", "title": "Date" },
+    "hour": { "type": "integer", "title": "Hour" },
+    "percentage": { "anyOf": [{ "type": "number" }, { "type": "null" }], "title": "Percentage" },
+    "received_at": { "type": "string", "format": "date-time", "title": "Received At" }
+  },
+  "type": "object",
+  "required": ["date", "hour", "received_at"],
+  "title": "LastDataInfo",
+  "description": "Informações do último dado coletado.",
+  "x-readme-ref-name": "LastDataInfo"
+}

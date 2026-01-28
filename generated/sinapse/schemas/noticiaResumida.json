@@ -1,0 +1,62 @@
+{
+  "properties": {
+    "id": { "type": "integer", "title": "Id" },
+    "unique_id": { "type": "string", "format": "uuid", "title": "Unique Id" },
+    "title": { "type": "string", "title": "Title" },
+    "content": {
+      "type": "string",
+      "title": "Content",
+      "description": "Resumo do conteúdo (primeiros 200 chars)"
+    },
+    "scraped_date": { "type": "string", "format": "date", "title": "Scraped Date" },
+    "url_img": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Url Img"
+    },
+    "source_icon": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Source Icon"
+    },
+    "source": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Source"
+    },
+    "relevance_score": {
+      "type": "number",
+      "maximum": 10,
+      "minimum": 0,
+      "title": "Relevance Score"
+    },
+    "doencas": {
+      "items": { "type": "string" },
+      "type": "array",
+      "title": "Doencas",
+      "description": "Nomes das doenças"
+    },
+    "regioes": {
+      "items": { "type": "string" },
+      "type": "array",
+      "title": "Regioes",
+      "description": "Nomes das regiões"
+    },
+    "match_score": {
+      "type": "number",
+      "minimum": 0,
+      "title": "Match Score",
+      "description": "Score de similaridade (quantidade de doenças + regiões em comum)"
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "unique_id",
+    "title",
+    "content",
+    "scraped_date",
+    "relevance_score",
+    "match_score"
+  ],
+  "title": "NoticiaResumida",
+  "description": "Versão resumida de uma notícia para listagem de relacionadas.",
+  "x-readme-ref-name": "NoticiaResumida"
+}

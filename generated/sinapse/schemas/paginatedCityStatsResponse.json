@@ -1,0 +1,202 @@
+{
+  "properties": {
+    "data": {
+      "items": {
+        "properties": {
+          "city": { "type": "string", "title": "City" },
+          "state": { "type": "string", "title": "State" },
+          "region": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Region",
+            "description": "Região: N, NE, CO, SE, S"
+          },
+          "unit_count": {
+            "type": "integer",
+            "title": "Unit Count",
+            "description": "Total de unidades cadastradas"
+          },
+          "units_with_data": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Units With Data",
+            "description": "Unidades com dados recentes"
+          },
+          "data_coverage": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Data Coverage",
+            "description": "Percentual de cobertura de dados (%)"
+          },
+          "ibge_code": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Ibge Code"
+          },
+          "average_occupation": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Average Occupation",
+            "description": "Ocupação média recente (%)"
+          },
+          "occupancy_level": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Occupancy Level",
+            "description": "Nível de ocupação: low, moderate, high"
+          },
+          "trend": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Trend",
+            "description": "Tendência temporal: up, down, stable"
+          },
+          "alert_status": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Alert Status",
+            "description": "Status de alerta epidemiológico: green, yellow, red"
+          },
+          "last_update": {
+            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+            "title": "Last Update",
+            "description": "Data da última atualização"
+          },
+          "units_breakdown": {
+            "anyOf": [
+              {
+                "items": {
+                  "properties": {
+                    "unit_type": { "type": "string", "title": "Unit Type" },
+                    "count": { "type": "integer", "title": "Count" },
+                    "average_occupation": {
+                      "anyOf": [{ "type": "number" }, { "type": "null" }],
+                      "title": "Average Occupation"
+                    },
+                    "occupancy_level": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "title": "Occupancy Level",
+                      "description": "Nível de ocupação: low, moderate, high"
+                    },
+                    "trend": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "title": "Trend",
+                      "description": "Tendência temporal: up, down, stable"
+                    },
+                    "alert_status": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "title": "Alert Status",
+                      "description": "Status de alerta epidemiológico para este tipo: green, yellow, red"
+                    }
+                  },
+                  "type": "object",
+                  "required": ["unit_type", "count"],
+                  "title": "UnitTypeBreakdown",
+                  "description": "Schema para breakdown por tipo de unidade.",
+                  "x-readme-ref-name": "UnitTypeBreakdown"
+                },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Units Breakdown"
+          },
+          "metadata": {
+            "anyOf": [{ "additionalProperties": true, "type": "object" }, { "type": "null" }],
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": ["city", "state", "unit_count"],
+        "title": "CityStatsResponse",
+        "description": "Schema para estatísticas por cidade.",
+        "x-readme-ref-name": "CityStatsResponse"
+      },
+      "type": "array",
+      "title": "Data",
+      "description": "Lista de cidades com estatísticas"
+    },
+    "pagination": {
+      "description": "Metadados de paginação",
+      "properties": {
+        "next_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Next Cursor",
+          "description": "Cursor para a próxima página"
+        },
+        "previous_cursor": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Previous Cursor",
+          "description": "Cursor para a página anterior"
+        },
+        "has_next": {
+          "type": "boolean",
+          "title": "Has Next",
+          "description": "Indica se há próxima página"
+        },
+        "has_previous": {
+          "type": "boolean",
+          "title": "Has Previous",
+          "description": "Indica se há página anterior"
+        },
+        "limit": { "type": "integer", "title": "Limit", "description": "Itens por página" }
+      },
+      "type": "object",
+      "required": ["has_next", "has_previous", "limit"],
+      "title": "CityStatsPaginationMeta",
+      "x-readme-ref-name": "CityStatsPaginationMeta"
+    },
+    "total_matching": {
+      "type": "integer",
+      "title": "Total Matching",
+      "description": "Total de cidades que correspondem aos filtros"
+    },
+    "total_units": {
+      "type": "integer",
+      "title": "Total Units",
+      "description": "Total de unidades em todas as cidades"
+    },
+    "total_units_with_data": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "title": "Total Units With Data",
+      "description": "Total de unidades com dados"
+    },
+    "average_data_coverage": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "title": "Average Data Coverage",
+      "description": "Média de cobertura de dados (%)"
+    },
+    "filters_applied": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Filters Applied",
+      "description": "Filtros aplicados na consulta"
+    }
+  },
+  "type": "object",
+  "required": ["data", "pagination", "total_matching", "total_units"],
+  "title": "PaginatedCityStatsResponse",
+  "description": "Schema para resposta paginada de estatísticas por cidade (cursor-based).",
+  "example": {
+    "average_data_coverage": 33.4,
+    "data": [
+      {
+        "alert_status": "yellow",
+        "average_occupation": 72.3,
+        "city": "São Paulo",
+        "data_coverage": 44.5,
+        "ibge_code": "3550308",
+        "last_update": "2025-04-23",
+        "occupancy_level": "high",
+        "region": "Sudeste",
+        "state": "SP",
+        "trend": "up",
+        "unit_count": 550,
+        "units_with_data": 245
+      }
+    ],
+    "filters_applied": { "min_units": 10, "state": "SP", "with_recent_data": true },
+    "pagination": {
+      "has_next": true,
+      "has_previous": false,
+      "limit": 50,
+      "next_cursor": "eyJpbmRleCI6IDUwfQ=="
+    },
+    "total_matching": 167,
+    "total_units": 6416,
+    "total_units_with_data": 2145
+  },
+  "x-readme-ref-name": "PaginatedCityStatsResponse"
+}

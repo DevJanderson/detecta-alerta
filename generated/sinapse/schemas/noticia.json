@@ -1,0 +1,154 @@
+{
+  "properties": {
+    "title": { "type": "string", "maxLength": 500, "minLength": 1, "title": "Title" },
+    "content": { "type": "string", "minLength": 1, "title": "Content" },
+    "scraped_time": {
+      "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
+      "title": "Scraped Time"
+    },
+    "scraped_date": {
+      "anyOf": [{ "type": "string", "format": "date" }, { "type": "string" }],
+      "title": "Scraped Date"
+    },
+    "urls": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Urls"
+    },
+    "source": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Source"
+    },
+    "url_img": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Url Img",
+      "description": "Array de URLs de imagens"
+    },
+    "source_icon": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Source Icon",
+      "description": "Array de URLs dos ícones/logos das fontes"
+    },
+    "published_at": {
+      "anyOf": [
+        { "type": "string", "format": "date-time" },
+        { "type": "string", "format": "date" },
+        { "type": "string" },
+        { "type": "null" }
+      ],
+      "title": "Published At"
+    },
+    "fact_description": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Fact Description"
+    },
+    "fact_date_occurred": {
+      "anyOf": [{ "type": "string", "format": "date" }, { "type": "string" }, { "type": "null" }],
+      "title": "Fact Date Occurred"
+    },
+    "relevance_score": {
+      "type": "number",
+      "maximum": 10,
+      "minimum": 0,
+      "title": "Relevance Score",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "pattern": "^(active|archived|flagged)$",
+      "title": "Status",
+      "default": "active"
+    },
+    "llm_status": { "type": "boolean", "title": "Llm Status", "default": false },
+    "id": { "type": "integer", "title": "Id" },
+    "unique_id": { "type": "string", "format": "uuid", "title": "Unique Id" },
+    "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+    "updated_at": { "type": "string", "format": "date-time", "title": "Updated At" },
+    "deleted_at": {
+      "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }],
+      "title": "Deleted At"
+    },
+    "doencas": {
+      "items": {
+        "properties": {
+          "name": { "type": "string", "maxLength": 200, "minLength": 1, "title": "Name" },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          },
+          "cid_code": {
+            "anyOf": [{ "type": "string", "maxLength": 20 }, { "type": "null" }],
+            "title": "Cid Code"
+          },
+          "id": { "type": "integer", "title": "Id" },
+          "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+          "updated_at": { "type": "string", "format": "date-time", "title": "Updated At" }
+        },
+        "type": "object",
+        "required": ["name", "id", "created_at", "updated_at"],
+        "title": "Doenca",
+        "x-readme-ref-name": "Doenca"
+      },
+      "type": "array",
+      "title": "Doencas",
+      "default": []
+    },
+    "sintomas": {
+      "items": {
+        "properties": {
+          "name": { "type": "string", "maxLength": 200, "minLength": 1, "title": "Name" },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          },
+          "id": { "type": "integer", "title": "Id" },
+          "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+          "updated_at": { "type": "string", "format": "date-time", "title": "Updated At" }
+        },
+        "type": "object",
+        "required": ["name", "id", "created_at", "updated_at"],
+        "title": "Sintoma",
+        "x-readme-ref-name": "Sintoma"
+      },
+      "type": "array",
+      "title": "Sintomas",
+      "default": []
+    },
+    "regioes": {
+      "items": {
+        "properties": {
+          "name": { "type": "string", "maxLength": 200, "minLength": 1, "title": "Name" },
+          "city": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "City" },
+          "state": {
+            "anyOf": [{ "type": "string", "maxLength": 2 }, { "type": "null" }],
+            "title": "State"
+          },
+          "country": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Country",
+            "default": "Brasil"
+          },
+          "latitude": { "anyOf": [{ "type": "number" }, { "type": "null" }], "title": "Latitude" },
+          "longitude": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Longitude"
+          },
+          "id": { "type": "integer", "title": "Id" },
+          "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+          "updated_at": { "type": "string", "format": "date-time", "title": "Updated At" }
+        },
+        "type": "object",
+        "required": ["name", "id", "created_at", "updated_at"],
+        "title": "Regiao",
+        "x-readme-ref-name": "Regiao"
+      },
+      "type": "array",
+      "title": "Regioes",
+      "default": []
+    }
+  },
+  "type": "object",
+  "required": ["title", "content", "scraped_date", "id", "unique_id", "created_at", "updated_at"],
+  "title": "Noticia",
+  "x-readme-ref-name": "Noticia"
+}
