@@ -6,6 +6,10 @@
 import type { H3Event } from 'h3'
 import type { JwtPayload } from '../../app/composables/types'
 
+// Tipos e schemas do Kubb (gerados do OpenAPI da API Sinapse)
+import type { Token } from '~/generated/sinapse/types/Token'
+import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
+
 // ============================================================================
 // CONSTANTES
 // ============================================================================
@@ -29,13 +33,9 @@ export interface SinapseError {
 }
 
 /**
- * Resposta de tokens da API Sinapse
+ * Alias para tipo de resposta de tokens (do Kubb)
  */
-export interface TokenResponse {
-  access_token: string
-  refresh_token: string
-  token_type?: string
-}
+export type TokenResponse = Token
 
 /**
  * Type guard para verificar se é um erro da API Sinapse
@@ -214,11 +214,14 @@ export async function tryRefreshTokens(event: H3Event): Promise<RefreshResult> {
   try {
     const sinapseApiUrl = getSinapseApiUrl()
 
-    const tokenResponse = await $fetch<TokenResponse>(`${sinapseApiUrl}/auth/refresh`, {
+    const rawResponse = await $fetch(`${sinapseApiUrl}/auth/refresh`, {
       method: 'POST',
       body: { refresh_token: refreshToken },
       timeout: DEFAULT_FETCH_TIMEOUT
     })
+
+    // Validar resposta com schema Kubb (garante que API não mudou)
+    const tokenResponse = tokenSchema.parse(rawResponse)
 
     // Atualizar cookies com novos tokens
     setAuthCookies(event, tokenResponse.access_token, tokenResponse.refresh_token)

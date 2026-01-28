@@ -203,9 +203,45 @@ runtimeConfig: {
 | GET    | `/api/auth/me`             | Dados do usuário         |
 | POST   | `/api/auth/reset-password` | Solicitar reset de senha |
 
+## Integração com Kubb
+
+Esta layer usa **tipos e schemas Zod** gerados pelo Kubb a partir do OpenAPI da API Sinapse.
+
+### Tipos Usados (do Kubb)
+
+```typescript
+// Re-exportados em app/composables/types.ts
+import type { Token } from '~/generated/sinapse/types/Token'
+import type { LoginRequest } from '~/generated/sinapse/types/LoginRequest'
+import type { UsuarioSchemaDetalhes } from '~/generated/sinapse/types/UsuarioSchemaDetalhes'
+```
+
+### Schemas Zod para Validação (do Kubb)
+
+```typescript
+// Usados nos endpoints BFF para validar respostas da API
+import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
+import { loginRequestSchema } from '~/generated/sinapse/zod/loginRequestSchema'
+
+// Exemplo: validar resposta de login
+const rawResponse = await $fetch('/auth/login', { ... })
+const validated = tokenSchema.parse(rawResponse) // Garante que API não mudou
+```
+
+### Vantagens
+
+- **Type safety**: Autocomplete e erros de compilação
+- **Validação runtime**: Schemas Zod garantem que a API está retornando o esperado
+- **Sincronização**: Quando o OpenAPI muda, basta regenerar (`npm run api:generate`)
+
 ## Tipos Principais
 
 ```typescript
+// Tipos base do Kubb (API Sinapse)
+type LoginCredentials = LoginRequest // { username, password }
+type TokenResponse = Token // { access_token, refresh_token }
+
+// Tipos adaptados para o BFF (não expõem tokens)
 interface AuthUser {
   id: number
   nome: string
@@ -219,11 +255,6 @@ interface AuthUser {
   ultimo_login?: string | null
   permissoes: AuthPermissao[]
   grupos: AuthGrupo[]
-}
-
-interface LoginCredentials {
-  username: string
-  password: string
 }
 ```
 

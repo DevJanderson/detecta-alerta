@@ -219,7 +219,15 @@ if (!result.success) throw createError({ statusCode: 400 })
 
 ## API Client (Kubb)
 
-Cliente TypeScript gerado automaticamente a partir da especificação OpenAPI.
+Código TypeScript gerado automaticamente a partir da especificação OpenAPI.
+
+### O que usar do Kubb
+
+| Componente       | Usar?  | Onde                               |
+| ---------------- | ------ | ---------------------------------- |
+| **Tipos**        | ✅ Sim | Composables, stores, endpoints BFF |
+| **Schemas Zod**  | ✅ Sim | Validação de respostas no BFF      |
+| **Cliente HTTP** | ❌ Não | Usar `$fetch` do Nuxt com BFF      |
 
 ### Estrutura
 
@@ -228,28 +236,32 @@ openapi/
   sinapse-api.json          # Especificação OpenAPI da API Sinapse
 generated/
   sinapse/
-    client/                 # Funções de chamada à API (fetch)
-    types/                  # Tipos TypeScript
-    zod/                    # Schemas Zod para validação
-    index.ts                # Barrel file exportando tudo
+    client/                 # Funções de chamada (NÃO USAR - preferir $fetch)
+    types/                  # Tipos TypeScript (USAR)
+    zod/                    # Schemas Zod para validação (USAR)
+    index.ts                # Barrel file
 kubb.config.ts              # Configuração do Kubb
 ```
 
-### Uso
+### Uso Recomendado
 
 ```typescript
-// Importar tipos
-import type { CasoAgravo, Cnes } from '~/generated/sinapse'
+// ✅ CORRETO - Tipos para autocomplete e type safety
+import type { Token } from '~/generated/sinapse/types/Token'
+import type { CasoAgravo } from '~/generated/sinapse/types/CasoAgravo'
 
-// Importar schemas Zod
-import { casoAgravoSchema } from '~/generated/sinapse'
+// ✅ CORRETO - Schemas Zod para validar respostas no BFF
+import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
 
-// Importar funções do cliente
-import { listarCasosApiV1AgravosCasosGet } from '~/generated/sinapse'
+// No endpoint BFF (server/)
+const rawResponse = await $fetch('/auth/login', { ... })
+const validated = tokenSchema.parse(rawResponse) // Valida em runtime
 
-// Exemplo de uso
-const casos = await listarCasosApiV1AgravosCasosGet({ limit: 10 })
+// ❌ EVITAR - Cliente Kubb (não integra com BFF/cookies httpOnly)
+// import { loginApiV1AuthLoginPost } from '~/generated/sinapse/client/...'
 ```
+
+> **Por que não usar o cliente?** O cliente gerado usa `fetch` puro, não integra com `$fetch` do Nuxt nem com o padrão BFF onde tokens ficam em cookies httpOnly.
 
 ### Regenerar após mudanças no OpenAPI
 

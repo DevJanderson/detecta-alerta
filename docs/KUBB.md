@@ -4,6 +4,28 @@ Este documento define o padrão oficial para integração com APIs externas no p
 
 ---
 
+## TL;DR - Uso Recomendado
+
+| Do Kubb          | Usar?  | Onde                        | Exemplo                                                        |
+| ---------------- | ------ | --------------------------- | -------------------------------------------------------------- |
+| **Tipos**        | ✅ Sim | Composables, stores, server | `import type { Token } from '~/generated/sinapse/types/Token'` |
+| **Schemas Zod**  | ✅ Sim | Endpoints BFF (validação)   | `tokenSchema.parse(response)`                                  |
+| **Cliente HTTP** | ❌ Não | -                           | Usar `$fetch` do Nuxt com BFF                                  |
+
+```typescript
+// ✅ CORRETO - Tipos + Validação Zod no BFF
+import type { Token } from '~/generated/sinapse/types/Token'
+import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
+
+const rawResponse = await $fetch('/auth/login', { ... })
+const validated = tokenSchema.parse(rawResponse) // Valida em runtime
+
+// ❌ EVITAR - Cliente Kubb direto (não integra com BFF/cookies)
+import { loginApiV1AuthLoginPost } from '~/generated/sinapse/client/...'
+```
+
+---
+
 ## Sumário
 
 1. [Visão Geral](#visão-geral)

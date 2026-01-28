@@ -1,10 +1,51 @@
 /**
  * Types do módulo Auth
- * Tipos e interfaces para autenticação
+ *
+ * Usa tipos do Kubb (gerados do OpenAPI) como base,
+ * com extensões específicas para o BFF.
  */
 
+// ============================================================================
+// RE-EXPORT DOS TIPOS KUBB
+// Tipos gerados automaticamente da API Sinapse
+// ============================================================================
+
+export type { LoginRequest as LoginCredentials } from '~/generated/sinapse/types/LoginRequest'
+export type { Token as TokenResponse } from '~/generated/sinapse/types/Token'
+export type { RefreshTokenRequest } from '~/generated/sinapse/types/RefreshTokenRequest'
+export type { UsuarioSchemaDetalhes as SinapseUser } from '~/generated/sinapse/types/UsuarioSchemaDetalhes'
+export type { GrupoSchemaList as SinapseGrupo } from '~/generated/sinapse/types/GrupoSchemaList'
+export type { PermissaoAcessoSchemaList as SinapsePermissao } from '~/generated/sinapse/types/PermissaoAcessoSchemaList'
+
+// ============================================================================
+// TIPOS ESPECÍFICOS DO BFF
+// Tipos adaptados para uso no cliente (sem expor tokens)
+// ============================================================================
+
 /**
- * Usuário autenticado (dados públicos)
+ * Permissão de acesso (formato do cliente)
+ * Adiciona 'codigo' que é usado internamente para verificações
+ */
+export interface AuthPermissao {
+  id: number
+  /** Código único da permissão (ex: 'dashboard.view') */
+  codigo: string
+  nome: string
+  descricao?: string | null
+}
+
+/**
+ * Grupo de usuários (formato do cliente)
+ */
+export interface AuthGrupo {
+  id: number
+  nome: string
+  descricao?: string | null
+}
+
+/**
+ * Usuário autenticado (dados públicos para o cliente)
+ * Baseado em UsuarioSchemaDetalhes mas com permissões/grupos simplificados
  */
 export interface AuthUser {
   id: number
@@ -22,26 +63,7 @@ export interface AuthUser {
 }
 
 /**
- * Permissão de acesso
- */
-export interface AuthPermissao {
-  id: number
-  codigo: string
-  nome: string
-  descricao?: string | null
-}
-
-/**
- * Grupo de usuários
- */
-export interface AuthGrupo {
-  id: number
-  nome: string
-  descricao?: string | null
-}
-
-/**
- * Estado de autenticação
+ * Estado de autenticação (cliente)
  */
 export interface AuthState {
   user: AuthUser | null
@@ -51,15 +73,7 @@ export interface AuthState {
 }
 
 /**
- * Credenciais de login
- */
-export interface LoginCredentials {
-  username: string
-  password: string
-}
-
-/**
- * Resposta de login do BFF (sem tokens - ficam em cookies)
+ * Resposta de login do BFF (sem tokens - ficam em cookies httpOnly)
  */
 export interface LoginResponse {
   user: AuthUser
@@ -81,6 +95,7 @@ export interface ResetPasswordResponse {
 
 /**
  * Token JWT decodificado (payload)
+ * Usado apenas no servidor para verificar expiração
  */
 export interface JwtPayload {
   sub: string

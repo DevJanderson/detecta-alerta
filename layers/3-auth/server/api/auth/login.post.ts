@@ -1,5 +1,3 @@
-import { z } from 'zod'
-
 /**
  * POST /api/auth/login
  *
@@ -7,15 +5,14 @@ import { z } from 'zod'
  * Retorna apenas os dados do usuário (nunca expõe tokens ao cliente).
  */
 
-const loginSchema = z.object({
-  username: z.string().min(1, 'Email ou username é obrigatório').max(255),
-  password: z.string().min(1, 'Senha é obrigatória').max(128)
-})
+// Schemas Zod do Kubb (gerados do OpenAPI)
+import { loginRequestSchema } from '~/generated/sinapse/zod/loginRequestSchema'
+import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
 
 export default defineEventHandler(async event => {
-  // Validar body
+  // Validar body com schema Kubb
   const body = await readBody(event)
-  const result = loginSchema.safeParse(body)
+  const result = loginRequestSchema.safeParse(body)
 
   if (!result.success) {
     throw createError({
@@ -29,10 +26,13 @@ export default defineEventHandler(async event => {
 
   try {
     // Login na API Sinapse
-    const tokenResponse = await fetchSinapse<TokenResponse>('/auth/login', {
+    const rawTokenResponse = await fetchSinapse('/auth/login', {
       method: 'POST',
       body: { username, password }
     })
+
+    // Validar resposta com schema Kubb (garante que API não mudou)
+    const tokenResponse = tokenSchema.parse(rawTokenResponse)
 
     // Armazenar tokens em cookies httpOnly
     setAuthCookies(event, tokenResponse.access_token, tokenResponse.refresh_token)
