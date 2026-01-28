@@ -111,9 +111,12 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    // Private (server only)
+    // apiSecret: '', // NUXT_API_SECRET
+
     // Public (exposed to client)
     public: {
-      apiBaseUrl: import.meta.env.API_BASE_URL || '/api'
+      apiBaseUrl: '' // NUXT_PUBLIC_API_BASE_URL
     }
   },
 
