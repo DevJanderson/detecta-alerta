@@ -86,7 +86,7 @@ layers/
 ├── 0-core/      # Fundação: app.vue, CSS global
 ├── 1-base/      # UI: shadcn-vue, utils, tipos
 ├── 3-auth/      # Autenticação BFF
-└── 4-landing/   # Landing page
+└── 4-home/      # Homepage
 
 tests/           # Testes (unit, e2e)
 ```

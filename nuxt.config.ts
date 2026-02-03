@@ -41,7 +41,7 @@ export default defineNuxtConfig({
   },
 
   // Nuxt Layers - auto-scan de ~/layers (Nuxt 4+)
-  // Ordem de prioridade: 0-core < 1-base < 3-auth < 4-landing
+  // Ordem de prioridade: 0-core < 1-base < 3-auth < 4-home
   // Número maior = maior prioridade = sobrescreve layers anteriores
 
   modules: [

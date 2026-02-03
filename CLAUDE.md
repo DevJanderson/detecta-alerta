@@ -129,7 +129,7 @@ layers/                 # TUDO fica aqui (incluindo server/)
   0-core/               # Fundação: app.vue, error.vue, CSS global, health check
   1-base/               # UI: shadcn-vue, utils, tipos globais
   3-auth/               # Autenticação BFF (Backend-for-Frontend)
-  4-landing/            # Landing page
+  4-home/            # Landing page
 tests/                  # unit/, integration/, e2e/
 docs/                   # Documentação técnica detalhada
 generated/              # Cliente API gerado (Kubb) - NÃO EDITAR
@@ -143,7 +143,7 @@ openapi/                # Especificações OpenAPI
 ### Ordem de Prioridade (Layers)
 
 ```
-4-landing > 3-auth > 1-base > 0-core
+4-home > 3-auth > 1-base > 0-core
 ```
 
 Número maior = maior prioridade = sobrescreve layers anteriores.
@@ -347,7 +347,7 @@ Cada diretório principal tem seu próprio `CLAUDE.md` com instruções específ
 | [layers/1-base/app/components/CLAUDE.md](layers/1-base/app/components/CLAUDE.md)   | Componentes UI                         |
 | [layers/1-base/app/composables/CLAUDE.md](layers/1-base/app/composables/CLAUDE.md) | Padrões de composables                 |
 | [layers/3-auth/CLAUDE.md](layers/3-auth/CLAUDE.md)                                 | Autenticação BFF, login, logout        |
-| [layers/4-landing/CLAUDE.md](layers/4-landing/CLAUDE.md)                           | Landing page, páginas públicas         |
+| [layers/4-home/CLAUDE.md](layers/4-home/CLAUDE.md)                                 | Landing page, páginas públicas         |
 | [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking            |
 | [docs/BFF.md](docs/BFF.md)                                                         | O que é BFF e por que usar             |
 | [docs/KUBB.md](docs/KUBB.md)                                                       | Kubb + BFF, geração de código          |

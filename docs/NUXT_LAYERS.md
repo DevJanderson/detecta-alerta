@@ -70,7 +70,7 @@ projeto/
 │   │   │   └── pages/auth/
 │   │   └── server/api/auth/
 │   │
-│   └── 4-landing/                  # Feature: Landing page
+│   └── 4-home/                  # Feature: Landing page
 │       └── app/pages/
 │
 ├── tests/                          # Testes (unit, e2e)
@@ -91,7 +91,7 @@ projeto/
 ## Ordem de Prioridade
 
 ```
-4-landing > 3-auth > 1-base > 0-core
+4-home > 3-auth > 1-base > 0-core
 ```
 
 **Regra:** Número MAIOR = MAIOR prioridade = sobrescreve layers anteriores.
