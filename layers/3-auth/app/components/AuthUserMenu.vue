@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { User, LogOut, Settings, ChevronDown } from 'lucide-vue-next'
+import { User, LogOut, ChevronDown } from 'lucide-vue-next'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -33,22 +33,6 @@ async function handleLogout() {
           <p class="text-xs text-muted-foreground">{{ authStore.userEmail }}</p>
         </div>
       </DropdownMenuLabel>
-
-      <DropdownMenuSeparator />
-
-      <DropdownMenuItem as-child>
-        <NuxtLink to="/perfil" class="flex cursor-pointer items-center">
-          <User class="mr-2 h-4 w-4" />
-          <span>Meu perfil</span>
-        </NuxtLink>
-      </DropdownMenuItem>
-
-      <DropdownMenuItem as-child>
-        <NuxtLink to="/configuracoes" class="flex cursor-pointer items-center">
-          <Settings class="mr-2 h-4 w-4" />
-          <span>Configurações</span>
-        </NuxtLink>
-      </DropdownMenuItem>
 
       <DropdownMenuSeparator />
 

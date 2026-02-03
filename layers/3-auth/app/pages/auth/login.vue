@@ -6,10 +6,9 @@ definePageMeta({
 const route = useRoute()
 
 // Pegar redirect da query string (com validação de segurança)
-// Default: /dashboard para mostrar mensagem de boas-vindas
 const redirectTo = computed(() => {
   const redirect = route.query.redirect as string | undefined
-  return getSafeRedirectUrl(redirect, '/dashboard')
+  return getSafeRedirectUrl(redirect, '/')
 })
 </script>
 
