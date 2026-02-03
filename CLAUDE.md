@@ -11,6 +11,12 @@ Sempre responda em Português Brasileiro (pt-BR).
 - Não incluir `Co-Authored-By` nos commits
 - Mensagens de commit em português ou inglês (consistente com o projeto)
 
+## Regras de Execução
+
+- **NUNCA** rodar `npm run dev` em background ou com timeout - deixar o usuário iniciar no terminal dele
+- Para verificar erros, usar apenas `npm run typecheck` ou `npm run build`
+- Evitar processos que ficam rodando indefinidamente
+
 ## Comandos
 
 ```bash
@@ -46,7 +52,7 @@ Componentes ficam em `layers/1-base/app/components/ui/` (auto-import).
 ## Design System - Cores
 
 Arquivo de cores: `layers/0-core/app/assets/css/main.css`
-Visualização: http://localhost:3000/styles
+Visualização: http://localhost:3000/design-system
 
 ### Cores da Marca (usar estas)
 
@@ -122,7 +128,6 @@ Nuxt 4 + shadcn-vue + Tailwind CSS v4 + **Nuxt Layers**.
 layers/                 # TUDO fica aqui (incluindo server/)
   0-core/               # Fundação: app.vue, error.vue, CSS global, health check
   1-base/               # UI: shadcn-vue, utils, tipos globais
-  2-example/            # Feature layer de exemplo (copiar para novas)
   3-auth/               # Autenticação BFF (Backend-for-Frontend)
   4-landing/            # Landing page
 tests/                  # unit/, integration/, e2e/
@@ -138,7 +143,7 @@ openapi/                # Especificações OpenAPI
 ### Ordem de Prioridade (Layers)
 
 ```
-4-landing > 3-auth > 2-example > 1-base > 0-core
+4-landing > 3-auth > 1-base > 0-core
 ```
 
 Número maior = maior prioridade = sobrescreve layers anteriores.
@@ -206,7 +211,30 @@ export const useExampleStore = defineStore('example', () => {
 
 ## Segurança
 
-Módulos `nuxt-security` e `nuxt-csurf` já configurados.
+Módulo `nuxt-security` configurado com headers, rate limiter, CSRF e XSS protection.
+
+> **Nota:** O CSRF usa `nuxt-csurf` internamente (não precisa instalar separadamente).
+
+### Configuração Atual
+
+| Feature           | Configuração                                                            |
+| ----------------- | ----------------------------------------------------------------------- |
+| **Headers**       | CSP, HSTS, X-Frame-Options, etc.                                        |
+| **Rate Limiter**  | 150 req/5min (global), 10 req/5min (login), 5 req/5min (reset-password) |
+| **CSRF**          | Habilitado para POST/PUT/PATCH/DELETE (desabilitado em `/api/auth/*`)   |
+| **XSS Validator** | Habilitado com defaults                                                 |
+| **Request Size**  | 2MB (geral), 8MB (upload)                                               |
+
+### Desabilitar CSRF por Rota
+
+```typescript
+// nuxt.config.ts
+routeRules: {
+  '/api/minha-rota': { csurf: false }
+}
+```
+
+### Padrões de Código
 
 ```typescript
 // Tokens em cookies httpOnly (nunca localStorage)
@@ -216,6 +244,8 @@ setCookie(event, 'token', value, { httpOnly: true, secure: true, sameSite: 'stri
 const result = schema.safeParse(body)
 if (!result.success) throw createError({ statusCode: 400 })
 ```
+
+Docs: [nuxt-security.vercel.app](https://nuxt-security.vercel.app)
 
 ## API Client (Kubb)
 
@@ -310,14 +340,14 @@ output: {
 
 Cada diretório principal tem seu próprio `CLAUDE.md` com instruções específicas:
 
-| Documento                                                                          | Conteúdo                            |
-| ---------------------------------------------------------------------------------- | ----------------------------------- |
-| [layers/0-core/CLAUDE.md](layers/0-core/CLAUDE.md)                                 | app.vue, error.vue, CSS global      |
-| [layers/1-base/app/components/CLAUDE.md](layers/1-base/app/components/CLAUDE.md)   | shadcn-vue, componentes             |
-| [layers/1-base/app/composables/CLAUDE.md](layers/1-base/app/composables/CLAUDE.md) | Padrões de composables              |
-| [layers/2-example/CLAUDE.md](layers/2-example/CLAUDE.md)                           | Template para criar features        |
-| [layers/3-auth/CLAUDE.md](layers/3-auth/CLAUDE.md)                                 | Autenticação BFF, login, logout     |
-| [docs/BFF.md](docs/BFF.md)                                                         | O que é BFF e por que usar          |
-| [docs/KUBB.md](docs/KUBB.md)                                                       | Kubb + BFF, geração de código       |
-| [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking         |
-| [docs/server.md](docs/server.md)                                                   | Nitro API routes, segurança, testes |
+| Documento                                                                          | Conteúdo                               |
+| ---------------------------------------------------------------------------------- | -------------------------------------- |
+| [layers/0-core/CLAUDE.md](layers/0-core/CLAUDE.md)                                 | app.vue, error.vue, CSS global         |
+| [layers/1-base/CLAUDE.md](layers/1-base/CLAUDE.md)                                 | shadcn-vue, utilitários, tipos globais |
+| [layers/1-base/app/components/CLAUDE.md](layers/1-base/app/components/CLAUDE.md)   | Componentes UI                         |
+| [layers/1-base/app/composables/CLAUDE.md](layers/1-base/app/composables/CLAUDE.md) | Padrões de composables                 |
+| [layers/3-auth/CLAUDE.md](layers/3-auth/CLAUDE.md)                                 | Autenticação BFF, login, logout        |
+| [layers/4-landing/CLAUDE.md](layers/4-landing/CLAUDE.md)                           | Landing page, páginas públicas         |
+| [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking            |
+| [docs/BFF.md](docs/BFF.md)                                                         | O que é BFF e por que usar             |
+| [docs/KUBB.md](docs/KUBB.md)                                                       | Kubb + BFF, geração de código          |

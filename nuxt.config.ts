@@ -41,7 +41,7 @@ export default defineNuxtConfig({
   },
 
   // Nuxt Layers - auto-scan de ~/layers (Nuxt 4+)
-  // Ordem de prioridade: 0-core < 1-base < 2-example < 3-auth < 4-landing
+  // Ordem de prioridade: 0-core < 1-base < 3-auth < 4-landing
   // Número maior = maior prioridade = sobrescreve layers anteriores
 
   modules: [
@@ -51,50 +51,80 @@ export default defineNuxtConfig({
     '@vee-validate/nuxt',
     '@nuxt/image',
     'nuxt-security',
-    'nuxt-csurf'
+    'vue-sonner/nuxt'
   ],
 
-  // Security - Headers e proteções
+  // Security - nuxt-security (headers, rate limiter, CSRF, etc.)
+  // Docs: https://nuxt-security.vercel.app
   security: {
+    // Headers de segurança
     headers: {
+      crossOriginResourcePolicy: 'same-origin',
+      crossOriginOpenerPolicy: 'same-origin',
       crossOriginEmbedderPolicy:
-        process.env.NODE_ENV === 'development' ? 'unsafe-none' : 'require-corp',
+        process.env.NODE_ENV === 'development' ? 'unsafe-none' : 'credentialless',
       contentSecurityPolicy: {
+        'base-uri': ["'self'"],
         'default-src': ["'self'"],
         'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
         'style-src': ["'self'", "'unsafe-inline'"],
         'img-src': ["'self'", 'data:', 'https:'],
-        'font-src': ["'self'"],
+        'font-src': ["'self'", 'data:'],
         'connect-src': ["'self'"],
-        'frame-ancestors': ["'none'"],
-        'base-uri': ["'self'"],
-        'form-action': ["'self'"]
-      }
+        'frame-ancestors': ["'self'"],
+        'form-action': ["'self'"],
+        'object-src': ["'none'"]
+      },
+      referrerPolicy: 'strict-origin-when-cross-origin',
+      strictTransportSecurity: {
+        maxAge: 31536000,
+        includeSubdomains: true
+      },
+      xContentTypeOptions: 'nosniff',
+      xFrameOptions: 'SAMEORIGIN',
+      xXSSProtection: '0' // Desabilitado (obsoleto, CSP é suficiente)
     },
+
+    // Rate limiter - 150 requests por 5 minutos
     rateLimiter: {
       tokensPerInterval: 150,
       interval: 300000
     },
-    xssValidator: {},
+
+    // Limite de tamanho de requisição
     requestSizeLimiter: {
-      maxRequestSizeInBytes: 2000000,
-      maxUploadFileRequestInBytes: 8000000
+      maxRequestSizeInBytes: 2000000, // 2MB
+      maxUploadFileRequestInBytes: 8000000 // 8MB
+    },
+
+    // XSS Validator (objeto vazio = usar defaults)
+    xssValidator: {},
+
+    // Oculta header X-Powered-By
+    hidePoweredBy: true,
+
+    // CSRF Protection (usa nuxt-csurf internamente)
+    csrf: {
+      https: process.env.NODE_ENV === 'production',
+      cookieKey: 'csrf',
+      methodsToProtect: ['POST', 'PUT', 'PATCH', 'DELETE']
     }
   },
 
-  // CSRF Protection
-  csurf: {
-    https: process.env.NODE_ENV === 'production',
-    cookieKey: 'csrf',
-    methodsToProtect: ['POST', 'PUT', 'PATCH', 'DELETE']
-  },
-
-  // Desabilitar CSRF para rotas de auth (usa cookies httpOnly para segurança)
+  // Configurações por rota
+  // Docs: https://nuxt-security.vercel.app/getting-started/usage
   routeRules: {
-    '/api/auth/login': { csurf: false },
+    // Rotas de auth: CSRF desabilitado (usam cookies httpOnly)
+    '/api/auth/login': {
+      security: { rateLimiter: { tokensPerInterval: 10, interval: 300000 } },
+      csurf: false
+    },
     '/api/auth/logout': { csurf: false },
     '/api/auth/refresh': { csurf: false },
-    '/api/auth/reset-password': { csurf: false }
+    '/api/auth/reset-password': {
+      security: { rateLimiter: { tokensPerInterval: 5, interval: 300000 } },
+      csurf: false
+    }
   },
 
   // VeeValidate - validação de formulários

@@ -164,10 +164,10 @@ test.describe('Homepage', () => {
     await expect(page).toHaveTitle(/Nuxt/)
   })
 
-  test('should navigate to example', async ({ page }) => {
+  test('should navigate to login', async ({ page }) => {
     await page.goto('/')
-    await page.click('a[href="/example"]')
-    await expect(page).toHaveURL('/example')
+    await page.click('a[href="/auth/login"]')
+    await expect(page).toHaveURL('/auth/login')
   })
 })
 ```

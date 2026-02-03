@@ -577,32 +577,32 @@ describe('useLoading', () => {
 ### Teste de Composable com Pinia
 
 ```typescript
-// tests/unit/composables/useExampleStore.test.ts
+// tests/unit/composables/useAuthStore.test.ts
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
-import { useExampleStore } from '~/layers/2-example/app/composables/useExampleStore'
+import { useAuthStore } from '~/layers/3-auth/app/composables/useAuthStore'
 
 // Mock do API
-vi.mock('~/layers/2-example/app/composables/useExampleApi', () => ({
-  useExampleApi: () => ({
-    getAll: vi.fn().mockResolvedValue([{ id: '1', name: 'Test' }])
+vi.mock('~/layers/3-auth/app/composables/useAuthApi', () => ({
+  useAuthApi: () => ({
+    login: vi.fn().mockResolvedValue({ user: { id: 1, nome: 'Test' } })
   })
 }))
 
-describe('useExampleStore', () => {
+describe('useAuthStore', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
   })
 
-  it('should start empty', () => {
-    const store = useExampleStore()
-    expect(store.items).toEqual([])
+  it('should start not authenticated', () => {
+    const store = useAuthStore()
+    expect(store.isAuthenticated).toBe(false)
   })
 
-  it('should fetch items', async () => {
-    const store = useExampleStore()
-    await store.fetchAll()
-    expect(store.items).toHaveLength(1)
+  it('should authenticate after login', async () => {
+    const store = useAuthStore()
+    await store.login({ username: 'test', password: '123' })
+    expect(store.isAuthenticated).toBe(true)
   })
 })
 ```

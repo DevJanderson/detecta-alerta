@@ -1,4 +1,4 @@
-# Git Flow - MedBlast
+# Git Flow - Detecta Alerta
 
 Estratégia de branches baseada no Git Flow com ambiente de staging para homologação.
 
@@ -115,10 +115,10 @@ git branch -d hotfix/corrige-login
 ### Features
 
 ```
-feature/busca-paciente
-feature/revisao-match
-feature/dashboard-metricas
-feature/importacao-csv
+feature/mapa-alertas
+feature/dashboard-ocupacao
+feature/filtro-municipios
+feature/exportacao-dados
 ```
 
 ### Releases
@@ -133,7 +133,7 @@ release/2.0.0
 
 ```
 hotfix/corrige-login
-hotfix/fix-duplicata-cpf
+hotfix/fix-calculo-zscore
 hotfix/seguranca-csrf
 ```
 
@@ -155,13 +155,13 @@ build: build/dependências
 ### Exemplos
 
 ```bash
-feat: adiciona busca fonética de pacientes
-feat(busca): implementa tolerância de data ±1 ano
-fix: corrige validação de CPF com dígitos repetidos
-fix(revisao): resolve merge incorreto de CNS
+feat: adiciona mapa de alertas por região
+feat(dashboard): implementa gráfico de tendências
+fix: corrige cálculo de z-score para ocupação
+fix(auth): resolve expiração prematura de token
 docs: atualiza README com instruções de deploy
-refactor(api): extrai lógica de matching para service
-test: adiciona testes para validação de CNS
+refactor(api): extrai lógica de alertas para service
+test: adiciona testes para validação de dados CNES
 chore: atualiza dependências do projeto
 ```
 
@@ -220,8 +220,8 @@ Configurar no repositório:
 
 ## Ambientes e Deploy
 
-| Branch  | Ambiente        | URL                     | Deploy           |
-| ------- | --------------- | ----------------------- | ---------------- |
-| develop | Desenvolvimento | dev.medblast.com.br     | Automático       |
-| staging | Homologação     | staging.medblast.com.br | Automático       |
-| main    | Produção        | app.medblast.com.br     | Manual/Aprovação |
+| Branch  | Ambiente        | URL                          | Deploy           |
+| ------- | --------------- | ---------------------------- | ---------------- |
+| develop | Desenvolvimento | dev.detectaalerta.com.br     | Automático       |
+| staging | Homologação     | staging.detectaalerta.com.br | Automático       |
+| main    | Produção        | app.detectaalerta.com.br     | Manual/Aprovação |

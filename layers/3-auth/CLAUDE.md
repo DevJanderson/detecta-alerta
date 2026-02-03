@@ -184,14 +184,16 @@ runtimeConfig: {
 
 ## Segurança
 
-| Aspecto    | Implementação                           |
-| ---------- | --------------------------------------- |
-| Tokens     | Cookies httpOnly (não acessível via JS) |
-| Secure     | `true` em produção                      |
-| SameSite   | `strict`                                |
-| CSRF       | Protegido via `nuxt-csurf`              |
-| Rate Limit | 150 req/5min via `nuxt-security`        |
-| Validação  | Zod em todos os endpoints               |
+| Aspecto    | Implementação                                        |
+| ---------- | ---------------------------------------------------- |
+| Tokens     | Cookies httpOnly (não acessível via JS)              |
+| Secure     | `true` em produção                                   |
+| SameSite   | `strict`                                             |
+| CSRF       | Desabilitado em `/api/auth/*` (usa cookies httpOnly) |
+| Rate Limit | Login: 10 req/5min, Reset: 5 req/5min                |
+| Validação  | Zod em todos os endpoints                            |
+
+> **Nota:** CSRF é desabilitado nas rotas de auth porque já usam cookies httpOnly com `SameSite: strict`, que provê proteção equivalente.
 
 ## Endpoints BFF
 

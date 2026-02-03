@@ -44,7 +44,7 @@ export default defineNuxtConfig({
 Esta é a layer com **menor prioridade** (0). Todas as outras layers podem sobrescrever seus arquivos.
 
 ```
-0-core < 1-base < 2-example < 3-auth < 4-landing
+0-core < 1-base < 3-auth < 4-landing
 ```
 
 ## Customização

@@ -85,10 +85,9 @@ npm run test:e2e     # Testes E2E
 layers/
 ├── 0-core/      # Fundação: app.vue, CSS global
 ├── 1-base/      # UI: shadcn-vue, utils, tipos
-├── 2-example/   # Feature layer de exemplo
+├── 3-auth/      # Autenticação BFF
 └── 4-landing/   # Landing page
 
-server/          # API routes (Nitro)
 tests/           # Testes (unit, e2e)
 ```
 

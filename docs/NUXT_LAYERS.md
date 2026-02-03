@@ -63,17 +63,16 @@ projeto/
 │   │   │   └── utils/              # Funções utilitárias
 │   │   └── shared/types/           # Tipos globais (via alias #shared)
 │   │
-│   ├── 2-example/                  # Feature: Módulo de exemplo
+│   ├── 3-auth/                     # Feature: Autenticação BFF
 │   │   ├── app/
 │   │   │   ├── components/
 │   │   │   ├── composables/
-│   │   │   └── pages/example/
-│   │   └── server/api/example/
+│   │   │   └── pages/auth/
+│   │   └── server/api/auth/
 │   │
 │   └── 4-landing/                  # Feature: Landing page
 │       └── app/pages/
 │
-├── server/                         # API routes globais (opcional)
 ├── tests/                          # Testes (unit, e2e)
 ├── nuxt.config.ts
 └── package.json
@@ -92,30 +91,31 @@ projeto/
 ## Ordem de Prioridade
 
 ```
-4-landing > 2-example > 1-base > 0-core
+4-landing > 3-auth > 1-base > 0-core
 ```
 
 **Regra:** Número MAIOR = MAIOR prioridade = sobrescreve layers anteriores.
 
-Exemplo: Se `1-base` e `2-example` definem um componente com mesmo nome, o de `2-example` será usado.
+Exemplo: Se `1-base` e `3-auth` definem um componente com mesmo nome, o de `3-auth` será usado.
 
 ---
 
 ## Criando uma Nova Feature Layer
 
-### 1. Copiar layer de exemplo
+### 1. Criar estrutura da layer
 
 ```bash
-cp -r layers/2-example layers/3-minha-feature
+mkdir -p layers/5-minha-feature/{app/{components,composables,pages/minha-feature},server/api/minha-feature}
+touch layers/5-minha-feature/nuxt.config.ts
 ```
 
-### 2. Renomear arquivos
+### 2. Criar arquivos
 
-Substitua `example/Example` pelo nome da sua feature:
+Crie os arquivos seguindo a estrutura:
 
 ```bash
 # Estrutura final
-layers/3-minha-feature/
+layers/5-minha-feature/
 ├── nuxt.config.ts
 ├── app/
 │   ├── components/
@@ -132,7 +132,7 @@ layers/3-minha-feature/
 ### 3. Configurar nuxt.config.ts
 
 ```ts
-// layers/3-minha-feature/nuxt.config.ts
+// layers/5-minha-feature/nuxt.config.ts
 export default defineNuxtConfig({
   // Configurações específicas (pode estar vazio)
 })

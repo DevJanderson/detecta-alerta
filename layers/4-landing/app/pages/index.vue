@@ -1,21 +1,26 @@
 <script setup lang="ts">
 /**
- * Página inicial do template
+ * Página inicial - Detecta Alerta
  */
+useSeoMeta({
+  title: 'Detecta Alerta - Vigilância Epidemiológica',
+  description:
+    'Plataforma de vigilância e monitoramento epidemiológico em tempo real para o Brasil.'
+})
 </script>
 
 <template>
   <div class="min-h-screen flex flex-col items-center justify-center gap-6 p-6">
     <div class="text-center space-y-2">
-      <h1 class="text-4xl font-bold tracking-tight">Nuxt 4 Layers Template</h1>
+      <h1 class="text-4xl font-bold tracking-tight">Detecta Alerta</h1>
       <p class="text-muted-foreground">
-        Template com shadcn-vue, Tailwind CSS e arquitetura de Layers
+        Plataforma de vigilância e monitoramento epidemiológico em tempo real
       </p>
     </div>
 
     <div class="flex gap-4">
-      <NuxtLink to="/example">
-        <Button>Ver módulo de exemplo</Button>
+      <NuxtLink to="/auth/login">
+        <Button>Entrar</Button>
       </NuxtLink>
     </div>
   </div>
