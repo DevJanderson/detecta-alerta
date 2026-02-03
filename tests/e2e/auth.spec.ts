@@ -2,7 +2,15 @@
  * Testes E2E para fluxo de autenticação
  */
 
-import { test, expect } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
+
+/** Aguarda hidratação completa do Vue/Nuxt antes de interagir com o DOM */
+async function waitForHydration(page: Page) {
+  await page.waitForFunction(() => {
+    const el = document.querySelector('#__nuxt')
+    return el && (el as any).__vue_app__ !== undefined
+  })
+}
 
 test.describe('Autenticação', () => {
   test.describe('Página de Login', () => {
@@ -26,12 +34,10 @@ test.describe('Autenticação', () => {
 
     test('deve mostrar/ocultar senha ao clicar no ícone', async ({ page }) => {
       await page.goto('/auth/login')
+      await waitForHydration(page)
 
       const passwordInput = page.locator('input#password')
-      const toggleButton = page
-        .locator('button')
-        .filter({ has: page.locator('svg') })
-        .last()
+      const toggleButton = passwordInput.locator('..').locator('button')
 
       // Inicialmente deve ser type="password"
       await expect(passwordInput).toHaveAttribute('type', 'password')
@@ -54,9 +60,10 @@ test.describe('Autenticação', () => {
 
     test('botão de submit deve estar habilitado com credenciais', async ({ page }) => {
       await page.goto('/auth/login')
+      await waitForHydration(page)
 
-      await page.fill('input#username', 'usuario@teste.com')
-      await page.fill('input#password', 'senha123')
+      await page.locator('input#username').fill('usuario@teste.com')
+      await page.locator('input#password').fill('senha123')
 
       const submitButton = page.locator('button[type="submit"]')
       await expect(submitButton).toBeEnabled()
@@ -74,10 +81,13 @@ test.describe('Autenticação', () => {
 
     test('deve validar email inválido', async ({ page }) => {
       await page.goto('/auth/reset-password')
+      await waitForHydration(page)
 
-      await page.fill('input#email', 'emailinvalido')
+      const emailInput = page.locator('input#email')
+      await emailInput.fill('emailinvalido')
 
-      await expect(page.locator('text=Digite um email válido')).toBeVisible()
+      // Verifica se aparece mensagem de erro de validação
+      await expect(page.getByText('Digite um email válido')).toBeVisible()
     })
 
     test('deve ter link para voltar ao login', async ({ page }) => {

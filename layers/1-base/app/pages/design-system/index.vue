@@ -292,32 +292,9 @@ const chartColors = [
           <span class="text-sm font-normal text-muted-foreground">(Design System Figma)</span>
         </h2>
 
-        <!-- Brand Filled -->
+        <!-- Brand Outline (Primário) -->
         <div class="mb-6">
-          <h3 class="mb-3 text-lg font-medium text-foreground">Brand (Filled)</h3>
-          <div class="flex flex-wrap items-end gap-4">
-            <div class="flex flex-col items-center gap-2">
-              <Button variant="brand" size="brand-sm">Small</Button>
-              <span class="text-xs text-muted-foreground">brand-sm</span>
-            </div>
-            <div class="flex flex-col items-center gap-2">
-              <Button variant="brand" size="brand-md">Medium</Button>
-              <span class="text-xs text-muted-foreground">brand-md</span>
-            </div>
-            <div class="flex flex-col items-center gap-2">
-              <Button variant="brand" size="brand-lg">Large</Button>
-              <span class="text-xs text-muted-foreground">brand-lg</span>
-            </div>
-            <div class="flex flex-col items-center gap-2">
-              <Button variant="brand" size="brand-md" disabled>Disabled</Button>
-              <span class="text-xs text-muted-foreground">disabled</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Brand Outline -->
-        <div class="mb-6">
-          <h3 class="mb-3 text-lg font-medium text-foreground">Brand Outline</h3>
+          <h3 class="mb-3 text-lg font-medium text-foreground">Brand Outline (Primário)</h3>
           <div class="flex flex-wrap items-end gap-4">
             <div class="flex flex-col items-center gap-2">
               <Button variant="brand-outline" size="brand-sm">Small</Button>
@@ -338,32 +315,11 @@ const chartColors = [
           </div>
         </div>
 
-        <!-- Brand Secondary (Filled) -->
-        <div class="mb-6">
-          <h3 class="mb-3 text-lg font-medium text-foreground">Brand Secondary (Filled)</h3>
-          <div class="flex flex-wrap items-end gap-4">
-            <div class="flex flex-col items-center gap-2">
-              <Button variant="brand-secondary" size="brand-sm">Small</Button>
-              <span class="text-xs text-muted-foreground">brand-sm</span>
-            </div>
-            <div class="flex flex-col items-center gap-2">
-              <Button variant="brand-secondary" size="brand-md">Medium</Button>
-              <span class="text-xs text-muted-foreground">brand-md</span>
-            </div>
-            <div class="flex flex-col items-center gap-2">
-              <Button variant="brand-secondary" size="brand-lg">Large</Button>
-              <span class="text-xs text-muted-foreground">brand-lg</span>
-            </div>
-            <div class="flex flex-col items-center gap-2">
-              <Button variant="brand-secondary" size="brand-md" disabled>Disabled</Button>
-              <span class="text-xs text-muted-foreground">disabled</span>
-            </div>
-          </div>
-        </div>
-
         <!-- Brand Secondary Soft -->
         <div class="mb-6">
-          <h3 class="mb-3 text-lg font-medium text-foreground">Brand Secondary Soft</h3>
+          <h3 class="mb-3 text-lg font-medium text-foreground">
+            Brand Secondary Soft (Secundário)
+          </h3>
           <div class="flex flex-wrap items-end gap-4">
             <div class="flex flex-col items-center gap-2">
               <Button variant="brand-secondary-soft" size="brand-sm">Small</Button>
@@ -444,8 +400,8 @@ const chartColors = [
         <div class="rounded-lg bg-muted p-4">
           <p class="mb-2 text-sm font-medium text-foreground">Uso:</p>
           <code class="text-xs text-muted-foreground">
-            &lt;Button variant="brand" size="brand-md"&gt;Texto&lt;/Button&gt;<br />
-            &lt;Button variant="brand-outline" size="brand-lg"&gt;Texto&lt;/Button&gt;
+            &lt;Button variant="brand-outline" size="brand-md"&gt;Texto&lt;/Button&gt;<br />
+            &lt;Button variant="brand-secondary-soft" size="brand-lg"&gt;Texto&lt;/Button&gt;
           </code>
         </div>
       </section>

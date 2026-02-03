@@ -94,7 +94,13 @@ function togglePassword() {
     </div>
 
     <!-- Botão submit -->
-    <Button type="submit" variant="brand" size="brand-sm" class="w-full" :disabled="!canSubmit">
+    <Button
+      type="submit"
+      variant="brand-outline"
+      size="brand-md"
+      class="w-full"
+      :disabled="!canSubmit"
+    >
       <Icon v-if="authStore.isLoading" name="lucide:loader-2" class="size-4 animate-spin" />
       <Icon v-else name="lucide:log-in" class="size-4" />
       Entrar

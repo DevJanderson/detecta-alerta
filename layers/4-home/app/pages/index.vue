@@ -3,12 +3,6 @@
  * Página inicial - Detecta Alerta
  */
 const authStore = useAuthStore()
-const router = useRouter()
-
-async function handleLogout() {
-  await authStore.logout()
-  router.push('/auth/login')
-}
 
 useSeoMeta({
   title: 'Detecta Alerta - Vigilância Epidemiológica',
@@ -18,27 +12,35 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col items-center justify-center gap-6 p-6">
-    <div class="text-center space-y-2">
-      <h1 class="text-4xl font-bold tracking-tight">Detecta Alerta</h1>
-      <p class="text-muted-foreground">
-        Plataforma de vigilância e monitoramento epidemiológico em tempo real
+  <div class="flex flex-col items-center justify-center gap-8 px-6 py-16">
+    <div class="text-center space-y-4">
+      <h1 class="text-4xl font-bold tracking-tight text-brand-secondary-900">
+        Vigilância Epidemiológica em Tempo Real
+      </h1>
+      <p class="max-w-2xl text-lg text-muted-foreground">
+        Plataforma de monitoramento e detecção precoce de surtos epidemiológicos para o Brasil.
       </p>
     </div>
 
-    <!-- Logado -->
-    <div v-if="authStore.isAuthenticated" class="flex flex-col items-center gap-4">
-      <p class="text-lg">
-        Olá, <span class="font-semibold">{{ authStore.userName }}</span>
-      </p>
-      <Button variant="brand-outline" size="brand-md" @click="handleLogout"> Sair </Button>
-    </div>
+    <template v-if="authStore.isInitialized">
+      <!-- Saudação para usuário logado -->
+      <div v-if="authStore.isAuthenticated" class="text-center">
+        <p class="text-lg">
+          Bem-vindo,
+          <span class="font-semibold text-brand-primary-600">{{ authStore.userName }}</span>
+        </p>
+      </div>
 
-    <!-- Não logado -->
-    <div v-else class="flex gap-4">
-      <NuxtLink to="/auth/login">
-        <Button variant="brand" size="brand-md">Entrar</Button>
-      </NuxtLink>
-    </div>
+      <!-- CTA para não logado -->
+      <div v-else class="flex flex-col items-center gap-4">
+        <p class="text-muted-foreground">Faça login para acessar todas as funcionalidades</p>
+        <NuxtLink to="/auth/login">
+          <Button variant="brand-outline" size="brand-md">
+            <Icon name="lucide:log-in" class="size-4" />
+            Acessar Plataforma
+          </Button>
+        </NuxtLink>
+      </div>
+    </template>
   </div>
 </template>

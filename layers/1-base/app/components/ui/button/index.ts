@@ -3,8 +3,14 @@ import { cva } from 'class-variance-authority'
 
 export { default as Button } from './Button.vue'
 
+/**
+ * Button variants com suporte a ícones SVG e Nuxt Icon (Iconify).
+ *
+ * Nuxt Icon renderiza como <span class="iconify">, não <svg>,
+ * por isso usamos [&_:is(svg,.iconify)] para estilizar ambos.
+ */
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-all duration-200 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:transition-colors [&_svg]:duration-200 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-all duration-200 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 [&_:is(svg,.iconify)]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_:is(svg,.iconify)]:transition-colors [&_:is(svg,.iconify)]:duration-200 shrink-0 [&_:is(svg,.iconify)]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
@@ -17,15 +23,11 @@ export const buttonVariants = cva(
         ghost: 'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
         link: 'text-primary underline-offset-4 hover:underline',
         // Variantes da marca - Primário (Design System Figma)
-        brand:
-          'rounded-full bg-brand-primary-600 text-white hover:bg-brand-primary-700 disabled:opacity-100 disabled:bg-base-100 disabled:text-base-400 disabled:border disabled:border-base-200',
         'brand-outline':
-          'rounded-full border border-brand-primary-600 text-brand-secondary-700 [&_svg]:text-brand-primary-600 bg-transparent hover:bg-brand-primary-600 hover:text-white hover:border-brand-primary-600 hover:[&_svg]:text-white disabled:opacity-100 disabled:bg-base-100 disabled:text-base-400 disabled:border-base-200 disabled:[&_svg]:text-base-400',
+          'rounded-full border border-brand-primary-600 text-brand-secondary-700 [&_:is(svg,.iconify)]:text-brand-primary-600 bg-transparent hover:bg-brand-primary-600 hover:text-white hover:border-brand-primary-600 hover:[&_:is(svg,.iconify)]:text-white disabled:opacity-100 disabled:bg-base-100 disabled:text-base-400 disabled:border-base-200 disabled:[&_:is(svg,.iconify)]:text-base-400',
         // Variantes da marca - Secundário (Design System Figma)
-        'brand-secondary':
-          'rounded-full bg-brand-secondary-600 text-white hover:bg-brand-secondary-700 disabled:opacity-100 disabled:bg-base-100 disabled:text-base-400 disabled:border disabled:border-base-200',
         'brand-secondary-soft':
-          'rounded-full bg-brand-secondary-50 border border-brand-secondary-100 text-brand-secondary-700 [&_svg]:text-brand-primary-600 hover:bg-brand-secondary-600 hover:text-white hover:border-brand-secondary-600 hover:[&_svg]:text-white disabled:opacity-100 disabled:bg-base-100 disabled:text-base-400 disabled:border-base-200 disabled:[&_svg]:text-base-400'
+          'rounded-full bg-brand-secondary-50 border border-brand-secondary-100 text-brand-secondary-700 [&_:is(svg,.iconify)]:text-brand-primary-600 hover:bg-brand-secondary-600 hover:text-white hover:border-brand-secondary-600 hover:[&_:is(svg,.iconify)]:text-white disabled:opacity-100 disabled:bg-base-100 disabled:text-base-400 disabled:border-base-200 disabled:[&_:is(svg,.iconify)]:text-base-400'
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
