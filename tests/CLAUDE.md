@@ -1,16 +1,25 @@
 # tests/CLAUDE.md
 
-Instruções para testes neste repositório.
+Instruções para testes no Detecta Alerta.
 
 ## Estrutura
 
 ```
 tests/
 ├── setup.ts           # Setup global (mocks do Nuxt)
-├── unit/              # Testes unitários
-├── integration/       # Testes de integração
+├── unit/              # Testes unitários (funções puras, stores, composables)
+│   └── auth/          # Testes da layer de autenticação
+├── integration/       # Testes de integração (futuro)
 └── e2e/               # Testes E2E (Playwright)
 ```
+
+## Convenções
+
+| Convenção    | Padrão                                  |
+| ------------ | --------------------------------------- |
+| Nomenclatura | `*.test.ts` (unit) ou `*.spec.ts` (e2e) |
+| Localização  | Pasta `tests/` separada (não colocated) |
+| Organização  | Espelhar estrutura das layers           |
 
 ## Ferramentas
 
@@ -38,88 +47,38 @@ npm run test:e2e:headed    # Com browser visível
 npm run test:e2e:install   # Instala browsers
 ```
 
-## Teste Unitário
+---
 
-### Teste Básico
+## Testes Unitários
 
-```typescript
-// tests/unit/example.test.ts
-import { describe, it, expect } from 'vitest'
-
-describe('Example', () => {
-  it('should pass', () => {
-    expect(1 + 1).toBe(2)
-  })
-})
-```
-
-### Teste de Composable
+### Teste de Composable (API Service)
 
 ```typescript
-// tests/unit/composables/useCounter.test.ts
-import { describe, it, expect } from 'vitest'
-import { useCounter } from '~/composables/useCounter'
+// tests/unit/auth/useAuthApi.test.ts
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 
-describe('useCounter', () => {
-  it('should start at 0', () => {
-    const { count } = useCounter()
-    expect(count.value).toBe(0)
+const mockFetch = vi.fn()
+vi.stubGlobal('$fetch', mockFetch)
+
+import { useAuthApi } from '~/layers/3-auth/app/composables/useAuthApi'
+
+describe('useAuthApi', () => {
+  let api: ReturnType<typeof useAuthApi>
+
+  beforeEach(() => {
+    mockFetch.mockReset()
+    api = useAuthApi()
   })
 
-  it('should increment', () => {
-    const { count, increment } = useCounter()
-    increment()
-    expect(count.value).toBe(1)
-  })
-})
-```
+  it('deve chamar /api/auth/login com credenciais', async () => {
+    mockFetch.mockResolvedValue({ user: { id: 1, nome: 'Test' } })
 
-### Teste de Componente (Vue Test Utils)
+    await api.login({ username: 'test@example.com', password: '123' })
 
-```typescript
-// tests/unit/components/Button.test.ts
-import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
-import Button from '~/components/ui/button/Button.vue'
-
-describe('Button', () => {
-  it('should render slot content', () => {
-    const wrapper = mount(Button, {
-      slots: { default: 'Click me' }
+    expect(mockFetch).toHaveBeenCalledWith('/api/auth/login', {
+      method: 'POST',
+      body: { username: 'test@example.com', password: '123' }
     })
-    expect(wrapper.text()).toContain('Click me')
-  })
-
-  it('should emit click event', async () => {
-    const wrapper = mount(Button)
-    await wrapper.trigger('click')
-    expect(wrapper.emitted('click')).toHaveLength(1)
-  })
-})
-```
-
-### Teste de Componente (Testing Library)
-
-```typescript
-// tests/unit/components/Form.test.ts
-import { describe, it, expect, vi } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/vue'
-import LoginForm from '~/components/LoginForm.vue'
-
-describe('LoginForm', () => {
-  it('should show email field', () => {
-    render(LoginForm)
-    expect(screen.getByLabelText(/email/i)).toBeInTheDocument()
-  })
-
-  it('should call onSubmit with form data', async () => {
-    const onSubmit = vi.fn()
-    render(LoginForm, { props: { onSubmit } })
-
-    await fireEvent.update(screen.getByLabelText(/email/i), 'test@example.com')
-    await fireEvent.click(screen.getByRole('button', { name: /enviar/i }))
-
-    expect(onSubmit).toHaveBeenCalledWith({ email: 'test@example.com' })
   })
 })
 ```
@@ -127,41 +86,62 @@ describe('LoginForm', () => {
 ### Teste de Store (Pinia)
 
 ```typescript
-// tests/unit/stores/example.test.ts
+// tests/unit/auth/useAuthStore.test.ts
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
-import { useExampleStore } from '~/stores/example'
 
-describe('useExampleStore', () => {
+// Mock do useAuthApi
+vi.mock('~/layers/3-auth/app/composables/useAuthApi', () => ({
+  useAuthApi: () => ({
+    login: vi.fn().mockResolvedValue({ user: mockUser }),
+    logout: vi.fn(),
+    getMe: vi.fn(),
+    resetPassword: vi.fn(),
+    refresh: vi.fn()
+  })
+}))
+
+import { useAuthStore } from '~/layers/3-auth/app/composables/useAuthStore'
+
+describe('useAuthStore', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
   })
 
-  it('should start empty', () => {
-    const store = useExampleStore()
-    expect(store.items).toEqual([])
+  it('deve iniciar sem usuário', () => {
+    const store = useAuthStore()
+    expect(store.user).toBeNull()
+    expect(store.isAuthenticated).toBe(false)
   })
 
-  it('should fetch items', async () => {
-    const store = useExampleStore()
-    await store.fetchAll()
-    expect(store.items.length).toBeGreaterThan(0)
+  it('deve fazer login com sucesso', async () => {
+    const store = useAuthStore()
+    const success = await store.login({
+      username: 'test@example.com',
+      password: '123'
+    })
+
+    expect(success).toBe(true)
+    expect(store.isAuthenticated).toBe(true)
   })
 })
 ```
 
-## Teste E2E (Playwright)
+---
 
-### Teste de Página
+## Testes E2E (Playwright)
+
+### Teste de Homepage
 
 ```typescript
-// tests/e2e/home.spec.ts
+// tests/e2e/homepage.spec.ts
 import { test, expect } from '@playwright/test'
 
 test.describe('Homepage', () => {
   test('should display correctly', async ({ page }) => {
     await page.goto('/')
-    await expect(page).toHaveTitle(/Nuxt/)
+    await expect(page).toHaveTitle(/Detecta Alerta/)
+    await expect(page.locator('h1')).toContainText('Detecta Alerta')
   })
 
   test('should navigate to login', async ({ page }) => {
@@ -172,48 +152,38 @@ test.describe('Homepage', () => {
 })
 ```
 
-### Teste de Formulário
+### Teste de Autenticação
 
 ```typescript
-// tests/e2e/login.spec.ts
+// tests/e2e/auth.spec.ts
 import { test, expect } from '@playwright/test'
 
 test.describe('Login', () => {
-  test('should login successfully', async ({ page }) => {
-    await page.goto('/login')
+  test('deve exibir formulário de login', async ({ page }) => {
+    await page.goto('/auth/login')
 
-    await page.fill('[data-testid="email"]', 'user@example.com')
-    await page.fill('[data-testid="password"]', 'password123')
-    await page.click('[data-testid="submit"]')
-
-    await page.waitForURL('/dashboard')
-    expect(page.url()).toContain('/dashboard')
+    await expect(page.locator('input#username')).toBeVisible()
+    await expect(page.locator('input#password')).toBeVisible()
+    await expect(page.locator('button[type="submit"]')).toBeVisible()
   })
 
-  test('should show error for invalid credentials', async ({ page }) => {
-    await page.goto('/login')
+  test('botão deve estar desabilitado sem credenciais', async ({ page }) => {
+    await page.goto('/auth/login')
+    await expect(page.locator('button[type="submit"]')).toBeDisabled()
+  })
 
-    await page.fill('[data-testid="email"]', 'invalid@example.com')
-    await page.fill('[data-testid="password"]', 'wrong')
-    await page.click('[data-testid="submit"]')
+  test('botão deve estar habilitado com credenciais', async ({ page }) => {
+    await page.goto('/auth/login')
 
-    await expect(page.locator('[data-testid="error"]')).toBeVisible()
+    await page.fill('input#username', 'usuario@teste.com')
+    await page.fill('input#password', 'senha123')
+
+    await expect(page.locator('button[type="submit"]')).toBeEnabled()
   })
 })
 ```
 
-### Teste Mobile
-
-```typescript
-// tests/e2e/mobile.spec.ts
-import { test, expect } from '@playwright/test'
-
-test('should work on mobile', async ({ page }) => {
-  await page.setViewportSize({ width: 375, height: 667 })
-  await page.goto('/')
-  await expect(page.locator('main')).toBeVisible()
-})
-```
+---
 
 ## Mocking
 
@@ -228,40 +198,29 @@ vi.stubGlobal('$fetch', mockFetch)
 beforeEach(() => {
   mockFetch.mockReset()
 })
-
-it('should call API', async () => {
-  mockFetch.mockResolvedValue([{ id: '1', name: 'Test' }])
-
-  const api = useExampleApi()
-  const result = await api.getAll()
-
-  expect(mockFetch).toHaveBeenCalledWith('/api/examples')
-  expect(result).toHaveLength(1)
-})
 ```
 
 ### Mock de Composable
 
 ```typescript
-import { vi } from 'vitest'
-
-vi.mock('~/composables/useUsers', () => ({
-  useUsers: () => ({
-    users: ref([{ id: '1', name: 'João' }]),
-    isLoading: ref(false),
-    fetchUsers: vi.fn()
+vi.mock('~/layers/3-auth/app/composables/useAuthApi', () => ({
+  useAuthApi: () => ({
+    login: vi.fn().mockResolvedValue({ user: { id: 1 } }),
+    logout: vi.fn()
   })
 }))
 ```
+
+---
 
 ## Boas Práticas
 
 ### Nomenclatura
 
 ```typescript
-// ✅ BOM - Descreve comportamento
-it('should show error when email is invalid', () => {})
-it('should redirect to login when not authenticated', () => {})
+// ✅ BOM - Descreve comportamento em português
+it('deve mostrar erro quando email é inválido', () => {})
+it('deve redirecionar para login quando não autenticado', () => {})
 
 // ❌ RUIM - Vago
 it('test 1', () => {})
@@ -271,16 +230,17 @@ it('works', () => {})
 ### Arrange-Act-Assert (AAA)
 
 ```typescript
-it('should add item to cart', () => {
+it('deve fazer login com sucesso', async () => {
   // Arrange
-  const cart = useCartStore()
-  const product = { id: '1', name: 'Product' }
+  const store = useAuthStore()
+  const credentials = { username: 'test@example.com', password: '123' }
 
   // Act
-  cart.addItem(product)
+  const success = await store.login(credentials)
 
   // Assert
-  expect(cart.items).toContainEqual(product)
+  expect(success).toBe(true)
+  expect(store.isAuthenticated).toBe(true)
 })
 ```
 
@@ -294,53 +254,7 @@ it('should add item to cart', () => {
 <button class="btn btn-primary">Enviar</button>
 ```
 
-## Configuração
-
-### vitest.config.ts
-
-```typescript
-import { defineVitestConfig } from '@nuxt/test-utils/config'
-
-export default defineVitestConfig({
-  test: {
-    environment: 'nuxt',
-    environmentOptions: {
-      nuxt: { domEnvironment: 'happy-dom' }
-    },
-    globals: true,
-    setupFiles: ['./tests/setup.ts'],
-    include: ['tests/unit/**/*.test.ts', 'tests/integration/**/*.test.ts'],
-    exclude: ['tests/e2e/**/*']
-  }
-})
-```
-
-### playwright.config.ts
-
-```typescript
-import { defineConfig, devices } from '@playwright/test'
-
-export default defineConfig({
-  testDir: './tests/e2e',
-  use: {
-    baseURL: 'http://localhost:3000',
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure'
-  },
-  projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
-    { name: 'Mobile Chrome', use: { ...devices['Pixel 5'] } },
-    { name: 'Mobile Safari', use: { ...devices['iPhone 12'] } }
-  ],
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI
-  }
-})
-```
+---
 
 ## Referências
 
