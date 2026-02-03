@@ -10,6 +10,7 @@ Este documento define o padrão oficial para integração com APIs externas no p
 | ---------------- | ------ | --------------------------- | -------------------------------------------------------------- |
 | **Tipos**        | ✅ Sim | Composables, stores, server | `import type { Token } from '~/generated/sinapse/types/Token'` |
 | **Schemas Zod**  | ✅ Sim | Endpoints BFF (validação)   | `tokenSchema.parse(response)`                                  |
+| **Mocks/MSW**    | ✅ Sim | Testes (importar direto)    | `import { createToken } from '~/generated/sinapse/mocks/...'`  |
 | **Cliente HTTP** | ❌ Não | -                           | Usar `$fetch` do Nuxt com BFF                                  |
 
 ```typescript
@@ -19,6 +20,10 @@ import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
 
 const rawResponse = await $fetch('/auth/login', { ... })
 const validated = tokenSchema.parse(rawResponse) // Valida em runtime
+
+// ✅ CORRETO - Mocks em testes (importar DIRETO da pasta)
+import { createToken } from '~/generated/sinapse/mocks/createToken'
+import { loginHandler } from '~/generated/sinapse/msw/AutenticaçãoHandlers'
 
 // ❌ EVITAR - Cliente Kubb direto (não integra com BFF/cookies)
 import { loginApiV1AuthLoginPost } from '~/generated/sinapse/client/...'
@@ -35,12 +40,52 @@ O Kubb gera **muitos arquivos** (~1.000+), mas **apenas o que você importa vai 
 | Schemas Zod não usados | ~200 arquivos    | **0 KB** (tree-shaking)       |
 | Schemas Zod usados     | 2-3 arquivos     | **~2 KB**                     |
 | Cliente HTTP           | ~100 arquivos    | **0 KB** (não importamos)     |
+| Mocks/MSW              | ~600 arquivos    | **0 KB** (só em testes)       |
 
 **Por que isso funciona:**
 
 - **Tipos** (`import type`) são removidos no build (existem apenas em compile-time)
 - **Tree-shaking** do bundler (Vite/Rollup) remove código não importado
 - **Apenas schemas Zod** que você usa são incluídos no bundle final
+- **Mocks e MSW** não são exportados no barrel principal (ver seção abaixo)
+
+### ⚠️ CRÍTICO: Mocks e MSW
+
+**Mocks e MSW NÃO são exportados no barrel file principal (`index.ts`).**
+
+Isso é **intencional** para evitar:
+
+- Carregar `@faker-js/faker` (~6MB) no bundle de produção
+- Travar o dev server com centenas de arquivos desnecessários
+- Aumentar o tempo de typecheck
+
+**Configuração no `kubb.config.ts`:**
+
+```typescript
+;(pluginFaker({
+  output: {
+    path: './mocks',
+    barrelType: false // ⚠️ NUNCA mudar para 'named'
+  }
+}),
+  pluginMsw({
+    output: {
+      path: './msw',
+      barrelType: false // ⚠️ NUNCA mudar para 'named'
+    }
+  }))
+```
+
+**Como usar em testes:**
+
+```typescript
+// ✅ CORRETO - Importar DIRETO da pasta
+import { createToken } from '~/generated/sinapse/mocks/createToken'
+import { loginHandler } from '~/generated/sinapse/msw/AutenticaçãoHandlers'
+
+// ❌ ERRADO - Não funciona (não exportado no barrel)
+import { createToken } from '~/generated/sinapse'
+```
 
 ---
 

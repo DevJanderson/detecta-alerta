@@ -50,3 +50,7 @@ coverage
 
 # Kubb (cache interno)
 **/.kubb/
+
+# Kubb mocks/MSW (código gerado, regenerar com npm run api:generate)
+generated/*/mocks/
+generated/*/msw/

@@ -23,13 +23,15 @@ tests/
 
 ## Ferramentas
 
-| Ferramenta           | Uso                           |
-| -------------------- | ----------------------------- |
-| Vitest               | Testes unitários e integração |
-| Playwright           | Testes E2E (end-to-end)       |
-| @vue/test-utils      | Montar componentes Vue        |
-| @testing-library/vue | Testes focados no usuário     |
-| happy-dom            | DOM environment               |
+| Ferramenta           | Uso                                |
+| -------------------- | ---------------------------------- |
+| Vitest               | Testes unitários e integração      |
+| Playwright           | Testes E2E (end-to-end)            |
+| @vue/test-utils      | Montar componentes Vue             |
+| @testing-library/vue | Testes focados no usuário          |
+| happy-dom            | DOM environment                    |
+| Kubb Mocks           | Dados fake gerados (Faker)         |
+| Kubb MSW             | Handlers para interceptar requests |
 
 ## Comandos
 
@@ -210,6 +212,38 @@ vi.mock('~/layers/3-auth/app/composables/useAuthApi', () => ({
   })
 }))
 ```
+
+### Mocks Gerados pelo Kubb
+
+O Kubb gera mocks automáticos com Faker e handlers MSW. **Importar DIRETO da pasta** (não do barrel):
+
+```typescript
+// ✅ CORRETO - Importar direto
+import { createToken } from '~/generated/sinapse/mocks/createToken'
+import { createUsuarioSchemaDetalhes } from '~/generated/sinapse/mocks/createUsuarioSchemaDetalhes'
+
+// Usar em testes
+const mockToken = createToken()
+const mockUser = createUsuarioSchemaDetalhes()
+
+// ❌ ERRADO - Não funciona (não exportado no barrel principal)
+import { createToken } from '~/generated/sinapse'
+```
+
+### MSW Handlers (API Mocking)
+
+```typescript
+import { setupServer } from 'msw/node'
+import { loginHandler } from '~/generated/sinapse/msw/AutenticaçãoHandlers'
+
+const server = setupServer(...loginHandler)
+
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
+```
+
+> **Nota:** Mocks e MSW não são exportados no barrel principal para evitar carregar `@faker-js/faker` no bundle de produção. Ver [docs/KUBB.md](../docs/KUBB.md) para detalhes.
 
 ---
 

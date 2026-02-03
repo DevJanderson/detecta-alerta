@@ -3,6 +3,8 @@ import { pluginOas } from '@kubb/plugin-oas'
 import { pluginTs } from '@kubb/plugin-ts'
 import { pluginZod } from '@kubb/plugin-zod'
 import { pluginClient } from '@kubb/plugin-client'
+import { pluginFaker } from '@kubb/plugin-faker'
+import { pluginMsw } from '@kubb/plugin-msw'
 
 export default defineConfig({
   name: 'sinapse-api',
@@ -56,6 +58,31 @@ export default defineConfig({
       client: 'fetch',
       dataReturnType: 'data',
       pathParamsType: 'object'
+    }),
+    pluginFaker({
+      output: {
+        path: './mocks',
+        // IMPORTANTE: false para NÃO incluir no barrel principal
+        // Evita carregar @faker-js/faker no bundle de produção
+        barrelType: false
+      },
+      group: {
+        type: 'tag',
+        name: ({ group }) => `${group}Mocks`
+      },
+      dateType: 'string'
+    }),
+    pluginMsw({
+      output: {
+        path: './msw',
+        // IMPORTANTE: false para NÃO incluir no barrel principal
+        // MSW handlers só devem ser usados em testes
+        barrelType: false
+      },
+      group: {
+        type: 'tag',
+        name: ({ group }) => `${group}Handlers`
+      }
     })
   ]
 })

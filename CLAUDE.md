@@ -4,41 +4,52 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Idioma
 
-Sempre responda em Português Brasileiro (pt-BR).
+**Sempre responda em Português Brasileiro (pt-BR).**
 
-## Git
+## Regras Críticas
 
-- Não incluir `Co-Authored-By` nos commits
+### Git
+
+- **NÃO** incluir `Co-Authored-By` nos commits
 - Mensagens de commit em português ou inglês (consistente com o projeto)
 
-## Regras de Execução
+### Execução
 
 - **NUNCA** rodar `npm run dev` em background ou com timeout - deixar o usuário iniciar no terminal dele
 - Para verificar erros, usar apenas `npm run typecheck` ou `npm run build`
 - Evitar processos que ficam rodando indefinidamente
 
-## Comandos
+## Sobre o Projeto
+
+**Detecta Alerta** é uma plataforma de vigilância e monitoramento epidemiológico em tempo real para o Brasil. Centraliza dados de estabelecimentos de saúde (UBS, UPA, Drogarias) para análise de padrões epidemiológicos e detecção precoce de surtos.
+
+## Setup Inicial
 
 ```bash
-# Desenvolvimento
-npm run dev          # Servidor dev http://localhost:3000
-npm run build        # Build produção
+npm install
+npm run setup          # Configura git hooks (Husky, Commitlint)
+```
 
-# Qualidade de código
-npm run lint:fix     # Corrigir ESLint
-npm run format       # Formatar com Prettier
-npm run typecheck    # Verificar tipos
-npm run quality:fix  # Corrigir lint + formatar
+### Variáveis de Ambiente
 
-# Testes
-npm run test:run           # Vitest (uma execução)
-npm run test -- path/to/file.test.ts  # Executar teste específico
-npm run test:e2e           # Playwright E2E
-npm run test:e2e:install   # Instala browsers (primeiro uso)
+Criar arquivo `.env` na raiz:
 
-# API Client (Kubb)
-npm run api:generate       # Gera cliente a partir do OpenAPI
-npm run api:watch          # Regenera automaticamente ao alterar spec
+```env
+# URL da API Sinapse (incluir /api/v1)
+NUXT_SINAPSE_API_URL=https://staging.sinapse.org.br/api/v1
+```
+
+## Comandos Principais
+
+```bash
+npm run dev              # Servidor dev http://localhost:3000
+npm run build            # Build produção
+npm run typecheck        # Verificar tipos (USAR para detectar erros)
+npm run quality:fix      # Lint + format
+npm run test:run         # Vitest (uma execução)
+npm run test -- path/to/file.test.ts  # Teste específico
+npm run test:e2e         # Playwright E2E
+npm run api:generate     # Gera cliente a partir do OpenAPI
 ```
 
 ## Componentes shadcn-vue
@@ -51,70 +62,28 @@ Componentes ficam em `layers/1-base/app/components/ui/` (auto-import).
 
 ## Design System - Cores
 
-Arquivo de cores: `layers/0-core/app/assets/css/main.css`
-Visualização: http://localhost:3000/design-system
+| Recurso          | Local                                   |
+| ---------------- | --------------------------------------- |
+| Arquivo de cores | `layers/0-core/app/assets/css/main.css` |
+| Visualização     | http://localhost:3000/design-system     |
 
-### Cores da Marca (usar estas)
+### Paleta Principal
 
-| Cor                 | Classe Tailwind               | Uso                              |
-| ------------------- | ----------------------------- | -------------------------------- |
-| **brand-primary**   | `bg-brand-primary-{50-950}`   | Vermelho/Coral - CTAs, destaques |
-| **brand-secondary** | `bg-brand-secondary-{50-950}` | Azul - Links, ações secundárias  |
-| **brand-tertiary**  | `bg-brand-tertiary-{50-500}`  | Verde/Cinza - Acentos sutis      |
-| **base**            | `bg-base-{0-950}`             | Neutros/Cinzas - Textos, fundos  |
-| **success**         | `bg-success-{50-950}`         | Verde - Feedback positivo        |
-| **alert**           | `bg-alert-{50-950}`           | Amarelo - Avisos                 |
-| **danger**          | `bg-danger-{50-950}`          | Vermelho - Erros                 |
-
-### Cores Semânticas (shadcn/ui)
-
-Usam as cores da marca internamente:
-
-| Semântica               | Origem              | Uso                |
-| ----------------------- | ------------------- | ------------------ |
-| `bg-primary`            | brand-primary-700   | Botões principais  |
-| `bg-secondary`          | brand-secondary-700 | Botões secundários |
-| `bg-destructive`        | danger-600          | Ações destrutivas  |
-| `bg-muted`              | base-100            | Fundos sutis       |
-| `bg-accent`             | brand-tertiary-100  | Destaques leves    |
-| `text-foreground`       | base-900            | Texto principal    |
-| `text-muted-foreground` | base-600            | Texto secundário   |
-
-### Exemplos de Uso
-
-```vue
-<!-- Feedback de sucesso -->
-<div class="rounded-lg bg-success-100 p-4">
-  <p class="text-success-800">Operação concluída!</p>
-</div>
-
-<!-- Feedback de erro -->
-<div class="rounded-lg bg-danger-100 p-4">
-  <p class="text-danger-800">Algo deu errado.</p>
-</div>
-
-<!-- Alerta/Aviso -->
-<div class="rounded-lg bg-alert-100 p-4">
-  <p class="text-alert-800">Atenção!</p>
-</div>
-
-<!-- Botão com cor da marca -->
-<button class="bg-brand-primary-600 hover:bg-brand-primary-700 text-base-0">
-  Ação Principal
-</button>
-
-<!-- Usando semânticas do shadcn -->
-<Button variant="default">Primary</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="destructive">Deletar</Button>
-```
+| Cor               | Classe Tailwind               | Uso                              |
+| ----------------- | ----------------------------- | -------------------------------- |
+| `brand-primary`   | `bg-brand-primary-{50-950}`   | Vermelho/Coral - CTAs, destaques |
+| `brand-secondary` | `bg-brand-secondary-{50-950}` | Azul - Links, ações secundárias  |
+| `base`            | `bg-base-{0-950}`             | Neutros - Textos, fundos         |
+| `success`         | `bg-success-{50-950}`         | Verde - Feedback positivo        |
+| `alert`           | `bg-alert-{50-950}`           | Amarelo - Avisos                 |
+| `danger`          | `bg-danger-{50-950}`          | Vermelho - Erros                 |
 
 ### Regras
 
-1. **Preferir cores da marca** (`brand-*`, `success`, `alert`, `danger`) para elementos customizados
-2. **Usar semânticas** (`primary`, `secondary`, `muted`) para componentes shadcn/ui
-3. **Tons baixos (50-200)** para fundos, **tons altos (600-900)** para textos
-4. **Nunca usar cores hardcoded** - sempre usar as variáveis do design system
+- **Cores da marca** (`brand-*`, `success`, `alert`, `danger`) para elementos customizados
+- **Semânticas shadcn** (`primary`, `secondary`, `muted`) para componentes UI
+- **Tons baixos (50-200)** para fundos, **tons altos (600-900)** para textos
+- **Nunca usar cores hardcoded** - sempre variáveis do design system
 
 ## Arquitetura
 
@@ -257,6 +226,7 @@ Código TypeScript gerado automaticamente a partir da especificação OpenAPI.
 | ---------------- | ------ | ---------------------------------- |
 | **Tipos**        | ✅ Sim | Composables, stores, endpoints BFF |
 | **Schemas Zod**  | ✅ Sim | Validação de respostas no BFF      |
+| **Mocks/MSW**    | ✅ Sim | Testes unitários e integração      |
 | **Cliente HTTP** | ❌ Não | Usar `$fetch` do Nuxt com BFF      |
 
 ### Estrutura
@@ -269,8 +239,35 @@ generated/
     client/                 # Funções de chamada (NÃO USAR - preferir $fetch)
     types/                  # Tipos TypeScript (USAR)
     zod/                    # Schemas Zod para validação (USAR)
-    index.ts                # Barrel file
+    mocks/                  # Faker mocks para dados de teste (importar direto)
+    msw/                    # MSW handlers para interceptar requests (importar direto)
+    index.ts                # Barrel file (NÃO inclui mocks/msw)
 kubb.config.ts              # Configuração do Kubb
+```
+
+### ⚠️ IMPORTANTE: Mocks e MSW
+
+**Mocks e MSW NÃO são exportados no barrel principal (`index.ts`)** para evitar:
+
+- Carregar `@faker-js/faker` (~6MB) no bundle de produção
+- Travar o dev server com milhares de arquivos desnecessários
+
+**Importar diretamente quando necessário em testes:**
+
+```typescript
+// ✅ CORRETO - Importar direto para testes
+import { createToken } from '~/generated/sinapse/mocks/createToken'
+import { loginHandler } from '~/generated/sinapse/msw/AutenticaçãoHandlers'
+
+// ❌ ERRADO - NÃO exporta mocks/msw
+import { createToken } from '~/generated/sinapse' // Não funciona
+```
+
+**Configuração crítica em `kubb.config.ts`:**
+
+```typescript
+pluginFaker({ output: { barrelType: false } }) // NÃO mudar para 'named'
+pluginMsw({ output: { barrelType: false } }) // NÃO mudar para 'named'
 ```
 
 ### Uso Recomendado
@@ -336,9 +333,9 @@ output: {
 | `verbatimModuleSyntax` + ToZod | Remover `typed: true` e `inferred: true` do pluginZod |
 | Tipos não reconhecidos         | Verificar se `generated/` não está no `.gitignore`    |
 
-## Documentação por Diretório
+## Documentação
 
-Cada diretório principal tem seu próprio `CLAUDE.md` com instruções específicas:
+### Por Diretório (CLAUDE.md)
 
 | Documento                                                                          | Conteúdo                               |
 | ---------------------------------------------------------------------------------- | -------------------------------------- |
@@ -347,7 +344,15 @@ Cada diretório principal tem seu próprio `CLAUDE.md` com instruções específ
 | [layers/1-base/app/components/CLAUDE.md](layers/1-base/app/components/CLAUDE.md)   | Componentes UI                         |
 | [layers/1-base/app/composables/CLAUDE.md](layers/1-base/app/composables/CLAUDE.md) | Padrões de composables                 |
 | [layers/3-auth/CLAUDE.md](layers/3-auth/CLAUDE.md)                                 | Autenticação BFF, login, logout        |
-| [layers/4-home/CLAUDE.md](layers/4-home/CLAUDE.md)                                 | Landing page, páginas públicas         |
+| [layers/4-home/CLAUDE.md](layers/4-home/CLAUDE.md)                                 | Homepage, páginas públicas             |
 | [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking            |
-| [docs/BFF.md](docs/BFF.md)                                                         | O que é BFF e por que usar             |
-| [docs/KUBB.md](docs/KUBB.md)                                                       | Kubb + BFF, geração de código          |
+
+### Guias Técnicos (docs/)
+
+| Documento                                  | Conteúdo                      |
+| ------------------------------------------ | ----------------------------- |
+| [docs/BFF.md](docs/BFF.md)                 | O que é BFF e por que usar    |
+| [docs/KUBB.md](docs/KUBB.md)               | Kubb + BFF, geração de código |
+| [docs/NUXT_LAYERS.md](docs/NUXT_LAYERS.md) | Arquitetura de layers         |
+| [docs/GIT_FLOW.md](docs/GIT_FLOW.md)       | Fluxo de branches e commits   |
+| [docs/DEPLOY.md](docs/DEPLOY.md)           | Deploy e ambientes            |
