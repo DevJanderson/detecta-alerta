@@ -599,23 +599,45 @@ export default {
 
 ## Variáveis de Ambiente
 
-### Estrutura Recomendada
+### ⚠️ Variáveis do Detecta Alerta
+
+| Variável                   | Obrigatória | Escopo | Descrição                                      |
+| -------------------------- | ----------- | ------ | ---------------------------------------------- |
+| `NUXT_SINAPSE_API_URL`     | **SIM**     | Server | URL da API Sinapse (BFF usa para autenticação) |
+| `NUXT_PUBLIC_API_BASE_URL` | Não         | Client | Reservada para uso futuro                      |
+
+### Configuração por Ambiente
+
+```bash
+# ===========================================
+# .env (desenvolvimento local)
+# ===========================================
+NUXT_SINAPSE_API_URL=https://staging.sinapse.org.br/api/v1
+
+# ===========================================
+# .env.staging (homologação)
+# ===========================================
+NUXT_SINAPSE_API_URL=https://staging.sinapse.org.br/api/v1
+
+# ===========================================
+# .env.production (produção)
+# ===========================================
+NUXT_SINAPSE_API_URL=https://api-v2.sinapse.org.br/api/v1
+```
+
+> **IMPORTANTE:** Sem `NUXT_SINAPSE_API_URL` configurada, o sistema de autenticação retornará erro 500.
+
+### Estrutura Recomendada (Genérica)
 
 ```bash
 # .env.example (commitar)
-NUXT_PUBLIC_API_BASE_URL=
-NUXT_JWT_SECRET=
-DATABASE_URL=
+NUXT_SINAPSE_API_URL=https://staging.sinapse.org.br/api/v1
 
 # .env.local (não commitar - desenvolvimento)
-NUXT_PUBLIC_API_BASE_URL=http://localhost:4000
-NUXT_JWT_SECRET=dev-secret
-DATABASE_URL=postgresql://localhost:5432/dev
+NUXT_SINAPSE_API_URL=https://staging.sinapse.org.br/api/v1
 
 # .env.production (não commitar ou usar secrets manager)
-NUXT_PUBLIC_API_BASE_URL=https://api.exemplo.com
-NUXT_JWT_SECRET=super-secret-key-here
-DATABASE_URL=postgresql://user:pass@prod-host:5432/prod
+NUXT_SINAPSE_API_URL=https://api-v2.sinapse.org.br/api/v1
 ```
 
 ### Acessar no Código
@@ -667,7 +689,8 @@ env:
 - [ ] TypeScript sem erros (`npm run typecheck`)
 - [ ] Lint sem erros (`npm run lint`)
 - [ ] Testes passando (`npm run test:run`)
-- [ ] Variáveis de ambiente configuradas
+- [ ] **`NUXT_SINAPSE_API_URL` configurada** (obrigatória para autenticação)
+- [ ] Variáveis de ambiente configuradas na plataforma de deploy
 
 ### Configuração de Produção
 
