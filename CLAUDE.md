@@ -186,13 +186,13 @@ Módulo `nuxt-security` configurado com headers, rate limiter, CSRF e XSS protec
 
 ### Configuração Atual
 
-| Feature           | Configuração                                                            |
-| ----------------- | ----------------------------------------------------------------------- |
-| **Headers**       | CSP, HSTS, X-Frame-Options, etc.                                        |
-| **Rate Limiter**  | 150 req/5min (global), 10 req/5min (login), 5 req/5min (reset-password) |
-| **CSRF**          | Habilitado para POST/PUT/PATCH/DELETE (desabilitado em `/api/auth/*`)   |
-| **XSS Validator** | Habilitado com defaults                                                 |
-| **Request Size**  | 2MB (geral), 8MB (upload)                                               |
+| Feature           | Configuração                                                                                                        |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Headers**       | CSP (desabilitado em dev), HSTS, X-Frame-Options, etc. Ver [docs/DEPLOY.md](docs/DEPLOY.md#segurança-nuxt-security) |
+| **Rate Limiter**  | 150 req/5min (global), 10 req/5min (login), 5 req/5min (reset-password)                                             |
+| **CSRF**          | Habilitado para POST/PUT/PATCH/DELETE (desabilitado em `/api/auth/*`)                                               |
+| **XSS Validator** | Habilitado com defaults                                                                                             |
+| **Request Size**  | 2MB (geral), 8MB (upload)                                                                                           |
 
 ### Desabilitar CSRF por Rota
 

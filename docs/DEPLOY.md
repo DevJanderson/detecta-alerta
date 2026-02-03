@@ -687,7 +687,7 @@ env:
 - [ ] `sourcemap` desabilitado
 - [ ] Secrets não expostos no cliente
 - [ ] HTTPS configurado
-- [ ] Headers de segurança ativos
+- [ ] Headers de segurança ativos (CSP, HSTS, etc. — ver seção abaixo)
 
 ### Pós-Deploy
 
@@ -704,6 +704,64 @@ env:
 - [ ] Error tracking (Sentry, LogRocket)
 - [ ] Analytics (Google Analytics, Plausible)
 - [ ] Uptime monitoring (UptimeRobot, Pingdom)
+
+---
+
+## Segurança (nuxt-security)
+
+O projeto usa o módulo [`nuxt-security`](https://nuxt-security.vercel.app) para headers de segurança, rate limiter, CSRF e proteção XSS.
+
+### CSP (Content-Security-Policy)
+
+O CSP é **desabilitado em desenvolvimento** e **ativo em produção**. Isso é intencional — o HMR do Vite precisa de WebSocket e injeção dinâmica de estilos que o CSP bloqueia, especialmente ao acessar o servidor dev via rede (`--host`).
+
+```typescript
+// nuxt.config.ts
+contentSecurityPolicy:
+  process.env.NODE_ENV === 'development'
+    ? false
+    : {
+        'base-uri': ["'self'"],
+        'default-src': ["'self'"],
+        'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        'style-src': ["'self'", "'unsafe-inline'"],
+        'img-src': ["'self'", 'data:', 'https:'],
+        'font-src': ["'self'", 'data:'],
+        'connect-src': ["'self'"],
+        'frame-ancestors': ["'self'"],
+        'form-action': ["'self'"],
+        'object-src': ["'none'"],
+      },
+```
+
+### O que verificar no deploy
+
+| Diretiva      | Valor                                  | Quando ajustar                                                         |
+| ------------- | -------------------------------------- | ---------------------------------------------------------------------- |
+| `connect-src` | `'self'`                               | Adicionar domínios de APIs externas (ex: `https://api.sinapse.org.br`) |
+| `img-src`     | `'self' data: https:`                  | Restringir se imagens vêm de domínios conhecidos                       |
+| `script-src`  | `'self' 'unsafe-inline' 'unsafe-eval'` | Remover `unsafe-eval` se possível (depende de libs)                    |
+| `style-src`   | `'self' 'unsafe-inline'`               | `unsafe-inline` é necessário para Nuxt/Vue                             |
+
+### Exemplo: adicionar domínio externo
+
+Se a aplicação precisar se conectar a APIs externas em produção:
+
+```typescript
+'connect-src': ["'self'", 'https://api.sinapse.org.br'],
+```
+
+### Outras configurações ativas em produção
+
+| Feature           | Configuração                                                            |
+| ----------------- | ----------------------------------------------------------------------- |
+| **HSTS**          | `max-age=31536000; includeSubdomains`                                   |
+| **Rate Limiter**  | 150 req/5min (global), 10 req/5min (login), 5 req/5min (reset-password) |
+| **CSRF**          | Ativo para POST/PUT/PATCH/DELETE (desabilitado em `/api/auth/*`)        |
+| **XSS Validator** | Ativo com defaults                                                      |
+| **Request Size**  | 2MB (geral), 8MB (upload)                                               |
+
+> **Ref:** Configuração completa em `nuxt.config.ts` na seção `security`. Docs: [nuxt-security.vercel.app](https://nuxt-security.vercel.app)
 
 ---
 
