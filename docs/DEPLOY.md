@@ -300,7 +300,7 @@ services:
 docker build -t minha-app .
 
 # Rodar container
-docker run -p 3000:3000 --env-file .env.production minha-app
+docker run -p 3000:3000 -e NUXT_SINAPSE_API_URL=<URL> minha-app
 
 # Com Docker Compose
 docker-compose up -d
@@ -601,43 +601,32 @@ export default {
 
 ### ⚠️ Variáveis do Detecta Alerta
 
-| Variável                   | Obrigatória | Escopo | Descrição                                      |
-| -------------------------- | ----------- | ------ | ---------------------------------------------- |
-| `NUXT_SINAPSE_API_URL`     | **SIM**     | Server | URL da API Sinapse (BFF usa para autenticação) |
-| `NUXT_PUBLIC_API_BASE_URL` | Não         | Client | Reservada para uso futuro                      |
-
-### Configuração por Ambiente
-
-```bash
-# ===========================================
-# .env (desenvolvimento local)
-# ===========================================
-NUXT_SINAPSE_API_URL=https://staging.sinapse.org.br/api/v1
-
-# ===========================================
-# .env.staging (homologação)
-# ===========================================
-NUXT_SINAPSE_API_URL=https://staging.sinapse.org.br/api/v1
-
-# ===========================================
-# .env.production (produção)
-# ===========================================
-NUXT_SINAPSE_API_URL=https://api-v2.sinapse.org.br/api/v1
-```
+| Variável               | Obrigatória | Escopo | Descrição                                      |
+| ---------------------- | ----------- | ------ | ---------------------------------------------- |
+| `NUXT_SINAPSE_API_URL` | **SIM**     | Server | URL da API Sinapse (BFF usa para autenticação) |
 
 > **IMPORTANTE:** Sem `NUXT_SINAPSE_API_URL` configurada, o sistema de autenticação retornará erro 500.
 
-### Estrutura Recomendada (Genérica)
+### Estrutura de Arquivos
+
+```
+.env.example    # Template (versionado) - apenas placeholders
+.env            # Desenvolvimento local (NÃO versionado)
+```
+
+### Configuração
+
+**Desenvolvimento local:** Criar `.env` a partir do `.env.example`
 
 ```bash
-# .env.example (commitar)
-NUXT_SINAPSE_API_URL=https://staging.sinapse.org.br/api/v1
+cp .env.example .env
+# Editar .env com a URL real (solicitar ao time)
+```
 
-# .env.local (não commitar - desenvolvimento)
-NUXT_SINAPSE_API_URL=https://staging.sinapse.org.br/api/v1
+**Staging/Produção:** Configurar diretamente na plataforma de deploy (Vercel, Netlify, AWS, etc.)
 
-# .env.production (não commitar ou usar secrets manager)
-NUXT_SINAPSE_API_URL=https://api-v2.sinapse.org.br/api/v1
+```
+NUXT_SINAPSE_API_URL=<URL_DO_AMBIENTE>
 ```
 
 ### Acessar no Código
