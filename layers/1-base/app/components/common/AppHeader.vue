@@ -107,53 +107,101 @@ function isActive(to: string) {
             </Button>
           </SheetTrigger>
 
-          <SheetContent side="left" class="w-72 p-0">
-            <SheetHeader class="border-b border-base-100 px-4 py-4">
+          <SheetContent side="left" hide-close class="flex w-72 flex-col gap-0 border-r-0 p-0">
+            <!-- Botão fechar no overlay -->
+            <SheetClose
+              class="absolute top-5 flex size-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20 focus:ring-2 focus:ring-white/30 focus:outline-hidden"
+              :style="{ left: 'calc(100vw - 3.25rem)' }"
+              aria-label="Fechar menu"
+            >
+              <Icon name="lucide:x" class="size-4" />
+            </SheetClose>
+
+            <!-- Header: identidade da marca -->
+            <SheetHeader class="mb-2 px-5 py-5">
               <SheetTitle class="sr-only">Menu de navegação</SheetTitle>
               <div class="flex items-center gap-3">
                 <NuxtImg
                   src="/brand/itps-horizontal-default.svg"
                   alt="Instituto Todos pela Saúde"
-                  class="h-7"
+                  class="h-8"
                 />
                 <div class="h-5 w-px bg-base-200" />
-                <NuxtImg src="/brand/detecta-default.svg" alt="Detecta Alerta" class="h-7" />
+                <NuxtImg src="/brand/detecta-default.svg" alt="Detecta Alerta" class="h-8" />
               </div>
             </SheetHeader>
 
             <!-- Nav links -->
-            <nav class="flex flex-col gap-1 px-2 py-3">
+            <nav class="flex flex-1 flex-col gap-1 px-3 py-4">
               <NuxtLink
                 v-for="link in navLinks"
                 :key="link.to"
                 :to="link.to"
-                class="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors"
+                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium transition-colors"
                 :class="[
                   isActive(link.to)
                     ? 'bg-brand-primary-50 text-brand-primary-700'
-                    : 'text-base-600 hover:bg-base-50 hover:text-base-900'
+                    : 'text-base-700 hover:bg-base-50 hover:text-base-900'
                 ]"
               >
-                <Icon :name="link.icon" class="size-4 shrink-0" />
+                <!-- Container do ícone -->
+                <span
+                  class="flex size-8 shrink-0 items-center justify-center rounded-lg border"
+                  :class="[
+                    isActive(link.to)
+                      ? 'border-brand-primary-200 bg-white text-brand-primary-700'
+                      : 'border-base-200 text-base-500'
+                  ]"
+                >
+                  <Icon :name="link.icon" class="size-4" />
+                </span>
                 {{ link.label }}
               </NuxtLink>
             </nav>
 
-            <Separator />
-
             <!-- Footer: Auth -->
-            <div class="px-4 py-3">
+            <div class="mt-auto px-3 py-4">
               <template v-if="authStore.isInitialized">
-                <div v-if="authStore.isAuthenticated" class="flex items-center gap-3">
-                  <Icon name="lucide:user" class="size-4 shrink-0 text-base-500" />
-                  <span class="truncate text-sm text-base-700">{{ authStore.userName }}</span>
+                <!-- Logado: card com avatar -->
+                <div
+                  v-if="authStore.isAuthenticated"
+                  class="flex items-center gap-3 rounded-lg border border-base-200 px-3 py-3"
+                >
+                  <span
+                    class="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-secondary-100 text-sm font-semibold text-brand-secondary-700"
+                  >
+                    {{ authStore.userInitials }}
+                  </span>
+                  <div class="min-w-0 flex-1">
+                    <p class="truncate text-sm font-medium text-base-900">
+                      {{ authStore.userName }}
+                    </p>
+                    <p class="text-xs text-base-500">Conectado</p>
+                  </div>
+                  <NuxtLink
+                    to="/configuracoes"
+                    class="flex items-center"
+                    aria-label="Configurações"
+                  >
+                    <Icon
+                      name="lucide:settings"
+                      class="size-[18px] shrink-0 text-base-400 transition-colors hover:text-base-700"
+                    />
+                  </NuxtLink>
                 </div>
-                <NuxtLink v-else to="/auth/login">
-                  <Button variant="brand-outline" size="brand-md" class="w-full">
-                    <Icon name="lucide:log-in" class="size-4" />
-                    Fazer Login
-                  </Button>
-                </NuxtLink>
+
+                <!-- Não logado: card convite -->
+                <div v-else class="rounded-lg bg-brand-secondary-50 px-4 py-4">
+                  <p class="mb-3 text-sm text-brand-secondary-800">
+                    Acesse sua conta para acompanhar alertas e relatórios.
+                  </p>
+                  <NuxtLink to="/auth/login">
+                    <Button variant="brand-outline" size="brand-md" class="w-full">
+                      <Icon name="lucide:log-in" class="size-4" />
+                      Fazer Login
+                    </Button>
+                  </NuxtLink>
+                </div>
               </template>
             </div>
           </SheetContent>
