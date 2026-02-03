@@ -23,25 +23,16 @@ function isActive(to: string) {
 <template>
   <header class="border-b border-base-100 bg-white px-6 py-3 lg:px-20">
     <div class="mx-auto flex items-center gap-10">
-      <!-- Logo -->
-      <div class="flex items-center gap-4">
-        <NuxtLink to="/" class="flex items-center gap-4">
-          <!-- TODO: Substituir por SVG do logo ITpS + Detecta Alerta -->
-          <div class="flex h-8 items-center">
-            <!-- Placeholder: barras coloridas do logo ITpS -->
-            <div class="flex">
-              <div class="h-6 w-4 bg-brand-primary-300" />
-              <div class="h-6 w-4 -ml-2 bg-brand-primary-700" />
-              <div class="h-6 w-4 -ml-2 bg-brand-primary-400" />
-              <div class="h-6 w-4 -ml-2 bg-brand-primary-600" />
-              <div class="h-6 w-4 -ml-2 bg-brand-secondary-200" />
-              <div class="h-6 w-4 -ml-2 bg-brand-secondary-600" />
-            </div>
-          </div>
-          <!-- Separador vertical -->
-          <div class="h-8 w-px bg-brand-primary-100" />
-          <!-- Placeholder: texto Detecta Alerta -->
-          <span class="text-sm font-semibold text-brand-secondary-600"> Detecta Alerta </span>
+      <!-- Logos (esquerda): ITpS + Detecta Alerta -->
+      <div class="flex shrink-0 items-center gap-4">
+        <NuxtImg
+          src="/brand/itps-horizontal-default.svg"
+          alt="Instituto Todos pela Saúde"
+          class="hidden h-8 lg:block"
+        />
+        <div class="hidden h-6 w-px bg-base-200 lg:block" />
+        <NuxtLink to="/">
+          <NuxtImg src="/brand/detecta-default.svg" alt="Detecta Alerta" class="h-8" />
         </NuxtLink>
       </div>
 
@@ -63,7 +54,7 @@ function isActive(to: string) {
         </NuxtLink>
       </nav>
 
-      <!-- Ações (Login/Usuário) -->
+      <!-- Logos parceiros + Ações (direita) -->
       <div class="flex items-center gap-4">
         <!-- Menu Mobile -->
         <Button variant="ghost" size="icon" class="lg:hidden" aria-label="Menu">
