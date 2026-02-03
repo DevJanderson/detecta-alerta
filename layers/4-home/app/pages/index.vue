@@ -31,13 +31,13 @@ useSeoMeta({
       <p class="text-lg">
         Olá, <span class="font-semibold">{{ authStore.userName }}</span>
       </p>
-      <Button variant="outline" @click="handleLogout"> Sair </Button>
+      <Button variant="brand-outline" size="brand-md" @click="handleLogout"> Sair </Button>
     </div>
 
     <!-- Não logado -->
     <div v-else class="flex gap-4">
       <NuxtLink to="/auth/login">
-        <Button>Entrar</Button>
+        <Button variant="brand" size="brand-md">Entrar</Button>
       </NuxtLink>
     </div>
   </div>

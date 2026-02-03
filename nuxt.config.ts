@@ -46,6 +46,7 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/eslint',
+    '@nuxt/icon',
     'shadcn-nuxt',
     '@pinia/nuxt',
     '@vee-validate/nuxt',
@@ -53,6 +54,15 @@ export default defineNuxtConfig({
     'nuxt-security',
     'vue-sonner/nuxt'
   ],
+
+  // Nuxt Icon - auto-import de ícones
+  // Docs: https://nuxt.com/modules/icon
+  icon: {
+    serverBundle: 'remote',
+    clientBundle: {
+      scan: true
+    }
+  },
 
   // Security - nuxt-security (headers, rate limiter, CSRF, etc.)
   // Docs: https://nuxt-security.vercel.app

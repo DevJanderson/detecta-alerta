@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { User, LogOut, ChevronDown } from 'lucide-vue-next'
-
 const authStore = useAuthStore()
 const router = useRouter()
 
@@ -22,7 +20,7 @@ async function handleLogout() {
         <span class="hidden text-sm font-medium md:inline-block">
           {{ authStore.userName }}
         </span>
-        <ChevronDown class="h-4 w-4 text-muted-foreground" />
+        <Icon name="lucide:chevron-down" class="size-4 text-muted-foreground" />
       </Button>
     </DropdownMenuTrigger>
 
@@ -40,7 +38,7 @@ async function handleLogout() {
         class="cursor-pointer text-danger-600 focus:bg-danger-50 focus:text-danger-600"
         @click="handleLogout"
       >
-        <LogOut class="mr-2 h-4 w-4" />
+        <Icon name="lucide:log-out" class="mr-2 size-4" />
         <span>Sair</span>
       </DropdownMenuItem>
     </DropdownMenuContent>
@@ -49,7 +47,7 @@ async function handleLogout() {
   <!-- Botão de login se não autenticado -->
   <NuxtLink v-else to="/auth/login">
     <Button variant="outline" size="sm">
-      <User class="mr-2 h-4 w-4" />
+      <Icon name="lucide:user" class="mr-2 size-4" />
       Entrar
     </Button>
   </NuxtLink>

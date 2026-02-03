@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Mail, Loader2, ArrowLeft, CheckCircle } from 'lucide-vue-next'
-
 const authStore = useAuthStore()
 
 // Form state
@@ -44,7 +42,7 @@ function resetForm() {
     <div v-if="isSubmitted" class="space-y-4 text-center">
       <div class="flex justify-center">
         <div class="rounded-full bg-success-100 p-3">
-          <CheckCircle class="h-8 w-8 text-success-600" />
+          <Icon name="lucide:check-circle" class="size-8 text-success-600" />
         </div>
       </div>
 
@@ -58,7 +56,7 @@ function resetForm() {
       <div class="space-y-2">
         <NuxtLink to="/auth/login">
           <Button variant="outline" class="w-full">
-            <ArrowLeft class="mr-2 h-4 w-4" />
+            <Icon name="lucide:arrow-left" class="mr-2 size-4" />
             Voltar para o login
           </Button>
         </NuxtLink>
@@ -94,8 +92,8 @@ function resetForm() {
 
       <!-- Botão submit -->
       <Button type="submit" class="w-full" :disabled="!canSubmit || !isValidEmail">
-        <Loader2 v-if="authStore.isLoading" class="mr-2 h-4 w-4 animate-spin" />
-        <Mail v-else class="mr-2 h-4 w-4" />
+        <Icon v-if="authStore.isLoading" name="lucide:loader-2" class="mr-2 size-4 animate-spin" />
+        <Icon v-else name="lucide:mail" class="mr-2 size-4" />
         Enviar link de recuperação
       </Button>
 

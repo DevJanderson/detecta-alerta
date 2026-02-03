@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { LogIn, Loader2, Eye, EyeOff } from 'lucide-vue-next'
-
 interface Props {
   redirectTo?: string
 }
@@ -82,8 +80,8 @@ function togglePassword() {
           class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
           @click="togglePassword"
         >
-          <Eye v-if="!showPassword" class="h-4 w-4" />
-          <EyeOff v-else class="h-4 w-4" />
+          <Icon v-if="!showPassword" name="lucide:eye" class="size-4" />
+          <Icon v-else name="lucide:eye-off" class="size-4" />
         </button>
       </div>
     </div>
@@ -96,9 +94,9 @@ function togglePassword() {
     </div>
 
     <!-- Botão submit -->
-    <Button type="submit" class="w-full" :disabled="!canSubmit">
-      <Loader2 v-if="authStore.isLoading" class="mr-2 h-4 w-4 animate-spin" />
-      <LogIn v-else class="mr-2 h-4 w-4" />
+    <Button type="submit" variant="brand" size="brand-sm" class="w-full" :disabled="!canSubmit">
+      <Icon v-if="authStore.isLoading" name="lucide:loader-2" class="size-4 animate-spin" />
+      <Icon v-else name="lucide:log-in" class="size-4" />
       Entrar
     </Button>
   </form>

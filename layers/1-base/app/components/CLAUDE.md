@@ -186,20 +186,26 @@ const inputValue = computed({
 | Emits              | Tipados com `defineEmits<{}>()`  |
 | CSS                | Tailwind CSS (utility classes)   |
 
-## Ícones (Lucide)
+## Ícones (@nuxt/icon)
+
+Usamos `@nuxt/icon` com auto-import. Não precisa importar manualmente.
 
 ```vue
-<script setup>
-import { Search, User, Settings } from 'lucide-vue-next'
-</script>
-
 <template>
+  <!-- Ícones Lucide (sem importação) -->
   <Button>
-    <Search class="w-4 h-4 mr-2" />
+    <Icon name="lucide:search" class="size-4" />
     Buscar
   </Button>
+
+  <!-- Outros exemplos -->
+  <Icon name="lucide:user" class="size-4" />
+  <Icon name="lucide:settings" class="size-4" />
+  <Icon name="lucide:loader-2" class="size-4 animate-spin" />
 </template>
 ```
+
+Docs: https://nuxt.com/modules/icon
 
 ---
 
