@@ -28,8 +28,8 @@ test.describe('Navigation', () => {
     await page.goto('/')
     await waitForHydration(page)
 
-    // Aguarda botão "Fazer Login" no header aparecer após inicialização do auth
-    const loginButton = page.locator('header').getByText('Fazer Login')
+    // Aguarda link "Fazer Login" no header aparecer após inicialização do auth
+    const loginButton = page.locator('header').getByRole('link', { name: 'Fazer Login' })
     await expect(loginButton).toBeVisible()
     await loginButton.click()
     await expect(page).toHaveURL('/auth/login')

@@ -73,18 +73,23 @@ export default defineNuxtConfig({
       crossOriginOpenerPolicy: 'same-origin',
       crossOriginEmbedderPolicy:
         process.env.NODE_ENV === 'development' ? 'unsafe-none' : 'credentialless',
-      contentSecurityPolicy: {
-        'base-uri': ["'self'"],
-        'default-src': ["'self'"],
-        'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-        'style-src': ["'self'", "'unsafe-inline'"],
-        'img-src': ["'self'", 'data:', 'https:'],
-        'font-src': ["'self'", 'data:'],
-        'connect-src': ["'self'"],
-        'frame-ancestors': ["'self'"],
-        'form-action': ["'self'"],
-        'object-src': ["'none'"]
-      },
+      // CSP desabilitado em dev (interfere com HMR do Vite ao acessar via rede)
+      // Ref: https://nuxt-security.vercel.app/advanced/faq
+      contentSecurityPolicy:
+        process.env.NODE_ENV === 'development'
+          ? false
+          : {
+              'base-uri': ["'self'"],
+              'default-src': ["'self'"],
+              'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+              'style-src': ["'self'", "'unsafe-inline'"],
+              'img-src': ["'self'", 'data:', 'https:'],
+              'font-src': ["'self'", 'data:'],
+              'connect-src': ["'self'"],
+              'frame-ancestors': ["'self'"],
+              'form-action': ["'self'"],
+              'object-src': ["'none'"]
+            },
       referrerPolicy: 'strict-origin-when-cross-origin',
       strictTransportSecurity: {
         maxAge: 31536000,
