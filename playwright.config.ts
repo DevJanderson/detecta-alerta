@@ -38,7 +38,8 @@ export default defineConfig({
     video: 'on-first-retry'
   },
 
-  // Configure projects for major browsers
+  // Browsers: Chromium + Firefox + Mobile Chrome (local)
+  // WebKit + Mobile Safari apenas no CI (requer OS oficialmente suportado)
   projects: [
     {
       name: 'chromium',
@@ -51,20 +52,16 @@ export default defineConfig({
     },
 
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] }
-    },
-
-    // Test against mobile viewports
-    {
       name: 'Mobile Chrome',
       use: { ...devices['Pixel 5'] }
     },
 
-    {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] }
-    }
+    ...(process.env.CI
+      ? [
+          { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+          { name: 'Mobile Safari', use: { ...devices['iPhone 12'] } }
+        ]
+      : [])
   ],
 
   // Run your local dev server before starting the tests

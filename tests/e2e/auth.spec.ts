@@ -2,15 +2,8 @@
  * Testes E2E para fluxo de autenticação
  */
 
-import { test, expect, type Page } from '@playwright/test'
-
-/** Aguarda hidratação completa do Vue/Nuxt antes de interagir com o DOM */
-async function waitForHydration(page: Page) {
-  await page.waitForFunction(() => {
-    const el = document.querySelector('#__nuxt')
-    return el && (el as any).__vue_app__ !== undefined
-  })
-}
+import { test, expect } from '@playwright/test'
+import { waitForHydration } from './helpers'
 
 test.describe('Autenticação', () => {
   test.describe('Página de Login', () => {
@@ -101,6 +94,7 @@ test.describe('Autenticação', () => {
   test.describe('Navegação', () => {
     test('deve navegar de login para reset de senha', async ({ page }) => {
       await page.goto('/auth/login')
+      await waitForHydration(page)
 
       await page.click('a[href="/auth/reset-password"]')
 
@@ -109,6 +103,7 @@ test.describe('Autenticação', () => {
 
     test('deve navegar de reset de senha para login', async ({ page }) => {
       await page.goto('/auth/reset-password')
+      await waitForHydration(page)
 
       await page.click('a[href="/auth/login"]')
 

@@ -11,6 +11,9 @@ tests/
 │   └── auth/          # Testes da layer de autenticação
 ├── integration/       # Testes de integração (futuro)
 └── e2e/               # Testes E2E (Playwright)
+    ├── helpers.ts     # Helpers compartilhados (waitForHydration)
+    ├── auth.spec.ts   # Testes de autenticação
+    └── homepage.spec.ts # Testes da homepage
 ```
 
 ## Convenções
@@ -133,54 +136,78 @@ describe('useAuthStore', () => {
 
 ## Testes E2E (Playwright)
 
-### Teste de Homepage
+### Browsers
+
+| Browser       | Local | CI  | Engine                      |
+| ------------- | ----- | --- | --------------------------- |
+| Chromium      | ✅    | ✅  | Blink (Chrome/Edge)         |
+| Firefox       | ✅    | ✅  | Gecko                       |
+| Mobile Chrome | ✅    | ✅  | Blink (viewport Pixel 5)    |
+| WebKit        | ❌    | ✅  | WebKit (Safari)             |
+| Mobile Safari | ❌    | ✅  | WebKit (viewport iPhone 12) |
+
+> WebKit/Mobile Safari rodam apenas no CI (`process.env.CI`) porque requerem OS oficialmente suportado pelo Playwright.
+
+### Hidratação (waitForHydration)
+
+Testes que interagem com elementos reativos (cliques, `fill()`, navegação SPA) **devem aguardar a hidratação do Vue/Nuxt** antes de interagir. Usar o helper compartilhado:
 
 ```typescript
-// tests/e2e/homepage.spec.ts
-import { test, expect } from '@playwright/test'
+import { waitForHydration } from './helpers'
 
-test.describe('Homepage', () => {
-  test('should display correctly', async ({ page }) => {
-    await page.goto('/')
-    await expect(page).toHaveTitle(/Detecta Alerta/)
-    await expect(page.locator('h1')).toContainText('Detecta Alerta')
-  })
+test('deve interagir com elemento reativo', async ({ page }) => {
+  await page.goto('/auth/login')
+  await waitForHydration(page) // Aguarda networkidle + Vue app mount
 
-  test('should navigate to login', async ({ page }) => {
-    await page.goto('/')
-    await page.click('a[href="/auth/login"]')
-    await expect(page).toHaveURL('/auth/login')
-  })
+  await page.locator('input#username').fill('usuario@teste.com')
+  // ...
 })
 ```
 
-### Teste de Autenticação
+**Quando usar `waitForHydration`:**
+
+- Antes de `fill()` em inputs com `v-model`
+- Antes de `click()` em botões com handlers Vue (`@click`)
+- Antes de clicar em `NuxtLink` (SPA navigation via Vue Router)
+
+**Quando NÃO é necessário:**
+
+- Verificar conteúdo renderizado pelo SSR (`toContainText`, `toBeVisible`)
+- Verificar atributos HTML estáticos (`toHaveAttribute`)
+
+### Exemplo: Teste de Autenticação
 
 ```typescript
 // tests/e2e/auth.spec.ts
 import { test, expect } from '@playwright/test'
+import { waitForHydration } from './helpers'
 
 test.describe('Login', () => {
   test('deve exibir formulário de login', async ({ page }) => {
     await page.goto('/auth/login')
 
+    // SSR - não precisa de hidratação
     await expect(page.locator('input#username')).toBeVisible()
     await expect(page.locator('input#password')).toBeVisible()
     await expect(page.locator('button[type="submit"]')).toBeVisible()
   })
 
-  test('botão deve estar desabilitado sem credenciais', async ({ page }) => {
-    await page.goto('/auth/login')
-    await expect(page.locator('button[type="submit"]')).toBeDisabled()
-  })
-
   test('botão deve estar habilitado com credenciais', async ({ page }) => {
     await page.goto('/auth/login')
+    await waitForHydration(page) // Precisa de hidratação para fill()
 
-    await page.fill('input#username', 'usuario@teste.com')
-    await page.fill('input#password', 'senha123')
+    await page.locator('input#username').fill('usuario@teste.com')
+    await page.locator('input#password').fill('senha123')
 
     await expect(page.locator('button[type="submit"]')).toBeEnabled()
+  })
+
+  test('deve navegar para reset de senha', async ({ page }) => {
+    await page.goto('/auth/login')
+    await waitForHydration(page) // Precisa de hidratação para navegação SPA
+
+    await page.click('a[href="/auth/reset-password"]')
+    await expect(page).toHaveURL('/auth/reset-password')
   })
 })
 ```

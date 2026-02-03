@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { waitForHydration } from './helpers'
 
 /**
  * Detecta Alerta - E2E Test Suite
@@ -25,6 +26,7 @@ test.describe('Homepage', () => {
 test.describe('Navigation', () => {
   test('should navigate to login page', async ({ page }) => {
     await page.goto('/')
+    await waitForHydration(page)
 
     // Aguarda botão "Fazer Login" no header aparecer após inicialização do auth
     const loginButton = page.locator('header').getByText('Fazer Login')
