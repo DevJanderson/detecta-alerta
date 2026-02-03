@@ -2,6 +2,14 @@
 /**
  * Página inicial - Detecta Alerta
  */
+const authStore = useAuthStore()
+const router = useRouter()
+
+async function handleLogout() {
+  await authStore.logout()
+  router.push('/auth/login')
+}
+
 useSeoMeta({
   title: 'Detecta Alerta - Vigilância Epidemiológica',
   description:
@@ -18,7 +26,16 @@ useSeoMeta({
       </p>
     </div>
 
-    <div class="flex gap-4">
+    <!-- Logado -->
+    <div v-if="authStore.isAuthenticated" class="flex flex-col items-center gap-4">
+      <p class="text-lg">
+        Olá, <span class="font-semibold">{{ authStore.userName }}</span>
+      </p>
+      <Button variant="outline" @click="handleLogout"> Sair </Button>
+    </div>
+
+    <!-- Não logado -->
+    <div v-else class="flex gap-4">
       <NuxtLink to="/auth/login">
         <Button>Entrar</Button>
       </NuxtLink>
