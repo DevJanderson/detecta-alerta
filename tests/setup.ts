@@ -14,9 +14,12 @@ vi.mock('#app', () => ({
   }),
   useRuntimeConfig: () => ({
     public: {
-      apiBaseUrl: 'http://localhost:3000/api'
+      apiBaseUrl: 'http://localhost:3000/api',
+      siteUrl: 'https://alerta.sinapse.org.br'
     }
   }),
+  useHead: vi.fn(),
+  useSeoMeta: vi.fn(),
   navigateTo: vi.fn(),
   useFetch: vi.fn(),
   useAsyncData: vi.fn(),
