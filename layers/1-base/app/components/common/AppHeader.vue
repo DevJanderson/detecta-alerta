@@ -185,7 +185,7 @@ function isActive(to: string) {
                   >
                     <Icon
                       name="lucide:settings"
-                      class="size-[18px] shrink-0 text-base-400 transition-colors hover:text-base-700"
+                      class="size-4.5 shrink-0 text-base-400 transition-colors hover:text-base-700"
                     />
                   </NuxtLink>
                 </div>

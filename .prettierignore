@@ -17,3 +17,6 @@ yarn.lock
 # Gerados
 *.min.js
 *.min.css
+
+# Dados geográficos (minificados de propósito)
+*.topojson
