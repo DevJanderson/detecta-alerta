@@ -6,7 +6,7 @@
  * Uso: node scripts/convert-geo.mjs
  */
 
-import { readFileSync, writeFileSync, unlinkSync, existsSync } from 'node:fs'
+import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { resolve, basename } from 'node:path'
 import { topology } from 'topojson-server'
 import { presimplify, simplify } from 'topojson-simplify'
@@ -18,13 +18,13 @@ const conversions = [
   {
     input: 'brazil_simplified.geojson',
     output: 'brazil_states.topojson',
-    objectName: 'states',
+    objectName: 'states'
   },
   {
     input: 'brazil_cities_simplified.geojson',
     output: 'brazil_cities.topojson',
-    objectName: 'cities',
-  },
+    objectName: 'cities'
+  }
 ]
 
 for (const { input, output, objectName } of conversions) {
@@ -54,9 +54,9 @@ for (const { input, output, objectName } of conversions) {
   const outputSize = (readFileSync(outputPath).length / 1024).toFixed(0)
   const reduction = (((inputSize - outputSize) / inputSize) * 100).toFixed(1)
 
-  console.log(
-    `✓ ${basename(input)} (${inputSize}KB) → ${basename(output)} (${outputSize}KB) [-${reduction}%]`,
+  console.warn(
+    `✓ ${basename(input)} (${inputSize}KB) → ${basename(output)} (${outputSize}KB) [-${reduction}%]`
   )
 }
 
-console.log('\nConversão concluída.')
+console.warn('\nConversão concluída.')
