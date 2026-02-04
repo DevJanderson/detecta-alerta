@@ -3,9 +3,10 @@ definePageMeta({
   layout: false
 })
 
-useSeoMeta({
+useSeoPage({
   title: 'Login - Detecta Alerta',
-  description: 'Faça login na plataforma de vigilância epidemiológica'
+  description: 'Faça login na plataforma de vigilância epidemiológica',
+  noindex: true
 })
 
 const route = useRoute()

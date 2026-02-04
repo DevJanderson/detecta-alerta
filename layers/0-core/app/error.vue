@@ -5,6 +5,11 @@ const props = defineProps<{
   error: NuxtError
 }>()
 
+useSeoMeta({
+  title: 'Erro - Detecta Alerta',
+  robots: 'noindex, nofollow'
+})
+
 const is404 = computed(() => props.error.statusCode === 404)
 
 const title = computed(() => {

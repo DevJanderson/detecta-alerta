@@ -28,7 +28,10 @@ export default defineNuxtConfig({
           content:
             'Plataforma de vigilância e monitoramento epidemiológico em tempo real para o Brasil.'
         },
-        { name: 'theme-color', content: '#e63946' }
+        { name: 'theme-color', content: '#e63946' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:locale', content: 'pt_BR' },
+        { property: 'og:site_name', content: 'Detecta Alerta' }
       ],
       link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]
     }
@@ -44,6 +47,10 @@ export default defineNuxtConfig({
   // Ordem de prioridade: 0-core < 1-base < 3-auth < 4-home
   // Número maior = maior prioridade = sobrescreve layers anteriores
 
+  site: {
+    url: 'https://alerta.sinapse.org.br'
+  },
+
   modules: [
     '@nuxt/eslint',
     '@nuxt/icon',
@@ -52,7 +59,8 @@ export default defineNuxtConfig({
     '@vee-validate/nuxt',
     '@nuxt/image',
     'nuxt-security',
-    'vue-sonner/nuxt'
+    'vue-sonner/nuxt',
+    '@nuxtjs/sitemap'
   ],
 
   // Nuxt Icon - auto-import de ícones
@@ -170,7 +178,8 @@ export default defineNuxtConfig({
 
     // Public (exposed to client)
     public: {
-      apiBaseUrl: '' // NUXT_PUBLIC_API_BASE_URL
+      apiBaseUrl: '', // NUXT_PUBLIC_API_BASE_URL
+      siteUrl: 'https://alerta.sinapse.org.br' // NUXT_PUBLIC_SITE_URL
     }
   },
 

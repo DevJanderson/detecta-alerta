@@ -4,10 +4,34 @@
  */
 const authStore = useAuthStore()
 
-useSeoMeta({
+useSeoPage({
   title: 'Detecta Alerta - Vigilância Epidemiológica',
   description:
     'Plataforma de vigilância e monitoramento epidemiológico em tempo real para o Brasil.'
+})
+
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebApplication',
+        name: 'Detecta Alerta',
+        url: 'https://alerta.sinapse.org.br',
+        description:
+          'Plataforma de vigilância e monitoramento epidemiológico em tempo real para o Brasil.',
+        applicationCategory: 'HealthApplication',
+        operatingSystem: 'Web',
+        inLanguage: 'pt-BR',
+        provider: {
+          '@type': 'Organization',
+          name: 'ITpS - Instituto Todos pela Saúde',
+          url: 'https://itps.org.br'
+        }
+      })
+    }
+  ]
 })
 </script>
 

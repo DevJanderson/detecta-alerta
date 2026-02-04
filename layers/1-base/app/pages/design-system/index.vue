@@ -3,6 +3,12 @@ definePageMeta({
   layout: 'default'
 })
 
+useSeoPage({
+  title: 'Design System - Detecta Alerta',
+  description: 'Paleta de cores e componentes do Detecta Alerta',
+  noindex: true
+})
+
 const brandPrimary = [
   { shade: '50', class: 'bg-brand-primary-50' },
   { shade: '100', class: 'bg-brand-primary-100' },
