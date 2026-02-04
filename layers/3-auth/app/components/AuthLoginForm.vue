@@ -77,11 +77,12 @@ function togglePassword() {
         />
         <button
           type="button"
-          class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+          :aria-label="showPassword ? 'Ocultar senha' : 'Mostrar senha'"
+          class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-brand-primary-500 focus:ring-offset-2 rounded-sm"
           @click="togglePassword"
         >
-          <Icon v-if="!showPassword" name="lucide:eye" class="size-4" />
-          <Icon v-else name="lucide:eye-off" class="size-4" />
+          <Icon v-if="!showPassword" name="lucide:eye" class="size-4" aria-hidden="true" />
+          <Icon v-else name="lucide:eye-off" class="size-4" aria-hidden="true" />
         </button>
       </div>
     </div>

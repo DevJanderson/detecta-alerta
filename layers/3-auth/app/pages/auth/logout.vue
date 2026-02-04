@@ -8,38 +8,44 @@ definePageMeta({
   layout: false
 })
 
+useSeoMeta({
+  title: 'Saindo... - Detecta Alerta'
+})
+
 const authStore = useAuthStore()
 const router = useRouter()
 
 // Timeout de 10 segundos para logout
 const LOGOUT_TIMEOUT = 10000
+let timeoutId: ReturnType<typeof setTimeout> | null = null
 
 onMounted(async () => {
   try {
-    // Criar promise de timeout
     const timeoutPromise = new Promise<never>((_, reject) => {
-      setTimeout(() => reject(new Error('Timeout')), LOGOUT_TIMEOUT)
+      timeoutId = setTimeout(() => reject(new Error('Timeout')), LOGOUT_TIMEOUT)
     })
 
-    // Race entre logout e timeout
     await Promise.race([authStore.logout(), timeoutPromise])
   } catch {
     // Timeout ou erro - redireciona mesmo assim
-    console.warn('Logout timeout ou erro - redirecionando')
   } finally {
-    // Sempre redireciona para login
+    if (timeoutId) clearTimeout(timeoutId)
     router.replace('/auth/login')
   }
+})
+
+onUnmounted(() => {
+  if (timeoutId) clearTimeout(timeoutId)
 })
 </script>
 
 <template>
-  <div class="flex min-h-screen items-center justify-center bg-base-50">
+  <main class="flex min-h-screen items-center justify-center bg-base-50">
     <div class="text-center">
       <div
         class="mb-4 h-8 w-8 animate-spin rounded-full border-4 border-brand-primary-200 border-t-brand-primary-600 mx-auto"
       />
       <p class="text-muted-foreground">Saindo...</p>
     </div>
-  </div>
+  </main>
 </template>

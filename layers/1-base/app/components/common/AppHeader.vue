@@ -52,7 +52,7 @@ function isActive(to: string) {
           v-for="link in navLinks"
           :key="link.to"
           :to="link.to"
-          class="relative flex items-center gap-1.5 text-base transition-colors after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-center after:scale-x-0 after:rounded-full after:bg-current after:transition-transform after:duration-300 after:ease-out"
+          class="relative flex items-center gap-1.5 rounded-sm text-base transition-colors focus:outline-none focus:ring-2 focus:ring-brand-primary-500 focus:ring-offset-2 after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-center after:scale-x-0 after:rounded-full after:bg-current after:transition-transform after:duration-300 after:ease-out"
           :class="[
             isActive(link.to)
               ? 'font-semibold text-brand-primary-700 hover:after:scale-x-100'
@@ -110,7 +110,7 @@ function isActive(to: string) {
           <SheetContent side="left" hide-close class="flex w-72 flex-col gap-0 border-r-0 p-0">
             <!-- Botão fechar no overlay -->
             <SheetClose
-              class="absolute top-5 flex size-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20 focus:ring-2 focus:ring-white/30 focus:outline-hidden"
+              class="absolute top-5 flex size-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-base-900 focus:outline-hidden"
               :style="{ left: 'calc(100vw - 3.25rem)' }"
               aria-label="Fechar menu"
             >
@@ -137,7 +137,7 @@ function isActive(to: string) {
                 v-for="link in navLinks"
                 :key="link.to"
                 :to="link.to"
-                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium transition-colors"
+                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-brand-primary-500 focus:ring-offset-2"
                 :class="[
                   isActive(link.to)
                     ? 'bg-brand-primary-50 text-brand-primary-700'

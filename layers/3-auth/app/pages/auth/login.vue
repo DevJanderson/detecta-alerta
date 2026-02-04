@@ -3,6 +3,11 @@ definePageMeta({
   layout: false
 })
 
+useSeoMeta({
+  title: 'Login - Detecta Alerta',
+  description: 'Faça login na plataforma de vigilância epidemiológica'
+})
+
 const route = useRoute()
 
 // Pegar redirect da query string (com validação de segurança)
@@ -13,7 +18,7 @@ const redirectTo = computed(() => {
 </script>
 
 <template>
-  <div class="flex min-h-screen items-center justify-center bg-base-50 px-4 py-12">
+  <main class="flex min-h-screen items-center justify-center bg-base-50 px-4 py-12">
     <div class="w-full max-w-md">
       <!-- Logo/Título -->
       <div class="mb-8 text-center">
@@ -38,5 +43,5 @@ const redirectTo = computed(() => {
         &copy; {{ new Date().getFullYear() }} ITpS - Instituto Todos pela Saúde
       </p>
     </div>
-  </div>
+  </main>
 </template>

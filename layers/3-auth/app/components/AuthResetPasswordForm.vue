@@ -86,8 +86,17 @@ function resetForm() {
           placeholder="seu@email.com"
           autocomplete="email"
           :disabled="authStore.isLoading"
+          :aria-invalid="email && !isValidEmail ? true : undefined"
+          :aria-describedby="email && !isValidEmail ? 'email-error' : undefined"
         />
-        <p v-if="email && !isValidEmail" class="text-sm text-danger-600">Digite um email válido</p>
+        <p
+          v-if="email && !isValidEmail"
+          id="email-error"
+          role="alert"
+          class="text-sm text-danger-600"
+        >
+          Digite um email válido
+        </p>
       </div>
 
       <!-- Botão submit -->

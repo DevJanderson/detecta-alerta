@@ -2,10 +2,15 @@
 definePageMeta({
   layout: false
 })
+
+useSeoMeta({
+  title: 'Recuperar Senha - Detecta Alerta',
+  description: 'Recupere o acesso à sua conta na plataforma de vigilância epidemiológica'
+})
 </script>
 
 <template>
-  <div class="flex min-h-screen items-center justify-center bg-base-50 px-4 py-12">
+  <main class="flex min-h-screen items-center justify-center bg-base-50 px-4 py-12">
     <div class="w-full max-w-md">
       <!-- Logo/Título -->
       <div class="mb-8 text-center">
@@ -30,5 +35,5 @@ definePageMeta({
         &copy; {{ new Date().getFullYear() }} ITpS - Instituto Todos pela Saúde
       </p>
     </div>
-  </div>
+  </main>
 </template>
