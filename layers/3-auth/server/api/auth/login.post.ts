@@ -8,6 +8,7 @@
 // Schemas Zod do Kubb (gerados do OpenAPI)
 import { loginRequestSchema } from '~/generated/sinapse/zod/loginRequestSchema'
 import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
+import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSchemaDetalhesSchema'
 
 export default defineEventHandler(async event => {
   // Validar body com schema Kubb
@@ -17,8 +18,7 @@ export default defineEventHandler(async event => {
   if (!result.success) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Dados inválidos',
-      data: result.error.flatten()
+      statusMessage: 'Dados inválidos'
     })
   }
 
@@ -37,10 +37,11 @@ export default defineEventHandler(async event => {
     // Armazenar tokens em cookies httpOnly
     setAuthCookies(event, tokenResponse.access_token, tokenResponse.refresh_token)
 
-    // Buscar dados do usuário
-    const user = await fetchSinapse('/usuarios/me', {
+    // Buscar e validar dados do usuário
+    const rawUser = await fetchSinapse('/usuarios/me', {
       accessToken: tokenResponse.access_token
     })
+    const user = usuarioSchemaDetalhesSchema.parse(rawUser)
 
     return { user }
   } catch (error: unknown) {

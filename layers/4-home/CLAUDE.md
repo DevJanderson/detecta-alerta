@@ -52,7 +52,7 @@ Esta é a layer de **maior prioridade** (4), o que significa:
 ```vue
 <!-- layers/4-home/app/pages/about.vue -->
 <script setup lang="ts">
-useSeoMeta({
+useSeoPage({
   title: 'Sobre - Detecta Alerta',
   description: 'Conheça o Detecta Alerta.'
 })
@@ -92,14 +92,20 @@ layers/4-home/
 
 ### SEO
 
-Use `useSeoMeta` para SEO específico da página:
+Use `useSeoPage` para SEO completo (OG, Twitter Cards, canonical, robots):
 
 ```vue
 <script setup lang="ts">
-useSeoMeta({
+// Página pública (indexável)
+useSeoPage({
   title: 'Detecta Alerta - Vigilância Epidemiológica',
-  description: 'Monitoramento de surtos e epidemias em tempo real para o Brasil.',
-  ogImage: '/og-image.png'
+  description: 'Monitoramento de surtos e epidemias em tempo real para o Brasil.'
+})
+
+// Página interna (não indexável)
+useSeoPage({
+  title: 'Sobre - Detecta Alerta',
+  noindex: true
 })
 </script>
 ```

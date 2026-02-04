@@ -6,11 +6,37 @@ Instruções para criar e usar composables reutilizáveis.
 
 ```
 layers/1-base/app/composables/
+├── useSeoPage.ts           # SEO: OG, Twitter Cards, canonical, robots
 ├── useLoading.ts           # Estado de loading global
 ├── useNotification.ts      # Sistema de notificações
 ├── usePagination.ts        # Lógica de paginação
 └── useDebounce.ts          # Debounce reativo
 ```
+
+## Composables Existentes
+
+### useSeoPage
+
+Composable de SEO para todas as páginas. Gera Open Graph, Twitter Cards, canonical URL e robots automaticamente.
+
+```typescript
+// layers/1-base/app/composables/useSeoPage.ts
+interface SeoPageOptions {
+  title: string
+  description?: string // Default: descrição padrão do projeto
+  path?: string // Default: route.path
+  noindex?: boolean // Default: false
+  ogImage?: string // Default: /og-image.png
+}
+
+useSeoPage({
+  title: 'Minha Página - Detecta Alerta',
+  description: 'Descrição da página',
+  noindex: true // Para páginas internas (auth, design-system)
+})
+```
+
+---
 
 ## Utils vs Composables
 

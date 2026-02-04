@@ -5,6 +5,8 @@
  * Usado para inicializar o estado de autenticação no cliente.
  */
 
+import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSchemaDetalhesSchema'
+
 export default defineEventHandler(async event => {
   // Tentar renovar tokens se necessário (lógica centralizada)
   const refreshResult = await tryRefreshTokens(event)
@@ -21,10 +23,11 @@ export default defineEventHandler(async event => {
 
   // Buscar dados do usuário com o token válido
   try {
-    const user = await fetchSinapse('/usuarios/me', {
+    const rawUser = await fetchSinapse('/usuarios/me', {
       accessToken: refreshResult.accessToken
     })
 
+    const user = usuarioSchemaDetalhesSchema.parse(rawUser)
     return { user }
   } catch (error: unknown) {
     if (isSinapseError(error) && error.statusCode === 401) {

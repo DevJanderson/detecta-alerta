@@ -37,6 +37,9 @@ Criar arquivo `.env` na raiz:
 ```env
 # URL da API Sinapse (incluir /api/v1)
 NUXT_SINAPSE_API_URL=https://staging.sinapse.org.br/api/v1
+
+# URL pública do site (opcional, default: https://alerta.sinapse.org.br)
+NUXT_PUBLIC_SITE_URL=https://alerta.sinapse.org.br
 ```
 
 ## Comandos Principais
@@ -51,6 +54,34 @@ npm run test -- path/to/file.test.ts  # Teste específico
 npm run test:e2e         # Playwright E2E
 npm run api:generate     # Gera cliente a partir do OpenAPI
 ```
+
+## SEO
+
+### Composable `useSeoPage`
+
+Usar `useSeoPage` (não `useSeoMeta`) em todas as páginas. Gera automaticamente: title, description, Open Graph, Twitter Cards, canonical URL e robots.
+
+```vue
+<script setup lang="ts">
+// Página pública (indexável)
+useSeoPage({
+  title: 'Detecta Alerta - Vigilância Epidemiológica',
+  description: 'Monitoramento epidemiológico em tempo real para o Brasil.'
+})
+
+// Página interna (não indexável)
+useSeoPage({
+  title: 'Login - Detecta Alerta',
+  noindex: true
+})
+</script>
+```
+
+### Sitemap e Robots
+
+- **Sitemap**: gerado automaticamente por `@nuxtjs/sitemap` em `/sitemap.xml`
+- **Robots**: `public/robots.txt` bloqueia `/api/`, `/auth/`, `/design-system/`
+- **JSON-LD**: apenas na homepage (`layers/4-home/app/pages/index.vue`)
 
 ## Componentes shadcn-vue
 
