@@ -22,13 +22,12 @@ Adotamos uma arquitetura **layers-only** usando Nuxt Layers, onde **não existe 
 
 ```
 layers/
-  0-core/    # Fundação: app.vue, error.vue, CSS global
-  1-base/    # UI: shadcn-vue, utils, tipos globais
+  0-base/    # Fundação + UI: app.vue, error.vue, CSS, shadcn-vue, utils, tipos
   3-auth/    # Autenticação BFF
   4-home/    # Landing page e páginas públicas
 ```
 
-A prioridade segue a numeração: `4-home > 3-auth > 1-base > 0-core`.
+A prioridade segue a numeração: `4-home > 3-auth > 0-base`.
 
 ## Opções Consideradas
 
@@ -64,7 +63,7 @@ e endpoints isolados. A numeração garante prioridade previsível.
 
 ### Negativas
 
-- Caminhos de importação mais verbosos (`~/layers/1-base/app/utils/...`)
+- Caminhos de importação mais verbosos (`~/layers/0-base/app/utils/...`)
 - Precisa usar `~/layers/...` (alias da raiz) em `nuxt.config.ts` de layers
 - Caminhos relativos como `./app/...` não funcionam em configs de layers
 

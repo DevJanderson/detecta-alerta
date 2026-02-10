@@ -44,7 +44,7 @@ export default defineNuxtConfig({
   },
 
   // Nuxt Layers - auto-scan de ~/layers (Nuxt 4+)
-  // Ordem de prioridade: 0-core < 1-base < 3-auth < 4-home
+  // Ordem de prioridade: 0-base < 3-auth < 4-home
   // Número maior = maior prioridade = sobrescreve layers anteriores
 
   site: {
@@ -169,7 +169,7 @@ export default defineNuxtConfig({
 
   shadcn: {
     prefix: '',
-    componentDir: './layers/1-base/app/components/ui'
+    componentDir: './layers/0-base/app/components/ui'
   },
 
   runtimeConfig: {
@@ -202,5 +202,5 @@ export default defineNuxtConfig({
     }
   }
 
-  // CSS global está em layers/0-core/
+  // CSS global está em layers/0-base/
 })

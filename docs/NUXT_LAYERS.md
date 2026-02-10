@@ -25,7 +25,7 @@ Layers são módulos independentes que permitem:
 - Reutilização de código entre projetos
 - Ordem de prioridade configurável via prefixos numéricos
 
-> **IMPORTANTE:** Use hífen (`-`) e não ponto (`.`) no nome das pastas de layers. O ponto causa problemas na resolução de módulos do Nuxt. Exemplo: use `1-base` em vez de `1.base`.
+> **IMPORTANTE:** Use hífen (`-`) e não ponto (`.`) no nome das pastas de layers. O ponto causa problemas na resolução de módulos do Nuxt. Exemplo: use `0-base` em vez de `0.base`.
 
 ---
 
@@ -47,20 +47,18 @@ Este template usa **arquitetura layers-only** - não existe pasta `app/` na raiz
 ```
 projeto/
 ├── layers/                         # TUDO fica aqui
-│   ├── 0-core/                     # Fundação: app.vue, error.vue, CSS
-│   │   └── app/
-│   │       ├── app.vue
-│   │       ├── error.vue
-│   │       └── assets/css/main.css
-│   │
-│   ├── 1-base/                     # UI: shadcn-vue, utils, tipos
+│   ├── 0-base/                     # Fundação + UI: app.vue, error.vue, CSS, shadcn-vue, utils, tipos
 │   │   ├── app/
+│   │   │   ├── app.vue
+│   │   │   ├── error.vue
+│   │   │   ├── assets/css/main.css
 │   │   │   ├── components/
 │   │   │   │   ├── ui/             # shadcn-vue
 │   │   │   │   └── common/         # Componentes compartilhados
 │   │   │   ├── composables/        # Composables globais
 │   │   │   ├── layouts/            # Layout padrão
 │   │   │   └── utils/              # Funções utilitárias
+│   │   ├── server/api/             # Health check
 │   │   └── shared/types/           # Tipos globais (via alias #shared)
 │   │
 │   ├── 3-auth/                     # Feature: Autenticação BFF
@@ -70,7 +68,7 @@ projeto/
 │   │   │   └── pages/auth/
 │   │   └── server/api/auth/
 │   │
-│   └── 4-home/                  # Feature: Landing page
+│   └── 4-home/                     # Feature: Landing page
 │       └── app/pages/
 │
 ├── tests/                          # Testes (unit, e2e)
@@ -80,23 +78,22 @@ projeto/
 
 ### Responsabilidade de cada Layer
 
-| Layer         | Responsabilidade                                                |
-| ------------- | --------------------------------------------------------------- |
-| `0-core`      | Fundação: `app.vue`, `error.vue`, CSS global, variáveis de tema |
-| `1-base`      | UI compartilhada: shadcn-vue, layouts, utils, tipos globais     |
-| `2-*` a `N-*` | Features específicas: páginas, componentes, API                 |
+| Layer         | Responsabilidade                                                              |
+| ------------- | ----------------------------------------------------------------------------- |
+| `0-base`      | Fundação + UI: `app.vue`, `error.vue`, CSS, shadcn-vue, layouts, utils, tipos |
+| `2-*` a `N-*` | Features específicas: páginas, componentes, API                               |
 
 ---
 
 ## Ordem de Prioridade
 
 ```
-4-home > 3-auth > 1-base > 0-core
+4-home > 3-auth > 0-base
 ```
 
 **Regra:** Número MAIOR = MAIOR prioridade = sobrescreve layers anteriores.
 
-Exemplo: Se `1-base` e `3-auth` definem um componente com mesmo nome, o de `3-auth` será usado.
+Exemplo: Se `0-base` e `3-auth` definem um componente com mesmo nome, o de `3-auth` será usado.
 
 ---
 
@@ -147,7 +144,7 @@ Ao referenciar arquivos dentro de uma layer (como CSS), use o alias `~` (raiz do
 ```ts
 // ✅ Correto - usa alias da raiz
 export default defineNuxtConfig({
-  css: ['~/layers/0-core/app/assets/css/main.css']
+  css: ['~/layers/0-base/app/assets/css/main.css']
 })
 
 // ❌ Incorreto - caminho relativo não funciona em layers
@@ -171,7 +168,7 @@ O Tailwind CSS v4 usa detecção automática de classes, mas por padrão só esc
 A diretiva `@source` no CSS principal inclui todas as layers no scan:
 
 ```css
-/* layers/0-core/app/assets/css/main.css */
+/* layers/0-base/app/assets/css/main.css */
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -188,7 +185,7 @@ A diretiva `@source` no CSS principal inclui todas as layers no scan:
 
 ### Configuração do components.json
 
-Para que o CLI do shadcn-vue instale componentes em `layers/1-base/`:
+Para que o CLI do shadcn-vue instale componentes em `layers/0-base/`:
 
 ```json
 {
@@ -197,14 +194,14 @@ Para que o CLI do shadcn-vue instale componentes em `layers/1-base/`:
   "typescript": true,
   "tailwind": {
     "config": "",
-    "css": "layers/0-core/app/assets/css/main.css",
+    "css": "layers/0-base/app/assets/css/main.css",
     "baseColor": "neutral",
     "cssVariables": true
   },
   "aliases": {
-    "components": "layers/1-base/app/components",
-    "utils": "layers/1-base/app/utils/utils",
-    "ui": "layers/1-base/app/components/ui"
+    "components": "layers/0-base/app/components",
+    "utils": "layers/0-base/app/utils/utils",
+    "ui": "layers/0-base/app/components/ui"
   }
 }
 ```
@@ -216,7 +213,7 @@ npx shadcn-vue@latest add button
 npx shadcn-vue@latest add card
 ```
 
-Componentes são instalados em `layers/1-base/app/components/ui/` e auto-importados.
+Componentes são instalados em `layers/0-base/app/components/ui/` e auto-importados.
 
 ---
 

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 
-import { useSeoPage } from '~/layers/1-base/app/composables/useSeoPage'
+import { useSeoPage } from '~/layers/0-base/app/composables/useSeoPage'
 
 // Mock dos composables de head do Nuxt (auto-imports via #app/composables/head)
 const mockUseHead = vi.fn()

@@ -12,12 +12,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **NÃO** incluir `Co-Authored-By` nos commits
 - Mensagens de commit em português ou inglês (consistente com o projeto)
+- Commitlint exige `subject-case: lower-case` (severity error)
+  - ✅ `feat(auth): implementa login com oauth`
+  - ❌ `feat(auth): Implementa Login` ← falha no commit
+  - Nomes de função/classe (PascalCase) só no body, nunca no subject
 
 ### Execução
 
 - **NUNCA** rodar `npm run dev` em background ou com timeout - deixar o usuário iniciar no terminal dele
 - Para verificar erros, usar apenas `npm run typecheck` ou `npm run build`
 - Evitar processos que ficam rodando indefinidamente
+
+### Code Style
+
+Projeto usa Prettier com: **sem ponto-e-vírgula**, **aspas simples**, **100 colunas**, **sem trailing comma**, **arrow parens: avoid**.
+
+```typescript
+// ✅ Correto
+const name = 'detecta'
+const fn = x => x + 1
+import { ref } from 'vue'
+
+// ❌ Incorreto
+const name = 'detecta'
+const fn = x => x + 1
+```
+
+### Regras ESLint Importantes
+
+- `no-console`: apenas `console.warn` e `console.error` permitidos
+- `prefer-const`: obrigatório (`error`) - usar `const` quando não reatribui
+- Variáveis prefixadas com `_` são ignoradas pelo `no-unused-vars`
+- `vue/html-self-closing`: sempre auto-fechar componentes (`<MyComp />`)
 
 ## Sobre o Projeto
 
@@ -89,13 +115,13 @@ useSeoPage({
 npx shadcn-vue@latest add <componente>
 ```
 
-Componentes ficam em `layers/1-base/app/components/ui/` (auto-import).
+Componentes ficam em `layers/0-base/app/components/ui/` (auto-import).
 
 ## Design System - Cores
 
 | Recurso          | Local                                   |
 | ---------------- | --------------------------------------- |
-| Arquivo de cores | `layers/0-core/app/assets/css/main.css` |
+| Arquivo de cores | `layers/0-base/app/assets/css/main.css` |
 | Visualização     | http://localhost:3000/design-system     |
 
 ### Paleta Principal
@@ -126,10 +152,9 @@ Nuxt 4 + shadcn-vue + Tailwind CSS v4 + **Nuxt Layers**.
 
 ```
 layers/                 # TUDO fica aqui (incluindo server/)
-  0-core/               # Fundação: app.vue, error.vue, CSS global, health check
-  1-base/               # UI: shadcn-vue, utils, tipos globais
+  0-base/               # Fundação + UI: app.vue, error.vue, CSS, shadcn-vue, utils, tipos
   3-auth/               # Autenticação BFF (Backend-for-Frontend)
-  4-home/            # Landing page
+  4-home/               # Landing page
 tests/                  # unit/, integration/, e2e/
 docs/                   # Documentação técnica detalhada
 generated/              # Cliente API gerado (Kubb) - NÃO EDITAR
@@ -143,7 +168,7 @@ openapi/                # Especificações OpenAPI
 ### Ordem de Prioridade (Layers)
 
 ```
-4-home > 3-auth > 1-base > 0-core
+4-home > 3-auth > 0-base
 ```
 
 Número maior = maior prioridade = sobrescreve layers anteriores.
@@ -204,10 +229,25 @@ export const useExampleStore = defineStore('example', () => {
 | `useFetch` | Carregamento inicial (páginas) | Sim |
 | `$fetch`   | Eventos do usuário (cliques)   | Não |
 
+### VeeValidate
+
+Componentes auto-importados com prefixo `Vee`:
+
+| Componente original | Nome no projeto   |
+| ------------------- | ----------------- |
+| `Form`              | `VeeForm`         |
+| `Field`             | `VeeField`        |
+| `FieldArray`        | `VeeFieldArray`   |
+| `ErrorMessage`      | `VeeErrorMessage` |
+
+### Server Middleware
+
+Prefixo numérico define ordem de execução: `01.auth.ts` roda antes de `02.logger.ts`.
+
 ### Utils vs Composables
 
-- **Utils** (`layers/1-base/app/utils/`): Funções puras, sem estado Vue
-- **Composables** (`layers/1-base/app/composables/`): Lógica com `ref`, `computed`
+- **Utils** (`layers/0-base/app/utils/`): Funções puras, sem estado Vue
+- **Composables** (`layers/0-base/app/composables/`): Lógica com `ref`, `computed`
 
 ## Segurança
 
@@ -368,15 +408,14 @@ output: {
 
 ### Por Diretório (CLAUDE.md)
 
-| Documento                                                                          | Conteúdo                               |
-| ---------------------------------------------------------------------------------- | -------------------------------------- |
-| [layers/0-core/CLAUDE.md](layers/0-core/CLAUDE.md)                                 | app.vue, error.vue, CSS global         |
-| [layers/1-base/CLAUDE.md](layers/1-base/CLAUDE.md)                                 | shadcn-vue, utilitários, tipos globais |
-| [layers/1-base/app/components/CLAUDE.md](layers/1-base/app/components/CLAUDE.md)   | Componentes UI                         |
-| [layers/1-base/app/composables/CLAUDE.md](layers/1-base/app/composables/CLAUDE.md) | Padrões de composables                 |
-| [layers/3-auth/CLAUDE.md](layers/3-auth/CLAUDE.md)                                 | Autenticação BFF, login, logout        |
-| [layers/4-home/CLAUDE.md](layers/4-home/CLAUDE.md)                                 | Homepage, páginas públicas             |
-| [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking            |
+| Documento                                                                          | Conteúdo                                |
+| ---------------------------------------------------------------------------------- | --------------------------------------- |
+| [layers/0-base/CLAUDE.md](layers/0-base/CLAUDE.md)                                 | Fundação + UI: shadcn-vue, utils, tipos |
+| [layers/0-base/app/components/CLAUDE.md](layers/0-base/app/components/CLAUDE.md)   | Componentes UI                          |
+| [layers/0-base/app/composables/CLAUDE.md](layers/0-base/app/composables/CLAUDE.md) | Padrões de composables                  |
+| [layers/3-auth/CLAUDE.md](layers/3-auth/CLAUDE.md)                                 | Autenticação BFF, login, logout         |
+| [layers/4-home/CLAUDE.md](layers/4-home/CLAUDE.md)                                 | Homepage, páginas públicas              |
+| [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking             |
 
 ### Guias Técnicos (docs/)
 

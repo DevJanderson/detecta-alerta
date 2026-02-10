@@ -33,7 +33,7 @@ layers/4-home/
 | ---- | --------------------- | ------------------ |
 | `/`  | `app/pages/index.vue` | Homepage principal |
 
-> **Nota:** A página de design system está em `layers/1-base/app/pages/design-system/` (rota `/design-system`).
+> **Nota:** A página de design system está em `layers/0-base/app/pages/design-system/` (rota `/design-system`).
 
 ---
 
@@ -123,6 +123,6 @@ useSeoPage({
 | Tipo                 | Onde colocar                             |
 | -------------------- | ---------------------------------------- |
 | Páginas autenticadas | `layers/3-auth/` ou feature específica   |
-| Componentes globais  | `layers/1-base/app/components/`          |
-| Design system        | `layers/1-base/app/pages/design-system/` |
-| Endpoints de API     | `layers/0-core/server/` ou feature       |
+| Componentes globais  | `layers/0-base/app/components/`          |
+| Design system        | `layers/0-base/app/pages/design-system/` |
+| Endpoints de API     | `layers/0-base/server/` ou feature       |
