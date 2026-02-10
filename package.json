@@ -69,7 +69,6 @@
     "@faker-js/faker": "^10.2.0",
     "@kubb/cli": "^4.19.2",
     "@kubb/core": "^4.19.2",
-    "@kubb/plugin-client": "^4.19.2",
     "@kubb/plugin-faker": "^4.20.1",
     "@kubb/plugin-msw": "^4.20.1",
     "@kubb/plugin-oas": "^4.19.2",

@@ -156,8 +156,7 @@ layers/                 # TUDO fica aqui (incluindo server/)
   3-auth/               # Autenticação BFF (Backend-for-Frontend)
   4-home/               # Landing page
 tests/                  # unit/, integration/, e2e/
-docs/                   # Documentação técnica detalhada
-generated/              # Cliente API gerado (Kubb) - NÃO EDITAR
+generated/              # Código gerado (Kubb) - NÃO EDITAR
 openapi/                # Especificações OpenAPI
 ```
 
@@ -257,13 +256,13 @@ Módulo `nuxt-security` configurado com headers, rate limiter, CSRF e XSS protec
 
 ### Configuração Atual
 
-| Feature           | Configuração                                                                                                        |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------- |
-| **Headers**       | CSP (desabilitado em dev), HSTS, X-Frame-Options, etc. Ver [docs/DEPLOY.md](docs/DEPLOY.md#segurança-nuxt-security) |
-| **Rate Limiter**  | 150 req/5min (global), 10 req/5min (login), 5 req/5min (reset-password)                                             |
-| **CSRF**          | Habilitado para POST/PUT/PATCH/DELETE (desabilitado em `/api/auth/*`)                                               |
-| **XSS Validator** | Habilitado com defaults                                                                                             |
-| **Request Size**  | 2MB (geral), 8MB (upload)                                                                                           |
+| Feature           | Configuração                                                            |
+| ----------------- | ----------------------------------------------------------------------- |
+| **Headers**       | CSP (desabilitado em dev), HSTS, X-Frame-Options, etc.                  |
+| **Rate Limiter**  | 150 req/5min (global), 10 req/5min (login), 5 req/5min (reset-password) |
+| **CSRF**          | Habilitado para POST/PUT/PATCH/DELETE (desabilitado em `/api/auth/*`)   |
+| **XSS Validator** | Habilitado com defaults                                                 |
+| **Request Size**  | 2MB (geral), 8MB (upload)                                               |
 
 ### Desabilitar CSRF por Rota
 
@@ -293,12 +292,11 @@ Código TypeScript gerado automaticamente a partir da especificação OpenAPI.
 
 ### O que usar do Kubb
 
-| Componente       | Usar?  | Onde                               |
-| ---------------- | ------ | ---------------------------------- |
-| **Tipos**        | ✅ Sim | Composables, stores, endpoints BFF |
-| **Schemas Zod**  | ✅ Sim | Validação de respostas no BFF      |
-| **Mocks/MSW**    | ✅ Sim | Testes unitários e integração      |
-| **Cliente HTTP** | ❌ Não | Usar `$fetch` do Nuxt com BFF      |
+| Componente      | Usar?  | Onde                               |
+| --------------- | ------ | ---------------------------------- |
+| **Tipos**       | ✅ Sim | Composables, stores, endpoints BFF |
+| **Schemas Zod** | ✅ Sim | Validação de respostas no BFF      |
+| **Mocks/MSW**   | ✅ Sim | Testes unitários e integração      |
 
 ### Estrutura
 
@@ -307,7 +305,6 @@ openapi/
   sinapse-api.json          # Especificação OpenAPI da API Sinapse
 generated/
   sinapse/
-    client/                 # Funções de chamada (NÃO USAR - preferir $fetch)
     types/                  # Tipos TypeScript (USAR)
     zod/                    # Schemas Zod para validação (USAR)
     mocks/                  # Faker mocks para dados de teste (importar direto)
@@ -355,11 +352,7 @@ import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
 const rawResponse = await $fetch('/auth/login', { ... })
 const validated = tokenSchema.parse(rawResponse) // Valida em runtime
 
-// ❌ EVITAR - Cliente Kubb (não integra com BFF/cookies httpOnly)
-// import { loginApiV1AuthLoginPost } from '~/generated/sinapse/client/...'
 ```
-
-> **Por que não usar o cliente?** O cliente gerado usa `fetch` puro, não integra com `$fetch` do Nuxt nem com o padrão BFF onde tokens ficam em cookies httpOnly.
 
 ### Regenerar após mudanças no OpenAPI
 
@@ -383,11 +376,10 @@ output: {
 
 **Regras para plugins:**
 
-| Plugin         | Configuração                                   | Motivo                                                          |
-| -------------- | ---------------------------------------------- | --------------------------------------------------------------- |
-| `pluginZod`    | **NÃO usar** `typed: true` ou `inferred: true` | Gera `import { ToZod }` que conflita com `verbatimModuleSyntax` |
-| `pluginTs`     | Usar normalmente                               | Sem restrições                                                  |
-| `pluginClient` | Usar normalmente                               | Sem restrições                                                  |
+| Plugin      | Configuração                                   | Motivo                                                          |
+| ----------- | ---------------------------------------------- | --------------------------------------------------------------- |
+| `pluginZod` | **NÃO usar** `typed: true` ou `inferred: true` | Gera `import { ToZod }` que conflita com `verbatimModuleSyntax` |
+| `pluginTs`  | Usar normalmente                               | Sem restrições                                                  |
 
 ### Adicionar Nova API
 
@@ -416,13 +408,3 @@ output: {
 | [layers/3-auth/CLAUDE.md](layers/3-auth/CLAUDE.md)                                 | Autenticação BFF, login, logout         |
 | [layers/4-home/CLAUDE.md](layers/4-home/CLAUDE.md)                                 | Homepage, páginas públicas              |
 | [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking             |
-
-### Guias Técnicos (docs/)
-
-| Documento                                  | Conteúdo                      |
-| ------------------------------------------ | ----------------------------- |
-| [docs/BFF.md](docs/BFF.md)                 | O que é BFF e por que usar    |
-| [docs/KUBB.md](docs/KUBB.md)               | Kubb + BFF, geração de código |
-| [docs/NUXT_LAYERS.md](docs/NUXT_LAYERS.md) | Arquitetura de layers         |
-| [docs/GIT_FLOW.md](docs/GIT_FLOW.md)       | Fluxo de branches e commits   |
-| [docs/DEPLOY.md](docs/DEPLOY.md)           | Deploy e ambientes            |
