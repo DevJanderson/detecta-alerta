@@ -12,8 +12,8 @@ async function handleLogout() {
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
       <Button variant="brand-secondary-soft" size="brand-md" class="gap-2 pl-1 pr-2">
-        <Avatar class="size-7">
-          <AvatarFallback class="bg-brand-primary-100 text-brand-primary-700 text-xs font-semibold">
+        <Avatar class="size-7 bg-brand-primary-100">
+          <AvatarFallback class="text-brand-primary-700 text-xs font-semibold">
             {{ authStore.userInitials }}
           </AvatarFallback>
         </Avatar>
@@ -32,16 +32,19 @@ async function handleLogout() {
       <!-- Menu -->
       <DropdownMenuItem
         class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-700"
+        @click="router.push('/perfil')"
       >
         <Icon name="lucide:user" class="size-4" />
         <span>Meu perfil</span>
       </DropdownMenuItem>
 
       <DropdownMenuItem
+        v-if="authStore.hasGroup('administradores')"
         class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-700"
+        @click="router.push('/admin/usuarios')"
       >
-        <Icon name="lucide:settings" class="size-4" />
-        <span>Configurações</span>
+        <Icon name="lucide:users" class="size-4" />
+        <span>Administração</span>
       </DropdownMenuItem>
 
       <DropdownMenuItem
