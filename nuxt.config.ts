@@ -147,7 +147,10 @@ export default defineNuxtConfig({
     '/api/auth/reset-password': {
       security: { rateLimiter: { tokensPerInterval: 5, interval: 300000 } },
       csurf: false
-    }
+    },
+
+    // Rotas de usuarios: CSRF desabilitado (usam cookies httpOnly + SameSite strict)
+    '/api/usuarios/**': { csurf: false }
   },
 
   // VeeValidate - validação de formulários

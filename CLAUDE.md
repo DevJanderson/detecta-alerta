@@ -155,6 +155,7 @@ layers/                 # TUDO fica aqui (incluindo server/)
   0-base/               # Fundação + UI: app.vue, error.vue, CSS, shadcn-vue, utils, tipos
   3-auth/               # Autenticação BFF (Backend-for-Frontend)
   4-home/               # Landing page
+  5-usuarios/           # Gestão de perfil, usuários, grupos e permissões
 tests/                  # unit/, integration/, e2e/
 generated/              # Código gerado (Kubb) - NÃO EDITAR
 openapi/                # Especificações OpenAPI
@@ -167,7 +168,7 @@ openapi/                # Especificações OpenAPI
 ### Ordem de Prioridade (Layers)
 
 ```
-4-home > 3-auth > 0-base
+5-usuarios > 4-home > 3-auth > 0-base
 ```
 
 Número maior = maior prioridade = sobrescreve layers anteriores.
@@ -407,4 +408,5 @@ output: {
 | [layers/0-base/app/composables/CLAUDE.md](layers/0-base/app/composables/CLAUDE.md) | Padrões de composables                  |
 | [layers/3-auth/CLAUDE.md](layers/3-auth/CLAUDE.md)                                 | Autenticação BFF, login, logout         |
 | [layers/4-home/CLAUDE.md](layers/4-home/CLAUDE.md)                                 | Homepage, páginas públicas              |
+| [layers/5-usuarios/CLAUDE.md](layers/5-usuarios/CLAUDE.md)                         | Perfil, usuários, grupos, permissões    |
 | [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking             |

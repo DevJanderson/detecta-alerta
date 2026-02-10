@@ -73,7 +73,7 @@ describe('useAuthApi', () => {
 
       await api.getMe()
 
-      expect(mockFetch).toHaveBeenCalledWith('/api/auth/me')
+      expect(mockFetch).toHaveBeenCalledWith('/api/auth/me', { headers: undefined })
     })
 
     it('deve retornar dados do usuário', async () => {

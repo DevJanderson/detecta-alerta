@@ -33,9 +33,12 @@ export function useAuthApi() {
 
   /**
    * Obtém dados do usuário autenticado
+   * Encaminha cookies do browser durante SSR para que o BFF
+   * consiga ler os tokens httpOnly na renderização server-side.
    */
   async function getMe(): Promise<{ user: AuthUser }> {
-    return $fetch<{ user: AuthUser }>('/api/auth/me')
+    const headers = import.meta.server ? useRequestHeaders(['cookie']) : undefined
+    return $fetch<{ user: AuthUser }>('/api/auth/me', { headers })
   }
 
   /**
