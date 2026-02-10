@@ -1,3 +1,0 @@
-export { estatsticasCNESService } from './estatsticasCNESService'
-export { getEstatisticasPorClassificacaoApiV1CnesEstatisticasPorClassificacaoClassificacaoGet } from './getEstatisticasPorClassificacaoApiV1CnesEstatisticasPorClassificacaoClassificacaoGet'
-export { getEstatisticasResumoApiV1CnesEstatisticasResumoGet } from './getEstatisticasResumoApiV1CnesEstatisticasResumoGet'

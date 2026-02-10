@@ -1,5 +1,0 @@
-export { bulkCreateNoticiasApiV1NoticiasOperacoesBulkPost } from './bulkCreateNoticiasApiV1NoticiasOperacoesBulkPost'
-export { listDoencasApiV1NoticiasOperacoesDoencasGet } from './listDoencasApiV1NoticiasOperacoesDoencasGet'
-export { listRegioesApiV1NoticiasOperacoesRegioesGet } from './listRegioesApiV1NoticiasOperacoesRegioesGet'
-export { listSintomasApiV1NoticiasOperacoesSintomasGet } from './listSintomasApiV1NoticiasOperacoesSintomasGet'
-export { operaesNotciasService } from './operaesNotciasService'

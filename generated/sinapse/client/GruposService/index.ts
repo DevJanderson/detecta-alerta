@@ -1,8 +1,0 @@
-export { addUsuarioToGrupoApiV1UsuariosGruposGrupoIdUsuariosUsuarioIdPost } from './addUsuarioToGrupoApiV1UsuariosGruposGrupoIdUsuariosUsuarioIdPost'
-export { createGrupoApiV1UsuariosGruposPost } from './createGrupoApiV1UsuariosGruposPost'
-export { deleteGrupoApiV1UsuariosGruposGrupoIdDelete } from './deleteGrupoApiV1UsuariosGruposGrupoIdDelete'
-export { getGrupoApiV1UsuariosGruposGrupoIdGet } from './getGrupoApiV1UsuariosGruposGrupoIdGet'
-export { gruposService } from './gruposService'
-export { listGruposApiV1UsuariosGruposGet } from './listGruposApiV1UsuariosGruposGet'
-export { removeUsuarioFromGrupoApiV1UsuariosGruposGrupoIdUsuariosUsuarioIdDelete } from './removeUsuarioFromGrupoApiV1UsuariosGruposGrupoIdUsuariosUsuarioIdDelete'
-export { updateGrupoApiV1UsuariosGruposGrupoIdPut } from './updateGrupoApiV1UsuariosGruposGrupoIdPut'

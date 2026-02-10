@@ -2,7 +2,6 @@ import { defineConfig } from '@kubb/core'
 import { pluginOas } from '@kubb/plugin-oas'
 import { pluginTs } from '@kubb/plugin-ts'
 import { pluginZod } from '@kubb/plugin-zod'
-import { pluginClient } from '@kubb/plugin-client'
 import { pluginFaker } from '@kubb/plugin-faker'
 import { pluginMsw } from '@kubb/plugin-msw'
 
@@ -45,19 +44,6 @@ export default defineConfig({
       },
       // typed e inferred removidos para evitar problema com verbatimModuleSyntax
       dateType: 'string'
-    }),
-    pluginClient({
-      output: {
-        path: './client',
-        barrelType: 'named'
-      },
-      group: {
-        type: 'tag',
-        name: ({ group }) => `${group}Service`
-      },
-      client: 'fetch',
-      dataReturnType: 'data',
-      pathParamsType: 'object'
     }),
     pluginFaker({
       output: {

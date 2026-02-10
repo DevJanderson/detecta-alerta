@@ -1,8 +1,0 @@
-export { agravosService } from './agravosService'
-export { atualizarCasoApiV1AgravosCasosCasoIdPut } from './atualizarCasoApiV1AgravosCasosCasoIdPut'
-export { criarCasoApiV1AgravosCasosPost } from './criarCasoApiV1AgravosCasosPost'
-export { estatisticasResumoApiV1AgravosCasosEstatisticasResumoGet } from './estatisticasResumoApiV1AgravosCasosEstatisticasResumoGet'
-export { excluirCasoApiV1AgravosCasosCasoIdDelete } from './excluirCasoApiV1AgravosCasosCasoIdDelete'
-export { listarCasosApiV1AgravosCasosGet } from './listarCasosApiV1AgravosCasosGet'
-export { listarTiposAgravosApiV1AgravosTiposGet } from './listarTiposAgravosApiV1AgravosTiposGet'
-export { obterCasoApiV1AgravosCasosCasoIdGet } from './obterCasoApiV1AgravosCasosCasoIdGet'

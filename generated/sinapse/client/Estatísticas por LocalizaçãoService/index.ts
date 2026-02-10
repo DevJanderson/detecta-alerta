@@ -1,8 +1,0 @@
-export { estatsticasPorLocalizaoService } from './estatsticasPorLocalizaoService'
-export { getCitiesWithStatsApiV1DetectaStatsCitiesGet } from './getCitiesWithStatsApiV1DetectaStatsCitiesGet'
-export { getCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGet } from './getCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGet'
-export { getDailyStatsApiV1DetectaStatsDailyGet } from './getDailyStatsApiV1DetectaStatsDailyGet'
-export { getRealTimeDataApiV1DetectaStatsRealTimeGet } from './getRealTimeDataApiV1DetectaStatsRealTimeGet'
-export { getRegionsStatsApiV1DetectaStatsRegionsGet } from './getRegionsStatsApiV1DetectaStatsRegionsGet'
-export { getStatesStatsApiV1DetectaStatsStatesGet } from './getStatesStatsApiV1DetectaStatsStatesGet'
-export { getStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGet } from './getStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGet'

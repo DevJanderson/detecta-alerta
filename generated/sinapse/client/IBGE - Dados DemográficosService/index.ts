@@ -1,6 +1,0 @@
-export { IBGEDadosDemogrficosService } from './IBGEDadosDemogrficosService'
-export { listarEstadosApiV1IbgeEstadosGet } from './listarEstadosApiV1IbgeEstadosGet'
-export { listarFaixasEtariasApiV1IbgeFaixasEtariasGet } from './listarFaixasEtariasApiV1IbgeFaixasEtariasGet'
-export { listarMunicipiosApiV1IbgeMunicipiosGet } from './listarMunicipiosApiV1IbgeMunicipiosGet'
-export { obterMunicipioApiV1IbgeMunicipiosCodigoIbgeGet } from './obterMunicipioApiV1IbgeMunicipiosCodigoIbgeGet'
-export { obterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGet } from './obterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGet'

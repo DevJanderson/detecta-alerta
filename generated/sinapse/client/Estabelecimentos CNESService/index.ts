@@ -1,8 +1,0 @@
-export { createCnesApiV1CnesPost } from './createCnesApiV1CnesPost'
-export { deleteCnesApiV1CnesByCoUnidadeCoUnidadeDelete } from './deleteCnesApiV1CnesByCoUnidadeCoUnidadeDelete'
-export { estabelecimentosCNESService } from './estabelecimentosCNESService'
-export { getCnesByPlaceIdApiV1CnesByPlaceIdPlaceIdGet } from './getCnesByPlaceIdApiV1CnesByPlaceIdPlaceIdGet'
-export { getEstabelecimentoApiV1CnesEstabelecimentosCoUnidadeGet } from './getEstabelecimentoApiV1CnesEstabelecimentosCoUnidadeGet'
-export { listarClassificacoesApiV1CnesClassificacoesGet } from './listarClassificacoesApiV1CnesClassificacoesGet'
-export { listCnesApiV1CnesGet } from './listCnesApiV1CnesGet'
-export { updateCnesByCodeApiV1CnesCoUnidadePut } from './updateCnesByCodeApiV1CnesCoUnidadePut'

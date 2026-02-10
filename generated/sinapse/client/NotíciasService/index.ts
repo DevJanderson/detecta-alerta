@@ -1,7 +1,0 @@
-export { createNoticiaApiV1NoticiasPost } from './createNoticiaApiV1NoticiasPost'
-export { deleteNoticiaApiV1NoticiasUniqueIdDelete } from './deleteNoticiaApiV1NoticiasUniqueIdDelete'
-export { getNoticiaApiV1NoticiasUniqueIdGet } from './getNoticiaApiV1NoticiasUniqueIdGet'
-export { getNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGet } from './getNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGet'
-export { listNoticiasApiV1NoticiasGet } from './listNoticiasApiV1NoticiasGet'
-export { notciasService } from './notciasService'
-export { updateNoticiaApiV1NoticiasUniqueIdPut } from './updateNoticiaApiV1NoticiasUniqueIdPut'

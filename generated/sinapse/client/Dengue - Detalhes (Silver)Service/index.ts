@@ -1,5 +1,0 @@
-export { dengueDetalhesSilverService } from './dengueDetalhesSilverService'
-export { listarGeograficoApiV1ArbovirosesDengueDetalhesGeograficoGet } from './listarGeograficoApiV1ArbovirosesDengueDetalhesGeograficoGet'
-export { listarLaboratorioApiV1ArbovirosesDengueDetalhesLaboratorioGet } from './listarLaboratorioApiV1ArbovirosesDengueDetalhesLaboratorioGet'
-export { listarNotificacoesApiV1ArbovirosesDengueDetalhesNotificacoesGet } from './listarNotificacoesApiV1ArbovirosesDengueDetalhesNotificacoesGet'
-export { listarPacientesApiV1ArbovirosesDengueDetalhesPacientesGet } from './listarPacientesApiV1ArbovirosesDengueDetalhesPacientesGet'

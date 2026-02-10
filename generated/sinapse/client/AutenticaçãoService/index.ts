@@ -1,6 +1,0 @@
-export { autenticaoService } from './autenticaoService'
-export { loginApiV1AuthLoginPost } from './loginApiV1AuthLoginPost'
-export { logoutApiV1AuthLogoutPost } from './logoutApiV1AuthLogoutPost'
-export { refreshTokenApiV1AuthRefreshPost } from './refreshTokenApiV1AuthRefreshPost'
-export { resetPasswordApiV1AuthResetPasswordPost } from './resetPasswordApiV1AuthResetPasswordPost'
-export { verifyTokenApiV1AuthVerifyGet } from './verifyTokenApiV1AuthVerifyGet'

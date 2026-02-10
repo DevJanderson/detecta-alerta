@@ -1,5 +1,0 @@
-export { bulkCreateCnesApiV1CnesOperacoesBulkPost } from './bulkCreateCnesApiV1CnesOperacoesBulkPost'
-export { bulkUpdateApiV1CnesOperacoesBulkUpdatePut } from './bulkUpdateApiV1CnesOperacoesBulkUpdatePut'
-export { exportDataApiV1CnesOperacoesExportGet } from './exportDataApiV1CnesOperacoesExportGet'
-export { operaesCNESService } from './operaesCNESService'
-export { validarDadosApiV1CnesOperacoesValidarPost } from './validarDadosApiV1CnesOperacoesValidarPost'

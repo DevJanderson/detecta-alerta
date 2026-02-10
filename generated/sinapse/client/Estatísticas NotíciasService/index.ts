@@ -1,5 +1,0 @@
-export { estatsticasNotciasService } from './estatsticasNotciasService'
-export { getAlertasApiV1NoticiasEstatisticasAlertasGet } from './getAlertasApiV1NoticiasEstatisticasAlertasGet'
-export { getAnaliseGeograficaApiV1NoticiasEstatisticasGeograficaGet } from './getAnaliseGeograficaApiV1NoticiasEstatisticasGeograficaGet'
-export { getAnaliseTemporalApiV1NoticiasEstatisticasTemporalGet } from './getAnaliseTemporalApiV1NoticiasEstatisticasTemporalGet'
-export { getStatisticsApiV1NoticiasEstatisticasResumoGet } from './getStatisticsApiV1NoticiasEstatisticasResumoGet'

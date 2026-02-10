@@ -1,5 +1,0 @@
-export { cacheOtimizaoService } from './cacheOtimizaoService'
-export { clearCacheApiV1McpCacheClearDelete } from './clearCacheApiV1McpCacheClearDelete'
-export { getCacheOptimizationStatsApiV1McpCacheOptimizationStatsGet } from './getCacheOptimizationStatsApiV1McpCacheOptimizationStatsGet'
-export { getCacheStatsApiV1McpCacheStatsGet } from './getCacheStatsApiV1McpCacheStatsGet'
-export { warmCacheApiV1McpCacheWarmPost } from './warmCacheApiV1McpCacheWarmPost'
