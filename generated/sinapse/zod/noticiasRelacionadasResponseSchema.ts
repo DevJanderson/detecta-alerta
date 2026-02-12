@@ -7,20 +7,23 @@ import { noticiaResumidaSchema } from './noticiaResumidaSchema'
 import { z } from 'zod'
 
 /**
- * @description Resposta do endpoint de notícias relacionadas.
+ * @description Resposta do endpoint de noticias relacionadas.
  */
 export const noticiasRelacionadasResponseSchema = z
   .object({
-    noticia_id: z.string().uuid().describe('UUID da notícia de referência'),
+    noticia_id: z.string().uuid().describe('UUID da noticia de referencia'),
+    criterio_usado: z
+      .string()
+      .describe("Criterio usado para buscar relacionadas: 'cluster' ou 'similaridade'"),
     criterios: z
       .object({})
       .catchall(z.any())
-      .describe('Critérios usados para buscar relacionadas (doenças, regiões)'),
-    total: z.number().int().min(0).describe('Total de notícias relacionadas encontradas'),
+      .describe('Detalhes dos criterios usados (cluster_id, doencas, localizacoes)'),
+    total: z.number().int().min(0).describe('Total de noticias relacionadas encontradas'),
     data: z.array(
       z
         .lazy(() => noticiaResumidaSchema)
-        .describe('Versão resumida de uma notícia para listagem de relacionadas.')
+        .describe('Versao resumida de uma noticia para listagem de relacionadas.')
     )
   })
-  .describe('Resposta do endpoint de notícias relacionadas.')
+  .describe('Resposta do endpoint de noticias relacionadas.')

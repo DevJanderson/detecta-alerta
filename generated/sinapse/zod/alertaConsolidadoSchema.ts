@@ -6,7 +6,7 @@
 import { z } from 'zod'
 
 /**
- * @description Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador único\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Título descritivo\n    descricao: Descrição detalhada\n    data_deteccao: Quando foi detectado\n    regioes_afetadas: Regiões afetadas\n    doencas_relacionadas: Doenças relacionadas\n    quantidade_noticias: Total de notícias relacionadas\n    recomendacao: Recomendação de ação
+ * @description Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador unico\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Titulo descritivo\n    descricao: Descricao detalhada\n    data_deteccao: Quando foi detectado\n    localizacoes_afetadas: Localizacoes afetadas\n    doencas_relacionadas: Doencas relacionadas\n    quantidade_noticias: Total de noticias relacionadas\n    recomendacao: Recomendacao de acao
  */
 export const alertaConsolidadoSchema = z
   .object({
@@ -16,11 +16,11 @@ export const alertaConsolidadoSchema = z
     titulo: z.string(),
     descricao: z.string(),
     data_deteccao: z.string().datetime(),
-    regioes_afetadas: z.optional(z.array(z.string())),
+    localizacoes_afetadas: z.optional(z.array(z.string())),
     doencas_relacionadas: z.optional(z.array(z.string())),
     quantidade_noticias: z.number().int().min(0),
     recomendacao: z.optional(z.union([z.string(), z.null()]))
   })
   .describe(
-    'Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador único\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Título descritivo\n    descricao: Descrição detalhada\n    data_deteccao: Quando foi detectado\n    regioes_afetadas: Regiões afetadas\n    doencas_relacionadas: Doenças relacionadas\n    quantidade_noticias: Total de notícias relacionadas\n    recomendacao: Recomendação de ação'
+    'Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador unico\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Titulo descritivo\n    descricao: Descricao detalhada\n    data_deteccao: Quando foi detectado\n    localizacoes_afetadas: Localizacoes afetadas\n    doencas_relacionadas: Doencas relacionadas\n    quantidade_noticias: Total de noticias relacionadas\n    recomendacao: Recomendacao de acao'
   )

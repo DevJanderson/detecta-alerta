@@ -7,51 +7,51 @@ import type { Doenca } from './Doenca'
 import type { Regiao } from './Regiao'
 import type { Sintoma } from './Sintoma'
 
+/**
+ * @description Schema de resposta para noticias (herda NoticiaBase com nomenclatura portuguesa).
+ */
 export type Noticia = {
   /**
    * @minLength 1
    * @maxLength 500
    * @type string
    */
-  title: string
+  titulo: string
   /**
    * @minLength 1
    * @type string
    */
-  content: string
-  scraped_time?: string | null
-  scraped_date: string | string
-  urls?: string[] | null
-  source?: string[] | null
+  conteudo: string
   /**
-   * @description Array de URLs de imagens
+   * @description Data do scraping (opcional, derivada no service)
    */
-  url_img?: string[] | null
+  data_coleta?: string | string | null
+  url_fonte?: string | null
+  fonte?: string | null
   /**
-   * @description Array de URLs dos ícones/logos das fontes
+   * @description URL da imagem de capa
    */
-  source_icon?: string[] | null
-  published_at?: string | string | string | null
-  fact_description?: string | null
-  fact_date_occurred?: string | string | null
+  url_imagem?: string | null
+  /**
+   * @description Array de URLs dos icones/logos das fontes
+   */
+  icone_fonte?: string[] | null
+  data_publicacao?: string | string | string | null
+  descricao?: string | null
+  data_evento?: string | string | null
   /**
    * @minLength 0
    * @maxLength 10
    * @default 0
    * @type number | undefined
    */
-  relevance_score?: number
+  relevancia?: number
   /**
    * @pattern ^(active|archived|flagged)$
    * @default "active"
    * @type string | undefined
    */
   status?: string
-  /**
-   * @default false
-   * @type boolean | undefined
-   */
-  llm_status?: boolean
   /**
    * @type integer
    */
@@ -80,5 +80,17 @@ export type Noticia = {
   /**
    * @type array | undefined
    */
-  regioes?: Regiao[]
+  localizacoes?: Regiao[]
+  titulo_epidemiologico?: string | null
+  tipo_evento?: string | null
+  numero_casos?: number | null
+  numero_mortes?: number | null
+  fonte_oficial?: string | null
+  categoria?: string | null
+  classificacao_onehealth?: string | null
+  doenca_principal?: string | null
+  tipo_contagem?: string | null
+  titulo_original?: string | null
+  cluster_id?: string | null
+  artigos_relacionados?: number[] | null
 }

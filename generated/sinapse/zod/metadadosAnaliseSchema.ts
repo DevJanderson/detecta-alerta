@@ -6,22 +6,22 @@
 import { z } from 'zod'
 
 /**
- * @description Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado
+ * @description Metadados padrao para todas as analises estatisticas.\n\nAttributes:\n    periodo_analise: Periodo temporal da analise\n    filtros_aplicados: Filtros que foram aplicados na analise\n    data_geracao: Timestamp de quando a analise foi gerada\n    versao_analise: Versao do algoritmo de analise utilizado
  */
 export const metadadosAnaliseSchema = z
   .object({
     periodo_analise: z
       .object({})
       .catchall(z.string().date())
-      .describe("Período da análise com 'inicio' e 'fim'"),
+      .describe("Periodo da analise com 'inicio' e 'fim'"),
     filtros_aplicados: z.optional(
-      z.object({}).catchall(z.any()).describe('Filtros aplicados na análise')
+      z.object({}).catchall(z.any()).describe('Filtros aplicados na analise')
     ),
-    data_geracao: z.string().datetime().describe('Data/hora de geração da análise'),
+    data_geracao: z.string().datetime().describe('Data/hora de geracao da analise'),
     versao_analise: z.optional(
-      z.string().default('0.0.1').describe('Versão do algoritmo de análise')
+      z.string().default('0.0.1').describe('Versao do algoritmo de analise')
     )
   })
   .describe(
-    'Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado'
+    'Metadados padrao para todas as analises estatisticas.\n\nAttributes:\n    periodo_analise: Periodo temporal da analise\n    filtros_aplicados: Filtros que foram aplicados na analise\n    data_geracao: Timestamp de quando a analise foi gerada\n    versao_analise: Versao do algoritmo de analise utilizado'
   )

@@ -1,6 +1,7 @@
 {
   "properties": {
     "pagination": {
+      "description": "Informações de paginação",
       "properties": {
         "limit": {
           "type": "integer",
@@ -36,8 +37,7 @@
       "type": "object",
       "required": ["limit", "returned", "has_next", "has_previous"],
       "title": "PaginationInfo",
-      "description": "Informações de paginação",
-      "x-readme-ref-name": "PaginationInfo"
+      "x-readme-ref-name": "modules__ibge__schemas__PaginationInfo"
     },
     "data": {
       "items": {

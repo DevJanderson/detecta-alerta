@@ -4,7 +4,7 @@
  */
 
 /**
- * @description Alerta identificado na análise temporal.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade (baixa, media, alta)\n    data_deteccao: Data onde o alerta foi identificado\n    mensagem: Descrição do alerta\n    quantidade_noticias: Quantidade de notícias relacionadas
+ * @description Alerta identificado na analise temporal.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade (baixa, media, alta)\n    data_deteccao: Data onde o alerta foi identificado\n    mensagem: Descricao do alerta\n    quantidade_noticias: Quantidade de noticias relacionadas
  */
 export type AlertaTemporal = {
   /**

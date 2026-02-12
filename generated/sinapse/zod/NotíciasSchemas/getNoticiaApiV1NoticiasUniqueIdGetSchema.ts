@@ -14,7 +14,9 @@ export const getNoticiaApiV1NoticiasUniqueIdGetPathParamsSchema = z.object({
 /**
  * @description Notícia encontrada
  */
-export const getNoticiaApiV1NoticiasUniqueIdGet200Schema = z.lazy(() => noticiaSchema)
+export const getNoticiaApiV1NoticiasUniqueIdGet200Schema = z
+  .lazy(() => noticiaSchema)
+  .describe('Schema de resposta para noticias (herda NoticiaBase com nomenclatura portuguesa).')
 
 /**
  * @description Validation Error

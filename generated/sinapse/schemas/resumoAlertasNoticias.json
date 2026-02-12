@@ -6,31 +6,31 @@
           "additionalProperties": { "type": "string", "format": "date" },
           "type": "object",
           "title": "Periodo Analise",
-          "description": "Período da análise com 'inicio' e 'fim'"
+          "description": "Periodo da analise com 'inicio' e 'fim'"
         },
         "filtros_aplicados": {
           "additionalProperties": true,
           "type": "object",
           "title": "Filtros Aplicados",
-          "description": "Filtros aplicados na análise"
+          "description": "Filtros aplicados na analise"
         },
         "data_geracao": {
           "type": "string",
           "format": "date-time",
           "title": "Data Geracao",
-          "description": "Data/hora de geração da análise"
+          "description": "Data/hora de geracao da analise"
         },
         "versao_analise": {
           "type": "string",
           "title": "Versao Analise",
-          "description": "Versão do algoritmo de análise",
+          "description": "Versao do algoritmo de analise",
           "default": "0.0.1"
         }
       },
       "type": "object",
       "required": ["periodo_analise", "data_geracao"],
       "title": "MetadadosAnalise",
-      "description": "Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado",
+      "description": "Metadados padrao para todas as analises estatisticas.\n\nAttributes:\n    periodo_analise: Periodo temporal da analise\n    filtros_aplicados: Filtros que foram aplicados na analise\n    data_geracao: Timestamp de quando a analise foi gerada\n    versao_analise: Versao do algoritmo de analise utilizado",
       "x-readme-ref-name": "MetadadosAnalise"
     },
     "total_alertas_ativos": { "type": "integer", "minimum": 0, "title": "Total Alertas Ativos" },
@@ -52,10 +52,10 @@
           "titulo": { "type": "string", "title": "Titulo" },
           "descricao": { "type": "string", "title": "Descricao" },
           "data_deteccao": { "type": "string", "format": "date-time", "title": "Data Deteccao" },
-          "regioes_afetadas": {
+          "localizacoes_afetadas": {
             "items": { "type": "string" },
             "type": "array",
-            "title": "Regioes Afetadas"
+            "title": "Localizacoes Afetadas"
           },
           "doencas_relacionadas": {
             "items": { "type": "string" },
@@ -83,7 +83,7 @@
           "quantidade_noticias"
         ],
         "title": "AlertaConsolidado",
-        "description": "Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador único\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Título descritivo\n    descricao: Descrição detalhada\n    data_deteccao: Quando foi detectado\n    regioes_afetadas: Regiões afetadas\n    doencas_relacionadas: Doenças relacionadas\n    quantidade_noticias: Total de notícias relacionadas\n    recomendacao: Recomendação de ação",
+        "description": "Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador unico\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Titulo descritivo\n    descricao: Descricao detalhada\n    data_deteccao: Quando foi detectado\n    localizacoes_afetadas: Localizacoes afetadas\n    doencas_relacionadas: Doencas relacionadas\n    quantidade_noticias: Total de noticias relacionadas\n    recomendacao: Recomendacao de acao",
         "x-readme-ref-name": "AlertaConsolidado"
       },
       "type": "array",
@@ -101,7 +101,7 @@
         "type": "object",
         "required": ["nome", "valor_atual", "valor_esperado", "variacao_percentual", "status"],
         "title": "IndicadorMonitorado",
-        "description": "Indicador sendo monitorado para alertas.\n\nAttributes:\n    nome: Nome do indicador\n    valor_atual: Valor atual\n    valor_esperado: Valor esperado/normal\n    variacao_percentual: Variação em relação ao esperado\n    status: Status do indicador",
+        "description": "Indicador sendo monitorado para alertas.\n\nAttributes:\n    nome: Nome do indicador\n    valor_atual: Valor atual\n    valor_esperado: Valor esperado/normal\n    variacao_percentual: Variacao em relacao ao esperado\n    status: Status do indicador",
         "x-readme-ref-name": "IndicadorMonitorado"
       },
       "type": "array",
@@ -117,6 +117,6 @@
     "indicadores"
   ],
   "title": "ResumoAlertasNoticias",
-  "description": "Resumo dos alertas do sistema de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados",
+  "description": "Resumo dos alertas do sistema de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados",
   "x-readme-ref-name": "ResumoAlertasNoticias"
 }

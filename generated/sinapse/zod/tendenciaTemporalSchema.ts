@@ -6,7 +6,7 @@
 import { z } from 'zod'
 
 /**
- * @description Tendência identificada na série temporal.\n\nAttributes:\n    direcao: Direção da tendência (crescente, decrescente, estável)\n    variacao_percentual: Variação percentual no período\n    dias_analisados: Número de dias analisados
+ * @description Tendencia identificada na serie temporal.\n\nAttributes:\n    direcao: Direcao da tendencia (crescente, decrescente, estavel)\n    variacao_percentual: Variacao percentual no periodo\n    dias_analisados: Numero de dias analisados
  */
 export const tendenciaTemporalSchema = z
   .object({
@@ -15,5 +15,5 @@ export const tendenciaTemporalSchema = z
     dias_analisados: z.number().int().gt(0)
   })
   .describe(
-    'Tendência identificada na série temporal.\n\nAttributes:\n    direcao: Direção da tendência (crescente, decrescente, estável)\n    variacao_percentual: Variação percentual no período\n    dias_analisados: Número de dias analisados'
+    'Tendencia identificada na serie temporal.\n\nAttributes:\n    direcao: Direcao da tendencia (crescente, decrescente, estavel)\n    variacao_percentual: Variacao percentual no periodo\n    dias_analisados: Numero de dias analisados'
   )

@@ -9,14 +9,14 @@ import { metadadosAnaliseSchema } from './metadadosAnaliseSchema'
 import { z } from 'zod'
 
 /**
- * @description Resumo dos alertas do sistema de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados
+ * @description Resumo dos alertas do sistema de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados
  */
 export const resumoAlertasNoticiasSchema = z
   .object({
     metadata: z
       .lazy(() => metadadosAnaliseSchema)
       .describe(
-        'Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado'
+        'Metadados padrao para todas as analises estatisticas.\n\nAttributes:\n    periodo_analise: Periodo temporal da analise\n    filtros_aplicados: Filtros que foram aplicados na analise\n    data_geracao: Timestamp de quando a analise foi gerada\n    versao_analise: Versao do algoritmo de analise utilizado'
       ),
     total_alertas_ativos: z.number().int().min(0),
     alertas_por_severidade: z.object({}).catchall(z.number().int()),
@@ -24,17 +24,17 @@ export const resumoAlertasNoticiasSchema = z
       z
         .lazy(() => alertaConsolidadoSchema)
         .describe(
-          'Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador único\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Título descritivo\n    descricao: Descrição detalhada\n    data_deteccao: Quando foi detectado\n    regioes_afetadas: Regiões afetadas\n    doencas_relacionadas: Doenças relacionadas\n    quantidade_noticias: Total de notícias relacionadas\n    recomendacao: Recomendação de ação'
+          'Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador unico\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Titulo descritivo\n    descricao: Descricao detalhada\n    data_deteccao: Quando foi detectado\n    localizacoes_afetadas: Localizacoes afetadas\n    doencas_relacionadas: Doencas relacionadas\n    quantidade_noticias: Total de noticias relacionadas\n    recomendacao: Recomendacao de acao'
         )
     ),
     indicadores: z.array(
       z
         .lazy(() => indicadorMonitoradoSchema)
         .describe(
-          'Indicador sendo monitorado para alertas.\n\nAttributes:\n    nome: Nome do indicador\n    valor_atual: Valor atual\n    valor_esperado: Valor esperado/normal\n    variacao_percentual: Variação em relação ao esperado\n    status: Status do indicador'
+          'Indicador sendo monitorado para alertas.\n\nAttributes:\n    nome: Nome do indicador\n    valor_atual: Valor atual\n    valor_esperado: Valor esperado/normal\n    variacao_percentual: Variacao em relacao ao esperado\n    status: Status do indicador'
         )
     )
   })
   .describe(
-    'Resumo dos alertas do sistema de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados'
+    'Resumo dos alertas do sistema de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados'
   )

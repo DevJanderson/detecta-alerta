@@ -4,81 +4,73 @@
       "type": "string",
       "format": "uuid",
       "title": "Noticia Id",
-      "description": "UUID da notícia de referência"
+      "description": "UUID da noticia de referencia"
+    },
+    "criterio_usado": {
+      "type": "string",
+      "title": "Criterio Usado",
+      "description": "Criterio usado para buscar relacionadas: 'cluster' ou 'similaridade'"
     },
     "criterios": {
       "additionalProperties": true,
       "type": "object",
       "title": "Criterios",
-      "description": "Critérios usados para buscar relacionadas (doenças, regiões)"
+      "description": "Detalhes dos criterios usados (cluster_id, doencas, localizacoes)"
     },
     "total": {
       "type": "integer",
       "minimum": 0,
       "title": "Total",
-      "description": "Total de notícias relacionadas encontradas"
+      "description": "Total de noticias relacionadas encontradas"
     },
     "data": {
       "items": {
         "properties": {
           "id": { "type": "integer", "title": "Id" },
           "unique_id": { "type": "string", "format": "uuid", "title": "Unique Id" },
-          "title": { "type": "string", "title": "Title" },
-          "content": {
+          "titulo": { "type": "string", "title": "Titulo" },
+          "conteudo": {
             "type": "string",
-            "title": "Content",
-            "description": "Resumo do conteúdo (primeiros 200 chars)"
+            "title": "Conteudo",
+            "description": "Resumo do conteudo (primeiros 200 chars)"
           },
-          "scraped_date": { "type": "string", "format": "date", "title": "Scraped Date" },
-          "url_img": {
+          "data_coleta": {
+            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+            "title": "Data Coleta"
+          },
+          "url_imagem": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Url Imagem"
+          },
+          "icone_fonte": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Url Img"
+            "title": "Icone Fonte"
           },
-          "source_icon": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Source Icon"
-          },
-          "source": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Source"
-          },
-          "relevance_score": {
-            "type": "number",
-            "maximum": 10,
-            "minimum": 0,
-            "title": "Relevance Score"
-          },
+          "fonte": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Fonte" },
+          "relevancia": { "type": "number", "maximum": 10, "minimum": 0, "title": "Relevancia" },
           "doencas": {
             "items": { "type": "string" },
             "type": "array",
             "title": "Doencas",
-            "description": "Nomes das doenças"
+            "description": "Nomes das doencas"
           },
-          "regioes": {
+          "localizacoes": {
             "items": { "type": "string" },
             "type": "array",
-            "title": "Regioes",
-            "description": "Nomes das regiões"
+            "title": "Localizacoes",
+            "description": "Nomes das localizacoes"
           },
           "match_score": {
             "type": "number",
             "minimum": 0,
             "title": "Match Score",
-            "description": "Score de similaridade (quantidade de doenças + regiões em comum)"
+            "description": "Score de similaridade (quantidade de doencas + localizacoes em comum)"
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "unique_id",
-          "title",
-          "content",
-          "scraped_date",
-          "relevance_score",
-          "match_score"
-        ],
+        "required": ["id", "unique_id", "titulo", "conteudo", "relevancia", "match_score"],
         "title": "NoticiaResumida",
-        "description": "Versão resumida de uma notícia para listagem de relacionadas.",
+        "description": "Versao resumida de uma noticia para listagem de relacionadas.",
         "x-readme-ref-name": "NoticiaResumida"
       },
       "type": "array",
@@ -86,8 +78,8 @@
     }
   },
   "type": "object",
-  "required": ["noticia_id", "criterios", "total", "data"],
+  "required": ["noticia_id", "criterio_usado", "criterios", "total", "data"],
   "title": "NoticiasRelacionadasResponse",
-  "description": "Resposta do endpoint de notícias relacionadas.",
+  "description": "Resposta do endpoint de noticias relacionadas.",
   "x-readme-ref-name": "NoticiasRelacionadasResponse"
 }

@@ -15,7 +15,9 @@ export const updateNoticiaApiV1NoticiasUniqueIdPutPathParamsSchema = z.object({
 /**
  * @description Notícia atualizada com sucesso
  */
-export const updateNoticiaApiV1NoticiasUniqueIdPut200Schema = z.lazy(() => noticiaSchema)
+export const updateNoticiaApiV1NoticiasUniqueIdPut200Schema = z
+  .lazy(() => noticiaSchema)
+  .describe('Schema de resposta para noticias (herda NoticiaBase com nomenclatura portuguesa).')
 
 /**
  * @description Validation Error
@@ -24,9 +26,9 @@ export const updateNoticiaApiV1NoticiasUniqueIdPut422Schema = z.lazy(
   () => HTTPValidationErrorSchema
 )
 
-export const updateNoticiaApiV1NoticiasUniqueIdPutMutationRequestSchema = z.lazy(
-  () => noticiaUpdateSchema
-)
+export const updateNoticiaApiV1NoticiasUniqueIdPutMutationRequestSchema = z
+  .lazy(() => noticiaUpdateSchema)
+  .describe('Schema para atualizacao de noticias (todos os campos opcionais).')
 
 export const updateNoticiaApiV1NoticiasUniqueIdPutMutationResponseSchema = z.lazy(
   () => updateNoticiaApiV1NoticiasUniqueIdPut200Schema

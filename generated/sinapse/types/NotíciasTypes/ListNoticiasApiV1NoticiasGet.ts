@@ -24,27 +24,55 @@ export type ListNoticiasApiV1NoticiasGetQueryParams = {
    */
   search_term?: string | null
   /**
-   * @description Filtrar por doenças
+   * @description Filtrar por doencas
    */
-  diseases?: string[] | null
+  doencas?: string[] | null
   /**
    * @description Filtrar por sintomas
    */
-  symptoms?: string[] | null
+  sintomas?: string[] | null
   /**
-   * @description Filtrar por regiões
+   * @description Filtrar por localizacoes
    */
-  regions?: string[] | null
+  localizacoes?: string[] | null
   /**
    * @description Filtrar por estados
    */
   states?: string[] | null
   /**
-   * @description Filtrar por fontes
+   * @description Filtrar por fonte
    */
-  sources?: string[] | null
+  fonte?: string[] | null
   status?: string | null
-  min_relevance?: number | null
+  relevancia_minima?: number | null
+  /**
+   * @description Filtrar por tipo de evento
+   */
+  tipo_evento?: string | null
+  /**
+   * @description Filtrar por categoria
+   */
+  categoria?: string | null
+  /**
+   * @description Filtrar por classificacao One Health
+   */
+  classificacao_onehealth?: string | null
+  /**
+   * @description Data inicio coleta
+   */
+  data_coleta_de?: string | null
+  /**
+   * @description Data fim coleta
+   */
+  data_coleta_ate?: string | null
+  /**
+   * @description Data inicio evento
+   */
+  data_evento_de?: string | null
+  /**
+   * @description Data fim evento
+   */
+  data_evento_ate?: string | null
 }
 
 /**

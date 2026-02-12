@@ -3,28 +3,49 @@
  * Do not edit manually.
  */
 
+import type { LocalizacaoInput } from './LocalizacaoInput'
+
+/**
+ * @description Schema para atualizacao de noticias (todos os campos opcionais).
+ */
 export type NoticiaUpdate = {
-  title?: string | null
-  content?: string | null
-  scraped_time?: string | null
-  scraped_date?: string | string | null
-  urls?: string[] | null
-  source?: string[] | null
+  titulo?: string | null
+  conteudo?: string | null
+  data_coleta?: string | string | null
+  url_fonte?: string | null
+  fonte?: string | null
   /**
-   * @description Array de URLs de imagens
+   * @description URL da imagem de capa
    */
-  url_img?: string[] | null
+  url_imagem?: string | null
   /**
-   * @description Array de URLs dos ícones/logos das fontes
+   * @description Array de URLs dos icones/logos das fontes
    */
-  source_icon?: string[] | null
-  published_at?: string | string | string | null
-  fact_description?: string | null
-  fact_date_occurred?: string | string | null
-  relevance_score?: number | null
+  icone_fonte?: string[] | null
+  data_publicacao?: string | string | string | null
+  descricao?: string | null
+  data_evento?: string | string | null
+  relevancia?: number | null
   status?: string | null
-  llm_status?: boolean | null
-  diseases?: string[] | null
-  symptoms?: string[] | null
-  regions?: string[] | null
+  doencas?: string[] | null
+  sintomas?: string[] | null
+  localizacoes?: (string | LocalizacaoInput)[] | null
+  titulo_epidemiologico?: string | null
+  tipo_evento?: string | null
+  numero_casos?: number | null
+  numero_mortes?: number | null
+  fonte_oficial?: string | null
+  categoria?: string | null
+  /**
+   * @description Classificacao One Health: Humana, Animal, Ambiental
+   */
+  classificacao_onehealth?: string | null
+  doenca_principal?: string | null
+  tipo_contagem?: string | null
+  titulo_original?: string | null
+  cluster_id?: string | null
+  /**
+   * @description IDs de artigos relacionados (similaridade 70-89%)
+   */
+  artigos_relacionados?: number[] | null
 }

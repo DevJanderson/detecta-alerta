@@ -6,24 +6,24 @@
 import { z } from 'zod'
 
 /**
- * @description Versão resumida de uma notícia para listagem de relacionadas.
+ * @description Versao resumida de uma noticia para listagem de relacionadas.
  */
 export const noticiaResumidaSchema = z
   .object({
     id: z.number().int(),
     unique_id: z.string().uuid(),
-    title: z.string(),
-    content: z.string().describe('Resumo do conteúdo (primeiros 200 chars)'),
-    scraped_date: z.string().date(),
-    url_img: z.optional(z.union([z.array(z.string()), z.null()])),
-    source_icon: z.optional(z.union([z.array(z.string()), z.null()])),
-    source: z.optional(z.union([z.array(z.string()), z.null()])),
-    relevance_score: z.number().min(0).max(10),
-    doencas: z.optional(z.array(z.string()).describe('Nomes das doenças')),
-    regioes: z.optional(z.array(z.string()).describe('Nomes das regiões')),
+    titulo: z.string(),
+    conteudo: z.string().describe('Resumo do conteudo (primeiros 200 chars)'),
+    data_coleta: z.optional(z.union([z.string().date(), z.null()])),
+    url_imagem: z.optional(z.union([z.string(), z.null()])),
+    icone_fonte: z.optional(z.union([z.array(z.string()), z.null()])),
+    fonte: z.optional(z.union([z.string(), z.null()])),
+    relevancia: z.number().min(0).max(10),
+    doencas: z.optional(z.array(z.string()).describe('Nomes das doencas')),
+    localizacoes: z.optional(z.array(z.string()).describe('Nomes das localizacoes')),
     match_score: z
       .number()
       .min(0)
-      .describe('Score de similaridade (quantidade de doenças + regiões em comum)')
+      .describe('Score de similaridade (quantidade de doencas + localizacoes em comum)')
   })
-  .describe('Versão resumida de uma notícia para listagem de relacionadas.')
+  .describe('Versao resumida de uma noticia para listagem de relacionadas.')

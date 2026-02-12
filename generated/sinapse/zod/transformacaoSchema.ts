@@ -11,33 +11,21 @@ import { z } from 'zod'
  */
 export const transformacaoSchema = z
   .object({
-    tipo: z
-      .string()
-      .describe('Tipo de transformação (renomeacao, derivacao, limpeza, deduplicacao)'),
+    tipo: z.string().describe('Tipo de transformação'),
     descricao: z.string().describe('Descrição da transformação'),
-    criterio: z.optional(
-      z.union([z.string(), z.null()]).describe('Critério SQL (para deduplicação)')
-    ),
     campos: z.optional(
       z
         .union([
           z.array(
             z
               .lazy(() => transformacaoRenomeacaoSchema)
-              .describe('Transformação de renomeação de campo.')
+              .describe('Transformação de renomeação de campo Bronze→Silver.')
           ),
+          z.array(z.string()),
           z.null()
         ])
-        .describe('Lista de renomeações')
-    ),
-    campo_novo: z.optional(z.union([z.string(), z.null()]).describe('Nome do campo derivado')),
-    formula: z.optional(z.union([z.string(), z.null()]).describe('Fórmula de derivação')),
-    campos_afetados: z.optional(
-      z.union([z.array(z.string()), z.null()]).describe('Campos afetados')
-    ),
-    regra: z.optional(z.union([z.string(), z.null()]).describe('Regra de limpeza')),
-    detalhes: z.optional(
-      z.union([z.object({}).catchall(z.any()), z.null()]).describe('Detalhes adicionais')
+        .describe('Lista de campos (renomeações ou nomes de campos afetados)')
     )
   })
+  .catchall(z.any())
   .describe('Transformação aplicada nos dados.')

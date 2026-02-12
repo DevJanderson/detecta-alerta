@@ -9,11 +9,11 @@ import type { DadoGeografico } from './DadoGeografico'
 import type { MetadadosAnalise } from './MetadadosAnalise'
 
 /**
- * @description Resultado completo da análise geográfica de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    distribuicao_estadual: Distribuição por estado\n    distribuicao_municipal: Top municípios (quando disponível)\n    concentracoes: Áreas de concentração identificadas\n    alertas: Alertas geográficos identificados\n    estados_sem_noticias: Estados sem notícias no período
+ * @description Resultado completo da analise geografica de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    distribuicao_estadual: Distribuicao por estado\n    distribuicao_municipal: Top municipios (quando disponivel)\n    concentracoes: Areas de concentracao identificadas\n    alertas: Alertas geograficos identificados\n    estados_sem_noticias: Estados sem noticias no periodo
  */
 export type AnaliseGeograficaNoticias = {
   /**
-   * @description Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado
+   * @description Metadados padrao para todas as analises estatisticas.\n\nAttributes:\n    periodo_analise: Periodo temporal da analise\n    filtros_aplicados: Filtros que foram aplicados na analise\n    data_geracao: Timestamp de quando a analise foi gerada\n    versao_analise: Versao do algoritmo de analise utilizado
    * @type object
    */
   metadata: MetadadosAnalise
@@ -34,7 +34,7 @@ export type AnaliseGeograficaNoticias = {
    */
   alertas?: AlertaGeografico[]
   /**
-   * @description Estados sem notícias no período
+   * @description Estados sem noticias no periodo
    * @type array | undefined
    */
   estados_sem_noticias?: string[]

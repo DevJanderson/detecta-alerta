@@ -4,7 +4,7 @@
  */
 
 /**
- * @description Versão resumida de uma notícia para listagem de relacionadas.
+ * @description Versao resumida de uma noticia para listagem de relacionadas.
  */
 export type NoticiaResumida = {
   /**
@@ -18,37 +18,34 @@ export type NoticiaResumida = {
   /**
    * @type string
    */
-  title: string
+  titulo: string
   /**
-   * @description Resumo do conteúdo (primeiros 200 chars)
+   * @description Resumo do conteudo (primeiros 200 chars)
    * @type string
    */
-  content: string
-  /**
-   * @type string, date
-   */
-  scraped_date: string
-  url_img?: string[] | null
-  source_icon?: string[] | null
-  source?: string[] | null
+  conteudo: string
+  data_coleta?: string | null
+  url_imagem?: string | null
+  icone_fonte?: string[] | null
+  fonte?: string | null
   /**
    * @minLength 0
    * @maxLength 10
    * @type number
    */
-  relevance_score: number
+  relevancia: number
   /**
-   * @description Nomes das doenças
+   * @description Nomes das doencas
    * @type array | undefined
    */
   doencas?: string[]
   /**
-   * @description Nomes das regiões
+   * @description Nomes das localizacoes
    * @type array | undefined
    */
-  regioes?: string[]
+  localizacoes?: string[]
   /**
-   * @description Score de similaridade (quantidade de doenças + regiões em comum)
+   * @description Score de similaridade (quantidade de doencas + localizacoes em comum)
    * @minLength 0
    * @type number
    */

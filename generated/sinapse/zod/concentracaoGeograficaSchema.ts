@@ -6,7 +6,7 @@
 import { z } from 'zod'
 
 /**
- * @description Área de concentração de notícias.\n\nAttributes:\n    estados_afetados: Lista de estados na concentração\n    total_noticias: Total de notícias na área\n    percentual_nacional: Percentual em relação ao total nacional\n    doenca_predominante: Doença mais mencionada na área
+ * @description Area de concentracao de noticias.\n\nAttributes:\n    estados_afetados: Lista de estados na concentracao\n    total_noticias: Total de noticias na area\n    percentual_nacional: Percentual em relacao ao total nacional\n    doenca_predominante: Doenca mais mencionada na area
  */
 export const concentracaoGeograficaSchema = z
   .object({
@@ -16,5 +16,5 @@ export const concentracaoGeograficaSchema = z
     doenca_predominante: z.optional(z.union([z.string(), z.null()]))
   })
   .describe(
-    'Área de concentração de notícias.\n\nAttributes:\n    estados_afetados: Lista de estados na concentração\n    total_noticias: Total de notícias na área\n    percentual_nacional: Percentual em relação ao total nacional\n    doenca_predominante: Doença mais mencionada na área'
+    'Area de concentracao de noticias.\n\nAttributes:\n    estados_afetados: Lista de estados na concentracao\n    total_noticias: Total de noticias na area\n    percentual_nacional: Percentual em relacao ao total nacional\n    doenca_predominante: Doenca mais mencionada na area'
   )

@@ -6,7 +6,7 @@
 import { z } from 'zod'
 
 /**
- * @description Estatísticas de notícias.
+ * @description Estatisticas de noticias.
  */
 export const noticiaStatsSchema = z
   .object({
@@ -15,9 +15,9 @@ export const noticiaStatsSchema = z
     archived_count: z.number().int(),
     flagged_count: z.number().int(),
     date_range: z.object({}).catchall(z.any()),
-    top_diseases: z.array(z.object({}).catchall(z.any())),
-    top_symptoms: z.array(z.object({}).catchall(z.any())),
-    top_regions: z.array(z.object({}).catchall(z.any())),
-    top_sources: z.array(z.object({}).catchall(z.any()))
+    top_doencas: z.array(z.object({}).catchall(z.any())),
+    top_sintomas: z.array(z.object({}).catchall(z.any())),
+    top_localizacoes: z.array(z.object({}).catchall(z.any())),
+    top_fontes: z.array(z.object({}).catchall(z.any()))
   })
-  .describe('Estatísticas de notícias.')
+  .describe('Estatisticas de noticias.')

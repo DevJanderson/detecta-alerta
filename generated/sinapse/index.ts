@@ -98,6 +98,11 @@ export type { AnomalyFiltersMetadata } from './types/AnomalyFiltersMetadata'
 export type { AnomalyOccurrence } from './types/AnomalyOccurrence'
 export type { AnomalyUnit } from './types/AnomalyUnit'
 export type {
+  ListarAgravosApiV1ArbovirosesGet200,
+  ListarAgravosApiV1ArbovirosesGetQueryResponse,
+  ListarAgravosApiV1ArbovirosesGetQuery
+} from './types/Arboviroses - DiscoveryTypes/ListarAgravosApiV1ArbovirosesGet'
+export type {
   LoginApiV1AuthLoginPost200,
   LoginApiV1AuthLoginPost422,
   LoginApiV1AuthLoginPostMutationRequest,
@@ -130,6 +135,7 @@ export type {
 } from './types/Autentica\u00E7\u00E3oTypes/VerifyTokenApiV1AuthVerifyGet'
 export type { BodyResetPasswordApiV1AuthResetPasswordPost } from './types/BodyResetPasswordApiV1AuthResetPasswordPost'
 export type { BodyUploadFotoApiV1UsuariosUsuarioIdUploadFotoPost } from './types/BodyUploadFotoApiV1UsuariosUsuarioIdUploadFotoPost'
+export type { BulkCreateResponse } from './types/BulkCreateResponse'
 export type { BulkDataInput } from './types/BulkDataInput'
 export type { BulkUnitCreate } from './types/BulkUnitCreate'
 export type { BulkUnitResponse } from './types/BulkUnitResponse'
@@ -184,57 +190,179 @@ export type { DadoGeografico } from './types/DadoGeografico'
 export type { DailyStatsResponse } from './types/DailyStatsResponse'
 export type { DataValidationRequest } from './types/DataValidationRequest'
 export type {
-  ListarGeograficoApiV1ArbovirosesDengueDetalhesGeograficoGetQueryParams,
-  ListarGeograficoApiV1ArbovirosesDengueDetalhesGeograficoGet200,
-  ListarGeograficoApiV1ArbovirosesDengueDetalhesGeograficoGet422,
-  ListarGeograficoApiV1ArbovirosesDengueDetalhesGeograficoGetQueryResponse,
-  ListarGeograficoApiV1ArbovirosesDengueDetalhesGeograficoGetQuery
-} from './types/Dengue - Detalhes (Silver)Types/ListarGeograficoApiV1ArbovirosesDengueDetalhesGeograficoGet'
+  DengueAutoctoniaApiV1ArbovirosesDengueAutoctoniaGetQueryParams,
+  DengueAutoctoniaApiV1ArbovirosesDengueAutoctoniaGet200,
+  DengueAutoctoniaApiV1ArbovirosesDengueAutoctoniaGet422,
+  DengueAutoctoniaApiV1ArbovirosesDengueAutoctoniaGetQueryResponse,
+  DengueAutoctoniaApiV1ArbovirosesDengueAutoctoniaGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/DengueAutoctoniaApiV1ArbovirosesDengueAutoctoniaGet'
 export type {
-  ListarLaboratorioApiV1ArbovirosesDengueDetalhesLaboratorioGetQueryParams,
-  ListarLaboratorioApiV1ArbovirosesDengueDetalhesLaboratorioGet200,
-  ListarLaboratorioApiV1ArbovirosesDengueDetalhesLaboratorioGet422,
-  ListarLaboratorioApiV1ArbovirosesDengueDetalhesLaboratorioGetQueryResponse,
-  ListarLaboratorioApiV1ArbovirosesDengueDetalhesLaboratorioGetQuery
-} from './types/Dengue - Detalhes (Silver)Types/ListarLaboratorioApiV1ArbovirosesDengueDetalhesLaboratorioGet'
+  DengueCasosApiV1ArbovirosesDengueCasosGetQueryParams,
+  DengueCasosApiV1ArbovirosesDengueCasosGet200,
+  DengueCasosApiV1ArbovirosesDengueCasosGet422,
+  DengueCasosApiV1ArbovirosesDengueCasosGetQueryResponse,
+  DengueCasosApiV1ArbovirosesDengueCasosGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/DengueCasosApiV1ArbovirosesDengueCasosGet'
 export type {
-  ListarNotificacoesApiV1ArbovirosesDengueDetalhesNotificacoesGetQueryParams,
-  ListarNotificacoesApiV1ArbovirosesDengueDetalhesNotificacoesGet200,
-  ListarNotificacoesApiV1ArbovirosesDengueDetalhesNotificacoesGet422,
-  ListarNotificacoesApiV1ArbovirosesDengueDetalhesNotificacoesGetQueryResponse,
-  ListarNotificacoesApiV1ArbovirosesDengueDetalhesNotificacoesGetQuery
-} from './types/Dengue - Detalhes (Silver)Types/ListarNotificacoesApiV1ArbovirosesDengueDetalhesNotificacoesGet'
+  DengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGetQueryParams,
+  DengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGet200,
+  DengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGet422,
+  DengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGetQueryResponse,
+  DengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/DengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGet'
 export type {
-  ListarPacientesApiV1ArbovirosesDengueDetalhesPacientesGetQueryParams,
-  ListarPacientesApiV1ArbovirosesDengueDetalhesPacientesGet200,
-  ListarPacientesApiV1ArbovirosesDengueDetalhesPacientesGet422,
-  ListarPacientesApiV1ArbovirosesDengueDetalhesPacientesGetQueryResponse,
-  ListarPacientesApiV1ArbovirosesDengueDetalhesPacientesGetQuery
-} from './types/Dengue - Detalhes (Silver)Types/ListarPacientesApiV1ArbovirosesDengueDetalhesPacientesGet'
+  DengueDiscoveryApiV1ArbovirosesDengueGet200,
+  DengueDiscoveryApiV1ArbovirosesDengueGetQueryResponse,
+  DengueDiscoveryApiV1ArbovirosesDengueGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/DengueDiscoveryApiV1ArbovirosesDengueGet'
+export type {
+  DengueGestantesApiV1ArbovirosesDengueGestantesGetQueryParams,
+  DengueGestantesApiV1ArbovirosesDengueGestantesGet200,
+  DengueGestantesApiV1ArbovirosesDengueGestantesGet422,
+  DengueGestantesApiV1ArbovirosesDengueGestantesGetQueryResponse,
+  DengueGestantesApiV1ArbovirosesDengueGestantesGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/DengueGestantesApiV1ArbovirosesDengueGestantesGet'
+export type {
+  DengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGetQueryParams,
+  DengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGet200,
+  DengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGet422,
+  DengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGetQueryResponse,
+  DengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/DengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGet'
+export type {
+  DengueLetalidadeApiV1ArbovirosesDengueLetalidadeGetQueryParams,
+  DengueLetalidadeApiV1ArbovirosesDengueLetalidadeGet200,
+  DengueLetalidadeApiV1ArbovirosesDengueLetalidadeGet422,
+  DengueLetalidadeApiV1ArbovirosesDengueLetalidadeGetQueryResponse,
+  DengueLetalidadeApiV1ArbovirosesDengueLetalidadeGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/DengueLetalidadeApiV1ArbovirosesDengueLetalidadeGet'
+export type {
+  DengueOportunidadeApiV1ArbovirosesDengueOportunidadeGetQueryParams,
+  DengueOportunidadeApiV1ArbovirosesDengueOportunidadeGet200,
+  DengueOportunidadeApiV1ArbovirosesDengueOportunidadeGet422,
+  DengueOportunidadeApiV1ArbovirosesDengueOportunidadeGetQueryResponse,
+  DengueOportunidadeApiV1ArbovirosesDengueOportunidadeGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/DengueOportunidadeApiV1ArbovirosesDengueOportunidadeGet'
+export type {
+  DenguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGetQueryParams,
+  DenguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGet200,
+  DenguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGet422,
+  DenguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGetQueryResponse,
+  DenguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/DenguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGet'
+export type {
+  DenguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGetQueryParams,
+  DenguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGet200,
+  DenguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGet422,
+  DenguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGetQueryResponse,
+  DenguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/DenguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGet'
+export type {
+  DengueRacialApiV1ArbovirosesDengueRacialGetQueryParams,
+  DengueRacialApiV1ArbovirosesDengueRacialGet200,
+  DengueRacialApiV1ArbovirosesDengueRacialGet422,
+  DengueRacialApiV1ArbovirosesDengueRacialGetQueryResponse,
+  DengueRacialApiV1ArbovirosesDengueRacialGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/DengueRacialApiV1ArbovirosesDengueRacialGet'
+export type {
+  DengueSorotiposApiV1ArbovirosesDengueSorotiposGetQueryParams,
+  DengueSorotiposApiV1ArbovirosesDengueSorotiposGet200,
+  DengueSorotiposApiV1ArbovirosesDengueSorotiposGet422,
+  DengueSorotiposApiV1ArbovirosesDengueSorotiposGetQueryResponse,
+  DengueSorotiposApiV1ArbovirosesDengueSorotiposGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/DengueSorotiposApiV1ArbovirosesDengueSorotiposGet'
+export type {
+  DengueSurtosApiV1ArbovirosesDengueSurtosGetQueryParams,
+  DengueSurtosApiV1ArbovirosesDengueSurtosGet200,
+  DengueSurtosApiV1ArbovirosesDengueSurtosGet422,
+  DengueSurtosApiV1ArbovirosesDengueSurtosGetQueryResponse,
+  DengueSurtosApiV1ArbovirosesDengueSurtosGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/DengueSurtosApiV1ArbovirosesDengueSurtosGet'
+export type {
+  HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGetQueryParams,
+  HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet200,
+  HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet422,
+  HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGetQueryResponse,
+  HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet'
+export type {
+  HandleIncidenciaApiV1ArbovirosesDengueIncidenciaGetQueryParams,
+  HandleIncidenciaApiV1ArbovirosesDengueIncidenciaGet200,
+  HandleIncidenciaApiV1ArbovirosesDengueIncidenciaGet422,
+  HandleIncidenciaApiV1ArbovirosesDengueIncidenciaGetQueryResponse,
+  HandleIncidenciaApiV1ArbovirosesDengueIncidenciaGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/HandleIncidenciaApiV1ArbovirosesDengueIncidenciaGet'
+export type {
+  HandleResumoApiV1ArbovirosesDengueResumoGetQueryParams,
+  HandleResumoApiV1ArbovirosesDengueResumoGet200,
+  HandleResumoApiV1ArbovirosesDengueResumoGet422,
+  HandleResumoApiV1ArbovirosesDengueResumoGetQueryResponse,
+  HandleResumoApiV1ArbovirosesDengueResumoGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/HandleResumoApiV1ArbovirosesDengueResumoGet'
+export type {
+  HandleTendenciasApiV1ArbovirosesDengueTendenciasGetQueryParams,
+  HandleTendenciasApiV1ArbovirosesDengueTendenciasGet200,
+  HandleTendenciasApiV1ArbovirosesDengueTendenciasGet422,
+  HandleTendenciasApiV1ArbovirosesDengueTendenciasGetQueryResponse,
+  HandleTendenciasApiV1ArbovirosesDengueTendenciasGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/HandleTendenciasApiV1ArbovirosesDengueTendenciasGet'
+export type {
+  DengueDiscoveryApiV1ArbovirosesDengueSilverGet200,
+  DengueDiscoveryApiV1ArbovirosesDengueSilverGetQueryResponse,
+  DengueDiscoveryApiV1ArbovirosesDengueSilverGetQuery
+} from './types/Dengue - Detalhes (Silver)Types/DengueDiscoveryApiV1ArbovirosesDengueSilverGet'
+export type {
+  DengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGetQueryParams,
+  DengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGet200,
+  DengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGet422,
+  DengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGetQueryResponse,
+  DengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGetQuery
+} from './types/Dengue - Detalhes (Silver)Types/DengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGet'
+export type {
+  DengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGetQueryParams,
+  DengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGet200,
+  DengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGet422,
+  DengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGetQueryResponse,
+  DengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGetQuery
+} from './types/Dengue - Detalhes (Silver)Types/DengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGet'
+export type {
+  DengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGetQueryParams,
+  DengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGet200,
+  DengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGet422,
+  DengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGetQueryResponse,
+  DengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGetQuery
+} from './types/Dengue - Detalhes (Silver)Types/DengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGet'
+export type {
+  DenguePacientesApiV1ArbovirosesDengueSilverPacientesGetQueryParams,
+  DenguePacientesApiV1ArbovirosesDengueSilverPacientesGet200,
+  DenguePacientesApiV1ArbovirosesDengueSilverPacientesGet422,
+  DenguePacientesApiV1ArbovirosesDengueSilverPacientesGetQueryResponse,
+  DenguePacientesApiV1ArbovirosesDengueSilverPacientesGetQuery
+} from './types/Dengue - Detalhes (Silver)Types/DenguePacientesApiV1ArbovirosesDengueSilverPacientesGet'
 export type {
   GetDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGetQueryParams,
   GetDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGet200,
   GetDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGet422,
   GetDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGetQueryResponse,
   GetDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGetQuery
-} from './types/Dengue - Dicion\u00E1rio de DadosTypes/GetDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGet'
+} from './types/Dengue - Dicionario de DadosTypes/GetDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGet'
 export type {
   GetDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGetQueryParams,
   GetDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGet200,
   GetDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGet422,
   GetDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGetQueryResponse,
   GetDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGetQuery
-} from './types/Dengue - Dicion\u00E1rio de DadosTypes/GetDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGet'
+} from './types/Dengue - Dicionario de DadosTypes/GetDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGet'
 export type {
   GetDicionarioTransformacoesApiV1ArbovirosesDengueDicionarioTransformacoesGet200,
   GetDicionarioTransformacoesApiV1ArbovirosesDengueDicionarioTransformacoesGetQueryResponse,
   GetDicionarioTransformacoesApiV1ArbovirosesDengueDicionarioTransformacoesGetQuery
-} from './types/Dengue - Dicion\u00E1rio de DadosTypes/GetDicionarioTransformacoesApiV1ArbovirosesDengueDicionarioTransformacoesGet'
+} from './types/Dengue - Dicionario de DadosTypes/GetDicionarioTransformacoesApiV1ArbovirosesDengueDicionarioTransformacoesGet'
 export type {
   GetDicionarioVisaoGeralApiV1ArbovirosesDengueDicionarioGet200,
   GetDicionarioVisaoGeralApiV1ArbovirosesDengueDicionarioGetQueryResponse,
   GetDicionarioVisaoGeralApiV1ArbovirosesDengueDicionarioGetQuery
-} from './types/Dengue - Dicion\u00E1rio de DadosTypes/GetDicionarioVisaoGeralApiV1ArbovirosesDengueDicionarioGet'
+} from './types/Dengue - Dicionario de DadosTypes/GetDicionarioVisaoGeralApiV1ArbovirosesDengueDicionarioGet'
 export type {
   ExportCsvApiV1ArbovirosesDengueSilverExportCsvGetQueryParams,
   ExportCsvApiV1ArbovirosesDengueSilverExportCsvGet200,
@@ -265,14 +393,6 @@ export type {
   GetExportInfoApiV1ArbovirosesDengueSilverExportInfoGetQueryResponse,
   GetExportInfoApiV1ArbovirosesDengueSilverExportInfoGetQuery
 } from './types/Dengue - Export SilverTypes/GetExportInfoApiV1ArbovirosesDengueSilverExportInfoGet'
-export type { DengueGeograficoListResponse } from './types/DengueGeograficoListResponse'
-export type { DengueGeograficoResponse } from './types/DengueGeograficoResponse'
-export type { DengueLaboratorioListResponse } from './types/DengueLaboratorioListResponse'
-export type { DengueLaboratorioResponse } from './types/DengueLaboratorioResponse'
-export type { DengueNotificacaoResponse } from './types/DengueNotificacaoResponse'
-export type { DengueNotificacoesListResponse } from './types/DengueNotificacoesListResponse'
-export type { DenguePacienteResponse } from './types/DenguePacienteResponse'
-export type { DenguePacientesListResponse } from './types/DenguePacientesListResponse'
 export type { DetailedReportResponse } from './types/DetailedReportResponse'
 export type {
   GetHealthCheckStatusApiV1DetectaHealthCheckStatusGetQueryParams,
@@ -550,7 +670,6 @@ export type { ExportStatusResponse } from './types/ExportStatusResponse'
 export type { FaixaEtariaMetadataResponse } from './types/FaixaEtariaMetadataResponse'
 export type { FaixaEtariaResponse } from './types/FaixaEtariaResponse'
 export type { FaixasEtariasResponse } from './types/FaixasEtariasResponse'
-export type { FilterInfo } from './types/FilterInfo'
 export type { FormatoExport } from './types/FormatoExport'
 export type {
   EnrichUnitDataApiV1DetectaPlacesEnrichPost200,
@@ -743,6 +862,7 @@ export type {
 export type { LLMQueryRequest } from './types/LLMQueryRequest'
 export type { LLMQueryResponse } from './types/LLMQueryResponse'
 export type { LLMStatus } from './types/LLMStatus'
+export type { LocalizacaoInput } from './types/LocalizacaoInput'
 export type { LoginRequest } from './types/LoginRequest'
 export type {
   ExecuteToolApiV1McpToolsToolNamePostPathParams,
@@ -845,6 +965,8 @@ export type {
 } from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/GetProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGet'
 export type { ModulesArbovirosesSchemasExportSchemasExportInfoResponse } from './types/ModulesArbovirosesSchemasExportSchemasExportInfoResponse'
 export type { ModulesDetectaSchemasExportSchemasExportInfoResponse } from './types/ModulesDetectaSchemasExportSchemasExportInfoResponse'
+export type { ModulesIbgeSchemasPaginationInfo } from './types/ModulesIbgeSchemasPaginationInfo'
+export type { ModulesNoticiasSchemasPaginationInfo } from './types/ModulesNoticiasSchemasPaginationInfo'
 export type { MunicipioDetalhadoResponse } from './types/MunicipioDetalhadoResponse'
 export type { MunicipioResponse } from './types/MunicipioResponse'
 export type { MunicipiosListResponse } from './types/MunicipiosListResponse'
@@ -943,12 +1065,12 @@ export type {
   ListDoencasApiV1NoticiasOperacoesDoencasGetQuery
 } from './types/Opera\u00E7\u00F5es Not\u00EDciasTypes/ListDoencasApiV1NoticiasOperacoesDoencasGet'
 export type {
-  ListRegioesApiV1NoticiasOperacoesRegioesGetQueryParams,
-  ListRegioesApiV1NoticiasOperacoesRegioesGet200,
-  ListRegioesApiV1NoticiasOperacoesRegioesGet422,
-  ListRegioesApiV1NoticiasOperacoesRegioesGetQueryResponse,
-  ListRegioesApiV1NoticiasOperacoesRegioesGetQuery
-} from './types/Opera\u00E7\u00F5es Not\u00EDciasTypes/ListRegioesApiV1NoticiasOperacoesRegioesGet'
+  ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetQueryParams,
+  ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGet200,
+  ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGet422,
+  ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetQueryResponse,
+  ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetQuery
+} from './types/Opera\u00E7\u00F5es Not\u00EDciasTypes/ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGet'
 export type {
   ListSintomasApiV1NoticiasOperacoesSintomasGetQueryParams,
   ListSintomasApiV1NoticiasOperacoesSintomasGet200,
@@ -959,7 +1081,6 @@ export type {
 export type { OperationalProfileEnum } from './types/OperationalProfileEnum'
 export type { PaginatedCityStatsResponse } from './types/PaginatedCityStatsResponse'
 export type { PaginatedCnesResponse } from './types/PaginatedCnesResponse'
-export type { PaginationInfo } from './types/PaginationInfo'
 export type { PaginationMeta } from './types/PaginationMeta'
 export type {
   CreateUsuarioApiV1UsuariosPost201,
@@ -1375,6 +1496,10 @@ export { anomalyFiltersMetadataSchema } from './zod/anomalyFiltersMetadataSchema
 export { anomalyOccurrenceSchema } from './zod/anomalyOccurrenceSchema'
 export { anomalyUnitSchema } from './zod/anomalyUnitSchema'
 export {
+  listarAgravosApiV1ArbovirosesGet200Schema,
+  listarAgravosApiV1ArbovirosesGetQueryResponseSchema
+} from './zod/Arboviroses - DiscoverySchemas/listarAgravosApiV1ArbovirosesGetSchema'
+export {
   loginApiV1AuthLoginPost200Schema,
   loginApiV1AuthLoginPost422Schema,
   loginApiV1AuthLoginPostMutationRequestSchema,
@@ -1402,6 +1527,7 @@ export {
 } from './zod/Autentica\u00E7\u00E3oSchemas/verifyTokenApiV1AuthVerifyGetSchema'
 export { bodyResetPasswordApiV1AuthResetPasswordPostSchema } from './zod/bodyResetPasswordApiV1AuthResetPasswordPostSchema'
 export { bodyUploadFotoApiV1UsuariosUsuarioIdUploadFotoPostSchema } from './zod/bodyUploadFotoApiV1UsuariosUsuarioIdUploadFotoPostSchema'
+export { bulkCreateResponseSchema } from './zod/bulkCreateResponseSchema'
 export { bulkDataInputSchema } from './zod/bulkDataInputSchema'
 export { bulkUnitCreateSchema } from './zod/bulkUnitCreateSchema'
 export { bulkUnitResponseSchema } from './zod/bulkUnitResponseSchema'
@@ -1452,49 +1578,153 @@ export { dadoGeograficoSchema } from './zod/dadoGeograficoSchema'
 export { dailyStatsResponseSchema } from './zod/dailyStatsResponseSchema'
 export { dataValidationRequestSchema } from './zod/dataValidationRequestSchema'
 export {
-  listarGeograficoApiV1ArbovirosesDengueDetalhesGeograficoGetQueryParamsSchema,
-  listarGeograficoApiV1ArbovirosesDengueDetalhesGeograficoGet200Schema,
-  listarGeograficoApiV1ArbovirosesDengueDetalhesGeograficoGet422Schema,
-  listarGeograficoApiV1ArbovirosesDengueDetalhesGeograficoGetQueryResponseSchema
-} from './zod/Dengue - Detalhes (Silver)Schemas/listarGeograficoApiV1ArbovirosesDengueDetalhesGeograficoGetSchema'
+  dengueAutoctoniaApiV1ArbovirosesDengueAutoctoniaGetQueryParamsSchema,
+  dengueAutoctoniaApiV1ArbovirosesDengueAutoctoniaGet200Schema,
+  dengueAutoctoniaApiV1ArbovirosesDengueAutoctoniaGet422Schema,
+  dengueAutoctoniaApiV1ArbovirosesDengueAutoctoniaGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/dengueAutoctoniaApiV1ArbovirosesDengueAutoctoniaGetSchema'
 export {
-  listarLaboratorioApiV1ArbovirosesDengueDetalhesLaboratorioGetQueryParamsSchema,
-  listarLaboratorioApiV1ArbovirosesDengueDetalhesLaboratorioGet200Schema,
-  listarLaboratorioApiV1ArbovirosesDengueDetalhesLaboratorioGet422Schema,
-  listarLaboratorioApiV1ArbovirosesDengueDetalhesLaboratorioGetQueryResponseSchema
-} from './zod/Dengue - Detalhes (Silver)Schemas/listarLaboratorioApiV1ArbovirosesDengueDetalhesLaboratorioGetSchema'
+  dengueCasosApiV1ArbovirosesDengueCasosGetQueryParamsSchema,
+  dengueCasosApiV1ArbovirosesDengueCasosGet200Schema,
+  dengueCasosApiV1ArbovirosesDengueCasosGet422Schema,
+  dengueCasosApiV1ArbovirosesDengueCasosGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/dengueCasosApiV1ArbovirosesDengueCasosGetSchema'
 export {
-  listarNotificacoesApiV1ArbovirosesDengueDetalhesNotificacoesGetQueryParamsSchema,
-  listarNotificacoesApiV1ArbovirosesDengueDetalhesNotificacoesGet200Schema,
-  listarNotificacoesApiV1ArbovirosesDengueDetalhesNotificacoesGet422Schema,
-  listarNotificacoesApiV1ArbovirosesDengueDetalhesNotificacoesGetQueryResponseSchema
-} from './zod/Dengue - Detalhes (Silver)Schemas/listarNotificacoesApiV1ArbovirosesDengueDetalhesNotificacoesGetSchema'
+  dengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGetQueryParamsSchema,
+  dengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGet200Schema,
+  dengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGet422Schema,
+  dengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/dengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGetSchema'
 export {
-  listarPacientesApiV1ArbovirosesDengueDetalhesPacientesGetQueryParamsSchema,
-  listarPacientesApiV1ArbovirosesDengueDetalhesPacientesGet200Schema,
-  listarPacientesApiV1ArbovirosesDengueDetalhesPacientesGet422Schema,
-  listarPacientesApiV1ArbovirosesDengueDetalhesPacientesGetQueryResponseSchema
-} from './zod/Dengue - Detalhes (Silver)Schemas/listarPacientesApiV1ArbovirosesDengueDetalhesPacientesGetSchema'
+  dengueDiscoveryApiV1ArbovirosesDengueGet200Schema,
+  dengueDiscoveryApiV1ArbovirosesDengueGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/dengueDiscoveryApiV1ArbovirosesDengueGetSchema'
+export {
+  dengueGestantesApiV1ArbovirosesDengueGestantesGetQueryParamsSchema,
+  dengueGestantesApiV1ArbovirosesDengueGestantesGet200Schema,
+  dengueGestantesApiV1ArbovirosesDengueGestantesGet422Schema,
+  dengueGestantesApiV1ArbovirosesDengueGestantesGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/dengueGestantesApiV1ArbovirosesDengueGestantesGetSchema'
+export {
+  dengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGetQueryParamsSchema,
+  dengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGet200Schema,
+  dengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGet422Schema,
+  dengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/dengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGetSchema'
+export {
+  dengueLetalidadeApiV1ArbovirosesDengueLetalidadeGetQueryParamsSchema,
+  dengueLetalidadeApiV1ArbovirosesDengueLetalidadeGet200Schema,
+  dengueLetalidadeApiV1ArbovirosesDengueLetalidadeGet422Schema,
+  dengueLetalidadeApiV1ArbovirosesDengueLetalidadeGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/dengueLetalidadeApiV1ArbovirosesDengueLetalidadeGetSchema'
+export {
+  dengueOportunidadeApiV1ArbovirosesDengueOportunidadeGetQueryParamsSchema,
+  dengueOportunidadeApiV1ArbovirosesDengueOportunidadeGet200Schema,
+  dengueOportunidadeApiV1ArbovirosesDengueOportunidadeGet422Schema,
+  dengueOportunidadeApiV1ArbovirosesDengueOportunidadeGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/dengueOportunidadeApiV1ArbovirosesDengueOportunidadeGetSchema'
+export {
+  denguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGetQueryParamsSchema,
+  denguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGet200Schema,
+  denguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGet422Schema,
+  denguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/denguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGetSchema'
+export {
+  denguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGetQueryParamsSchema,
+  denguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGet200Schema,
+  denguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGet422Schema,
+  denguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/denguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGetSchema'
+export {
+  dengueRacialApiV1ArbovirosesDengueRacialGetQueryParamsSchema,
+  dengueRacialApiV1ArbovirosesDengueRacialGet200Schema,
+  dengueRacialApiV1ArbovirosesDengueRacialGet422Schema,
+  dengueRacialApiV1ArbovirosesDengueRacialGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/dengueRacialApiV1ArbovirosesDengueRacialGetSchema'
+export {
+  dengueSorotiposApiV1ArbovirosesDengueSorotiposGetQueryParamsSchema,
+  dengueSorotiposApiV1ArbovirosesDengueSorotiposGet200Schema,
+  dengueSorotiposApiV1ArbovirosesDengueSorotiposGet422Schema,
+  dengueSorotiposApiV1ArbovirosesDengueSorotiposGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/dengueSorotiposApiV1ArbovirosesDengueSorotiposGetSchema'
+export {
+  dengueSurtosApiV1ArbovirosesDengueSurtosGetQueryParamsSchema,
+  dengueSurtosApiV1ArbovirosesDengueSurtosGet200Schema,
+  dengueSurtosApiV1ArbovirosesDengueSurtosGet422Schema,
+  dengueSurtosApiV1ArbovirosesDengueSurtosGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/dengueSurtosApiV1ArbovirosesDengueSurtosGetSchema'
+export {
+  handleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGetQueryParamsSchema,
+  handleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet200Schema,
+  handleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet422Schema,
+  handleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/handleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGetSchema'
+export {
+  handleIncidenciaApiV1ArbovirosesDengueIncidenciaGetQueryParamsSchema,
+  handleIncidenciaApiV1ArbovirosesDengueIncidenciaGet200Schema,
+  handleIncidenciaApiV1ArbovirosesDengueIncidenciaGet422Schema,
+  handleIncidenciaApiV1ArbovirosesDengueIncidenciaGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/handleIncidenciaApiV1ArbovirosesDengueIncidenciaGetSchema'
+export {
+  handleResumoApiV1ArbovirosesDengueResumoGetQueryParamsSchema,
+  handleResumoApiV1ArbovirosesDengueResumoGet200Schema,
+  handleResumoApiV1ArbovirosesDengueResumoGet422Schema,
+  handleResumoApiV1ArbovirosesDengueResumoGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/handleResumoApiV1ArbovirosesDengueResumoGetSchema'
+export {
+  handleTendenciasApiV1ArbovirosesDengueTendenciasGetQueryParamsSchema,
+  handleTendenciasApiV1ArbovirosesDengueTendenciasGet200Schema,
+  handleTendenciasApiV1ArbovirosesDengueTendenciasGet422Schema,
+  handleTendenciasApiV1ArbovirosesDengueTendenciasGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/handleTendenciasApiV1ArbovirosesDengueTendenciasGetSchema'
+export {
+  dengueDiscoveryApiV1ArbovirosesDengueSilverGet200Schema,
+  dengueDiscoveryApiV1ArbovirosesDengueSilverGetQueryResponseSchema
+} from './zod/Dengue - Detalhes (Silver)Schemas/dengueDiscoveryApiV1ArbovirosesDengueSilverGetSchema'
+export {
+  dengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGetQueryParamsSchema,
+  dengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGet200Schema,
+  dengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGet422Schema,
+  dengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGetQueryResponseSchema
+} from './zod/Dengue - Detalhes (Silver)Schemas/dengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGetSchema'
+export {
+  dengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGetQueryParamsSchema,
+  dengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGet200Schema,
+  dengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGet422Schema,
+  dengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGetQueryResponseSchema
+} from './zod/Dengue - Detalhes (Silver)Schemas/dengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGetSchema'
+export {
+  dengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGetQueryParamsSchema,
+  dengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGet200Schema,
+  dengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGet422Schema,
+  dengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGetQueryResponseSchema
+} from './zod/Dengue - Detalhes (Silver)Schemas/dengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGetSchema'
+export {
+  denguePacientesApiV1ArbovirosesDengueSilverPacientesGetQueryParamsSchema,
+  denguePacientesApiV1ArbovirosesDengueSilverPacientesGet200Schema,
+  denguePacientesApiV1ArbovirosesDengueSilverPacientesGet422Schema,
+  denguePacientesApiV1ArbovirosesDengueSilverPacientesGetQueryResponseSchema
+} from './zod/Dengue - Detalhes (Silver)Schemas/denguePacientesApiV1ArbovirosesDengueSilverPacientesGetSchema'
 export {
   getDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGetQueryParamsSchema,
   getDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGet200Schema,
   getDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGet422Schema,
   getDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGetQueryResponseSchema
-} from './zod/Dengue - Dicion\u00E1rio de DadosSchemas/getDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGetSchema'
+} from './zod/Dengue - Dicionario de DadosSchemas/getDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGetSchema'
 export {
   getDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGetQueryParamsSchema,
   getDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGet200Schema,
   getDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGet422Schema,
   getDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGetQueryResponseSchema
-} from './zod/Dengue - Dicion\u00E1rio de DadosSchemas/getDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGetSchema'
+} from './zod/Dengue - Dicionario de DadosSchemas/getDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGetSchema'
 export {
   getDicionarioTransformacoesApiV1ArbovirosesDengueDicionarioTransformacoesGet200Schema,
   getDicionarioTransformacoesApiV1ArbovirosesDengueDicionarioTransformacoesGetQueryResponseSchema
-} from './zod/Dengue - Dicion\u00E1rio de DadosSchemas/getDicionarioTransformacoesApiV1ArbovirosesDengueDicionarioTransformacoesGetSchema'
+} from './zod/Dengue - Dicionario de DadosSchemas/getDicionarioTransformacoesApiV1ArbovirosesDengueDicionarioTransformacoesGetSchema'
 export {
   getDicionarioVisaoGeralApiV1ArbovirosesDengueDicionarioGet200Schema,
   getDicionarioVisaoGeralApiV1ArbovirosesDengueDicionarioGetQueryResponseSchema
-} from './zod/Dengue - Dicion\u00E1rio de DadosSchemas/getDicionarioVisaoGeralApiV1ArbovirosesDengueDicionarioGetSchema'
+} from './zod/Dengue - Dicionario de DadosSchemas/getDicionarioVisaoGeralApiV1ArbovirosesDengueDicionarioGetSchema'
 export {
   exportCsvApiV1ArbovirosesDengueSilverExportCsvGetQueryParamsSchema,
   exportCsvApiV1ArbovirosesDengueSilverExportCsvGet200Schema,
@@ -1521,14 +1751,6 @@ export {
   getExportInfoApiV1ArbovirosesDengueSilverExportInfoGet200Schema,
   getExportInfoApiV1ArbovirosesDengueSilverExportInfoGetQueryResponseSchema
 } from './zod/Dengue - Export SilverSchemas/getExportInfoApiV1ArbovirosesDengueSilverExportInfoGetSchema'
-export { dengueGeograficoListResponseSchema } from './zod/dengueGeograficoListResponseSchema'
-export { dengueGeograficoResponseSchema } from './zod/dengueGeograficoResponseSchema'
-export { dengueLaboratorioListResponseSchema } from './zod/dengueLaboratorioListResponseSchema'
-export { dengueLaboratorioResponseSchema } from './zod/dengueLaboratorioResponseSchema'
-export { dengueNotificacaoResponseSchema } from './zod/dengueNotificacaoResponseSchema'
-export { dengueNotificacoesListResponseSchema } from './zod/dengueNotificacoesListResponseSchema'
-export { denguePacienteResponseSchema } from './zod/denguePacienteResponseSchema'
-export { denguePacientesListResponseSchema } from './zod/denguePacientesListResponseSchema'
 export { detailedReportResponseSchema } from './zod/detailedReportResponseSchema'
 export {
   getHealthCheckStatusApiV1DetectaHealthCheckStatusGetQueryParamsSchema,
@@ -1770,7 +1992,6 @@ export { exportStatusResponseSchema } from './zod/exportStatusResponseSchema'
 export { faixaEtariaMetadataResponseSchema } from './zod/faixaEtariaMetadataResponseSchema'
 export { faixaEtariaResponseSchema } from './zod/faixaEtariaResponseSchema'
 export { faixasEtariasResponseSchema } from './zod/faixasEtariasResponseSchema'
-export { filterInfoSchema } from './zod/filterInfoSchema'
 export { formatoExportSchema } from './zod/formatoExportSchema'
 export {
   enrichUnitDataApiV1DetectaPlacesEnrichPost200Schema,
@@ -1939,6 +2160,7 @@ export {
 export { LLMQueryRequestSchema } from './zod/LLMQueryRequestSchema'
 export { LLMQueryResponseSchema } from './zod/LLMQueryResponseSchema'
 export { LLMStatusSchema } from './zod/LLMStatusSchema'
+export { localizacaoInputSchema } from './zod/localizacaoInputSchema'
 export { loginRequestSchema } from './zod/loginRequestSchema'
 export {
   executeToolApiV1McpToolsToolNamePostPathParamsSchema,
@@ -2026,6 +2248,8 @@ export {
 } from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/getProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGetSchema'
 export { modulesArbovirosesSchemasExportSchemasExportInfoResponseSchema } from './zod/modulesArbovirosesSchemasExportSchemasExportInfoResponseSchema'
 export { modulesDetectaSchemasExportSchemasExportInfoResponseSchema } from './zod/modulesDetectaSchemasExportSchemasExportInfoResponseSchema'
+export { modulesIbgeSchemasPaginationInfoSchema } from './zod/modulesIbgeSchemasPaginationInfoSchema'
+export { modulesNoticiasSchemasPaginationInfoSchema } from './zod/modulesNoticiasSchemasPaginationInfoSchema'
 export { municipioDetalhadoResponseSchema } from './zod/municipioDetalhadoResponseSchema'
 export { municipioResponseSchema } from './zod/municipioResponseSchema'
 export { municipiosListResponseSchema } from './zod/municipiosListResponseSchema'
@@ -2112,11 +2336,11 @@ export {
   listDoencasApiV1NoticiasOperacoesDoencasGetQueryResponseSchema
 } from './zod/Opera\u00E7\u00F5es Not\u00EDciasSchemas/listDoencasApiV1NoticiasOperacoesDoencasGetSchema'
 export {
-  listRegioesApiV1NoticiasOperacoesRegioesGetQueryParamsSchema,
-  listRegioesApiV1NoticiasOperacoesRegioesGet200Schema,
-  listRegioesApiV1NoticiasOperacoesRegioesGet422Schema,
-  listRegioesApiV1NoticiasOperacoesRegioesGetQueryResponseSchema
-} from './zod/Opera\u00E7\u00F5es Not\u00EDciasSchemas/listRegioesApiV1NoticiasOperacoesRegioesGetSchema'
+  listLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetQueryParamsSchema,
+  listLocalizacoesApiV1NoticiasOperacoesLocalizacoesGet200Schema,
+  listLocalizacoesApiV1NoticiasOperacoesLocalizacoesGet422Schema,
+  listLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetQueryResponseSchema
+} from './zod/Opera\u00E7\u00F5es Not\u00EDciasSchemas/listLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetSchema'
 export {
   listSintomasApiV1NoticiasOperacoesSintomasGetQueryParamsSchema,
   listSintomasApiV1NoticiasOperacoesSintomasGet200Schema,
@@ -2126,7 +2350,6 @@ export {
 export { operationalProfileEnumSchema } from './zod/operationalProfileEnumSchema'
 export { paginatedCityStatsResponseSchema } from './zod/paginatedCityStatsResponseSchema'
 export { paginatedCnesResponseSchema } from './zod/paginatedCnesResponseSchema'
-export { paginationInfoSchema } from './zod/paginationInfoSchema'
 export { paginationMetaSchema } from './zod/paginationMetaSchema'
 export {
   createUsuarioApiV1UsuariosPost201Schema,

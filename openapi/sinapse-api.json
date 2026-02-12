@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "API Sinapse",
-    "description": "Plataforma SINAPSE para integração, análise e disponibilização de dados estratégicos em saúde. Utiliza APIs REST e modelos de linguagem para transformar dados descentralizados em informação útil, visite [Sinapse](https://www.sinapse.org.br).\n\n**Módulos carregados:** usuarios, ibge, cnes, auth, mcp, arboviroses, noticias, agravos, health_system, detecta\n\n<br>\n<div style=\"text-align: center; margin-top: 20px;\">\n    <img src=\"/static/images/logo.png\" alt=\"SINAPSE Logo\" width=\"200\">\n</div>\n",
+    "description": "Plataforma SINAPSE para integração, análise e disponibilização de dados estratégicos em saúde. Utiliza APIs REST e modelos de linguagem para transformar dados descentralizados em informação útil, visite [Sinapse](https://www.sinapse.org.br).\n\n**Módulos carregados:** detecta, auth, ibge, usuarios, noticias, arboviroses, cnes, mcp, health_system, agravos\n\n<br>\n<div style=\"text-align: center; margin-top: 20px;\">\n    <img src=\"/static/images/logo.png\" alt=\"SINAPSE Logo\" width=\"200\">\n</div>\n",
     "contact": {
       "name": "Suporte da API",
       "url": "https://sinapse.org.br/#contato",
@@ -1027,37 +1027,37 @@
             "description": "Busca por texto"
           },
           {
-            "name": "diseases",
+            "name": "doencas",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [{ "type": "array", "items": { "type": "string" } }, { "type": "null" }],
-              "description": "Filtrar por doenças",
-              "title": "Diseases"
+              "description": "Filtrar por doencas",
+              "title": "Doencas"
             },
-            "description": "Filtrar por doenças"
+            "description": "Filtrar por doencas"
           },
           {
-            "name": "symptoms",
+            "name": "sintomas",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [{ "type": "array", "items": { "type": "string" } }, { "type": "null" }],
               "description": "Filtrar por sintomas",
-              "title": "Symptoms"
+              "title": "Sintomas"
             },
             "description": "Filtrar por sintomas"
           },
           {
-            "name": "regions",
+            "name": "localizacoes",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [{ "type": "array", "items": { "type": "string" } }, { "type": "null" }],
-              "description": "Filtrar por regiões",
-              "title": "Regions"
+              "description": "Filtrar por localizacoes",
+              "title": "Localizacoes"
             },
-            "description": "Filtrar por regiões"
+            "description": "Filtrar por localizacoes"
           },
           {
             "name": "states",
@@ -1071,15 +1071,15 @@
             "description": "Filtrar por estados"
           },
           {
-            "name": "sources",
+            "name": "fonte",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [{ "type": "array", "items": { "type": "string" } }, { "type": "null" }],
-              "description": "Filtrar por fontes",
-              "title": "Sources"
+              "description": "Filtrar por fonte",
+              "title": "Fonte"
             },
-            "description": "Filtrar por fontes"
+            "description": "Filtrar por fonte"
           },
           {
             "name": "status",
@@ -1094,13 +1094,90 @@
             }
           },
           {
-            "name": "min_relevance",
+            "name": "relevancia_minima",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [{ "type": "number", "maximum": 10.0, "minimum": 0.0 }, { "type": "null" }],
-              "title": "Min Relevance"
+              "title": "Relevancia Minima"
             }
+          },
+          {
+            "name": "tipo_evento",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "description": "Filtrar por tipo de evento",
+              "title": "Tipo Evento"
+            },
+            "description": "Filtrar por tipo de evento"
+          },
+          {
+            "name": "categoria",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "description": "Filtrar por categoria",
+              "title": "Categoria"
+            },
+            "description": "Filtrar por categoria"
+          },
+          {
+            "name": "classificacao_onehealth",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "description": "Filtrar por classificacao One Health",
+              "title": "Classificacao Onehealth"
+            },
+            "description": "Filtrar por classificacao One Health"
+          },
+          {
+            "name": "data_coleta_de",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+              "description": "Data inicio coleta",
+              "title": "Data Coleta De"
+            },
+            "description": "Data inicio coleta"
+          },
+          {
+            "name": "data_coleta_ate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+              "description": "Data fim coleta",
+              "title": "Data Coleta Ate"
+            },
+            "description": "Data fim coleta"
+          },
+          {
+            "name": "data_evento_de",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+              "description": "Data inicio evento",
+              "title": "Data Evento De"
+            },
+            "description": "Data inicio evento"
+          },
+          {
+            "name": "data_evento_ate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+              "description": "Data fim evento",
+              "title": "Data Evento Ate"
+            },
+            "description": "Data fim evento"
           }
         ],
         "responses": {
@@ -1251,8 +1328,8 @@
     "/api/v1/noticias/{unique_id}/relacionadas": {
       "get": {
         "tags": ["Notícias"],
-        "summary": "Buscar notícias relacionadas",
-        "description": "Busca notícias relacionadas por doenças e regiões em comum.",
+        "summary": "Buscar noticias relacionadas",
+        "description": "Busca noticias relacionadas por cluster semantico (primario) ou doencas/localizacoes em comum (fallback).",
         "operationId": "get_noticias_relacionadas_api_v1_noticias__unique_id__relacionadas_get",
         "security": [{ "OAuth2PasswordBearer": [] }],
         "parameters": [
@@ -1279,7 +1356,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista de notícias relacionadas",
+            "description": "Lista de noticias relacionadas com criterio usado",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/NoticiasRelacionadasResponse" }
@@ -1661,8 +1738,8 @@
     "/api/v1/noticias/operacoes/bulk": {
       "post": {
         "tags": ["Operações Notícias"],
-        "summary": "Criar notícias em massa",
-        "description": "Cria múltiplas notícias de uma vez.",
+        "summary": "Criar noticias em massa com deduplicacao",
+        "description": "Cria multiplas noticias com deduplicacao automatica por URL. Noticias com URL ja existente sao ignoradas.",
         "operationId": "bulk_create_noticias_api_v1_noticias_operacoes_bulk_post",
         "requestBody": {
           "content": {
@@ -1678,14 +1755,10 @@
         },
         "responses": {
           "200": {
-            "description": "Notícias criadas com sucesso",
+            "description": "Resultado da importacao com contagem de criados vs duplicados",
             "content": {
               "application/json": {
-                "schema": {
-                  "items": { "$ref": "#/components/schemas/Noticia" },
-                  "type": "array",
-                  "title": "Response Bulk Create Noticias Api V1 Noticias Operacoes Bulk Post"
-                }
+                "schema": { "$ref": "#/components/schemas/BulkCreateResponse" }
               }
             }
           },
@@ -1791,12 +1864,12 @@
         }
       }
     },
-    "/api/v1/noticias/operacoes/regioes": {
+    "/api/v1/noticias/operacoes/localizacoes": {
       "get": {
         "tags": ["Operações Notícias"],
-        "summary": "Listar regiões",
-        "description": "Lista todas as regiões cadastradas.",
-        "operationId": "list_regioes_api_v1_noticias_operacoes_regioes_get",
+        "summary": "Listar localizacoes",
+        "description": "Lista todas as localizacoes cadastradas.",
+        "operationId": "list_localizacoes_api_v1_noticias_operacoes_localizacoes_get",
         "security": [{ "OAuth2PasswordBearer": [] }],
         "parameters": [
           {
@@ -1825,13 +1898,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista de regiões",
+            "description": "Lista de localizacoes",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/Regiao" },
-                  "title": "Response List Regioes Api V1 Noticias Operacoes Regioes Get"
+                  "title": "Response List Localizacoes Api V1 Noticias Operacoes Localizacoes Get"
                 }
               }
             }
@@ -7246,27 +7319,35 @@
         "security": [{ "OAuth2PasswordBearer": [] }]
       }
     },
-    "/api/v1/arboviroses/dengue/detalhes/notificacoes": {
+    "/api/v1/arboviroses/dengue/casos": {
       "get": {
-        "tags": ["Dengue - Detalhes (Silver)"],
-        "summary": "Listar notificações",
-        "description": "Lista notificações detalhadas de dengue. Dados Silver (paginação obrigatória).",
-        "operationId": "listar_notificacoes_api_v1_arboviroses_dengue_detalhes_notificacoes_get",
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Listar casos por municipio",
+        "description": "Casos de dengue agregados por municipio e ano. Dados Gold pre-calculados.",
+        "operationId": "dengue_casos_api_v1_arboviroses_dengue_casos_get",
         "security": [{ "OAuth2PasswordBearer": [] }],
         "parameters": [
           {
-            "name": "ano",
+            "name": "ano_inicio",
             "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                { "type": "integer", "maximum": 2025, "minimum": 1999 },
-                { "type": "null" }
-              ],
-              "description": "Filtrar por ano",
-              "title": "Ano"
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
             },
-            "description": "Filtrar por ano"
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
           },
           {
             "name": "uf",
@@ -7274,10 +7355,10 @@
             "required": false,
             "schema": {
               "anyOf": [{ "type": "string", "minLength": 2, "maxLength": 2 }, { "type": "null" }],
-              "description": "Filtrar por UF (código)",
+              "description": "Filtrar por UF (sigla)",
               "title": "Uf"
             },
-            "description": "Filtrar por UF (código)"
+            "description": "Filtrar por UF (sigla)"
           },
           {
             "name": "municipio",
@@ -7285,21 +7366,10 @@
             "required": false,
             "schema": {
               "anyOf": [{ "type": "integer" }, { "type": "null" }],
-              "description": "Filtrar por código IBGE do município",
+              "description": "Filtrar por codigo IBGE do municipio",
               "title": "Municipio"
             },
-            "description": "Filtrar por código IBGE do município"
-          },
-          {
-            "name": "semana",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [{ "type": "integer", "maximum": 53, "minimum": 1 }, { "type": "null" }],
-              "description": "Filtrar por semana epidemiológica",
-              "title": "Semana"
-            },
-            "description": "Filtrar por semana epidemiológica"
+            "description": "Filtrar por codigo IBGE do municipio"
           },
           {
             "name": "cursor",
@@ -7307,10 +7377,10 @@
             "required": false,
             "schema": {
               "anyOf": [{ "type": "string" }, { "type": "null" }],
-              "description": "Cursor para paginação",
+              "description": "Cursor para paginacao",
               "title": "Cursor"
             },
-            "description": "Cursor para paginação"
+            "description": "Cursor para paginacao"
           },
           {
             "name": "limit",
@@ -7329,12 +7399,8 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista paginada de notificações",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/DengueNotificacoesListResponse" }
-              }
-            }
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
           },
           "422": {
             "description": "Validation Error",
@@ -7347,24 +7413,1271 @@
         }
       }
     },
-    "/api/v1/arboviroses/dengue/detalhes/pacientes": {
+    "/api/v1/arboviroses/dengue/letalidade": {
       "get": {
-        "tags": ["Dengue - Detalhes (Silver)"],
-        "summary": "Listar dados de pacientes",
-        "description": "Lista dados demográficos de pacientes (anonimizados). Dados Silver.",
-        "operationId": "listar_pacientes_api_v1_arboviroses_dengue_detalhes_pacientes_get",
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Listar letalidade por UF",
+        "description": "Taxa de letalidade por UF. Dados Gold pre-calculados.",
+        "operationId": "dengue_letalidade_api_v1_arboviroses_dengue_letalidade_get",
         "security": [{ "OAuth2PasswordBearer": [] }],
         "parameters": [
           {
-            "name": "faixa_etaria",
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
+          {
+            "name": "uf",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "minLength": 2, "maxLength": 2 }, { "type": "null" }],
+              "description": "Filtrar por UF (sigla)",
+              "title": "Uf"
+            },
+            "description": "Filtrar por UF (sigla)"
+          },
+          {
+            "name": "cursor",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [{ "type": "string" }, { "type": "null" }],
-              "description": "Filtrar por faixa etária",
-              "title": "Faixa Etaria"
+              "description": "Cursor para paginacao",
+              "title": "Cursor"
             },
-            "description": "Filtrar por faixa etária"
+            "description": "Cursor para paginacao"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Limite de resultados",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Limite de resultados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/surtos": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Listar alertas de surto",
+        "description": "Alertas de surto detectados. Dados Gold pre-calculados.",
+        "operationId": "dengue_surtos_api_v1_arboviroses_dengue_surtos_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
+          {
+            "name": "uf",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "minLength": 2, "maxLength": 2 }, { "type": "null" }],
+              "description": "Filtrar por UF (sigla)",
+              "title": "Uf"
+            },
+            "description": "Filtrar por UF (sigla)"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "description": "Cursor para paginacao",
+              "title": "Cursor"
+            },
+            "description": "Cursor para paginacao"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Limite de resultados",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Limite de resultados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/curva-epidemica": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Listar curva epidemica",
+        "description": "Evolucao temporal dos casos (curva epidemica semanal). Dados Gold.",
+        "operationId": "dengue_curva_epidemica_api_v1_arboviroses_dengue_curva_epidemica_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
+          {
+            "name": "uf",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "minLength": 2, "maxLength": 2 }, { "type": "null" }],
+              "description": "Filtrar por UF (sigla)",
+              "title": "Uf"
+            },
+            "description": "Filtrar por UF (sigla)"
+          },
+          {
+            "name": "semana_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "maximum": 53, "minimum": 1 }, { "type": "null" }],
+              "description": "Semana epidemiologica inicial",
+              "title": "Semana Inicio"
+            },
+            "description": "Semana epidemiologica inicial"
+          },
+          {
+            "name": "semana_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "maximum": 53, "minimum": 1 }, { "type": "null" }],
+              "description": "Semana epidemiologica final",
+              "title": "Semana Fim"
+            },
+            "description": "Semana epidemiologica final"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "description": "Cursor para paginacao",
+              "title": "Cursor"
+            },
+            "description": "Cursor para paginacao"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Limite de resultados",
+              "default": 53,
+              "title": "Limit"
+            },
+            "description": "Limite de resultados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/hospitalizacao": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Listar hospitalizacao",
+        "description": "Taxa de hospitalizacao por gravidade. Dados Gold. Tabela pequena, sem paginacao cursor.",
+        "operationId": "dengue_hospitalizacao_api_v1_arboviroses_dengue_hospitalizacao_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
+          {
+            "name": "uf",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "minLength": 2, "maxLength": 2 }, { "type": "null" }],
+              "description": "Filtrar por UF (sigla)",
+              "title": "Uf"
+            },
+            "description": "Filtrar por UF (sigla)"
+          },
+          {
+            "name": "classificacao",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "description": "Filtrar por classificacao clinica",
+              "title": "Classificacao"
+            },
+            "description": "Filtrar por classificacao clinica"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Limite de resultados",
+              "default": 100,
+              "title": "Limit"
+            },
+            "description": "Limite de resultados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/sorotipos": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Listar sorotipos",
+        "description": "Sorotipos circulantes por periodo. Dados Gold.",
+        "operationId": "dengue_sorotipos_api_v1_arboviroses_dengue_sorotipos_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "description": "Cursor para paginacao",
+              "title": "Cursor"
+            },
+            "description": "Cursor para paginacao"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Limite de resultados",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Limite de resultados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/piramide-etaria": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Listar piramide etaria",
+        "description": "Casos por faixa etaria e sexo (piramide etaria). Dados Gold.",
+        "operationId": "dengue_piramide_etaria_api_v1_arboviroses_dengue_piramide_etaria_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
+          {
+            "name": "uf",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "minLength": 2, "maxLength": 2 }, { "type": "null" }],
+              "description": "Filtrar por UF (sigla)",
+              "title": "Uf"
+            },
+            "description": "Filtrar por UF (sigla)"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "description": "Cursor para paginacao",
+              "title": "Cursor"
+            },
+            "description": "Cursor para paginacao"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Limite de resultados",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Limite de resultados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/gestantes": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Listar casos em gestantes",
+        "description": "Casos em gestantes por trimestre. Dados Gold. Tabela pequena, sem paginacao cursor.",
+        "operationId": "dengue_gestantes_api_v1_arboviroses_dengue_gestantes_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Limite de resultados",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Limite de resultados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/racial": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Listar analise racial",
+        "description": "Analise de equidade racial dos casos. Dados Gold. Tabela pequena, sem paginacao cursor.",
+        "operationId": "dengue_racial_api_v1_arboviroses_dengue_racial_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Limite de resultados",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Limite de resultados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/autoctonia": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Listar autoctonia vs importados",
+        "description": "Casos autoctones vs importados por municipio. Dados Gold.",
+        "operationId": "dengue_autoctonia_api_v1_arboviroses_dengue_autoctonia_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
+          {
+            "name": "uf",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "minLength": 2, "maxLength": 2 }, { "type": "null" }],
+              "description": "Filtrar por UF (sigla)",
+              "title": "Uf"
+            },
+            "description": "Filtrar por UF (sigla)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Limite de resultados",
+              "default": 100,
+              "title": "Limit"
+            },
+            "description": "Limite de resultados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/oportunidade": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Listar oportunidade de vigilancia",
+        "description": "Metricas de oportunidade de vigilancia epidemiologica. Dados Gold.",
+        "operationId": "dengue_oportunidade_api_v1_arboviroses_dengue_oportunidade_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
+          {
+            "name": "uf",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "minLength": 2, "maxLength": 2 }, { "type": "null" }],
+              "description": "Filtrar por UF (sigla)",
+              "title": "Uf"
+            },
+            "description": "Filtrar por UF (sigla)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Limite de resultados",
+              "default": 100,
+              "title": "Limit"
+            },
+            "description": "Limite de resultados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/positividade-laboratorial": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Listar positividade laboratorial",
+        "description": "Taxas de positividade laboratorial. Dados Gold. Tabela pequena, sem paginacao cursor.",
+        "operationId": "dengue_positividade_api_v1_arboviroses_dengue_positividade_laboratorial_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
+          {
+            "name": "tipo_exame",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "description": "Filtrar por tipo de exame",
+              "title": "Tipo Exame"
+            },
+            "description": "Filtrar por tipo de exame"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Limite de resultados",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Limite de resultados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/incidencia": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Incidencia por 100k habitantes",
+        "description": "Taxa de incidencia por 100k habitantes com dados populacionais. Endpoint composto.",
+        "operationId": "handle_incidencia_api_v1_arboviroses_dengue_incidencia_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "nivel",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(nacional|uf|municipio)$",
+              "description": "Nivel de agregacao: nacional, uf ou municipio",
+              "default": "nacional",
+              "title": "Nivel"
+            },
+            "description": "Nivel de agregacao: nacional, uf ou municipio"
+          },
+          {
+            "name": "uf",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "minLength": 2, "maxLength": 2 }, { "type": "null" }],
+              "description": "Filtrar por UF (sigla, ex: SP)",
+              "title": "Uf"
+            },
+            "description": "Filtrar por UF (sigla, ex: SP)"
+          },
+          {
+            "name": "codigo_ibge",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer" }, { "type": "null" }],
+              "description": "Filtrar por municipio (codigo IBGE 7 digitos)",
+              "title": "Codigo Ibge"
+            },
+            "description": "Filtrar por municipio (codigo IBGE 7 digitos)"
+          },
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do periodo",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do periodo"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do periodo",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do periodo"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/resumo": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Resumo dashboard",
+        "description": "Resumo consolidado para dashboard com KPIs principais. Endpoint composto.",
+        "operationId": "handle_resumo_api_v1_arboviroses_dengue_resumo_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "uf",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "minLength": 2, "maxLength": 2 }, { "type": "null" }],
+              "description": "Filtrar por UF (sigla, ex: SP)",
+              "title": "Uf"
+            },
+            "description": "Filtrar por UF (sigla, ex: SP)"
+          },
+          {
+            "name": "codigo_ibge",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer" }, { "type": "null" }],
+              "description": "Filtrar por municipio (codigo IBGE 7 digitos)",
+              "title": "Codigo Ibge"
+            },
+            "description": "Filtrar por municipio (codigo IBGE 7 digitos)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/curva-epidemica-municipal": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Curva epidemica por municipio",
+        "description": "Curva epidemica semanal por municipio com media historica dos 3 anos anteriores. Filtro obrigatorio por codigo(s) IBGE (max 10). Dados da tabela gold.dengue_curva_epidemica_municipal.",
+        "operationId": "handle_curva_municipal_api_v1_arboviroses_dengue_curva_epidemica_municipal_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "codigos_ibge",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Codigos IBGE separados por virgula (max 10). Ex: 2800308,2802106",
+              "title": "Codigos Ibge"
+            },
+            "description": "Codigos IBGE separados por virgula (max 10). Ex: 2800308,2802106"
+          },
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 2000 }, { "type": "null" }],
+              "description": "Ano inicial",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 2000 }, { "type": "null" }],
+              "description": "Ano final",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/tendencias": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Analise de tendencias",
+        "description": "Deteccao automatica de tendencias (crescimento/estavel/queda) comparando ano atual vs anterior. Inclui variacao percentual, z-score e serie temporal completa. Tres niveis: municipal, UF, nacional.",
+        "operationId": "handle_tendencias_api_v1_arboviroses_dengue_tendencias_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "nivel",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(municipal|uf|nacional)$",
+              "description": "Nivel de agregacao: municipal, uf ou nacional",
+              "default": "nacional",
+              "title": "Nivel"
+            },
+            "description": "Nivel de agregacao: municipal, uf ou nacional"
+          },
+          {
+            "name": "codigos_ibge",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "description": "Codigos IBGE separados por virgula (obrigatorio para nivel=municipal, max 10)",
+              "title": "Codigos Ibge"
+            },
+            "description": "Codigos IBGE separados por virgula (obrigatorio para nivel=municipal, max 10)"
+          },
+          {
+            "name": "uf",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "minLength": 2, "maxLength": 2 }, { "type": "null" }],
+              "description": "Filtrar por UF (obrigatorio para nivel=uf)",
+              "title": "Uf"
+            },
+            "description": "Filtrar por UF (obrigatorio para nivel=uf)"
+          },
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 2000 }, { "type": "null" }],
+              "description": "Ano inicial (default: ano corrente)",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial (default: ano corrente)"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 2000 }, { "type": "null" }],
+              "description": "Ano final (default: ano corrente)",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final (default: ano corrente)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/": {
+      "get": {
+        "tags": ["Dengue - Agregacoes (Gold)", "Dengue - Agregacoes (Gold)"],
+        "summary": "Listar endpoints de Dengue",
+        "description": "Lista todos os endpoints disponiveis para Dengue.",
+        "operationId": "dengue_discovery_api_v1_arboviroses_dengue__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/api/v1/arboviroses/dengue/silver/notificacoes": {
+      "get": {
+        "tags": ["Dengue - Detalhes (Silver)", "Dengue - Detalhes (Silver)"],
+        "summary": "Listar notificacoes",
+        "description": "Notificacoes detalhadas de dengue. Dados Silver.",
+        "operationId": "dengue_notificacoes_api_v1_arboviroses_dengue_silver_notificacoes_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
+          {
+            "name": "uf",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string", "minLength": 2, "maxLength": 2 }, { "type": "null" }],
+              "description": "Filtrar por UF",
+              "title": "Uf"
+            },
+            "description": "Filtrar por UF"
+          },
+          {
+            "name": "municipio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer" }, { "type": "null" }],
+              "description": "Filtrar por municipio (IBGE)",
+              "title": "Municipio"
+            },
+            "description": "Filtrar por municipio (IBGE)"
+          },
+          {
+            "name": "semana",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "maximum": 53, "minimum": 1 }, { "type": "null" }],
+              "description": "Filtrar por semana epidemiologica",
+              "title": "Semana"
+            },
+            "description": "Filtrar por semana epidemiologica"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "description": "Cursor para paginacao",
+              "title": "Cursor"
+            },
+            "description": "Cursor para paginacao"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Limite de resultados",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Limite de resultados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/arboviroses/dengue/silver/pacientes": {
+      "get": {
+        "tags": ["Dengue - Detalhes (Silver)", "Dengue - Detalhes (Silver)"],
+        "summary": "Listar dados de pacientes",
+        "description": "Dados demograficos de pacientes (anonimizados). Dados Silver.",
+        "operationId": "dengue_pacientes_api_v1_arboviroses_dengue_silver_pacientes_get",
+        "security": [{ "OAuth2PasswordBearer": [] }],
+        "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
           },
           {
             "name": "sexo",
@@ -7383,10 +8696,10 @@
             "required": false,
             "schema": {
               "anyOf": [{ "type": "string" }, { "type": "null" }],
-              "description": "Cursor para paginação",
+              "description": "Cursor para paginacao",
               "title": "Cursor"
             },
-            "description": "Cursor para paginação"
+            "description": "Cursor para paginacao"
           },
           {
             "name": "limit",
@@ -7405,12 +8718,8 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista paginada de pacientes",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/DenguePacientesListResponse" }
-              }
-            }
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
           },
           "422": {
             "description": "Validation Error",
@@ -7423,24 +8732,46 @@
         }
       }
     },
-    "/api/v1/arboviroses/dengue/detalhes/laboratorio": {
+    "/api/v1/arboviroses/dengue/silver/laboratorio": {
       "get": {
-        "tags": ["Dengue - Detalhes (Silver)"],
+        "tags": ["Dengue - Detalhes (Silver)", "Dengue - Detalhes (Silver)"],
         "summary": "Listar dados laboratoriais",
-        "description": "Lista resultados de exames laboratoriais. Dados Silver.",
-        "operationId": "listar_laboratorio_api_v1_arboviroses_dengue_detalhes_laboratorio_get",
+        "description": "Resultados de exames laboratoriais. Dados Silver.",
+        "operationId": "dengue_laboratorio_api_v1_arboviroses_dengue_silver_laboratorio_get",
         "security": [{ "OAuth2PasswordBearer": [] }],
         "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
           {
             "name": "sorotipo",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [{ "type": "string" }, { "type": "null" }],
-              "description": "Filtrar por sorotipo (DENV-1, DENV-2, etc)",
+              "description": "Filtrar por sorotipo",
               "title": "Sorotipo"
             },
-            "description": "Filtrar por sorotipo (DENV-1, DENV-2, etc)"
+            "description": "Filtrar por sorotipo"
           },
           {
             "name": "cursor",
@@ -7448,10 +8779,10 @@
             "required": false,
             "schema": {
               "anyOf": [{ "type": "string" }, { "type": "null" }],
-              "description": "Cursor para paginação",
+              "description": "Cursor para paginacao",
               "title": "Cursor"
             },
-            "description": "Cursor para paginação"
+            "description": "Cursor para paginacao"
           },
           {
             "name": "limit",
@@ -7470,12 +8801,8 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista paginada de exames",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/DengueLaboratorioListResponse" }
-              }
-            }
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
           },
           "422": {
             "description": "Validation Error",
@@ -7488,35 +8815,46 @@
         }
       }
     },
-    "/api/v1/arboviroses/dengue/detalhes/geografico": {
+    "/api/v1/arboviroses/dengue/silver/geografico": {
       "get": {
-        "tags": ["Dengue - Detalhes (Silver)"],
-        "summary": "Listar dados geográficos",
-        "description": "Lista local provável de infecção. Dados Silver.",
-        "operationId": "listar_geografico_api_v1_arboviroses_dengue_detalhes_geografico_get",
+        "tags": ["Dengue - Detalhes (Silver)", "Dengue - Detalhes (Silver)"],
+        "summary": "Listar dados geograficos",
+        "description": "Local provavel de infeccao. Dados Silver.",
+        "operationId": "dengue_geografico_api_v1_arboviroses_dengue_silver_geografico_get",
         "security": [{ "OAuth2PasswordBearer": [] }],
         "parameters": [
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano inicial do range",
+              "title": "Ano Inicio"
+            },
+            "description": "Ano inicial do range"
+          },
+          {
+            "name": "ano_fim",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "integer", "minimum": 1999 }, { "type": "null" }],
+              "description": "Ano final do range",
+              "title": "Ano Fim"
+            },
+            "description": "Ano final do range"
+          },
           {
             "name": "municipio",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [{ "type": "integer" }, { "type": "null" }],
-              "description": "Filtrar por município de infecção",
+              "description": "Filtrar por municipio de infeccao",
               "title": "Municipio"
             },
-            "description": "Filtrar por município de infecção"
-          },
-          {
-            "name": "autoctone",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [{ "type": "boolean" }, { "type": "null" }],
-              "description": "Filtrar por caso autóctone",
-              "title": "Autoctone"
-            },
-            "description": "Filtrar por caso autóctone"
+            "description": "Filtrar por municipio de infeccao"
           },
           {
             "name": "cursor",
@@ -7524,10 +8862,10 @@
             "required": false,
             "schema": {
               "anyOf": [{ "type": "string" }, { "type": "null" }],
-              "description": "Cursor para paginação",
+              "description": "Cursor para paginacao",
               "title": "Cursor"
             },
-            "description": "Cursor para paginação"
+            "description": "Cursor para paginacao"
           },
           {
             "name": "limit",
@@ -7546,12 +8884,8 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista paginada de dados geográficos",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/DengueGeograficoListResponse" }
-              }
-            }
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
           },
           "422": {
             "description": "Validation Error",
@@ -7564,9 +8898,39 @@
         }
       }
     },
+    "/api/v1/arboviroses/dengue/silver/": {
+      "get": {
+        "tags": ["Dengue - Detalhes (Silver)", "Dengue - Detalhes (Silver)"],
+        "summary": "Listar endpoints de Dengue",
+        "description": "Lista todos os endpoints disponiveis para Dengue.",
+        "operationId": "dengue_discovery_api_v1_arboviroses_dengue_silver__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
+    "/api/v1/arboviroses/": {
+      "get": {
+        "tags": ["Arboviroses - Discovery", "Arboviroses - Discovery"],
+        "summary": "Listar agravos disponiveis",
+        "description": "Lista todos os agravos registrados no modulo Arboviroses.",
+        "operationId": "listar_agravos_api_v1_arboviroses__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        },
+        "security": [{ "OAuth2PasswordBearer": [] }]
+      }
+    },
     "/api/v1/arboviroses/dengue/dicionario": {
       "get": {
-        "tags": ["Dengue - Dicionário de Dados"],
+        "tags": ["Dengue - Dicionario de Dados"],
         "summary": "Visão geral do dicionário",
         "description": "Retorna visão geral do dicionário de dados do dataset de dengue.\n\n    Inclui:\n    - Versão e data de atualização do dicionário\n    - Período dos dados disponíveis\n    - Total de registros na camada Silver\n    - Informações das camadas Bronze e Silver\n    - Links para recursos relacionados",
         "operationId": "get_dicionario_visao_geral_api_v1_arboviroses_dengue_dicionario_get",
@@ -7585,7 +8949,7 @@
     },
     "/api/v1/arboviroses/dengue/dicionario/campos": {
       "get": {
-        "tags": ["Dengue - Dicionário de Dados"],
+        "tags": ["Dengue - Dicionario de Dados"],
         "summary": "Lista de campos do dicionário",
         "description": "Retorna lista de campos da camada Silver com metadados completos.\n\n    Cada campo inclui:\n    - Nome original (SINAN/Bronze) e nome padronizado (Silver)\n    - Tipo de dado e se é nullable\n    - Descrição e exemplo de valor\n    - Grupo funcional (notificacao, paciente, clinico, laboratorio, desfecho, geografico)\n\n    Filtros disponíveis:\n    - camada: Apenas 'silver' está disponível\n    - grupo: Filtrar por grupo funcional",
         "operationId": "get_dicionario_campos_api_v1_arboviroses_dengue_dicionario_campos_get",
@@ -7646,7 +9010,7 @@
     },
     "/api/v1/arboviroses/dengue/dicionario/categorias": {
       "get": {
-        "tags": ["Dengue - Dicionário de Dados"],
+        "tags": ["Dengue - Dicionario de Dados"],
         "summary": "Valores categóricos válidos",
         "description": "Retorna valores categóricos válidos para campos codificados.\n\n    Para cada campo categórico, retorna:\n    - Nome original no SINAN\n    - Descrição do campo\n    - Lista de valores possíveis com código e descrição\n\n    Campos categóricos incluem:\n    - cd_sexo (M/F/I)\n    - cd_raca_cor (1-5, 9)\n    - cd_classificacao_final (1-13)\n    - cd_evolucao_caso (1-4, 9)\n    - cd_sorotipo_dengue (1-4)\n    - Resultados de exames (NS1, sorologia, PCR)\n    - Sintomas e comorbidades (Sim/Não/Ignorado)",
         "operationId": "get_dicionario_categorias_api_v1_arboviroses_dengue_dicionario_categorias_get",
@@ -7686,7 +9050,7 @@
     },
     "/api/v1/arboviroses/dengue/dicionario/transformacoes": {
       "get": {
-        "tags": ["Dengue - Dicionário de Dados"],
+        "tags": ["Dengue - Dicionario de Dados"],
         "summary": "Documentação das transformações",
         "description": "Retorna documentação das transformações aplicadas na camada Bronze\n    para gerar a camada Silver.\n\n    Tipos de transformações:\n    - **deduplicacao**: Remoção de registros duplicados (critério: cd_situacao_duplicidade IN ('1', '3'))\n    - **renomeacao**: Padronização de nomes de campos para convenção semântica\n    - **derivacao**: Criação de campos calculados (regiao_geografica, is_gestante, etc.)\n    - **limpeza**: Tratamento de valores inválidos e padronização\n    - **normalizacao**: Criação de tabelas dimensionais (star schema)\n    - **enriquecimento**: Junção com dados de população do IBGE\n\n    Útil para pesquisadores que precisam entender:\n    - O que mudou entre Bronze e Silver\n    - Como valores foram transformados\n    - Origem de campos derivados",
         "operationId": "get_dicionario_transformacoes_api_v1_arboviroses_dengue_dicionario_transformacoes_get",
@@ -7737,10 +9101,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                { "type": "integer", "maximum": 2030, "minimum": 2025 },
-                { "type": "null" }
-              ],
+              "anyOf": [{ "type": "integer", "minimum": 2025 }, { "type": "null" }],
               "description": "Ano de inicio (obrigatorio, >= 2025)",
               "title": "Ano Inicio"
             },
@@ -7751,10 +9112,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                { "type": "integer", "maximum": 2030, "minimum": 2025 },
-                { "type": "null" }
-              ],
+              "anyOf": [{ "type": "integer", "minimum": 2025 }, { "type": "null" }],
               "description": "Ano de fim",
               "title": "Ano Fim"
             },
@@ -7835,10 +9193,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                { "type": "integer", "maximum": 2030, "minimum": 2025 },
-                { "type": "null" }
-              ],
+              "anyOf": [{ "type": "integer", "minimum": 2025 }, { "type": "null" }],
               "description": "Ano de inicio (obrigatorio, >= 2025)",
               "title": "Ano Inicio"
             },
@@ -7849,10 +9204,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                { "type": "integer", "maximum": 2030, "minimum": 2025 },
-                { "type": "null" }
-              ],
+              "anyOf": [{ "type": "integer", "minimum": 2025 }, { "type": "null" }],
               "description": "Ano de fim",
               "title": "Ano Fim"
             },
@@ -7962,10 +9314,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                { "type": "integer", "maximum": 2030, "minimum": 2025 },
-                { "type": "null" }
-              ],
+              "anyOf": [{ "type": "integer", "minimum": 2025 }, { "type": "null" }],
               "description": "Ano de inicio (obrigatorio, >= 2025)",
               "title": "Ano Inicio"
             },
@@ -7976,10 +9325,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                { "type": "integer", "maximum": 2030, "minimum": 2025 },
-                { "type": "null" }
-              ],
+              "anyOf": [{ "type": "integer", "minimum": 2025 }, { "type": "null" }],
               "description": "Ano de fim",
               "title": "Ano Fim"
             },
@@ -8477,10 +9823,10 @@
           "titulo": { "type": "string", "title": "Titulo" },
           "descricao": { "type": "string", "title": "Descricao" },
           "data_deteccao": { "type": "string", "format": "date-time", "title": "Data Deteccao" },
-          "regioes_afetadas": {
+          "localizacoes_afetadas": {
             "items": { "type": "string" },
             "type": "array",
-            "title": "Regioes Afetadas"
+            "title": "Localizacoes Afetadas"
           },
           "doencas_relacionadas": {
             "items": { "type": "string" },
@@ -8508,7 +9854,7 @@
           "quantidade_noticias"
         ],
         "title": "AlertaConsolidado",
-        "description": "Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador único\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Título descritivo\n    descricao: Descrição detalhada\n    data_deteccao: Quando foi detectado\n    regioes_afetadas: Regiões afetadas\n    doencas_relacionadas: Doenças relacionadas\n    quantidade_noticias: Total de notícias relacionadas\n    recomendacao: Recomendação de ação"
+        "description": "Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador unico\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Titulo descritivo\n    descricao: Descricao detalhada\n    data_deteccao: Quando foi detectado\n    localizacoes_afetadas: Localizacoes afetadas\n    doencas_relacionadas: Doencas relacionadas\n    quantidade_noticias: Total de noticias relacionadas\n    recomendacao: Recomendacao de acao"
       },
       "AlertaGeografico": {
         "properties": {
@@ -8533,7 +9879,7 @@
         "type": "object",
         "required": ["tipo", "severidade", "localizacao", "mensagem", "quantidade_noticias"],
         "title": "AlertaGeografico",
-        "description": "Alerta geográfico identificado.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade do alerta\n    localizacao: Estados ou cidades afetadas\n    mensagem: Descrição do alerta\n    quantidade_noticias: Quantidade de notícias relacionadas"
+        "description": "Alerta geografico identificado.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade do alerta\n    localizacao: Estados ou cidades afetadas\n    mensagem: Descricao do alerta\n    quantidade_noticias: Quantidade de noticias relacionadas"
       },
       "AlertaTemporal": {
         "properties": {
@@ -8558,7 +9904,7 @@
         "type": "object",
         "required": ["tipo", "severidade", "data_deteccao", "mensagem", "quantidade_noticias"],
         "title": "AlertaTemporal",
-        "description": "Alerta identificado na análise temporal.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade (baixa, media, alta)\n    data_deteccao: Data onde o alerta foi identificado\n    mensagem: Descrição do alerta\n    quantidade_noticias: Quantidade de notícias relacionadas"
+        "description": "Alerta identificado na analise temporal.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade (baixa, media, alta)\n    data_deteccao: Data onde o alerta foi identificado\n    mensagem: Descricao do alerta\n    quantidade_noticias: Quantidade de noticias relacionadas"
       },
       "AlertsResponse": {
         "properties": {
@@ -8673,13 +10019,13 @@
             "items": { "type": "string" },
             "type": "array",
             "title": "Estados Sem Noticias",
-            "description": "Estados sem notícias no período"
+            "description": "Estados sem noticias no periodo"
           }
         },
         "type": "object",
         "required": ["metadata", "distribuicao_estadual"],
         "title": "AnaliseGeograficaNoticias",
-        "description": "Resultado completo da análise geográfica de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    distribuicao_estadual: Distribuição por estado\n    distribuicao_municipal: Top municípios (quando disponível)\n    concentracoes: Áreas de concentração identificadas\n    alertas: Alertas geográficos identificados\n    estados_sem_noticias: Estados sem notícias no período"
+        "description": "Resultado completo da analise geografica de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    distribuicao_estadual: Distribuicao por estado\n    distribuicao_municipal: Top municipios (quando disponivel)\n    concentracoes: Areas de concentracao identificadas\n    alertas: Alertas geograficos identificados\n    estados_sem_noticias: Estados sem noticias no periodo"
       },
       "AnaliseTemporalNoticias": {
         "properties": {
@@ -8700,19 +10046,19 @@
             "items": { "additionalProperties": true, "type": "object" },
             "type": "array",
             "title": "Doencas Em Alta",
-            "description": "Doenças com maior crescimento"
+            "description": "Doencas com maior crescimento"
           },
-          "regioes_em_destaque": {
+          "localizacoes_em_destaque": {
             "items": { "additionalProperties": true, "type": "object" },
             "type": "array",
-            "title": "Regioes Em Destaque",
-            "description": "Regiões com maior atividade"
+            "title": "Localizacoes Em Destaque",
+            "description": "Localizacoes com maior atividade"
           }
         },
         "type": "object",
         "required": ["metadata", "serie_temporal", "estatisticas_periodo", "tendencia"],
         "title": "AnaliseTemporalNoticias",
-        "description": "Resultado completo da análise temporal de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    serie_temporal: Lista de pontos temporais\n    estatisticas_periodo: Estatísticas agregadas do período\n    tendencia: Tendência identificada\n    alertas: Lista de alertas temporais\n    doencas_em_alta: Doenças com maior crescimento no período\n    regioes_em_destaque: Regiões com maior atividade"
+        "description": "Resultado completo da analise temporal de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    serie_temporal: Lista de pontos temporais\n    estatisticas_periodo: Estatisticas agregadas do periodo\n    tendencia: Tendencia identificada\n    alertas: Lista de alertas temporais\n    doencas_em_alta: Doencas com maior crescimento no periodo\n    localizacoes_em_destaque: Localizacoes com maior atividade"
       },
       "AnomaliesResponse": {
         "properties": {
@@ -8933,6 +10279,44 @@
         "type": "object",
         "required": ["file"],
         "title": "Body_upload_foto_api_v1_usuarios__usuario_id__upload_foto_post"
+      },
+      "BulkCreateResponse": {
+        "properties": {
+          "criados": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Criados",
+            "description": "Quantidade de noticias criadas com sucesso"
+          },
+          "duplicados": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Duplicados",
+            "description": "Quantidade de noticias ignoradas por URL duplicada"
+          },
+          "erros": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Erros",
+            "description": "Quantidade de noticias que falharam por outros motivos"
+          },
+          "total_enviados": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Enviados",
+            "description": "Total de noticias enviadas na requisicao"
+          },
+          "noticias": {
+            "items": { "$ref": "#/components/schemas/Noticia" },
+            "type": "array",
+            "title": "Noticias",
+            "description": "Noticias criadas com sucesso"
+          }
+        },
+        "type": "object",
+        "required": ["criados", "duplicados", "erros", "total_enviados"],
+        "title": "BulkCreateResponse",
+        "description": "Resposta do endpoint de criacao em massa com contagem de dedup."
       },
       "BulkDataInput": {
         "properties": {
@@ -9928,7 +11312,7 @@
         "type": "object",
         "required": ["estados_afetados", "total_noticias", "percentual_nacional"],
         "title": "ConcentracaoGeografica",
-        "description": "Área de concentração de notícias.\n\nAttributes:\n    estados_afetados: Lista de estados na concentração\n    total_noticias: Total de notícias na área\n    percentual_nacional: Percentual em relação ao total nacional\n    doenca_predominante: Doença mais mencionada na área"
+        "description": "Area de concentracao de noticias.\n\nAttributes:\n    estados_afetados: Lista de estados na concentracao\n    total_noticias: Total de noticias na area\n    percentual_nacional: Percentual em relacao ao total nacional\n    doenca_predominante: Doenca mais mencionada na area"
       },
       "CursorPaginatedResponse_DailyStatsResponse_": {
         "properties": {
@@ -10055,7 +11439,7 @@
         "type": "object",
         "required": ["nome", "quantidade_noticias", "percentual_total", "media_relevancia"],
         "title": "DadoGeografico",
-        "description": "Dados de uma unidade geográfica.\n\nAttributes:\n    nome: Nome da região\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de notícias\n    percentual_total: Percentual do total\n    media_relevancia: Média de relevância das notícias\n    principais_doencas: Principais doenças mencionadas\n    coordenadas: Coordenadas geográficas (opcional)"
+        "description": "Dados de uma unidade geografica.\n\nAttributes:\n    nome: Nome da regiao\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de noticias\n    percentual_total: Percentual do total\n    media_relevancia: Media de relevancia das noticias\n    principais_doencas: Principais doencas mencionadas\n    coordenadas: Coordenadas geograficas (opcional)"
       },
       "DailyStatsResponse": {
         "properties": {
@@ -10163,271 +11547,6 @@
         "required": ["data"],
         "title": "DataValidationRequest",
         "description": "Schema para validação prévia de dados (dry-run)."
-      },
-      "DengueGeograficoListResponse": {
-        "properties": {
-          "filters": {
-            "$ref": "#/components/schemas/FilterInfo",
-            "description": "Filtros aplicados"
-          },
-          "pagination": {
-            "$ref": "#/components/schemas/PaginationInfo",
-            "description": "Informações de paginação"
-          },
-          "data": {
-            "items": { "$ref": "#/components/schemas/DengueGeograficoResponse" },
-            "type": "array",
-            "title": "Data",
-            "description": "Lista de dados geográficos"
-          }
-        },
-        "type": "object",
-        "required": ["filters", "pagination", "data"],
-        "title": "DengueGeograficoListResponse",
-        "description": "Resposta paginada de dados geográficos."
-      },
-      "DengueGeograficoResponse": {
-        "properties": {
-          "id_fonte": {
-            "type": "integer",
-            "title": "Id Fonte",
-            "description": "ID da notificação"
-          },
-          "cd_tipo_autoctonia": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Cd Tipo Autoctonia",
-            "description": "Código tipo autoctonia (1=autoctone)"
-          },
-          "sigla_uf_infeccao": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Sigla Uf Infeccao",
-            "description": "UF provável de infecção"
-          },
-          "nome_municipio_infeccao": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Nome Municipio Infeccao",
-            "description": "Nome do município de infecção"
-          },
-          "cd_doenca_relacionada_trabalho": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Cd Doenca Relacionada Trabalho",
-            "description": "Código doença relacionada ao trabalho"
-          }
-        },
-        "type": "object",
-        "required": ["id_fonte"],
-        "title": "DengueGeograficoResponse",
-        "description": "Fonte geográfica/local provável de infecção."
-      },
-      "DengueLaboratorioListResponse": {
-        "properties": {
-          "filters": {
-            "$ref": "#/components/schemas/FilterInfo",
-            "description": "Filtros aplicados"
-          },
-          "pagination": {
-            "$ref": "#/components/schemas/PaginationInfo",
-            "description": "Informações de paginação"
-          },
-          "data": {
-            "items": { "$ref": "#/components/schemas/DengueLaboratorioResponse" },
-            "type": "array",
-            "title": "Data",
-            "description": "Lista de exames"
-          }
-        },
-        "type": "object",
-        "required": ["filters", "pagination", "data"],
-        "title": "DengueLaboratorioListResponse",
-        "description": "Resposta paginada de dados laboratoriais."
-      },
-      "DengueLaboratorioResponse": {
-        "properties": {
-          "id_fonte": {
-            "type": "integer",
-            "title": "Id Fonte",
-            "description": "ID da notificação"
-          },
-          "data_teste_ns1": {
-            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
-            "title": "Data Teste Ns1",
-            "description": "Data do teste NS1"
-          },
-          "cd_resultado_ns1": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Cd Resultado Ns1",
-            "description": "Código resultado NS1"
-          },
-          "data_coleta_soro": {
-            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
-            "title": "Data Coleta Soro",
-            "description": "Data coleta soro"
-          },
-          "cd_resultado_sorologia": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Cd Resultado Sorologia",
-            "description": "Código resultado sorologia"
-          },
-          "data_coleta_pcr": {
-            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
-            "title": "Data Coleta Pcr",
-            "description": "Data coleta PCR"
-          },
-          "cd_resultado_pcr": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Cd Resultado Pcr",
-            "description": "Código resultado PCR"
-          },
-          "cd_sorotipo_dengue": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Cd Sorotipo Dengue",
-            "description": "Código sorotipo dengue"
-          }
-        },
-        "type": "object",
-        "required": ["id_fonte"],
-        "title": "DengueLaboratorioResponse",
-        "description": "Dados laboratoriais."
-      },
-      "DengueNotificacaoResponse": {
-        "properties": {
-          "id_fonte": {
-            "type": "integer",
-            "title": "Id Fonte",
-            "description": "ID da notificação"
-          },
-          "id_municipio_notificacao_ibge": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Id Municipio Notificacao Ibge",
-            "description": "Código IBGE do município"
-          },
-          "sigla_uf_notificacao": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Sigla Uf Notificacao",
-            "description": "Sigla da UF"
-          },
-          "data_notificacao": {
-            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
-            "title": "Data Notificacao",
-            "description": "Data da notificação"
-          },
-          "data_primeiros_sintomas": {
-            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
-            "title": "Data Primeiros Sintomas",
-            "description": "Data dos primeiros sintomas"
-          },
-          "data_encerramento": {
-            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
-            "title": "Data Encerramento",
-            "description": "Data de encerramento"
-          },
-          "semana_epidemiologica_primeiros_sintomas": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Semana Epidemiologica Primeiros Sintomas",
-            "description": "Semana epidemiológica"
-          },
-          "cd_classificacao_final": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Cd Classificacao Final",
-            "description": "Código da classificação final"
-          },
-          "cd_criterio_confirmacao": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Cd Criterio Confirmacao",
-            "description": "Código do critério de confirmação"
-          }
-        },
-        "type": "object",
-        "required": ["id_fonte"],
-        "title": "DengueNotificacaoResponse",
-        "description": "Notificação detalhada de dengue."
-      },
-      "DengueNotificacoesListResponse": {
-        "properties": {
-          "filters": {
-            "$ref": "#/components/schemas/FilterInfo",
-            "description": "Filtros aplicados"
-          },
-          "pagination": {
-            "$ref": "#/components/schemas/PaginationInfo",
-            "description": "Informações de paginação"
-          },
-          "data": {
-            "items": { "$ref": "#/components/schemas/DengueNotificacaoResponse" },
-            "type": "array",
-            "title": "Data",
-            "description": "Lista de notificações"
-          }
-        },
-        "type": "object",
-        "required": ["filters", "pagination", "data"],
-        "title": "DengueNotificacoesListResponse",
-        "description": "Resposta paginada de notificações."
-      },
-      "DenguePacienteResponse": {
-        "properties": {
-          "id_fonte": {
-            "type": "integer",
-            "title": "Id Fonte",
-            "description": "ID do paciente (anonimizado)"
-          },
-          "cd_sexo": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Cd Sexo",
-            "description": "Código do sexo"
-          },
-          "idade": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Idade",
-            "description": "Idade em anos"
-          },
-          "idade_meses": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Idade Meses",
-            "description": "Idade em meses (para bebes)"
-          },
-          "cd_situacao_gestacional": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Cd Situacao Gestacional",
-            "description": "Código situação gestacional"
-          },
-          "cd_raca_cor": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Cd Raca Cor",
-            "description": "Código raça/cor"
-          },
-          "cd_escolaridade": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Cd Escolaridade",
-            "description": "Código escolaridade"
-          }
-        },
-        "type": "object",
-        "required": ["id_fonte"],
-        "title": "DenguePacienteResponse",
-        "description": "Dados demográficos do paciente."
-      },
-      "DenguePacientesListResponse": {
-        "properties": {
-          "filters": {
-            "$ref": "#/components/schemas/FilterInfo",
-            "description": "Filtros aplicados"
-          },
-          "pagination": {
-            "$ref": "#/components/schemas/PaginationInfo",
-            "description": "Informações de paginação"
-          },
-          "data": {
-            "items": { "$ref": "#/components/schemas/DenguePacienteResponse" },
-            "type": "array",
-            "title": "Data",
-            "description": "Lista de pacientes"
-          }
-        },
-        "type": "object",
-        "required": ["filters", "pagination", "data"],
-        "title": "DenguePacientesListResponse",
-        "description": "Resposta paginada de pacientes."
       },
       "DetailedReportResponse": {
         "properties": {
@@ -11414,7 +12533,7 @@
       "EstadosListResponse": {
         "properties": {
           "pagination": {
-            "$ref": "#/components/schemas/PaginationInfo",
+            "$ref": "#/components/schemas/modules__ibge__schemas__PaginationInfo",
             "description": "Informações de paginação"
           },
           "data": {
@@ -11552,7 +12671,7 @@
           "media_relevancia_geral"
         ],
         "title": "EstatisticasPeriodo",
-        "description": "Estatísticas agregadas do período analisado.\n\nAttributes:\n    total_noticias: Total de notícias no período\n    media_por_dia: Média de notícias por dia\n    dia_pico: Dia com maior número de notícias\n    quantidade_pico: Quantidade de notícias no dia de pico\n    media_relevancia_geral: Média geral do score de relevância"
+        "description": "Estatisticas agregadas do periodo analisado.\n\nAttributes:\n    total_noticias: Total de noticias no periodo\n    media_por_dia: Media de noticias por dia\n    dia_pico: Dia com maior numero de noticias\n    quantidade_pico: Quantidade de noticias no dia de pico\n    media_relevancia_geral: Media geral do score de relevancia"
       },
       "ExportFiltersInfo": {
         "properties": {
@@ -11889,33 +13008,6 @@
         "required": ["total", "items"],
         "title": "FaixasEtariasResponse",
         "description": "Lista de faixas etárias disponíveis."
-      },
-      "FilterInfo": {
-        "properties": {
-          "ano": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Ano",
-            "description": "Ano filtrado"
-          },
-          "uf": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Uf",
-            "description": "UF filtrada"
-          },
-          "municipio": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Municipio",
-            "description": "Código IBGE do município filtrado"
-          },
-          "semana_epidemiologica": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Semana Epidemiologica",
-            "description": "Semana epidemiológica filtrada"
-          }
-        },
-        "type": "object",
-        "title": "FilterInfo",
-        "description": "Informações sobre filtros aplicados."
       },
       "FormatoExport": {
         "properties": {
@@ -12398,7 +13490,7 @@
         "type": "object",
         "required": ["nome", "valor_atual", "valor_esperado", "variacao_percentual", "status"],
         "title": "IndicadorMonitorado",
-        "description": "Indicador sendo monitorado para alertas.\n\nAttributes:\n    nome: Nome do indicador\n    valor_atual: Valor atual\n    valor_esperado: Valor esperado/normal\n    variacao_percentual: Variação em relação ao esperado\n    status: Status do indicador"
+        "description": "Indicador sendo monitorado para alertas.\n\nAttributes:\n    nome: Nome do indicador\n    valor_atual: Valor atual\n    valor_esperado: Valor esperado/normal\n    variacao_percentual: Variacao em relacao ao esperado\n    status: Status do indicador"
       },
       "IngestionError": {
         "properties": {
@@ -12710,6 +13802,30 @@
         "title": "LinksInfo",
         "description": "Links para recursos relacionados do dicionário."
       },
+      "LocalizacaoInput": {
+        "properties": {
+          "pais": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Pais",
+            "description": "Nome do pais",
+            "default": "Brasil"
+          },
+          "estado": {
+            "anyOf": [{ "type": "string", "maxLength": 2 }, { "type": "null" }],
+            "title": "Estado",
+            "description": "Sigla do estado (ex: SP, RJ)"
+          },
+          "cidade": {
+            "anyOf": [{ "type": "string", "maxLength": 200 }, { "type": "null" }],
+            "title": "Cidade",
+            "description": "Nome da cidade"
+          }
+        },
+        "type": "object",
+        "title": "LocalizacaoInput",
+        "description": "Localizacao estruturada para criacao de noticias.\nFormato alternativo ao string 'Cidade,UF'."
+      },
       "LoginRequest": {
         "properties": {
           "username": {
@@ -12730,31 +13846,31 @@
             "additionalProperties": { "type": "string", "format": "date" },
             "type": "object",
             "title": "Periodo Analise",
-            "description": "Período da análise com 'inicio' e 'fim'"
+            "description": "Periodo da analise com 'inicio' e 'fim'"
           },
           "filtros_aplicados": {
             "additionalProperties": true,
             "type": "object",
             "title": "Filtros Aplicados",
-            "description": "Filtros aplicados na análise"
+            "description": "Filtros aplicados na analise"
           },
           "data_geracao": {
             "type": "string",
             "format": "date-time",
             "title": "Data Geracao",
-            "description": "Data/hora de geração da análise"
+            "description": "Data/hora de geracao da analise"
           },
           "versao_analise": {
             "type": "string",
             "title": "Versao Analise",
-            "description": "Versão do algoritmo de análise",
+            "description": "Versao do algoritmo de analise",
             "default": "0.0.1"
           }
         },
         "type": "object",
         "required": ["periodo_analise", "data_geracao"],
         "title": "MetadadosAnalise",
-        "description": "Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado"
+        "description": "Metadados padrao para todas as analises estatisticas.\n\nAttributes:\n    periodo_analise: Periodo temporal da analise\n    filtros_aplicados: Filtros que foram aplicados na analise\n    data_geracao: Timestamp de quando a analise foi gerada\n    versao_analise: Versao do algoritmo de analise utilizado"
       },
       "MunicipioDetalhadoResponse": {
         "properties": {
@@ -12834,7 +13950,7 @@
       "MunicipiosListResponse": {
         "properties": {
           "pagination": {
-            "$ref": "#/components/schemas/PaginationInfo",
+            "$ref": "#/components/schemas/modules__ibge__schemas__PaginationInfo",
             "description": "Informações de paginação"
           },
           "data": {
@@ -12851,60 +13967,61 @@
       },
       "Noticia": {
         "properties": {
-          "title": { "type": "string", "maxLength": 500, "minLength": 1, "title": "Title" },
-          "content": { "type": "string", "minLength": 1, "title": "Content" },
-          "scraped_time": {
-            "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
-            "title": "Scraped Time"
+          "titulo": { "type": "string", "maxLength": 500, "minLength": 1, "title": "Titulo" },
+          "conteudo": { "type": "string", "minLength": 1, "title": "Conteudo" },
+          "data_coleta": {
+            "anyOf": [
+              { "type": "string", "format": "date" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Data Coleta",
+            "description": "Data do scraping (opcional, derivada no service)"
           },
-          "scraped_date": {
-            "anyOf": [{ "type": "string", "format": "date" }, { "type": "string" }],
-            "title": "Scraped Date"
+          "url_fonte": {
+            "anyOf": [{ "type": "string", "maxLength": 2000 }, { "type": "null" }],
+            "title": "Url Fonte"
           },
-          "urls": {
+          "fonte": {
+            "anyOf": [{ "type": "string", "maxLength": 500 }, { "type": "null" }],
+            "title": "Fonte"
+          },
+          "url_imagem": {
+            "anyOf": [{ "type": "string", "maxLength": 1000 }, { "type": "null" }],
+            "title": "Url Imagem",
+            "description": "URL da imagem de capa"
+          },
+          "icone_fonte": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Urls"
+            "title": "Icone Fonte",
+            "description": "Array de URLs dos icones/logos das fontes"
           },
-          "source": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Source"
-          },
-          "url_img": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Url Img",
-            "description": "Array de URLs de imagens"
-          },
-          "source_icon": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Source Icon",
-            "description": "Array de URLs dos ícones/logos das fontes"
-          },
-          "published_at": {
+          "data_publicacao": {
             "anyOf": [
               { "type": "string", "format": "date-time" },
               { "type": "string", "format": "date" },
               { "type": "string" },
               { "type": "null" }
             ],
-            "title": "Published At"
+            "title": "Data Publicacao"
           },
-          "fact_description": {
+          "descricao": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Fact Description"
+            "title": "Descricao"
           },
-          "fact_date_occurred": {
+          "data_evento": {
             "anyOf": [
               { "type": "string", "format": "date" },
               { "type": "string" },
               { "type": "null" }
             ],
-            "title": "Fact Date Occurred"
+            "title": "Data Evento"
           },
-          "relevance_score": {
+          "relevancia": {
             "type": "number",
             "maximum": 10.0,
             "minimum": 0.0,
-            "title": "Relevance Score",
+            "title": "Relevancia",
             "default": 0.0
           },
           "status": {
@@ -12913,7 +14030,6 @@
             "title": "Status",
             "default": "active"
           },
-          "llm_status": { "type": "boolean", "title": "Llm Status", "default": false },
           "id": { "type": "integer", "title": "Id" },
           "unique_id": { "type": "string", "format": "uuid", "title": "Unique Id" },
           "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
@@ -12934,81 +14050,123 @@
             "title": "Sintomas",
             "default": []
           },
-          "regioes": {
+          "localizacoes": {
             "items": { "$ref": "#/components/schemas/Regiao" },
             "type": "array",
-            "title": "Regioes",
+            "title": "Localizacoes",
             "default": []
+          },
+          "titulo_epidemiologico": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Titulo Epidemiologico"
+          },
+          "tipo_evento": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Tipo Evento"
+          },
+          "numero_casos": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Numero Casos"
+          },
+          "numero_mortes": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Numero Mortes"
+          },
+          "fonte_oficial": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Fonte Oficial"
+          },
+          "categoria": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Categoria"
+          },
+          "classificacao_onehealth": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Classificacao Onehealth"
+          },
+          "doenca_principal": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Doenca Principal"
+          },
+          "tipo_contagem": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Tipo Contagem"
+          },
+          "titulo_original": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Titulo Original"
+          },
+          "cluster_id": {
+            "anyOf": [{ "type": "string", "format": "uuid" }, { "type": "null" }],
+            "title": "Cluster Id"
+          },
+          "artigos_relacionados": {
+            "anyOf": [{ "items": { "type": "integer" }, "type": "array" }, { "type": "null" }],
+            "title": "Artigos Relacionados"
           }
         },
         "type": "object",
-        "required": [
-          "title",
-          "content",
-          "scraped_date",
-          "id",
-          "unique_id",
-          "created_at",
-          "updated_at"
-        ],
-        "title": "Noticia"
+        "required": ["titulo", "conteudo", "id", "unique_id", "created_at", "updated_at"],
+        "title": "Noticia",
+        "description": "Schema de resposta para noticias (herda NoticiaBase com nomenclatura portuguesa)."
       },
       "NoticiaCreate": {
         "properties": {
-          "title": { "type": "string", "maxLength": 500, "minLength": 1, "title": "Title" },
-          "content": { "type": "string", "minLength": 1, "title": "Content" },
-          "scraped_time": {
-            "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
-            "title": "Scraped Time"
+          "titulo": { "type": "string", "maxLength": 500, "minLength": 1, "title": "Titulo" },
+          "conteudo": { "type": "string", "minLength": 1, "title": "Conteudo" },
+          "data_coleta": {
+            "anyOf": [
+              { "type": "string", "format": "date" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Data Coleta",
+            "description": "Data do scraping (opcional, derivada no service)"
           },
-          "scraped_date": {
-            "anyOf": [{ "type": "string", "format": "date" }, { "type": "string" }],
-            "title": "Scraped Date"
+          "url_fonte": {
+            "anyOf": [{ "type": "string", "maxLength": 2000 }, { "type": "null" }],
+            "title": "Url Fonte"
           },
-          "urls": {
+          "fonte": {
+            "anyOf": [{ "type": "string", "maxLength": 500 }, { "type": "null" }],
+            "title": "Fonte"
+          },
+          "url_imagem": {
+            "anyOf": [{ "type": "string", "maxLength": 1000 }, { "type": "null" }],
+            "title": "Url Imagem",
+            "description": "URL da imagem de capa"
+          },
+          "icone_fonte": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Urls"
+            "title": "Icone Fonte",
+            "description": "Array de URLs dos icones/logos das fontes"
           },
-          "source": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Source"
-          },
-          "url_img": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Url Img",
-            "description": "Array de URLs de imagens"
-          },
-          "source_icon": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Source Icon",
-            "description": "Array de URLs dos ícones/logos das fontes"
-          },
-          "published_at": {
+          "data_publicacao": {
             "anyOf": [
               { "type": "string", "format": "date-time" },
               { "type": "string", "format": "date" },
               { "type": "string" },
               { "type": "null" }
             ],
-            "title": "Published At"
+            "title": "Data Publicacao"
           },
-          "fact_description": {
+          "descricao": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Fact Description"
+            "title": "Descricao"
           },
-          "fact_date_occurred": {
+          "data_evento": {
             "anyOf": [
               { "type": "string", "format": "date" },
               { "type": "string" },
               { "type": "null" }
             ],
-            "title": "Fact Date Occurred"
+            "title": "Data Evento"
           },
-          "relevance_score": {
+          "relevancia": {
             "type": "number",
             "maximum": 10.0,
             "minimum": 0.0,
-            "title": "Relevance Score",
+            "title": "Relevancia",
             "default": 0.0
           },
           "status": {
@@ -13017,26 +14175,90 @@
             "title": "Status",
             "default": "active"
           },
-          "llm_status": { "type": "boolean", "title": "Llm Status", "default": false },
-          "diseases": {
+          "doencas": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Diseases",
-            "description": "Lista de nomes de doenças"
+            "title": "Doencas",
+            "description": "Lista de nomes de doencas"
           },
-          "symptoms": {
+          "sintomas": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Symptoms",
+            "title": "Sintomas",
             "description": "Lista de nomes de sintomas"
           },
-          "regions": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Regions",
-            "description": "Lista de nomes de regiões"
+          "localizacoes": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    { "type": "string" },
+                    { "$ref": "#/components/schemas/LocalizacaoInput" }
+                  ]
+                },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Localizacoes",
+            "description": "Lista de localizacoes. Aceita strings ('Cidade,UF') ou objetos {pais, estado, cidade}"
+          },
+          "titulo_epidemiologico": {
+            "anyOf": [{ "type": "string", "maxLength": 500 }, { "type": "null" }],
+            "title": "Titulo Epidemiologico"
+          },
+          "tipo_evento": {
+            "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
+            "title": "Tipo Evento"
+          },
+          "numero_casos": {
+            "anyOf": [{ "type": "integer", "minimum": 0.0 }, { "type": "null" }],
+            "title": "Numero Casos"
+          },
+          "numero_mortes": {
+            "anyOf": [{ "type": "integer", "minimum": 0.0 }, { "type": "null" }],
+            "title": "Numero Mortes"
+          },
+          "fonte_oficial": {
+            "anyOf": [{ "type": "string", "maxLength": 300 }, { "type": "null" }],
+            "title": "Fonte Oficial"
+          },
+          "categoria": {
+            "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
+            "title": "Categoria"
+          },
+          "classificacao_onehealth": {
+            "anyOf": [{ "type": "string", "maxLength": 20 }, { "type": "null" }],
+            "title": "Classificacao Onehealth",
+            "description": "Classificacao One Health: Humana, Animal, Ambiental"
+          },
+          "doenca_principal": {
+            "anyOf": [{ "type": "string", "maxLength": 200 }, { "type": "null" }],
+            "title": "Doenca Principal",
+            "description": "Doenca principal mencionada"
+          },
+          "tipo_contagem": {
+            "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
+            "title": "Tipo Contagem",
+            "description": "Tipo: novos_periodo, acumulado_ano, acumulado_historico, nao_epidemiologico, indeterminado"
+          },
+          "titulo_original": {
+            "anyOf": [{ "type": "string", "maxLength": 500 }, { "type": "null" }],
+            "title": "Titulo Original",
+            "description": "Titulo original da materia jornalistica"
+          },
+          "cluster_id": {
+            "anyOf": [{ "type": "string", "format": "uuid" }, { "type": "null" }],
+            "title": "Cluster Id"
+          },
+          "artigos_relacionados": {
+            "anyOf": [{ "items": { "type": "integer" }, "type": "array" }, { "type": "null" }],
+            "title": "Artigos Relacionados",
+            "description": "IDs de artigos relacionados (similaridade 70-89%)"
           }
         },
         "type": "object",
-        "required": ["title", "content", "scraped_date"],
-        "title": "NoticiaCreate"
+        "required": ["titulo", "conteudo"],
+        "title": "NoticiaCreate",
+        "description": "Schema para criacao de noticias."
       },
       "NoticiaFilterInfo": {
         "properties": {
@@ -13045,50 +14267,87 @@
             "title": "Search Term",
             "description": "Termo de busca aplicado"
           },
-          "diseases": {
+          "doencas": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Diseases",
-            "description": "Doenças filtradas"
+            "title": "Doencas",
+            "description": "Doencas filtradas"
           },
-          "symptoms": {
+          "sintomas": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Symptoms",
+            "title": "Sintomas",
             "description": "Sintomas filtrados"
           },
-          "regions": {
+          "localizacoes": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Regions",
-            "description": "Regiões filtradas"
+            "title": "Localizacoes",
+            "description": "Localizacoes filtradas"
           },
           "states": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
             "title": "States",
             "description": "Estados filtrados"
           },
-          "sources": {
+          "fonte": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Sources",
+            "title": "Fonte",
             "description": "Fontes filtradas"
+          },
+          "tipo_evento": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Tipo Evento",
+            "description": "Tipo de evento filtrado"
+          },
+          "categoria": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Categoria",
+            "description": "Categoria filtrada"
+          },
+          "classificacao_onehealth": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Classificacao Onehealth",
+            "description": "Classificacao One Health filtrada"
+          },
+          "data_coleta_de": {
+            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+            "title": "Data Coleta De",
+            "description": "Data coleta inicio"
+          },
+          "data_coleta_ate": {
+            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+            "title": "Data Coleta Ate",
+            "description": "Data coleta fim"
+          },
+          "data_evento_de": {
+            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+            "title": "Data Evento De",
+            "description": "Data evento inicio"
+          },
+          "data_evento_ate": {
+            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+            "title": "Data Evento Ate",
+            "description": "Data evento fim"
           },
           "status": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Status",
             "description": "Status filtrado"
           },
-          "min_relevance": {
+          "relevancia_minima": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Min Relevance",
-            "description": "Relevância mínima"
+            "title": "Relevancia Minima",
+            "description": "Relevancia minima"
           }
         },
         "type": "object",
         "title": "NoticiaFilterInfo",
-        "description": "Informações sobre filtros aplicados na listagem."
+        "description": "Informacoes sobre filtros aplicados na listagem."
       },
       "NoticiaListResponse": {
         "properties": {
           "filters": { "$ref": "#/components/schemas/NoticiaFilterInfo" },
-          "pagination": { "$ref": "#/components/schemas/PaginationInfo" },
+          "pagination": {
+            "$ref": "#/components/schemas/modules__noticias__schemas__PaginationInfo"
+          },
           "data": {
             "items": { "$ref": "#/components/schemas/Noticia" },
             "type": "array",
@@ -13098,68 +14357,60 @@
         "type": "object",
         "required": ["filters", "pagination", "data"],
         "title": "NoticiaListResponse",
-        "description": "Resposta paginada cursor-based para listagem de notícias."
+        "description": "Resposta paginada cursor-based para listagem de noticias."
       },
       "NoticiaResumida": {
         "properties": {
           "id": { "type": "integer", "title": "Id" },
           "unique_id": { "type": "string", "format": "uuid", "title": "Unique Id" },
-          "title": { "type": "string", "title": "Title" },
-          "content": {
+          "titulo": { "type": "string", "title": "Titulo" },
+          "conteudo": {
             "type": "string",
-            "title": "Content",
-            "description": "Resumo do conteúdo (primeiros 200 chars)"
+            "title": "Conteudo",
+            "description": "Resumo do conteudo (primeiros 200 chars)"
           },
-          "scraped_date": { "type": "string", "format": "date", "title": "Scraped Date" },
-          "url_img": {
+          "data_coleta": {
+            "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+            "title": "Data Coleta"
+          },
+          "url_imagem": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Url Imagem"
+          },
+          "icone_fonte": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Url Img"
+            "title": "Icone Fonte"
           },
-          "source_icon": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Source Icon"
-          },
-          "source": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Source"
-          },
-          "relevance_score": {
+          "fonte": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Fonte" },
+          "relevancia": {
             "type": "number",
             "maximum": 10.0,
             "minimum": 0.0,
-            "title": "Relevance Score"
+            "title": "Relevancia"
           },
           "doencas": {
             "items": { "type": "string" },
             "type": "array",
             "title": "Doencas",
-            "description": "Nomes das doenças"
+            "description": "Nomes das doencas"
           },
-          "regioes": {
+          "localizacoes": {
             "items": { "type": "string" },
             "type": "array",
-            "title": "Regioes",
-            "description": "Nomes das regiões"
+            "title": "Localizacoes",
+            "description": "Nomes das localizacoes"
           },
           "match_score": {
             "type": "number",
             "minimum": 0.0,
             "title": "Match Score",
-            "description": "Score de similaridade (quantidade de doenças + regiões em comum)"
+            "description": "Score de similaridade (quantidade de doencas + localizacoes em comum)"
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "unique_id",
-          "title",
-          "content",
-          "scraped_date",
-          "relevance_score",
-          "match_score"
-        ],
+        "required": ["id", "unique_id", "titulo", "conteudo", "relevancia", "match_score"],
         "title": "NoticiaResumida",
-        "description": "Versão resumida de uma notícia para listagem de relacionadas."
+        "description": "Versao resumida de uma noticia para listagem de relacionadas."
       },
       "NoticiaStats": {
         "properties": {
@@ -13168,25 +14419,25 @@
           "archived_count": { "type": "integer", "title": "Archived Count" },
           "flagged_count": { "type": "integer", "title": "Flagged Count" },
           "date_range": { "additionalProperties": true, "type": "object", "title": "Date Range" },
-          "top_diseases": {
+          "top_doencas": {
             "items": { "additionalProperties": true, "type": "object" },
             "type": "array",
-            "title": "Top Diseases"
+            "title": "Top Doencas"
           },
-          "top_symptoms": {
+          "top_sintomas": {
             "items": { "additionalProperties": true, "type": "object" },
             "type": "array",
-            "title": "Top Symptoms"
+            "title": "Top Sintomas"
           },
-          "top_regions": {
+          "top_localizacoes": {
             "items": { "additionalProperties": true, "type": "object" },
             "type": "array",
-            "title": "Top Regions"
+            "title": "Top Localizacoes"
           },
-          "top_sources": {
+          "top_fontes": {
             "items": { "additionalProperties": true, "type": "object" },
             "type": "array",
-            "title": "Top Sources"
+            "title": "Top Fontes"
           }
         },
         "type": "object",
@@ -13196,78 +14447,74 @@
           "archived_count",
           "flagged_count",
           "date_range",
-          "top_diseases",
-          "top_symptoms",
-          "top_regions",
-          "top_sources"
+          "top_doencas",
+          "top_sintomas",
+          "top_localizacoes",
+          "top_fontes"
         ],
         "title": "NoticiaStats",
-        "description": "Estatísticas de notícias."
+        "description": "Estatisticas de noticias."
       },
       "NoticiaUpdate": {
         "properties": {
-          "title": {
+          "titulo": {
             "anyOf": [{ "type": "string", "maxLength": 500, "minLength": 1 }, { "type": "null" }],
-            "title": "Title"
+            "title": "Titulo"
           },
-          "content": {
+          "conteudo": {
             "anyOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }],
-            "title": "Content"
+            "title": "Conteudo"
           },
-          "scraped_time": {
-            "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
-            "title": "Scraped Time"
-          },
-          "scraped_date": {
+          "data_coleta": {
             "anyOf": [
               { "type": "string", "format": "date" },
               { "type": "string" },
               { "type": "null" }
             ],
-            "title": "Scraped Date"
+            "title": "Data Coleta"
           },
-          "urls": {
+          "url_fonte": {
+            "anyOf": [{ "type": "string", "maxLength": 2000 }, { "type": "null" }],
+            "title": "Url Fonte"
+          },
+          "fonte": {
+            "anyOf": [{ "type": "string", "maxLength": 500 }, { "type": "null" }],
+            "title": "Fonte"
+          },
+          "url_imagem": {
+            "anyOf": [{ "type": "string", "maxLength": 1000 }, { "type": "null" }],
+            "title": "Url Imagem",
+            "description": "URL da imagem de capa"
+          },
+          "icone_fonte": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Urls"
+            "title": "Icone Fonte",
+            "description": "Array de URLs dos icones/logos das fontes"
           },
-          "source": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Source"
-          },
-          "url_img": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Url Img",
-            "description": "Array de URLs de imagens"
-          },
-          "source_icon": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Source Icon",
-            "description": "Array de URLs dos ícones/logos das fontes"
-          },
-          "published_at": {
+          "data_publicacao": {
             "anyOf": [
               { "type": "string", "format": "date-time" },
               { "type": "string", "format": "date" },
               { "type": "string" },
               { "type": "null" }
             ],
-            "title": "Published At"
+            "title": "Data Publicacao"
           },
-          "fact_description": {
+          "descricao": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Fact Description"
+            "title": "Descricao"
           },
-          "fact_date_occurred": {
+          "data_evento": {
             "anyOf": [
               { "type": "string", "format": "date" },
               { "type": "string" },
               { "type": "null" }
             ],
-            "title": "Fact Date Occurred"
+            "title": "Data Evento"
           },
-          "relevance_score": {
+          "relevancia": {
             "anyOf": [{ "type": "number", "maximum": 10.0, "minimum": 0.0 }, { "type": "null" }],
-            "title": "Relevance Score"
+            "title": "Relevancia"
           },
           "status": {
             "anyOf": [
@@ -13276,25 +14523,83 @@
             ],
             "title": "Status"
           },
-          "llm_status": {
-            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
-            "title": "Llm Status"
-          },
-          "diseases": {
+          "doencas": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Diseases"
+            "title": "Doencas"
           },
-          "symptoms": {
+          "sintomas": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Symptoms"
+            "title": "Sintomas"
           },
-          "regions": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Regions"
+          "localizacoes": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    { "type": "string" },
+                    { "$ref": "#/components/schemas/LocalizacaoInput" }
+                  ]
+                },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Localizacoes"
+          },
+          "titulo_epidemiologico": {
+            "anyOf": [{ "type": "string", "maxLength": 500 }, { "type": "null" }],
+            "title": "Titulo Epidemiologico"
+          },
+          "tipo_evento": {
+            "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
+            "title": "Tipo Evento"
+          },
+          "numero_casos": {
+            "anyOf": [{ "type": "integer", "minimum": 0.0 }, { "type": "null" }],
+            "title": "Numero Casos"
+          },
+          "numero_mortes": {
+            "anyOf": [{ "type": "integer", "minimum": 0.0 }, { "type": "null" }],
+            "title": "Numero Mortes"
+          },
+          "fonte_oficial": {
+            "anyOf": [{ "type": "string", "maxLength": 300 }, { "type": "null" }],
+            "title": "Fonte Oficial"
+          },
+          "categoria": {
+            "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
+            "title": "Categoria"
+          },
+          "classificacao_onehealth": {
+            "anyOf": [{ "type": "string", "maxLength": 20 }, { "type": "null" }],
+            "title": "Classificacao Onehealth",
+            "description": "Classificacao One Health: Humana, Animal, Ambiental"
+          },
+          "doenca_principal": {
+            "anyOf": [{ "type": "string", "maxLength": 200 }, { "type": "null" }],
+            "title": "Doenca Principal"
+          },
+          "tipo_contagem": {
+            "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
+            "title": "Tipo Contagem"
+          },
+          "titulo_original": {
+            "anyOf": [{ "type": "string", "maxLength": 500 }, { "type": "null" }],
+            "title": "Titulo Original"
+          },
+          "cluster_id": {
+            "anyOf": [{ "type": "string", "format": "uuid" }, { "type": "null" }],
+            "title": "Cluster Id"
+          },
+          "artigos_relacionados": {
+            "anyOf": [{ "items": { "type": "integer" }, "type": "array" }, { "type": "null" }],
+            "title": "Artigos Relacionados",
+            "description": "IDs de artigos relacionados (similaridade 70-89%)"
           }
         },
         "type": "object",
-        "title": "NoticiaUpdate"
+        "title": "NoticiaUpdate",
+        "description": "Schema para atualizacao de noticias (todos os campos opcionais)."
       },
       "NoticiasRelacionadasResponse": {
         "properties": {
@@ -13302,19 +14607,24 @@
             "type": "string",
             "format": "uuid",
             "title": "Noticia Id",
-            "description": "UUID da notícia de referência"
+            "description": "UUID da noticia de referencia"
+          },
+          "criterio_usado": {
+            "type": "string",
+            "title": "Criterio Usado",
+            "description": "Criterio usado para buscar relacionadas: 'cluster' ou 'similaridade'"
           },
           "criterios": {
             "additionalProperties": true,
             "type": "object",
             "title": "Criterios",
-            "description": "Critérios usados para buscar relacionadas (doenças, regiões)"
+            "description": "Detalhes dos criterios usados (cluster_id, doencas, localizacoes)"
           },
           "total": {
             "type": "integer",
             "minimum": 0.0,
             "title": "Total",
-            "description": "Total de notícias relacionadas encontradas"
+            "description": "Total de noticias relacionadas encontradas"
           },
           "data": {
             "items": { "$ref": "#/components/schemas/NoticiaResumida" },
@@ -13323,9 +14633,9 @@
           }
         },
         "type": "object",
-        "required": ["noticia_id", "criterios", "total", "data"],
+        "required": ["noticia_id", "criterio_usado", "criterios", "total", "data"],
         "title": "NoticiasRelacionadasResponse",
-        "description": "Resposta do endpoint de notícias relacionadas."
+        "description": "Resposta do endpoint de noticias relacionadas."
       },
       "OperationalProfileEnum": {
         "type": "string",
@@ -13421,44 +14731,6 @@
         "type": "object",
         "required": ["total", "page", "size", "pages", "items"],
         "title": "PaginatedCnesResponse"
-      },
-      "PaginationInfo": {
-        "properties": {
-          "limit": {
-            "type": "integer",
-            "title": "Limit",
-            "description": "Limite de itens solicitado"
-          },
-          "returned": {
-            "type": "integer",
-            "title": "Returned",
-            "description": "Quantidade de itens retornados nesta página"
-          },
-          "next_cursor": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Next Cursor",
-            "description": "Cursor para próxima página"
-          },
-          "previous_cursor": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Previous Cursor",
-            "description": "Cursor para página anterior"
-          },
-          "has_next": {
-            "type": "boolean",
-            "title": "Has Next",
-            "description": "Se há próxima página"
-          },
-          "has_previous": {
-            "type": "boolean",
-            "title": "Has Previous",
-            "description": "Se há página anterior"
-          }
-        },
-        "type": "object",
-        "required": ["limit", "returned", "has_next", "has_previous"],
-        "title": "PaginationInfo",
-        "description": "Informações de paginação cursor-based."
       },
       "PaginationMeta": {
         "properties": {
@@ -13956,19 +15228,19 @@
             "items": { "additionalProperties": true, "type": "object" },
             "type": "array",
             "title": "Principais Doencas",
-            "description": "Lista com nome da doença e quantidade"
+            "description": "Lista com nome da doenca e quantidade"
           },
-          "principais_regioes": {
+          "principais_localizacoes": {
             "items": { "additionalProperties": true, "type": "object" },
             "type": "array",
-            "title": "Principais Regioes",
-            "description": "Lista com nome da região e quantidade"
+            "title": "Principais Localizacoes",
+            "description": "Lista com nome da localizacao e quantidade"
           }
         },
         "type": "object",
         "required": ["periodo", "quantidade_noticias", "media_relevancia"],
         "title": "PontoTemporal",
-        "description": "Representa um ponto no tempo com suas métricas.\n\nAttributes:\n    periodo: Data do período\n    quantidade_noticias: Quantidade de notícias no período\n    media_relevancia: Média do score de relevância no período\n    principais_doencas: Top 3 doenças mencionadas no período\n    principais_regioes: Top 3 regiões mencionadas no período"
+        "description": "Representa um ponto no tempo com suas metricas.\n\nAttributes:\n    periodo: Data do periodo\n    quantidade_noticias: Quantidade de noticias no periodo\n    media_relevancia: Media do score de relevancia no periodo\n    principais_doencas: Top 3 doencas mencionadas no periodo\n    principais_localizacoes: Top 3 localizacoes mencionadas no periodo"
       },
       "PopulacaoDetalhadaResponse": {
         "properties": {
@@ -14697,7 +15969,7 @@
           "indicadores"
         ],
         "title": "ResumoAlertasNoticias",
-        "description": "Resumo dos alertas do sistema de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados"
+        "description": "Resumo dos alertas do sistema de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados"
       },
       "Sintoma": {
         "properties": {
@@ -14825,7 +16097,7 @@
         "type": "object",
         "required": ["direcao", "variacao_percentual", "dias_analisados"],
         "title": "TendenciaTemporal",
-        "description": "Tendência identificada na série temporal.\n\nAttributes:\n    direcao: Direção da tendência (crescente, decrescente, estável)\n    variacao_percentual: Variação percentual no período\n    dias_analisados: Número de dias analisados"
+        "description": "Tendencia identificada na serie temporal.\n\nAttributes:\n    direcao: Direcao da tendencia (crescente, decrescente, estavel)\n    variacao_percentual: Variacao percentual no periodo\n    dias_analisados: Numero de dias analisados"
       },
       "TipoCaso": {
         "type": "string",
@@ -14865,20 +16137,11 @@
       },
       "Transformacao": {
         "properties": {
-          "tipo": {
-            "type": "string",
-            "title": "Tipo",
-            "description": "Tipo de transformação (renomeacao, derivacao, limpeza, deduplicacao)"
-          },
+          "tipo": { "type": "string", "title": "Tipo", "description": "Tipo de transformação" },
           "descricao": {
             "type": "string",
             "title": "Descricao",
             "description": "Descrição da transformação"
-          },
-          "criterio": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Criterio",
-            "description": "Critério SQL (para deduplicação)"
           },
           "campos": {
             "anyOf": [
@@ -14886,37 +16149,14 @@
                 "items": { "$ref": "#/components/schemas/TransformacaoRenomeacao" },
                 "type": "array"
               },
+              { "items": { "type": "string" }, "type": "array" },
               { "type": "null" }
             ],
             "title": "Campos",
-            "description": "Lista de renomeações"
-          },
-          "campo_novo": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Campo Novo",
-            "description": "Nome do campo derivado"
-          },
-          "formula": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Formula",
-            "description": "Fórmula de derivação"
-          },
-          "campos_afetados": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Campos Afetados",
-            "description": "Campos afetados"
-          },
-          "regra": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Regra",
-            "description": "Regra de limpeza"
-          },
-          "detalhes": {
-            "anyOf": [{ "additionalProperties": true, "type": "object" }, { "type": "null" }],
-            "title": "Detalhes",
-            "description": "Detalhes adicionais"
+            "description": "Lista de campos (renomeações ou nomes de campos afetados)"
           }
         },
+        "additionalProperties": true,
         "type": "object",
         "required": ["tipo", "descricao"],
         "title": "Transformacao",
@@ -14924,13 +16164,21 @@
       },
       "TransformacaoRenomeacao": {
         "properties": {
-          "original": { "type": "string", "title": "Original", "description": "Nome original" },
-          "novo": { "type": "string", "title": "Novo", "description": "Nome novo" }
+          "bronze": {
+            "type": "string",
+            "title": "Bronze",
+            "description": "Nome do campo na camada Bronze"
+          },
+          "silver": {
+            "type": "string",
+            "title": "Silver",
+            "description": "Nome do campo na camada Silver"
+          }
         },
         "type": "object",
-        "required": ["original", "novo"],
+        "required": ["bronze", "silver"],
         "title": "TransformacaoRenomeacao",
-        "description": "Transformação de renomeação de campo."
+        "description": "Transformação de renomeação de campo Bronze→Silver."
       },
       "TrendAnalysis": {
         "properties": {
@@ -16481,6 +17729,82 @@
         ],
         "title": "ExportInfoResponse",
         "description": "Schema para informações gerais de exportação."
+      },
+      "modules__ibge__schemas__PaginationInfo": {
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "title": "Limit",
+            "description": "Limite de itens solicitado"
+          },
+          "returned": {
+            "type": "integer",
+            "title": "Returned",
+            "description": "Quantidade de itens retornados nesta página"
+          },
+          "next_cursor": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Next Cursor",
+            "description": "Cursor para próxima página"
+          },
+          "previous_cursor": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Previous Cursor",
+            "description": "Cursor para página anterior"
+          },
+          "has_next": {
+            "type": "boolean",
+            "title": "Has Next",
+            "description": "Se há próxima página"
+          },
+          "has_previous": {
+            "type": "boolean",
+            "title": "Has Previous",
+            "description": "Se há página anterior"
+          }
+        },
+        "type": "object",
+        "required": ["limit", "returned", "has_next", "has_previous"],
+        "title": "PaginationInfo",
+        "description": "Informações de paginação cursor-based."
+      },
+      "modules__noticias__schemas__PaginationInfo": {
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "title": "Limit",
+            "description": "Limite de itens solicitado"
+          },
+          "returned": {
+            "type": "integer",
+            "title": "Returned",
+            "description": "Quantidade de itens retornados nesta pagina"
+          },
+          "next_cursor": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Next Cursor",
+            "description": "Cursor para proxima pagina"
+          },
+          "previous_cursor": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Previous Cursor",
+            "description": "Cursor para pagina anterior"
+          },
+          "has_next": {
+            "type": "boolean",
+            "title": "Has Next",
+            "description": "Se ha proxima pagina"
+          },
+          "has_previous": {
+            "type": "boolean",
+            "title": "Has Previous",
+            "description": "Se ha pagina anterior"
+          }
+        },
+        "type": "object",
+        "required": ["limit", "returned", "has_next", "has_previous"],
+        "title": "PaginationInfo",
+        "description": "Informacoes de paginacao cursor-based."
       }
     },
     "securitySchemes": {
@@ -16535,16 +17859,21 @@
     },
     { "name": "Detecta - Health Check", "description": "Endpoints de Detecta - Health Check" },
     {
-      "name": "Dengue - Agregações (Gold)",
-      "description": "Dados epidemiológicos de arboviroses: Dengue (Gold e Silver). Preparado para extensão com Zika e Chikungunya."
+      "name": "Arboviroses",
+      "description": "Dados epidemiologicos de arboviroses com routers gerados automaticamente via DiseaseRegistry + EndpointFactory. Preparado para extensao com Zika e Chikungunya."
+    },
+    {
+      "name": "Dengue - Agregacoes (Gold)",
+      "description": "Endpoints de Dengue - Agregacoes (Gold)"
     },
     {
       "name": "Dengue - Detalhes (Silver)",
       "description": "Endpoints de Dengue - Detalhes (Silver)"
     },
+    { "name": "Arboviroses - Discovery", "description": "Endpoints de Arboviroses - Discovery" },
     {
-      "name": "Dengue - Dicionário de Dados",
-      "description": "Endpoints de Dengue - Dicionário de Dados"
+      "name": "Dengue - Dicionario de Dados",
+      "description": "Endpoints de Dengue - Dicionario de Dados"
     },
     { "name": "Dengue - Export Silver", "description": "Endpoints de Dengue - Export Silver" },
     {
@@ -16617,9 +17946,11 @@
     {
       "name": "Arboviroses",
       "tags": [
-        "Dengue - Agregações (Gold)",
+        "Arboviroses",
+        "Dengue - Agregacoes (Gold)",
         "Dengue - Detalhes (Silver)",
-        "Dengue - Dicionário de Dados",
+        "Arboviroses - Discovery",
+        "Dengue - Dicionario de Dados",
         "Dengue - Export Silver"
       ],
       "x-displayName": "Arboviroses",

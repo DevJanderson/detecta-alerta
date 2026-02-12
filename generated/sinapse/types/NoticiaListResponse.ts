@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
+import type { ModulesNoticiasSchemasPaginationInfo } from './ModulesNoticiasSchemasPaginationInfo'
 import type { Noticia } from './Noticia'
 import type { NoticiaFilterInfo } from './NoticiaFilterInfo'
-import type { PaginationInfo } from './PaginationInfo'
 
 /**
- * @description Resposta paginada cursor-based para listagem de notícias.
+ * @description Resposta paginada cursor-based para listagem de noticias.
  */
 export type NoticiaListResponse = {
   /**
-   * @description Informações sobre filtros aplicados na listagem.
+   * @description Informacoes sobre filtros aplicados na listagem.
    * @type object
    */
   filters: NoticiaFilterInfo
   /**
-   * @description Informações de paginação cursor-based.
+   * @description Informacoes de paginacao cursor-based.
    * @type object
    */
-  pagination: PaginationInfo
+  pagination: ModulesNoticiasSchemasPaginationInfo
   /**
    * @type array
    */

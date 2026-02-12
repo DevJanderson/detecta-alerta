@@ -48,7 +48,7 @@ export const getAnaliseGeograficaApiV1NoticiasEstatisticasGeograficaGetQueryPara
 export const getAnaliseGeograficaApiV1NoticiasEstatisticasGeograficaGet200Schema = z
   .lazy(() => analiseGeograficaNoticiasSchema)
   .describe(
-    'Resultado completo da análise geográfica de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    distribuicao_estadual: Distribuição por estado\n    distribuicao_municipal: Top municípios (quando disponível)\n    concentracoes: Áreas de concentração identificadas\n    alertas: Alertas geográficos identificados\n    estados_sem_noticias: Estados sem notícias no período'
+    'Resultado completo da analise geografica de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    distribuicao_estadual: Distribuicao por estado\n    distribuicao_municipal: Top municipios (quando disponivel)\n    concentracoes: Areas de concentracao identificadas\n    alertas: Alertas geograficos identificados\n    estados_sem_noticias: Estados sem noticias no periodo'
   )
 
 /**

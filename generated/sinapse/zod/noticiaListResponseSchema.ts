@@ -3,22 +3,28 @@
  * Do not edit manually.
  */
 
+import { modulesNoticiasSchemasPaginationInfoSchema } from './modulesNoticiasSchemasPaginationInfoSchema'
 import { noticiaFilterInfoSchema } from './noticiaFilterInfoSchema'
 import { noticiaSchema } from './noticiaSchema'
-import { paginationInfoSchema } from './paginationInfoSchema'
 import { z } from 'zod'
 
 /**
- * @description Resposta paginada cursor-based para listagem de notícias.
+ * @description Resposta paginada cursor-based para listagem de noticias.
  */
 export const noticiaListResponseSchema = z
   .object({
     filters: z
       .lazy(() => noticiaFilterInfoSchema)
-      .describe('Informações sobre filtros aplicados na listagem.'),
+      .describe('Informacoes sobre filtros aplicados na listagem.'),
     pagination: z
-      .lazy(() => paginationInfoSchema)
-      .describe('Informações de paginação cursor-based.'),
-    data: z.array(z.lazy(() => noticiaSchema))
+      .lazy(() => modulesNoticiasSchemasPaginationInfoSchema)
+      .describe('Informacoes de paginacao cursor-based.'),
+    data: z.array(
+      z
+        .lazy(() => noticiaSchema)
+        .describe(
+          'Schema de resposta para noticias (herda NoticiaBase com nomenclatura portuguesa).'
+        )
+    )
   })
-  .describe('Resposta paginada cursor-based para listagem de notícias.')
+  .describe('Resposta paginada cursor-based para listagem de noticias.')

@@ -3,14 +3,14 @@
  * Do not edit manually.
  */
 
+import type { BulkCreateResponse } from '../BulkCreateResponse'
 import type { HTTPValidationError } from '../HTTPValidationError'
-import type { Noticia } from '../Noticia'
 import type { NoticiaCreate } from '../NoticiaCreate'
 
 /**
- * @description Notícias criadas com sucesso
+ * @description Resultado da importacao com contagem de criados vs duplicados
  */
-export type BulkCreateNoticiasApiV1NoticiasOperacoesBulkPost200 = Noticia[]
+export type BulkCreateNoticiasApiV1NoticiasOperacoesBulkPost200 = BulkCreateResponse
 
 /**
  * @description Validation Error

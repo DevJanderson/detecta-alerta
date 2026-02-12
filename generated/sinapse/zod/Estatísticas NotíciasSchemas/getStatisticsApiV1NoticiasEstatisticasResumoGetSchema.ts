@@ -11,7 +11,7 @@ import { z } from 'zod'
  */
 export const getStatisticsApiV1NoticiasEstatisticasResumoGet200Schema = z
   .lazy(() => noticiaStatsSchema)
-  .describe('Estatísticas de notícias.')
+  .describe('Estatisticas de noticias.')
 
 export const getStatisticsApiV1NoticiasEstatisticasResumoGetQueryResponseSchema = z.lazy(
   () => getStatisticsApiV1NoticiasEstatisticasResumoGet200Schema

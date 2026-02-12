@@ -4,7 +4,7 @@
  */
 
 /**
- * @description Alerta geográfico identificado.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade do alerta\n    localizacao: Estados ou cidades afetadas\n    mensagem: Descrição do alerta\n    quantidade_noticias: Quantidade de notícias relacionadas
+ * @description Alerta geografico identificado.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade do alerta\n    localizacao: Estados ou cidades afetadas\n    mensagem: Descricao do alerta\n    quantidade_noticias: Quantidade de noticias relacionadas
  */
 export type AlertaGeografico = {
   /**

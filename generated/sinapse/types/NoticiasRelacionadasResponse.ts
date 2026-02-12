@@ -6,23 +6,28 @@
 import type { NoticiaResumida } from './NoticiaResumida'
 
 /**
- * @description Resposta do endpoint de notícias relacionadas.
+ * @description Resposta do endpoint de noticias relacionadas.
  */
 export type NoticiasRelacionadasResponse = {
   /**
-   * @description UUID da notícia de referência
+   * @description UUID da noticia de referencia
    * @type string, uuid
    */
   noticia_id: string
   /**
-   * @description Critérios usados para buscar relacionadas (doenças, regiões)
+   * @description Criterio usado para buscar relacionadas: \'cluster\' ou \'similaridade\'
+   * @type string
+   */
+  criterio_usado: string
+  /**
+   * @description Detalhes dos criterios usados (cluster_id, doencas, localizacoes)
    * @type object
    */
   criterios: {
     [key: string]: any
   }
   /**
-   * @description Total de notícias relacionadas encontradas
+   * @description Total de noticias relacionadas encontradas
    * @minLength 0
    * @type integer
    */

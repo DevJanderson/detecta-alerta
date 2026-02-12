@@ -7,45 +7,80 @@
           "title": "Search Term",
           "description": "Termo de busca aplicado"
         },
-        "diseases": {
+        "doencas": {
           "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-          "title": "Diseases",
-          "description": "Doenças filtradas"
+          "title": "Doencas",
+          "description": "Doencas filtradas"
         },
-        "symptoms": {
+        "sintomas": {
           "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-          "title": "Symptoms",
+          "title": "Sintomas",
           "description": "Sintomas filtrados"
         },
-        "regions": {
+        "localizacoes": {
           "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-          "title": "Regions",
-          "description": "Regiões filtradas"
+          "title": "Localizacoes",
+          "description": "Localizacoes filtradas"
         },
         "states": {
           "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
           "title": "States",
           "description": "Estados filtrados"
         },
-        "sources": {
+        "fonte": {
           "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-          "title": "Sources",
+          "title": "Fonte",
           "description": "Fontes filtradas"
+        },
+        "tipo_evento": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Tipo Evento",
+          "description": "Tipo de evento filtrado"
+        },
+        "categoria": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Categoria",
+          "description": "Categoria filtrada"
+        },
+        "classificacao_onehealth": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "title": "Classificacao Onehealth",
+          "description": "Classificacao One Health filtrada"
+        },
+        "data_coleta_de": {
+          "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+          "title": "Data Coleta De",
+          "description": "Data coleta inicio"
+        },
+        "data_coleta_ate": {
+          "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+          "title": "Data Coleta Ate",
+          "description": "Data coleta fim"
+        },
+        "data_evento_de": {
+          "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+          "title": "Data Evento De",
+          "description": "Data evento inicio"
+        },
+        "data_evento_ate": {
+          "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+          "title": "Data Evento Ate",
+          "description": "Data evento fim"
         },
         "status": {
           "anyOf": [{ "type": "string" }, { "type": "null" }],
           "title": "Status",
           "description": "Status filtrado"
         },
-        "min_relevance": {
+        "relevancia_minima": {
           "anyOf": [{ "type": "number" }, { "type": "null" }],
-          "title": "Min Relevance",
-          "description": "Relevância mínima"
+          "title": "Relevancia Minima",
+          "description": "Relevancia minima"
         }
       },
       "type": "object",
       "title": "NoticiaFilterInfo",
-      "description": "Informações sobre filtros aplicados na listagem.",
+      "description": "Informacoes sobre filtros aplicados na listagem.",
       "x-readme-ref-name": "NoticiaFilterInfo"
     },
     "pagination": {
@@ -58,92 +93,93 @@
         "returned": {
           "type": "integer",
           "title": "Returned",
-          "description": "Quantidade de itens retornados nesta página"
+          "description": "Quantidade de itens retornados nesta pagina"
         },
         "next_cursor": {
           "anyOf": [{ "type": "string" }, { "type": "null" }],
           "title": "Next Cursor",
-          "description": "Cursor para próxima página"
+          "description": "Cursor para proxima pagina"
         },
         "previous_cursor": {
           "anyOf": [{ "type": "string" }, { "type": "null" }],
           "title": "Previous Cursor",
-          "description": "Cursor para página anterior"
+          "description": "Cursor para pagina anterior"
         },
         "has_next": {
           "type": "boolean",
           "title": "Has Next",
-          "description": "Se há próxima página"
+          "description": "Se ha proxima pagina"
         },
         "has_previous": {
           "type": "boolean",
           "title": "Has Previous",
-          "description": "Se há página anterior"
+          "description": "Se ha pagina anterior"
         }
       },
       "type": "object",
       "required": ["limit", "returned", "has_next", "has_previous"],
       "title": "PaginationInfo",
-      "description": "Informações de paginação cursor-based.",
-      "x-readme-ref-name": "PaginationInfo"
+      "description": "Informacoes de paginacao cursor-based.",
+      "x-readme-ref-name": "modules__noticias__schemas__PaginationInfo"
     },
     "data": {
       "items": {
         "properties": {
-          "title": { "type": "string", "maxLength": 500, "minLength": 1, "title": "Title" },
-          "content": { "type": "string", "minLength": 1, "title": "Content" },
-          "scraped_time": {
-            "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
-            "title": "Scraped Time"
+          "titulo": { "type": "string", "maxLength": 500, "minLength": 1, "title": "Titulo" },
+          "conteudo": { "type": "string", "minLength": 1, "title": "Conteudo" },
+          "data_coleta": {
+            "anyOf": [
+              { "type": "string", "format": "date" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Data Coleta",
+            "description": "Data do scraping (opcional, derivada no service)"
           },
-          "scraped_date": {
-            "anyOf": [{ "type": "string", "format": "date" }, { "type": "string" }],
-            "title": "Scraped Date"
+          "url_fonte": {
+            "anyOf": [{ "type": "string", "maxLength": 2000 }, { "type": "null" }],
+            "title": "Url Fonte"
           },
-          "urls": {
+          "fonte": {
+            "anyOf": [{ "type": "string", "maxLength": 500 }, { "type": "null" }],
+            "title": "Fonte"
+          },
+          "url_imagem": {
+            "anyOf": [{ "type": "string", "maxLength": 1000 }, { "type": "null" }],
+            "title": "Url Imagem",
+            "description": "URL da imagem de capa"
+          },
+          "icone_fonte": {
             "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Urls"
+            "title": "Icone Fonte",
+            "description": "Array de URLs dos icones/logos das fontes"
           },
-          "source": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Source"
-          },
-          "url_img": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Url Img",
-            "description": "Array de URLs de imagens"
-          },
-          "source_icon": {
-            "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-            "title": "Source Icon",
-            "description": "Array de URLs dos ícones/logos das fontes"
-          },
-          "published_at": {
+          "data_publicacao": {
             "anyOf": [
               { "type": "string", "format": "date-time" },
               { "type": "string", "format": "date" },
               { "type": "string" },
               { "type": "null" }
             ],
-            "title": "Published At"
+            "title": "Data Publicacao"
           },
-          "fact_description": {
+          "descricao": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Fact Description"
+            "title": "Descricao"
           },
-          "fact_date_occurred": {
+          "data_evento": {
             "anyOf": [
               { "type": "string", "format": "date" },
               { "type": "string" },
               { "type": "null" }
             ],
-            "title": "Fact Date Occurred"
+            "title": "Data Evento"
           },
-          "relevance_score": {
+          "relevancia": {
             "type": "number",
             "maximum": 10,
             "minimum": 0,
-            "title": "Relevance Score",
+            "title": "Relevancia",
             "default": 0
           },
           "status": {
@@ -152,7 +188,6 @@
             "title": "Status",
             "default": "active"
           },
-          "llm_status": { "type": "boolean", "title": "Llm Status", "default": false },
           "id": { "type": "integer", "title": "Id" },
           "unique_id": { "type": "string", "format": "uuid", "title": "Unique Id" },
           "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
@@ -207,7 +242,7 @@
             "title": "Sintomas",
             "default": []
           },
-          "regioes": {
+          "localizacoes": {
             "items": {
               "properties": {
                 "name": { "type": "string", "maxLength": 200, "minLength": 1, "title": "Name" },
@@ -240,21 +275,62 @@
               "x-readme-ref-name": "Regiao"
             },
             "type": "array",
-            "title": "Regioes",
+            "title": "Localizacoes",
             "default": []
+          },
+          "titulo_epidemiologico": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Titulo Epidemiologico"
+          },
+          "tipo_evento": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Tipo Evento"
+          },
+          "numero_casos": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Numero Casos"
+          },
+          "numero_mortes": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Numero Mortes"
+          },
+          "fonte_oficial": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Fonte Oficial"
+          },
+          "categoria": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Categoria"
+          },
+          "classificacao_onehealth": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Classificacao Onehealth"
+          },
+          "doenca_principal": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Doenca Principal"
+          },
+          "tipo_contagem": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Tipo Contagem"
+          },
+          "titulo_original": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Titulo Original"
+          },
+          "cluster_id": {
+            "anyOf": [{ "type": "string", "format": "uuid" }, { "type": "null" }],
+            "title": "Cluster Id"
+          },
+          "artigos_relacionados": {
+            "anyOf": [{ "items": { "type": "integer" }, "type": "array" }, { "type": "null" }],
+            "title": "Artigos Relacionados"
           }
         },
         "type": "object",
-        "required": [
-          "title",
-          "content",
-          "scraped_date",
-          "id",
-          "unique_id",
-          "created_at",
-          "updated_at"
-        ],
+        "required": ["titulo", "conteudo", "id", "unique_id", "created_at", "updated_at"],
         "title": "Noticia",
+        "description": "Schema de resposta para noticias (herda NoticiaBase com nomenclatura portuguesa).",
         "x-readme-ref-name": "Noticia"
       },
       "type": "array",
@@ -264,6 +340,6 @@
   "type": "object",
   "required": ["filters", "pagination", "data"],
   "title": "NoticiaListResponse",
-  "description": "Resposta paginada cursor-based para listagem de notícias.",
+  "description": "Resposta paginada cursor-based para listagem de noticias.",
   "x-readme-ref-name": "NoticiaListResponse"
 }

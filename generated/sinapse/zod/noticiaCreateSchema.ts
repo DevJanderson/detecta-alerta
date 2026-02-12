@@ -3,41 +3,81 @@
  * Do not edit manually.
  */
 
+import { localizacaoInputSchema } from './localizacaoInputSchema'
 import { z } from 'zod'
 
-export const noticiaCreateSchema = z.object({
-  title: z.string().min(1).max(500),
-  content: z.string().min(1),
-  scraped_time: z.optional(z.union([z.string(), z.null()])),
-  scraped_date: z.union([z.string(), z.string().date()]),
-  urls: z.optional(z.union([z.array(z.string()), z.null()])),
-  source: z.optional(z.union([z.array(z.string()), z.null()])),
-  url_img: z.optional(
-    z.union([z.array(z.string()), z.null()]).describe('Array de URLs de imagens')
-  ),
-  source_icon: z.optional(
-    z.union([z.array(z.string()), z.null()]).describe('Array de URLs dos ícones/logos das fontes')
-  ),
-  published_at: z.optional(
-    z.union([z.string(), z.string().datetime(), z.string().date(), z.null()])
-  ),
-  fact_description: z.optional(z.union([z.string(), z.null()])),
-  fact_date_occurred: z.optional(z.union([z.string(), z.string().date(), z.null()])),
-  relevance_score: z.optional(z.number().min(0).max(10).default(0)),
-  status: z.optional(
-    z
-      .string()
-      .regex(/^(active|archived|flagged)$/)
-      .default('active')
-  ),
-  llm_status: z.optional(z.boolean().default(false)),
-  diseases: z.optional(
-    z.union([z.array(z.string()), z.null()]).describe('Lista de nomes de doenças')
-  ),
-  symptoms: z.optional(
-    z.union([z.array(z.string()), z.null()]).describe('Lista de nomes de sintomas')
-  ),
-  regions: z.optional(
-    z.union([z.array(z.string()), z.null()]).describe('Lista de nomes de regiões')
-  )
-})
+/**
+ * @description Schema para criacao de noticias.
+ */
+export const noticiaCreateSchema = z
+  .object({
+    titulo: z.string().min(1).max(500),
+    conteudo: z.string().min(1),
+    data_coleta: z.optional(
+      z
+        .union([z.string(), z.string().date(), z.null()])
+        .describe('Data do scraping (opcional, derivada no service)')
+    ),
+    url_fonte: z.optional(z.union([z.string(), z.null()])),
+    fonte: z.optional(z.union([z.string(), z.null()])),
+    url_imagem: z.optional(z.union([z.string(), z.null()]).describe('URL da imagem de capa')),
+    icone_fonte: z.optional(
+      z.union([z.array(z.string()), z.null()]).describe('Array de URLs dos icones/logos das fontes')
+    ),
+    data_publicacao: z.optional(
+      z.union([z.string(), z.string().datetime(), z.string().date(), z.null()])
+    ),
+    descricao: z.optional(z.union([z.string(), z.null()])),
+    data_evento: z.optional(z.union([z.string(), z.string().date(), z.null()])),
+    relevancia: z.optional(z.number().min(0).max(10).default(0)),
+    status: z.optional(
+      z
+        .string()
+        .regex(/^(active|archived|flagged)$/)
+        .default('active')
+    ),
+    doencas: z.optional(
+      z.union([z.array(z.string()), z.null()]).describe('Lista de nomes de doencas')
+    ),
+    sintomas: z.optional(
+      z.union([z.array(z.string()), z.null()]).describe('Lista de nomes de sintomas')
+    ),
+    localizacoes: z.optional(
+      z
+        .union([z.array(z.union([z.lazy(() => localizacaoInputSchema), z.string()])), z.null()])
+        .describe(
+          "Lista de localizacoes. Aceita strings ('Cidade,UF') ou objetos {pais, estado, cidade}"
+        )
+    ),
+    titulo_epidemiologico: z.optional(z.union([z.string(), z.null()])),
+    tipo_evento: z.optional(z.union([z.string(), z.null()])),
+    numero_casos: z.optional(z.union([z.number().int(), z.null()])),
+    numero_mortes: z.optional(z.union([z.number().int(), z.null()])),
+    fonte_oficial: z.optional(z.union([z.string(), z.null()])),
+    categoria: z.optional(z.union([z.string(), z.null()])),
+    classificacao_onehealth: z.optional(
+      z
+        .union([z.string(), z.null()])
+        .describe('Classificacao One Health: Humana, Animal, Ambiental')
+    ),
+    doenca_principal: z.optional(
+      z.union([z.string(), z.null()]).describe('Doenca principal mencionada')
+    ),
+    tipo_contagem: z.optional(
+      z
+        .union([z.string(), z.null()])
+        .describe(
+          'Tipo: novos_periodo, acumulado_ano, acumulado_historico, nao_epidemiologico, indeterminado'
+        )
+    ),
+    titulo_original: z.optional(
+      z.union([z.string(), z.null()]).describe('Titulo original da materia jornalistica')
+    ),
+    cluster_id: z.optional(z.union([z.string().uuid(), z.null()])),
+    artigos_relacionados: z.optional(
+      z
+        .union([z.array(z.number().int()), z.null()])
+        .describe('IDs de artigos relacionados (similaridade 70-89%)')
+    )
+  })
+  .describe('Schema para criacao de noticias.')

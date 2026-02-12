@@ -6,10 +6,10 @@
     "titulo": { "type": "string", "title": "Titulo" },
     "descricao": { "type": "string", "title": "Descricao" },
     "data_deteccao": { "type": "string", "format": "date-time", "title": "Data Deteccao" },
-    "regioes_afetadas": {
+    "localizacoes_afetadas": {
       "items": { "type": "string" },
       "type": "array",
-      "title": "Regioes Afetadas"
+      "title": "Localizacoes Afetadas"
     },
     "doencas_relacionadas": {
       "items": { "type": "string" },
@@ -30,6 +30,6 @@
     "quantidade_noticias"
   ],
   "title": "AlertaConsolidado",
-  "description": "Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador único\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Título descritivo\n    descricao: Descrição detalhada\n    data_deteccao: Quando foi detectado\n    regioes_afetadas: Regiões afetadas\n    doencas_relacionadas: Doenças relacionadas\n    quantidade_noticias: Total de notícias relacionadas\n    recomendacao: Recomendação de ação",
+  "description": "Alerta consolidado do sistema.\n\nAttributes:\n    id: Identificador unico\n    tipo: Tipo do alerta\n    severidade: Severidade\n    titulo: Titulo descritivo\n    descricao: Descricao detalhada\n    data_deteccao: Quando foi detectado\n    localizacoes_afetadas: Localizacoes afetadas\n    doencas_relacionadas: Doencas relacionadas\n    quantidade_noticias: Total de noticias relacionadas\n    recomendacao: Recomendacao de acao",
   "x-readme-ref-name": "AlertaConsolidado"
 }

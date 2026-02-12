@@ -4,7 +4,7 @@
  */
 
 /**
- * @description Representa um ponto no tempo com suas métricas.\n\nAttributes:\n    periodo: Data do período\n    quantidade_noticias: Quantidade de notícias no período\n    media_relevancia: Média do score de relevância no período\n    principais_doencas: Top 3 doenças mencionadas no período\n    principais_regioes: Top 3 regiões mencionadas no período
+ * @description Representa um ponto no tempo com suas metricas.\n\nAttributes:\n    periodo: Data do periodo\n    quantidade_noticias: Quantidade de noticias no periodo\n    media_relevancia: Media do score de relevancia no periodo\n    principais_doencas: Top 3 doencas mencionadas no periodo\n    principais_localizacoes: Top 3 localizacoes mencionadas no periodo
  */
 export type PontoTemporal = {
   /**
@@ -23,17 +23,17 @@ export type PontoTemporal = {
    */
   media_relevancia: number
   /**
-   * @description Lista com nome da doença e quantidade
+   * @description Lista com nome da doenca e quantidade
    * @type array | undefined
    */
   principais_doencas?: {
     [key: string]: any
   }[]
   /**
-   * @description Lista com nome da região e quantidade
+   * @description Lista com nome da localizacao e quantidade
    * @type array | undefined
    */
-  principais_regioes?: {
+  principais_localizacoes?: {
     [key: string]: any
   }[]
 }

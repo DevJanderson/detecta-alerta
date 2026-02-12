@@ -8,38 +8,55 @@ import { regiaoSchema } from './regiaoSchema'
 import { sintomaSchema } from './sintomaSchema'
 import { z } from 'zod'
 
-export const noticiaSchema = z.object({
-  title: z.string().min(1).max(500),
-  content: z.string().min(1),
-  scraped_time: z.optional(z.union([z.string(), z.null()])),
-  scraped_date: z.union([z.string(), z.string().date()]),
-  urls: z.optional(z.union([z.array(z.string()), z.null()])),
-  source: z.optional(z.union([z.array(z.string()), z.null()])),
-  url_img: z.optional(
-    z.union([z.array(z.string()), z.null()]).describe('Array de URLs de imagens')
-  ),
-  source_icon: z.optional(
-    z.union([z.array(z.string()), z.null()]).describe('Array de URLs dos ícones/logos das fontes')
-  ),
-  published_at: z.optional(
-    z.union([z.string(), z.string().datetime(), z.string().date(), z.null()])
-  ),
-  fact_description: z.optional(z.union([z.string(), z.null()])),
-  fact_date_occurred: z.optional(z.union([z.string(), z.string().date(), z.null()])),
-  relevance_score: z.optional(z.number().min(0).max(10).default(0)),
-  status: z.optional(
-    z
-      .string()
-      .regex(/^(active|archived|flagged)$/)
-      .default('active')
-  ),
-  llm_status: z.optional(z.boolean().default(false)),
-  id: z.number().int(),
-  unique_id: z.string().uuid(),
-  created_at: z.string().datetime(),
-  updated_at: z.string().datetime(),
-  deleted_at: z.optional(z.union([z.string().datetime(), z.null()])),
-  doencas: z.optional(z.array(z.lazy(() => doencaSchema))),
-  sintomas: z.optional(z.array(z.lazy(() => sintomaSchema))),
-  regioes: z.optional(z.array(z.lazy(() => regiaoSchema)))
-})
+/**
+ * @description Schema de resposta para noticias (herda NoticiaBase com nomenclatura portuguesa).
+ */
+export const noticiaSchema = z
+  .object({
+    titulo: z.string().min(1).max(500),
+    conteudo: z.string().min(1),
+    data_coleta: z.optional(
+      z
+        .union([z.string(), z.string().date(), z.null()])
+        .describe('Data do scraping (opcional, derivada no service)')
+    ),
+    url_fonte: z.optional(z.union([z.string(), z.null()])),
+    fonte: z.optional(z.union([z.string(), z.null()])),
+    url_imagem: z.optional(z.union([z.string(), z.null()]).describe('URL da imagem de capa')),
+    icone_fonte: z.optional(
+      z.union([z.array(z.string()), z.null()]).describe('Array de URLs dos icones/logos das fontes')
+    ),
+    data_publicacao: z.optional(
+      z.union([z.string(), z.string().datetime(), z.string().date(), z.null()])
+    ),
+    descricao: z.optional(z.union([z.string(), z.null()])),
+    data_evento: z.optional(z.union([z.string(), z.string().date(), z.null()])),
+    relevancia: z.optional(z.number().min(0).max(10).default(0)),
+    status: z.optional(
+      z
+        .string()
+        .regex(/^(active|archived|flagged)$/)
+        .default('active')
+    ),
+    id: z.number().int(),
+    unique_id: z.string().uuid(),
+    created_at: z.string().datetime(),
+    updated_at: z.string().datetime(),
+    deleted_at: z.optional(z.union([z.string().datetime(), z.null()])),
+    doencas: z.optional(z.array(z.lazy(() => doencaSchema))),
+    sintomas: z.optional(z.array(z.lazy(() => sintomaSchema))),
+    localizacoes: z.optional(z.array(z.lazy(() => regiaoSchema))),
+    titulo_epidemiologico: z.optional(z.union([z.string(), z.null()])),
+    tipo_evento: z.optional(z.union([z.string(), z.null()])),
+    numero_casos: z.optional(z.union([z.number().int(), z.null()])),
+    numero_mortes: z.optional(z.union([z.number().int(), z.null()])),
+    fonte_oficial: z.optional(z.union([z.string(), z.null()])),
+    categoria: z.optional(z.union([z.string(), z.null()])),
+    classificacao_onehealth: z.optional(z.union([z.string(), z.null()])),
+    doenca_principal: z.optional(z.union([z.string(), z.null()])),
+    tipo_contagem: z.optional(z.union([z.string(), z.null()])),
+    titulo_original: z.optional(z.union([z.string(), z.null()])),
+    cluster_id: z.optional(z.union([z.string().uuid(), z.null()])),
+    artigos_relacionados: z.optional(z.union([z.array(z.number().int()), z.null()]))
+  })
+  .describe('Schema de resposta para noticias (herda NoticiaBase com nomenclatura portuguesa).')

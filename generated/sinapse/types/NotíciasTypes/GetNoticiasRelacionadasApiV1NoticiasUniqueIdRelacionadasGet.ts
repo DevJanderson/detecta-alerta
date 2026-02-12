@@ -25,7 +25,7 @@ export type GetNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGetQueryPara
 }
 
 /**
- * @description Lista de notícias relacionadas
+ * @description Lista de noticias relacionadas com criterio usado
  */
 export type GetNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGet200 =
   NoticiasRelacionadasResponse

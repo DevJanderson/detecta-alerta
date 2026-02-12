@@ -11,48 +11,48 @@ import { tendenciaTemporalSchema } from './tendenciaTemporalSchema'
 import { z } from 'zod'
 
 /**
- * @description Resultado completo da análise temporal de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    serie_temporal: Lista de pontos temporais\n    estatisticas_periodo: Estatísticas agregadas do período\n    tendencia: Tendência identificada\n    alertas: Lista de alertas temporais\n    doencas_em_alta: Doenças com maior crescimento no período\n    regioes_em_destaque: Regiões com maior atividade
+ * @description Resultado completo da analise temporal de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    serie_temporal: Lista de pontos temporais\n    estatisticas_periodo: Estatisticas agregadas do periodo\n    tendencia: Tendencia identificada\n    alertas: Lista de alertas temporais\n    doencas_em_alta: Doencas com maior crescimento no periodo\n    localizacoes_em_destaque: Localizacoes com maior atividade
  */
 export const analiseTemporalNoticiasSchema = z
   .object({
     metadata: z
       .lazy(() => metadadosAnaliseSchema)
       .describe(
-        'Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado'
+        'Metadados padrao para todas as analises estatisticas.\n\nAttributes:\n    periodo_analise: Periodo temporal da analise\n    filtros_aplicados: Filtros que foram aplicados na analise\n    data_geracao: Timestamp de quando a analise foi gerada\n    versao_analise: Versao do algoritmo de analise utilizado'
       ),
     serie_temporal: z.array(
       z
         .lazy(() => pontoTemporalSchema)
         .describe(
-          'Representa um ponto no tempo com suas métricas.\n\nAttributes:\n    periodo: Data do período\n    quantidade_noticias: Quantidade de notícias no período\n    media_relevancia: Média do score de relevância no período\n    principais_doencas: Top 3 doenças mencionadas no período\n    principais_regioes: Top 3 regiões mencionadas no período'
+          'Representa um ponto no tempo com suas metricas.\n\nAttributes:\n    periodo: Data do periodo\n    quantidade_noticias: Quantidade de noticias no periodo\n    media_relevancia: Media do score de relevancia no periodo\n    principais_doencas: Top 3 doencas mencionadas no periodo\n    principais_localizacoes: Top 3 localizacoes mencionadas no periodo'
         )
     ),
     estatisticas_periodo: z
       .lazy(() => estatisticasPeriodoSchema)
       .describe(
-        'Estatísticas agregadas do período analisado.\n\nAttributes:\n    total_noticias: Total de notícias no período\n    media_por_dia: Média de notícias por dia\n    dia_pico: Dia com maior número de notícias\n    quantidade_pico: Quantidade de notícias no dia de pico\n    media_relevancia_geral: Média geral do score de relevância'
+        'Estatisticas agregadas do periodo analisado.\n\nAttributes:\n    total_noticias: Total de noticias no periodo\n    media_por_dia: Media de noticias por dia\n    dia_pico: Dia com maior numero de noticias\n    quantidade_pico: Quantidade de noticias no dia de pico\n    media_relevancia_geral: Media geral do score de relevancia'
       ),
     tendencia: z
       .lazy(() => tendenciaTemporalSchema)
       .describe(
-        'Tendência identificada na série temporal.\n\nAttributes:\n    direcao: Direção da tendência (crescente, decrescente, estável)\n    variacao_percentual: Variação percentual no período\n    dias_analisados: Número de dias analisados'
+        'Tendencia identificada na serie temporal.\n\nAttributes:\n    direcao: Direcao da tendencia (crescente, decrescente, estavel)\n    variacao_percentual: Variacao percentual no periodo\n    dias_analisados: Numero de dias analisados'
       ),
     alertas: z.optional(
       z.array(
         z
           .lazy(() => alertaTemporalSchema)
           .describe(
-            'Alerta identificado na análise temporal.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade (baixa, media, alta)\n    data_deteccao: Data onde o alerta foi identificado\n    mensagem: Descrição do alerta\n    quantidade_noticias: Quantidade de notícias relacionadas'
+            'Alerta identificado na analise temporal.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade (baixa, media, alta)\n    data_deteccao: Data onde o alerta foi identificado\n    mensagem: Descricao do alerta\n    quantidade_noticias: Quantidade de noticias relacionadas'
           )
       )
     ),
     doencas_em_alta: z.optional(
-      z.array(z.object({}).catchall(z.any())).describe('Doenças com maior crescimento')
+      z.array(z.object({}).catchall(z.any())).describe('Doencas com maior crescimento')
     ),
-    regioes_em_destaque: z.optional(
-      z.array(z.object({}).catchall(z.any())).describe('Regiões com maior atividade')
+    localizacoes_em_destaque: z.optional(
+      z.array(z.object({}).catchall(z.any())).describe('Localizacoes com maior atividade')
     )
   })
   .describe(
-    'Resultado completo da análise temporal de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    serie_temporal: Lista de pontos temporais\n    estatisticas_periodo: Estatísticas agregadas do período\n    tendencia: Tendência identificada\n    alertas: Lista de alertas temporais\n    doencas_em_alta: Doenças com maior crescimento no período\n    regioes_em_destaque: Regiões com maior atividade'
+    'Resultado completo da analise temporal de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    serie_temporal: Lista de pontos temporais\n    estatisticas_periodo: Estatisticas agregadas do periodo\n    tendencia: Tendencia identificada\n    alertas: Lista de alertas temporais\n    doencas_em_alta: Doencas com maior crescimento no periodo\n    localizacoes_em_destaque: Localizacoes com maior atividade'
   )

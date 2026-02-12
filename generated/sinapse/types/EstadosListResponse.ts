@@ -4,7 +4,7 @@
  */
 
 import type { EstadoResponse } from './EstadoResponse'
-import type { PaginationInfo } from './PaginationInfo'
+import type { ModulesIbgeSchemasPaginationInfo } from './ModulesIbgeSchemasPaginationInfo'
 
 /**
  * @description Resposta com lista de estados.
@@ -14,7 +14,7 @@ export type EstadosListResponse = {
    * @description Informações de paginação cursor-based.
    * @type object
    */
-  pagination: PaginationInfo
+  pagination: ModulesIbgeSchemasPaginationInfo
   /**
    * @description Lista de estados
    * @type array

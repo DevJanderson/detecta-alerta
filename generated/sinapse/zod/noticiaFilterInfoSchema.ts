@@ -6,17 +6,32 @@
 import { z } from 'zod'
 
 /**
- * @description Informações sobre filtros aplicados na listagem.
+ * @description Informacoes sobre filtros aplicados na listagem.
  */
 export const noticiaFilterInfoSchema = z
   .object({
     search_term: z.optional(z.union([z.string(), z.null()]).describe('Termo de busca aplicado')),
-    diseases: z.optional(z.union([z.array(z.string()), z.null()]).describe('Doenças filtradas')),
-    symptoms: z.optional(z.union([z.array(z.string()), z.null()]).describe('Sintomas filtrados')),
-    regions: z.optional(z.union([z.array(z.string()), z.null()]).describe('Regiões filtradas')),
+    doencas: z.optional(z.union([z.array(z.string()), z.null()]).describe('Doencas filtradas')),
+    sintomas: z.optional(z.union([z.array(z.string()), z.null()]).describe('Sintomas filtrados')),
+    localizacoes: z.optional(
+      z.union([z.array(z.string()), z.null()]).describe('Localizacoes filtradas')
+    ),
     states: z.optional(z.union([z.array(z.string()), z.null()]).describe('Estados filtrados')),
-    sources: z.optional(z.union([z.array(z.string()), z.null()]).describe('Fontes filtradas')),
+    fonte: z.optional(z.union([z.array(z.string()), z.null()]).describe('Fontes filtradas')),
+    tipo_evento: z.optional(z.union([z.string(), z.null()]).describe('Tipo de evento filtrado')),
+    categoria: z.optional(z.union([z.string(), z.null()]).describe('Categoria filtrada')),
+    classificacao_onehealth: z.optional(
+      z.union([z.string(), z.null()]).describe('Classificacao One Health filtrada')
+    ),
+    data_coleta_de: z.optional(
+      z.union([z.string().date(), z.null()]).describe('Data coleta inicio')
+    ),
+    data_coleta_ate: z.optional(z.union([z.string().date(), z.null()]).describe('Data coleta fim')),
+    data_evento_de: z.optional(
+      z.union([z.string().date(), z.null()]).describe('Data evento inicio')
+    ),
+    data_evento_ate: z.optional(z.union([z.string().date(), z.null()]).describe('Data evento fim')),
     status: z.optional(z.union([z.string(), z.null()]).describe('Status filtrado')),
-    min_relevance: z.optional(z.union([z.number(), z.null()]).describe('Relevância mínima'))
+    relevancia_minima: z.optional(z.union([z.number(), z.null()]).describe('Relevancia minima'))
   })
-  .describe('Informações sobre filtros aplicados na listagem.')
+  .describe('Informacoes sobre filtros aplicados na listagem.')

@@ -5,44 +5,79 @@
       "title": "Search Term",
       "description": "Termo de busca aplicado"
     },
-    "diseases": {
+    "doencas": {
       "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-      "title": "Diseases",
-      "description": "Doenças filtradas"
+      "title": "Doencas",
+      "description": "Doencas filtradas"
     },
-    "symptoms": {
+    "sintomas": {
       "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-      "title": "Symptoms",
+      "title": "Sintomas",
       "description": "Sintomas filtrados"
     },
-    "regions": {
+    "localizacoes": {
       "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-      "title": "Regions",
-      "description": "Regiões filtradas"
+      "title": "Localizacoes",
+      "description": "Localizacoes filtradas"
     },
     "states": {
       "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
       "title": "States",
       "description": "Estados filtrados"
     },
-    "sources": {
+    "fonte": {
       "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-      "title": "Sources",
+      "title": "Fonte",
       "description": "Fontes filtradas"
+    },
+    "tipo_evento": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Tipo Evento",
+      "description": "Tipo de evento filtrado"
+    },
+    "categoria": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Categoria",
+      "description": "Categoria filtrada"
+    },
+    "classificacao_onehealth": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Classificacao Onehealth",
+      "description": "Classificacao One Health filtrada"
+    },
+    "data_coleta_de": {
+      "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+      "title": "Data Coleta De",
+      "description": "Data coleta inicio"
+    },
+    "data_coleta_ate": {
+      "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+      "title": "Data Coleta Ate",
+      "description": "Data coleta fim"
+    },
+    "data_evento_de": {
+      "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+      "title": "Data Evento De",
+      "description": "Data evento inicio"
+    },
+    "data_evento_ate": {
+      "anyOf": [{ "type": "string", "format": "date" }, { "type": "null" }],
+      "title": "Data Evento Ate",
+      "description": "Data evento fim"
     },
     "status": {
       "anyOf": [{ "type": "string" }, { "type": "null" }],
       "title": "Status",
       "description": "Status filtrado"
     },
-    "min_relevance": {
+    "relevancia_minima": {
       "anyOf": [{ "type": "number" }, { "type": "null" }],
-      "title": "Min Relevance",
-      "description": "Relevância mínima"
+      "title": "Relevancia Minima",
+      "description": "Relevancia minima"
     }
   },
   "type": "object",
   "title": "NoticiaFilterInfo",
-  "description": "Informações sobre filtros aplicados na listagem.",
+  "description": "Informacoes sobre filtros aplicados na listagem.",
   "x-readme-ref-name": "NoticiaFilterInfo"
 }

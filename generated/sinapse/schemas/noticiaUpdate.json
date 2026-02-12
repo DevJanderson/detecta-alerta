@@ -1,79 +1,157 @@
 {
   "properties": {
-    "title": {
+    "titulo": {
       "anyOf": [{ "type": "string", "maxLength": 500, "minLength": 1 }, { "type": "null" }],
-      "title": "Title"
+      "title": "Titulo"
     },
-    "content": {
+    "conteudo": {
       "anyOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }],
-      "title": "Content"
+      "title": "Conteudo"
     },
-    "scraped_time": {
-      "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
-      "title": "Scraped Time"
-    },
-    "scraped_date": {
+    "data_coleta": {
       "anyOf": [{ "type": "string", "format": "date" }, { "type": "string" }, { "type": "null" }],
-      "title": "Scraped Date"
+      "title": "Data Coleta"
     },
-    "urls": {
+    "url_fonte": {
+      "anyOf": [{ "type": "string", "maxLength": 2000 }, { "type": "null" }],
+      "title": "Url Fonte"
+    },
+    "fonte": {
+      "anyOf": [{ "type": "string", "maxLength": 500 }, { "type": "null" }],
+      "title": "Fonte"
+    },
+    "url_imagem": {
+      "anyOf": [{ "type": "string", "maxLength": 1000 }, { "type": "null" }],
+      "title": "Url Imagem",
+      "description": "URL da imagem de capa"
+    },
+    "icone_fonte": {
       "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-      "title": "Urls"
+      "title": "Icone Fonte",
+      "description": "Array de URLs dos icones/logos das fontes"
     },
-    "source": {
-      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-      "title": "Source"
-    },
-    "url_img": {
-      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-      "title": "Url Img",
-      "description": "Array de URLs de imagens"
-    },
-    "source_icon": {
-      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-      "title": "Source Icon",
-      "description": "Array de URLs dos ícones/logos das fontes"
-    },
-    "published_at": {
+    "data_publicacao": {
       "anyOf": [
         { "type": "string", "format": "date-time" },
         { "type": "string", "format": "date" },
         { "type": "string" },
         { "type": "null" }
       ],
-      "title": "Published At"
+      "title": "Data Publicacao"
     },
-    "fact_description": {
-      "anyOf": [{ "type": "string" }, { "type": "null" }],
-      "title": "Fact Description"
-    },
-    "fact_date_occurred": {
+    "descricao": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Descricao" },
+    "data_evento": {
       "anyOf": [{ "type": "string", "format": "date" }, { "type": "string" }, { "type": "null" }],
-      "title": "Fact Date Occurred"
+      "title": "Data Evento"
     },
-    "relevance_score": {
+    "relevancia": {
       "anyOf": [{ "type": "number", "maximum": 10, "minimum": 0 }, { "type": "null" }],
-      "title": "Relevance Score"
+      "title": "Relevancia"
     },
     "status": {
       "anyOf": [{ "type": "string", "pattern": "^(active|archived|flagged)$" }, { "type": "null" }],
       "title": "Status"
     },
-    "llm_status": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Llm Status" },
-    "diseases": {
+    "doencas": {
       "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-      "title": "Diseases"
+      "title": "Doencas"
     },
-    "symptoms": {
+    "sintomas": {
       "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-      "title": "Symptoms"
+      "title": "Sintomas"
     },
-    "regions": {
-      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-      "title": "Regions"
+    "localizacoes": {
+      "anyOf": [
+        {
+          "items": {
+            "anyOf": [
+              { "type": "string" },
+              {
+                "properties": {
+                  "pais": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "title": "Pais",
+                    "description": "Nome do pais",
+                    "default": "Brasil"
+                  },
+                  "estado": {
+                    "anyOf": [{ "type": "string", "maxLength": 2 }, { "type": "null" }],
+                    "title": "Estado",
+                    "description": "Sigla do estado (ex: SP, RJ)"
+                  },
+                  "cidade": {
+                    "anyOf": [{ "type": "string", "maxLength": 200 }, { "type": "null" }],
+                    "title": "Cidade",
+                    "description": "Nome da cidade"
+                  }
+                },
+                "type": "object",
+                "title": "LocalizacaoInput",
+                "description": "Localizacao estruturada para criacao de noticias.\nFormato alternativo ao string 'Cidade,UF'.",
+                "x-readme-ref-name": "LocalizacaoInput"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        { "type": "null" }
+      ],
+      "title": "Localizacoes"
+    },
+    "titulo_epidemiologico": {
+      "anyOf": [{ "type": "string", "maxLength": 500 }, { "type": "null" }],
+      "title": "Titulo Epidemiologico"
+    },
+    "tipo_evento": {
+      "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
+      "title": "Tipo Evento"
+    },
+    "numero_casos": {
+      "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }],
+      "title": "Numero Casos"
+    },
+    "numero_mortes": {
+      "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }],
+      "title": "Numero Mortes"
+    },
+    "fonte_oficial": {
+      "anyOf": [{ "type": "string", "maxLength": 300 }, { "type": "null" }],
+      "title": "Fonte Oficial"
+    },
+    "categoria": {
+      "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
+      "title": "Categoria"
+    },
+    "classificacao_onehealth": {
+      "anyOf": [{ "type": "string", "maxLength": 20 }, { "type": "null" }],
+      "title": "Classificacao Onehealth",
+      "description": "Classificacao One Health: Humana, Animal, Ambiental"
+    },
+    "doenca_principal": {
+      "anyOf": [{ "type": "string", "maxLength": 200 }, { "type": "null" }],
+      "title": "Doenca Principal"
+    },
+    "tipo_contagem": {
+      "anyOf": [{ "type": "string", "maxLength": 50 }, { "type": "null" }],
+      "title": "Tipo Contagem"
+    },
+    "titulo_original": {
+      "anyOf": [{ "type": "string", "maxLength": 500 }, { "type": "null" }],
+      "title": "Titulo Original"
+    },
+    "cluster_id": {
+      "anyOf": [{ "type": "string", "format": "uuid" }, { "type": "null" }],
+      "title": "Cluster Id"
+    },
+    "artigos_relacionados": {
+      "anyOf": [{ "items": { "type": "integer" }, "type": "array" }, { "type": "null" }],
+      "title": "Artigos Relacionados",
+      "description": "IDs de artigos relacionados (similaridade 70-89%)"
     }
   },
   "type": "object",
   "title": "NoticiaUpdate",
+  "description": "Schema para atualizacao de noticias (todos os campos opcionais).",
   "x-readme-ref-name": "NoticiaUpdate"
 }

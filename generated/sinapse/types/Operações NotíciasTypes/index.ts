@@ -13,12 +13,12 @@ export type {
   ListDoencasApiV1NoticiasOperacoesDoencasGetQuery
 } from './ListDoencasApiV1NoticiasOperacoesDoencasGet'
 export type {
-  ListRegioesApiV1NoticiasOperacoesRegioesGetQueryParams,
-  ListRegioesApiV1NoticiasOperacoesRegioesGet200,
-  ListRegioesApiV1NoticiasOperacoesRegioesGet422,
-  ListRegioesApiV1NoticiasOperacoesRegioesGetQueryResponse,
-  ListRegioesApiV1NoticiasOperacoesRegioesGetQuery
-} from './ListRegioesApiV1NoticiasOperacoesRegioesGet'
+  ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetQueryParams,
+  ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGet200,
+  ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGet422,
+  ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetQueryResponse,
+  ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetQuery
+} from './ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGet'
 export type {
   ListSintomasApiV1NoticiasOperacoesSintomasGetQueryParams,
   ListSintomasApiV1NoticiasOperacoesSintomasGet200,

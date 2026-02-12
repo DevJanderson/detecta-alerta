@@ -39,7 +39,7 @@ export const getAlertasApiV1NoticiasEstatisticasAlertasGetQueryParamsSchema = z.
 export const getAlertasApiV1NoticiasEstatisticasAlertasGet200Schema = z
   .lazy(() => resumoAlertasNoticiasSchema)
   .describe(
-    'Resumo dos alertas do sistema de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados'
+    'Resumo dos alertas do sistema de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados'
   )
 
 /**

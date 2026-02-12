@@ -11,14 +11,18 @@ import { z } from 'zod'
 /**
  * @description Notícia criada com sucesso
  */
-export const createNoticiaApiV1NoticiasPost201Schema = z.lazy(() => noticiaSchema)
+export const createNoticiaApiV1NoticiasPost201Schema = z
+  .lazy(() => noticiaSchema)
+  .describe('Schema de resposta para noticias (herda NoticiaBase com nomenclatura portuguesa).')
 
 /**
  * @description Validation Error
  */
 export const createNoticiaApiV1NoticiasPost422Schema = z.lazy(() => HTTPValidationErrorSchema)
 
-export const createNoticiaApiV1NoticiasPostMutationRequestSchema = z.lazy(() => noticiaCreateSchema)
+export const createNoticiaApiV1NoticiasPostMutationRequestSchema = z
+  .lazy(() => noticiaCreateSchema)
+  .describe('Schema para criacao de noticias.')
 
 export const createNoticiaApiV1NoticiasPostMutationResponseSchema = z.lazy(
   () => createNoticiaApiV1NoticiasPost201Schema

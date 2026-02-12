@@ -3,17 +3,17 @@
  * Do not edit manually.
  */
 
+import { bulkCreateResponseSchema } from '../bulkCreateResponseSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { noticiaCreateSchema } from '../noticiaCreateSchema'
-import { noticiaSchema } from '../noticiaSchema'
 import { z } from 'zod'
 
 /**
- * @description Notícias criadas com sucesso
+ * @description Resultado da importacao com contagem de criados vs duplicados
  */
-export const bulkCreateNoticiasApiV1NoticiasOperacoesBulkPost200Schema = z.array(
-  z.lazy(() => noticiaSchema)
-)
+export const bulkCreateNoticiasApiV1NoticiasOperacoesBulkPost200Schema = z
+  .lazy(() => bulkCreateResponseSchema)
+  .describe('Resposta do endpoint de criacao em massa com contagem de dedup.')
 
 /**
  * @description Validation Error
@@ -23,7 +23,7 @@ export const bulkCreateNoticiasApiV1NoticiasOperacoesBulkPost422Schema = z.lazy(
 )
 
 export const bulkCreateNoticiasApiV1NoticiasOperacoesBulkPostMutationRequestSchema = z.array(
-  z.lazy(() => noticiaCreateSchema)
+  z.lazy(() => noticiaCreateSchema).describe('Schema para criacao de noticias.')
 )
 
 export const bulkCreateNoticiasApiV1NoticiasOperacoesBulkPostMutationResponseSchema = z.lazy(

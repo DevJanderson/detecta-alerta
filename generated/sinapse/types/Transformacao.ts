@@ -10,7 +10,7 @@ import type { TransformacaoRenomeacao } from './TransformacaoRenomeacao'
  */
 export type Transformacao = {
   /**
-   * @description Tipo de transformação (renomeacao, derivacao, limpeza, deduplicacao)
+   * @description Tipo de transformação
    * @type string
    */
   tipo: string
@@ -20,33 +20,8 @@ export type Transformacao = {
    */
   descricao: string
   /**
-   * @description Critério SQL (para deduplicação)
+   * @description Lista de campos (renomeações ou nomes de campos afetados)
    */
-  criterio?: string | null
-  /**
-   * @description Lista de renomeações
-   */
-  campos?: TransformacaoRenomeacao[] | null
-  /**
-   * @description Nome do campo derivado
-   */
-  campo_novo?: string | null
-  /**
-   * @description Fórmula de derivação
-   */
-  formula?: string | null
-  /**
-   * @description Campos afetados
-   */
-  campos_afetados?: string[] | null
-  /**
-   * @description Regra de limpeza
-   */
-  regra?: string | null
-  /**
-   * @description Detalhes adicionais
-   */
-  detalhes?: {
-    [key: string]: any
-  } | null
+  campos?: TransformacaoRenomeacao[] | string[] | null
+  [key: string]: unknown
 }

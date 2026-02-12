@@ -6,31 +6,31 @@
           "additionalProperties": { "type": "string", "format": "date" },
           "type": "object",
           "title": "Periodo Analise",
-          "description": "Período da análise com 'inicio' e 'fim'"
+          "description": "Periodo da analise com 'inicio' e 'fim'"
         },
         "filtros_aplicados": {
           "additionalProperties": true,
           "type": "object",
           "title": "Filtros Aplicados",
-          "description": "Filtros aplicados na análise"
+          "description": "Filtros aplicados na analise"
         },
         "data_geracao": {
           "type": "string",
           "format": "date-time",
           "title": "Data Geracao",
-          "description": "Data/hora de geração da análise"
+          "description": "Data/hora de geracao da analise"
         },
         "versao_analise": {
           "type": "string",
           "title": "Versao Analise",
-          "description": "Versão do algoritmo de análise",
+          "description": "Versao do algoritmo de analise",
           "default": "0.0.1"
         }
       },
       "type": "object",
       "required": ["periodo_analise", "data_geracao"],
       "title": "MetadadosAnalise",
-      "description": "Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado",
+      "description": "Metadados padrao para todas as analises estatisticas.\n\nAttributes:\n    periodo_analise: Periodo temporal da analise\n    filtros_aplicados: Filtros que foram aplicados na analise\n    data_geracao: Timestamp de quando a analise foi gerada\n    versao_analise: Versao do algoritmo de analise utilizado",
       "x-readme-ref-name": "MetadadosAnalise"
     },
     "distribuicao_estadual": {
@@ -75,7 +75,7 @@
         "type": "object",
         "required": ["nome", "quantidade_noticias", "percentual_total", "media_relevancia"],
         "title": "DadoGeografico",
-        "description": "Dados de uma unidade geográfica.\n\nAttributes:\n    nome: Nome da região\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de notícias\n    percentual_total: Percentual do total\n    media_relevancia: Média de relevância das notícias\n    principais_doencas: Principais doenças mencionadas\n    coordenadas: Coordenadas geográficas (opcional)",
+        "description": "Dados de uma unidade geografica.\n\nAttributes:\n    nome: Nome da regiao\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de noticias\n    percentual_total: Percentual do total\n    media_relevancia: Media de relevancia das noticias\n    principais_doencas: Principais doencas mencionadas\n    coordenadas: Coordenadas geograficas (opcional)",
         "x-readme-ref-name": "DadoGeografico"
       },
       "type": "array",
@@ -123,7 +123,7 @@
         "type": "object",
         "required": ["nome", "quantidade_noticias", "percentual_total", "media_relevancia"],
         "title": "DadoGeografico",
-        "description": "Dados de uma unidade geográfica.\n\nAttributes:\n    nome: Nome da região\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de notícias\n    percentual_total: Percentual do total\n    media_relevancia: Média de relevância das notícias\n    principais_doencas: Principais doenças mencionadas\n    coordenadas: Coordenadas geográficas (opcional)",
+        "description": "Dados de uma unidade geografica.\n\nAttributes:\n    nome: Nome da regiao\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de noticias\n    percentual_total: Percentual do total\n    media_relevancia: Media de relevancia das noticias\n    principais_doencas: Principais doencas mencionadas\n    coordenadas: Coordenadas geograficas (opcional)",
         "x-readme-ref-name": "DadoGeografico"
       },
       "type": "array",
@@ -152,7 +152,7 @@
         "type": "object",
         "required": ["estados_afetados", "total_noticias", "percentual_nacional"],
         "title": "ConcentracaoGeografica",
-        "description": "Área de concentração de notícias.\n\nAttributes:\n    estados_afetados: Lista de estados na concentração\n    total_noticias: Total de notícias na área\n    percentual_nacional: Percentual em relação ao total nacional\n    doenca_predominante: Doença mais mencionada na área",
+        "description": "Area de concentracao de noticias.\n\nAttributes:\n    estados_afetados: Lista de estados na concentracao\n    total_noticias: Total de noticias na area\n    percentual_nacional: Percentual em relacao ao total nacional\n    doenca_predominante: Doenca mais mencionada na area",
         "x-readme-ref-name": "ConcentracaoGeografica"
       },
       "type": "array",
@@ -178,7 +178,7 @@
         "type": "object",
         "required": ["tipo", "severidade", "localizacao", "mensagem", "quantidade_noticias"],
         "title": "AlertaGeografico",
-        "description": "Alerta geográfico identificado.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade do alerta\n    localizacao: Estados ou cidades afetadas\n    mensagem: Descrição do alerta\n    quantidade_noticias: Quantidade de notícias relacionadas",
+        "description": "Alerta geografico identificado.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade do alerta\n    localizacao: Estados ou cidades afetadas\n    mensagem: Descricao do alerta\n    quantidade_noticias: Quantidade de noticias relacionadas",
         "x-readme-ref-name": "AlertaGeografico"
       },
       "type": "array",
@@ -188,12 +188,12 @@
       "items": { "type": "string" },
       "type": "array",
       "title": "Estados Sem Noticias",
-      "description": "Estados sem notícias no período"
+      "description": "Estados sem noticias no periodo"
     }
   },
   "type": "object",
   "required": ["metadata", "distribuicao_estadual"],
   "title": "AnaliseGeograficaNoticias",
-  "description": "Resultado completo da análise geográfica de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    distribuicao_estadual: Distribuição por estado\n    distribuicao_municipal: Top municípios (quando disponível)\n    concentracoes: Áreas de concentração identificadas\n    alertas: Alertas geográficos identificados\n    estados_sem_noticias: Estados sem notícias no período",
+  "description": "Resultado completo da analise geografica de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    distribuicao_estadual: Distribuicao por estado\n    distribuicao_municipal: Top municipios (quando disponivel)\n    concentracoes: Areas de concentracao identificadas\n    alertas: Alertas geograficos identificados\n    estados_sem_noticias: Estados sem noticias no periodo",
   "x-readme-ref-name": "AnaliseGeograficaNoticias"
 }

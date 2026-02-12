@@ -8,11 +8,11 @@ import type { IndicadorMonitorado } from './IndicadorMonitorado'
 import type { MetadadosAnalise } from './MetadadosAnalise'
 
 /**
- * @description Resumo dos alertas do sistema de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados
+ * @description Resumo dos alertas do sistema de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados
  */
 export type ResumoAlertasNoticias = {
   /**
-   * @description Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado
+   * @description Metadados padrao para todas as analises estatisticas.\n\nAttributes:\n    periodo_analise: Periodo temporal da analise\n    filtros_aplicados: Filtros que foram aplicados na analise\n    data_geracao: Timestamp de quando a analise foi gerada\n    versao_analise: Versao do algoritmo de analise utilizado
    * @type object
    */
   metadata: MetadadosAnalise

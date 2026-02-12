@@ -4,30 +4,30 @@
  */
 
 /**
- * @description Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado
+ * @description Metadados padrao para todas as analises estatisticas.\n\nAttributes:\n    periodo_analise: Periodo temporal da analise\n    filtros_aplicados: Filtros que foram aplicados na analise\n    data_geracao: Timestamp de quando a analise foi gerada\n    versao_analise: Versao do algoritmo de analise utilizado
  */
 export type MetadadosAnalise = {
   /**
-   * @description Período da análise com \'inicio\' e \'fim\'
+   * @description Periodo da analise com \'inicio\' e \'fim\'
    * @type object
    */
   periodo_analise: {
     [key: string]: string
   }
   /**
-   * @description Filtros aplicados na análise
+   * @description Filtros aplicados na analise
    * @type object | undefined
    */
   filtros_aplicados?: {
     [key: string]: any
   }
   /**
-   * @description Data/hora de geração da análise
+   * @description Data/hora de geracao da analise
    * @type string, date-time
    */
   data_geracao: string
   /**
-   * @description Versão do algoritmo de análise
+   * @description Versao do algoritmo de analise
    * @default "0.0.1"
    * @type string | undefined
    */

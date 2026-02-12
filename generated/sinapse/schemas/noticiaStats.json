@@ -5,25 +5,25 @@
     "archived_count": { "type": "integer", "title": "Archived Count" },
     "flagged_count": { "type": "integer", "title": "Flagged Count" },
     "date_range": { "additionalProperties": true, "type": "object", "title": "Date Range" },
-    "top_diseases": {
+    "top_doencas": {
       "items": { "additionalProperties": true, "type": "object" },
       "type": "array",
-      "title": "Top Diseases"
+      "title": "Top Doencas"
     },
-    "top_symptoms": {
+    "top_sintomas": {
       "items": { "additionalProperties": true, "type": "object" },
       "type": "array",
-      "title": "Top Symptoms"
+      "title": "Top Sintomas"
     },
-    "top_regions": {
+    "top_localizacoes": {
       "items": { "additionalProperties": true, "type": "object" },
       "type": "array",
-      "title": "Top Regions"
+      "title": "Top Localizacoes"
     },
-    "top_sources": {
+    "top_fontes": {
       "items": { "additionalProperties": true, "type": "object" },
       "type": "array",
-      "title": "Top Sources"
+      "title": "Top Fontes"
     }
   },
   "type": "object",
@@ -33,12 +33,12 @@
     "archived_count",
     "flagged_count",
     "date_range",
-    "top_diseases",
-    "top_symptoms",
-    "top_regions",
-    "top_sources"
+    "top_doencas",
+    "top_sintomas",
+    "top_localizacoes",
+    "top_fontes"
   ],
   "title": "NoticiaStats",
-  "description": "Estatísticas de notícias.",
+  "description": "Estatisticas de noticias.",
   "x-readme-ref-name": "NoticiaStats"
 }

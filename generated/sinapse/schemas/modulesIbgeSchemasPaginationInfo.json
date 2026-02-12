@@ -1,0 +1,31 @@
+{
+  "properties": {
+    "limit": { "type": "integer", "title": "Limit", "description": "Limite de itens solicitado" },
+    "returned": {
+      "type": "integer",
+      "title": "Returned",
+      "description": "Quantidade de itens retornados nesta página"
+    },
+    "next_cursor": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Next Cursor",
+      "description": "Cursor para próxima página"
+    },
+    "previous_cursor": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Previous Cursor",
+      "description": "Cursor para página anterior"
+    },
+    "has_next": { "type": "boolean", "title": "Has Next", "description": "Se há próxima página" },
+    "has_previous": {
+      "type": "boolean",
+      "title": "Has Previous",
+      "description": "Se há página anterior"
+    }
+  },
+  "type": "object",
+  "required": ["limit", "returned", "has_next", "has_previous"],
+  "title": "PaginationInfo",
+  "description": "Informações de paginação cursor-based.",
+  "x-readme-ref-name": "modules__ibge__schemas__PaginationInfo"
+}

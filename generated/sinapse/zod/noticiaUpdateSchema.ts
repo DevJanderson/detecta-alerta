@@ -3,30 +3,54 @@
  * Do not edit manually.
  */
 
+import { localizacaoInputSchema } from './localizacaoInputSchema'
 import { z } from 'zod'
 
-export const noticiaUpdateSchema = z.object({
-  title: z.optional(z.union([z.string(), z.null()])),
-  content: z.optional(z.union([z.string(), z.null()])),
-  scraped_time: z.optional(z.union([z.string(), z.null()])),
-  scraped_date: z.optional(z.union([z.string(), z.string().date(), z.null()])),
-  urls: z.optional(z.union([z.array(z.string()), z.null()])),
-  source: z.optional(z.union([z.array(z.string()), z.null()])),
-  url_img: z.optional(
-    z.union([z.array(z.string()), z.null()]).describe('Array de URLs de imagens')
-  ),
-  source_icon: z.optional(
-    z.union([z.array(z.string()), z.null()]).describe('Array de URLs dos ícones/logos das fontes')
-  ),
-  published_at: z.optional(
-    z.union([z.string(), z.string().datetime(), z.string().date(), z.null()])
-  ),
-  fact_description: z.optional(z.union([z.string(), z.null()])),
-  fact_date_occurred: z.optional(z.union([z.string(), z.string().date(), z.null()])),
-  relevance_score: z.optional(z.union([z.number(), z.null()])),
-  status: z.optional(z.union([z.string().regex(/^(active|archived|flagged)$/), z.null()])),
-  llm_status: z.optional(z.union([z.boolean(), z.null()])),
-  diseases: z.optional(z.union([z.array(z.string()), z.null()])),
-  symptoms: z.optional(z.union([z.array(z.string()), z.null()])),
-  regions: z.optional(z.union([z.array(z.string()), z.null()]))
-})
+/**
+ * @description Schema para atualizacao de noticias (todos os campos opcionais).
+ */
+export const noticiaUpdateSchema = z
+  .object({
+    titulo: z.optional(z.union([z.string(), z.null()])),
+    conteudo: z.optional(z.union([z.string(), z.null()])),
+    data_coleta: z.optional(z.union([z.string(), z.string().date(), z.null()])),
+    url_fonte: z.optional(z.union([z.string(), z.null()])),
+    fonte: z.optional(z.union([z.string(), z.null()])),
+    url_imagem: z.optional(z.union([z.string(), z.null()]).describe('URL da imagem de capa')),
+    icone_fonte: z.optional(
+      z.union([z.array(z.string()), z.null()]).describe('Array de URLs dos icones/logos das fontes')
+    ),
+    data_publicacao: z.optional(
+      z.union([z.string(), z.string().datetime(), z.string().date(), z.null()])
+    ),
+    descricao: z.optional(z.union([z.string(), z.null()])),
+    data_evento: z.optional(z.union([z.string(), z.string().date(), z.null()])),
+    relevancia: z.optional(z.union([z.number(), z.null()])),
+    status: z.optional(z.union([z.string().regex(/^(active|archived|flagged)$/), z.null()])),
+    doencas: z.optional(z.union([z.array(z.string()), z.null()])),
+    sintomas: z.optional(z.union([z.array(z.string()), z.null()])),
+    localizacoes: z.optional(
+      z.union([z.array(z.union([z.lazy(() => localizacaoInputSchema), z.string()])), z.null()])
+    ),
+    titulo_epidemiologico: z.optional(z.union([z.string(), z.null()])),
+    tipo_evento: z.optional(z.union([z.string(), z.null()])),
+    numero_casos: z.optional(z.union([z.number().int(), z.null()])),
+    numero_mortes: z.optional(z.union([z.number().int(), z.null()])),
+    fonte_oficial: z.optional(z.union([z.string(), z.null()])),
+    categoria: z.optional(z.union([z.string(), z.null()])),
+    classificacao_onehealth: z.optional(
+      z
+        .union([z.string(), z.null()])
+        .describe('Classificacao One Health: Humana, Animal, Ambiental')
+    ),
+    doenca_principal: z.optional(z.union([z.string(), z.null()])),
+    tipo_contagem: z.optional(z.union([z.string(), z.null()])),
+    titulo_original: z.optional(z.union([z.string(), z.null()])),
+    cluster_id: z.optional(z.union([z.string().uuid(), z.null()])),
+    artigos_relacionados: z.optional(
+      z
+        .union([z.array(z.number().int()), z.null()])
+        .describe('IDs de artigos relacionados (similaridade 70-89%)')
+    )
+  })
+  .describe('Schema para atualizacao de noticias (todos os campos opcionais).')

@@ -4,17 +4,17 @@
  */
 
 /**
- * @description Transformação de renomeação de campo.
+ * @description Transformação de renomeação de campo Bronze→Silver.
  */
 export type TransformacaoRenomeacao = {
   /**
-   * @description Nome original
+   * @description Nome do campo na camada Bronze
    * @type string
    */
-  original: string
+  bronze: string
   /**
-   * @description Nome novo
+   * @description Nome do campo na camada Silver
    * @type string
    */
-  novo: string
+  silver: string
 }

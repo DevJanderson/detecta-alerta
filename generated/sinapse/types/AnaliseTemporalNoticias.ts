@@ -10,11 +10,11 @@ import type { PontoTemporal } from './PontoTemporal'
 import type { TendenciaTemporal } from './TendenciaTemporal'
 
 /**
- * @description Resultado completo da análise temporal de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    serie_temporal: Lista de pontos temporais\n    estatisticas_periodo: Estatísticas agregadas do período\n    tendencia: Tendência identificada\n    alertas: Lista de alertas temporais\n    doencas_em_alta: Doenças com maior crescimento no período\n    regioes_em_destaque: Regiões com maior atividade
+ * @description Resultado completo da analise temporal de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    serie_temporal: Lista de pontos temporais\n    estatisticas_periodo: Estatisticas agregadas do periodo\n    tendencia: Tendencia identificada\n    alertas: Lista de alertas temporais\n    doencas_em_alta: Doencas com maior crescimento no periodo\n    localizacoes_em_destaque: Localizacoes com maior atividade
  */
 export type AnaliseTemporalNoticias = {
   /**
-   * @description Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado
+   * @description Metadados padrao para todas as analises estatisticas.\n\nAttributes:\n    periodo_analise: Periodo temporal da analise\n    filtros_aplicados: Filtros que foram aplicados na analise\n    data_geracao: Timestamp de quando a analise foi gerada\n    versao_analise: Versao do algoritmo de analise utilizado
    * @type object
    */
   metadata: MetadadosAnalise
@@ -23,12 +23,12 @@ export type AnaliseTemporalNoticias = {
    */
   serie_temporal: PontoTemporal[]
   /**
-   * @description Estatísticas agregadas do período analisado.\n\nAttributes:\n    total_noticias: Total de notícias no período\n    media_por_dia: Média de notícias por dia\n    dia_pico: Dia com maior número de notícias\n    quantidade_pico: Quantidade de notícias no dia de pico\n    media_relevancia_geral: Média geral do score de relevância
+   * @description Estatisticas agregadas do periodo analisado.\n\nAttributes:\n    total_noticias: Total de noticias no periodo\n    media_por_dia: Media de noticias por dia\n    dia_pico: Dia com maior numero de noticias\n    quantidade_pico: Quantidade de noticias no dia de pico\n    media_relevancia_geral: Media geral do score de relevancia
    * @type object
    */
   estatisticas_periodo: EstatisticasPeriodo
   /**
-   * @description Tendência identificada na série temporal.\n\nAttributes:\n    direcao: Direção da tendência (crescente, decrescente, estável)\n    variacao_percentual: Variação percentual no período\n    dias_analisados: Número de dias analisados
+   * @description Tendencia identificada na serie temporal.\n\nAttributes:\n    direcao: Direcao da tendencia (crescente, decrescente, estavel)\n    variacao_percentual: Variacao percentual no periodo\n    dias_analisados: Numero de dias analisados
    * @type object
    */
   tendencia: TendenciaTemporal
@@ -37,17 +37,17 @@ export type AnaliseTemporalNoticias = {
    */
   alertas?: AlertaTemporal[]
   /**
-   * @description Doenças com maior crescimento
+   * @description Doencas com maior crescimento
    * @type array | undefined
    */
   doencas_em_alta?: {
     [key: string]: any
   }[]
   /**
-   * @description Regiões com maior atividade
+   * @description Localizacoes com maior atividade
    * @type array | undefined
    */
-  regioes_em_destaque?: {
+  localizacoes_em_destaque?: {
     [key: string]: any
   }[]
 }

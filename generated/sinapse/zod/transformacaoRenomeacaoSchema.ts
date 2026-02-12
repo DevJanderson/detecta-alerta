@@ -6,11 +6,11 @@
 import { z } from 'zod'
 
 /**
- * @description Transformação de renomeação de campo.
+ * @description Transformação de renomeação de campo Bronze→Silver.
  */
 export const transformacaoRenomeacaoSchema = z
   .object({
-    original: z.string().describe('Nome original'),
-    novo: z.string().describe('Nome novo')
+    bronze: z.string().describe('Nome do campo na camada Bronze'),
+    silver: z.string().describe('Nome do campo na camada Silver')
   })
-  .describe('Transformação de renomeação de campo.')
+  .describe('Transformação de renomeação de campo Bronze→Silver.')

@@ -4,7 +4,7 @@
  */
 
 /**
- * @description Estatísticas agregadas do período analisado.\n\nAttributes:\n    total_noticias: Total de notícias no período\n    media_por_dia: Média de notícias por dia\n    dia_pico: Dia com maior número de notícias\n    quantidade_pico: Quantidade de notícias no dia de pico\n    media_relevancia_geral: Média geral do score de relevância
+ * @description Estatisticas agregadas do periodo analisado.\n\nAttributes:\n    total_noticias: Total de noticias no periodo\n    media_por_dia: Media de noticias por dia\n    dia_pico: Dia com maior numero de noticias\n    quantidade_pico: Quantidade de noticias no dia de pico\n    media_relevancia_geral: Media geral do score de relevancia
  */
 export type EstatisticasPeriodo = {
   /**

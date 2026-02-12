@@ -1,11 +1,19 @@
 {
   "properties": {
-    "original": { "type": "string", "title": "Original", "description": "Nome original" },
-    "novo": { "type": "string", "title": "Novo", "description": "Nome novo" }
+    "bronze": {
+      "type": "string",
+      "title": "Bronze",
+      "description": "Nome do campo na camada Bronze"
+    },
+    "silver": {
+      "type": "string",
+      "title": "Silver",
+      "description": "Nome do campo na camada Silver"
+    }
   },
   "type": "object",
-  "required": ["original", "novo"],
+  "required": ["bronze", "silver"],
   "title": "TransformacaoRenomeacao",
-  "description": "Transformação de renomeação de campo.",
+  "description": "Transformação de renomeação de campo Bronze→Silver.",
   "x-readme-ref-name": "TransformacaoRenomeacao"
 }

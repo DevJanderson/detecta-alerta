@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import { modulesIbgeSchemasPaginationInfoSchema } from './modulesIbgeSchemasPaginationInfoSchema'
 import { municipioResponseSchema } from './municipioResponseSchema'
-import { paginationInfoSchema } from './paginationInfoSchema'
 import { z } from 'zod'
 
 /**
@@ -13,7 +13,7 @@ import { z } from 'zod'
 export const municipiosListResponseSchema = z
   .object({
     pagination: z
-      .lazy(() => paginationInfoSchema)
+      .lazy(() => modulesIbgeSchemasPaginationInfoSchema)
       .describe('Informações de paginação cursor-based.'),
     data: z
       .array(z.lazy(() => municipioResponseSchema).describe('Resposta de município com população.'))

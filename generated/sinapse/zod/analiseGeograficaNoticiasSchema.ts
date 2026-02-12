@@ -10,20 +10,20 @@ import { metadadosAnaliseSchema } from './metadadosAnaliseSchema'
 import { z } from 'zod'
 
 /**
- * @description Resultado completo da análise geográfica de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    distribuicao_estadual: Distribuição por estado\n    distribuicao_municipal: Top municípios (quando disponível)\n    concentracoes: Áreas de concentração identificadas\n    alertas: Alertas geográficos identificados\n    estados_sem_noticias: Estados sem notícias no período
+ * @description Resultado completo da analise geografica de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    distribuicao_estadual: Distribuicao por estado\n    distribuicao_municipal: Top municipios (quando disponivel)\n    concentracoes: Areas de concentracao identificadas\n    alertas: Alertas geograficos identificados\n    estados_sem_noticias: Estados sem noticias no periodo
  */
 export const analiseGeograficaNoticiasSchema = z
   .object({
     metadata: z
       .lazy(() => metadadosAnaliseSchema)
       .describe(
-        'Metadados padrão para todas as análises estatísticas.\n\nAttributes:\n    periodo_analise: Período temporal da análise\n    filtros_aplicados: Filtros que foram aplicados na análise\n    data_geracao: Timestamp de quando a análise foi gerada\n    versao_analise: Versão do algoritmo de análise utilizado'
+        'Metadados padrao para todas as analises estatisticas.\n\nAttributes:\n    periodo_analise: Periodo temporal da analise\n    filtros_aplicados: Filtros que foram aplicados na analise\n    data_geracao: Timestamp de quando a analise foi gerada\n    versao_analise: Versao do algoritmo de analise utilizado'
       ),
     distribuicao_estadual: z.array(
       z
         .lazy(() => dadoGeograficoSchema)
         .describe(
-          'Dados de uma unidade geográfica.\n\nAttributes:\n    nome: Nome da região\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de notícias\n    percentual_total: Percentual do total\n    media_relevancia: Média de relevância das notícias\n    principais_doencas: Principais doenças mencionadas\n    coordenadas: Coordenadas geográficas (opcional)'
+          'Dados de uma unidade geografica.\n\nAttributes:\n    nome: Nome da regiao\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de noticias\n    percentual_total: Percentual do total\n    media_relevancia: Media de relevancia das noticias\n    principais_doencas: Principais doencas mencionadas\n    coordenadas: Coordenadas geograficas (opcional)'
         )
     ),
     distribuicao_municipal: z.optional(
@@ -31,7 +31,7 @@ export const analiseGeograficaNoticiasSchema = z
         z
           .lazy(() => dadoGeograficoSchema)
           .describe(
-            'Dados de uma unidade geográfica.\n\nAttributes:\n    nome: Nome da região\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de notícias\n    percentual_total: Percentual do total\n    media_relevancia: Média de relevância das notícias\n    principais_doencas: Principais doenças mencionadas\n    coordenadas: Coordenadas geográficas (opcional)'
+            'Dados de uma unidade geografica.\n\nAttributes:\n    nome: Nome da regiao\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de noticias\n    percentual_total: Percentual do total\n    media_relevancia: Media de relevancia das noticias\n    principais_doencas: Principais doencas mencionadas\n    coordenadas: Coordenadas geograficas (opcional)'
           )
       )
     ),
@@ -40,7 +40,7 @@ export const analiseGeograficaNoticiasSchema = z
         z
           .lazy(() => concentracaoGeograficaSchema)
           .describe(
-            'Área de concentração de notícias.\n\nAttributes:\n    estados_afetados: Lista de estados na concentração\n    total_noticias: Total de notícias na área\n    percentual_nacional: Percentual em relação ao total nacional\n    doenca_predominante: Doença mais mencionada na área'
+            'Area de concentracao de noticias.\n\nAttributes:\n    estados_afetados: Lista de estados na concentracao\n    total_noticias: Total de noticias na area\n    percentual_nacional: Percentual em relacao ao total nacional\n    doenca_predominante: Doenca mais mencionada na area'
           )
       )
     ),
@@ -49,14 +49,14 @@ export const analiseGeograficaNoticiasSchema = z
         z
           .lazy(() => alertaGeograficoSchema)
           .describe(
-            'Alerta geográfico identificado.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade do alerta\n    localizacao: Estados ou cidades afetadas\n    mensagem: Descrição do alerta\n    quantidade_noticias: Quantidade de notícias relacionadas'
+            'Alerta geografico identificado.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade do alerta\n    localizacao: Estados ou cidades afetadas\n    mensagem: Descricao do alerta\n    quantidade_noticias: Quantidade de noticias relacionadas'
           )
       )
     ),
     estados_sem_noticias: z.optional(
-      z.array(z.string()).describe('Estados sem notícias no período')
+      z.array(z.string()).describe('Estados sem noticias no periodo')
     )
   })
   .describe(
-    'Resultado completo da análise geográfica de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    distribuicao_estadual: Distribuição por estado\n    distribuicao_municipal: Top municípios (quando disponível)\n    concentracoes: Áreas de concentração identificadas\n    alertas: Alertas geográficos identificados\n    estados_sem_noticias: Estados sem notícias no período'
+    'Resultado completo da analise geografica de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    distribuicao_estadual: Distribuicao por estado\n    distribuicao_municipal: Top municipios (quando disponivel)\n    concentracoes: Areas de concentracao identificadas\n    alertas: Alertas geograficos identificados\n    estados_sem_noticias: Estados sem noticias no periodo'
   )

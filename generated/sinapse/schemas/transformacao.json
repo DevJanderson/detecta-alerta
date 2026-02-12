@@ -1,67 +1,43 @@
 {
   "properties": {
-    "tipo": {
-      "type": "string",
-      "title": "Tipo",
-      "description": "Tipo de transformação (renomeacao, derivacao, limpeza, deduplicacao)"
-    },
+    "tipo": { "type": "string", "title": "Tipo", "description": "Tipo de transformação" },
     "descricao": {
       "type": "string",
       "title": "Descricao",
       "description": "Descrição da transformação"
-    },
-    "criterio": {
-      "anyOf": [{ "type": "string" }, { "type": "null" }],
-      "title": "Criterio",
-      "description": "Critério SQL (para deduplicação)"
     },
     "campos": {
       "anyOf": [
         {
           "items": {
             "properties": {
-              "original": { "type": "string", "title": "Original", "description": "Nome original" },
-              "novo": { "type": "string", "title": "Novo", "description": "Nome novo" }
+              "bronze": {
+                "type": "string",
+                "title": "Bronze",
+                "description": "Nome do campo na camada Bronze"
+              },
+              "silver": {
+                "type": "string",
+                "title": "Silver",
+                "description": "Nome do campo na camada Silver"
+              }
             },
             "type": "object",
-            "required": ["original", "novo"],
+            "required": ["bronze", "silver"],
             "title": "TransformacaoRenomeacao",
-            "description": "Transformação de renomeação de campo.",
+            "description": "Transformação de renomeação de campo Bronze→Silver.",
             "x-readme-ref-name": "TransformacaoRenomeacao"
           },
           "type": "array"
         },
+        { "items": { "type": "string" }, "type": "array" },
         { "type": "null" }
       ],
       "title": "Campos",
-      "description": "Lista de renomeações"
-    },
-    "campo_novo": {
-      "anyOf": [{ "type": "string" }, { "type": "null" }],
-      "title": "Campo Novo",
-      "description": "Nome do campo derivado"
-    },
-    "formula": {
-      "anyOf": [{ "type": "string" }, { "type": "null" }],
-      "title": "Formula",
-      "description": "Fórmula de derivação"
-    },
-    "campos_afetados": {
-      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
-      "title": "Campos Afetados",
-      "description": "Campos afetados"
-    },
-    "regra": {
-      "anyOf": [{ "type": "string" }, { "type": "null" }],
-      "title": "Regra",
-      "description": "Regra de limpeza"
-    },
-    "detalhes": {
-      "anyOf": [{ "additionalProperties": true, "type": "object" }, { "type": "null" }],
-      "title": "Detalhes",
-      "description": "Detalhes adicionais"
+      "description": "Lista de campos (renomeações ou nomes de campos afetados)"
     }
   },
+  "additionalProperties": true,
   "type": "object",
   "required": ["tipo", "descricao"],
   "title": "Transformacao",

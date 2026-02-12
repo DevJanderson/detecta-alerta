@@ -19,11 +19,11 @@ export const getNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGetQueryPar
   })
 
 /**
- * @description Lista de notícias relacionadas
+ * @description Lista de noticias relacionadas com criterio usado
  */
 export const getNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGet200Schema = z
   .lazy(() => noticiasRelacionadasResponseSchema)
-  .describe('Resposta do endpoint de notícias relacionadas.')
+  .describe('Resposta do endpoint de noticias relacionadas.')
 
 /**
  * @description Validation Error

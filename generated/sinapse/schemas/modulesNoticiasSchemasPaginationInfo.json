@@ -1,0 +1,31 @@
+{
+  "properties": {
+    "limit": { "type": "integer", "title": "Limit", "description": "Limite de itens solicitado" },
+    "returned": {
+      "type": "integer",
+      "title": "Returned",
+      "description": "Quantidade de itens retornados nesta pagina"
+    },
+    "next_cursor": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Next Cursor",
+      "description": "Cursor para proxima pagina"
+    },
+    "previous_cursor": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "title": "Previous Cursor",
+      "description": "Cursor para pagina anterior"
+    },
+    "has_next": { "type": "boolean", "title": "Has Next", "description": "Se ha proxima pagina" },
+    "has_previous": {
+      "type": "boolean",
+      "title": "Has Previous",
+      "description": "Se ha pagina anterior"
+    }
+  },
+  "type": "object",
+  "required": ["limit", "returned", "has_next", "has_previous"],
+  "title": "PaginationInfo",
+  "description": "Informacoes de paginacao cursor-based.",
+  "x-readme-ref-name": "modules__noticias__schemas__PaginationInfo"
+}

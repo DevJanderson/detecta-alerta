@@ -12,18 +12,18 @@
       "items": { "additionalProperties": true, "type": "object" },
       "type": "array",
       "title": "Principais Doencas",
-      "description": "Lista com nome da doença e quantidade"
+      "description": "Lista com nome da doenca e quantidade"
     },
-    "principais_regioes": {
+    "principais_localizacoes": {
       "items": { "additionalProperties": true, "type": "object" },
       "type": "array",
-      "title": "Principais Regioes",
-      "description": "Lista com nome da região e quantidade"
+      "title": "Principais Localizacoes",
+      "description": "Lista com nome da localizacao e quantidade"
     }
   },
   "type": "object",
   "required": ["periodo", "quantidade_noticias", "media_relevancia"],
   "title": "PontoTemporal",
-  "description": "Representa um ponto no tempo com suas métricas.\n\nAttributes:\n    periodo: Data do período\n    quantidade_noticias: Quantidade de notícias no período\n    media_relevancia: Média do score de relevância no período\n    principais_doencas: Top 3 doenças mencionadas no período\n    principais_regioes: Top 3 regiões mencionadas no período",
+  "description": "Representa um ponto no tempo com suas metricas.\n\nAttributes:\n    periodo: Data do periodo\n    quantidade_noticias: Quantidade de noticias no periodo\n    media_relevancia: Media do score de relevancia no periodo\n    principais_doencas: Top 3 doencas mencionadas no periodo\n    principais_localizacoes: Top 3 localizacoes mencionadas no periodo",
   "x-readme-ref-name": "PontoTemporal"
 }

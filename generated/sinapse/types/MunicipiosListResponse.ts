@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import type { ModulesIbgeSchemasPaginationInfo } from './ModulesIbgeSchemasPaginationInfo'
 import type { MunicipioResponse } from './MunicipioResponse'
-import type { PaginationInfo } from './PaginationInfo'
 
 /**
  * @description Resposta paginada de municípios.
@@ -14,7 +14,7 @@ export type MunicipiosListResponse = {
    * @description Informações de paginação cursor-based.
    * @type object
    */
-  pagination: PaginationInfo
+  pagination: ModulesIbgeSchemasPaginationInfo
   /**
    * @description Lista de municípios
    * @type array

@@ -4,7 +4,7 @@
  */
 
 /**
- * @description Estatísticas de notícias.
+ * @description Estatisticas de noticias.
  */
 export type NoticiaStats = {
   /**
@@ -32,25 +32,25 @@ export type NoticiaStats = {
   /**
    * @type array
    */
-  top_diseases: {
+  top_doencas: {
     [key: string]: any
   }[]
   /**
    * @type array
    */
-  top_symptoms: {
+  top_sintomas: {
     [key: string]: any
   }[]
   /**
    * @type array
    */
-  top_regions: {
+  top_localizacoes: {
     [key: string]: any
   }[]
   /**
    * @type array
    */
-  top_sources: {
+  top_fontes: {
     [key: string]: any
   }[]
 }

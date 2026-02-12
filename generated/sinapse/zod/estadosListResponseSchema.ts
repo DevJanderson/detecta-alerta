@@ -4,7 +4,7 @@
  */
 
 import { estadoResponseSchema } from './estadoResponseSchema'
-import { paginationInfoSchema } from './paginationInfoSchema'
+import { modulesIbgeSchemasPaginationInfoSchema } from './modulesIbgeSchemasPaginationInfoSchema'
 import { z } from 'zod'
 
 /**
@@ -13,7 +13,7 @@ import { z } from 'zod'
 export const estadosListResponseSchema = z
   .object({
     pagination: z
-      .lazy(() => paginationInfoSchema)
+      .lazy(() => modulesIbgeSchemasPaginationInfoSchema)
       .describe('Informações de paginação cursor-based.'),
     data: z
       .array(z.lazy(() => estadoResponseSchema).describe('Resposta de UF com totais.'))

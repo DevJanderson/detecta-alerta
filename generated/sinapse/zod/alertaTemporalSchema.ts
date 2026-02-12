@@ -6,7 +6,7 @@
 import { z } from 'zod'
 
 /**
- * @description Alerta identificado na análise temporal.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade (baixa, media, alta)\n    data_deteccao: Data onde o alerta foi identificado\n    mensagem: Descrição do alerta\n    quantidade_noticias: Quantidade de notícias relacionadas
+ * @description Alerta identificado na analise temporal.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade (baixa, media, alta)\n    data_deteccao: Data onde o alerta foi identificado\n    mensagem: Descricao do alerta\n    quantidade_noticias: Quantidade de noticias relacionadas
  */
 export const alertaTemporalSchema = z
   .object({
@@ -17,5 +17,5 @@ export const alertaTemporalSchema = z
     quantidade_noticias: z.number().int().min(0)
   })
   .describe(
-    'Alerta identificado na análise temporal.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade (baixa, media, alta)\n    data_deteccao: Data onde o alerta foi identificado\n    mensagem: Descrição do alerta\n    quantidade_noticias: Quantidade de notícias relacionadas'
+    'Alerta identificado na analise temporal.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade (baixa, media, alta)\n    data_deteccao: Data onde o alerta foi identificado\n    mensagem: Descricao do alerta\n    quantidade_noticias: Quantidade de noticias relacionadas'
   )

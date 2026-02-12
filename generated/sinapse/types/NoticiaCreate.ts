@@ -3,40 +3,47 @@
  * Do not edit manually.
  */
 
+import type { LocalizacaoInput } from './LocalizacaoInput'
+
+/**
+ * @description Schema para criacao de noticias.
+ */
 export type NoticiaCreate = {
   /**
    * @minLength 1
    * @maxLength 500
    * @type string
    */
-  title: string
+  titulo: string
   /**
    * @minLength 1
    * @type string
    */
-  content: string
-  scraped_time?: string | null
-  scraped_date: string | string
-  urls?: string[] | null
-  source?: string[] | null
+  conteudo: string
   /**
-   * @description Array de URLs de imagens
+   * @description Data do scraping (opcional, derivada no service)
    */
-  url_img?: string[] | null
+  data_coleta?: string | string | null
+  url_fonte?: string | null
+  fonte?: string | null
   /**
-   * @description Array de URLs dos ícones/logos das fontes
+   * @description URL da imagem de capa
    */
-  source_icon?: string[] | null
-  published_at?: string | string | string | null
-  fact_description?: string | null
-  fact_date_occurred?: string | string | null
+  url_imagem?: string | null
+  /**
+   * @description Array de URLs dos icones/logos das fontes
+   */
+  icone_fonte?: string[] | null
+  data_publicacao?: string | string | string | null
+  descricao?: string | null
+  data_evento?: string | string | null
   /**
    * @minLength 0
    * @maxLength 10
    * @default 0
    * @type number | undefined
    */
-  relevance_score?: number
+  relevancia?: number
   /**
    * @pattern ^(active|archived|flagged)$
    * @default "active"
@@ -44,20 +51,42 @@ export type NoticiaCreate = {
    */
   status?: string
   /**
-   * @default false
-   * @type boolean | undefined
+   * @description Lista de nomes de doencas
    */
-  llm_status?: boolean
-  /**
-   * @description Lista de nomes de doenças
-   */
-  diseases?: string[] | null
+  doencas?: string[] | null
   /**
    * @description Lista de nomes de sintomas
    */
-  symptoms?: string[] | null
+  sintomas?: string[] | null
   /**
-   * @description Lista de nomes de regiões
+   * @description Lista de localizacoes. Aceita strings (\'Cidade,UF\') ou objetos {pais, estado, cidade}
    */
-  regions?: string[] | null
+  localizacoes?: (string | LocalizacaoInput)[] | null
+  titulo_epidemiologico?: string | null
+  tipo_evento?: string | null
+  numero_casos?: number | null
+  numero_mortes?: number | null
+  fonte_oficial?: string | null
+  categoria?: string | null
+  /**
+   * @description Classificacao One Health: Humana, Animal, Ambiental
+   */
+  classificacao_onehealth?: string | null
+  /**
+   * @description Doenca principal mencionada
+   */
+  doenca_principal?: string | null
+  /**
+   * @description Tipo: novos_periodo, acumulado_ano, acumulado_historico, nao_epidemiologico, indeterminado
+   */
+  tipo_contagem?: string | null
+  /**
+   * @description Titulo original da materia jornalistica
+   */
+  titulo_original?: string | null
+  cluster_id?: string | null
+  /**
+   * @description IDs de artigos relacionados (similaridade 70-89%)
+   */
+  artigos_relacionados?: number[] | null
 }

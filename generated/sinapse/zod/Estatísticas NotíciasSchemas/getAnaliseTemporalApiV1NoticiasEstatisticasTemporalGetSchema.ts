@@ -40,7 +40,7 @@ export const getAnaliseTemporalApiV1NoticiasEstatisticasTemporalGetQueryParamsSc
 export const getAnaliseTemporalApiV1NoticiasEstatisticasTemporalGet200Schema = z
   .lazy(() => analiseTemporalNoticiasSchema)
   .describe(
-    'Resultado completo da análise temporal de notícias.\n\nAttributes:\n    metadata: Metadados da análise\n    serie_temporal: Lista de pontos temporais\n    estatisticas_periodo: Estatísticas agregadas do período\n    tendencia: Tendência identificada\n    alertas: Lista de alertas temporais\n    doencas_em_alta: Doenças com maior crescimento no período\n    regioes_em_destaque: Regiões com maior atividade'
+    'Resultado completo da analise temporal de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    serie_temporal: Lista de pontos temporais\n    estatisticas_periodo: Estatisticas agregadas do periodo\n    tendencia: Tendencia identificada\n    alertas: Lista de alertas temporais\n    doencas_em_alta: Doencas com maior crescimento no periodo\n    localizacoes_em_destaque: Localizacoes com maior atividade'
   )
 
 /**

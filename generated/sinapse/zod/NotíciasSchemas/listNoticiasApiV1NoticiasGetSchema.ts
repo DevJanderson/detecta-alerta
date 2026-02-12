@@ -11,13 +11,24 @@ export const listNoticiasApiV1NoticiasGetQueryParamsSchema = z.object({
   cursor: z.optional(z.union([z.string(), z.null()]).describe('Cursor para paginação')),
   limit: z.coerce.number().int().min(1).max(100).default(50).describe('Limite de resultados'),
   search_term: z.optional(z.union([z.string(), z.null()]).describe('Busca por texto')),
-  diseases: z.optional(z.union([z.array(z.string()), z.null()]).describe('Filtrar por doenças')),
-  symptoms: z.optional(z.union([z.array(z.string()), z.null()]).describe('Filtrar por sintomas')),
-  regions: z.optional(z.union([z.array(z.string()), z.null()]).describe('Filtrar por regiões')),
+  doencas: z.optional(z.union([z.array(z.string()), z.null()]).describe('Filtrar por doencas')),
+  sintomas: z.optional(z.union([z.array(z.string()), z.null()]).describe('Filtrar por sintomas')),
+  localizacoes: z.optional(
+    z.union([z.array(z.string()), z.null()]).describe('Filtrar por localizacoes')
+  ),
   states: z.optional(z.union([z.array(z.string()), z.null()]).describe('Filtrar por estados')),
-  sources: z.optional(z.union([z.array(z.string()), z.null()]).describe('Filtrar por fontes')),
+  fonte: z.optional(z.union([z.array(z.string()), z.null()]).describe('Filtrar por fonte')),
   status: z.optional(z.union([z.string().regex(/^(active|archived|flagged)$/), z.null()])),
-  min_relevance: z.optional(z.union([z.coerce.number(), z.null()]))
+  relevancia_minima: z.optional(z.union([z.coerce.number(), z.null()])),
+  tipo_evento: z.optional(z.union([z.string(), z.null()]).describe('Filtrar por tipo de evento')),
+  categoria: z.optional(z.union([z.string(), z.null()]).describe('Filtrar por categoria')),
+  classificacao_onehealth: z.optional(
+    z.union([z.string(), z.null()]).describe('Filtrar por classificacao One Health')
+  ),
+  data_coleta_de: z.optional(z.union([z.string().date(), z.null()]).describe('Data inicio coleta')),
+  data_coleta_ate: z.optional(z.union([z.string().date(), z.null()]).describe('Data fim coleta')),
+  data_evento_de: z.optional(z.union([z.string().date(), z.null()]).describe('Data inicio evento')),
+  data_evento_ate: z.optional(z.union([z.string().date(), z.null()]).describe('Data fim evento'))
 })
 
 /**
@@ -25,7 +36,7 @@ export const listNoticiasApiV1NoticiasGetQueryParamsSchema = z.object({
  */
 export const listNoticiasApiV1NoticiasGet200Schema = z
   .lazy(() => noticiaListResponseSchema)
-  .describe('Resposta paginada cursor-based para listagem de notícias.')
+  .describe('Resposta paginada cursor-based para listagem de noticias.')
 
 /**
  * @description Validation Error

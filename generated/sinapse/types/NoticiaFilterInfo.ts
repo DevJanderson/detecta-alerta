@@ -4,7 +4,7 @@
  */
 
 /**
- * @description Informações sobre filtros aplicados na listagem.
+ * @description Informacoes sobre filtros aplicados na listagem.
  */
 export type NoticiaFilterInfo = {
   /**
@@ -12,17 +12,17 @@ export type NoticiaFilterInfo = {
    */
   search_term?: string | null
   /**
-   * @description Doenças filtradas
+   * @description Doencas filtradas
    */
-  diseases?: string[] | null
+  doencas?: string[] | null
   /**
    * @description Sintomas filtrados
    */
-  symptoms?: string[] | null
+  sintomas?: string[] | null
   /**
-   * @description Regiões filtradas
+   * @description Localizacoes filtradas
    */
-  regions?: string[] | null
+  localizacoes?: string[] | null
   /**
    * @description Estados filtrados
    */
@@ -30,13 +30,41 @@ export type NoticiaFilterInfo = {
   /**
    * @description Fontes filtradas
    */
-  sources?: string[] | null
+  fonte?: string[] | null
+  /**
+   * @description Tipo de evento filtrado
+   */
+  tipo_evento?: string | null
+  /**
+   * @description Categoria filtrada
+   */
+  categoria?: string | null
+  /**
+   * @description Classificacao One Health filtrada
+   */
+  classificacao_onehealth?: string | null
+  /**
+   * @description Data coleta inicio
+   */
+  data_coleta_de?: string | null
+  /**
+   * @description Data coleta fim
+   */
+  data_coleta_ate?: string | null
+  /**
+   * @description Data evento inicio
+   */
+  data_evento_de?: string | null
+  /**
+   * @description Data evento fim
+   */
+  data_evento_ate?: string | null
   /**
    * @description Status filtrado
    */
   status?: string | null
   /**
-   * @description Relevância mínima
+   * @description Relevancia minima
    */
-  min_relevance?: number | null
+  relevancia_minima?: number | null
 }

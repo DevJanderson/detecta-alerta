@@ -11,11 +11,11 @@ export {
   listDoencasApiV1NoticiasOperacoesDoencasGetQueryResponseSchema
 } from './listDoencasApiV1NoticiasOperacoesDoencasGetSchema'
 export {
-  listRegioesApiV1NoticiasOperacoesRegioesGetQueryParamsSchema,
-  listRegioesApiV1NoticiasOperacoesRegioesGet200Schema,
-  listRegioesApiV1NoticiasOperacoesRegioesGet422Schema,
-  listRegioesApiV1NoticiasOperacoesRegioesGetQueryResponseSchema
-} from './listRegioesApiV1NoticiasOperacoesRegioesGetSchema'
+  listLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetQueryParamsSchema,
+  listLocalizacoesApiV1NoticiasOperacoesLocalizacoesGet200Schema,
+  listLocalizacoesApiV1NoticiasOperacoesLocalizacoesGet422Schema,
+  listLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetQueryResponseSchema
+} from './listLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetSchema'
 export {
   listSintomasApiV1NoticiasOperacoesSintomasGetQueryParamsSchema,
   listSintomasApiV1NoticiasOperacoesSintomasGet200Schema,
