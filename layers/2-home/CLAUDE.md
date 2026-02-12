@@ -16,7 +16,7 @@ Esta layer contém:
 ## Estrutura
 
 ```
-layers/4-home/
+layers/2-home/
 ├── nuxt.config.ts              # Configuração da layer
 ├── CLAUDE.md                   # Este arquivo
 │
@@ -39,7 +39,7 @@ layers/4-home/
 
 ## Prioridade
 
-Esta é a layer de **maior prioridade** (4), o que significa:
+Esta é a layer de **prioridade** (2), o que significa:
 
 - Pode sobrescrever páginas de layers anteriores
 - A página `/` aqui sobrescreve qualquer `/` de outras layers
@@ -50,7 +50,7 @@ Esta é a layer de **maior prioridade** (4), o que significa:
 ## Adicionar Novas Páginas
 
 ```vue
-<!-- layers/4-home/app/pages/about.vue -->
+<!-- layers/2-home/app/pages/about.vue -->
 <script setup lang="ts">
 useSeoPage({
   title: 'Sobre - Detecta Alerta',
@@ -73,7 +73,7 @@ useSeoPage({
 Se a homepage crescer, considere adicionar:
 
 ```
-layers/4-home/
+layers/2-home/
 ├── app/
 │   ├── components/             # Componentes específicos da home
 │   │   ├── HomeHero.vue
@@ -122,7 +122,7 @@ useSeoPage({
 
 | Tipo                 | Onde colocar                             |
 | -------------------- | ---------------------------------------- |
-| Páginas autenticadas | `layers/3-auth/` ou feature específica   |
+| Páginas autenticadas | `layers/1-auth/` ou feature específica   |
 | Componentes globais  | `layers/0-base/app/components/`          |
 | Design system        | `layers/0-base/app/pages/design-system/` |
 | Endpoints de API     | `layers/0-base/server/` ou feature       |

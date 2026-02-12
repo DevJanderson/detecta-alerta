@@ -15,7 +15,7 @@ Os tokens JWT **nunca** são expostos ao JavaScript do cliente. O servidor Nuxt 
 ## Estrutura
 
 ```
-layers/3-auth/
+layers/1-auth/
 ├── nuxt.config.ts
 ├── CLAUDE.md
 │

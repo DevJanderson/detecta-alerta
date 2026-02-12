@@ -606,10 +606,10 @@ describe('useLoading', () => {
 // tests/unit/composables/useAuthStore.test.ts
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
-import { useAuthStore } from '~/layers/3-auth/app/composables/useAuthStore'
+import { useAuthStore } from '~/layers/1-auth/app/composables/useAuthStore'
 
 // Mock do API
-vi.mock('~/layers/3-auth/app/composables/useAuthApi', () => ({
+vi.mock('~/layers/1-auth/app/composables/useAuthApi', () => ({
   useAuthApi: () => ({
     login: vi.fn().mockResolvedValue({ user: { id: 1, nome: 'Test' } })
   })

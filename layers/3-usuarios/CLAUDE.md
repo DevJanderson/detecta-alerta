@@ -13,7 +13,7 @@ Todas as operacoes passam pelo BFF. Endpoints admin requerem grupo `administrado
 ## Estrutura
 
 ```
-layers/5-usuarios/
+layers/3-usuarios/
 ├── nuxt.config.ts
 ├── CLAUDE.md
 │

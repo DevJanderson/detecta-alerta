@@ -10,7 +10,7 @@ const mockFetch = vi.fn()
 vi.stubGlobal('$fetch', mockFetch)
 
 // Import após os mocks
-import { useAuthApi } from '~/layers/3-auth/app/composables/useAuthApi'
+import { useAuthApi } from '~/layers/1-auth/app/composables/useAuthApi'
 /* eslint-enable import/first */
 
 const mockUser = {

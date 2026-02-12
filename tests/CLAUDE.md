@@ -65,7 +65,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 const mockFetch = vi.fn()
 vi.stubGlobal('$fetch', mockFetch)
 
-import { useAuthApi } from '~/layers/3-auth/app/composables/useAuthApi'
+import { useAuthApi } from '~/layers/1-auth/app/composables/useAuthApi'
 
 describe('useAuthApi', () => {
   let api: ReturnType<typeof useAuthApi>
@@ -96,7 +96,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 
 // Mock do useAuthApi
-vi.mock('~/layers/3-auth/app/composables/useAuthApi', () => ({
+vi.mock('~/layers/1-auth/app/composables/useAuthApi', () => ({
   useAuthApi: () => ({
     login: vi.fn().mockResolvedValue({ user: mockUser }),
     logout: vi.fn(),
@@ -106,7 +106,7 @@ vi.mock('~/layers/3-auth/app/composables/useAuthApi', () => ({
   })
 }))
 
-import { useAuthStore } from '~/layers/3-auth/app/composables/useAuthStore'
+import { useAuthStore } from '~/layers/1-auth/app/composables/useAuthStore'
 
 describe('useAuthStore', () => {
   beforeEach(() => {
@@ -232,7 +232,7 @@ beforeEach(() => {
 ### Mock de Composable
 
 ```typescript
-vi.mock('~/layers/3-auth/app/composables/useAuthApi', () => ({
+vi.mock('~/layers/1-auth/app/composables/useAuthApi', () => ({
   useAuthApi: () => ({
     login: vi.fn().mockResolvedValue({ user: { id: 1 } }),
     logout: vi.fn()

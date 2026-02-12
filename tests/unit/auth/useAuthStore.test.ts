@@ -12,7 +12,7 @@ const mockLogout = vi.fn()
 const mockGetMe = vi.fn()
 const mockResetPassword = vi.fn()
 
-vi.mock('~/layers/3-auth/app/composables/useAuthApi', () => ({
+vi.mock('~/layers/1-auth/app/composables/useAuthApi', () => ({
   useAuthApi: () => ({
     login: mockLogin,
     logout: mockLogout,
@@ -35,7 +35,7 @@ vi.mock('#app', async importOriginal => {
 })
 
 // Import após os mocks
-import { useAuthStore } from '~/layers/3-auth/app/composables/useAuthStore'
+import { useAuthStore } from '~/layers/1-auth/app/composables/useAuthStore'
 /* eslint-enable import/first */
 
 const mockUser = {

@@ -84,8 +84,9 @@ npm run test:e2e     # Testes E2E
 ```
 layers/
 ├── 0-base/      # Fundação + UI: app.vue, CSS, shadcn-vue, utils, tipos
-├── 3-auth/      # Autenticação BFF
-└── 4-home/      # Homepage
+├── 1-auth/      # Autenticação BFF
+├── 2-home/      # Homepage
+└── 3-usuarios/  # Gestão de perfil, usuários, grupos e permissões
 
 tests/           # Testes (unit, e2e)
 ```

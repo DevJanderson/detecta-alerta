@@ -179,7 +179,7 @@ import type { ApiResponse } from '#shared/types'
 Esta é a layer com **menor prioridade** (0). Todas as outras layers podem sobrescrever seus arquivos.
 
 ```
-0-base < 3-auth < 4-home
+0-base < 1-auth < 2-home < 3-usuarios
 ```
 
 ---
