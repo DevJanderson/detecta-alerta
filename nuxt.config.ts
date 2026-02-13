@@ -44,7 +44,7 @@ export default defineNuxtConfig({
   },
 
   // Nuxt Layers - auto-scan de ~/layers (Nuxt 4+)
-  // Ordem de prioridade: 0-base < 1-auth < 2-home < 3-usuarios
+  // Ordem de prioridade: 0-base < 1-auth < 2-home < 3-usuarios < 4-rumores
   // Número maior = maior prioridade = sobrescreve layers anteriores
 
   site: {
@@ -150,7 +150,10 @@ export default defineNuxtConfig({
     },
 
     // Rotas de usuarios: CSRF desabilitado (usam cookies httpOnly + SameSite strict)
-    '/api/usuarios/**': { csurf: false }
+    '/api/usuarios/**': { csurf: false },
+
+    // Rotas de rumores admin: CSRF desabilitado (usam cookies httpOnly + SameSite strict)
+    '/api/rumores/admin/**': { csurf: false }
   },
 
   // VeeValidate - validação de formulários
