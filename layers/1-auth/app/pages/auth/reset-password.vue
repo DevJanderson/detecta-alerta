@@ -5,8 +5,7 @@ definePageMeta({
 
 useSeoPage({
   title: 'Recuperar Senha - Detecta Alerta',
-  description: 'Recupere o acesso à sua conta na plataforma de vigilância epidemiológica',
-  noindex: true
+  description: 'Recupere o acesso à sua conta na plataforma de vigilância epidemiológica'
 })
 </script>
 

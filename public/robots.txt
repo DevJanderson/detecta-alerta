@@ -1,8 +1,0 @@
-User-Agent: *
-Allow: /
-Disallow: /api/
-Disallow: /auth/
-Disallow: /design-system/
-Disallow: /geo/
-
-Sitemap: https://alerta.sinapse.org.br/sitemap.xml

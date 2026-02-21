@@ -8,8 +8,7 @@ definePageMeta({
 })
 
 useSeoPage({
-  title: 'Gerenciar Usuarios - Detecta Alerta',
-  noindex: true
+  title: 'Gerenciar Usuarios - Detecta Alerta'
 })
 
 const usuariosStore = useUsuariosStore()

@@ -1,49 +1,11 @@
 /**
- * Vitest Global Setup
- * Este arquivo é executado antes de todos os testes
+ * Vitest Setup - Projeto "nuxt"
+ * Executado antes dos testes em tests/integration/
+ * No ambiente @nuxt/test-utils, auto-imports reais do Nuxt estão disponíveis.
  */
 import { config } from '@vue/test-utils'
-import { vi } from 'vitest'
 
-// Mock global do Nuxt
-vi.mock('#app', () => ({
-  defineNuxtPlugin: vi.fn(plugin => plugin),
-  useNuxtApp: () => ({
-    $pinia: {},
-    callHook: vi.fn()
-  }),
-  useRuntimeConfig: () => ({
-    public: {
-      apiBaseUrl: 'http://localhost:3000/api',
-      siteUrl: 'https://alerta.sinapse.org.br'
-    }
-  }),
-  useHead: vi.fn(),
-  useSeoMeta: vi.fn(),
-  navigateTo: vi.fn(),
-  useFetch: vi.fn(),
-  useAsyncData: vi.fn(),
-  useCookie: vi.fn(() => ({ value: null })),
-  useRoute: vi.fn(() => ({
-    params: {},
-    query: {},
-    path: '/'
-  })),
-  useRouter: vi.fn(() => ({
-    push: vi.fn(),
-    replace: vi.fn(),
-    back: vi.fn()
-  })),
-  defineNuxtRouteMiddleware: vi.fn(middleware => middleware),
-  abortNavigation: vi.fn(),
-  setPageLayout: vi.fn(),
-  useState: vi.fn((_key, init) => ({ value: init ? init() : undefined })),
-  clearNuxtState: vi.fn(),
-  refreshNuxtData: vi.fn(),
-  clearNuxtData: vi.fn()
-}))
-
-// Configuração global do Vue Test Utils
+// Stubs de componentes Nuxt para evitar warnings
 config.global.stubs = {
   NuxtLink: {
     template: '<a><slot /></a>'
@@ -59,5 +21,5 @@ config.global.stubs = {
   }
 }
 
-// Suppress Vue warnings in tests (optional)
+// Suppress Vue warnings in tests
 config.global.config.warnHandler = () => {}

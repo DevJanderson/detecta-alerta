@@ -75,7 +75,9 @@ npm run dev              # Servidor dev http://localhost:3000
 npm run build            # Build produção
 npm run typecheck        # Verificar tipos (USAR para detectar erros)
 npm run quality:fix      # Lint + format
-npm run test:run         # Vitest (uma execução)
+npm run test:run         # Vitest (todos os projetos)
+npm run test:unit        # Vitest projeto "unit" (Node puro, rápido)
+npm run test:nuxt        # Vitest projeto "nuxt" (happy-dom + @nuxt/test-utils)
 npm run test -- path/to/file.test.ts  # Teste específico
 npm run test:e2e         # Playwright E2E
 npm run api:generate     # Gera cliente a partir do OpenAPI
@@ -85,29 +87,25 @@ npm run api:generate     # Gera cliente a partir do OpenAPI
 
 ### Composable `useSeoPage`
 
-Usar `useSeoPage` (não `useSeoMeta`) em todas as páginas. Gera automaticamente: title, description, Open Graph, Twitter Cards, canonical URL e robots.
+Usar `useSeoPage` (não `useSeoMeta`) em todas as páginas. Gera automaticamente: title, description, Open Graph, Twitter Cards e canonical URL.
 
 ```vue
 <script setup lang="ts">
-// Página pública (indexável)
 useSeoPage({
   title: 'Detecta Alerta - Vigilância Epidemiológica',
   description: 'Monitoramento epidemiológico em tempo real para o Brasil.'
 })
-
-// Página interna (não indexável)
-useSeoPage({
-  title: 'Login - Detecta Alerta',
-  noindex: true
-})
 </script>
 ```
+
+> **Nota:** `useSeoPage` **não** controla robots. Robots é controlado via `X-Robots-Tag` headers em `routeRules` no `nuxt.config.ts`.
 
 ### Sitemap e Robots
 
 - **Sitemap**: gerado automaticamente por `@nuxtjs/sitemap` em `/sitemap.xml`
-- **Robots**: `public/robots.txt` bloqueia `/api/`, `/auth/`, `/design-system/`
-- **JSON-LD**: apenas na homepage (`layers/2-home/app/pages/index.vue`)
+- **Robots.txt**: gerado pelo módulo `@nuxtjs/robots` (não usar `public/robots.txt` estático)
+- **X-Robots-Tag**: headers configurados em `routeRules` no `nuxt.config.ts` para rotas internas
+- **Schema.org (JSON-LD)**: `nuxt-schema-org` com `useSchemaOrg()` + `defineWebSite()` na homepage
 
 ## Componentes shadcn-vue
 
@@ -156,6 +154,7 @@ layers/                 # TUDO fica aqui (incluindo server/)
   1-auth/               # Autenticação BFF (Backend-for-Frontend)
   2-home/               # Landing page
   3-usuarios/           # Gestão de perfil, usuários, grupos e permissões
+  4-rumores/            # Feed de rumores epidemiológicos (notícias de saúde)
 tests/                  # unit/, integration/, e2e/
 generated/              # Código gerado (Kubb) - NÃO EDITAR
 openapi/                # Especificações OpenAPI
@@ -168,7 +167,7 @@ openapi/                # Especificações OpenAPI
 ### Ordem de Prioridade (Layers)
 
 ```
-3-usuarios > 2-home > 1-auth > 0-base
+4-rumores > 3-usuarios > 2-home > 1-auth > 0-base
 ```
 
 Número maior = maior prioridade = sobrescreve layers anteriores.
@@ -221,6 +220,32 @@ export const useExampleStore = defineStore('example', () => {
   return { items, fetchAll }
 })
 ```
+
+### Persistência de Estado (pinia-plugin-persistedstate)
+
+Para persistir estado de stores no localStorage entre navegações:
+
+```typescript
+export const useExampleStore = defineStore(
+  'example',
+  () => {
+    const filtros = ref({})
+    const items = ref([])
+    return { filtros, items }
+  },
+  {
+    persist: {
+      pick: ['filtros'] // Persistir APENAS campos específicos
+    }
+  }
+)
+```
+
+| Quando usar                           | Quando NÃO usar                   |
+| ------------------------------------- | --------------------------------- |
+| Filtros e preferências do usuário     | Dados de API (items, listas)      |
+| Estado de UI (tema, layout)           | Auth state (usa cookies httpOnly) |
+| Sempre usar `pick` para ser explícito | Dados sensíveis                   |
 
 ### Data Fetching
 
@@ -409,4 +434,5 @@ output: {
 | [layers/1-auth/CLAUDE.md](layers/1-auth/CLAUDE.md)                                 | Autenticação BFF, login, logout         |
 | [layers/2-home/CLAUDE.md](layers/2-home/CLAUDE.md)                                 | Homepage, páginas públicas              |
 | [layers/3-usuarios/CLAUDE.md](layers/3-usuarios/CLAUDE.md)                         | Perfil, usuários, grupos, permissões    |
+| [layers/4-rumores/CLAUDE.md](layers/4-rumores/CLAUDE.md)                           | Rumores epidemiológicos, feed, filtros  |
 | [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking             |

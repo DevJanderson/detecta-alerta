@@ -5,8 +5,7 @@ definePageMeta({
 
 useSeoPage({
   title: 'Meu Perfil - Detecta Alerta',
-  description: 'Gerencie seus dados pessoais e foto de perfil',
-  noindex: true
+  description: 'Gerencie seus dados pessoais e foto de perfil'
 })
 
 const usuariosStore = useUsuariosStore()

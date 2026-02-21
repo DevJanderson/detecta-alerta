@@ -6,8 +6,7 @@ definePageMeta({
 useSeoPage({
   title: 'Rumores Epidemiológicos - Detecta Alerta',
   description:
-    'Acompanhe rumores e notícias epidemiológicas do Brasil em tempo real. Monitore surtos, tendências e alertas de saúde pública.',
-  noindex: true
+    'Acompanhe rumores e notícias epidemiológicas do Brasil em tempo real. Monitore surtos, tendências e alertas de saúde pública.'
 })
 
 const store = useRumoresStore()

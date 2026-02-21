@@ -1,9 +1,9 @@
 /**
- * Testes unitários para useAuthStore
+ * Testes de integração para useAuthStore
+ * Roda com @nuxt/test-utils (projeto "nuxt") - auto-imports reais disponíveis
  */
-
-/* eslint-disable import/first */
 import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { setActivePinia, createPinia } from 'pinia'
 
 // Mock do useAuthApi
@@ -22,21 +22,13 @@ vi.mock('~/layers/1-auth/app/composables/useAuthApi', () => ({
   })
 }))
 
-// Mock do useRouter
-vi.mock('#app', async importOriginal => {
-  const original = await importOriginal()
-  return {
-    ...(original as object),
-    useRouter: () => ({
-      push: vi.fn(),
-      replace: vi.fn()
-    })
-  }
-})
+// Mock do useRouter via @nuxt/test-utils
+mockNuxtImport('useRouter', () => () => ({
+  push: vi.fn(),
+  replace: vi.fn()
+}))
 
-// Import após os mocks
-import { useAuthStore } from '~/layers/1-auth/app/composables/useAuthStore'
-/* eslint-enable import/first */
+const { useAuthStore } = await import('~/layers/1-auth/app/composables/useAuthStore')
 
 const mockUser = {
   id: 1,

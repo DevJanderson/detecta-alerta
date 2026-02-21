@@ -60,8 +60,24 @@ export default defineNuxtConfig({
     '@nuxt/image',
     'nuxt-security',
     'vue-sonner/nuxt',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
+    'nuxt-schema-org',
+    'pinia-plugin-persistedstate/nuxt'
   ],
+
+  robots: {
+    disallow: ['/api/', '/auth/', '/design-system/', '/geo/'],
+    sitemap: '/sitemap.xml'
+  },
+
+  schemaOrg: {
+    identity: {
+      type: 'Organization',
+      name: 'ITpS - Instituto Todos pela Saúde',
+      url: 'https://itps.org.br'
+    }
+  },
 
   // Nuxt Icon - auto-import de ícones
   // Docs: https://nuxt.com/modules/icon
@@ -153,7 +169,14 @@ export default defineNuxtConfig({
     '/api/usuarios/**': { csurf: false },
 
     // Rotas de rumores admin: CSRF desabilitado (usam cookies httpOnly + SameSite strict)
-    '/api/rumores/admin/**': { csurf: false }
+    '/api/rumores/admin/**': { csurf: false },
+
+    // SEO: robots noindex para rotas internas (header X-Robots-Tag)
+    '/auth/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/design-system/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/perfil/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/admin/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/rumores/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } }
   },
 
   // VeeValidate - validação de formulários

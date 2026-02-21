@@ -9,8 +9,7 @@ definePageMeta({
 })
 
 useSeoPage({
-  title: 'Saindo... - Detecta Alerta',
-  noindex: true
+  title: 'Saindo... - Detecta Alerta'
 })
 
 const authStore = useAuthStore()

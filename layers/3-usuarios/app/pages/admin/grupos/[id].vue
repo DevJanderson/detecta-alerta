@@ -8,8 +8,7 @@ definePageMeta({
 })
 
 useSeoPage({
-  title: 'Detalhes do Grupo - Detecta Alerta',
-  noindex: true
+  title: 'Detalhes do Grupo - Detecta Alerta'
 })
 
 const route = useRoute()

@@ -8,8 +8,7 @@ definePageMeta({
 })
 
 useSeoPage({
-  title: 'Gerenciar Grupos - Detecta Alerta',
-  noindex: true
+  title: 'Gerenciar Grupos - Detecta Alerta'
 })
 
 const gruposStore = useGruposStore()

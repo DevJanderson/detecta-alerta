@@ -1,17 +1,28 @@
+/**
+ * Testes de integração para useSeoPage
+ * Roda com @nuxt/test-utils (projeto "nuxt") - auto-imports reais disponíveis
+ */
 import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 
-import { useSeoPage } from '~/layers/0-base/app/composables/useSeoPage'
-
-// Mock dos composables de head do Nuxt (auto-imports via #app/composables/head)
+// Mock dos composables de head via @nuxt/test-utils
 const mockUseHead = vi.fn()
 const mockUseSeoMeta = vi.fn()
-vi.mock('#app/composables/head', () => ({
-  useHead: (...args: unknown[]) => mockUseHead(...args),
-  useSeoMeta: (...args: unknown[]) => mockUseSeoMeta(...args)
-}))
 
-// O useRoute mockado no setup.ts retorna path: '/'
-// Testes que precisam de path diferente usam a opção `path` do composable
+mockNuxtImport(
+  'useHead',
+  () =>
+    (...args: unknown[]) =>
+      mockUseHead(...args)
+)
+mockNuxtImport(
+  'useSeoMeta',
+  () =>
+    (...args: unknown[]) =>
+      mockUseSeoMeta(...args)
+)
+
+const { useSeoPage } = await import('~/layers/0-base/app/composables/useSeoPage')
 
 describe('useSeoPage', () => {
   beforeEach(() => {
@@ -108,28 +119,6 @@ describe('useSeoPage', () => {
           twitterTitle: 'Teste Twitter',
           twitterDescription: 'Desc twitter',
           twitterImage: 'https://alerta.sinapse.org.br/og-image.png'
-        })
-      )
-    })
-  })
-
-  describe('robots', () => {
-    it('deve ser index, follow por padrão', () => {
-      useSeoPage({ title: 'Teste' })
-
-      expect(mockUseSeoMeta).toHaveBeenCalledWith(
-        expect.objectContaining({
-          robots: 'index, follow'
-        })
-      )
-    })
-
-    it('deve ser noindex, nofollow quando noindex: true', () => {
-      useSeoPage({ title: 'Teste', noindex: true })
-
-      expect(mockUseSeoMeta).toHaveBeenCalledWith(
-        expect.objectContaining({
-          robots: 'noindex, nofollow'
         })
       )
     })

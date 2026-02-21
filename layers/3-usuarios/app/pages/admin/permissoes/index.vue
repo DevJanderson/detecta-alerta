@@ -8,8 +8,7 @@ definePageMeta({
 })
 
 useSeoPage({
-  title: 'Gerenciar Permissoes - Detecta Alerta',
-  noindex: true
+  title: 'Gerenciar Permissoes - Detecta Alerta'
 })
 
 const permissoesStore = usePermissoesStore()

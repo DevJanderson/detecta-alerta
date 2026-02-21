@@ -6,7 +6,7 @@ Instruções para criar e usar composables reutilizáveis.
 
 ```
 layers/0-base/app/composables/
-├── useSeoPage.ts           # SEO: OG, Twitter Cards, canonical, robots
+├── useSeoPage.ts           # SEO: OG, Twitter Cards, canonical
 ├── useLoading.ts           # Estado de loading global
 ├── useNotification.ts      # Sistema de notificações
 ├── usePagination.ts        # Lógica de paginação
@@ -17,7 +17,9 @@ layers/0-base/app/composables/
 
 ### useSeoPage
 
-Composable de SEO para todas as páginas. Gera Open Graph, Twitter Cards, canonical URL e robots automaticamente.
+Composable de SEO para todas as páginas. Gera Open Graph, Twitter Cards e canonical URL automaticamente.
+
+> **Nota:** Robots é controlado via `X-Robots-Tag` headers em `routeRules` no `nuxt.config.ts`, não pelo composable.
 
 ```typescript
 // layers/0-base/app/composables/useSeoPage.ts
@@ -25,14 +27,12 @@ interface SeoPageOptions {
   title: string
   description?: string // Default: descrição padrão do projeto
   path?: string // Default: route.path
-  noindex?: boolean // Default: false
   ogImage?: string // Default: /og-image.png
 }
 
 useSeoPage({
   title: 'Minha Página - Detecta Alerta',
-  description: 'Descrição da página',
-  noindex: true // Para páginas internas (auth, design-system)
+  description: 'Descrição da página'
 })
 ```
 

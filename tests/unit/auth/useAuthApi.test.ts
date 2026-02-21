@@ -1,17 +1,14 @@
 /**
  * Testes unitários para useAuthApi
+ * Roda em Node puro (projeto "unit") - sem Nuxt
  */
-
-/* eslint-disable import/first */
 import { describe, it, expect, beforeEach, vi } from 'vitest'
+
+import { useAuthApi } from '~/layers/1-auth/app/composables/useAuthApi'
 
 // Mock do $fetch global
 const mockFetch = vi.fn()
 vi.stubGlobal('$fetch', mockFetch)
-
-// Import após os mocks
-import { useAuthApi } from '~/layers/1-auth/app/composables/useAuthApi'
-/* eslint-enable import/first */
 
 const mockUser = {
   id: 1,

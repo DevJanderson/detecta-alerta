@@ -2,7 +2,6 @@ interface SeoPageOptions {
   title: string
   description?: string
   path?: string
-  noindex?: boolean
   ogImage?: string
 }
 
@@ -12,7 +11,8 @@ const DEFAULT_DESCRIPTION =
 
 /**
  * Composable para SEO de página.
- * Gera: title, description, og:*, twitter:*, canonical, robots.
+ * Gera: title, description, og:*, twitter:*, canonical.
+ * Robots controlado via routeRules no nuxt.config.ts.
  */
 export function useSeoPage(options: SeoPageOptions) {
   const route = useRoute()
@@ -41,7 +41,6 @@ export function useSeoPage(options: SeoPageOptions) {
     twitterCard: 'summary_large_image',
     twitterTitle: options.title,
     twitterDescription: description,
-    twitterImage: ogImage,
-    robots: options.noindex ? 'noindex, nofollow' : 'index, follow'
+    twitterImage: ogImage
   })
 }
