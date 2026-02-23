@@ -5,6 +5,9 @@
 
 import type { GrupoSchemaList } from './GrupoSchemaList'
 
+/**
+ * GruposPaginadosSchema
+ */
 export type GruposPaginadosSchema = {
   /**
    * @type integer

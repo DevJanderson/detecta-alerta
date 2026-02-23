@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const deleteNoticiaApiV1NoticiasUniqueIdDeletePathParamsSchema = z.object({
   unique_id: z.string().uuid()

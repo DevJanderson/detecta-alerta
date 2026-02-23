@@ -4,6 +4,7 @@
  */
 
 /**
+ * DetailedReportResponse
  * @description Schema para relatório detalhado de unidade.
  */
 export type DetailedReportResponse = {

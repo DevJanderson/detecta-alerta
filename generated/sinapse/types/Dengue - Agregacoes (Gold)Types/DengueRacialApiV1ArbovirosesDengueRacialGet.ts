@@ -30,6 +30,7 @@ export type DengueRacialApiV1ArbovirosesDengueRacialGetQueryParams = {
 export type DengueRacialApiV1ArbovirosesDengueRacialGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DengueRacialApiV1ArbovirosesDengueRacialGet422 = HTTPValidationError

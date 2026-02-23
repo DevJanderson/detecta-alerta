@@ -1,0 +1,49 @@
+{
+  "properties": {
+    "ano_epi": { "type": "integer", "maximum": 2100, "minimum": 2020, "title": "Ano Epi" },
+    "semana_epi": { "type": "integer", "maximum": 53, "minimum": 1, "title": "Semana Epi" },
+    "periodo_inicio": { "type": "string", "format": "date", "title": "Periodo Inicio" },
+    "periodo_fim": { "type": "string", "format": "date", "title": "Periodo Fim" },
+    "manchete": { "type": "string", "maxLength": 500, "minLength": 1, "title": "Manchete" },
+    "panorama": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Panorama" },
+    "destaques_doencas": {
+      "anyOf": [
+        { "items": { "additionalProperties": true, "type": "object" }, "type": "array" },
+        { "type": "null" }
+      ],
+      "title": "Destaques Doencas"
+    },
+    "tendencias": {
+      "anyOf": [
+        { "items": { "additionalProperties": true, "type": "object" }, "type": "array" },
+        { "type": "null" }
+      ],
+      "title": "Tendencias"
+    },
+    "alertas": {
+      "anyOf": [
+        { "items": { "additionalProperties": true, "type": "object" }, "type": "array" },
+        { "type": "null" }
+      ],
+      "title": "Alertas"
+    },
+    "dados_agregacao": {
+      "anyOf": [{ "additionalProperties": true, "type": "object" }, { "type": "null" }],
+      "title": "Dados Agregacao"
+    },
+    "total_artigos": {
+      "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }],
+      "title": "Total Artigos",
+      "default": 0
+    },
+    "modelo_llm": {
+      "anyOf": [{ "type": "string", "maxLength": 100 }, { "type": "null" }],
+      "title": "Modelo Llm"
+    }
+  },
+  "type": "object",
+  "required": ["ano_epi", "semana_epi", "periodo_inicio", "periodo_fim", "manchete"],
+  "title": "MancheteSemanalCreate",
+  "description": "Schema para criacao de manchete semanal.",
+  "x-readme-ref-name": "MancheteSemanalCreate"
+}

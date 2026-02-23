@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { casoAgravoSchema } from './casoAgravoSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para resposta paginada de casos.

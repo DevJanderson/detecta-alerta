@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { unitCreateSchema } from './unitCreateSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para criação de unidades em lote.

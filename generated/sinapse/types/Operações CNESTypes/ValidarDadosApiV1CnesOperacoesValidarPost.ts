@@ -8,15 +8,20 @@ import type { HTTPValidationError } from '../HTTPValidationError'
 import type { ValidacaoResult } from '../ValidacaoResult'
 
 /**
+ * ValidacaoResult
  * @description Resultado da validação
  */
 export type ValidarDadosApiV1CnesOperacoesValidarPost200 = ValidacaoResult
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ValidarDadosApiV1CnesOperacoesValidarPost422 = HTTPValidationError
 
+/**
+ * CnesCreate
+ */
 export type ValidarDadosApiV1CnesOperacoesValidarPostMutationRequest = CnesCreate
 
 export type ValidarDadosApiV1CnesOperacoesValidarPostMutationResponse =

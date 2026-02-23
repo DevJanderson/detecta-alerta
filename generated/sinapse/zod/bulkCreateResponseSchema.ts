@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { noticiaSchema } from './noticiaSchema'
-import { z } from 'zod'
 
 /**
  * @description Resposta do endpoint de criacao em massa com contagem de dedup.

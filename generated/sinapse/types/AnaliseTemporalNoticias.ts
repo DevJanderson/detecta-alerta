@@ -10,6 +10,7 @@ import type { PontoTemporal } from './PontoTemporal'
 import type { TendenciaTemporal } from './TendenciaTemporal'
 
 /**
+ * AnaliseTemporalNoticias
  * @description Resultado completo da analise temporal de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    serie_temporal: Lista de pontos temporais\n    estatisticas_periodo: Estatisticas agregadas do periodo\n    tendencia: Tendencia identificada\n    alertas: Lista de alertas temporais\n    doencas_em_alta: Doencas com maior crescimento no periodo\n    localizacoes_em_destaque: Localizacoes com maior atividade
  */
 export type AnaliseTemporalNoticias = {

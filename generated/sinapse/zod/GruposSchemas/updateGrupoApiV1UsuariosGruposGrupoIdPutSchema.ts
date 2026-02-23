@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { grupoSchemaDetalhesSchema } from '../grupoSchemaDetalhesSchema'
 import { grupoSchemaUpdateSchema } from '../grupoSchemaUpdateSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const updateGrupoApiV1UsuariosGruposGrupoIdPutPathParamsSchema = z.object({
   grupo_id: z.coerce.number().int()

@@ -4,6 +4,7 @@
  */
 
 /**
+ * UnitCreate
  * @description Schema para criação de unidade.
  */
 export type UnitCreate = {

@@ -4,6 +4,7 @@
  */
 
 /**
+ * CampoMetadados
  * @description Metadados de um campo do dicionário.
  */
 export type CampoMetadados = {

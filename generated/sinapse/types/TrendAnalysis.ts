@@ -4,6 +4,7 @@
  */
 
 /**
+ * TrendAnalysis
  * @description Schema para análise de tendências.
  */
 export type TrendAnalysis = {

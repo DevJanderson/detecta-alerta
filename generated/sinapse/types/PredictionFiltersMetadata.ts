@@ -4,6 +4,7 @@
  */
 
 /**
+ * PredictionFiltersMetadata
  * @description Metadados dos filtros aplicados em /predictions.
  */
 export type PredictionFiltersMetadata = {

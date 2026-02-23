@@ -4,6 +4,7 @@
  */
 
 /**
+ * ETLBatchJobResponse
  * @description Schema de resposta para job de batch processing.
  */
 export type ETLBatchJobResponse = {

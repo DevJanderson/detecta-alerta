@@ -4,6 +4,7 @@
  */
 
 /**
+ * MetadadosAnalise
  * @description Metadados padrao para todas as analises estatisticas.\n\nAttributes:\n    periodo_analise: Periodo temporal da analise\n    filtros_aplicados: Filtros que foram aplicados na analise\n    data_geracao: Timestamp de quando a analise foi gerada\n    versao_analise: Versao do algoritmo de analise utilizado
  */
 export type MetadadosAnalise = {

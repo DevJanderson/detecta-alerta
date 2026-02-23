@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { validationErrorSchema } from './validationErrorSchema'
-import { z } from 'zod'
 
 export const HTTPValidationErrorSchema = z.object({
   detail: z.optional(z.array(z.lazy(() => validationErrorSchema)))

@@ -7,6 +7,7 @@ import type { PredictionFiltersMetadata } from './PredictionFiltersMetadata'
 import type { PredictionUnit } from './PredictionUnit'
 
 /**
+ * PredictionsResponse
  * @description Schema de resposta para o endpoint /predictions.
  */
 export type PredictionsResponse = {

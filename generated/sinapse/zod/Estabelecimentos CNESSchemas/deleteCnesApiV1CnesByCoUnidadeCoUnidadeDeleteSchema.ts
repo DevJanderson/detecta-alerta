@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const deleteCnesApiV1CnesByCoUnidadeCoUnidadeDeletePathParamsSchema = z.object({
   co_unidade: z.coerce.number().int()

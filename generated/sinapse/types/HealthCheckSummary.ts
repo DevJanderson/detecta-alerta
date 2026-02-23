@@ -4,6 +4,7 @@
  */
 
 /**
+ * HealthCheckSummary
  * @description Resumo estatístico.
  */
 export type HealthCheckSummary = {

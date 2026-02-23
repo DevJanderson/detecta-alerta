@@ -20,11 +20,13 @@ export type ListSintomasApiV1NoticiasOperacoesSintomasGetQueryParams = {
 }
 
 /**
+ * Response List Sintomas Api V1 Noticias Operacoes Sintomas Get
  * @description Lista de sintomas
  */
 export type ListSintomasApiV1NoticiasOperacoesSintomasGet200 = Sintoma[]
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ListSintomasApiV1NoticiasOperacoesSintomasGet422 = HTTPValidationError

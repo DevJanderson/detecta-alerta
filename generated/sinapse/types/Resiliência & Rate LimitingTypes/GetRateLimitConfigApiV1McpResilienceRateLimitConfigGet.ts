@@ -4,6 +4,7 @@
  */
 
 /**
+ * Response Get Rate Limit Config Api V1 Mcp Resilience Rate Limit Config Get
  * @description Successful Response
  */
 export type GetRateLimitConfigApiV1McpResilienceRateLimitConfigGet200 = {

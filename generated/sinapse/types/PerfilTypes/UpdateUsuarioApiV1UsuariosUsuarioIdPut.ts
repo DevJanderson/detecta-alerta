@@ -15,15 +15,20 @@ export type UpdateUsuarioApiV1UsuariosUsuarioIdPutPathParams = {
 }
 
 /**
+ * UsuarioSchemaDetalhes
  * @description Usuário atualizado com sucesso
  */
 export type UpdateUsuarioApiV1UsuariosUsuarioIdPut200 = UsuarioSchemaDetalhes
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type UpdateUsuarioApiV1UsuariosUsuarioIdPut422 = HTTPValidationError
 
+/**
+ * UsuarioSchemaUpdate
+ */
 export type UpdateUsuarioApiV1UsuariosUsuarioIdPutMutationRequest = UsuarioSchemaUpdate
 
 export type UpdateUsuarioApiV1UsuariosUsuarioIdPutMutationResponse =

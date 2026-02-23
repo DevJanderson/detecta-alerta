@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { faixasEtariasResponseSchema } from '../faixasEtariasResponseSchema'
-import { z } from 'zod'
 
 /**
  * @description Lista de faixas etárias

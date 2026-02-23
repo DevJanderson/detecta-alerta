@@ -4,6 +4,7 @@
  */
 
 /**
+ * TransformacaoRenomeacao
  * @description Transformação de renomeação de campo Bronze→Silver.
  */
 export type TransformacaoRenomeacao = {

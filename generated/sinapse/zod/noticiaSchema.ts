@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { doencaSchema } from './doencaSchema'
 import { regiaoSchema } from './regiaoSchema'
 import { sintomaSchema } from './sintomaSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema de resposta para noticias (herda NoticiaBase com nomenclatura portuguesa).

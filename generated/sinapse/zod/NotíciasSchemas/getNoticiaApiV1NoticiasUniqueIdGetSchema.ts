@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { noticiaSchema } from '../noticiaSchema'
-import { z } from 'zod'
 
 export const getNoticiaApiV1NoticiasUniqueIdGetPathParamsSchema = z.object({
   unique_id: z.string().uuid()

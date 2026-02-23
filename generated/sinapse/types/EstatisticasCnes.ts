@@ -4,6 +4,7 @@
  */
 
 /**
+ * EstatisticasCnes
  * @description Estatísticas gerais do CNES
  */
 export type EstatisticasCnes = {

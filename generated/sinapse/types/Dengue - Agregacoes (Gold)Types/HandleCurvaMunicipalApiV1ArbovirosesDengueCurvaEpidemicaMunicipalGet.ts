@@ -27,6 +27,7 @@ export type HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet
 export type HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet422 =

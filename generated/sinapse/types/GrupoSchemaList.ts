@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * GrupoSchemaList
+ */
 export type GrupoSchemaList = {
   /**
    * @type string

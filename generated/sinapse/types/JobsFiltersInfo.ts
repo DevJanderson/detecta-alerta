@@ -4,6 +4,7 @@
  */
 
 /**
+ * JobsFiltersInfo
  * @description Informações sobre filtros aplicados na consulta de jobs.
  */
 export type JobsFiltersInfo = {

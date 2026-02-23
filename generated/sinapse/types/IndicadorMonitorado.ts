@@ -4,6 +4,7 @@
  */
 
 /**
+ * IndicadorMonitorado
  * @description Indicador sendo monitorado para alertas.\n\nAttributes:\n    nome: Nome do indicador\n    valor_atual: Valor atual\n    valor_esperado: Valor esperado/normal\n    variacao_percentual: Variacao em relacao ao esperado\n    status: Status do indicador
  */
 export type IndicadorMonitorado = {

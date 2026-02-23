@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const getLlmCostsSummaryApiV1McpLlmCostsSummaryGetQueryParamsSchema = z.object({
   days: z.coerce.number().int().default(7).describe('Número de dias para análise (1-365)')

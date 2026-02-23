@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { cnesCreateSchema } from '../cnesCreateSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { validacaoResultSchema } from '../validacaoResultSchema'
-import { z } from 'zod'
 
 /**
  * @description Resultado da validação

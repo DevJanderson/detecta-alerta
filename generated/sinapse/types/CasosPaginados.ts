@@ -6,6 +6,7 @@
 import type { CasoAgravo } from './CasoAgravo'
 
 /**
+ * CasosPaginados
  * @description Schema para resposta paginada de casos.
  */
 export type CasosPaginados = {

@@ -4,6 +4,7 @@
  */
 
 /**
+ * Response Get Mcp Stats Api V1 Mcp Metrics Stats Get
  * @description Successful Response
  */
 export type GetMcpStatsApiV1McpMetricsStatsGet200 = {

@@ -34,6 +34,7 @@ export type DengueOportunidadeApiV1ArbovirosesDengueOportunidadeGetQueryParams =
 export type DengueOportunidadeApiV1ArbovirosesDengueOportunidadeGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DengueOportunidadeApiV1ArbovirosesDengueOportunidadeGet422 = HTTPValidationError

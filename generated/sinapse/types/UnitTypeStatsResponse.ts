@@ -4,6 +4,7 @@
  */
 
 /**
+ * UnitTypeStatsResponse
  * @description Schema para estatísticas por tipo de unidade.
  */
 export type UnitTypeStatsResponse = {

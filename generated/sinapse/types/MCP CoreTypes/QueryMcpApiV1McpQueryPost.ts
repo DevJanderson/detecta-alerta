@@ -8,15 +8,20 @@ import type { LLMQueryRequest } from '../LLMQueryRequest'
 import type { LLMQueryResponse } from '../LLMQueryResponse'
 
 /**
+ * LLMQueryResponse
  * @description Successful Response
  */
 export type QueryMcpApiV1McpQueryPost200 = LLMQueryResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type QueryMcpApiV1McpQueryPost422 = HTTPValidationError
 
+/**
+ * LLMQueryRequest
+ */
 export type QueryMcpApiV1McpQueryPostMutationRequest = LLMQueryRequest
 
 export type QueryMcpApiV1McpQueryPostMutationResponse = QueryMcpApiV1McpQueryPost200

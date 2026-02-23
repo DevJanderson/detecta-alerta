@@ -6,6 +6,7 @@
 import type { PredictionHourly } from './PredictionHourly'
 
 /**
+ * PredictionUnit
  * @description Previsões para uma unidade específica.
  */
 export type PredictionUnit = {

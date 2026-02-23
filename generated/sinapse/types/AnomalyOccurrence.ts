@@ -4,6 +4,7 @@
  */
 
 /**
+ * AnomalyOccurrence
  * @description Ocorrência individual de anomalia.
  */
 export type AnomalyOccurrence = {

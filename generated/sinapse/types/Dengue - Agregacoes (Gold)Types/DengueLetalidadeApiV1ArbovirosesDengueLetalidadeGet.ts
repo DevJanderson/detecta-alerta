@@ -38,6 +38,7 @@ export type DengueLetalidadeApiV1ArbovirosesDengueLetalidadeGetQueryParams = {
 export type DengueLetalidadeApiV1ArbovirosesDengueLetalidadeGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DengueLetalidadeApiV1ArbovirosesDengueLetalidadeGet422 = HTTPValidationError

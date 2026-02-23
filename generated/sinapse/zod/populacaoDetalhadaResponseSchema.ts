@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { faixaEtariaResponseSchema } from './faixaEtariaResponseSchema'
-import { z } from 'zod'
 
 /**
  * @description Resposta com população por faixas etárias.

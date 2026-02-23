@@ -6,6 +6,7 @@
 import type { PlaceSearchResult } from './PlaceSearchResult'
 
 /**
+ * PlaceSearchResponse
  * @description Schema para resposta de busca de lugares com múltiplos termos.
  */
 export type PlaceSearchResponse = {

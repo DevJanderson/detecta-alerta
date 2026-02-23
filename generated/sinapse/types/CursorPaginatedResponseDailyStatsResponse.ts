@@ -6,6 +6,9 @@
 import type { DailyStatsResponse } from './DailyStatsResponse'
 import type { PaginationMeta } from './PaginationMeta'
 
+/**
+ * CursorPaginatedResponse[DailyStatsResponse]
+ */
 export type CursorPaginatedResponseDailyStatsResponse = {
   /**
    * @description Lista de itens da página atual

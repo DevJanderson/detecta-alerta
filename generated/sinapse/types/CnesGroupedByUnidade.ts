@@ -5,6 +5,9 @@
 
 import type { ClassificationInfo } from './ClassificationInfo'
 
+/**
+ * CnesGroupedByUnidade
+ */
 export type CnesGroupedByUnidade = {
   /**
    * @type integer

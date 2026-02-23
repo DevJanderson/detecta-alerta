@@ -5,6 +5,9 @@
 
 import type { PermissaoAcessoSchemaList } from './PermissaoAcessoSchemaList'
 
+/**
+ * GrupoSchemaDetalhes
+ */
 export type GrupoSchemaDetalhes = {
   /**
    * @type string

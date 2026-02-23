@@ -55,12 +55,14 @@ export type GetAnaliseGeograficaApiV1NoticiasEstatisticasGeograficaGetQueryParam
 }
 
 /**
+ * AnaliseGeograficaNoticias
  * @description Successful Response
  */
 export type GetAnaliseGeograficaApiV1NoticiasEstatisticasGeograficaGet200 =
   AnaliseGeograficaNoticias
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetAnaliseGeograficaApiV1NoticiasEstatisticasGeograficaGet422 = HTTPValidationError

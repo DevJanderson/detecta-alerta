@@ -8,15 +8,20 @@ import type { RefreshTokenRequest } from '../RefreshTokenRequest'
 import type { Token } from '../Token'
 
 /**
+ * Token
  * @description Token renovado com sucesso
  */
 export type RefreshTokenApiV1AuthRefreshPost200 = Token
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type RefreshTokenApiV1AuthRefreshPost422 = HTTPValidationError
 
+/**
+ * RefreshTokenRequest
+ */
 export type RefreshTokenApiV1AuthRefreshPostMutationRequest = RefreshTokenRequest
 
 export type RefreshTokenApiV1AuthRefreshPostMutationResponse = RefreshTokenApiV1AuthRefreshPost200

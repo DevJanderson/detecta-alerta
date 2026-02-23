@@ -4,6 +4,7 @@
  */
 
 /**
+ * PlaceCacheResponse
  * @description Schema para status do cache de Places.
  */
 export type PlaceCacheResponse = {

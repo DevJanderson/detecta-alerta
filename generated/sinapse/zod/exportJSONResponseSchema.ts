@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { exportFiltersInfoSchema } from './exportFiltersInfoSchema'
 import { exportPaginationInfoSchema } from './exportPaginationInfoSchema'
-import { z } from 'zod'
 
 /**
  * @description Resposta de exportação JSON paginada.

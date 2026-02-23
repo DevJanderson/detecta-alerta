@@ -88,6 +88,13 @@ export type {
   DengueSurtosApiV1ArbovirosesDengueSurtosGetQuery
 } from './DengueSurtosApiV1ArbovirosesDengueSurtosGet'
 export type {
+  HandleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGetQueryParams,
+  HandleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGet200,
+  HandleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGet422,
+  HandleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGetQueryResponse,
+  HandleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGetQuery
+} from './HandleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGet'
+export type {
   HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGetQueryParams,
   HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet200,
   HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet422,

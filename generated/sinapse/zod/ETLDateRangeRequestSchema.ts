@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import * as z from 'zod'
 
 /**
  * @description Schema de request para processamento em batch de range de datas.

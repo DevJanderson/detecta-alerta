@@ -6,6 +6,7 @@
 import type { EpidemiologicalMetrics } from './EpidemiologicalMetrics'
 
 /**
+ * WeeklyAggregationResponse
  * @description Schema para resposta de agregação semanal com métricas segmentadas.
  */
 export type WeeklyAggregationResponse = {
@@ -30,7 +31,7 @@ export type WeeklyAggregationResponse = {
    */
   week_ending_date: string
   /**
-   * @description Schema para métricas epidemiológicas segmentadas (ADR-017).\n\nVersão 2.0 (ADR-027): Campos duplicados removidos para reduzir redundância.\n- place_id, unit_type, week_ending_date: Movidos para WeeklyAggregationResponse\n- calculation_params: Movido para nível raiz da resposta
+   * @description Schema para metricas epidemiologicas segmentadas.\n\nVersao 2.1 (ADR-027): Campos legados renomeados para _week, segmento fim de semana removido.\n- place_id, unit_type, week_ending_date: Movidos para WeeklyAggregationResponse\n- calculation_params: Movido para nivel raiz da resposta\n- 2 segmentos: week (todos os pontos) e weekday (dias uteis)
    * @type object
    */
   metrics: EpidemiologicalMetrics

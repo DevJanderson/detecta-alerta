@@ -38,6 +38,7 @@ export type ExportParquetApiV1ArbovirosesDengueSilverExportParquetGetQueryParams
 export type ExportParquetApiV1ArbovirosesDengueSilverExportParquetGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ExportParquetApiV1ArbovirosesDengueSilverExportParquetGet422 = HTTPValidationError

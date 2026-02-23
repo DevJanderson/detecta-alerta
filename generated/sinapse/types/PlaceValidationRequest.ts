@@ -4,6 +4,7 @@
  */
 
 /**
+ * PlaceValidationRequest
  * @description Schema para validação de Place ID.
  */
 export type PlaceValidationRequest = {

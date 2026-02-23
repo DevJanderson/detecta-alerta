@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { campoCategoriaSchema } from './campoCategoriaSchema'
-import { z } from 'zod'
 
 /**
  * @description Resposta das categorias do dicionário.

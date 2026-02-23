@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { estadoResponseSchema } from './estadoResponseSchema'
 import { modulesIbgeSchemasPaginationInfoSchema } from './modulesIbgeSchemasPaginationInfoSchema'
-import { z } from 'zod'
 
 /**
  * @description Resposta com lista de estados.

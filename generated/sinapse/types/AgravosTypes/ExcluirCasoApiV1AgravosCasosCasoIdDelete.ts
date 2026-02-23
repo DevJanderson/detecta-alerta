@@ -18,6 +18,7 @@ export type ExcluirCasoApiV1AgravosCasosCasoIdDeletePathParams = {
 export type ExcluirCasoApiV1AgravosCasosCasoIdDelete204 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ExcluirCasoApiV1AgravosCasosCasoIdDelete422 = HTTPValidationError

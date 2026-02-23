@@ -13,6 +13,7 @@ export type EstatisticasResumoApiV1AgravosCasosEstatisticasResumoGetQueryParams 
 }
 
 /**
+ * Response Estatisticas Resumo Api V1 Agravos Casos Estatisticas Resumo Get
  * @description Successful Response
  */
 export type EstatisticasResumoApiV1AgravosCasosEstatisticasResumoGet200 = {
@@ -20,6 +21,7 @@ export type EstatisticasResumoApiV1AgravosCasosEstatisticasResumoGet200 = {
 }
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type EstatisticasResumoApiV1AgravosCasosEstatisticasResumoGet422 = HTTPValidationError

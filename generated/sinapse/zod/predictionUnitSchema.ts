@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { predictionHourlySchema } from './predictionHourlySchema'
-import { z } from 'zod'
 
 /**
  * @description Previsões para uma unidade específica.

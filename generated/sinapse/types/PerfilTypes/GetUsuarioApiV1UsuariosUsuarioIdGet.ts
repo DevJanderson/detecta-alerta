@@ -14,11 +14,13 @@ export type GetUsuarioApiV1UsuariosUsuarioIdGetPathParams = {
 }
 
 /**
+ * UsuarioSchemaDetalhes
  * @description Usuário encontrado
  */
 export type GetUsuarioApiV1UsuariosUsuarioIdGet200 = UsuarioSchemaDetalhes
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetUsuarioApiV1UsuariosUsuarioIdGet422 = HTTPValidationError

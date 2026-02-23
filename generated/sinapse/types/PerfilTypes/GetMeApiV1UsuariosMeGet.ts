@@ -6,6 +6,7 @@
 import type { UsuarioSchemaDetalhes } from '../UsuarioSchemaDetalhes'
 
 /**
+ * UsuarioSchemaDetalhes
  * @description Informações do usuário logado
  */
 export type GetMeApiV1UsuariosMeGet200 = UsuarioSchemaDetalhes

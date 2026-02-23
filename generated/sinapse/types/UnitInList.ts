@@ -6,6 +6,7 @@
 import type { OperationalProfileEnum } from './OperationalProfileEnum'
 
 /**
+ * UnitInList
  * @description Schema de resposta simplificado para listagem de unidades.
  */
 export type UnitInList = {

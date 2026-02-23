@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import * as z from 'zod'
 
 /**
  * @description Alerta identificado na analise temporal.\n\nAttributes:\n    tipo: Tipo do alerta\n    severidade: Severidade (baixa, media, alta)\n    data_deteccao: Data onde o alerta foi identificado\n    mensagem: Descricao do alerta\n    quantidade_noticias: Quantidade de noticias relacionadas

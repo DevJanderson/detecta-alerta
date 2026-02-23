@@ -4,6 +4,7 @@
  */
 
 /**
+ * Token
  * @description Schema para resposta de token.
  */
 export type Token = {

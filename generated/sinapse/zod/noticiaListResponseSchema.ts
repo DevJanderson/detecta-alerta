@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { modulesNoticiasSchemasPaginationInfoSchema } from './modulesNoticiasSchemasPaginationInfoSchema'
 import { noticiaFilterInfoSchema } from './noticiaFilterInfoSchema'
 import { noticiaSchema } from './noticiaSchema'
-import { z } from 'zod'
 
 /**
  * @description Resposta paginada cursor-based para listagem de noticias.

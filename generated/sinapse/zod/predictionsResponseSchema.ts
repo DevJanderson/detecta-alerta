@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { predictionFiltersMetadataSchema } from './predictionFiltersMetadataSchema'
 import { predictionUnitSchema } from './predictionUnitSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema de resposta para o endpoint /predictions.

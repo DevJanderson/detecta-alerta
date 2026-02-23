@@ -4,6 +4,7 @@
  */
 
 /**
+ * MunicipioResponse
  * @description Resposta de município com população.
  */
 export type MunicipioResponse = {

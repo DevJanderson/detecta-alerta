@@ -4,6 +4,7 @@
  */
 
 /**
+ * PaginationInfo
  * @description Informações de paginação cursor-based.
  */
 export type ModulesIbgeSchemasPaginationInfo = {

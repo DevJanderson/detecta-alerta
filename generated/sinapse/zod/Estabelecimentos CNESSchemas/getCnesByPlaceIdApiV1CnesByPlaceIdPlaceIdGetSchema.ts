@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { cnesGroupedByUnidadeSchema } from '../cnesGroupedByUnidadeSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const getCnesByPlaceIdApiV1CnesByPlaceIdPlaceIdGetPathParamsSchema = z.object({
   place_id: z.string()

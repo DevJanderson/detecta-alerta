@@ -4,6 +4,7 @@
  */
 
 /**
+ * PaginationMeta
  * @description Metadados de paginação cursor-based.\n\nUsado em conjunto com CursorPaginatedResponse para retornar\ninformações de navegação em endpoints paginados.
  * @example [object Object]
  */

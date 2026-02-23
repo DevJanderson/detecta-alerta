@@ -6,6 +6,9 @@
 import type { GrupoSchemaList } from './GrupoSchemaList'
 import type { PermissaoAcessoSchemaList } from './PermissaoAcessoSchemaList'
 
+/**
+ * UsuarioSchemaList
+ */
 export type UsuarioSchemaList = {
   /**
    * @type integer

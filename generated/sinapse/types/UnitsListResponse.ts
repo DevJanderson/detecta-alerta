@@ -7,6 +7,7 @@ import type { UnitFiltersMetadata } from './UnitFiltersMetadata'
 import type { UnitInList } from './UnitInList'
 
 /**
+ * UnitsListResponse
  * @description Resposta estruturada para listagem de unidades (seguindo padrão ADR-029).
  */
 export type UnitsListResponse = {

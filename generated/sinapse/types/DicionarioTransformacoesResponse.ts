@@ -6,6 +6,7 @@
 import type { Transformacao } from './Transformacao'
 
 /**
+ * DicionarioTransformacoesResponse
  * @description Resposta das transformações do dicionário.
  */
 export type DicionarioTransformacoesResponse = {

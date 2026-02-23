@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { noticiaStatsSchema } from '../noticiaStatsSchema'
-import { z } from 'zod'
 
 /**
  * @description Estatísticas gerais das notícias

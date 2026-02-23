@@ -4,6 +4,7 @@
  */
 
 /**
+ * TrendPaginationMetadata
  * @description Metadados de paginação cursor-based.
  */
 export type TrendPaginationMetadata = {

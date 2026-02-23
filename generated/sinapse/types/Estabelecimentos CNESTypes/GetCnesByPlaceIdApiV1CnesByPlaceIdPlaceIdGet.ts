@@ -14,11 +14,13 @@ export type GetCnesByPlaceIdApiV1CnesByPlaceIdPlaceIdGetPathParams = {
 }
 
 /**
+ * Response Get Cnes By Place Id Api V1 Cnes By Place Id  Place Id  Get
  * @description Registros agrupados por unidade
  */
 export type GetCnesByPlaceIdApiV1CnesByPlaceIdPlaceIdGet200 = CnesGroupedByUnidade[]
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetCnesByPlaceIdApiV1CnesByPlaceIdPlaceIdGet422 = HTTPValidationError

@@ -48,6 +48,63 @@ export type {
   ObterCasoApiV1AgravosCasosCasoIdGetQueryResponse,
   ObterCasoApiV1AgravosCasosCasoIdGetQuery
 } from './types/AgravosTypes/ObterCasoApiV1AgravosCasosCasoIdGet'
+export type {
+  BulkUpsertDestaquesApiV1NoticiasAgregacoesDestaquesBulkPost200,
+  BulkUpsertDestaquesApiV1NoticiasAgregacoesDestaquesBulkPost422,
+  BulkUpsertDestaquesApiV1NoticiasAgregacoesDestaquesBulkPostMutationRequest,
+  BulkUpsertDestaquesApiV1NoticiasAgregacoesDestaquesBulkPostMutationResponse,
+  BulkUpsertDestaquesApiV1NoticiasAgregacoesDestaquesBulkPostMutation
+} from './types/Agregacoes EpidemiologicasTypes/BulkUpsertDestaquesApiV1NoticiasAgregacoesDestaquesBulkPost'
+export type {
+  BulkUpsertEstimativasApiV1NoticiasAgregacoesEstimativasBulkPost200,
+  BulkUpsertEstimativasApiV1NoticiasAgregacoesEstimativasBulkPost422,
+  BulkUpsertEstimativasApiV1NoticiasAgregacoesEstimativasBulkPostMutationRequest,
+  BulkUpsertEstimativasApiV1NoticiasAgregacoesEstimativasBulkPostMutationResponse,
+  BulkUpsertEstimativasApiV1NoticiasAgregacoesEstimativasBulkPostMutation
+} from './types/Agregacoes EpidemiologicasTypes/BulkUpsertEstimativasApiV1NoticiasAgregacoesEstimativasBulkPost'
+export type {
+  BulkUpsertManchetesApiV1NoticiasAgregacoesManchetesBulkPost200,
+  BulkUpsertManchetesApiV1NoticiasAgregacoesManchetesBulkPost422,
+  BulkUpsertManchetesApiV1NoticiasAgregacoesManchetesBulkPostMutationRequest,
+  BulkUpsertManchetesApiV1NoticiasAgregacoesManchetesBulkPostMutationResponse,
+  BulkUpsertManchetesApiV1NoticiasAgregacoesManchetesBulkPostMutation
+} from './types/Agregacoes EpidemiologicasTypes/BulkUpsertManchetesApiV1NoticiasAgregacoesManchetesBulkPost'
+export type {
+  GetDestaqueHojeApiV1NoticiasAgregacoesDestaquesHojeGet200,
+  GetDestaqueHojeApiV1NoticiasAgregacoesDestaquesHojeGetQueryResponse,
+  GetDestaqueHojeApiV1NoticiasAgregacoesDestaquesHojeGetQuery
+} from './types/Agregacoes EpidemiologicasTypes/GetDestaqueHojeApiV1NoticiasAgregacoesDestaquesHojeGet'
+export type {
+  GetDestaquesApiV1NoticiasAgregacoesDestaquesGetQueryParams,
+  GetDestaquesApiV1NoticiasAgregacoesDestaquesGet200,
+  GetDestaquesApiV1NoticiasAgregacoesDestaquesGet422,
+  GetDestaquesApiV1NoticiasAgregacoesDestaquesGetQueryResponse,
+  GetDestaquesApiV1NoticiasAgregacoesDestaquesGetQuery
+} from './types/Agregacoes EpidemiologicasTypes/GetDestaquesApiV1NoticiasAgregacoesDestaquesGet'
+export type {
+  GetEstimativasApiV1NoticiasAgregacoesEstimativasGetQueryParams,
+  GetEstimativasApiV1NoticiasAgregacoesEstimativasGet200,
+  GetEstimativasApiV1NoticiasAgregacoesEstimativasGet422,
+  GetEstimativasApiV1NoticiasAgregacoesEstimativasGetQueryResponse,
+  GetEstimativasApiV1NoticiasAgregacoesEstimativasGetQuery
+} from './types/Agregacoes EpidemiologicasTypes/GetEstimativasApiV1NoticiasAgregacoesEstimativasGet'
+export type {
+  GetMancheteAtualApiV1NoticiasAgregacoesManchetesAtualGet200,
+  GetMancheteAtualApiV1NoticiasAgregacoesManchetesAtualGetQueryResponse,
+  GetMancheteAtualApiV1NoticiasAgregacoesManchetesAtualGetQuery
+} from './types/Agregacoes EpidemiologicasTypes/GetMancheteAtualApiV1NoticiasAgregacoesManchetesAtualGet'
+export type {
+  GetManchetesApiV1NoticiasAgregacoesManchetesGetQueryParams,
+  GetManchetesApiV1NoticiasAgregacoesManchetesGet200,
+  GetManchetesApiV1NoticiasAgregacoesManchetesGet422,
+  GetManchetesApiV1NoticiasAgregacoesManchetesGetQueryResponse,
+  GetManchetesApiV1NoticiasAgregacoesManchetesGetQuery
+} from './types/Agregacoes EpidemiologicasTypes/GetManchetesApiV1NoticiasAgregacoesManchetesGet'
+export type {
+  GetPainelApiV1NoticiasAgregacoesPainelGet200,
+  GetPainelApiV1NoticiasAgregacoesPainelGetQueryResponse,
+  GetPainelApiV1NoticiasAgregacoesPainelGetQuery
+} from './types/Agregacoes EpidemiologicasTypes/GetPainelApiV1NoticiasAgregacoesPainelGet'
 export type { AlertaConsolidado } from './types/AlertaConsolidado'
 export type { AlertaGeografico } from './types/AlertaGeografico'
 export type { AlertaTemporal } from './types/AlertaTemporal'
@@ -57,40 +114,40 @@ export type { AlertsResponse } from './types/AlertsResponse'
 export type { AlertsSummaryMetadata } from './types/AlertsSummaryMetadata'
 export type { AnaliseGeograficaNoticias } from './types/AnaliseGeograficaNoticias'
 export type {
-  DetectAnomaliesApiV1DetectaAnalyticsAnomaliesGetQueryParams,
-  DetectAnomaliesApiV1DetectaAnalyticsAnomaliesGet200,
-  DetectAnomaliesApiV1DetectaAnalyticsAnomaliesGet422,
-  DetectAnomaliesApiV1DetectaAnalyticsAnomaliesGetQueryResponse,
-  DetectAnomaliesApiV1DetectaAnalyticsAnomaliesGetQuery
-} from './types/An\u00E1lises e AlertasTypes/DetectAnomaliesApiV1DetectaAnalyticsAnomaliesGet'
+  DetectAnomaliesApiV1DetectaAlertaAnalyticsAnomaliesGetQueryParams,
+  DetectAnomaliesApiV1DetectaAlertaAnalyticsAnomaliesGet200,
+  DetectAnomaliesApiV1DetectaAlertaAnalyticsAnomaliesGet422,
+  DetectAnomaliesApiV1DetectaAlertaAnalyticsAnomaliesGetQueryResponse,
+  DetectAnomaliesApiV1DetectaAlertaAnalyticsAnomaliesGetQuery
+} from './types/An\u00E1lises e AlertasTypes/DetectAnomaliesApiV1DetectaAlertaAnalyticsAnomaliesGet'
 export type {
-  GetActiveAlertsApiV1DetectaAnalyticsAlertsGetQueryParams,
-  GetActiveAlertsApiV1DetectaAnalyticsAlertsGet200,
-  GetActiveAlertsApiV1DetectaAnalyticsAlertsGet422,
-  GetActiveAlertsApiV1DetectaAnalyticsAlertsGetQueryResponse,
-  GetActiveAlertsApiV1DetectaAnalyticsAlertsGetQuery
-} from './types/An\u00E1lises e AlertasTypes/GetActiveAlertsApiV1DetectaAnalyticsAlertsGet'
+  GetActiveAlertsApiV1DetectaAlertaAnalyticsAlertsGetQueryParams,
+  GetActiveAlertsApiV1DetectaAlertaAnalyticsAlertsGet200,
+  GetActiveAlertsApiV1DetectaAlertaAnalyticsAlertsGet422,
+  GetActiveAlertsApiV1DetectaAlertaAnalyticsAlertsGetQueryResponse,
+  GetActiveAlertsApiV1DetectaAlertaAnalyticsAlertsGetQuery
+} from './types/An\u00E1lises e AlertasTypes/GetActiveAlertsApiV1DetectaAlertaAnalyticsAlertsGet'
 export type {
-  GetHeatmapDataApiV1DetectaAnalyticsHeatmapGetQueryParams,
-  GetHeatmapDataApiV1DetectaAnalyticsHeatmapGet200,
-  GetHeatmapDataApiV1DetectaAnalyticsHeatmapGet422,
-  GetHeatmapDataApiV1DetectaAnalyticsHeatmapGetQueryResponse,
-  GetHeatmapDataApiV1DetectaAnalyticsHeatmapGetQuery
-} from './types/An\u00E1lises e AlertasTypes/GetHeatmapDataApiV1DetectaAnalyticsHeatmapGet'
+  GetHeatmapDataApiV1DetectaAlertaAnalyticsHeatmapGetQueryParams,
+  GetHeatmapDataApiV1DetectaAlertaAnalyticsHeatmapGet200,
+  GetHeatmapDataApiV1DetectaAlertaAnalyticsHeatmapGet422,
+  GetHeatmapDataApiV1DetectaAlertaAnalyticsHeatmapGetQueryResponse,
+  GetHeatmapDataApiV1DetectaAlertaAnalyticsHeatmapGetQuery
+} from './types/An\u00E1lises e AlertasTypes/GetHeatmapDataApiV1DetectaAlertaAnalyticsHeatmapGet'
 export type {
-  GetPredictionsApiV1DetectaAnalyticsPredictionsGetQueryParams,
-  GetPredictionsApiV1DetectaAnalyticsPredictionsGet200,
-  GetPredictionsApiV1DetectaAnalyticsPredictionsGet422,
-  GetPredictionsApiV1DetectaAnalyticsPredictionsGetQueryResponse,
-  GetPredictionsApiV1DetectaAnalyticsPredictionsGetQuery
-} from './types/An\u00E1lises e AlertasTypes/GetPredictionsApiV1DetectaAnalyticsPredictionsGet'
+  GetPredictionsApiV1DetectaAlertaAnalyticsPredictionsGetQueryParams,
+  GetPredictionsApiV1DetectaAlertaAnalyticsPredictionsGet200,
+  GetPredictionsApiV1DetectaAlertaAnalyticsPredictionsGet422,
+  GetPredictionsApiV1DetectaAlertaAnalyticsPredictionsGetQueryResponse,
+  GetPredictionsApiV1DetectaAlertaAnalyticsPredictionsGetQuery
+} from './types/An\u00E1lises e AlertasTypes/GetPredictionsApiV1DetectaAlertaAnalyticsPredictionsGet'
 export type {
-  GetTrendsApiV1DetectaAnalyticsTrendsGetQueryParams,
-  GetTrendsApiV1DetectaAnalyticsTrendsGet200,
-  GetTrendsApiV1DetectaAnalyticsTrendsGet422,
-  GetTrendsApiV1DetectaAnalyticsTrendsGetQueryResponse,
-  GetTrendsApiV1DetectaAnalyticsTrendsGetQuery
-} from './types/An\u00E1lises e AlertasTypes/GetTrendsApiV1DetectaAnalyticsTrendsGet'
+  GetTrendsApiV1DetectaAlertaAnalyticsTrendsGetQueryParams,
+  GetTrendsApiV1DetectaAlertaAnalyticsTrendsGet200,
+  GetTrendsApiV1DetectaAlertaAnalyticsTrendsGet422,
+  GetTrendsApiV1DetectaAlertaAnalyticsTrendsGetQueryResponse,
+  GetTrendsApiV1DetectaAlertaAnalyticsTrendsGetQuery
+} from './types/An\u00E1lises e AlertasTypes/GetTrendsApiV1DetectaAlertaAnalyticsTrendsGet'
 export type { AnaliseTemporalNoticias } from './types/AnaliseTemporalNoticias'
 export type { AnomaliesResponse } from './types/AnomaliesResponse'
 export type { AnomaliesSummaryMetadata } from './types/AnomaliesSummaryMetadata'
@@ -139,6 +196,7 @@ export type { BulkCreateResponse } from './types/BulkCreateResponse'
 export type { BulkDataInput } from './types/BulkDataInput'
 export type { BulkUnitCreate } from './types/BulkUnitCreate'
 export type { BulkUnitResponse } from './types/BulkUnitResponse'
+export type { BulkUpsertResponse } from './types/BulkUpsertResponse'
 export type {
   ClearCacheApiV1McpCacheClearDeleteQueryParams,
   ClearCacheApiV1McpCacheClearDelete200,
@@ -279,6 +337,13 @@ export type {
   DengueSurtosApiV1ArbovirosesDengueSurtosGetQuery
 } from './types/Dengue - Agregacoes (Gold)Types/DengueSurtosApiV1ArbovirosesDengueSurtosGet'
 export type {
+  HandleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGetQueryParams,
+  HandleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGet200,
+  HandleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGet422,
+  HandleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGetQueryResponse,
+  HandleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGetQuery
+} from './types/Dengue - Agregacoes (Gold)Types/HandleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGet'
+export type {
   HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGetQueryParams,
   HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet200,
   HandleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet422,
@@ -393,19 +458,21 @@ export type {
   GetExportInfoApiV1ArbovirosesDengueSilverExportInfoGetQueryResponse,
   GetExportInfoApiV1ArbovirosesDengueSilverExportInfoGetQuery
 } from './types/Dengue - Export SilverTypes/GetExportInfoApiV1ArbovirosesDengueSilverExportInfoGet'
+export type { DestaqueDiarioCreate } from './types/DestaqueDiarioCreate'
+export type { DestaqueDiarioResponse } from './types/DestaqueDiarioResponse'
 export type { DetailedReportResponse } from './types/DetailedReportResponse'
 export type {
-  GetHealthCheckStatusApiV1DetectaHealthCheckStatusGetQueryParams,
-  GetHealthCheckStatusApiV1DetectaHealthCheckStatusGet200,
-  GetHealthCheckStatusApiV1DetectaHealthCheckStatusGet422,
-  GetHealthCheckStatusApiV1DetectaHealthCheckStatusGetQueryResponse,
-  GetHealthCheckStatusApiV1DetectaHealthCheckStatusGetQuery
-} from './types/Detecta - Health CheckTypes/GetHealthCheckStatusApiV1DetectaHealthCheckStatusGet'
+  GetHealthCheckStatusApiV1DetectaAlertaHealthCheckStatusGetQueryParams,
+  GetHealthCheckStatusApiV1DetectaAlertaHealthCheckStatusGet200,
+  GetHealthCheckStatusApiV1DetectaAlertaHealthCheckStatusGet422,
+  GetHealthCheckStatusApiV1DetectaAlertaHealthCheckStatusGetQueryResponse,
+  GetHealthCheckStatusApiV1DetectaAlertaHealthCheckStatusGetQuery
+} from './types/Detecta Alerta - Health CheckTypes/GetHealthCheckStatusApiV1DetectaAlertaHealthCheckStatusGet'
 export type {
-  TriggerHealthCheckApiV1DetectaHealthCheckTriggerPost202,
-  TriggerHealthCheckApiV1DetectaHealthCheckTriggerPostMutationResponse,
-  TriggerHealthCheckApiV1DetectaHealthCheckTriggerPostMutation
-} from './types/Detecta - Health CheckTypes/TriggerHealthCheckApiV1DetectaHealthCheckTriggerPost'
+  TriggerHealthCheckApiV1DetectaAlertaHealthCheckTriggerPost202,
+  TriggerHealthCheckApiV1DetectaAlertaHealthCheckTriggerPostMutationResponse,
+  TriggerHealthCheckApiV1DetectaAlertaHealthCheckTriggerPostMutation
+} from './types/Detecta Alerta - Health CheckTypes/TriggerHealthCheckApiV1DetectaAlertaHealthCheckTriggerPost'
 export type { DicionarioCamposResponse } from './types/DicionarioCamposResponse'
 export type { DicionarioCategoriasResponse } from './types/DicionarioCategoriasResponse'
 export type { DicionarioTransformacoesResponse } from './types/DicionarioTransformacoesResponse'
@@ -504,128 +571,130 @@ export type {
   GetStatisticsApiV1NoticiasEstatisticasResumoGetQuery
 } from './types/Estat\u00EDsticas Not\u00EDciasTypes/GetStatisticsApiV1NoticiasEstatisticasResumoGet'
 export type {
-  GetCitiesWithStatsApiV1DetectaStatsCitiesGetQueryParams,
-  GetCitiesWithStatsApiV1DetectaStatsCitiesGet200,
-  GetCitiesWithStatsApiV1DetectaStatsCitiesGet422,
-  GetCitiesWithStatsApiV1DetectaStatsCitiesGetQueryResponse,
-  GetCitiesWithStatsApiV1DetectaStatsCitiesGetQuery
-} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetCitiesWithStatsApiV1DetectaStatsCitiesGet'
+  GetCitiesWithStatsApiV1DetectaAlertaStatsCitiesGetQueryParams,
+  GetCitiesWithStatsApiV1DetectaAlertaStatsCitiesGet200,
+  GetCitiesWithStatsApiV1DetectaAlertaStatsCitiesGet422,
+  GetCitiesWithStatsApiV1DetectaAlertaStatsCitiesGetQueryResponse,
+  GetCitiesWithStatsApiV1DetectaAlertaStatsCitiesGetQuery
+} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetCitiesWithStatsApiV1DetectaAlertaStatsCitiesGet'
 export type {
-  GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGetPathParams,
-  GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGetQueryParams,
-  GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGet200,
-  GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGet422,
-  GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGetQueryResponse,
-  GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGetQuery
-} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGet'
+  GetCityStatsByIbgeApiV1DetectaAlertaStatsCitiesIbgeCodeGetPathParams,
+  GetCityStatsByIbgeApiV1DetectaAlertaStatsCitiesIbgeCodeGetQueryParams,
+  GetCityStatsByIbgeApiV1DetectaAlertaStatsCitiesIbgeCodeGet200,
+  GetCityStatsByIbgeApiV1DetectaAlertaStatsCitiesIbgeCodeGet422,
+  GetCityStatsByIbgeApiV1DetectaAlertaStatsCitiesIbgeCodeGetQueryResponse,
+  GetCityStatsByIbgeApiV1DetectaAlertaStatsCitiesIbgeCodeGetQuery
+} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetCityStatsByIbgeApiV1DetectaAlertaStatsCitiesIbgeCodeGet'
 export type {
-  GetDailyStatsApiV1DetectaStatsDailyGetQueryParams,
-  GetDailyStatsApiV1DetectaStatsDailyGet200,
-  GetDailyStatsApiV1DetectaStatsDailyGet422,
-  GetDailyStatsApiV1DetectaStatsDailyGetQueryResponse,
-  GetDailyStatsApiV1DetectaStatsDailyGetQuery
-} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetDailyStatsApiV1DetectaStatsDailyGet'
+  GetDailyStatsApiV1DetectaAlertaStatsDailyGetQueryParams,
+  GetDailyStatsApiV1DetectaAlertaStatsDailyGet200,
+  GetDailyStatsApiV1DetectaAlertaStatsDailyGet422,
+  GetDailyStatsApiV1DetectaAlertaStatsDailyGetQueryResponse,
+  GetDailyStatsApiV1DetectaAlertaStatsDailyGetQuery
+} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetDailyStatsApiV1DetectaAlertaStatsDailyGet'
 export type {
-  GetRealTimeDataApiV1DetectaStatsRealTimeGetQueryParams,
-  GetRealTimeDataApiV1DetectaStatsRealTimeGet200,
-  GetRealTimeDataApiV1DetectaStatsRealTimeGet422,
-  GetRealTimeDataApiV1DetectaStatsRealTimeGetQueryResponse,
-  GetRealTimeDataApiV1DetectaStatsRealTimeGetQuery
-} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetRealTimeDataApiV1DetectaStatsRealTimeGet'
+  GetRealTimeDataApiV1DetectaAlertaStatsRealTimeGetQueryParams,
+  GetRealTimeDataApiV1DetectaAlertaStatsRealTimeGet200,
+  GetRealTimeDataApiV1DetectaAlertaStatsRealTimeGet422,
+  GetRealTimeDataApiV1DetectaAlertaStatsRealTimeGetQueryResponse,
+  GetRealTimeDataApiV1DetectaAlertaStatsRealTimeGetQuery
+} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetRealTimeDataApiV1DetectaAlertaStatsRealTimeGet'
 export type {
-  GetRegionsStatsApiV1DetectaStatsRegionsGetQueryParams,
-  GetRegionsStatsApiV1DetectaStatsRegionsGet200,
-  GetRegionsStatsApiV1DetectaStatsRegionsGet422,
-  GetRegionsStatsApiV1DetectaStatsRegionsGetQueryResponse,
-  GetRegionsStatsApiV1DetectaStatsRegionsGetQuery
-} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetRegionsStatsApiV1DetectaStatsRegionsGet'
+  GetRegionsStatsApiV1DetectaAlertaStatsRegionsGetQueryParams,
+  GetRegionsStatsApiV1DetectaAlertaStatsRegionsGet200,
+  GetRegionsStatsApiV1DetectaAlertaStatsRegionsGet422,
+  GetRegionsStatsApiV1DetectaAlertaStatsRegionsGetQueryResponse,
+  GetRegionsStatsApiV1DetectaAlertaStatsRegionsGetQuery
+} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetRegionsStatsApiV1DetectaAlertaStatsRegionsGet'
 export type {
-  GetStatesStatsApiV1DetectaStatsStatesGetQueryParams,
-  GetStatesStatsApiV1DetectaStatsStatesGet200,
-  GetStatesStatsApiV1DetectaStatsStatesGet422,
-  GetStatesStatsApiV1DetectaStatsStatesGetQueryResponse,
-  GetStatesStatsApiV1DetectaStatsStatesGetQuery
-} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetStatesStatsApiV1DetectaStatsStatesGet'
+  GetStatesStatsApiV1DetectaAlertaStatsStatesGetQueryParams,
+  GetStatesStatsApiV1DetectaAlertaStatsStatesGet200,
+  GetStatesStatsApiV1DetectaAlertaStatsStatesGet422,
+  GetStatesStatsApiV1DetectaAlertaStatsStatesGetQueryResponse,
+  GetStatesStatsApiV1DetectaAlertaStatsStatesGetQuery
+} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetStatesStatsApiV1DetectaAlertaStatsStatesGet'
 export type {
-  GetStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGetQueryParams,
-  GetStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGet200,
-  GetStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGet422,
-  GetStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGetQueryResponse,
-  GetStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGetQuery
-} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGet'
+  GetStatsByUnitTypeApiV1DetectaAlertaStatsUnitsByTypeGetQueryParams,
+  GetStatsByUnitTypeApiV1DetectaAlertaStatsUnitsByTypeGet200,
+  GetStatsByUnitTypeApiV1DetectaAlertaStatsUnitsByTypeGet422,
+  GetStatsByUnitTypeApiV1DetectaAlertaStatsUnitsByTypeGetQueryResponse,
+  GetStatsByUnitTypeApiV1DetectaAlertaStatsUnitsByTypeGetQuery
+} from './types/Estat\u00EDsticas por Localiza\u00E7\u00E3oTypes/GetStatsByUnitTypeApiV1DetectaAlertaStatsUnitsByTypeGet'
 export type { EstatisticasClassificacao } from './types/EstatisticasClassificacao'
 export type { EstatisticasCnes } from './types/EstatisticasCnes'
 export type { EstatisticasExport } from './types/EstatisticasExport'
 export type { EstatisticasPeriodo } from './types/EstatisticasPeriodo'
+export type { EstimativaSemanalCreate } from './types/EstimativaSemanalCreate'
+export type { EstimativaSemanalResponse } from './types/EstimativaSemanalResponse'
 export type {
-  CancelJobApiV1DetectaEtlJobsJobIdCancelPostPathParams,
-  CancelJobApiV1DetectaEtlJobsJobIdCancelPost200,
-  CancelJobApiV1DetectaEtlJobsJobIdCancelPost422,
-  CancelJobApiV1DetectaEtlJobsJobIdCancelPostMutationResponse,
-  CancelJobApiV1DetectaEtlJobsJobIdCancelPostMutation
-} from './types/ETL DetectaTypes/CancelJobApiV1DetectaEtlJobsJobIdCancelPost'
+  CancelJobApiV1DetectaAlertaEtlJobsJobIdCancelPostPathParams,
+  CancelJobApiV1DetectaAlertaEtlJobsJobIdCancelPost200,
+  CancelJobApiV1DetectaAlertaEtlJobsJobIdCancelPost422,
+  CancelJobApiV1DetectaAlertaEtlJobsJobIdCancelPostMutationResponse,
+  CancelJobApiV1DetectaAlertaEtlJobsJobIdCancelPostMutation
+} from './types/ETL Detecta AlertaTypes/CancelJobApiV1DetectaAlertaEtlJobsJobIdCancelPost'
 export type {
-  GetEtlParametersApiV1DetectaEtlParametersGet200,
-  GetEtlParametersApiV1DetectaEtlParametersGetQueryResponse,
-  GetEtlParametersApiV1DetectaEtlParametersGetQuery
-} from './types/ETL DetectaTypes/GetEtlParametersApiV1DetectaEtlParametersGet'
+  GetEtlParametersApiV1DetectaAlertaEtlParametersGet200,
+  GetEtlParametersApiV1DetectaAlertaEtlParametersGetQueryResponse,
+  GetEtlParametersApiV1DetectaAlertaEtlParametersGetQuery
+} from './types/ETL Detecta AlertaTypes/GetEtlParametersApiV1DetectaAlertaEtlParametersGet'
 export type {
-  GetJobDetailsApiV1DetectaEtlJobsJobIdGetPathParams,
-  GetJobDetailsApiV1DetectaEtlJobsJobIdGet200,
-  GetJobDetailsApiV1DetectaEtlJobsJobIdGet422,
-  GetJobDetailsApiV1DetectaEtlJobsJobIdGetQueryResponse,
-  GetJobDetailsApiV1DetectaEtlJobsJobIdGetQuery
-} from './types/ETL DetectaTypes/GetJobDetailsApiV1DetectaEtlJobsJobIdGet'
+  GetJobDetailsApiV1DetectaAlertaEtlJobsJobIdGetPathParams,
+  GetJobDetailsApiV1DetectaAlertaEtlJobsJobIdGet200,
+  GetJobDetailsApiV1DetectaAlertaEtlJobsJobIdGet422,
+  GetJobDetailsApiV1DetectaAlertaEtlJobsJobIdGetQueryResponse,
+  GetJobDetailsApiV1DetectaAlertaEtlJobsJobIdGetQuery
+} from './types/ETL Detecta AlertaTypes/GetJobDetailsApiV1DetectaAlertaEtlJobsJobIdGet'
 export type {
-  GetJobsStatusApiV1DetectaEtlJobsStatusGetQueryParams,
-  GetJobsStatusApiV1DetectaEtlJobsStatusGet200,
-  GetJobsStatusApiV1DetectaEtlJobsStatusGet422,
-  GetJobsStatusApiV1DetectaEtlJobsStatusGetQueryResponse,
-  GetJobsStatusApiV1DetectaEtlJobsStatusGetQuery
-} from './types/ETL DetectaTypes/GetJobsStatusApiV1DetectaEtlJobsStatusGet'
+  GetJobsStatusApiV1DetectaAlertaEtlJobsStatusGetQueryParams,
+  GetJobsStatusApiV1DetectaAlertaEtlJobsStatusGet200,
+  GetJobsStatusApiV1DetectaAlertaEtlJobsStatusGet422,
+  GetJobsStatusApiV1DetectaAlertaEtlJobsStatusGetQueryResponse,
+  GetJobsStatusApiV1DetectaAlertaEtlJobsStatusGetQuery
+} from './types/ETL Detecta AlertaTypes/GetJobsStatusApiV1DetectaAlertaEtlJobsStatusGet'
 export type {
-  GetTaskStatusApiV1DetectaEtlTaskTaskIdStatusGetPathParams,
-  GetTaskStatusApiV1DetectaEtlTaskTaskIdStatusGet200,
-  GetTaskStatusApiV1DetectaEtlTaskTaskIdStatusGet422,
-  GetTaskStatusApiV1DetectaEtlTaskTaskIdStatusGetQueryResponse,
-  GetTaskStatusApiV1DetectaEtlTaskTaskIdStatusGetQuery
-} from './types/ETL DetectaTypes/GetTaskStatusApiV1DetectaEtlTaskTaskIdStatusGet'
+  GetTaskStatusApiV1DetectaAlertaEtlTaskTaskIdStatusGetPathParams,
+  GetTaskStatusApiV1DetectaAlertaEtlTaskTaskIdStatusGet200,
+  GetTaskStatusApiV1DetectaAlertaEtlTaskTaskIdStatusGet422,
+  GetTaskStatusApiV1DetectaAlertaEtlTaskTaskIdStatusGetQueryResponse,
+  GetTaskStatusApiV1DetectaAlertaEtlTaskTaskIdStatusGetQuery
+} from './types/ETL Detecta AlertaTypes/GetTaskStatusApiV1DetectaAlertaEtlTaskTaskIdStatusGet'
 export type {
-  ProcessDateRangeApiV1DetectaEtlProcessDateRangePost200,
-  ProcessDateRangeApiV1DetectaEtlProcessDateRangePost422,
-  ProcessDateRangeApiV1DetectaEtlProcessDateRangePostMutationRequest,
-  ProcessDateRangeApiV1DetectaEtlProcessDateRangePostMutationResponse,
-  ProcessDateRangeApiV1DetectaEtlProcessDateRangePostMutation
-} from './types/ETL DetectaTypes/ProcessDateRangeApiV1DetectaEtlProcessDateRangePost'
+  ProcessDateRangeApiV1DetectaAlertaEtlProcessDateRangePost200,
+  ProcessDateRangeApiV1DetectaAlertaEtlProcessDateRangePost422,
+  ProcessDateRangeApiV1DetectaAlertaEtlProcessDateRangePostMutationRequest,
+  ProcessDateRangeApiV1DetectaAlertaEtlProcessDateRangePostMutationResponse,
+  ProcessDateRangeApiV1DetectaAlertaEtlProcessDateRangePostMutation
+} from './types/ETL Detecta AlertaTypes/ProcessDateRangeApiV1DetectaAlertaEtlProcessDateRangePost'
 export type {
-  ProcessWeeklyAggregationsApiV1DetectaEtlProcessWeeklyPostQueryParams,
-  ProcessWeeklyAggregationsApiV1DetectaEtlProcessWeeklyPost200,
-  ProcessWeeklyAggregationsApiV1DetectaEtlProcessWeeklyPost422,
-  ProcessWeeklyAggregationsApiV1DetectaEtlProcessWeeklyPostMutationResponse,
-  ProcessWeeklyAggregationsApiV1DetectaEtlProcessWeeklyPostMutation
-} from './types/ETL DetectaTypes/ProcessWeeklyAggregationsApiV1DetectaEtlProcessWeeklyPost'
+  ProcessWeeklyAggregationsApiV1DetectaAlertaEtlProcessWeeklyPostQueryParams,
+  ProcessWeeklyAggregationsApiV1DetectaAlertaEtlProcessWeeklyPost200,
+  ProcessWeeklyAggregationsApiV1DetectaAlertaEtlProcessWeeklyPost422,
+  ProcessWeeklyAggregationsApiV1DetectaAlertaEtlProcessWeeklyPostMutationResponse,
+  ProcessWeeklyAggregationsApiV1DetectaAlertaEtlProcessWeeklyPostMutation
+} from './types/ETL Detecta AlertaTypes/ProcessWeeklyAggregationsApiV1DetectaAlertaEtlProcessWeeklyPost'
 export type {
-  ReprocessPeriodAsyncApiV1DetectaEtlMaintenanceReprocessAsyncPost200,
-  ReprocessPeriodAsyncApiV1DetectaEtlMaintenanceReprocessAsyncPost422,
-  ReprocessPeriodAsyncApiV1DetectaEtlMaintenanceReprocessAsyncPostMutationRequest,
-  ReprocessPeriodAsyncApiV1DetectaEtlMaintenanceReprocessAsyncPostMutationResponse,
-  ReprocessPeriodAsyncApiV1DetectaEtlMaintenanceReprocessAsyncPostMutation
-} from './types/ETL DetectaTypes/ReprocessPeriodAsyncApiV1DetectaEtlMaintenanceReprocessAsyncPost'
+  ReprocessPeriodAsyncApiV1DetectaAlertaEtlMaintenanceReprocessAsyncPost200,
+  ReprocessPeriodAsyncApiV1DetectaAlertaEtlMaintenanceReprocessAsyncPost422,
+  ReprocessPeriodAsyncApiV1DetectaAlertaEtlMaintenanceReprocessAsyncPostMutationRequest,
+  ReprocessPeriodAsyncApiV1DetectaAlertaEtlMaintenanceReprocessAsyncPostMutationResponse,
+  ReprocessPeriodAsyncApiV1DetectaAlertaEtlMaintenanceReprocessAsyncPostMutation
+} from './types/ETL Detecta AlertaTypes/ReprocessPeriodAsyncApiV1DetectaAlertaEtlMaintenanceReprocessAsyncPost'
 export type {
-  TriggerEtlJobApiV1DetectaEtlTriggerJobTypePostPathParams,
-  TriggerEtlJobApiV1DetectaEtlTriggerJobTypePostQueryParams,
-  TriggerEtlJobApiV1DetectaEtlTriggerJobTypePost200,
-  TriggerEtlJobApiV1DetectaEtlTriggerJobTypePost422,
-  TriggerEtlJobApiV1DetectaEtlTriggerJobTypePostMutationResponse,
-  TriggerEtlJobApiV1DetectaEtlTriggerJobTypePostMutation
-} from './types/ETL DetectaTypes/TriggerEtlJobApiV1DetectaEtlTriggerJobTypePost'
+  TriggerEtlJobApiV1DetectaAlertaEtlTriggerJobTypePostPathParams,
+  TriggerEtlJobApiV1DetectaAlertaEtlTriggerJobTypePostQueryParams,
+  TriggerEtlJobApiV1DetectaAlertaEtlTriggerJobTypePost200,
+  TriggerEtlJobApiV1DetectaAlertaEtlTriggerJobTypePost422,
+  TriggerEtlJobApiV1DetectaAlertaEtlTriggerJobTypePostMutationResponse,
+  TriggerEtlJobApiV1DetectaAlertaEtlTriggerJobTypePostMutation
+} from './types/ETL Detecta AlertaTypes/TriggerEtlJobApiV1DetectaAlertaEtlTriggerJobTypePost'
 export type {
-  UpdateEtlParametersApiV1DetectaEtlParametersPut200,
-  UpdateEtlParametersApiV1DetectaEtlParametersPut422,
-  UpdateEtlParametersApiV1DetectaEtlParametersPutMutationRequest,
-  UpdateEtlParametersApiV1DetectaEtlParametersPutMutationResponse,
-  UpdateEtlParametersApiV1DetectaEtlParametersPutMutation
-} from './types/ETL DetectaTypes/UpdateEtlParametersApiV1DetectaEtlParametersPut'
+  UpdateEtlParametersApiV1DetectaAlertaEtlParametersPut200,
+  UpdateEtlParametersApiV1DetectaAlertaEtlParametersPut422,
+  UpdateEtlParametersApiV1DetectaAlertaEtlParametersPutMutationRequest,
+  UpdateEtlParametersApiV1DetectaAlertaEtlParametersPutMutationResponse,
+  UpdateEtlParametersApiV1DetectaAlertaEtlParametersPutMutation
+} from './types/ETL Detecta AlertaTypes/UpdateEtlParametersApiV1DetectaAlertaEtlParametersPut'
 export type { ETLBatchJobResponse } from './types/ETLBatchJobResponse'
 export type { ETLDateRangeRequest } from './types/ETLDateRangeRequest'
 export type { ETLJobCancelResponse } from './types/ETLJobCancelResponse'
@@ -636,31 +705,31 @@ export type { ETLParametersResponse } from './types/ETLParametersResponse'
 export type { ETLParametersUpdate } from './types/ETLParametersUpdate'
 export type { ETLReprocessModernRequest } from './types/ETLReprocessModernRequest'
 export type {
-  CreateCustomExportApiV1DetectaExportCustomPost200,
-  CreateCustomExportApiV1DetectaExportCustomPost422,
-  CreateCustomExportApiV1DetectaExportCustomPostMutationRequest,
-  CreateCustomExportApiV1DetectaExportCustomPostMutationResponse,
-  CreateCustomExportApiV1DetectaExportCustomPostMutation
-} from './types/Exporta\u00E7\u00E3o de DadosTypes/CreateCustomExportApiV1DetectaExportCustomPost'
+  CreateCustomExportApiV1DetectaAlertaExportCustomPost200,
+  CreateCustomExportApiV1DetectaAlertaExportCustomPost422,
+  CreateCustomExportApiV1DetectaAlertaExportCustomPostMutationRequest,
+  CreateCustomExportApiV1DetectaAlertaExportCustomPostMutationResponse,
+  CreateCustomExportApiV1DetectaAlertaExportCustomPostMutation
+} from './types/Exporta\u00E7\u00E3o de DadosTypes/CreateCustomExportApiV1DetectaAlertaExportCustomPost'
 export type {
-  ExportCsvStreamingApiV1DetectaExportCsvGetQueryParams,
-  ExportCsvStreamingApiV1DetectaExportCsvGet200,
-  ExportCsvStreamingApiV1DetectaExportCsvGet422,
-  ExportCsvStreamingApiV1DetectaExportCsvGetQueryResponse,
-  ExportCsvStreamingApiV1DetectaExportCsvGetQuery
-} from './types/Exporta\u00E7\u00E3o de DadosTypes/ExportCsvStreamingApiV1DetectaExportCsvGet'
+  ExportCsvStreamingApiV1DetectaAlertaExportCsvGetQueryParams,
+  ExportCsvStreamingApiV1DetectaAlertaExportCsvGet200,
+  ExportCsvStreamingApiV1DetectaAlertaExportCsvGet422,
+  ExportCsvStreamingApiV1DetectaAlertaExportCsvGetQueryResponse,
+  ExportCsvStreamingApiV1DetectaAlertaExportCsvGetQuery
+} from './types/Exporta\u00E7\u00E3o de DadosTypes/ExportCsvStreamingApiV1DetectaAlertaExportCsvGet'
 export type {
-  ExportJsonPaginatedApiV1DetectaExportJsonGetQueryParams,
-  ExportJsonPaginatedApiV1DetectaExportJsonGet200,
-  ExportJsonPaginatedApiV1DetectaExportJsonGet422,
-  ExportJsonPaginatedApiV1DetectaExportJsonGetQueryResponse,
-  ExportJsonPaginatedApiV1DetectaExportJsonGetQuery
-} from './types/Exporta\u00E7\u00E3o de DadosTypes/ExportJsonPaginatedApiV1DetectaExportJsonGet'
+  ExportJsonPaginatedApiV1DetectaAlertaExportJsonGetQueryParams,
+  ExportJsonPaginatedApiV1DetectaAlertaExportJsonGet200,
+  ExportJsonPaginatedApiV1DetectaAlertaExportJsonGet422,
+  ExportJsonPaginatedApiV1DetectaAlertaExportJsonGetQueryResponse,
+  ExportJsonPaginatedApiV1DetectaAlertaExportJsonGetQuery
+} from './types/Exporta\u00E7\u00E3o de DadosTypes/ExportJsonPaginatedApiV1DetectaAlertaExportJsonGet'
 export type {
-  GetExportInfoApiV1DetectaExportInfoGet200,
-  GetExportInfoApiV1DetectaExportInfoGetQueryResponse,
-  GetExportInfoApiV1DetectaExportInfoGetQuery
-} from './types/Exporta\u00E7\u00E3o de DadosTypes/GetExportInfoApiV1DetectaExportInfoGet'
+  GetExportInfoApiV1DetectaAlertaExportInfoGet200,
+  GetExportInfoApiV1DetectaAlertaExportInfoGetQueryResponse,
+  GetExportInfoApiV1DetectaAlertaExportInfoGetQuery
+} from './types/Exporta\u00E7\u00E3o de DadosTypes/GetExportInfoApiV1DetectaAlertaExportInfoGet'
 export type { ExportFiltersInfo } from './types/ExportFiltersInfo'
 export type { ExportFormatInfo } from './types/ExportFormatInfo'
 export type { ExportJSONResponse } from './types/ExportJSONResponse'
@@ -672,45 +741,45 @@ export type { FaixaEtariaResponse } from './types/FaixaEtariaResponse'
 export type { FaixasEtariasResponse } from './types/FaixasEtariasResponse'
 export type { FormatoExport } from './types/FormatoExport'
 export type {
-  EnrichUnitDataApiV1DetectaPlacesEnrichPost200,
-  EnrichUnitDataApiV1DetectaPlacesEnrichPost422,
-  EnrichUnitDataApiV1DetectaPlacesEnrichPostMutationRequest,
-  EnrichUnitDataApiV1DetectaPlacesEnrichPostMutationResponse,
-  EnrichUnitDataApiV1DetectaPlacesEnrichPostMutation
-} from './types/Google Places IntegrationTypes/EnrichUnitDataApiV1DetectaPlacesEnrichPost'
+  EnrichUnitDataApiV1DetectaAlertaPlacesEnrichPost200,
+  EnrichUnitDataApiV1DetectaAlertaPlacesEnrichPost422,
+  EnrichUnitDataApiV1DetectaAlertaPlacesEnrichPostMutationRequest,
+  EnrichUnitDataApiV1DetectaAlertaPlacesEnrichPostMutationResponse,
+  EnrichUnitDataApiV1DetectaAlertaPlacesEnrichPostMutation
+} from './types/Google Places IntegrationTypes/EnrichUnitDataApiV1DetectaAlertaPlacesEnrichPost'
 export type {
-  GetPlaceDetailsApiV1DetectaPlacesDetailsPost200,
-  GetPlaceDetailsApiV1DetectaPlacesDetailsPost422,
-  GetPlaceDetailsApiV1DetectaPlacesDetailsPostMutationRequest,
-  GetPlaceDetailsApiV1DetectaPlacesDetailsPostMutationResponse,
-  GetPlaceDetailsApiV1DetectaPlacesDetailsPostMutation
-} from './types/Google Places IntegrationTypes/GetPlaceDetailsApiV1DetectaPlacesDetailsPost'
+  GetPlaceDetailsApiV1DetectaAlertaPlacesDetailsPost200,
+  GetPlaceDetailsApiV1DetectaAlertaPlacesDetailsPost422,
+  GetPlaceDetailsApiV1DetectaAlertaPlacesDetailsPostMutationRequest,
+  GetPlaceDetailsApiV1DetectaAlertaPlacesDetailsPostMutationResponse,
+  GetPlaceDetailsApiV1DetectaAlertaPlacesDetailsPostMutation
+} from './types/Google Places IntegrationTypes/GetPlaceDetailsApiV1DetectaAlertaPlacesDetailsPost'
 export type {
-  GetPlacesCacheStatusApiV1DetectaPlacesCacheGet200,
-  GetPlacesCacheStatusApiV1DetectaPlacesCacheGetQueryResponse,
-  GetPlacesCacheStatusApiV1DetectaPlacesCacheGetQuery
-} from './types/Google Places IntegrationTypes/GetPlacesCacheStatusApiV1DetectaPlacesCacheGet'
+  GetPlacesCacheStatusApiV1DetectaAlertaPlacesCacheGet200,
+  GetPlacesCacheStatusApiV1DetectaAlertaPlacesCacheGetQueryResponse,
+  GetPlacesCacheStatusApiV1DetectaAlertaPlacesCacheGetQuery
+} from './types/Google Places IntegrationTypes/GetPlacesCacheStatusApiV1DetectaAlertaPlacesCacheGet'
 export type {
-  SearchNearbyPlacesApiV1DetectaPlacesNearbyPost200,
-  SearchNearbyPlacesApiV1DetectaPlacesNearbyPost422,
-  SearchNearbyPlacesApiV1DetectaPlacesNearbyPostMutationRequest,
-  SearchNearbyPlacesApiV1DetectaPlacesNearbyPostMutationResponse,
-  SearchNearbyPlacesApiV1DetectaPlacesNearbyPostMutation
-} from './types/Google Places IntegrationTypes/SearchNearbyPlacesApiV1DetectaPlacesNearbyPost'
+  SearchNearbyPlacesApiV1DetectaAlertaPlacesNearbyPost200,
+  SearchNearbyPlacesApiV1DetectaAlertaPlacesNearbyPost422,
+  SearchNearbyPlacesApiV1DetectaAlertaPlacesNearbyPostMutationRequest,
+  SearchNearbyPlacesApiV1DetectaAlertaPlacesNearbyPostMutationResponse,
+  SearchNearbyPlacesApiV1DetectaAlertaPlacesNearbyPostMutation
+} from './types/Google Places IntegrationTypes/SearchNearbyPlacesApiV1DetectaAlertaPlacesNearbyPost'
 export type {
-  SearchPlacesApiV1DetectaPlacesSearchPost200,
-  SearchPlacesApiV1DetectaPlacesSearchPost422,
-  SearchPlacesApiV1DetectaPlacesSearchPostMutationRequest,
-  SearchPlacesApiV1DetectaPlacesSearchPostMutationResponse,
-  SearchPlacesApiV1DetectaPlacesSearchPostMutation
-} from './types/Google Places IntegrationTypes/SearchPlacesApiV1DetectaPlacesSearchPost'
+  SearchPlacesApiV1DetectaAlertaPlacesSearchPost200,
+  SearchPlacesApiV1DetectaAlertaPlacesSearchPost422,
+  SearchPlacesApiV1DetectaAlertaPlacesSearchPostMutationRequest,
+  SearchPlacesApiV1DetectaAlertaPlacesSearchPostMutationResponse,
+  SearchPlacesApiV1DetectaAlertaPlacesSearchPostMutation
+} from './types/Google Places IntegrationTypes/SearchPlacesApiV1DetectaAlertaPlacesSearchPost'
 export type {
-  ValidatePlaceIdApiV1DetectaPlacesValidatePost200,
-  ValidatePlaceIdApiV1DetectaPlacesValidatePost422,
-  ValidatePlaceIdApiV1DetectaPlacesValidatePostMutationRequest,
-  ValidatePlaceIdApiV1DetectaPlacesValidatePostMutationResponse,
-  ValidatePlaceIdApiV1DetectaPlacesValidatePostMutation
-} from './types/Google Places IntegrationTypes/ValidatePlaceIdApiV1DetectaPlacesValidatePost'
+  ValidatePlaceIdApiV1DetectaAlertaPlacesValidatePost200,
+  ValidatePlaceIdApiV1DetectaAlertaPlacesValidatePost422,
+  ValidatePlaceIdApiV1DetectaAlertaPlacesValidatePostMutationRequest,
+  ValidatePlaceIdApiV1DetectaAlertaPlacesValidatePostMutationResponse,
+  ValidatePlaceIdApiV1DetectaAlertaPlacesValidatePostMutation
+} from './types/Google Places IntegrationTypes/ValidatePlaceIdApiV1DetectaAlertaPlacesValidatePost'
 export type { GrupoSchemaCreate } from './types/GrupoSchemaCreate'
 export type { GrupoSchemaDetalhes } from './types/GrupoSchemaDetalhes'
 export type { GrupoSchemaList } from './types/GrupoSchemaList'
@@ -814,26 +883,26 @@ export type {
 } from './types/IBGE - Dados Demogr\u00E1ficosTypes/ObterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGet'
 export type { IndicadorMonitorado } from './types/IndicadorMonitorado'
 export type {
-  IngestBulkDataApiV1DetectaDataBulkPost201,
-  IngestBulkDataApiV1DetectaDataBulkPost422,
-  IngestBulkDataApiV1DetectaDataBulkPostMutationRequest,
-  IngestBulkDataApiV1DetectaDataBulkPostMutationResponse,
-  IngestBulkDataApiV1DetectaDataBulkPostMutation
-} from './types/Ingest\u00E3o de DadosTypes/IngestBulkDataApiV1DetectaDataBulkPost'
+  IngestBulkDataApiV1DetectaAlertaDataBulkPost201,
+  IngestBulkDataApiV1DetectaAlertaDataBulkPost422,
+  IngestBulkDataApiV1DetectaAlertaDataBulkPostMutationRequest,
+  IngestBulkDataApiV1DetectaAlertaDataBulkPostMutationResponse,
+  IngestBulkDataApiV1DetectaAlertaDataBulkPostMutation
+} from './types/Ingest\u00E3o de DadosTypes/IngestBulkDataApiV1DetectaAlertaDataBulkPost'
 export type {
-  IngestHourlyDataApiV1DetectaDataHourlyPost201,
-  IngestHourlyDataApiV1DetectaDataHourlyPost422,
-  IngestHourlyDataApiV1DetectaDataHourlyPostMutationRequest,
-  IngestHourlyDataApiV1DetectaDataHourlyPostMutationResponse,
-  IngestHourlyDataApiV1DetectaDataHourlyPostMutation
-} from './types/Ingest\u00E3o de DadosTypes/IngestHourlyDataApiV1DetectaDataHourlyPost'
+  IngestHourlyDataApiV1DetectaAlertaDataHourlyPost201,
+  IngestHourlyDataApiV1DetectaAlertaDataHourlyPost422,
+  IngestHourlyDataApiV1DetectaAlertaDataHourlyPostMutationRequest,
+  IngestHourlyDataApiV1DetectaAlertaDataHourlyPostMutationResponse,
+  IngestHourlyDataApiV1DetectaAlertaDataHourlyPostMutation
+} from './types/Ingest\u00E3o de DadosTypes/IngestHourlyDataApiV1DetectaAlertaDataHourlyPost'
 export type {
-  ValidateDataApiV1DetectaDataValidatePost200,
-  ValidateDataApiV1DetectaDataValidatePost422,
-  ValidateDataApiV1DetectaDataValidatePostMutationRequest,
-  ValidateDataApiV1DetectaDataValidatePostMutationResponse,
-  ValidateDataApiV1DetectaDataValidatePostMutation
-} from './types/Ingest\u00E3o de DadosTypes/ValidateDataApiV1DetectaDataValidatePost'
+  ValidateDataApiV1DetectaAlertaDataValidatePost200,
+  ValidateDataApiV1DetectaAlertaDataValidatePost422,
+  ValidateDataApiV1DetectaAlertaDataValidatePostMutationRequest,
+  ValidateDataApiV1DetectaAlertaDataValidatePostMutationResponse,
+  ValidateDataApiV1DetectaAlertaDataValidatePostMutation
+} from './types/Ingest\u00E3o de DadosTypes/ValidateDataApiV1DetectaAlertaDataValidatePost'
 export type { IngestionError } from './types/IngestionError'
 export type { IngestionResponse } from './types/IngestionResponse'
 export type { JobsFiltersInfo } from './types/JobsFiltersInfo'
@@ -864,6 +933,8 @@ export type { LLMQueryResponse } from './types/LLMQueryResponse'
 export type { LLMStatus } from './types/LLMStatus'
 export type { LocalizacaoInput } from './types/LocalizacaoInput'
 export type { LoginRequest } from './types/LoginRequest'
+export type { MancheteSemanalCreate } from './types/MancheteSemanalCreate'
+export type { MancheteSemanalResponse } from './types/MancheteSemanalResponse'
 export type {
   ExecuteToolApiV1McpToolsToolNamePostPathParams,
   ExecuteToolApiV1McpToolsToolNamePost200,
@@ -913,58 +984,58 @@ export type {
   PrometheusMetricsApiV1McpMetricsPrometheusGetQuery
 } from './types/M\u00E9tricas & MonitoramentoTypes/PrometheusMetricsApiV1McpMetricsPrometheusGet'
 export type {
-  ClassifyOperationalProfilesApiV1DetectaEpidemiologicalClassifyProfilesPostQueryParams,
-  ClassifyOperationalProfilesApiV1DetectaEpidemiologicalClassifyProfilesPost200,
-  ClassifyOperationalProfilesApiV1DetectaEpidemiologicalClassifyProfilesPost422,
-  ClassifyOperationalProfilesApiV1DetectaEpidemiologicalClassifyProfilesPostMutationResponse,
-  ClassifyOperationalProfilesApiV1DetectaEpidemiologicalClassifyProfilesPostMutation
-} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/ClassifyOperationalProfilesApiV1DetectaEpidemiologicalClassifyProfilesPost'
+  ClassifyOperationalProfilesApiV1DetectaAlertaEpidemiologicalClassifyProfilesPostQueryParams,
+  ClassifyOperationalProfilesApiV1DetectaAlertaEpidemiologicalClassifyProfilesPost200,
+  ClassifyOperationalProfilesApiV1DetectaAlertaEpidemiologicalClassifyProfilesPost422,
+  ClassifyOperationalProfilesApiV1DetectaAlertaEpidemiologicalClassifyProfilesPostMutationResponse,
+  ClassifyOperationalProfilesApiV1DetectaAlertaEpidemiologicalClassifyProfilesPostMutation
+} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/ClassifyOperationalProfilesApiV1DetectaAlertaEpidemiologicalClassifyProfilesPost'
 export type {
-  DetectEpidemiologicalAnomaliesApiV1DetectaEpidemiologicalAnomaliesGetQueryParams,
-  DetectEpidemiologicalAnomaliesApiV1DetectaEpidemiologicalAnomaliesGet200,
-  DetectEpidemiologicalAnomaliesApiV1DetectaEpidemiologicalAnomaliesGet422,
-  DetectEpidemiologicalAnomaliesApiV1DetectaEpidemiologicalAnomaliesGetQueryResponse,
-  DetectEpidemiologicalAnomaliesApiV1DetectaEpidemiologicalAnomaliesGetQuery
-} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/DetectEpidemiologicalAnomaliesApiV1DetectaEpidemiologicalAnomaliesGet'
+  DetectEpidemiologicalAnomaliesApiV1DetectaAlertaEpidemiologicalAnomaliesGetQueryParams,
+  DetectEpidemiologicalAnomaliesApiV1DetectaAlertaEpidemiologicalAnomaliesGet200,
+  DetectEpidemiologicalAnomaliesApiV1DetectaAlertaEpidemiologicalAnomaliesGet422,
+  DetectEpidemiologicalAnomaliesApiV1DetectaAlertaEpidemiologicalAnomaliesGetQueryResponse,
+  DetectEpidemiologicalAnomaliesApiV1DetectaAlertaEpidemiologicalAnomaliesGetQuery
+} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/DetectEpidemiologicalAnomaliesApiV1DetectaAlertaEpidemiologicalAnomaliesGet'
 export type {
-  GetCurrentEpidemiologicalWeekApiV1DetectaEpidemiologicalCurrentWeekGetQueryParams,
-  GetCurrentEpidemiologicalWeekApiV1DetectaEpidemiologicalCurrentWeekGet200,
-  GetCurrentEpidemiologicalWeekApiV1DetectaEpidemiologicalCurrentWeekGet422,
-  GetCurrentEpidemiologicalWeekApiV1DetectaEpidemiologicalCurrentWeekGetQueryResponse,
-  GetCurrentEpidemiologicalWeekApiV1DetectaEpidemiologicalCurrentWeekGetQuery
-} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/GetCurrentEpidemiologicalWeekApiV1DetectaEpidemiologicalCurrentWeekGet'
+  GetCurrentEpidemiologicalWeekApiV1DetectaAlertaEpidemiologicalCurrentWeekGetQueryParams,
+  GetCurrentEpidemiologicalWeekApiV1DetectaAlertaEpidemiologicalCurrentWeekGet200,
+  GetCurrentEpidemiologicalWeekApiV1DetectaAlertaEpidemiologicalCurrentWeekGet422,
+  GetCurrentEpidemiologicalWeekApiV1DetectaAlertaEpidemiologicalCurrentWeekGetQueryResponse,
+  GetCurrentEpidemiologicalWeekApiV1DetectaAlertaEpidemiologicalCurrentWeekGetQuery
+} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/GetCurrentEpidemiologicalWeekApiV1DetectaAlertaEpidemiologicalCurrentWeekGet'
 export type {
-  GetEpidemiologicalAggregationsApiV1DetectaEpidemiologicalAggregationsGetQueryParams,
-  GetEpidemiologicalAggregationsApiV1DetectaEpidemiologicalAggregationsGet200,
-  GetEpidemiologicalAggregationsApiV1DetectaEpidemiologicalAggregationsGet422,
-  GetEpidemiologicalAggregationsApiV1DetectaEpidemiologicalAggregationsGetQueryResponse,
-  GetEpidemiologicalAggregationsApiV1DetectaEpidemiologicalAggregationsGetQuery
-} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/GetEpidemiologicalAggregationsApiV1DetectaEpidemiologicalAggregationsGet'
+  GetEpidemiologicalAggregationsApiV1DetectaAlertaEpidemiologicalAggregationsGetQueryParams,
+  GetEpidemiologicalAggregationsApiV1DetectaAlertaEpidemiologicalAggregationsGet200,
+  GetEpidemiologicalAggregationsApiV1DetectaAlertaEpidemiologicalAggregationsGet422,
+  GetEpidemiologicalAggregationsApiV1DetectaAlertaEpidemiologicalAggregationsGetQueryResponse,
+  GetEpidemiologicalAggregationsApiV1DetectaAlertaEpidemiologicalAggregationsGetQuery
+} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/GetEpidemiologicalAggregationsApiV1DetectaAlertaEpidemiologicalAggregationsGet'
 export type {
-  GetEpidemiologicalMetricsByUnitApiV1DetectaEpidemiologicalUnitPlaceIdGetPathParams,
-  GetEpidemiologicalMetricsByUnitApiV1DetectaEpidemiologicalUnitPlaceIdGetQueryParams,
-  GetEpidemiologicalMetricsByUnitApiV1DetectaEpidemiologicalUnitPlaceIdGet200,
-  GetEpidemiologicalMetricsByUnitApiV1DetectaEpidemiologicalUnitPlaceIdGet422,
-  GetEpidemiologicalMetricsByUnitApiV1DetectaEpidemiologicalUnitPlaceIdGetQueryResponse,
-  GetEpidemiologicalMetricsByUnitApiV1DetectaEpidemiologicalUnitPlaceIdGetQuery
-} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/GetEpidemiologicalMetricsByUnitApiV1DetectaEpidemiologicalUnitPlaceIdGet'
+  GetEpidemiologicalMetricsByUnitApiV1DetectaAlertaEpidemiologicalUnitPlaceIdGetPathParams,
+  GetEpidemiologicalMetricsByUnitApiV1DetectaAlertaEpidemiologicalUnitPlaceIdGetQueryParams,
+  GetEpidemiologicalMetricsByUnitApiV1DetectaAlertaEpidemiologicalUnitPlaceIdGet200,
+  GetEpidemiologicalMetricsByUnitApiV1DetectaAlertaEpidemiologicalUnitPlaceIdGet422,
+  GetEpidemiologicalMetricsByUnitApiV1DetectaAlertaEpidemiologicalUnitPlaceIdGetQueryResponse,
+  GetEpidemiologicalMetricsByUnitApiV1DetectaAlertaEpidemiologicalUnitPlaceIdGetQuery
+} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/GetEpidemiologicalMetricsByUnitApiV1DetectaAlertaEpidemiologicalUnitPlaceIdGet'
 export type {
-  GetEpidemiologicalTrendsApiV1DetectaEpidemiologicalTrendsPlaceIdGetPathParams,
-  GetEpidemiologicalTrendsApiV1DetectaEpidemiologicalTrendsPlaceIdGet200,
-  GetEpidemiologicalTrendsApiV1DetectaEpidemiologicalTrendsPlaceIdGet422,
-  GetEpidemiologicalTrendsApiV1DetectaEpidemiologicalTrendsPlaceIdGetQueryResponse,
-  GetEpidemiologicalTrendsApiV1DetectaEpidemiologicalTrendsPlaceIdGetQuery
-} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/GetEpidemiologicalTrendsApiV1DetectaEpidemiologicalTrendsPlaceIdGet'
+  GetEpidemiologicalTrendsApiV1DetectaAlertaEpidemiologicalTrendsPlaceIdGetPathParams,
+  GetEpidemiologicalTrendsApiV1DetectaAlertaEpidemiologicalTrendsPlaceIdGet200,
+  GetEpidemiologicalTrendsApiV1DetectaAlertaEpidemiologicalTrendsPlaceIdGet422,
+  GetEpidemiologicalTrendsApiV1DetectaAlertaEpidemiologicalTrendsPlaceIdGetQueryResponse,
+  GetEpidemiologicalTrendsApiV1DetectaAlertaEpidemiologicalTrendsPlaceIdGetQuery
+} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/GetEpidemiologicalTrendsApiV1DetectaAlertaEpidemiologicalTrendsPlaceIdGet'
 export type {
-  GetProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGetPathParams,
-  GetProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGetQueryParams,
-  GetProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGet200,
-  GetProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGet422,
-  GetProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGetQueryResponse,
-  GetProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGetQuery
-} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/GetProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGet'
+  GetProfileAdjustedMetricsApiV1DetectaAlertaEpidemiologicalProfileMetricsPlaceIdGetPathParams,
+  GetProfileAdjustedMetricsApiV1DetectaAlertaEpidemiologicalProfileMetricsPlaceIdGetQueryParams,
+  GetProfileAdjustedMetricsApiV1DetectaAlertaEpidemiologicalProfileMetricsPlaceIdGet200,
+  GetProfileAdjustedMetricsApiV1DetectaAlertaEpidemiologicalProfileMetricsPlaceIdGet422,
+  GetProfileAdjustedMetricsApiV1DetectaAlertaEpidemiologicalProfileMetricsPlaceIdGetQueryResponse,
+  GetProfileAdjustedMetricsApiV1DetectaAlertaEpidemiologicalProfileMetricsPlaceIdGetQuery
+} from './types/M\u00E9tricas Epidemiol\u00F3gicasTypes/GetProfileAdjustedMetricsApiV1DetectaAlertaEpidemiologicalProfileMetricsPlaceIdGet'
 export type { ModulesArbovirosesSchemasExportSchemasExportInfoResponse } from './types/ModulesArbovirosesSchemasExportSchemasExportInfoResponse'
-export type { ModulesDetectaSchemasExportSchemasExportInfoResponse } from './types/ModulesDetectaSchemasExportSchemasExportInfoResponse'
+export type { ModulesDetectaAlertaSchemasExportSchemasExportInfoResponse } from './types/ModulesDetectaAlertaSchemasExportSchemasExportInfoResponse'
 export type { ModulesIbgeSchemasPaginationInfo } from './types/ModulesIbgeSchemasPaginationInfo'
 export type { ModulesNoticiasSchemasPaginationInfo } from './types/ModulesNoticiasSchemasPaginationInfo'
 export type { MunicipioDetalhadoResponse } from './types/MunicipioDetalhadoResponse'
@@ -1082,6 +1153,7 @@ export type { OperationalProfileEnum } from './types/OperationalProfileEnum'
 export type { PaginatedCityStatsResponse } from './types/PaginatedCityStatsResponse'
 export type { PaginatedCnesResponse } from './types/PaginatedCnesResponse'
 export type { PaginationMeta } from './types/PaginationMeta'
+export type { PainelResponse } from './types/PainelResponse'
 export type {
   CreateUsuarioApiV1UsuariosPost201,
   CreateUsuarioApiV1UsuariosPost422,
@@ -1217,39 +1289,39 @@ export type { RefreshTokenRequest } from './types/RefreshTokenRequest'
 export type { Regiao } from './types/Regiao'
 export type { RegionStatsResponse } from './types/RegionStatsResponse'
 export type {
-  GenerateComparativeReportApiV1DetectaReportsComparativePost200,
-  GenerateComparativeReportApiV1DetectaReportsComparativePost422,
-  GenerateComparativeReportApiV1DetectaReportsComparativePostMutationRequest,
-  GenerateComparativeReportApiV1DetectaReportsComparativePostMutationResponse,
-  GenerateComparativeReportApiV1DetectaReportsComparativePostMutation
-} from './types/Relat\u00F3rios DetectaTypes/GenerateComparativeReportApiV1DetectaReportsComparativePost'
+  GenerateComparativeReportApiV1DetectaAlertaReportsComparativePost200,
+  GenerateComparativeReportApiV1DetectaAlertaReportsComparativePost422,
+  GenerateComparativeReportApiV1DetectaAlertaReportsComparativePostMutationRequest,
+  GenerateComparativeReportApiV1DetectaAlertaReportsComparativePostMutationResponse,
+  GenerateComparativeReportApiV1DetectaAlertaReportsComparativePostMutation
+} from './types/Relat\u00F3rios Detecta AlertaTypes/GenerateComparativeReportApiV1DetectaAlertaReportsComparativePost'
 export type {
-  GenerateCustomReportApiV1DetectaReportsGeneratePost200,
-  GenerateCustomReportApiV1DetectaReportsGeneratePost422,
-  GenerateCustomReportApiV1DetectaReportsGeneratePostMutationRequest,
-  GenerateCustomReportApiV1DetectaReportsGeneratePostMutationResponse,
-  GenerateCustomReportApiV1DetectaReportsGeneratePostMutation
-} from './types/Relat\u00F3rios DetectaTypes/GenerateCustomReportApiV1DetectaReportsGeneratePost'
+  GenerateCustomReportApiV1DetectaAlertaReportsGeneratePost200,
+  GenerateCustomReportApiV1DetectaAlertaReportsGeneratePost422,
+  GenerateCustomReportApiV1DetectaAlertaReportsGeneratePostMutationRequest,
+  GenerateCustomReportApiV1DetectaAlertaReportsGeneratePostMutationResponse,
+  GenerateCustomReportApiV1DetectaAlertaReportsGeneratePostMutation
+} from './types/Relat\u00F3rios Detecta AlertaTypes/GenerateCustomReportApiV1DetectaAlertaReportsGeneratePost'
 export type {
-  GetDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGetPathParams,
-  GetDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGetQueryParams,
-  GetDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGet200,
-  GetDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGet422,
-  GetDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGetQueryResponse,
-  GetDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGetQuery
-} from './types/Relat\u00F3rios DetectaTypes/GetDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGet'
+  GetDetailedUnitReportApiV1DetectaAlertaReportsDetailedPlaceIdGetPathParams,
+  GetDetailedUnitReportApiV1DetectaAlertaReportsDetailedPlaceIdGetQueryParams,
+  GetDetailedUnitReportApiV1DetectaAlertaReportsDetailedPlaceIdGet200,
+  GetDetailedUnitReportApiV1DetectaAlertaReportsDetailedPlaceIdGet422,
+  GetDetailedUnitReportApiV1DetectaAlertaReportsDetailedPlaceIdGetQueryResponse,
+  GetDetailedUnitReportApiV1DetectaAlertaReportsDetailedPlaceIdGetQuery
+} from './types/Relat\u00F3rios Detecta AlertaTypes/GetDetailedUnitReportApiV1DetectaAlertaReportsDetailedPlaceIdGet'
 export type {
-  GetExecutiveSummaryApiV1DetectaReportsSummaryGetQueryParams,
-  GetExecutiveSummaryApiV1DetectaReportsSummaryGet200,
-  GetExecutiveSummaryApiV1DetectaReportsSummaryGet422,
-  GetExecutiveSummaryApiV1DetectaReportsSummaryGetQueryResponse,
-  GetExecutiveSummaryApiV1DetectaReportsSummaryGetQuery
-} from './types/Relat\u00F3rios DetectaTypes/GetExecutiveSummaryApiV1DetectaReportsSummaryGet'
+  GetExecutiveSummaryApiV1DetectaAlertaReportsSummaryGetQueryParams,
+  GetExecutiveSummaryApiV1DetectaAlertaReportsSummaryGet200,
+  GetExecutiveSummaryApiV1DetectaAlertaReportsSummaryGet422,
+  GetExecutiveSummaryApiV1DetectaAlertaReportsSummaryGetQueryResponse,
+  GetExecutiveSummaryApiV1DetectaAlertaReportsSummaryGetQuery
+} from './types/Relat\u00F3rios Detecta AlertaTypes/GetExecutiveSummaryApiV1DetectaAlertaReportsSummaryGet'
 export type {
-  GetReportTemplatesApiV1DetectaReportsTemplatesGet200,
-  GetReportTemplatesApiV1DetectaReportsTemplatesGetQueryResponse,
-  GetReportTemplatesApiV1DetectaReportsTemplatesGetQuery
-} from './types/Relat\u00F3rios DetectaTypes/GetReportTemplatesApiV1DetectaReportsTemplatesGet'
+  GetReportTemplatesApiV1DetectaAlertaReportsTemplatesGet200,
+  GetReportTemplatesApiV1DetectaAlertaReportsTemplatesGetQueryResponse,
+  GetReportTemplatesApiV1DetectaAlertaReportsTemplatesGetQuery
+} from './types/Relat\u00F3rios Detecta AlertaTypes/GetReportTemplatesApiV1DetectaAlertaReportsTemplatesGet'
 export type { ReportFiltersMetadata } from './types/ReportFiltersMetadata'
 export type { ReportGenerationRequest } from './types/ReportGenerationRequest'
 export type { ReportGenerationResponse } from './types/ReportGenerationResponse'
@@ -1327,63 +1399,63 @@ export type { TrendPaginationMetadata } from './types/TrendPaginationMetadata'
 export type { TrendPeriodMetadata } from './types/TrendPeriodMetadata'
 export type { TrendsResponse } from './types/TrendsResponse'
 export type {
-  CreateUnitApiV1DetectaUnitsPost201,
-  CreateUnitApiV1DetectaUnitsPost422,
-  CreateUnitApiV1DetectaUnitsPostMutationRequest,
-  CreateUnitApiV1DetectaUnitsPostMutationResponse,
-  CreateUnitApiV1DetectaUnitsPostMutation
-} from './types/Unidades DetectaTypes/CreateUnitApiV1DetectaUnitsPost'
+  CreateUnitApiV1DetectaAlertaUnitsPost201,
+  CreateUnitApiV1DetectaAlertaUnitsPost422,
+  CreateUnitApiV1DetectaAlertaUnitsPostMutationRequest,
+  CreateUnitApiV1DetectaAlertaUnitsPostMutationResponse,
+  CreateUnitApiV1DetectaAlertaUnitsPostMutation
+} from './types/Unidades Detecta AlertaTypes/CreateUnitApiV1DetectaAlertaUnitsPost'
 export type {
-  CreateUnitsBulkApiV1DetectaUnitsBulkPost201,
-  CreateUnitsBulkApiV1DetectaUnitsBulkPost422,
-  CreateUnitsBulkApiV1DetectaUnitsBulkPostMutationRequest,
-  CreateUnitsBulkApiV1DetectaUnitsBulkPostMutationResponse,
-  CreateUnitsBulkApiV1DetectaUnitsBulkPostMutation
-} from './types/Unidades DetectaTypes/CreateUnitsBulkApiV1DetectaUnitsBulkPost'
+  CreateUnitsBulkApiV1DetectaAlertaUnitsBulkPost201,
+  CreateUnitsBulkApiV1DetectaAlertaUnitsBulkPost422,
+  CreateUnitsBulkApiV1DetectaAlertaUnitsBulkPostMutationRequest,
+  CreateUnitsBulkApiV1DetectaAlertaUnitsBulkPostMutationResponse,
+  CreateUnitsBulkApiV1DetectaAlertaUnitsBulkPostMutation
+} from './types/Unidades Detecta AlertaTypes/CreateUnitsBulkApiV1DetectaAlertaUnitsBulkPost'
 export type {
-  DeleteUnitApiV1DetectaUnitsPlaceIdDeletePathParams,
-  DeleteUnitApiV1DetectaUnitsPlaceIdDelete204,
-  DeleteUnitApiV1DetectaUnitsPlaceIdDelete422,
-  DeleteUnitApiV1DetectaUnitsPlaceIdDeleteMutationResponse,
-  DeleteUnitApiV1DetectaUnitsPlaceIdDeleteMutation
-} from './types/Unidades DetectaTypes/DeleteUnitApiV1DetectaUnitsPlaceIdDelete'
+  DeleteUnitApiV1DetectaAlertaUnitsPlaceIdDeletePathParams,
+  DeleteUnitApiV1DetectaAlertaUnitsPlaceIdDelete204,
+  DeleteUnitApiV1DetectaAlertaUnitsPlaceIdDelete422,
+  DeleteUnitApiV1DetectaAlertaUnitsPlaceIdDeleteMutationResponse,
+  DeleteUnitApiV1DetectaAlertaUnitsPlaceIdDeleteMutation
+} from './types/Unidades Detecta AlertaTypes/DeleteUnitApiV1DetectaAlertaUnitsPlaceIdDelete'
 export type {
-  GetUnitApiV1DetectaUnitsPlaceIdGetPathParams,
-  GetUnitApiV1DetectaUnitsPlaceIdGet200,
-  GetUnitApiV1DetectaUnitsPlaceIdGet422,
-  GetUnitApiV1DetectaUnitsPlaceIdGetQueryResponse,
-  GetUnitApiV1DetectaUnitsPlaceIdGetQuery
-} from './types/Unidades DetectaTypes/GetUnitApiV1DetectaUnitsPlaceIdGet'
+  GetUnitApiV1DetectaAlertaUnitsPlaceIdGetPathParams,
+  GetUnitApiV1DetectaAlertaUnitsPlaceIdGet200,
+  GetUnitApiV1DetectaAlertaUnitsPlaceIdGet422,
+  GetUnitApiV1DetectaAlertaUnitsPlaceIdGetQueryResponse,
+  GetUnitApiV1DetectaAlertaUnitsPlaceIdGetQuery
+} from './types/Unidades Detecta AlertaTypes/GetUnitApiV1DetectaAlertaUnitsPlaceIdGet'
 export type {
-  HardDeleteUnitApiV1DetectaUnitsPlaceIdPermanentDeletePathParams,
-  HardDeleteUnitApiV1DetectaUnitsPlaceIdPermanentDelete204,
-  HardDeleteUnitApiV1DetectaUnitsPlaceIdPermanentDelete422,
-  HardDeleteUnitApiV1DetectaUnitsPlaceIdPermanentDeleteMutationResponse,
-  HardDeleteUnitApiV1DetectaUnitsPlaceIdPermanentDeleteMutation
-} from './types/Unidades DetectaTypes/HardDeleteUnitApiV1DetectaUnitsPlaceIdPermanentDelete'
+  HardDeleteUnitApiV1DetectaAlertaUnitsPlaceIdPermanentDeletePathParams,
+  HardDeleteUnitApiV1DetectaAlertaUnitsPlaceIdPermanentDelete204,
+  HardDeleteUnitApiV1DetectaAlertaUnitsPlaceIdPermanentDelete422,
+  HardDeleteUnitApiV1DetectaAlertaUnitsPlaceIdPermanentDeleteMutationResponse,
+  HardDeleteUnitApiV1DetectaAlertaUnitsPlaceIdPermanentDeleteMutation
+} from './types/Unidades Detecta AlertaTypes/HardDeleteUnitApiV1DetectaAlertaUnitsPlaceIdPermanentDelete'
 export type {
-  ListUnitsApiV1DetectaUnitsGetQueryParams,
-  ListUnitsApiV1DetectaUnitsGet200,
-  ListUnitsApiV1DetectaUnitsGet422,
-  ListUnitsApiV1DetectaUnitsGetQueryResponse,
-  ListUnitsApiV1DetectaUnitsGetQuery
-} from './types/Unidades DetectaTypes/ListUnitsApiV1DetectaUnitsGet'
+  ListUnitsApiV1DetectaAlertaUnitsGetQueryParams,
+  ListUnitsApiV1DetectaAlertaUnitsGet200,
+  ListUnitsApiV1DetectaAlertaUnitsGet422,
+  ListUnitsApiV1DetectaAlertaUnitsGetQueryResponse,
+  ListUnitsApiV1DetectaAlertaUnitsGetQuery
+} from './types/Unidades Detecta AlertaTypes/ListUnitsApiV1DetectaAlertaUnitsGet'
 export type {
-  UpdateUnitApiV1DetectaUnitsPlaceIdPutPathParams,
-  UpdateUnitApiV1DetectaUnitsPlaceIdPut200,
-  UpdateUnitApiV1DetectaUnitsPlaceIdPut422,
-  UpdateUnitApiV1DetectaUnitsPlaceIdPutMutationRequest,
-  UpdateUnitApiV1DetectaUnitsPlaceIdPutMutationResponse,
-  UpdateUnitApiV1DetectaUnitsPlaceIdPutMutation
-} from './types/Unidades DetectaTypes/UpdateUnitApiV1DetectaUnitsPlaceIdPut'
+  UpdateUnitApiV1DetectaAlertaUnitsPlaceIdPutPathParams,
+  UpdateUnitApiV1DetectaAlertaUnitsPlaceIdPut200,
+  UpdateUnitApiV1DetectaAlertaUnitsPlaceIdPut422,
+  UpdateUnitApiV1DetectaAlertaUnitsPlaceIdPutMutationRequest,
+  UpdateUnitApiV1DetectaAlertaUnitsPlaceIdPutMutationResponse,
+  UpdateUnitApiV1DetectaAlertaUnitsPlaceIdPutMutation
+} from './types/Unidades Detecta AlertaTypes/UpdateUnitApiV1DetectaAlertaUnitsPlaceIdPut'
 export type {
-  UpdateUnitStatusApiV1DetectaUnitsPlaceIdStatusPatchPathParams,
-  UpdateUnitStatusApiV1DetectaUnitsPlaceIdStatusPatch200,
-  UpdateUnitStatusApiV1DetectaUnitsPlaceIdStatusPatch422,
-  UpdateUnitStatusApiV1DetectaUnitsPlaceIdStatusPatchMutationRequest,
-  UpdateUnitStatusApiV1DetectaUnitsPlaceIdStatusPatchMutationResponse,
-  UpdateUnitStatusApiV1DetectaUnitsPlaceIdStatusPatchMutation
-} from './types/Unidades DetectaTypes/UpdateUnitStatusApiV1DetectaUnitsPlaceIdStatusPatch'
+  UpdateUnitStatusApiV1DetectaAlertaUnitsPlaceIdStatusPatchPathParams,
+  UpdateUnitStatusApiV1DetectaAlertaUnitsPlaceIdStatusPatch200,
+  UpdateUnitStatusApiV1DetectaAlertaUnitsPlaceIdStatusPatch422,
+  UpdateUnitStatusApiV1DetectaAlertaUnitsPlaceIdStatusPatchMutationRequest,
+  UpdateUnitStatusApiV1DetectaAlertaUnitsPlaceIdStatusPatchMutationResponse,
+  UpdateUnitStatusApiV1DetectaAlertaUnitsPlaceIdStatusPatchMutation
+} from './types/Unidades Detecta AlertaTypes/UpdateUnitStatusApiV1DetectaAlertaUnitsPlaceIdStatusPatch'
 export type { UnitCreate } from './types/UnitCreate'
 export type { UnitFiltersMetadata } from './types/UnitFiltersMetadata'
 export type { UnitHealthStatus } from './types/UnitHealthStatus'
@@ -1451,6 +1523,54 @@ export {
   obterCasoApiV1AgravosCasosCasoIdGet422Schema,
   obterCasoApiV1AgravosCasosCasoIdGetQueryResponseSchema
 } from './zod/AgravosSchemas/obterCasoApiV1AgravosCasosCasoIdGetSchema'
+export {
+  bulkUpsertDestaquesApiV1NoticiasAgregacoesDestaquesBulkPost200Schema,
+  bulkUpsertDestaquesApiV1NoticiasAgregacoesDestaquesBulkPost422Schema,
+  bulkUpsertDestaquesApiV1NoticiasAgregacoesDestaquesBulkPostMutationRequestSchema,
+  bulkUpsertDestaquesApiV1NoticiasAgregacoesDestaquesBulkPostMutationResponseSchema
+} from './zod/Agregacoes EpidemiologicasSchemas/bulkUpsertDestaquesApiV1NoticiasAgregacoesDestaquesBulkPostSchema'
+export {
+  bulkUpsertEstimativasApiV1NoticiasAgregacoesEstimativasBulkPost200Schema,
+  bulkUpsertEstimativasApiV1NoticiasAgregacoesEstimativasBulkPost422Schema,
+  bulkUpsertEstimativasApiV1NoticiasAgregacoesEstimativasBulkPostMutationRequestSchema,
+  bulkUpsertEstimativasApiV1NoticiasAgregacoesEstimativasBulkPostMutationResponseSchema
+} from './zod/Agregacoes EpidemiologicasSchemas/bulkUpsertEstimativasApiV1NoticiasAgregacoesEstimativasBulkPostSchema'
+export {
+  bulkUpsertManchetesApiV1NoticiasAgregacoesManchetesBulkPost200Schema,
+  bulkUpsertManchetesApiV1NoticiasAgregacoesManchetesBulkPost422Schema,
+  bulkUpsertManchetesApiV1NoticiasAgregacoesManchetesBulkPostMutationRequestSchema,
+  bulkUpsertManchetesApiV1NoticiasAgregacoesManchetesBulkPostMutationResponseSchema
+} from './zod/Agregacoes EpidemiologicasSchemas/bulkUpsertManchetesApiV1NoticiasAgregacoesManchetesBulkPostSchema'
+export {
+  getDestaqueHojeApiV1NoticiasAgregacoesDestaquesHojeGet200Schema,
+  getDestaqueHojeApiV1NoticiasAgregacoesDestaquesHojeGetQueryResponseSchema
+} from './zod/Agregacoes EpidemiologicasSchemas/getDestaqueHojeApiV1NoticiasAgregacoesDestaquesHojeGetSchema'
+export {
+  getDestaquesApiV1NoticiasAgregacoesDestaquesGetQueryParamsSchema,
+  getDestaquesApiV1NoticiasAgregacoesDestaquesGet200Schema,
+  getDestaquesApiV1NoticiasAgregacoesDestaquesGet422Schema,
+  getDestaquesApiV1NoticiasAgregacoesDestaquesGetQueryResponseSchema
+} from './zod/Agregacoes EpidemiologicasSchemas/getDestaquesApiV1NoticiasAgregacoesDestaquesGetSchema'
+export {
+  getEstimativasApiV1NoticiasAgregacoesEstimativasGetQueryParamsSchema,
+  getEstimativasApiV1NoticiasAgregacoesEstimativasGet200Schema,
+  getEstimativasApiV1NoticiasAgregacoesEstimativasGet422Schema,
+  getEstimativasApiV1NoticiasAgregacoesEstimativasGetQueryResponseSchema
+} from './zod/Agregacoes EpidemiologicasSchemas/getEstimativasApiV1NoticiasAgregacoesEstimativasGetSchema'
+export {
+  getMancheteAtualApiV1NoticiasAgregacoesManchetesAtualGet200Schema,
+  getMancheteAtualApiV1NoticiasAgregacoesManchetesAtualGetQueryResponseSchema
+} from './zod/Agregacoes EpidemiologicasSchemas/getMancheteAtualApiV1NoticiasAgregacoesManchetesAtualGetSchema'
+export {
+  getManchetesApiV1NoticiasAgregacoesManchetesGetQueryParamsSchema,
+  getManchetesApiV1NoticiasAgregacoesManchetesGet200Schema,
+  getManchetesApiV1NoticiasAgregacoesManchetesGet422Schema,
+  getManchetesApiV1NoticiasAgregacoesManchetesGetQueryResponseSchema
+} from './zod/Agregacoes EpidemiologicasSchemas/getManchetesApiV1NoticiasAgregacoesManchetesGetSchema'
+export {
+  getPainelApiV1NoticiasAgregacoesPainelGet200Schema,
+  getPainelApiV1NoticiasAgregacoesPainelGetQueryResponseSchema
+} from './zod/Agregacoes EpidemiologicasSchemas/getPainelApiV1NoticiasAgregacoesPainelGetSchema'
 export { alertaConsolidadoSchema } from './zod/alertaConsolidadoSchema'
 export { alertaGeograficoSchema } from './zod/alertaGeograficoSchema'
 export { alertaTemporalSchema } from './zod/alertaTemporalSchema'
@@ -1460,35 +1580,35 @@ export { alertsResponseSchema } from './zod/alertsResponseSchema'
 export { alertsSummaryMetadataSchema } from './zod/alertsSummaryMetadataSchema'
 export { analiseGeograficaNoticiasSchema } from './zod/analiseGeograficaNoticiasSchema'
 export {
-  detectAnomaliesApiV1DetectaAnalyticsAnomaliesGetQueryParamsSchema,
-  detectAnomaliesApiV1DetectaAnalyticsAnomaliesGet200Schema,
-  detectAnomaliesApiV1DetectaAnalyticsAnomaliesGet422Schema,
-  detectAnomaliesApiV1DetectaAnalyticsAnomaliesGetQueryResponseSchema
-} from './zod/An\u00E1lises e AlertasSchemas/detectAnomaliesApiV1DetectaAnalyticsAnomaliesGetSchema'
+  detectAnomaliesApiV1DetectaAlertaAnalyticsAnomaliesGetQueryParamsSchema,
+  detectAnomaliesApiV1DetectaAlertaAnalyticsAnomaliesGet200Schema,
+  detectAnomaliesApiV1DetectaAlertaAnalyticsAnomaliesGet422Schema,
+  detectAnomaliesApiV1DetectaAlertaAnalyticsAnomaliesGetQueryResponseSchema
+} from './zod/An\u00E1lises e AlertasSchemas/detectAnomaliesApiV1DetectaAlertaAnalyticsAnomaliesGetSchema'
 export {
-  getActiveAlertsApiV1DetectaAnalyticsAlertsGetQueryParamsSchema,
-  getActiveAlertsApiV1DetectaAnalyticsAlertsGet200Schema,
-  getActiveAlertsApiV1DetectaAnalyticsAlertsGet422Schema,
-  getActiveAlertsApiV1DetectaAnalyticsAlertsGetQueryResponseSchema
-} from './zod/An\u00E1lises e AlertasSchemas/getActiveAlertsApiV1DetectaAnalyticsAlertsGetSchema'
+  getActiveAlertsApiV1DetectaAlertaAnalyticsAlertsGetQueryParamsSchema,
+  getActiveAlertsApiV1DetectaAlertaAnalyticsAlertsGet200Schema,
+  getActiveAlertsApiV1DetectaAlertaAnalyticsAlertsGet422Schema,
+  getActiveAlertsApiV1DetectaAlertaAnalyticsAlertsGetQueryResponseSchema
+} from './zod/An\u00E1lises e AlertasSchemas/getActiveAlertsApiV1DetectaAlertaAnalyticsAlertsGetSchema'
 export {
-  getHeatmapDataApiV1DetectaAnalyticsHeatmapGetQueryParamsSchema,
-  getHeatmapDataApiV1DetectaAnalyticsHeatmapGet200Schema,
-  getHeatmapDataApiV1DetectaAnalyticsHeatmapGet422Schema,
-  getHeatmapDataApiV1DetectaAnalyticsHeatmapGetQueryResponseSchema
-} from './zod/An\u00E1lises e AlertasSchemas/getHeatmapDataApiV1DetectaAnalyticsHeatmapGetSchema'
+  getHeatmapDataApiV1DetectaAlertaAnalyticsHeatmapGetQueryParamsSchema,
+  getHeatmapDataApiV1DetectaAlertaAnalyticsHeatmapGet200Schema,
+  getHeatmapDataApiV1DetectaAlertaAnalyticsHeatmapGet422Schema,
+  getHeatmapDataApiV1DetectaAlertaAnalyticsHeatmapGetQueryResponseSchema
+} from './zod/An\u00E1lises e AlertasSchemas/getHeatmapDataApiV1DetectaAlertaAnalyticsHeatmapGetSchema'
 export {
-  getPredictionsApiV1DetectaAnalyticsPredictionsGetQueryParamsSchema,
-  getPredictionsApiV1DetectaAnalyticsPredictionsGet200Schema,
-  getPredictionsApiV1DetectaAnalyticsPredictionsGet422Schema,
-  getPredictionsApiV1DetectaAnalyticsPredictionsGetQueryResponseSchema
-} from './zod/An\u00E1lises e AlertasSchemas/getPredictionsApiV1DetectaAnalyticsPredictionsGetSchema'
+  getPredictionsApiV1DetectaAlertaAnalyticsPredictionsGetQueryParamsSchema,
+  getPredictionsApiV1DetectaAlertaAnalyticsPredictionsGet200Schema,
+  getPredictionsApiV1DetectaAlertaAnalyticsPredictionsGet422Schema,
+  getPredictionsApiV1DetectaAlertaAnalyticsPredictionsGetQueryResponseSchema
+} from './zod/An\u00E1lises e AlertasSchemas/getPredictionsApiV1DetectaAlertaAnalyticsPredictionsGetSchema'
 export {
-  getTrendsApiV1DetectaAnalyticsTrendsGetQueryParamsSchema,
-  getTrendsApiV1DetectaAnalyticsTrendsGet200Schema,
-  getTrendsApiV1DetectaAnalyticsTrendsGet422Schema,
-  getTrendsApiV1DetectaAnalyticsTrendsGetQueryResponseSchema
-} from './zod/An\u00E1lises e AlertasSchemas/getTrendsApiV1DetectaAnalyticsTrendsGetSchema'
+  getTrendsApiV1DetectaAlertaAnalyticsTrendsGetQueryParamsSchema,
+  getTrendsApiV1DetectaAlertaAnalyticsTrendsGet200Schema,
+  getTrendsApiV1DetectaAlertaAnalyticsTrendsGet422Schema,
+  getTrendsApiV1DetectaAlertaAnalyticsTrendsGetQueryResponseSchema
+} from './zod/An\u00E1lises e AlertasSchemas/getTrendsApiV1DetectaAlertaAnalyticsTrendsGetSchema'
 export { analiseTemporalNoticiasSchema } from './zod/analiseTemporalNoticiasSchema'
 export { anomaliesResponseSchema } from './zod/anomaliesResponseSchema'
 export { anomaliesSummaryMetadataSchema } from './zod/anomaliesSummaryMetadataSchema'
@@ -1531,6 +1651,7 @@ export { bulkCreateResponseSchema } from './zod/bulkCreateResponseSchema'
 export { bulkDataInputSchema } from './zod/bulkDataInputSchema'
 export { bulkUnitCreateSchema } from './zod/bulkUnitCreateSchema'
 export { bulkUnitResponseSchema } from './zod/bulkUnitResponseSchema'
+export { bulkUpsertResponseSchema } from './zod/bulkUpsertResponseSchema'
 export {
   clearCacheApiV1McpCacheClearDeleteQueryParamsSchema,
   clearCacheApiV1McpCacheClearDelete200Schema,
@@ -1654,6 +1775,12 @@ export {
   dengueSurtosApiV1ArbovirosesDengueSurtosGetQueryResponseSchema
 } from './zod/Dengue - Agregacoes (Gold)Schemas/dengueSurtosApiV1ArbovirosesDengueSurtosGetSchema'
 export {
+  handleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGetQueryParamsSchema,
+  handleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGet200Schema,
+  handleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGet422Schema,
+  handleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGetQueryResponseSchema
+} from './zod/Dengue - Agregacoes (Gold)Schemas/handleCanalEndemicoApiV1ArbovirosesDengueCanalEndemicoGetSchema'
+export {
   handleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGetQueryParamsSchema,
   handleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet200Schema,
   handleCurvaMunicipalApiV1ArbovirosesDengueCurvaEpidemicaMunicipalGet422Schema,
@@ -1751,17 +1878,19 @@ export {
   getExportInfoApiV1ArbovirosesDengueSilverExportInfoGet200Schema,
   getExportInfoApiV1ArbovirosesDengueSilverExportInfoGetQueryResponseSchema
 } from './zod/Dengue - Export SilverSchemas/getExportInfoApiV1ArbovirosesDengueSilverExportInfoGetSchema'
+export { destaqueDiarioCreateSchema } from './zod/destaqueDiarioCreateSchema'
+export { destaqueDiarioResponseSchema } from './zod/destaqueDiarioResponseSchema'
 export { detailedReportResponseSchema } from './zod/detailedReportResponseSchema'
 export {
-  getHealthCheckStatusApiV1DetectaHealthCheckStatusGetQueryParamsSchema,
-  getHealthCheckStatusApiV1DetectaHealthCheckStatusGet200Schema,
-  getHealthCheckStatusApiV1DetectaHealthCheckStatusGet422Schema,
-  getHealthCheckStatusApiV1DetectaHealthCheckStatusGetQueryResponseSchema
-} from './zod/Detecta - Health CheckSchemas/getHealthCheckStatusApiV1DetectaHealthCheckStatusGetSchema'
+  getHealthCheckStatusApiV1DetectaAlertaHealthCheckStatusGetQueryParamsSchema,
+  getHealthCheckStatusApiV1DetectaAlertaHealthCheckStatusGet200Schema,
+  getHealthCheckStatusApiV1DetectaAlertaHealthCheckStatusGet422Schema,
+  getHealthCheckStatusApiV1DetectaAlertaHealthCheckStatusGetQueryResponseSchema
+} from './zod/Detecta Alerta - Health CheckSchemas/getHealthCheckStatusApiV1DetectaAlertaHealthCheckStatusGetSchema'
 export {
-  triggerHealthCheckApiV1DetectaHealthCheckTriggerPost202Schema,
-  triggerHealthCheckApiV1DetectaHealthCheckTriggerPostMutationResponseSchema
-} from './zod/Detecta - Health CheckSchemas/triggerHealthCheckApiV1DetectaHealthCheckTriggerPostSchema'
+  triggerHealthCheckApiV1DetectaAlertaHealthCheckTriggerPost202Schema,
+  triggerHealthCheckApiV1DetectaAlertaHealthCheckTriggerPostMutationResponseSchema
+} from './zod/Detecta Alerta - Health CheckSchemas/triggerHealthCheckApiV1DetectaAlertaHealthCheckTriggerPostSchema'
 export { dicionarioCamposResponseSchema } from './zod/dicionarioCamposResponseSchema'
 export { dicionarioCategoriasResponseSchema } from './zod/dicionarioCategoriasResponseSchema'
 export { dicionarioTransformacoesResponseSchema } from './zod/dicionarioTransformacoesResponseSchema'
@@ -1847,111 +1976,113 @@ export {
   getStatisticsApiV1NoticiasEstatisticasResumoGetQueryResponseSchema
 } from './zod/Estat\u00EDsticas Not\u00EDciasSchemas/getStatisticsApiV1NoticiasEstatisticasResumoGetSchema'
 export {
-  getCitiesWithStatsApiV1DetectaStatsCitiesGetQueryParamsSchema,
-  getCitiesWithStatsApiV1DetectaStatsCitiesGet200Schema,
-  getCitiesWithStatsApiV1DetectaStatsCitiesGet422Schema,
-  getCitiesWithStatsApiV1DetectaStatsCitiesGetQueryResponseSchema
-} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getCitiesWithStatsApiV1DetectaStatsCitiesGetSchema'
+  getCitiesWithStatsApiV1DetectaAlertaStatsCitiesGetQueryParamsSchema,
+  getCitiesWithStatsApiV1DetectaAlertaStatsCitiesGet200Schema,
+  getCitiesWithStatsApiV1DetectaAlertaStatsCitiesGet422Schema,
+  getCitiesWithStatsApiV1DetectaAlertaStatsCitiesGetQueryResponseSchema
+} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getCitiesWithStatsApiV1DetectaAlertaStatsCitiesGetSchema'
 export {
-  getCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGetPathParamsSchema,
-  getCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGetQueryParamsSchema,
-  getCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGet200Schema,
-  getCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGet422Schema,
-  getCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGetQueryResponseSchema
-} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getCityStatsByIbgeApiV1DetectaStatsCitiesIbgeCodeGetSchema'
+  getCityStatsByIbgeApiV1DetectaAlertaStatsCitiesIbgeCodeGetPathParamsSchema,
+  getCityStatsByIbgeApiV1DetectaAlertaStatsCitiesIbgeCodeGetQueryParamsSchema,
+  getCityStatsByIbgeApiV1DetectaAlertaStatsCitiesIbgeCodeGet200Schema,
+  getCityStatsByIbgeApiV1DetectaAlertaStatsCitiesIbgeCodeGet422Schema,
+  getCityStatsByIbgeApiV1DetectaAlertaStatsCitiesIbgeCodeGetQueryResponseSchema
+} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getCityStatsByIbgeApiV1DetectaAlertaStatsCitiesIbgeCodeGetSchema'
 export {
-  getDailyStatsApiV1DetectaStatsDailyGetQueryParamsSchema,
-  getDailyStatsApiV1DetectaStatsDailyGet200Schema,
-  getDailyStatsApiV1DetectaStatsDailyGet422Schema,
-  getDailyStatsApiV1DetectaStatsDailyGetQueryResponseSchema
-} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getDailyStatsApiV1DetectaStatsDailyGetSchema'
+  getDailyStatsApiV1DetectaAlertaStatsDailyGetQueryParamsSchema,
+  getDailyStatsApiV1DetectaAlertaStatsDailyGet200Schema,
+  getDailyStatsApiV1DetectaAlertaStatsDailyGet422Schema,
+  getDailyStatsApiV1DetectaAlertaStatsDailyGetQueryResponseSchema
+} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getDailyStatsApiV1DetectaAlertaStatsDailyGetSchema'
 export {
-  getRealTimeDataApiV1DetectaStatsRealTimeGetQueryParamsSchema,
-  getRealTimeDataApiV1DetectaStatsRealTimeGet200Schema,
-  getRealTimeDataApiV1DetectaStatsRealTimeGet422Schema,
-  getRealTimeDataApiV1DetectaStatsRealTimeGetQueryResponseSchema
-} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getRealTimeDataApiV1DetectaStatsRealTimeGetSchema'
+  getRealTimeDataApiV1DetectaAlertaStatsRealTimeGetQueryParamsSchema,
+  getRealTimeDataApiV1DetectaAlertaStatsRealTimeGet200Schema,
+  getRealTimeDataApiV1DetectaAlertaStatsRealTimeGet422Schema,
+  getRealTimeDataApiV1DetectaAlertaStatsRealTimeGetQueryResponseSchema
+} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getRealTimeDataApiV1DetectaAlertaStatsRealTimeGetSchema'
 export {
-  getRegionsStatsApiV1DetectaStatsRegionsGetQueryParamsSchema,
-  getRegionsStatsApiV1DetectaStatsRegionsGet200Schema,
-  getRegionsStatsApiV1DetectaStatsRegionsGet422Schema,
-  getRegionsStatsApiV1DetectaStatsRegionsGetQueryResponseSchema
-} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getRegionsStatsApiV1DetectaStatsRegionsGetSchema'
+  getRegionsStatsApiV1DetectaAlertaStatsRegionsGetQueryParamsSchema,
+  getRegionsStatsApiV1DetectaAlertaStatsRegionsGet200Schema,
+  getRegionsStatsApiV1DetectaAlertaStatsRegionsGet422Schema,
+  getRegionsStatsApiV1DetectaAlertaStatsRegionsGetQueryResponseSchema
+} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getRegionsStatsApiV1DetectaAlertaStatsRegionsGetSchema'
 export {
-  getStatesStatsApiV1DetectaStatsStatesGetQueryParamsSchema,
-  getStatesStatsApiV1DetectaStatsStatesGet200Schema,
-  getStatesStatsApiV1DetectaStatsStatesGet422Schema,
-  getStatesStatsApiV1DetectaStatsStatesGetQueryResponseSchema
-} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getStatesStatsApiV1DetectaStatsStatesGetSchema'
+  getStatesStatsApiV1DetectaAlertaStatsStatesGetQueryParamsSchema,
+  getStatesStatsApiV1DetectaAlertaStatsStatesGet200Schema,
+  getStatesStatsApiV1DetectaAlertaStatsStatesGet422Schema,
+  getStatesStatsApiV1DetectaAlertaStatsStatesGetQueryResponseSchema
+} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getStatesStatsApiV1DetectaAlertaStatsStatesGetSchema'
 export {
-  getStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGetQueryParamsSchema,
-  getStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGet200Schema,
-  getStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGet422Schema,
-  getStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGetQueryResponseSchema
-} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getStatsByUnitTypeApiV1DetectaStatsUnitsByTypeGetSchema'
+  getStatsByUnitTypeApiV1DetectaAlertaStatsUnitsByTypeGetQueryParamsSchema,
+  getStatsByUnitTypeApiV1DetectaAlertaStatsUnitsByTypeGet200Schema,
+  getStatsByUnitTypeApiV1DetectaAlertaStatsUnitsByTypeGet422Schema,
+  getStatsByUnitTypeApiV1DetectaAlertaStatsUnitsByTypeGetQueryResponseSchema
+} from './zod/Estat\u00EDsticas por Localiza\u00E7\u00E3oSchemas/getStatsByUnitTypeApiV1DetectaAlertaStatsUnitsByTypeGetSchema'
 export { estatisticasClassificacaoSchema } from './zod/estatisticasClassificacaoSchema'
 export { estatisticasCnesSchema } from './zod/estatisticasCnesSchema'
 export { estatisticasExportSchema } from './zod/estatisticasExportSchema'
 export { estatisticasPeriodoSchema } from './zod/estatisticasPeriodoSchema'
+export { estimativaSemanalCreateSchema } from './zod/estimativaSemanalCreateSchema'
+export { estimativaSemanalResponseSchema } from './zod/estimativaSemanalResponseSchema'
 export {
-  cancelJobApiV1DetectaEtlJobsJobIdCancelPostPathParamsSchema,
-  cancelJobApiV1DetectaEtlJobsJobIdCancelPost200Schema,
-  cancelJobApiV1DetectaEtlJobsJobIdCancelPost422Schema,
-  cancelJobApiV1DetectaEtlJobsJobIdCancelPostMutationResponseSchema
-} from './zod/ETL DetectaSchemas/cancelJobApiV1DetectaEtlJobsJobIdCancelPostSchema'
+  cancelJobApiV1DetectaAlertaEtlJobsJobIdCancelPostPathParamsSchema,
+  cancelJobApiV1DetectaAlertaEtlJobsJobIdCancelPost200Schema,
+  cancelJobApiV1DetectaAlertaEtlJobsJobIdCancelPost422Schema,
+  cancelJobApiV1DetectaAlertaEtlJobsJobIdCancelPostMutationResponseSchema
+} from './zod/ETL Detecta AlertaSchemas/cancelJobApiV1DetectaAlertaEtlJobsJobIdCancelPostSchema'
 export {
-  getEtlParametersApiV1DetectaEtlParametersGet200Schema,
-  getEtlParametersApiV1DetectaEtlParametersGetQueryResponseSchema
-} from './zod/ETL DetectaSchemas/getEtlParametersApiV1DetectaEtlParametersGetSchema'
+  getEtlParametersApiV1DetectaAlertaEtlParametersGet200Schema,
+  getEtlParametersApiV1DetectaAlertaEtlParametersGetQueryResponseSchema
+} from './zod/ETL Detecta AlertaSchemas/getEtlParametersApiV1DetectaAlertaEtlParametersGetSchema'
 export {
-  getJobDetailsApiV1DetectaEtlJobsJobIdGetPathParamsSchema,
-  getJobDetailsApiV1DetectaEtlJobsJobIdGet200Schema,
-  getJobDetailsApiV1DetectaEtlJobsJobIdGet422Schema,
-  getJobDetailsApiV1DetectaEtlJobsJobIdGetQueryResponseSchema
-} from './zod/ETL DetectaSchemas/getJobDetailsApiV1DetectaEtlJobsJobIdGetSchema'
+  getJobDetailsApiV1DetectaAlertaEtlJobsJobIdGetPathParamsSchema,
+  getJobDetailsApiV1DetectaAlertaEtlJobsJobIdGet200Schema,
+  getJobDetailsApiV1DetectaAlertaEtlJobsJobIdGet422Schema,
+  getJobDetailsApiV1DetectaAlertaEtlJobsJobIdGetQueryResponseSchema
+} from './zod/ETL Detecta AlertaSchemas/getJobDetailsApiV1DetectaAlertaEtlJobsJobIdGetSchema'
 export {
-  getJobsStatusApiV1DetectaEtlJobsStatusGetQueryParamsSchema,
-  getJobsStatusApiV1DetectaEtlJobsStatusGet200Schema,
-  getJobsStatusApiV1DetectaEtlJobsStatusGet422Schema,
-  getJobsStatusApiV1DetectaEtlJobsStatusGetQueryResponseSchema
-} from './zod/ETL DetectaSchemas/getJobsStatusApiV1DetectaEtlJobsStatusGetSchema'
+  getJobsStatusApiV1DetectaAlertaEtlJobsStatusGetQueryParamsSchema,
+  getJobsStatusApiV1DetectaAlertaEtlJobsStatusGet200Schema,
+  getJobsStatusApiV1DetectaAlertaEtlJobsStatusGet422Schema,
+  getJobsStatusApiV1DetectaAlertaEtlJobsStatusGetQueryResponseSchema
+} from './zod/ETL Detecta AlertaSchemas/getJobsStatusApiV1DetectaAlertaEtlJobsStatusGetSchema'
 export {
-  getTaskStatusApiV1DetectaEtlTaskTaskIdStatusGetPathParamsSchema,
-  getTaskStatusApiV1DetectaEtlTaskTaskIdStatusGet200Schema,
-  getTaskStatusApiV1DetectaEtlTaskTaskIdStatusGet422Schema,
-  getTaskStatusApiV1DetectaEtlTaskTaskIdStatusGetQueryResponseSchema
-} from './zod/ETL DetectaSchemas/getTaskStatusApiV1DetectaEtlTaskTaskIdStatusGetSchema'
+  getTaskStatusApiV1DetectaAlertaEtlTaskTaskIdStatusGetPathParamsSchema,
+  getTaskStatusApiV1DetectaAlertaEtlTaskTaskIdStatusGet200Schema,
+  getTaskStatusApiV1DetectaAlertaEtlTaskTaskIdStatusGet422Schema,
+  getTaskStatusApiV1DetectaAlertaEtlTaskTaskIdStatusGetQueryResponseSchema
+} from './zod/ETL Detecta AlertaSchemas/getTaskStatusApiV1DetectaAlertaEtlTaskTaskIdStatusGetSchema'
 export {
-  processDateRangeApiV1DetectaEtlProcessDateRangePost200Schema,
-  processDateRangeApiV1DetectaEtlProcessDateRangePost422Schema,
-  processDateRangeApiV1DetectaEtlProcessDateRangePostMutationRequestSchema,
-  processDateRangeApiV1DetectaEtlProcessDateRangePostMutationResponseSchema
-} from './zod/ETL DetectaSchemas/processDateRangeApiV1DetectaEtlProcessDateRangePostSchema'
+  processDateRangeApiV1DetectaAlertaEtlProcessDateRangePost200Schema,
+  processDateRangeApiV1DetectaAlertaEtlProcessDateRangePost422Schema,
+  processDateRangeApiV1DetectaAlertaEtlProcessDateRangePostMutationRequestSchema,
+  processDateRangeApiV1DetectaAlertaEtlProcessDateRangePostMutationResponseSchema
+} from './zod/ETL Detecta AlertaSchemas/processDateRangeApiV1DetectaAlertaEtlProcessDateRangePostSchema'
 export {
-  processWeeklyAggregationsApiV1DetectaEtlProcessWeeklyPostQueryParamsSchema,
-  processWeeklyAggregationsApiV1DetectaEtlProcessWeeklyPost200Schema,
-  processWeeklyAggregationsApiV1DetectaEtlProcessWeeklyPost422Schema,
-  processWeeklyAggregationsApiV1DetectaEtlProcessWeeklyPostMutationResponseSchema
-} from './zod/ETL DetectaSchemas/processWeeklyAggregationsApiV1DetectaEtlProcessWeeklyPostSchema'
+  processWeeklyAggregationsApiV1DetectaAlertaEtlProcessWeeklyPostQueryParamsSchema,
+  processWeeklyAggregationsApiV1DetectaAlertaEtlProcessWeeklyPost200Schema,
+  processWeeklyAggregationsApiV1DetectaAlertaEtlProcessWeeklyPost422Schema,
+  processWeeklyAggregationsApiV1DetectaAlertaEtlProcessWeeklyPostMutationResponseSchema
+} from './zod/ETL Detecta AlertaSchemas/processWeeklyAggregationsApiV1DetectaAlertaEtlProcessWeeklyPostSchema'
 export {
-  reprocessPeriodAsyncApiV1DetectaEtlMaintenanceReprocessAsyncPost200Schema,
-  reprocessPeriodAsyncApiV1DetectaEtlMaintenanceReprocessAsyncPost422Schema,
-  reprocessPeriodAsyncApiV1DetectaEtlMaintenanceReprocessAsyncPostMutationRequestSchema,
-  reprocessPeriodAsyncApiV1DetectaEtlMaintenanceReprocessAsyncPostMutationResponseSchema
-} from './zod/ETL DetectaSchemas/reprocessPeriodAsyncApiV1DetectaEtlMaintenanceReprocessAsyncPostSchema'
+  reprocessPeriodAsyncApiV1DetectaAlertaEtlMaintenanceReprocessAsyncPost200Schema,
+  reprocessPeriodAsyncApiV1DetectaAlertaEtlMaintenanceReprocessAsyncPost422Schema,
+  reprocessPeriodAsyncApiV1DetectaAlertaEtlMaintenanceReprocessAsyncPostMutationRequestSchema,
+  reprocessPeriodAsyncApiV1DetectaAlertaEtlMaintenanceReprocessAsyncPostMutationResponseSchema
+} from './zod/ETL Detecta AlertaSchemas/reprocessPeriodAsyncApiV1DetectaAlertaEtlMaintenanceReprocessAsyncPostSchema'
 export {
-  triggerEtlJobApiV1DetectaEtlTriggerJobTypePostPathParamsSchema,
-  triggerEtlJobApiV1DetectaEtlTriggerJobTypePostQueryParamsSchema,
-  triggerEtlJobApiV1DetectaEtlTriggerJobTypePost200Schema,
-  triggerEtlJobApiV1DetectaEtlTriggerJobTypePost422Schema,
-  triggerEtlJobApiV1DetectaEtlTriggerJobTypePostMutationResponseSchema
-} from './zod/ETL DetectaSchemas/triggerEtlJobApiV1DetectaEtlTriggerJobTypePostSchema'
+  triggerEtlJobApiV1DetectaAlertaEtlTriggerJobTypePostPathParamsSchema,
+  triggerEtlJobApiV1DetectaAlertaEtlTriggerJobTypePostQueryParamsSchema,
+  triggerEtlJobApiV1DetectaAlertaEtlTriggerJobTypePost200Schema,
+  triggerEtlJobApiV1DetectaAlertaEtlTriggerJobTypePost422Schema,
+  triggerEtlJobApiV1DetectaAlertaEtlTriggerJobTypePostMutationResponseSchema
+} from './zod/ETL Detecta AlertaSchemas/triggerEtlJobApiV1DetectaAlertaEtlTriggerJobTypePostSchema'
 export {
-  updateEtlParametersApiV1DetectaEtlParametersPut200Schema,
-  updateEtlParametersApiV1DetectaEtlParametersPut422Schema,
-  updateEtlParametersApiV1DetectaEtlParametersPutMutationRequestSchema,
-  updateEtlParametersApiV1DetectaEtlParametersPutMutationResponseSchema
-} from './zod/ETL DetectaSchemas/updateEtlParametersApiV1DetectaEtlParametersPutSchema'
+  updateEtlParametersApiV1DetectaAlertaEtlParametersPut200Schema,
+  updateEtlParametersApiV1DetectaAlertaEtlParametersPut422Schema,
+  updateEtlParametersApiV1DetectaAlertaEtlParametersPutMutationRequestSchema,
+  updateEtlParametersApiV1DetectaAlertaEtlParametersPutMutationResponseSchema
+} from './zod/ETL Detecta AlertaSchemas/updateEtlParametersApiV1DetectaAlertaEtlParametersPutSchema'
 export { ETLBatchJobResponseSchema } from './zod/ETLBatchJobResponseSchema'
 export { ETLDateRangeRequestSchema } from './zod/ETLDateRangeRequestSchema'
 export { ETLJobCancelResponseSchema } from './zod/ETLJobCancelResponseSchema'
@@ -1962,27 +2093,27 @@ export { ETLParametersResponseSchema } from './zod/ETLParametersResponseSchema'
 export { ETLParametersUpdateSchema } from './zod/ETLParametersUpdateSchema'
 export { ETLReprocessModernRequestSchema } from './zod/ETLReprocessModernRequestSchema'
 export {
-  createCustomExportApiV1DetectaExportCustomPost200Schema,
-  createCustomExportApiV1DetectaExportCustomPost422Schema,
-  createCustomExportApiV1DetectaExportCustomPostMutationRequestSchema,
-  createCustomExportApiV1DetectaExportCustomPostMutationResponseSchema
-} from './zod/Exporta\u00E7\u00E3o de DadosSchemas/createCustomExportApiV1DetectaExportCustomPostSchema'
+  createCustomExportApiV1DetectaAlertaExportCustomPost200Schema,
+  createCustomExportApiV1DetectaAlertaExportCustomPost422Schema,
+  createCustomExportApiV1DetectaAlertaExportCustomPostMutationRequestSchema,
+  createCustomExportApiV1DetectaAlertaExportCustomPostMutationResponseSchema
+} from './zod/Exporta\u00E7\u00E3o de DadosSchemas/createCustomExportApiV1DetectaAlertaExportCustomPostSchema'
 export {
-  exportCsvStreamingApiV1DetectaExportCsvGetQueryParamsSchema,
-  exportCsvStreamingApiV1DetectaExportCsvGet200Schema,
-  exportCsvStreamingApiV1DetectaExportCsvGet422Schema,
-  exportCsvStreamingApiV1DetectaExportCsvGetQueryResponseSchema
-} from './zod/Exporta\u00E7\u00E3o de DadosSchemas/exportCsvStreamingApiV1DetectaExportCsvGetSchema'
+  exportCsvStreamingApiV1DetectaAlertaExportCsvGetQueryParamsSchema,
+  exportCsvStreamingApiV1DetectaAlertaExportCsvGet200Schema,
+  exportCsvStreamingApiV1DetectaAlertaExportCsvGet422Schema,
+  exportCsvStreamingApiV1DetectaAlertaExportCsvGetQueryResponseSchema
+} from './zod/Exporta\u00E7\u00E3o de DadosSchemas/exportCsvStreamingApiV1DetectaAlertaExportCsvGetSchema'
 export {
-  exportJsonPaginatedApiV1DetectaExportJsonGetQueryParamsSchema,
-  exportJsonPaginatedApiV1DetectaExportJsonGet200Schema,
-  exportJsonPaginatedApiV1DetectaExportJsonGet422Schema,
-  exportJsonPaginatedApiV1DetectaExportJsonGetQueryResponseSchema
-} from './zod/Exporta\u00E7\u00E3o de DadosSchemas/exportJsonPaginatedApiV1DetectaExportJsonGetSchema'
+  exportJsonPaginatedApiV1DetectaAlertaExportJsonGetQueryParamsSchema,
+  exportJsonPaginatedApiV1DetectaAlertaExportJsonGet200Schema,
+  exportJsonPaginatedApiV1DetectaAlertaExportJsonGet422Schema,
+  exportJsonPaginatedApiV1DetectaAlertaExportJsonGetQueryResponseSchema
+} from './zod/Exporta\u00E7\u00E3o de DadosSchemas/exportJsonPaginatedApiV1DetectaAlertaExportJsonGetSchema'
 export {
-  getExportInfoApiV1DetectaExportInfoGet200Schema,
-  getExportInfoApiV1DetectaExportInfoGetQueryResponseSchema
-} from './zod/Exporta\u00E7\u00E3o de DadosSchemas/getExportInfoApiV1DetectaExportInfoGetSchema'
+  getExportInfoApiV1DetectaAlertaExportInfoGet200Schema,
+  getExportInfoApiV1DetectaAlertaExportInfoGetQueryResponseSchema
+} from './zod/Exporta\u00E7\u00E3o de DadosSchemas/getExportInfoApiV1DetectaAlertaExportInfoGetSchema'
 export { exportFiltersInfoSchema } from './zod/exportFiltersInfoSchema'
 export { exportFormatInfoSchema } from './zod/exportFormatInfoSchema'
 export { exportJSONResponseSchema } from './zod/exportJSONResponseSchema'
@@ -1994,39 +2125,39 @@ export { faixaEtariaResponseSchema } from './zod/faixaEtariaResponseSchema'
 export { faixasEtariasResponseSchema } from './zod/faixasEtariasResponseSchema'
 export { formatoExportSchema } from './zod/formatoExportSchema'
 export {
-  enrichUnitDataApiV1DetectaPlacesEnrichPost200Schema,
-  enrichUnitDataApiV1DetectaPlacesEnrichPost422Schema,
-  enrichUnitDataApiV1DetectaPlacesEnrichPostMutationRequestSchema,
-  enrichUnitDataApiV1DetectaPlacesEnrichPostMutationResponseSchema
-} from './zod/Google Places IntegrationSchemas/enrichUnitDataApiV1DetectaPlacesEnrichPostSchema'
+  enrichUnitDataApiV1DetectaAlertaPlacesEnrichPost200Schema,
+  enrichUnitDataApiV1DetectaAlertaPlacesEnrichPost422Schema,
+  enrichUnitDataApiV1DetectaAlertaPlacesEnrichPostMutationRequestSchema,
+  enrichUnitDataApiV1DetectaAlertaPlacesEnrichPostMutationResponseSchema
+} from './zod/Google Places IntegrationSchemas/enrichUnitDataApiV1DetectaAlertaPlacesEnrichPostSchema'
 export {
-  getPlaceDetailsApiV1DetectaPlacesDetailsPost200Schema,
-  getPlaceDetailsApiV1DetectaPlacesDetailsPost422Schema,
-  getPlaceDetailsApiV1DetectaPlacesDetailsPostMutationRequestSchema,
-  getPlaceDetailsApiV1DetectaPlacesDetailsPostMutationResponseSchema
-} from './zod/Google Places IntegrationSchemas/getPlaceDetailsApiV1DetectaPlacesDetailsPostSchema'
+  getPlaceDetailsApiV1DetectaAlertaPlacesDetailsPost200Schema,
+  getPlaceDetailsApiV1DetectaAlertaPlacesDetailsPost422Schema,
+  getPlaceDetailsApiV1DetectaAlertaPlacesDetailsPostMutationRequestSchema,
+  getPlaceDetailsApiV1DetectaAlertaPlacesDetailsPostMutationResponseSchema
+} from './zod/Google Places IntegrationSchemas/getPlaceDetailsApiV1DetectaAlertaPlacesDetailsPostSchema'
 export {
-  getPlacesCacheStatusApiV1DetectaPlacesCacheGet200Schema,
-  getPlacesCacheStatusApiV1DetectaPlacesCacheGetQueryResponseSchema
-} from './zod/Google Places IntegrationSchemas/getPlacesCacheStatusApiV1DetectaPlacesCacheGetSchema'
+  getPlacesCacheStatusApiV1DetectaAlertaPlacesCacheGet200Schema,
+  getPlacesCacheStatusApiV1DetectaAlertaPlacesCacheGetQueryResponseSchema
+} from './zod/Google Places IntegrationSchemas/getPlacesCacheStatusApiV1DetectaAlertaPlacesCacheGetSchema'
 export {
-  searchNearbyPlacesApiV1DetectaPlacesNearbyPost200Schema,
-  searchNearbyPlacesApiV1DetectaPlacesNearbyPost422Schema,
-  searchNearbyPlacesApiV1DetectaPlacesNearbyPostMutationRequestSchema,
-  searchNearbyPlacesApiV1DetectaPlacesNearbyPostMutationResponseSchema
-} from './zod/Google Places IntegrationSchemas/searchNearbyPlacesApiV1DetectaPlacesNearbyPostSchema'
+  searchNearbyPlacesApiV1DetectaAlertaPlacesNearbyPost200Schema,
+  searchNearbyPlacesApiV1DetectaAlertaPlacesNearbyPost422Schema,
+  searchNearbyPlacesApiV1DetectaAlertaPlacesNearbyPostMutationRequestSchema,
+  searchNearbyPlacesApiV1DetectaAlertaPlacesNearbyPostMutationResponseSchema
+} from './zod/Google Places IntegrationSchemas/searchNearbyPlacesApiV1DetectaAlertaPlacesNearbyPostSchema'
 export {
-  searchPlacesApiV1DetectaPlacesSearchPost200Schema,
-  searchPlacesApiV1DetectaPlacesSearchPost422Schema,
-  searchPlacesApiV1DetectaPlacesSearchPostMutationRequestSchema,
-  searchPlacesApiV1DetectaPlacesSearchPostMutationResponseSchema
-} from './zod/Google Places IntegrationSchemas/searchPlacesApiV1DetectaPlacesSearchPostSchema'
+  searchPlacesApiV1DetectaAlertaPlacesSearchPost200Schema,
+  searchPlacesApiV1DetectaAlertaPlacesSearchPost422Schema,
+  searchPlacesApiV1DetectaAlertaPlacesSearchPostMutationRequestSchema,
+  searchPlacesApiV1DetectaAlertaPlacesSearchPostMutationResponseSchema
+} from './zod/Google Places IntegrationSchemas/searchPlacesApiV1DetectaAlertaPlacesSearchPostSchema'
 export {
-  validatePlaceIdApiV1DetectaPlacesValidatePost200Schema,
-  validatePlaceIdApiV1DetectaPlacesValidatePost422Schema,
-  validatePlaceIdApiV1DetectaPlacesValidatePostMutationRequestSchema,
-  validatePlaceIdApiV1DetectaPlacesValidatePostMutationResponseSchema
-} from './zod/Google Places IntegrationSchemas/validatePlaceIdApiV1DetectaPlacesValidatePostSchema'
+  validatePlaceIdApiV1DetectaAlertaPlacesValidatePost200Schema,
+  validatePlaceIdApiV1DetectaAlertaPlacesValidatePost422Schema,
+  validatePlaceIdApiV1DetectaAlertaPlacesValidatePostMutationRequestSchema,
+  validatePlaceIdApiV1DetectaAlertaPlacesValidatePostMutationResponseSchema
+} from './zod/Google Places IntegrationSchemas/validatePlaceIdApiV1DetectaAlertaPlacesValidatePostSchema'
 export { grupoSchemaCreateSchema } from './zod/grupoSchemaCreateSchema'
 export { grupoSchemaDetalhesSchema } from './zod/grupoSchemaDetalhesSchema'
 export { grupoSchemaListSchema } from './zod/grupoSchemaListSchema'
@@ -2118,23 +2249,23 @@ export {
 } from './zod/IBGE - Dados Demogr\u00E1ficosSchemas/obterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGetSchema'
 export { indicadorMonitoradoSchema } from './zod/indicadorMonitoradoSchema'
 export {
-  ingestBulkDataApiV1DetectaDataBulkPost201Schema,
-  ingestBulkDataApiV1DetectaDataBulkPost422Schema,
-  ingestBulkDataApiV1DetectaDataBulkPostMutationRequestSchema,
-  ingestBulkDataApiV1DetectaDataBulkPostMutationResponseSchema
-} from './zod/Ingest\u00E3o de DadosSchemas/ingestBulkDataApiV1DetectaDataBulkPostSchema'
+  ingestBulkDataApiV1DetectaAlertaDataBulkPost201Schema,
+  ingestBulkDataApiV1DetectaAlertaDataBulkPost422Schema,
+  ingestBulkDataApiV1DetectaAlertaDataBulkPostMutationRequestSchema,
+  ingestBulkDataApiV1DetectaAlertaDataBulkPostMutationResponseSchema
+} from './zod/Ingest\u00E3o de DadosSchemas/ingestBulkDataApiV1DetectaAlertaDataBulkPostSchema'
 export {
-  ingestHourlyDataApiV1DetectaDataHourlyPost201Schema,
-  ingestHourlyDataApiV1DetectaDataHourlyPost422Schema,
-  ingestHourlyDataApiV1DetectaDataHourlyPostMutationRequestSchema,
-  ingestHourlyDataApiV1DetectaDataHourlyPostMutationResponseSchema
-} from './zod/Ingest\u00E3o de DadosSchemas/ingestHourlyDataApiV1DetectaDataHourlyPostSchema'
+  ingestHourlyDataApiV1DetectaAlertaDataHourlyPost201Schema,
+  ingestHourlyDataApiV1DetectaAlertaDataHourlyPost422Schema,
+  ingestHourlyDataApiV1DetectaAlertaDataHourlyPostMutationRequestSchema,
+  ingestHourlyDataApiV1DetectaAlertaDataHourlyPostMutationResponseSchema
+} from './zod/Ingest\u00E3o de DadosSchemas/ingestHourlyDataApiV1DetectaAlertaDataHourlyPostSchema'
 export {
-  validateDataApiV1DetectaDataValidatePost200Schema,
-  validateDataApiV1DetectaDataValidatePost422Schema,
-  validateDataApiV1DetectaDataValidatePostMutationRequestSchema,
-  validateDataApiV1DetectaDataValidatePostMutationResponseSchema
-} from './zod/Ingest\u00E3o de DadosSchemas/validateDataApiV1DetectaDataValidatePostSchema'
+  validateDataApiV1DetectaAlertaDataValidatePost200Schema,
+  validateDataApiV1DetectaAlertaDataValidatePost422Schema,
+  validateDataApiV1DetectaAlertaDataValidatePostMutationRequestSchema,
+  validateDataApiV1DetectaAlertaDataValidatePostMutationResponseSchema
+} from './zod/Ingest\u00E3o de DadosSchemas/validateDataApiV1DetectaAlertaDataValidatePostSchema'
 export { ingestionErrorSchema } from './zod/ingestionErrorSchema'
 export { ingestionResponseSchema } from './zod/ingestionResponseSchema'
 export { jobsFiltersInfoSchema } from './zod/jobsFiltersInfoSchema'
@@ -2162,6 +2293,8 @@ export { LLMQueryResponseSchema } from './zod/LLMQueryResponseSchema'
 export { LLMStatusSchema } from './zod/LLMStatusSchema'
 export { localizacaoInputSchema } from './zod/localizacaoInputSchema'
 export { loginRequestSchema } from './zod/loginRequestSchema'
+export { mancheteSemanalCreateSchema } from './zod/mancheteSemanalCreateSchema'
+export { mancheteSemanalResponseSchema } from './zod/mancheteSemanalResponseSchema'
 export {
   executeToolApiV1McpToolsToolNamePostPathParamsSchema,
   executeToolApiV1McpToolsToolNamePost200Schema,
@@ -2203,51 +2336,51 @@ export {
   prometheusMetricsApiV1McpMetricsPrometheusGetQueryResponseSchema
 } from './zod/M\u00E9tricas & MonitoramentoSchemas/prometheusMetricsApiV1McpMetricsPrometheusGetSchema'
 export {
-  classifyOperationalProfilesApiV1DetectaEpidemiologicalClassifyProfilesPostQueryParamsSchema,
-  classifyOperationalProfilesApiV1DetectaEpidemiologicalClassifyProfilesPost200Schema,
-  classifyOperationalProfilesApiV1DetectaEpidemiologicalClassifyProfilesPost422Schema,
-  classifyOperationalProfilesApiV1DetectaEpidemiologicalClassifyProfilesPostMutationResponseSchema
-} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/classifyOperationalProfilesApiV1DetectaEpidemiologicalClassifyProfilesPostSchema'
+  classifyOperationalProfilesApiV1DetectaAlertaEpidemiologicalClassifyProfilesPostQueryParamsSchema,
+  classifyOperationalProfilesApiV1DetectaAlertaEpidemiologicalClassifyProfilesPost200Schema,
+  classifyOperationalProfilesApiV1DetectaAlertaEpidemiologicalClassifyProfilesPost422Schema,
+  classifyOperationalProfilesApiV1DetectaAlertaEpidemiologicalClassifyProfilesPostMutationResponseSchema
+} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/classifyOperationalProfilesApiV1DetectaAlertaEpidemiologicalClassifyProfilesPostSchema'
 export {
-  detectEpidemiologicalAnomaliesApiV1DetectaEpidemiologicalAnomaliesGetQueryParamsSchema,
-  detectEpidemiologicalAnomaliesApiV1DetectaEpidemiologicalAnomaliesGet200Schema,
-  detectEpidemiologicalAnomaliesApiV1DetectaEpidemiologicalAnomaliesGet422Schema,
-  detectEpidemiologicalAnomaliesApiV1DetectaEpidemiologicalAnomaliesGetQueryResponseSchema
-} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/detectEpidemiologicalAnomaliesApiV1DetectaEpidemiologicalAnomaliesGetSchema'
+  detectEpidemiologicalAnomaliesApiV1DetectaAlertaEpidemiologicalAnomaliesGetQueryParamsSchema,
+  detectEpidemiologicalAnomaliesApiV1DetectaAlertaEpidemiologicalAnomaliesGet200Schema,
+  detectEpidemiologicalAnomaliesApiV1DetectaAlertaEpidemiologicalAnomaliesGet422Schema,
+  detectEpidemiologicalAnomaliesApiV1DetectaAlertaEpidemiologicalAnomaliesGetQueryResponseSchema
+} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/detectEpidemiologicalAnomaliesApiV1DetectaAlertaEpidemiologicalAnomaliesGetSchema'
 export {
-  getCurrentEpidemiologicalWeekApiV1DetectaEpidemiologicalCurrentWeekGetQueryParamsSchema,
-  getCurrentEpidemiologicalWeekApiV1DetectaEpidemiologicalCurrentWeekGet200Schema,
-  getCurrentEpidemiologicalWeekApiV1DetectaEpidemiologicalCurrentWeekGet422Schema,
-  getCurrentEpidemiologicalWeekApiV1DetectaEpidemiologicalCurrentWeekGetQueryResponseSchema
-} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/getCurrentEpidemiologicalWeekApiV1DetectaEpidemiologicalCurrentWeekGetSchema'
+  getCurrentEpidemiologicalWeekApiV1DetectaAlertaEpidemiologicalCurrentWeekGetQueryParamsSchema,
+  getCurrentEpidemiologicalWeekApiV1DetectaAlertaEpidemiologicalCurrentWeekGet200Schema,
+  getCurrentEpidemiologicalWeekApiV1DetectaAlertaEpidemiologicalCurrentWeekGet422Schema,
+  getCurrentEpidemiologicalWeekApiV1DetectaAlertaEpidemiologicalCurrentWeekGetQueryResponseSchema
+} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/getCurrentEpidemiologicalWeekApiV1DetectaAlertaEpidemiologicalCurrentWeekGetSchema'
 export {
-  getEpidemiologicalAggregationsApiV1DetectaEpidemiologicalAggregationsGetQueryParamsSchema,
-  getEpidemiologicalAggregationsApiV1DetectaEpidemiologicalAggregationsGet200Schema,
-  getEpidemiologicalAggregationsApiV1DetectaEpidemiologicalAggregationsGet422Schema,
-  getEpidemiologicalAggregationsApiV1DetectaEpidemiologicalAggregationsGetQueryResponseSchema
-} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/getEpidemiologicalAggregationsApiV1DetectaEpidemiologicalAggregationsGetSchema'
+  getEpidemiologicalAggregationsApiV1DetectaAlertaEpidemiologicalAggregationsGetQueryParamsSchema,
+  getEpidemiologicalAggregationsApiV1DetectaAlertaEpidemiologicalAggregationsGet200Schema,
+  getEpidemiologicalAggregationsApiV1DetectaAlertaEpidemiologicalAggregationsGet422Schema,
+  getEpidemiologicalAggregationsApiV1DetectaAlertaEpidemiologicalAggregationsGetQueryResponseSchema
+} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/getEpidemiologicalAggregationsApiV1DetectaAlertaEpidemiologicalAggregationsGetSchema'
 export {
-  getEpidemiologicalMetricsByUnitApiV1DetectaEpidemiologicalUnitPlaceIdGetPathParamsSchema,
-  getEpidemiologicalMetricsByUnitApiV1DetectaEpidemiologicalUnitPlaceIdGetQueryParamsSchema,
-  getEpidemiologicalMetricsByUnitApiV1DetectaEpidemiologicalUnitPlaceIdGet200Schema,
-  getEpidemiologicalMetricsByUnitApiV1DetectaEpidemiologicalUnitPlaceIdGet422Schema,
-  getEpidemiologicalMetricsByUnitApiV1DetectaEpidemiologicalUnitPlaceIdGetQueryResponseSchema
-} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/getEpidemiologicalMetricsByUnitApiV1DetectaEpidemiologicalUnitPlaceIdGetSchema'
+  getEpidemiologicalMetricsByUnitApiV1DetectaAlertaEpidemiologicalUnitPlaceIdGetPathParamsSchema,
+  getEpidemiologicalMetricsByUnitApiV1DetectaAlertaEpidemiologicalUnitPlaceIdGetQueryParamsSchema,
+  getEpidemiologicalMetricsByUnitApiV1DetectaAlertaEpidemiologicalUnitPlaceIdGet200Schema,
+  getEpidemiologicalMetricsByUnitApiV1DetectaAlertaEpidemiologicalUnitPlaceIdGet422Schema,
+  getEpidemiologicalMetricsByUnitApiV1DetectaAlertaEpidemiologicalUnitPlaceIdGetQueryResponseSchema
+} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/getEpidemiologicalMetricsByUnitApiV1DetectaAlertaEpidemiologicalUnitPlaceIdGetSchema'
 export {
-  getEpidemiologicalTrendsApiV1DetectaEpidemiologicalTrendsPlaceIdGetPathParamsSchema,
-  getEpidemiologicalTrendsApiV1DetectaEpidemiologicalTrendsPlaceIdGet200Schema,
-  getEpidemiologicalTrendsApiV1DetectaEpidemiologicalTrendsPlaceIdGet422Schema,
-  getEpidemiologicalTrendsApiV1DetectaEpidemiologicalTrendsPlaceIdGetQueryResponseSchema
-} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/getEpidemiologicalTrendsApiV1DetectaEpidemiologicalTrendsPlaceIdGetSchema'
+  getEpidemiologicalTrendsApiV1DetectaAlertaEpidemiologicalTrendsPlaceIdGetPathParamsSchema,
+  getEpidemiologicalTrendsApiV1DetectaAlertaEpidemiologicalTrendsPlaceIdGet200Schema,
+  getEpidemiologicalTrendsApiV1DetectaAlertaEpidemiologicalTrendsPlaceIdGet422Schema,
+  getEpidemiologicalTrendsApiV1DetectaAlertaEpidemiologicalTrendsPlaceIdGetQueryResponseSchema
+} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/getEpidemiologicalTrendsApiV1DetectaAlertaEpidemiologicalTrendsPlaceIdGetSchema'
 export {
-  getProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGetPathParamsSchema,
-  getProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGetQueryParamsSchema,
-  getProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGet200Schema,
-  getProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGet422Schema,
-  getProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGetQueryResponseSchema
-} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/getProfileAdjustedMetricsApiV1DetectaEpidemiologicalProfileMetricsPlaceIdGetSchema'
+  getProfileAdjustedMetricsApiV1DetectaAlertaEpidemiologicalProfileMetricsPlaceIdGetPathParamsSchema,
+  getProfileAdjustedMetricsApiV1DetectaAlertaEpidemiologicalProfileMetricsPlaceIdGetQueryParamsSchema,
+  getProfileAdjustedMetricsApiV1DetectaAlertaEpidemiologicalProfileMetricsPlaceIdGet200Schema,
+  getProfileAdjustedMetricsApiV1DetectaAlertaEpidemiologicalProfileMetricsPlaceIdGet422Schema,
+  getProfileAdjustedMetricsApiV1DetectaAlertaEpidemiologicalProfileMetricsPlaceIdGetQueryResponseSchema
+} from './zod/M\u00E9tricas Epidemiol\u00F3gicasSchemas/getProfileAdjustedMetricsApiV1DetectaAlertaEpidemiologicalProfileMetricsPlaceIdGetSchema'
 export { modulesArbovirosesSchemasExportSchemasExportInfoResponseSchema } from './zod/modulesArbovirosesSchemasExportSchemasExportInfoResponseSchema'
-export { modulesDetectaSchemasExportSchemasExportInfoResponseSchema } from './zod/modulesDetectaSchemasExportSchemasExportInfoResponseSchema'
+export { modulesDetectaAlertaSchemasExportSchemasExportInfoResponseSchema } from './zod/modulesDetectaAlertaSchemasExportSchemasExportInfoResponseSchema'
 export { modulesIbgeSchemasPaginationInfoSchema } from './zod/modulesIbgeSchemasPaginationInfoSchema'
 export { modulesNoticiasSchemasPaginationInfoSchema } from './zod/modulesNoticiasSchemasPaginationInfoSchema'
 export { municipioDetalhadoResponseSchema } from './zod/municipioDetalhadoResponseSchema'
@@ -2351,6 +2484,7 @@ export { operationalProfileEnumSchema } from './zod/operationalProfileEnumSchema
 export { paginatedCityStatsResponseSchema } from './zod/paginatedCityStatsResponseSchema'
 export { paginatedCnesResponseSchema } from './zod/paginatedCnesResponseSchema'
 export { paginationMetaSchema } from './zod/paginationMetaSchema'
+export { painelResponseSchema } from './zod/painelResponseSchema'
 export {
   createUsuarioApiV1UsuariosPost201Schema,
   createUsuarioApiV1UsuariosPost422Schema,
@@ -2471,34 +2605,34 @@ export { refreshTokenRequestSchema } from './zod/refreshTokenRequestSchema'
 export { regiaoSchema } from './zod/regiaoSchema'
 export { regionStatsResponseSchema } from './zod/regionStatsResponseSchema'
 export {
-  generateComparativeReportApiV1DetectaReportsComparativePost200Schema,
-  generateComparativeReportApiV1DetectaReportsComparativePost422Schema,
-  generateComparativeReportApiV1DetectaReportsComparativePostMutationRequestSchema,
-  generateComparativeReportApiV1DetectaReportsComparativePostMutationResponseSchema
-} from './zod/Relat\u00F3rios DetectaSchemas/generateComparativeReportApiV1DetectaReportsComparativePostSchema'
+  generateComparativeReportApiV1DetectaAlertaReportsComparativePost200Schema,
+  generateComparativeReportApiV1DetectaAlertaReportsComparativePost422Schema,
+  generateComparativeReportApiV1DetectaAlertaReportsComparativePostMutationRequestSchema,
+  generateComparativeReportApiV1DetectaAlertaReportsComparativePostMutationResponseSchema
+} from './zod/Relat\u00F3rios Detecta AlertaSchemas/generateComparativeReportApiV1DetectaAlertaReportsComparativePostSchema'
 export {
-  generateCustomReportApiV1DetectaReportsGeneratePost200Schema,
-  generateCustomReportApiV1DetectaReportsGeneratePost422Schema,
-  generateCustomReportApiV1DetectaReportsGeneratePostMutationRequestSchema,
-  generateCustomReportApiV1DetectaReportsGeneratePostMutationResponseSchema
-} from './zod/Relat\u00F3rios DetectaSchemas/generateCustomReportApiV1DetectaReportsGeneratePostSchema'
+  generateCustomReportApiV1DetectaAlertaReportsGeneratePost200Schema,
+  generateCustomReportApiV1DetectaAlertaReportsGeneratePost422Schema,
+  generateCustomReportApiV1DetectaAlertaReportsGeneratePostMutationRequestSchema,
+  generateCustomReportApiV1DetectaAlertaReportsGeneratePostMutationResponseSchema
+} from './zod/Relat\u00F3rios Detecta AlertaSchemas/generateCustomReportApiV1DetectaAlertaReportsGeneratePostSchema'
 export {
-  getDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGetPathParamsSchema,
-  getDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGetQueryParamsSchema,
-  getDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGet200Schema,
-  getDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGet422Schema,
-  getDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGetQueryResponseSchema
-} from './zod/Relat\u00F3rios DetectaSchemas/getDetailedUnitReportApiV1DetectaReportsDetailedPlaceIdGetSchema'
+  getDetailedUnitReportApiV1DetectaAlertaReportsDetailedPlaceIdGetPathParamsSchema,
+  getDetailedUnitReportApiV1DetectaAlertaReportsDetailedPlaceIdGetQueryParamsSchema,
+  getDetailedUnitReportApiV1DetectaAlertaReportsDetailedPlaceIdGet200Schema,
+  getDetailedUnitReportApiV1DetectaAlertaReportsDetailedPlaceIdGet422Schema,
+  getDetailedUnitReportApiV1DetectaAlertaReportsDetailedPlaceIdGetQueryResponseSchema
+} from './zod/Relat\u00F3rios Detecta AlertaSchemas/getDetailedUnitReportApiV1DetectaAlertaReportsDetailedPlaceIdGetSchema'
 export {
-  getExecutiveSummaryApiV1DetectaReportsSummaryGetQueryParamsSchema,
-  getExecutiveSummaryApiV1DetectaReportsSummaryGet200Schema,
-  getExecutiveSummaryApiV1DetectaReportsSummaryGet422Schema,
-  getExecutiveSummaryApiV1DetectaReportsSummaryGetQueryResponseSchema
-} from './zod/Relat\u00F3rios DetectaSchemas/getExecutiveSummaryApiV1DetectaReportsSummaryGetSchema'
+  getExecutiveSummaryApiV1DetectaAlertaReportsSummaryGetQueryParamsSchema,
+  getExecutiveSummaryApiV1DetectaAlertaReportsSummaryGet200Schema,
+  getExecutiveSummaryApiV1DetectaAlertaReportsSummaryGet422Schema,
+  getExecutiveSummaryApiV1DetectaAlertaReportsSummaryGetQueryResponseSchema
+} from './zod/Relat\u00F3rios Detecta AlertaSchemas/getExecutiveSummaryApiV1DetectaAlertaReportsSummaryGetSchema'
 export {
-  getReportTemplatesApiV1DetectaReportsTemplatesGet200Schema,
-  getReportTemplatesApiV1DetectaReportsTemplatesGetQueryResponseSchema
-} from './zod/Relat\u00F3rios DetectaSchemas/getReportTemplatesApiV1DetectaReportsTemplatesGetSchema'
+  getReportTemplatesApiV1DetectaAlertaReportsTemplatesGet200Schema,
+  getReportTemplatesApiV1DetectaAlertaReportsTemplatesGetQueryResponseSchema
+} from './zod/Relat\u00F3rios Detecta AlertaSchemas/getReportTemplatesApiV1DetectaAlertaReportsTemplatesGetSchema'
 export { reportFiltersMetadataSchema } from './zod/reportFiltersMetadataSchema'
 export { reportGenerationRequestSchema } from './zod/reportGenerationRequestSchema'
 export { reportGenerationResponseSchema } from './zod/reportGenerationResponseSchema'
@@ -2566,55 +2700,55 @@ export { trendPaginationMetadataSchema } from './zod/trendPaginationMetadataSche
 export { trendPeriodMetadataSchema } from './zod/trendPeriodMetadataSchema'
 export { trendsResponseSchema } from './zod/trendsResponseSchema'
 export {
-  createUnitApiV1DetectaUnitsPost201Schema,
-  createUnitApiV1DetectaUnitsPost422Schema,
-  createUnitApiV1DetectaUnitsPostMutationRequestSchema,
-  createUnitApiV1DetectaUnitsPostMutationResponseSchema
-} from './zod/Unidades DetectaSchemas/createUnitApiV1DetectaUnitsPostSchema'
+  createUnitApiV1DetectaAlertaUnitsPost201Schema,
+  createUnitApiV1DetectaAlertaUnitsPost422Schema,
+  createUnitApiV1DetectaAlertaUnitsPostMutationRequestSchema,
+  createUnitApiV1DetectaAlertaUnitsPostMutationResponseSchema
+} from './zod/Unidades Detecta AlertaSchemas/createUnitApiV1DetectaAlertaUnitsPostSchema'
 export {
-  createUnitsBulkApiV1DetectaUnitsBulkPost201Schema,
-  createUnitsBulkApiV1DetectaUnitsBulkPost422Schema,
-  createUnitsBulkApiV1DetectaUnitsBulkPostMutationRequestSchema,
-  createUnitsBulkApiV1DetectaUnitsBulkPostMutationResponseSchema
-} from './zod/Unidades DetectaSchemas/createUnitsBulkApiV1DetectaUnitsBulkPostSchema'
+  createUnitsBulkApiV1DetectaAlertaUnitsBulkPost201Schema,
+  createUnitsBulkApiV1DetectaAlertaUnitsBulkPost422Schema,
+  createUnitsBulkApiV1DetectaAlertaUnitsBulkPostMutationRequestSchema,
+  createUnitsBulkApiV1DetectaAlertaUnitsBulkPostMutationResponseSchema
+} from './zod/Unidades Detecta AlertaSchemas/createUnitsBulkApiV1DetectaAlertaUnitsBulkPostSchema'
 export {
-  deleteUnitApiV1DetectaUnitsPlaceIdDeletePathParamsSchema,
-  deleteUnitApiV1DetectaUnitsPlaceIdDelete204Schema,
-  deleteUnitApiV1DetectaUnitsPlaceIdDelete422Schema,
-  deleteUnitApiV1DetectaUnitsPlaceIdDeleteMutationResponseSchema
-} from './zod/Unidades DetectaSchemas/deleteUnitApiV1DetectaUnitsPlaceIdDeleteSchema'
+  deleteUnitApiV1DetectaAlertaUnitsPlaceIdDeletePathParamsSchema,
+  deleteUnitApiV1DetectaAlertaUnitsPlaceIdDelete204Schema,
+  deleteUnitApiV1DetectaAlertaUnitsPlaceIdDelete422Schema,
+  deleteUnitApiV1DetectaAlertaUnitsPlaceIdDeleteMutationResponseSchema
+} from './zod/Unidades Detecta AlertaSchemas/deleteUnitApiV1DetectaAlertaUnitsPlaceIdDeleteSchema'
 export {
-  getUnitApiV1DetectaUnitsPlaceIdGetPathParamsSchema,
-  getUnitApiV1DetectaUnitsPlaceIdGet200Schema,
-  getUnitApiV1DetectaUnitsPlaceIdGet422Schema,
-  getUnitApiV1DetectaUnitsPlaceIdGetQueryResponseSchema
-} from './zod/Unidades DetectaSchemas/getUnitApiV1DetectaUnitsPlaceIdGetSchema'
+  getUnitApiV1DetectaAlertaUnitsPlaceIdGetPathParamsSchema,
+  getUnitApiV1DetectaAlertaUnitsPlaceIdGet200Schema,
+  getUnitApiV1DetectaAlertaUnitsPlaceIdGet422Schema,
+  getUnitApiV1DetectaAlertaUnitsPlaceIdGetQueryResponseSchema
+} from './zod/Unidades Detecta AlertaSchemas/getUnitApiV1DetectaAlertaUnitsPlaceIdGetSchema'
 export {
-  hardDeleteUnitApiV1DetectaUnitsPlaceIdPermanentDeletePathParamsSchema,
-  hardDeleteUnitApiV1DetectaUnitsPlaceIdPermanentDelete204Schema,
-  hardDeleteUnitApiV1DetectaUnitsPlaceIdPermanentDelete422Schema,
-  hardDeleteUnitApiV1DetectaUnitsPlaceIdPermanentDeleteMutationResponseSchema
-} from './zod/Unidades DetectaSchemas/hardDeleteUnitApiV1DetectaUnitsPlaceIdPermanentDeleteSchema'
+  hardDeleteUnitApiV1DetectaAlertaUnitsPlaceIdPermanentDeletePathParamsSchema,
+  hardDeleteUnitApiV1DetectaAlertaUnitsPlaceIdPermanentDelete204Schema,
+  hardDeleteUnitApiV1DetectaAlertaUnitsPlaceIdPermanentDelete422Schema,
+  hardDeleteUnitApiV1DetectaAlertaUnitsPlaceIdPermanentDeleteMutationResponseSchema
+} from './zod/Unidades Detecta AlertaSchemas/hardDeleteUnitApiV1DetectaAlertaUnitsPlaceIdPermanentDeleteSchema'
 export {
-  listUnitsApiV1DetectaUnitsGetQueryParamsSchema,
-  listUnitsApiV1DetectaUnitsGet200Schema,
-  listUnitsApiV1DetectaUnitsGet422Schema,
-  listUnitsApiV1DetectaUnitsGetQueryResponseSchema
-} from './zod/Unidades DetectaSchemas/listUnitsApiV1DetectaUnitsGetSchema'
+  listUnitsApiV1DetectaAlertaUnitsGetQueryParamsSchema,
+  listUnitsApiV1DetectaAlertaUnitsGet200Schema,
+  listUnitsApiV1DetectaAlertaUnitsGet422Schema,
+  listUnitsApiV1DetectaAlertaUnitsGetQueryResponseSchema
+} from './zod/Unidades Detecta AlertaSchemas/listUnitsApiV1DetectaAlertaUnitsGetSchema'
 export {
-  updateUnitApiV1DetectaUnitsPlaceIdPutPathParamsSchema,
-  updateUnitApiV1DetectaUnitsPlaceIdPut200Schema,
-  updateUnitApiV1DetectaUnitsPlaceIdPut422Schema,
-  updateUnitApiV1DetectaUnitsPlaceIdPutMutationRequestSchema,
-  updateUnitApiV1DetectaUnitsPlaceIdPutMutationResponseSchema
-} from './zod/Unidades DetectaSchemas/updateUnitApiV1DetectaUnitsPlaceIdPutSchema'
+  updateUnitApiV1DetectaAlertaUnitsPlaceIdPutPathParamsSchema,
+  updateUnitApiV1DetectaAlertaUnitsPlaceIdPut200Schema,
+  updateUnitApiV1DetectaAlertaUnitsPlaceIdPut422Schema,
+  updateUnitApiV1DetectaAlertaUnitsPlaceIdPutMutationRequestSchema,
+  updateUnitApiV1DetectaAlertaUnitsPlaceIdPutMutationResponseSchema
+} from './zod/Unidades Detecta AlertaSchemas/updateUnitApiV1DetectaAlertaUnitsPlaceIdPutSchema'
 export {
-  updateUnitStatusApiV1DetectaUnitsPlaceIdStatusPatchPathParamsSchema,
-  updateUnitStatusApiV1DetectaUnitsPlaceIdStatusPatch200Schema,
-  updateUnitStatusApiV1DetectaUnitsPlaceIdStatusPatch422Schema,
-  updateUnitStatusApiV1DetectaUnitsPlaceIdStatusPatchMutationRequestSchema,
-  updateUnitStatusApiV1DetectaUnitsPlaceIdStatusPatchMutationResponseSchema
-} from './zod/Unidades DetectaSchemas/updateUnitStatusApiV1DetectaUnitsPlaceIdStatusPatchSchema'
+  updateUnitStatusApiV1DetectaAlertaUnitsPlaceIdStatusPatchPathParamsSchema,
+  updateUnitStatusApiV1DetectaAlertaUnitsPlaceIdStatusPatch200Schema,
+  updateUnitStatusApiV1DetectaAlertaUnitsPlaceIdStatusPatch422Schema,
+  updateUnitStatusApiV1DetectaAlertaUnitsPlaceIdStatusPatchMutationRequestSchema,
+  updateUnitStatusApiV1DetectaAlertaUnitsPlaceIdStatusPatchMutationResponseSchema
+} from './zod/Unidades Detecta AlertaSchemas/updateUnitStatusApiV1DetectaAlertaUnitsPlaceIdStatusPatchSchema'
 export { unitCreateSchema } from './zod/unitCreateSchema'
 export { unitFiltersMetadataSchema } from './zod/unitFiltersMetadataSchema'
 export { unitHealthStatusSchema } from './zod/unitHealthStatusSchema'

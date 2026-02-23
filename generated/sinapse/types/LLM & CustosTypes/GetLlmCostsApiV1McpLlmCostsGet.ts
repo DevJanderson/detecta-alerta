@@ -24,6 +24,7 @@ export type GetLlmCostsApiV1McpLlmCostsGetQueryParams = {
 export type GetLlmCostsApiV1McpLlmCostsGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetLlmCostsApiV1McpLlmCostsGet422 = HTTPValidationError

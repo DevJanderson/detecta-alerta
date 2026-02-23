@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { analiseGeograficaNoticiasSchema } from '../analiseGeograficaNoticiasSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const getAnaliseGeograficaApiV1NoticiasEstatisticasGeograficaGetQueryParamsSchema = z.object(
   {

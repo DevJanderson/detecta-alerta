@@ -18,6 +18,7 @@ export type DeleteNoticiaApiV1NoticiasUniqueIdDeletePathParams = {
 export type DeleteNoticiaApiV1NoticiasUniqueIdDelete204 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DeleteNoticiaApiV1NoticiasUniqueIdDelete422 = HTTPValidationError

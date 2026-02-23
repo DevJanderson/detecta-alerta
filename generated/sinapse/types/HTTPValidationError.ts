@@ -5,6 +5,9 @@
 
 import type { ValidationError } from './ValidationError'
 
+/**
+ * HTTPValidationError
+ */
 export type HTTPValidationError = {
   /**
    * @type array | undefined

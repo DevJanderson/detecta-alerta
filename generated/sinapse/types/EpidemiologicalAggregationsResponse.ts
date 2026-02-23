@@ -7,6 +7,7 @@ import type { CalculationMetadata } from './CalculationMetadata'
 import type { WeeklyAggregationResponse } from './WeeklyAggregationResponse'
 
 /**
+ * EpidemiologicalAggregationsResponse
  * @description Schema de resposta otimizado para agregações epidemiológicas.\n\nADR-027 Fase 5: Reduz redundância movendo calculation_params para o nível raiz.\nBenefícios:\n- Redução de ~140KB para 1000 items (calculation_params repetido)\n- DRY principle: configuração em um único lugar\n- Melhor separação entre configuração global e dados por item
  * @example [object Object]
  */

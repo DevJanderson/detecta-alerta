@@ -43,11 +43,13 @@ export type GetAlertasApiV1NoticiasEstatisticasAlertasGetQueryParams = {
 }
 
 /**
+ * ResumoAlertasNoticias
  * @description Successful Response
  */
 export type GetAlertasApiV1NoticiasEstatisticasAlertasGet200 = ResumoAlertasNoticias
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetAlertasApiV1NoticiasEstatisticasAlertasGet422 = HTTPValidationError

@@ -9,7 +9,7 @@ export default defineConfig({
   name: 'sinapse-api',
   root: '.',
   input: {
-    path: './openapi/sinapse-api.json'
+    path: 'https://staging.sinapse.org.br/openapi.json'
   },
   output: {
     path: './generated/sinapse',

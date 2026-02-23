@@ -12,10 +12,14 @@ import type { HTTPValidationError } from '../HTTPValidationError'
 export type BulkUpdateApiV1CnesOperacoesBulkUpdatePut200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type BulkUpdateApiV1CnesOperacoesBulkUpdatePut422 = HTTPValidationError
 
+/**
+ * CnesBulkUpdate
+ */
 export type BulkUpdateApiV1CnesOperacoesBulkUpdatePutMutationRequest = CnesBulkUpdate
 
 export type BulkUpdateApiV1CnesOperacoesBulkUpdatePutMutationResponse =

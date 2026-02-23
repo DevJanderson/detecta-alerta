@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { cnesCreateSchema } from './cnesCreateSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para criação em massa

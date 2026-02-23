@@ -22,6 +22,7 @@ export type RemoveUsuarioFromGrupoApiV1UsuariosGruposGrupoIdUsuariosUsuarioIdDel
 export type RemoveUsuarioFromGrupoApiV1UsuariosGruposGrupoIdUsuariosUsuarioIdDelete200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type RemoveUsuarioFromGrupoApiV1UsuariosGruposGrupoIdUsuariosUsuarioIdDelete422 =

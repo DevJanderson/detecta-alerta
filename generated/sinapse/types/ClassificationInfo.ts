@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * ClassificationInfo
+ */
 export type ClassificationInfo = {
   /**
    * @type string

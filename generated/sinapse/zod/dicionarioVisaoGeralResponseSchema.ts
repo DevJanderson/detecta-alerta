@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { camadaInfoSchema } from './camadaInfoSchema'
 import { linksInfoSchema } from './linksInfoSchema'
-import { z } from 'zod'
 
 /**
  * @description Visão geral do dicionário de dados.

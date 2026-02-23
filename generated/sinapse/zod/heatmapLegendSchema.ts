@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { heatmapLegendItemSchema } from './heatmapLegendItemSchema'
-import { z } from 'zod'
 
 /**
  * @description Legenda de cores do mapa de calor.

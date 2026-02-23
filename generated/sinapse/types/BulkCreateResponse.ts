@@ -6,6 +6,7 @@
 import type { Noticia } from './Noticia'
 
 /**
+ * BulkCreateResponse
  * @description Resposta do endpoint de criacao em massa com contagem de dedup.
  */
 export type BulkCreateResponse = {

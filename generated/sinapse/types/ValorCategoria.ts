@@ -4,6 +4,7 @@
  */
 
 /**
+ * ValorCategoria
  * @description Valor de uma categoria.
  */
 export type ValorCategoria = {

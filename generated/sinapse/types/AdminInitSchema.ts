@@ -4,6 +4,7 @@
  */
 
 /**
+ * AdminInitSchema
  * @description Schema para dados do administrador na inicialização.
  */
 export type AdminInitSchema = {

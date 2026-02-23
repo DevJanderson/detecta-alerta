@@ -4,6 +4,7 @@
  */
 
 /**
+ * LLMStatus
  * @description Schema para status do serviço LLM.
  */
 export type LLMStatus = {

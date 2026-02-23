@@ -4,6 +4,7 @@
  */
 
 /**
+ * NoticiaResumida
  * @description Versao resumida de uma noticia para listagem de relacionadas.
  */
 export type NoticiaResumida = {

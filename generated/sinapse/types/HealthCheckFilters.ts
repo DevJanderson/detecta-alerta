@@ -4,6 +4,7 @@
  */
 
 /**
+ * HealthCheckFilters
  * @description Filtros aplicados na busca.
  */
 export type HealthCheckFilters = {

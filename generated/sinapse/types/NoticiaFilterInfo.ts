@@ -4,6 +4,7 @@
  */
 
 /**
+ * NoticiaFilterInfo
  * @description Informacoes sobre filtros aplicados na listagem.
  */
 export type NoticiaFilterInfo = {

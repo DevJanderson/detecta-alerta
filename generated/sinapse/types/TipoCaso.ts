@@ -10,6 +10,7 @@ export enum TipoCasoEnum {
 }
 
 /**
+ * TipoCaso
  * @description Tipo de caso.
  */
 export type TipoCaso = TipoCasoEnum

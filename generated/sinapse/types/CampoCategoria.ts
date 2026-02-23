@@ -6,6 +6,7 @@
 import type { ValorCategoria } from './ValorCategoria'
 
 /**
+ * CampoCategoria
  * @description Campo categórico com seus valores possíveis.
  */
 export type CampoCategoria = {

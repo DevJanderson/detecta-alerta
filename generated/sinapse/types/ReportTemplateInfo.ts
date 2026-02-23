@@ -4,6 +4,7 @@
  */
 
 /**
+ * ReportTemplateInfo
  * @description Schema para informações de template de relatório.
  */
 export type ReportTemplateInfo = {

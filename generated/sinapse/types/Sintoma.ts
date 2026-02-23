@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * Sintoma
+ */
 export type Sintoma = {
   /**
    * @minLength 1

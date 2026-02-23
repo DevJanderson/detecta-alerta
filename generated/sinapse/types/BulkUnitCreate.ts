@@ -6,6 +6,7 @@
 import type { UnitCreate } from './UnitCreate'
 
 /**
+ * BulkUnitCreate
  * @description Schema para criação de unidades em lote.
  * @example [object Object]
  */

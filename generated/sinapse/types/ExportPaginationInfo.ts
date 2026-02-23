@@ -4,6 +4,7 @@
  */
 
 /**
+ * ExportPaginationInfo
  * @description Informações de paginação para export JSON.
  */
 export type ExportPaginationInfo = {

@@ -4,6 +4,7 @@
  */
 
 /**
+ * PlaceEnrichmentResponse
  * @description Schema para resposta de enriquecimento.
  */
 export type PlaceEnrichmentResponse = {

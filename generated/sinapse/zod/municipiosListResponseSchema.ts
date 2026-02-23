@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { modulesIbgeSchemasPaginationInfoSchema } from './modulesIbgeSchemasPaginationInfoSchema'
 import { municipioResponseSchema } from './municipioResponseSchema'
-import { z } from 'zod'
 
 /**
  * @description Resposta paginada de municípios.

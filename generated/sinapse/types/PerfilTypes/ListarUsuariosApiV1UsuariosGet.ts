@@ -53,11 +53,13 @@ export type ListarUsuariosApiV1UsuariosGetQueryParams = {
 }
 
 /**
+ * UsuariosPaginadosSchema
  * @description Lista de usuários filtrados
  */
 export type ListarUsuariosApiV1UsuariosGet200 = UsuariosPaginadosSchema
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ListarUsuariosApiV1UsuariosGet422 = HTTPValidationError

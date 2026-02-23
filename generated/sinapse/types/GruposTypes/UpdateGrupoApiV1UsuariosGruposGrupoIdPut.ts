@@ -15,15 +15,20 @@ export type UpdateGrupoApiV1UsuariosGruposGrupoIdPutPathParams = {
 }
 
 /**
+ * GrupoSchemaDetalhes
  * @description Grupo atualizado com sucesso
  */
 export type UpdateGrupoApiV1UsuariosGruposGrupoIdPut200 = GrupoSchemaDetalhes
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type UpdateGrupoApiV1UsuariosGruposGrupoIdPut422 = HTTPValidationError
 
+/**
+ * GrupoSchemaUpdate
+ */
 export type UpdateGrupoApiV1UsuariosGruposGrupoIdPutMutationRequest = GrupoSchemaUpdate
 
 export type UpdateGrupoApiV1UsuariosGruposGrupoIdPutMutationResponse =

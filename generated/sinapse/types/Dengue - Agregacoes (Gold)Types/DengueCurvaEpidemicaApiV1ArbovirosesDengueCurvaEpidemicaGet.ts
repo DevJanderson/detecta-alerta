@@ -46,6 +46,7 @@ export type DengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGetQueryPara
 export type DengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DengueCurvaEpidemicaApiV1ArbovirosesDengueCurvaEpidemicaGet422 = HTTPValidationError

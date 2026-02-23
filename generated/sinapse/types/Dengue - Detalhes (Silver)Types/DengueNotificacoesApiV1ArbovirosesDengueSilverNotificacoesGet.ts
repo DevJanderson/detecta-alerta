@@ -46,6 +46,7 @@ export type DengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGetQueryPa
 export type DengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DengueNotificacoesApiV1ArbovirosesDengueSilverNotificacoesGet422 = HTTPValidationError

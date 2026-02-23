@@ -4,6 +4,7 @@
  */
 
 /**
+ * UnitFiltersMetadata
  * @description Metadados dos filtros aplicados na listagem de unidades.
  */
 export type UnitFiltersMetadata = {

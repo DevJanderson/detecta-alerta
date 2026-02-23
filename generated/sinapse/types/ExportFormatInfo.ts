@@ -4,6 +4,7 @@
  */
 
 /**
+ * ExportFormatInfo
  * @description Schema com informações sobre formato de exportação.
  */
 export type ExportFormatInfo = {

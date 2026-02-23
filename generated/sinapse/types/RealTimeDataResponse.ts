@@ -4,6 +4,7 @@
  */
 
 /**
+ * RealTimeDataResponse
  * @description Schema para dados em tempo real.
  */
 export type RealTimeDataResponse = {

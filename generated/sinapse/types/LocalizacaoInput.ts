@@ -4,6 +4,7 @@
  */
 
 /**
+ * LocalizacaoInput
  * @description Localizacao estruturada para criacao de noticias.\nFormato alternativo ao string \'Cidade,UF\'.
  */
 export type LocalizacaoInput = {

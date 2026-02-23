@@ -8,15 +8,20 @@ import type { Noticia } from '../Noticia'
 import type { NoticiaCreate } from '../NoticiaCreate'
 
 /**
+ * Noticia
  * @description Notícia criada com sucesso
  */
 export type CreateNoticiaApiV1NoticiasPost201 = Noticia
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type CreateNoticiaApiV1NoticiasPost422 = HTTPValidationError
 
+/**
+ * NoticiaCreate
+ */
 export type CreateNoticiaApiV1NoticiasPostMutationRequest = NoticiaCreate
 
 export type CreateNoticiaApiV1NoticiasPostMutationResponse = CreateNoticiaApiV1NoticiasPost201

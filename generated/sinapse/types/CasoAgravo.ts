@@ -8,6 +8,7 @@ import type { ClassificacaoFinal } from './ClassificacaoFinal'
 import type { TipoCaso } from './TipoCaso'
 
 /**
+ * CasoAgravo
  * @description Schema completo de caso.
  */
 export type CasoAgravo = {

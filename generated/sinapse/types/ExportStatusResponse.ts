@@ -4,6 +4,7 @@
  */
 
 /**
+ * ExportStatusResponse
  * @description Schema para status de exportação.
  */
 export type ExportStatusResponse = {

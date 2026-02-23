@@ -6,6 +6,7 @@
 import type { NoticiaStats } from '../NoticiaStats'
 
 /**
+ * NoticiaStats
  * @description Estatísticas gerais das notícias
  */
 export type GetStatisticsApiV1NoticiasEstatisticasResumoGet200 = NoticiaStats

@@ -19,12 +19,14 @@ export type GetDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGetQueryPar
 }
 
 /**
+ * DicionarioCamposResponse
  * @description Successful Response
  */
 export type GetDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGet200 =
   DicionarioCamposResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGet422 = HTTPValidationError

@@ -4,6 +4,7 @@
  */
 
 /**
+ * AnomaliesSummaryMetadata
  * @description Metadados de resumo das anomalias.
  */
 export type AnomaliesSummaryMetadata = {

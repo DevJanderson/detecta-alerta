@@ -8,6 +8,7 @@ import type { IndicadorMonitorado } from './IndicadorMonitorado'
 import type { MetadadosAnalise } from './MetadadosAnalise'
 
 /**
+ * ResumoAlertasNoticias
  * @description Resumo dos alertas do sistema de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    total_alertas_ativos: Total de alertas ativos\n    alertas_por_severidade: Contagem por severidade\n    alertas: Lista de alertas consolidados\n    indicadores: Lista de indicadores monitorados
  */
 export type ResumoAlertasNoticias = {

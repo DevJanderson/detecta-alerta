@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * Body_upload_foto_api_v1_usuarios__usuario_id__upload_foto_post
+ */
 export type BodyUploadFotoApiV1UsuariosUsuarioIdUploadFotoPost = {
   /**
    * @type string, binary

@@ -7,6 +7,7 @@ import type { CityStatsPaginationMeta } from './CityStatsPaginationMeta'
 import type { CityStatsResponse } from './CityStatsResponse'
 
 /**
+ * PaginatedCityStatsResponse
  * @description Schema para resposta paginada de estatísticas por cidade (cursor-based).
  * @example [object Object]
  */

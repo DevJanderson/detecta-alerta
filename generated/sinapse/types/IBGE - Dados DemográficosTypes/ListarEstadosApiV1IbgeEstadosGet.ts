@@ -26,11 +26,13 @@ export type ListarEstadosApiV1IbgeEstadosGetQueryParams = {
 }
 
 /**
+ * EstadosListResponse
  * @description Lista de estados
  */
 export type ListarEstadosApiV1IbgeEstadosGet200 = EstadosListResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ListarEstadosApiV1IbgeEstadosGet422 = HTTPValidationError

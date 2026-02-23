@@ -18,6 +18,7 @@ export type DeleteUsuarioApiV1UsuariosUsuarioIdDeletePathParams = {
 export type DeleteUsuarioApiV1UsuariosUsuarioIdDelete204 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DeleteUsuarioApiV1UsuariosUsuarioIdDelete422 = HTTPValidationError

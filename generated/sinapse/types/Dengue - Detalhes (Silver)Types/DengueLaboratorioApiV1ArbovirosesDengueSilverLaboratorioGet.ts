@@ -38,6 +38,7 @@ export type DengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGetQueryPara
 export type DengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DengueLaboratorioApiV1ArbovirosesDengueSilverLaboratorioGet422 = HTTPValidationError

@@ -76,11 +76,13 @@ export type ListNoticiasApiV1NoticiasGetQueryParams = {
 }
 
 /**
+ * NoticiaListResponse
  * @description Lista de notícias
  */
 export type ListNoticiasApiV1NoticiasGet200 = NoticiaListResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ListNoticiasApiV1NoticiasGet422 = HTTPValidationError

@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { usuariosPaginadosSchemaSchema } from '../usuariosPaginadosSchemaSchema'
-import { z } from 'zod'
 
 export const listarUsuariosApiV1UsuariosGetQueryParamsSchema = z.object({
   page: z.coerce.number().int().min(1).default(1).describe('Número da página'),

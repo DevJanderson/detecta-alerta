@@ -4,6 +4,7 @@
  */
 
 /**
+ * FaixaEtariaResponse
  * @description População por faixa etária.
  */
 export type FaixaEtariaResponse = {

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { grupoSchemaListSchema } from './grupoSchemaListSchema'
-import { z } from 'zod'
 
 export const gruposPaginadosSchemaSchema = z.object({
   total: z.number().int(),

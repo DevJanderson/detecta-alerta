@@ -4,6 +4,7 @@
  */
 
 /**
+ * LLMQueryRequest
  * @description Schema para requisição de query LLM.
  */
 export type LLMQueryRequest = {

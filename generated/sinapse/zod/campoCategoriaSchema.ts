@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { valorCategoriaSchema } from './valorCategoriaSchema'
-import { z } from 'zod'
 
 /**
  * @description Campo categórico com seus valores possíveis.

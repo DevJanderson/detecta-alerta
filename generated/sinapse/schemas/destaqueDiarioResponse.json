@@ -1,0 +1,36 @@
+{
+  "properties": {
+    "data_referencia": { "type": "string", "format": "date", "title": "Data Referencia" },
+    "manchete": { "type": "string", "maxLength": 500, "minLength": 1, "title": "Manchete" },
+    "destaques": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Destaques"
+    },
+    "resumo": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Resumo" },
+    "doencas_mencionadas": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Doencas Mencionadas"
+    },
+    "regioes_afetadas": {
+      "anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+      "title": "Regioes Afetadas"
+    },
+    "total_artigos": {
+      "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }],
+      "title": "Total Artigos",
+      "default": 0
+    },
+    "modelo_llm": {
+      "anyOf": [{ "type": "string", "maxLength": 100 }, { "type": "null" }],
+      "title": "Modelo Llm"
+    },
+    "id": { "type": "integer", "title": "Id" },
+    "created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+    "updated_at": { "type": "string", "format": "date-time", "title": "Updated At" }
+  },
+  "type": "object",
+  "required": ["data_referencia", "manchete", "id", "created_at", "updated_at"],
+  "title": "DestaqueDiarioResponse",
+  "description": "Schema de resposta para destaque diario.",
+  "x-readme-ref-name": "DestaqueDiarioResponse"
+}

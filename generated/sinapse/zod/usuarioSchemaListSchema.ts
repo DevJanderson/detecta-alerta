@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { grupoSchemaListSchema } from './grupoSchemaListSchema'
 import { permissaoAcessoSchemaListSchema } from './permissaoAcessoSchemaListSchema'
-import { z } from 'zod'
 
 export const usuarioSchemaListSchema = z.object({
   id: z.number().int(),

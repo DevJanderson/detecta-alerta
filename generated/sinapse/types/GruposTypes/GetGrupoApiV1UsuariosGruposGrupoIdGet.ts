@@ -14,11 +14,13 @@ export type GetGrupoApiV1UsuariosGruposGrupoIdGetPathParams = {
 }
 
 /**
+ * GrupoSchemaDetalhes
  * @description Grupo encontrado
  */
 export type GetGrupoApiV1UsuariosGruposGrupoIdGet200 = GrupoSchemaDetalhes
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetGrupoApiV1UsuariosGruposGrupoIdGet422 = HTTPValidationError

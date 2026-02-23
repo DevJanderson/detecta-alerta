@@ -14,11 +14,13 @@ export type ObterMunicipioApiV1IbgeMunicipiosCodigoIbgeGetPathParams = {
 }
 
 /**
+ * MunicipioDetalhadoResponse
  * @description Dados do município
  */
 export type ObterMunicipioApiV1IbgeMunicipiosCodigoIbgeGet200 = MunicipioDetalhadoResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ObterMunicipioApiV1IbgeMunicipiosCodigoIbgeGet422 = HTTPValidationError

@@ -6,6 +6,7 @@
 import type { LocalizacaoInput } from './LocalizacaoInput'
 
 /**
+ * NoticiaCreate
  * @description Schema para criacao de noticias.
  */
 export type NoticiaCreate = {

@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import * as z from 'zod'
 
 /**
  * @description Dados de uma unidade geografica.\n\nAttributes:\n    nome: Nome da regiao\n    estado: Sigla do estado\n    cidade: Nome da cidade (opcional)\n    quantidade_noticias: Quantidade de noticias\n    percentual_total: Percentual do total\n    media_relevancia: Media de relevancia das noticias\n    principais_doencas: Principais doencas mencionadas\n    coordenadas: Coordenadas geograficas (opcional)

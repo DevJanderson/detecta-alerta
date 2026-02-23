@@ -7,6 +7,7 @@ import type { ExportFiltersInfo } from './ExportFiltersInfo'
 import type { ExportPaginationInfo } from './ExportPaginationInfo'
 
 /**
+ * ExportJSONResponse
  * @description Resposta de exportação JSON paginada.
  */
 export type ExportJSONResponse = {

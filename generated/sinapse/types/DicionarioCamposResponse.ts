@@ -6,6 +6,7 @@
 import type { CampoMetadados } from './CampoMetadados'
 
 /**
+ * DicionarioCamposResponse
  * @description Resposta da lista de campos do dicionário.
  */
 export type DicionarioCamposResponse = {

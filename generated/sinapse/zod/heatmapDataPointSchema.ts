@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { heatmapCoordinatesSchema } from './heatmapCoordinatesSchema'
-import { z } from 'zod'
 
 /**
  * @description Ponto de dados no mapa de calor.

@@ -4,6 +4,7 @@
  */
 
 /**
+ * HeatmapCoordinates
  * @description Coordenadas geográficas.
  */
 export type HeatmapCoordinates = {

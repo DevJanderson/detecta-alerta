@@ -8,15 +8,20 @@ import type { CasoAgravoCreate } from '../CasoAgravoCreate'
 import type { HTTPValidationError } from '../HTTPValidationError'
 
 /**
+ * CasoAgravo
  * @description Successful Response
  */
 export type CriarCasoApiV1AgravosCasosPost201 = CasoAgravo
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type CriarCasoApiV1AgravosCasosPost422 = HTTPValidationError
 
+/**
+ * CasoAgravoCreate
+ */
 export type CriarCasoApiV1AgravosCasosPostMutationRequest = CasoAgravoCreate
 
 export type CriarCasoApiV1AgravosCasosPostMutationResponse = CriarCasoApiV1AgravosCasosPost201

@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import * as z from 'zod'
 
 /**
  * @description Schema para resultado individual de busca.\n\nNota: Este schema usa a Google Places Text Search API, que retorna\napenas campos básicos. Para dados completos (city, state, phone, etc.),\nuse o endpoint /details com o place_id.

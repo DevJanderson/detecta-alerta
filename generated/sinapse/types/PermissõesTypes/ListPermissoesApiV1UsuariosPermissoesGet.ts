@@ -6,6 +6,7 @@
 import type { PermissaoAcessoSchemaList } from '../PermissaoAcessoSchemaList'
 
 /**
+ * Response List Permissoes Api V1 Usuarios Permissoes  Get
  * @description Lista de permissões
  */
 export type ListPermissoesApiV1UsuariosPermissoesGet200 = PermissaoAcessoSchemaList[]

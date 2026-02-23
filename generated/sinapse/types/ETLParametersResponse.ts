@@ -4,6 +4,7 @@
  */
 
 /**
+ * ETLParametersResponse
  * @description Schema de resposta para parâmetros ETL.
  */
 export type ETLParametersResponse = {

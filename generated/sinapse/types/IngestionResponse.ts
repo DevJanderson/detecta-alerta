@@ -6,6 +6,7 @@
 import type { IngestionError } from './IngestionError'
 
 /**
+ * IngestionResponse
  * @description Schema para resposta de ingestão.
  * @example [object Object]
  */

@@ -4,6 +4,7 @@
  */
 
 /**
+ * PlaceValidationResponse
  * @description Schema para resposta de validação.
  */
 export type PlaceValidationResponse = {

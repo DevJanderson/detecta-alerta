@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { grupoSchemaDetalhesSchema } from '../grupoSchemaDetalhesSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const getGrupoApiV1UsuariosGruposGrupoIdGetPathParamsSchema = z.object({
   grupo_id: z.coerce.number().int()

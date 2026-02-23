@@ -4,6 +4,7 @@
  */
 
 /**
+ * CalculationMetadata
  * @description Metadados sobre os parâmetros de configuração usados no cálculo das métricas.\n\nGarante transparência e reprodutibilidade dos cálculos estatísticos.\nTodos os valores são obtidos de ETLConfig no momento do cálculo.
  */
 export type CalculationMetadata = {

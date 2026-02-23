@@ -4,6 +4,7 @@
  */
 
 /**
+ * AlertFiltersMetadata
  * @description Metadados dos filtros aplicados em alertas.
  */
 export type AlertFiltersMetadata = {

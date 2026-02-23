@@ -7,6 +7,7 @@ import type { CnesFilter } from './CnesFilter'
 import type { CnesUpdate } from './CnesUpdate'
 
 /**
+ * CnesBulkUpdate
  * @description Schema para atualização em massa
  */
 export type CnesBulkUpdate = {

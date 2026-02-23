@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { estatisticasClassificacaoSchema } from '../estatisticasClassificacaoSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const getEstatisticasPorClassificacaoApiV1CnesEstatisticasPorClassificacaoClassificacaoGetPathParamsSchema =
   z.object({

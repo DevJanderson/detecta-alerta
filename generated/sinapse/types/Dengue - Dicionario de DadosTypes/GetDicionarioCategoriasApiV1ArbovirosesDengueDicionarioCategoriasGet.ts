@@ -14,12 +14,14 @@ export type GetDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGet
 }
 
 /**
+ * DicionarioCategoriasResponse
  * @description Successful Response
  */
 export type GetDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGet200 =
   DicionarioCategoriasResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetDicionarioCategoriasApiV1ArbovirosesDengueDicionarioCategoriasGet422 =

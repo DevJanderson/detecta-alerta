@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { doencaSchema } from '../doencaSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const listDoencasApiV1NoticiasOperacoesDoencasGetQueryParamsSchema = z.object({
   skip: z.coerce.number().int().default(0),

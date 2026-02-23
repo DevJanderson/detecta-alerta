@@ -4,6 +4,7 @@
  */
 
 /**
+ * BulkUnitResponse
  * @description Schema de resposta para criação em lote.
  * @example [object Object]
  */

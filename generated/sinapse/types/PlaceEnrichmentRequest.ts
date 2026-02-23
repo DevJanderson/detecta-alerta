@@ -4,6 +4,7 @@
  */
 
 /**
+ * PlaceEnrichmentRequest
  * @description Schema para enriquecimento de dados.
  */
 export type PlaceEnrichmentRequest = {

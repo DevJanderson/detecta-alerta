@@ -3,11 +3,11 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { anomaliesSummaryMetadataSchema } from './anomaliesSummaryMetadataSchema'
 import { anomalyFiltersMetadataSchema } from './anomalyFiltersMetadataSchema'
 import { anomalyUnitSchema } from './anomalyUnitSchema'
 import { trendPaginationMetadataSchema } from './trendPaginationMetadataSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema de resposta paginado para o endpoint /anomalies.

@@ -6,6 +6,7 @@
 import type { FaixasEtariasResponse } from '../FaixasEtariasResponse'
 
 /**
+ * FaixasEtariasResponse
  * @description Lista de faixas etárias
  */
 export type ListarFaixasEtariasApiV1IbgeFaixasEtariasGet200 = FaixasEtariasResponse

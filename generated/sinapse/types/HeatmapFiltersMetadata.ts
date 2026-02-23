@@ -4,6 +4,7 @@
  */
 
 /**
+ * HeatmapFiltersMetadata
  * @description Metadados dos filtros aplicados em /heatmap.
  */
 export type HeatmapFiltersMetadata = {

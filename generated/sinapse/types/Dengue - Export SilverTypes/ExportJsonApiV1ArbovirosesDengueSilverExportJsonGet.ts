@@ -46,11 +46,13 @@ export type ExportJsonApiV1ArbovirosesDengueSilverExportJsonGetQueryParams = {
 }
 
 /**
+ * ExportJSONResponse
  * @description Successful Response
  */
 export type ExportJsonApiV1ArbovirosesDengueSilverExportJsonGet200 = ExportJSONResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ExportJsonApiV1ArbovirosesDengueSilverExportJsonGet422 = HTTPValidationError

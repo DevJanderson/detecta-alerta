@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { anomalyOccurrenceSchema } from './anomalyOccurrenceSchema'
-import { z } from 'zod'
 
 /**
  * @description Unidade com anomalias detectadas.

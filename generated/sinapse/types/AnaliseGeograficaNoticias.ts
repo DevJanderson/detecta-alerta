@@ -9,6 +9,7 @@ import type { DadoGeografico } from './DadoGeografico'
 import type { MetadadosAnalise } from './MetadadosAnalise'
 
 /**
+ * AnaliseGeograficaNoticias
  * @description Resultado completo da analise geografica de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    distribuicao_estadual: Distribuicao por estado\n    distribuicao_municipal: Top municipios (quando disponivel)\n    concentracoes: Areas de concentracao identificadas\n    alertas: Alertas geograficos identificados\n    estados_sem_noticias: Estados sem noticias no periodo
  */
 export type AnaliseGeograficaNoticias = {

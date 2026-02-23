@@ -4,6 +4,7 @@
  */
 
 /**
+ * ReportGenerationResponse
  * @description Schema para resposta de geração de relatório.
  */
 export type ReportGenerationResponse = {

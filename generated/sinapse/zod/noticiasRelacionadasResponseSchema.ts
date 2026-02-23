@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { noticiaResumidaSchema } from './noticiaResumidaSchema'
-import { z } from 'zod'
 
 /**
  * @description Resposta do endpoint de noticias relacionadas.

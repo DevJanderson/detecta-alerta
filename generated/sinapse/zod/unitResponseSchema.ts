@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { operationalProfileEnumSchema } from './operationalProfileEnumSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema de resposta detalhado para unidade.
@@ -82,29 +82,19 @@ export const unitResponseSchema = z
       z.union([z.number(), z.null()]).describe('Média de ocupação da semana epidemiológica')
     ),
     average_occupancy_week_weekday: z.optional(
-      z.union([z.number(), z.null()]).describe('Média de ocupação dias úteis')
-    ),
-    average_occupancy_week_weekend: z.optional(
-      z.union([z.number(), z.null()]).describe('Média de ocupação fins de semana')
+      z.union([z.number(), z.null()]).describe('Media de ocupacao dias uteis')
     ),
     data_points_week_weekday: z.optional(
-      z.union([z.number().int(), z.null()]).describe('Registros em dias úteis na semana')
+      z.union([z.number().int(), z.null()]).describe('Registros em dias uteis na semana')
     ),
-    data_points_week_weekend: z.optional(
-      z.union([z.number().int(), z.null()]).describe('Registros em fins de semana na semana')
+    moving_avg_week: z.optional(
+      z.union([z.number(), z.null()]).describe('Media movel 42 dias - semana')
     ),
-    moving_avg_all_42d: z.optional(
-      z.union([z.number(), z.null()]).describe('Média móvel 42 dias - todos os pontos')
+    moving_avg_weekday: z.optional(
+      z.union([z.number(), z.null()]).describe('Media movel 42 dias - dias uteis')
     ),
-    moving_avg_weekday_42d: z.optional(
-      z.union([z.number(), z.null()]).describe('Média móvel 42 dias - dias úteis')
-    ),
-    moving_avg_weekend_42d: z.optional(
-      z.union([z.number(), z.null()]).describe('Média móvel 42 dias - fins de semana')
-    ),
-    z_score_all: z.optional(z.union([z.number(), z.null()]).describe('Z-score geral')),
-    z_score_weekday: z.optional(z.union([z.number(), z.null()]).describe('Z-score dias úteis')),
-    z_score_weekend: z.optional(z.union([z.number(), z.null()]).describe('Z-score fins de semana')),
+    z_score_week: z.optional(z.union([z.number(), z.null()]).describe('Z-score semanal')),
+    z_score_weekday: z.optional(z.union([z.number(), z.null()]).describe('Z-score dias uteis')),
     alert_reason: z.optional(
       z.union([z.string(), z.null()]).describe('Razão do alerta epidemiológico')
     ),

@@ -38,6 +38,7 @@ export type DengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGetQueryParams
 export type DengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DengueGeograficoApiV1ArbovirosesDengueSilverGeograficoGet422 = HTTPValidationError

@@ -8,15 +8,20 @@ import type { HTTPValidationError } from '../HTTPValidationError'
 import type { NoticiaCreate } from '../NoticiaCreate'
 
 /**
+ * BulkCreateResponse
  * @description Resultado da importacao com contagem de criados vs duplicados
  */
 export type BulkCreateNoticiasApiV1NoticiasOperacoesBulkPost200 = BulkCreateResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type BulkCreateNoticiasApiV1NoticiasOperacoesBulkPost422 = HTTPValidationError
 
+/**
+ * Noticias In
+ */
 export type BulkCreateNoticiasApiV1NoticiasOperacoesBulkPostMutationRequest = NoticiaCreate[]
 
 export type BulkCreateNoticiasApiV1NoticiasOperacoesBulkPostMutationResponse =

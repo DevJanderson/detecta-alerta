@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { bodyResetPasswordApiV1AuthResetPasswordPostSchema } from '../bodyResetPasswordApiV1AuthResetPasswordPostSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 /**
  * @description Link de redefinição de senha enviado

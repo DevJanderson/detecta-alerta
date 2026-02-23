@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * PermissaoAcessoSchemaUpdate
+ */
 export type PermissaoAcessoSchemaUpdate = {
   /**
    * @type string

@@ -19,10 +19,14 @@ export type UploadFotoApiV1UsuariosUsuarioIdUploadFotoPostPathParams = {
 export type UploadFotoApiV1UsuariosUsuarioIdUploadFotoPost200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type UploadFotoApiV1UsuariosUsuarioIdUploadFotoPost422 = HTTPValidationError
 
+/**
+ * Body_upload_foto_api_v1_usuarios__usuario_id__upload_foto_post
+ */
 export type UploadFotoApiV1UsuariosUsuarioIdUploadFotoPostMutationRequest =
   BodyUploadFotoApiV1UsuariosUsuarioIdUploadFotoPost
 

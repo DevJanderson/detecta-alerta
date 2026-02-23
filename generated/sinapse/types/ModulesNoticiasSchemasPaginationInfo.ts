@@ -4,6 +4,7 @@
  */
 
 /**
+ * PaginationInfo
  * @description Informacoes de paginacao cursor-based.
  */
 export type ModulesNoticiasSchemasPaginationInfo = {

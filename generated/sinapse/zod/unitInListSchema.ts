@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { operationalProfileEnumSchema } from './operationalProfileEnumSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema de resposta simplificado para listagem de unidades.

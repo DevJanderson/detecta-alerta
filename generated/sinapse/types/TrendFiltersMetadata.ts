@@ -4,6 +4,7 @@
  */
 
 /**
+ * TrendFiltersMetadata
  * @description Metadados dos filtros aplicados na análise de tendências.
  */
 export type TrendFiltersMetadata = {

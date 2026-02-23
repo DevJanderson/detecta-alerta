@@ -26,6 +26,7 @@ export type ExportDataApiV1CnesOperacoesExportGetQueryParams = {
 export type ExportDataApiV1CnesOperacoesExportGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ExportDataApiV1CnesOperacoesExportGet422 = HTTPValidationError

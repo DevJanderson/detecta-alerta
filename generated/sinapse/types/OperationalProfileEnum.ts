@@ -11,6 +11,7 @@ export enum OperationalProfileEnumEnum {
 }
 
 /**
+ * OperationalProfileEnum
  * @description Perfis operacionais das unidades de saúde.
  */
 export type OperationalProfileEnum = OperationalProfileEnumEnum

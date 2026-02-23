@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { ingestionErrorSchema } from './ingestionErrorSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para resposta de ingestão.

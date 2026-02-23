@@ -6,6 +6,7 @@
 import type { HourlyDataInput } from './HourlyDataInput'
 
 /**
+ * DataValidationRequest
  * @description Schema para validação prévia de dados (dry-run).
  */
 export type DataValidationRequest = {

@@ -9,6 +9,7 @@ import type { HealthCheckSummary } from './HealthCheckSummary'
 import type { UnitHealthStatus } from './UnitHealthStatus'
 
 /**
+ * HealthCheckStatusResponse
  * @description Resposta do status geral do health check.
  */
 export type HealthCheckStatusResponse = {

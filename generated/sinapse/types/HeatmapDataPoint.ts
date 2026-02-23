@@ -6,6 +6,7 @@
 import type { HeatmapCoordinates } from './HeatmapCoordinates'
 
 /**
+ * HeatmapDataPoint
  * @description Ponto de dados no mapa de calor.
  */
 export type HeatmapDataPoint = {

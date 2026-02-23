@@ -6,6 +6,7 @@
 import type { DicionarioVisaoGeralResponse } from '../DicionarioVisaoGeralResponse'
 
 /**
+ * DicionarioVisaoGeralResponse
  * @description Successful Response
  */
 export type GetDicionarioVisaoGeralApiV1ArbovirosesDengueDicionarioGet200 =

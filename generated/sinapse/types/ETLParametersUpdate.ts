@@ -4,6 +4,7 @@
  */
 
 /**
+ * ETLParametersUpdate
  * @description Schema para atualização de parâmetros ETL com validações de range e consistência.
  */
 export type ETLParametersUpdate = {

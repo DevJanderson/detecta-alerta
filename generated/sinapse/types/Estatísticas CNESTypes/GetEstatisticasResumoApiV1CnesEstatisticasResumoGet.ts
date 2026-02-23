@@ -6,6 +6,7 @@
 import type { EstatisticasCnes } from '../EstatisticasCnes'
 
 /**
+ * EstatisticasCnes
  * @description Estatísticas calculadas
  */
 export type GetEstatisticasResumoApiV1CnesEstatisticasResumoGet200 = EstatisticasCnes

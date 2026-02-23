@@ -4,6 +4,7 @@
  */
 
 /**
+ * UsuarioSchemaSignupResponse
  * @description Schema de resposta para o endpoint signup - sem mostrar permissões
  */
 export type UsuarioSchemaSignupResponse = {

@@ -170,52 +170,32 @@
     "average_occupancy_week_weekday": {
       "anyOf": [{ "type": "number" }, { "type": "null" }],
       "title": "Average Occupancy Week Weekday",
-      "description": "Média de ocupação dias úteis"
-    },
-    "average_occupancy_week_weekend": {
-      "anyOf": [{ "type": "number" }, { "type": "null" }],
-      "title": "Average Occupancy Week Weekend",
-      "description": "Média de ocupação fins de semana"
+      "description": "Media de ocupacao dias uteis"
     },
     "data_points_week_weekday": {
       "anyOf": [{ "type": "integer" }, { "type": "null" }],
       "title": "Data Points Week Weekday",
-      "description": "Registros em dias úteis na semana"
+      "description": "Registros em dias uteis na semana"
     },
-    "data_points_week_weekend": {
-      "anyOf": [{ "type": "integer" }, { "type": "null" }],
-      "title": "Data Points Week Weekend",
-      "description": "Registros em fins de semana na semana"
-    },
-    "moving_avg_all_42d": {
+    "moving_avg_week": {
       "anyOf": [{ "type": "number" }, { "type": "null" }],
-      "title": "Moving Avg All 42D",
-      "description": "Média móvel 42 dias - todos os pontos"
+      "title": "Moving Avg Week",
+      "description": "Media movel 42 dias - semana"
     },
-    "moving_avg_weekday_42d": {
+    "moving_avg_weekday": {
       "anyOf": [{ "type": "number" }, { "type": "null" }],
-      "title": "Moving Avg Weekday 42D",
-      "description": "Média móvel 42 dias - dias úteis"
+      "title": "Moving Avg Weekday",
+      "description": "Media movel 42 dias - dias uteis"
     },
-    "moving_avg_weekend_42d": {
+    "z_score_week": {
       "anyOf": [{ "type": "number" }, { "type": "null" }],
-      "title": "Moving Avg Weekend 42D",
-      "description": "Média móvel 42 dias - fins de semana"
-    },
-    "z_score_all": {
-      "anyOf": [{ "type": "number" }, { "type": "null" }],
-      "title": "Z Score All",
-      "description": "Z-score geral"
+      "title": "Z Score Week",
+      "description": "Z-score semanal"
     },
     "z_score_weekday": {
       "anyOf": [{ "type": "number" }, { "type": "null" }],
       "title": "Z Score Weekday",
-      "description": "Z-score dias úteis"
-    },
-    "z_score_weekend": {
-      "anyOf": [{ "type": "number" }, { "type": "null" }],
-      "title": "Z Score Weekend",
-      "description": "Z-score fins de semana"
+      "description": "Z-score dias uteis"
     },
     "alert_reason": {
       "anyOf": [{ "type": "string" }, { "type": "null" }],

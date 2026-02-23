@@ -4,6 +4,7 @@
  */
 
 /**
+ * PlaceDetailsRequest
  * @description Schema para requisição de detalhes de um lugar.
  */
 export type PlaceDetailsRequest = {

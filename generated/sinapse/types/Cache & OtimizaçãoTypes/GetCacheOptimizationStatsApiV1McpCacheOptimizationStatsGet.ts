@@ -4,6 +4,7 @@
  */
 
 /**
+ * Response Get Cache Optimization Stats Api V1 Mcp Cache Optimization Stats Get
  * @description Successful Response
  */
 export type GetCacheOptimizationStatsApiV1McpCacheOptimizationStatsGet200 = {

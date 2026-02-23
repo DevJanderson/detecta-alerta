@@ -8,6 +8,7 @@ import type { ExportRestricoesInfo } from './ExportRestricoesInfo'
 import type { FormatoExport } from './FormatoExport'
 
 /**
+ * ExportInfoResponse
  * @description Informacoes sobre opcoes de exportacao.
  */
 export type ModulesArbovirosesSchemasExportSchemasExportInfoResponse = {

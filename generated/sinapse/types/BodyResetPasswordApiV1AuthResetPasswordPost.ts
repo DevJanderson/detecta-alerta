@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * Body_reset_password_api_v1_auth_reset_password_post
+ */
 export type BodyResetPasswordApiV1AuthResetPasswordPost = {
   /**
    * @type string

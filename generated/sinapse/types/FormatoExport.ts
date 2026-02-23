@@ -4,6 +4,7 @@
  */
 
 /**
+ * FormatoExport
  * @description Informações de um formato de exportação.
  */
 export type FormatoExport = {

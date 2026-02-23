@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { estadosListResponseSchema } from '../estadosListResponseSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const listarEstadosApiV1IbgeEstadosGetQueryParamsSchema = z.object({
   regiao: z.optional(

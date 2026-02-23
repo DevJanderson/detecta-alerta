@@ -6,6 +6,7 @@
 import type { TransformacaoRenomeacao } from './TransformacaoRenomeacao'
 
 /**
+ * Transformacao
  * @description Transformação aplicada nos dados.
  */
 export type Transformacao = {

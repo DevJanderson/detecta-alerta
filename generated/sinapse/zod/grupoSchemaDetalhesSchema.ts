@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { permissaoAcessoSchemaListSchema } from './permissaoAcessoSchemaListSchema'
-import { z } from 'zod'
 
 export const grupoSchemaDetalhesSchema = z.object({
   nome: z.string(),

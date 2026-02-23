@@ -4,6 +4,7 @@
  */
 
 /**
+ * HeatmapStatistics
  * @description Estatísticas gerais do mapa de calor.
  */
 export type HeatmapStatistics = {

@@ -4,6 +4,7 @@
  */
 
 /**
+ * ReportFiltersMetadata
  * @description Metadados dos filtros aplicados no relatório.
  */
 export type ReportFiltersMetadata = {

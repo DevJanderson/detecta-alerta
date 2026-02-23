@@ -4,6 +4,7 @@
  */
 
 /**
+ * HealthCheckPagination
  * @description Metadados de paginação.
  */
 export type HealthCheckPagination = {

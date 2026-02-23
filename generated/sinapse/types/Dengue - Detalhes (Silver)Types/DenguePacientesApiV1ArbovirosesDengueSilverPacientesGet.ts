@@ -38,6 +38,7 @@ export type DenguePacientesApiV1ArbovirosesDengueSilverPacientesGetQueryParams =
 export type DenguePacientesApiV1ArbovirosesDengueSilverPacientesGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DenguePacientesApiV1ArbovirosesDengueSilverPacientesGet422 = HTTPValidationError

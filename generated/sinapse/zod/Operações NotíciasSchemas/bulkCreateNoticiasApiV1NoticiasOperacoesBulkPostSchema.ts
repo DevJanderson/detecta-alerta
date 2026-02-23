@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { bulkCreateResponseSchema } from '../bulkCreateResponseSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { noticiaCreateSchema } from '../noticiaCreateSchema'
-import { z } from 'zod'
 
 /**
  * @description Resultado da importacao com contagem de criados vs duplicados

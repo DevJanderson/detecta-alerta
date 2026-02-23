@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { dicionarioCamposResponseSchema } from '../dicionarioCamposResponseSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const getDicionarioCamposApiV1ArbovirosesDengueDicionarioCamposGetQueryParamsSchema =
   z.object({

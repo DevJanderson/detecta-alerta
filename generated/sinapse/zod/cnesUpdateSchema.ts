@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import * as z from 'zod'
 
 export const cnesUpdateSchema = z.object({
   co_unidade: z.optional(z.union([z.number().int(), z.null()])),

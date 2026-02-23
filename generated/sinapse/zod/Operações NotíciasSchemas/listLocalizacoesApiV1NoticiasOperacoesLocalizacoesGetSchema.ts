@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { regiaoSchema } from '../regiaoSchema'
-import { z } from 'zod'
 
 export const listLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetQueryParamsSchema = z.object({
   skip: z.coerce.number().int().default(0),

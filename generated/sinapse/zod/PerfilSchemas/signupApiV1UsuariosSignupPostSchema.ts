@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { usuarioSchemaSignupResponseSchema } from '../usuarioSchemaSignupResponseSchema'
 import { usuarioSchemaSignupSchema } from '../usuarioSchemaSignupSchema'
-import { z } from 'zod'
 
 /**
  * @description Usuário criado com sucesso

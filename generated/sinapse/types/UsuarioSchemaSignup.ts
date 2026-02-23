@@ -4,6 +4,7 @@
  */
 
 /**
+ * UsuarioSchemaSignup
  * @description Schema para criação via signup - aceita master_key
  */
 export type UsuarioSchemaSignup = {

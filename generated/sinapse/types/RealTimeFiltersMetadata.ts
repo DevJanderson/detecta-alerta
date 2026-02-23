@@ -4,6 +4,7 @@
  */
 
 /**
+ * RealTimeFiltersMetadata
  * @description Metadados dos filtros aplicados na consulta de dados em tempo real.
  */
 export type RealTimeFiltersMetadata = {

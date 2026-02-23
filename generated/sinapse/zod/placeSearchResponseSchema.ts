@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { placeSearchResultSchema } from './placeSearchResultSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para resposta de busca de lugares com múltiplos termos.

@@ -14,11 +14,13 @@ export type ObterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGetPathParams = {
 }
 
 /**
+ * PopulacaoDetalhadaResponse
  * @description Dados populacionais por faixa etária
  */
 export type ObterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGet200 = PopulacaoDetalhadaResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ObterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGet422 = HTTPValidationError

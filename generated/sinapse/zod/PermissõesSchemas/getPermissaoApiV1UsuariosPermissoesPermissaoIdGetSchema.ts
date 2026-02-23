@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { permissaoAcessoSchemaListSchema } from '../permissaoAcessoSchemaListSchema'
-import { z } from 'zod'
 
 export const getPermissaoApiV1UsuariosPermissoesPermissaoIdGetPathParamsSchema = z.object({
   permissao_id: z.coerce.number().int()

@@ -7,6 +7,7 @@ import type { CamadaInfo } from './CamadaInfo'
 import type { LinksInfo } from './LinksInfo'
 
 /**
+ * DicionarioVisaoGeralResponse
  * @description Visão geral do dicionário de dados.
  */
 export type DicionarioVisaoGeralResponse = {

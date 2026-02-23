@@ -3,11 +3,11 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { alertFiltersMetadataSchema } from './alertFiltersMetadataSchema'
 import { alertResponseSchema } from './alertResponseSchema'
 import { alertsSummaryMetadataSchema } from './alertsSummaryMetadataSchema'
 import { trendPaginationMetadataSchema } from './trendPaginationMetadataSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema de resposta paginado para o endpoint /alerts.

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { dicionarioTransformacoesResponseSchema } from '../dicionarioTransformacoesResponseSchema'
-import { z } from 'zod'
 
 /**
  * @description Successful Response

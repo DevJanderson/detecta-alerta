@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { noticiaCreateSchema } from '../noticiaCreateSchema'
 import { noticiaSchema } from '../noticiaSchema'
-import { z } from 'zod'
 
 /**
  * @description Notícia criada com sucesso

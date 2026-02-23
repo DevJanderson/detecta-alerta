@@ -4,6 +4,7 @@
  */
 
 /**
+ * LinksInfo
  * @description Links para recursos relacionados do dicionário.
  */
 export type LinksInfo = {

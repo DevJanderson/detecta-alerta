@@ -8,6 +8,7 @@ import type { Noticia } from './Noticia'
 import type { NoticiaFilterInfo } from './NoticiaFilterInfo'
 
 /**
+ * NoticiaListResponse
  * @description Resposta paginada cursor-based para listagem de noticias.
  */
 export type NoticiaListResponse = {

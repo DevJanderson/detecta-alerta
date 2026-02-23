@@ -4,6 +4,7 @@
  */
 
 /**
+ * LoginRequest
  * @description Schema para requisição de login simplificada.
  */
 export type LoginRequest = {

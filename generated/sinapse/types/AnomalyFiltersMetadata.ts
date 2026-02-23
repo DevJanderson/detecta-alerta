@@ -4,6 +4,7 @@
  */
 
 /**
+ * AnomalyFiltersMetadata
  * @description Metadados dos filtros aplicados em anomalias.
  */
 export type AnomalyFiltersMetadata = {

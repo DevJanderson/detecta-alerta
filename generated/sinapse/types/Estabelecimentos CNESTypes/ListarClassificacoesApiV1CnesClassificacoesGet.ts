@@ -4,6 +4,7 @@
  */
 
 /**
+ * Response Listar Classificacoes Api V1 Cnes Classificacoes Get
  * @description Lista de classificações
  */
 export type ListarClassificacoesApiV1CnesClassificacoesGet200 = string[]

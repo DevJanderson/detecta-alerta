@@ -18,6 +18,7 @@ export type DeletePermissaoApiV1UsuariosPermissoesPermissaoIdDeletePathParams = 
 export type DeletePermissaoApiV1UsuariosPermissoesPermissaoIdDelete204 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DeletePermissaoApiV1UsuariosPermissoesPermissaoIdDelete422 = HTTPValidationError

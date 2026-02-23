@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * PermissaoAcessoSchemaList
+ */
 export type PermissaoAcessoSchemaList = {
   /**
    * @type string

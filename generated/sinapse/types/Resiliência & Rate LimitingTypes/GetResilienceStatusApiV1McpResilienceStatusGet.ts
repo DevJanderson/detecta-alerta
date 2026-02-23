@@ -4,6 +4,7 @@
  */
 
 /**
+ * Response Get Resilience Status Api V1 Mcp Resilience Status Get
  * @description Successful Response
  */
 export type GetResilienceStatusApiV1McpResilienceStatusGet200 = {

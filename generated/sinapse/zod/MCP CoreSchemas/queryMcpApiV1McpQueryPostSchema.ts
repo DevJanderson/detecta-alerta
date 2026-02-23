@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { LLMQueryRequestSchema } from '../LLMQueryRequestSchema'
 import { LLMQueryResponseSchema } from '../LLMQueryResponseSchema'
-import { z } from 'zod'
 
 /**
  * @description Successful Response

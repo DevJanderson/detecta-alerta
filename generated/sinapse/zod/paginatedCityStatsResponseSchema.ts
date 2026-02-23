@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { cityStatsPaginationMetaSchema } from './cityStatsPaginationMetaSchema'
 import { cityStatsResponseSchema } from './cityStatsResponseSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para resposta paginada de estatísticas por cidade (cursor-based).

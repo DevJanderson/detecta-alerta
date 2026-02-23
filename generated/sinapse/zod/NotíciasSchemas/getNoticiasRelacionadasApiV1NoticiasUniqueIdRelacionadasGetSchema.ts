@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { noticiasRelacionadasResponseSchema } from '../noticiasRelacionadasResponseSchema'
-import { z } from 'zod'
 
 export const getNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGetPathParamsSchema = z.object(
   {

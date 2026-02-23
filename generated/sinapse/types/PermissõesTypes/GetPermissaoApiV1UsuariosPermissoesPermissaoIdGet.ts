@@ -14,11 +14,13 @@ export type GetPermissaoApiV1UsuariosPermissoesPermissaoIdGetPathParams = {
 }
 
 /**
+ * PermissaoAcessoSchemaList
  * @description Permissão encontrada
  */
 export type GetPermissaoApiV1UsuariosPermissoesPermissaoIdGet200 = PermissaoAcessoSchemaList
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetPermissaoApiV1UsuariosPermissoesPermissaoIdGet422 = HTTPValidationError

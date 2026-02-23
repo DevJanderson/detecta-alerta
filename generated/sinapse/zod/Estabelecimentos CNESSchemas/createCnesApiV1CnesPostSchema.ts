@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { cnesCreateSchema } from '../cnesCreateSchema'
 import { cnesSchema } from '../cnesSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 /**
  * @description Registro criado com sucesso

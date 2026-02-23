@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { transformacaoRenomeacaoSchema } from './transformacaoRenomeacaoSchema'
-import { z } from 'zod'
 
 /**
  * @description Transformação aplicada nos dados.

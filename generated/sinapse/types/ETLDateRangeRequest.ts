@@ -4,6 +4,7 @@
  */
 
 /**
+ * ETLDateRangeRequest
  * @description Schema de request para processamento em batch de range de datas.
  */
 export type ETLDateRangeRequest = {

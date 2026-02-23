@@ -8,6 +8,7 @@ import type { JobsFiltersInfo } from './JobsFiltersInfo'
 import type { JobsPaginationInfo } from './JobsPaginationInfo'
 
 /**
+ * ETLJobsListResponse
  * @description Schema de resposta com filtros e paginação para lista de jobs.
  */
 export type ETLJobsListResponse = {

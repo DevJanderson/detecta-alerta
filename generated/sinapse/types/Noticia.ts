@@ -8,6 +8,7 @@ import type { Regiao } from './Regiao'
 import type { Sintoma } from './Sintoma'
 
 /**
+ * Noticia
  * @description Schema de resposta para noticias (herda NoticiaBase com nomenclatura portuguesa).
  */
 export type Noticia = {

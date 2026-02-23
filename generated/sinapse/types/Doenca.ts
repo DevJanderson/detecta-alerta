@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * Doenca
+ */
 export type Doenca = {
   /**
    * @minLength 1

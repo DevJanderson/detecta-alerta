@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import * as z from 'zod'
 
 /**
  * @description Localizacao estruturada para criacao de noticias.\nFormato alternativo ao string \'Cidade,UF\'.

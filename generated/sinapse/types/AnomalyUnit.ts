@@ -6,6 +6,7 @@
 import type { AnomalyOccurrence } from './AnomalyOccurrence'
 
 /**
+ * AnomalyUnit
  * @description Unidade com anomalias detectadas.
  */
 export type AnomalyUnit = {

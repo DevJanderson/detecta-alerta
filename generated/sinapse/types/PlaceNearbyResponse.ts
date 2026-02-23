@@ -6,6 +6,7 @@
 import type { PlaceNearbyResult } from './PlaceNearbyResult'
 
 /**
+ * PlaceNearbyResponse
  * @description Schema para resposta de busca nearby.
  */
 export type PlaceNearbyResponse = {

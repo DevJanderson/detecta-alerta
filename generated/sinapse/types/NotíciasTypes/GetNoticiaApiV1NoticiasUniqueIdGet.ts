@@ -14,11 +14,13 @@ export type GetNoticiaApiV1NoticiasUniqueIdGetPathParams = {
 }
 
 /**
+ * Noticia
  * @description Notícia encontrada
  */
 export type GetNoticiaApiV1NoticiasUniqueIdGet200 = Noticia
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetNoticiaApiV1NoticiasUniqueIdGet422 = HTTPValidationError

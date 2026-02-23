@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import * as z from 'zod'
 
 export const grupoSchemaUpdateSchema = z.object({
   nome: z.optional(z.union([z.string(), z.null()])),

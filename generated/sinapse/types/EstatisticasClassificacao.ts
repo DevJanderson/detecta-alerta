@@ -4,6 +4,7 @@
  */
 
 /**
+ * EstatisticasClassificacao
  * @description Estatísticas por classificação
  */
 export type EstatisticasClassificacao = {

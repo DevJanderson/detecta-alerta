@@ -1,21 +1,21 @@
 export type {
-  IngestBulkDataApiV1DetectaDataBulkPost201,
-  IngestBulkDataApiV1DetectaDataBulkPost422,
-  IngestBulkDataApiV1DetectaDataBulkPostMutationRequest,
-  IngestBulkDataApiV1DetectaDataBulkPostMutationResponse,
-  IngestBulkDataApiV1DetectaDataBulkPostMutation
-} from './IngestBulkDataApiV1DetectaDataBulkPost'
+  IngestBulkDataApiV1DetectaAlertaDataBulkPost201,
+  IngestBulkDataApiV1DetectaAlertaDataBulkPost422,
+  IngestBulkDataApiV1DetectaAlertaDataBulkPostMutationRequest,
+  IngestBulkDataApiV1DetectaAlertaDataBulkPostMutationResponse,
+  IngestBulkDataApiV1DetectaAlertaDataBulkPostMutation
+} from './IngestBulkDataApiV1DetectaAlertaDataBulkPost'
 export type {
-  IngestHourlyDataApiV1DetectaDataHourlyPost201,
-  IngestHourlyDataApiV1DetectaDataHourlyPost422,
-  IngestHourlyDataApiV1DetectaDataHourlyPostMutationRequest,
-  IngestHourlyDataApiV1DetectaDataHourlyPostMutationResponse,
-  IngestHourlyDataApiV1DetectaDataHourlyPostMutation
-} from './IngestHourlyDataApiV1DetectaDataHourlyPost'
+  IngestHourlyDataApiV1DetectaAlertaDataHourlyPost201,
+  IngestHourlyDataApiV1DetectaAlertaDataHourlyPost422,
+  IngestHourlyDataApiV1DetectaAlertaDataHourlyPostMutationRequest,
+  IngestHourlyDataApiV1DetectaAlertaDataHourlyPostMutationResponse,
+  IngestHourlyDataApiV1DetectaAlertaDataHourlyPostMutation
+} from './IngestHourlyDataApiV1DetectaAlertaDataHourlyPost'
 export type {
-  ValidateDataApiV1DetectaDataValidatePost200,
-  ValidateDataApiV1DetectaDataValidatePost422,
-  ValidateDataApiV1DetectaDataValidatePostMutationRequest,
-  ValidateDataApiV1DetectaDataValidatePostMutationResponse,
-  ValidateDataApiV1DetectaDataValidatePostMutation
-} from './ValidateDataApiV1DetectaDataValidatePost'
+  ValidateDataApiV1DetectaAlertaDataValidatePost200,
+  ValidateDataApiV1DetectaAlertaDataValidatePost422,
+  ValidateDataApiV1DetectaAlertaDataValidatePostMutationRequest,
+  ValidateDataApiV1DetectaAlertaDataValidatePostMutationResponse,
+  ValidateDataApiV1DetectaAlertaDataValidatePostMutation
+} from './ValidateDataApiV1DetectaAlertaDataValidatePost'

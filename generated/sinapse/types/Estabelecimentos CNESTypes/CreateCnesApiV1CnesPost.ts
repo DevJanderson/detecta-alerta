@@ -8,15 +8,20 @@ import type { CnesCreate } from '../CnesCreate'
 import type { HTTPValidationError } from '../HTTPValidationError'
 
 /**
+ * Cnes
  * @description Registro criado com sucesso
  */
 export type CreateCnesApiV1CnesPost201 = Cnes
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type CreateCnesApiV1CnesPost422 = HTTPValidationError
 
+/**
+ * CnesCreate
+ */
 export type CreateCnesApiV1CnesPostMutationRequest = CnesCreate
 
 export type CreateCnesApiV1CnesPostMutationResponse = CreateCnesApiV1CnesPost201

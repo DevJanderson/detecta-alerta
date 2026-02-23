@@ -3,12 +3,12 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { heatmapDataPointSchema } from './heatmapDataPointSchema'
 import { heatmapFiltersMetadataSchema } from './heatmapFiltersMetadataSchema'
 import { heatmapLegendSchema } from './heatmapLegendSchema'
 import { heatmapStatisticsSchema } from './heatmapStatisticsSchema'
 import { trendPaginationMetadataSchema } from './trendPaginationMetadataSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema de resposta para o endpoint /heatmap.

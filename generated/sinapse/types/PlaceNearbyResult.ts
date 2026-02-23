@@ -4,6 +4,7 @@
  */
 
 /**
+ * PlaceNearbyResult
  * @description Schema para resultado de busca nearby.
  */
 export type PlaceNearbyResult = {

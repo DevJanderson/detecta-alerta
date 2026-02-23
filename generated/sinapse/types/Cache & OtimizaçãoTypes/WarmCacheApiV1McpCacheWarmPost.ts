@@ -4,6 +4,7 @@
  */
 
 /**
+ * Response Warm Cache Api V1 Mcp Cache Warm Post
  * @description Successful Response
  */
 export type WarmCacheApiV1McpCacheWarmPost200 = {

@@ -7,6 +7,7 @@ import type { EstadoResponse } from './EstadoResponse'
 import type { ModulesIbgeSchemasPaginationInfo } from './ModulesIbgeSchemasPaginationInfo'
 
 /**
+ * EstadosListResponse
  * @description Resposta com lista de estados.
  */
 export type EstadosListResponse = {

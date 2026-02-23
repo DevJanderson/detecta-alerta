@@ -11,6 +11,7 @@ export enum ClassificacaoFinalEnum {
 }
 
 /**
+ * ClassificacaoFinal
  * @description Classificação final do caso.
  */
 export type ClassificacaoFinal = ClassificacaoFinalEnum

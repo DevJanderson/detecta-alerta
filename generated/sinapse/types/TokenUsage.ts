@@ -4,6 +4,7 @@
  */
 
 /**
+ * TokenUsage
  * @description Schema para uso de tokens.
  */
 export type TokenUsage = {

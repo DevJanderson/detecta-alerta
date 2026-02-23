@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import * as z from 'zod'
 
 /**
  * @description Schema para requisição de relatório comparativo.\n\nCampos específicos por tipo (mutuamente exclusivos):\n- comparison_type=\'units\' → use \'place_ids\' (lista de place_id)\n- comparison_type=\'periods\' → use \'place_id\' (único place_id)\n- comparison_type=\'regions\' → use \'regions\' (lista de códigos: N, NE, CO, SE, S)

@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { bodyUploadFotoApiV1UsuariosUsuarioIdUploadFotoPostSchema } from '../bodyUploadFotoApiV1UsuariosUsuarioIdUploadFotoPostSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const uploadFotoApiV1UsuariosUsuarioIdUploadFotoPostPathParamsSchema = z.object({
   usuario_id: z.coerce.number().int()

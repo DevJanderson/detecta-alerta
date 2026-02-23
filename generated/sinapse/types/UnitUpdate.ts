@@ -4,6 +4,7 @@
  */
 
 /**
+ * UnitUpdate
  * @description Schema para atualização de unidade.
  */
 export type UnitUpdate = {

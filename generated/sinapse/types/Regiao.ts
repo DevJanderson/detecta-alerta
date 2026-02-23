@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * Regiao
+ */
 export type Regiao = {
   /**
    * @minLength 1

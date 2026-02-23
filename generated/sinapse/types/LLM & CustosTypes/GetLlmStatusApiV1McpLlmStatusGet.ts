@@ -6,6 +6,7 @@
 import type { LLMStatus } from '../LLMStatus'
 
 /**
+ * LLMStatus
  * @description Successful Response
  */
 export type GetLlmStatusApiV1McpLlmStatusGet200 = LLMStatus

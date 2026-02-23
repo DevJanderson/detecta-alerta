@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { transformacaoSchema } from './transformacaoSchema'
-import { z } from 'zod'
 
 /**
  * @description Resposta das transformações do dicionário.

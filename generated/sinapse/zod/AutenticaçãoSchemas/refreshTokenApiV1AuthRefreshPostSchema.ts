@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { refreshTokenRequestSchema } from '../refreshTokenRequestSchema'
 import { tokenSchema } from '../tokenSchema'
-import { z } from 'zod'
 
 /**
  * @description Token renovado com sucesso

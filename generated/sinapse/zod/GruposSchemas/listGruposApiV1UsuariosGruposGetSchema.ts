@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { gruposPaginadosSchemaSchema } from '../gruposPaginadosSchemaSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const listGruposApiV1UsuariosGruposGetQueryParamsSchema = z.object({
   page: z.coerce.number().int().min(1).default(1),

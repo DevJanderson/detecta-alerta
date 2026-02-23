@@ -16,6 +16,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - ✅ `feat(auth): implementa login com oauth`
   - ❌ `feat(auth): Implementa Login` ← falha no commit
   - Nomes de função/classe (PascalCase) só no body, nunca no subject
+  - Limites: subject ≤ 72 chars, body ≤ 100 chars por linha
+  - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`, `revert`
 
 ### Execução
 
@@ -157,7 +159,6 @@ layers/                 # TUDO fica aqui (incluindo server/)
   4-rumores/            # Feed de rumores epidemiológicos (notícias de saúde)
 tests/                  # unit/, integration/, e2e/
 generated/              # Código gerado (Kubb) - NÃO EDITAR
-openapi/                # Especificações OpenAPI
 ```
 
 > Use hífen (`-`) no nome das layers, não ponto. Layers em `~/layers` são auto-registradas.
@@ -327,8 +328,7 @@ Código TypeScript gerado automaticamente a partir da especificação OpenAPI.
 ### Estrutura
 
 ```
-openapi/
-  sinapse-api.json          # Especificação OpenAPI da API Sinapse
+kubb.config.ts              # Configuração do Kubb (input: URL remota)
 generated/
   sinapse/
     types/                  # Tipos TypeScript (USAR)
@@ -336,8 +336,9 @@ generated/
     mocks/                  # Faker mocks para dados de teste (importar direto)
     msw/                    # MSW handlers para interceptar requests (importar direto)
     index.ts                # Barrel file (NÃO inclui mocks/msw)
-kubb.config.ts              # Configuração do Kubb
 ```
+
+> **Input:** Spec OpenAPI é buscada diretamente de `https://staging.sinapse.org.br/openapi.json` (sem arquivo local).
 
 ### ⚠️ IMPORTANTE: Mocks e MSW
 
@@ -409,9 +410,9 @@ output: {
 
 ### Adicionar Nova API
 
-1. Adicionar spec OpenAPI em `openapi/<nome>-api.json`
+1. Obter a URL do OpenAPI spec (ou arquivo local)
 2. Criar nova config em `kubb.config.ts` ou arquivo separado
-3. Ajustar `output.path` para `./generated/<nome>`
+3. Ajustar `input.path` e `output.path` para `./generated/<nome>`
 4. Executar `npm run api:generate`
 
 ### Troubleshooting

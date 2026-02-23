@@ -23,6 +23,7 @@ export type AddPermissaoToUserApiV1UsuariosPermissoesUsuariosUsuarioIdAddPermiss
 export type AddPermissaoToUserApiV1UsuariosPermissoesUsuariosUsuarioIdAddPermissaoIdPost200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type AddPermissaoToUserApiV1UsuariosPermissoesUsuariosUsuarioIdAddPermissaoIdPost422 =

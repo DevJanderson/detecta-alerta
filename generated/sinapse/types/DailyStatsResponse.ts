@@ -4,6 +4,7 @@
  */
 
 /**
+ * DailyStatsResponse
  * @description Schema de resposta para estatísticas diárias.
  * @example [object Object]
  */

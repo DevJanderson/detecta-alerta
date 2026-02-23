@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { dailyStatsResponseSchema } from './dailyStatsResponseSchema'
 import { paginationMetaSchema } from './paginationMetaSchema'
-import { z } from 'zod'
 
 export const cursorPaginatedResponseDailyStatsResponseSchema = z.object({
   data: z

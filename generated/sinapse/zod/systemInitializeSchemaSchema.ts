@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { adminInitSchemaSchema } from './adminInitSchemaSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para inicialização do sistema.\n\nUse APENAS UMA das opções de autenticação:\n- init_token: Token temporário mostrado nos logs do servidor\n- master_key: Chave mestra configurada no .env

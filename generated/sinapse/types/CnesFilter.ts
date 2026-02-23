@@ -4,6 +4,7 @@
  */
 
 /**
+ * CnesFilter
  * @description Filtros para busca avançada
  */
 export type CnesFilter = {

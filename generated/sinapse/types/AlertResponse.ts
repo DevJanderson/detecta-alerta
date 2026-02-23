@@ -4,6 +4,7 @@
  */
 
 /**
+ * AlertResponse
  * @description Schema para alertas ativos.
  */
 export type AlertResponse = {

@@ -24,6 +24,7 @@ export type RemovePermissaoFromUserApiV1UsuariosPermissoesUsuariosUsuarioIdRemov
   any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type RemovePermissaoFromUserApiV1UsuariosPermissoesUsuariosUsuarioIdRemovePermissaoIdDelete422 =

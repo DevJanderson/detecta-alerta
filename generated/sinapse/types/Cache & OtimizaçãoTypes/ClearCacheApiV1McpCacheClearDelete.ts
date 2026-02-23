@@ -18,6 +18,7 @@ export type ClearCacheApiV1McpCacheClearDeleteQueryParams = {
 export type ClearCacheApiV1McpCacheClearDelete200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ClearCacheApiV1McpCacheClearDelete422 = HTTPValidationError

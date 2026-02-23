@@ -4,6 +4,7 @@
  */
 
 /**
+ * PlaceSearchRequest
  * @description Schema para busca de lugares com suporte a múltiplos termos.
  */
 export type PlaceSearchRequest = {

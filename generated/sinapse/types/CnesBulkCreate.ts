@@ -6,6 +6,7 @@
 import type { CnesCreate } from './CnesCreate'
 
 /**
+ * CnesBulkCreate
  * @description Schema para criação em massa
  */
 export type CnesBulkCreate = {

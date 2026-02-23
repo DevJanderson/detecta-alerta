@@ -14,11 +14,13 @@ export type GetEstabelecimentoApiV1CnesEstabelecimentosCoUnidadeGetPathParams = 
 }
 
 /**
+ * Response Get Estabelecimento Api V1 Cnes Estabelecimentos  Co Unidade  Get
  * @description Registros do estabelecimento
  */
 export type GetEstabelecimentoApiV1CnesEstabelecimentosCoUnidadeGet200 = Cnes[]
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetEstabelecimentoApiV1CnesEstabelecimentosCoUnidadeGet422 = HTTPValidationError

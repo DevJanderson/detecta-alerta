@@ -6,6 +6,7 @@
 import type { FaixaEtariaResponse } from './FaixaEtariaResponse'
 
 /**
+ * PopulacaoDetalhadaResponse
  * @description Resposta com população por faixas etárias.
  */
 export type PopulacaoDetalhadaResponse = {

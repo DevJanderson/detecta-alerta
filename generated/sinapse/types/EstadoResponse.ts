@@ -4,6 +4,7 @@
  */
 
 /**
+ * EstadoResponse
  * @description Resposta de UF com totais.
  */
 export type EstadoResponse = {

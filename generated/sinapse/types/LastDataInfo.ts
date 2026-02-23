@@ -4,6 +4,7 @@
  */
 
 /**
+ * LastDataInfo
  * @description Informações do último dado coletado.
  */
 export type LastDataInfo = {

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { unitTypeBreakdownSchema } from './unitTypeBreakdownSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para estatísticas por estado.

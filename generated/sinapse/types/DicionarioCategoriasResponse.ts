@@ -6,6 +6,7 @@
 import type { CampoCategoria } from './CampoCategoria'
 
 /**
+ * DicionarioCategoriasResponse
  * @description Resposta das categorias do dicionário.
  */
 export type DicionarioCategoriasResponse = {

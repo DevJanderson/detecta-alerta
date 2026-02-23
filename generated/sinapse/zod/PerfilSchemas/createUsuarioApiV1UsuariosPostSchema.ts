@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { usuarioSchemaCreateSchema } from '../usuarioSchemaCreateSchema'
 import { usuarioSchemaDetalhesSchema } from '../usuarioSchemaDetalhesSchema'
-import { z } from 'zod'
 
 /**
  * @description Usuário criado com sucesso

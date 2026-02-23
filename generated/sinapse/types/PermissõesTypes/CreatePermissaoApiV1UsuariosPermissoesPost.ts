@@ -8,15 +8,20 @@ import type { PermissaoAcessoSchemaCreate } from '../PermissaoAcessoSchemaCreate
 import type { PermissaoAcessoSchemaList } from '../PermissaoAcessoSchemaList'
 
 /**
+ * PermissaoAcessoSchemaList
  * @description Permissão criada com sucesso
  */
 export type CreatePermissaoApiV1UsuariosPermissoesPost201 = PermissaoAcessoSchemaList
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type CreatePermissaoApiV1UsuariosPermissoesPost422 = HTTPValidationError
 
+/**
+ * PermissaoAcessoSchemaCreate
+ */
 export type CreatePermissaoApiV1UsuariosPermissoesPostMutationRequest = PermissaoAcessoSchemaCreate
 
 export type CreatePermissaoApiV1UsuariosPermissoesPostMutationResponse =

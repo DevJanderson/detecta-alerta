@@ -4,6 +4,7 @@
  */
 
 /**
+ * TrendItem
  * @description Item individual de tendência detectada.
  * @example [object Object]
  */

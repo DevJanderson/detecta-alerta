@@ -6,6 +6,7 @@
 import type { HeatmapLegendItem } from './HeatmapLegendItem'
 
 /**
+ * HeatmapLegend
  * @description Legenda de cores do mapa de calor.
  */
 export type HeatmapLegend = {

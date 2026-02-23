@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { cnesSchema } from './cnesSchema'
-import { z } from 'zod'
 
 export const paginatedCnesResponseSchema = z.object({
   total: z.number().int(),

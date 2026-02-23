@@ -10,6 +10,7 @@ import type { HeatmapStatistics } from './HeatmapStatistics'
 import type { TrendPaginationMetadata } from './TrendPaginationMetadata'
 
 /**
+ * HeatmapResponse
  * @description Schema de resposta para o endpoint /heatmap.
  */
 export type HeatmapResponse = {

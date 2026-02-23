@@ -4,6 +4,7 @@
  */
 
 /**
+ * CityStatsPaginationMeta
  * @description Metadados de paginação cursor-based para cidades.
  */
 export type CityStatsPaginationMeta = {

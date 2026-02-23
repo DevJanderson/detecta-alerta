@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { hourlyDataInputSchema } from './hourlyDataInputSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para entrada de dados em lote.

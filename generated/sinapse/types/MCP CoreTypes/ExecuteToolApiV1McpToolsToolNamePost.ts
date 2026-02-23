@@ -18,10 +18,14 @@ export type ExecuteToolApiV1McpToolsToolNamePostPathParams = {
 export type ExecuteToolApiV1McpToolsToolNamePost200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ExecuteToolApiV1McpToolsToolNamePost422 = HTTPValidationError
 
+/**
+ * Arguments
+ */
 export type ExecuteToolApiV1McpToolsToolNamePostMutationRequest = {
   [key: string]: any
 }

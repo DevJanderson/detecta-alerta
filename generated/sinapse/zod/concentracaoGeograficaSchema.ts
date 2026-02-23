@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import * as z from 'zod'
 
 /**
  * @description Area de concentracao de noticias.\n\nAttributes:\n    estados_afetados: Lista de estados na concentracao\n    total_noticias: Total de noticias na area\n    percentual_nacional: Percentual em relacao ao total nacional\n    doenca_predominante: Doenca mais mencionada na area

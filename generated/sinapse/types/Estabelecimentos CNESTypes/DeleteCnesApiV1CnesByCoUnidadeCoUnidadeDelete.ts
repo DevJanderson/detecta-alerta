@@ -25,6 +25,7 @@ export type DeleteCnesApiV1CnesByCoUnidadeCoUnidadeDeleteQueryParams = {
 export type DeleteCnesApiV1CnesByCoUnidadeCoUnidadeDelete204 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DeleteCnesApiV1CnesByCoUnidadeCoUnidadeDelete422 = HTTPValidationError

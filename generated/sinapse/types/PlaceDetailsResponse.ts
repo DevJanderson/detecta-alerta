@@ -4,6 +4,7 @@
  */
 
 /**
+ * PlaceDetailsResponse
  * @description Schema para resposta com detalhes de um lugar.
  */
 export type PlaceDetailsResponse = {

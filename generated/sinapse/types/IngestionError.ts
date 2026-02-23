@@ -4,6 +4,7 @@
  */
 
 /**
+ * IngestionError
  * @description Schema para erro individual na ingestão.
  */
 export type IngestionError = {

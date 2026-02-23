@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { usuarioSchemaDetalhesSchema } from '../usuarioSchemaDetalhesSchema'
 import { usuarioSchemaUpdateSchema } from '../usuarioSchemaUpdateSchema'
-import { z } from 'zod'
 
 export const updateUsuarioApiV1UsuariosUsuarioIdPutPathParamsSchema = z.object({
   usuario_id: z.coerce.number().int()

@@ -4,6 +4,7 @@
  */
 
 /**
+ * ValidacaoResult
  * @description Resultado da validação de dados
  */
 export type ValidacaoResult = {

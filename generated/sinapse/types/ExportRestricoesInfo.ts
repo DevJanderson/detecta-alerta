@@ -4,6 +4,7 @@
  */
 
 /**
+ * ExportRestricoesInfo
  * @description Restricoes de export (fase de testes).
  */
 export type ExportRestricoesInfo = {

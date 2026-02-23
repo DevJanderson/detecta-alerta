@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { populacaoDetalhadaResponseSchema } from '../populacaoDetalhadaResponseSchema'
-import { z } from 'zod'
 
 export const obterPopulacaoDetalhadaApiV1IbgePopulacaoCodigoIbgeGetPathParamsSchema = z.object({
   codigo_ibge: z.coerce.number().int()

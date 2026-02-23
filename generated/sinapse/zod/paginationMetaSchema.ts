@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import * as z from 'zod'
 
 /**
  * @description Metadados de paginação cursor-based.\n\nUsado em conjunto com CursorPaginatedResponse para retornar\ninformações de navegação em endpoints paginados.

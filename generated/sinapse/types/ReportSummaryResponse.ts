@@ -7,6 +7,7 @@ import type { PeriodMetadata } from './PeriodMetadata'
 import type { ReportFiltersMetadata } from './ReportFiltersMetadata'
 
 /**
+ * ReportSummaryResponse
  * @description Schema para resumo executivo.
  */
 export type ReportSummaryResponse = {

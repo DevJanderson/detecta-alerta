@@ -8,15 +8,20 @@ import type { UsuarioSchemaCreate } from '../UsuarioSchemaCreate'
 import type { UsuarioSchemaDetalhes } from '../UsuarioSchemaDetalhes'
 
 /**
+ * UsuarioSchemaDetalhes
  * @description Usuário criado com sucesso
  */
 export type CreateUsuarioApiV1UsuariosPost201 = UsuarioSchemaDetalhes
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type CreateUsuarioApiV1UsuariosPost422 = HTTPValidationError
 
+/**
+ * UsuarioSchemaCreate
+ */
 export type CreateUsuarioApiV1UsuariosPostMutationRequest = UsuarioSchemaCreate
 
 export type CreateUsuarioApiV1UsuariosPostMutationResponse = CreateUsuarioApiV1UsuariosPost201

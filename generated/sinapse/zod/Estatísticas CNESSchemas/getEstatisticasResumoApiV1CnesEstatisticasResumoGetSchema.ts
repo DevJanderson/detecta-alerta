@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { estatisticasCnesSchema } from '../estatisticasCnesSchema'
-import { z } from 'zod'
 
 /**
  * @description Estatísticas calculadas

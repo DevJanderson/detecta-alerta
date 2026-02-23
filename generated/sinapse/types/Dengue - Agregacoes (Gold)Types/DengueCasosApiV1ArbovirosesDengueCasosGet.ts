@@ -21,7 +21,7 @@ export type DengueCasosApiV1ArbovirosesDengueCasosGetQueryParams = {
   /**
    * @description Filtrar por codigo IBGE do municipio
    */
-  municipio?: number | null
+  municipio?: string | null
   /**
    * @description Cursor para paginacao
    */
@@ -42,6 +42,7 @@ export type DengueCasosApiV1ArbovirosesDengueCasosGetQueryParams = {
 export type DengueCasosApiV1ArbovirosesDengueCasosGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DengueCasosApiV1ArbovirosesDengueCasosGet422 = HTTPValidationError

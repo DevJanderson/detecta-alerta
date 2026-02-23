@@ -18,6 +18,7 @@ export type DeleteGrupoApiV1UsuariosGruposGrupoIdDeletePathParams = {
 export type DeleteGrupoApiV1UsuariosGruposGrupoIdDelete204 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DeleteGrupoApiV1UsuariosGruposGrupoIdDelete422 = HTTPValidationError

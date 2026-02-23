@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { epidemiologicalMetricsSchema } from './epidemiologicalMetricsSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para resposta de agregação semanal com métricas segmentadas.
@@ -18,7 +18,7 @@ export const weeklyAggregationResponseSchema = z
     metrics: z
       .lazy(() => epidemiologicalMetricsSchema)
       .describe(
-        'Schema para métricas epidemiológicas segmentadas (ADR-017).\n\nVersão 2.0 (ADR-027): Campos duplicados removidos para reduzir redundância.\n- place_id, unit_type, week_ending_date: Movidos para WeeklyAggregationResponse\n- calculation_params: Movido para nível raiz da resposta'
+        'Schema para metricas epidemiologicas segmentadas.\n\nVersao 2.1 (ADR-027): Campos legados renomeados para _week, segmento fim de semana removido.\n- place_id, unit_type, week_ending_date: Movidos para WeeklyAggregationResponse\n- calculation_params: Movido para nivel raiz da resposta\n- 2 segmentos: week (todos os pontos) e weekday (dias uteis)'
       ),
     min_percentage: z.optional(z.union([z.number(), z.null()])),
     max_percentage: z.optional(z.union([z.number(), z.null()])),

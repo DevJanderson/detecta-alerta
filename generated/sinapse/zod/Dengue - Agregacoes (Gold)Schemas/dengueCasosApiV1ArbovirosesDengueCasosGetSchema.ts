@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const dengueCasosApiV1ArbovirosesDengueCasosGetQueryParamsSchema = z.object({
   ano_inicio: z.optional(
@@ -13,7 +13,7 @@ export const dengueCasosApiV1ArbovirosesDengueCasosGetQueryParamsSchema = z.obje
   ano_fim: z.optional(z.union([z.coerce.number().int(), z.null()]).describe('Ano final do range')),
   uf: z.optional(z.union([z.string(), z.null()]).describe('Filtrar por UF (sigla)')),
   municipio: z.optional(
-    z.union([z.coerce.number().int(), z.null()]).describe('Filtrar por codigo IBGE do municipio')
+    z.union([z.string(), z.null()]).describe('Filtrar por codigo IBGE do municipio')
   ),
   cursor: z.optional(z.union([z.string(), z.null()]).describe('Cursor para paginacao')),
   limit: z.coerce.number().int().min(1).max(100).default(50).describe('Limite de resultados')

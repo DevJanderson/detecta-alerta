@@ -4,6 +4,7 @@
  */
 
 /**
+ * TrendPeriodMetadata
  * @description Metadados do período de análise de tendências.
  */
 export type TrendPeriodMetadata = {

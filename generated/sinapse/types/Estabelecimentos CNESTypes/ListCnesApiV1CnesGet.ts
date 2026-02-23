@@ -57,11 +57,13 @@ export type ListCnesApiV1CnesGetQueryParams = {
 }
 
 /**
+ * PaginatedCnesResponse
  * @description Lista paginada de registros
  */
 export type ListCnesApiV1CnesGet200 = PaginatedCnesResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ListCnesApiV1CnesGet422 = HTTPValidationError

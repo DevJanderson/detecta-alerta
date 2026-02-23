@@ -3,11 +3,11 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { trendFiltersMetadataSchema } from './trendFiltersMetadataSchema'
 import { trendItemSchema } from './trendItemSchema'
 import { trendPaginationMetadataSchema } from './trendPaginationMetadataSchema'
 import { trendPeriodMetadataSchema } from './trendPeriodMetadataSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema de resposta completo para o endpoint /trends.

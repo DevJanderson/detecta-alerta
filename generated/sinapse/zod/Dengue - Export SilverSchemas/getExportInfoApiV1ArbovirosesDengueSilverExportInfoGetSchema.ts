@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { modulesArbovirosesSchemasExportSchemasExportInfoResponseSchema } from '../modulesArbovirosesSchemasExportSchemasExportInfoResponseSchema'
-import { z } from 'zod'
 
 /**
  * @description Successful Response

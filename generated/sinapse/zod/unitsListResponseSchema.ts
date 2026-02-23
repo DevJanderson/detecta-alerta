@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { unitFiltersMetadataSchema } from './unitFiltersMetadataSchema'
 import { unitInListSchema } from './unitInListSchema'
-import { z } from 'zod'
 
 /**
  * @description Resposta estruturada para listagem de unidades (seguindo padrão ADR-029).

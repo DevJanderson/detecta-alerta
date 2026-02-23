@@ -37,6 +37,7 @@ export type HandleTendenciasApiV1ArbovirosesDengueTendenciasGetQueryParams = {
 export type HandleTendenciasApiV1ArbovirosesDengueTendenciasGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type HandleTendenciasApiV1ArbovirosesDengueTendenciasGet422 = HTTPValidationError

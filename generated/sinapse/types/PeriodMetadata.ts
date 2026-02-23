@@ -4,6 +4,7 @@
  */
 
 /**
+ * PeriodMetadata
  * @description Metadados do período analisado.
  */
 export type PeriodMetadata = {

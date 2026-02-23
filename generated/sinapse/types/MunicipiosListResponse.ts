@@ -7,6 +7,7 @@ import type { ModulesIbgeSchemasPaginationInfo } from './ModulesIbgeSchemasPagin
 import type { MunicipioResponse } from './MunicipioResponse'
 
 /**
+ * MunicipiosListResponse
  * @description Resposta paginada de municípios.
  */
 export type MunicipiosListResponse = {

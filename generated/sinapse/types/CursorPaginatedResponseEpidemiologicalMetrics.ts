@@ -6,6 +6,9 @@
 import type { EpidemiologicalMetrics } from './EpidemiologicalMetrics'
 import type { PaginationMeta } from './PaginationMeta'
 
+/**
+ * CursorPaginatedResponse[EpidemiologicalMetrics]
+ */
 export type CursorPaginatedResponseEpidemiologicalMetrics = {
   /**
    * @description Lista de itens da página atual

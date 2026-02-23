@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import * as z from 'zod'
 
 export const bodyResetPasswordApiV1AuthResetPasswordPostSchema = z.object({
   email: z.string()

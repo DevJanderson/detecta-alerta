@@ -4,6 +4,7 @@
  */
 
 /**
+ * RefreshTokenRequest
  * @description Schema para requisição de refresh token.
  */
 export type RefreshTokenRequest = {

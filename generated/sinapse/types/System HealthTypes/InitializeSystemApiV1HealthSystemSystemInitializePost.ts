@@ -8,17 +8,20 @@ import type { SystemInitializeResponse } from '../SystemInitializeResponse'
 import type { SystemInitializeSchema } from '../SystemInitializeSchema'
 
 /**
+ * SystemInitializeResponse
  * @description Sistema inicializado com sucesso
  * @example [object Object]
  */
 export type InitializeSystemApiV1HealthSystemSystemInitializePost201 = SystemInitializeResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type InitializeSystemApiV1HealthSystemSystemInitializePost422 = HTTPValidationError
 
 /**
+ * SystemInitializeSchema
  * @example [object Object]
  */
 export type InitializeSystemApiV1HealthSystemSystemInitializePostMutationRequest =

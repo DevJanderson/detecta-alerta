@@ -4,6 +4,7 @@
  */
 
 /**
+ * JobsPaginationInfo
  * @description Informações de paginação cursor-based para jobs.
  */
 export type JobsPaginationInfo = {

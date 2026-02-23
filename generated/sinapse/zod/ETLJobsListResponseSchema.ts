@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { ETLJobStatusResponseSchema } from './ETLJobStatusResponseSchema'
 import { jobsFiltersInfoSchema } from './jobsFiltersInfoSchema'
 import { jobsPaginationInfoSchema } from './jobsPaginationInfoSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema de resposta com filtros e paginação para lista de jobs.

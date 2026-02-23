@@ -12,10 +12,14 @@ import type { HTTPValidationError } from '../HTTPValidationError'
 export type ResetPasswordApiV1AuthResetPasswordPost200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ResetPasswordApiV1AuthResetPasswordPost422 = HTTPValidationError
 
+/**
+ * Body_reset_password_api_v1_auth_reset_password_post
+ */
 export type ResetPasswordApiV1AuthResetPasswordPostMutationRequest =
   BodyResetPasswordApiV1AuthResetPasswordPost
 

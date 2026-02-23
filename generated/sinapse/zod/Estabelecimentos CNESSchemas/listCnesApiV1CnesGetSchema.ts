@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { paginatedCnesResponseSchema } from '../paginatedCnesResponseSchema'
-import { z } from 'zod'
 
 export const listCnesApiV1CnesGetQueryParamsSchema = z.object({
   page: z.coerce.number().int().min(1).default(1).describe('Número da página'),

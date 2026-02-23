@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { periodMetadataSchema } from './periodMetadataSchema'
 import { reportFiltersMetadataSchema } from './reportFiltersMetadataSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para resumo executivo.

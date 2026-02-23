@@ -25,12 +25,14 @@ export type GetNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGetQueryPara
 }
 
 /**
+ * NoticiasRelacionadasResponse
  * @description Lista de noticias relacionadas com criterio usado
  */
 export type GetNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGet200 =
   NoticiasRelacionadasResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetNoticiasRelacionadasApiV1NoticiasUniqueIdRelacionadasGet422 = HTTPValidationError

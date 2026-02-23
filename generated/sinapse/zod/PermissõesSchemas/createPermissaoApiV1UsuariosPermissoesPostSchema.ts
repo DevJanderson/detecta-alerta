@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { permissaoAcessoSchemaCreateSchema } from '../permissaoAcessoSchemaCreateSchema'
 import { permissaoAcessoSchemaListSchema } from '../permissaoAcessoSchemaListSchema'
-import { z } from 'zod'
 
 /**
  * @description Permissão criada com sucesso

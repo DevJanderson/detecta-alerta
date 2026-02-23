@@ -4,6 +4,7 @@
  */
 
 /**
+ * ComparativeReportResponse
  * @description Schema para resposta de relatório comparativo.
  */
 export type ComparativeReportResponse = {

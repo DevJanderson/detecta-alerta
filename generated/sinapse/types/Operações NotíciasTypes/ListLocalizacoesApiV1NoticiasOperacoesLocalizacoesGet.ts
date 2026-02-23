@@ -24,11 +24,13 @@ export type ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGetQueryParams = {
 }
 
 /**
+ * Response List Localizacoes Api V1 Noticias Operacoes Localizacoes Get
  * @description Lista de localizacoes
  */
 export type ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGet200 = Regiao[]
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ListLocalizacoesApiV1NoticiasOperacoesLocalizacoesGet422 = HTTPValidationError

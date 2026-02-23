@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { campoMetadadosSchema } from './campoMetadadosSchema'
-import { z } from 'zod'
 
 /**
  * @description Resposta da lista de campos do dicionário.

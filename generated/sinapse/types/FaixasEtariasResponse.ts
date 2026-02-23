@@ -6,6 +6,7 @@
 import type { FaixaEtariaMetadataResponse } from './FaixaEtariaMetadataResponse'
 
 /**
+ * FaixasEtariasResponse
  * @description Lista de faixas etárias disponíveis.
  */
 export type FaixasEtariasResponse = {

@@ -8,15 +8,20 @@ import type { UsuarioSchemaSignup } from '../UsuarioSchemaSignup'
 import type { UsuarioSchemaSignupResponse } from '../UsuarioSchemaSignupResponse'
 
 /**
+ * UsuarioSchemaSignupResponse
  * @description Usuário criado com sucesso
  */
 export type SignupApiV1UsuariosSignupPost201 = UsuarioSchemaSignupResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type SignupApiV1UsuariosSignupPost422 = HTTPValidationError
 
+/**
+ * UsuarioSchemaSignup
+ */
 export type SignupApiV1UsuariosSignupPostMutationRequest = UsuarioSchemaSignup
 
 export type SignupApiV1UsuariosSignupPostMutationResponse = SignupApiV1UsuariosSignupPost201

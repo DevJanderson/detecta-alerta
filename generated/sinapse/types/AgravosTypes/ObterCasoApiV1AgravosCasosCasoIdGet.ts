@@ -14,11 +14,13 @@ export type ObterCasoApiV1AgravosCasosCasoIdGetPathParams = {
 }
 
 /**
+ * CasoAgravo
  * @description Successful Response
  */
 export type ObterCasoApiV1AgravosCasosCasoIdGet200 = CasoAgravo
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ObterCasoApiV1AgravosCasosCasoIdGet422 = HTTPValidationError

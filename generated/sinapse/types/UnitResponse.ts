@@ -6,6 +6,7 @@
 import type { OperationalProfileEnum } from './OperationalProfileEnum'
 
 /**
+ * UnitResponse
  * @description Schema de resposta detalhado para unidade.
  */
 export type UnitResponse = {
@@ -161,45 +162,29 @@ export type UnitResponse = {
    */
   average_occupancy_week?: number | null
   /**
-   * @description Média de ocupação dias úteis
+   * @description Media de ocupacao dias uteis
    */
   average_occupancy_week_weekday?: number | null
   /**
-   * @description Média de ocupação fins de semana
-   */
-  average_occupancy_week_weekend?: number | null
-  /**
-   * @description Registros em dias úteis na semana
+   * @description Registros em dias uteis na semana
    */
   data_points_week_weekday?: number | null
   /**
-   * @description Registros em fins de semana na semana
+   * @description Media movel 42 dias - semana
    */
-  data_points_week_weekend?: number | null
+  moving_avg_week?: number | null
   /**
-   * @description Média móvel 42 dias - todos os pontos
+   * @description Media movel 42 dias - dias uteis
    */
-  moving_avg_all_42d?: number | null
+  moving_avg_weekday?: number | null
   /**
-   * @description Média móvel 42 dias - dias úteis
+   * @description Z-score semanal
    */
-  moving_avg_weekday_42d?: number | null
+  z_score_week?: number | null
   /**
-   * @description Média móvel 42 dias - fins de semana
-   */
-  moving_avg_weekend_42d?: number | null
-  /**
-   * @description Z-score geral
-   */
-  z_score_all?: number | null
-  /**
-   * @description Z-score dias úteis
+   * @description Z-score dias uteis
    */
   z_score_weekday?: number | null
-  /**
-   * @description Z-score fins de semana
-   */
-  z_score_weekend?: number | null
   /**
    * @description Razão do alerta epidemiológico
    */

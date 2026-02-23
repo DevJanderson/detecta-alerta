@@ -6,6 +6,7 @@
 import type { TokenUsage } from './TokenUsage'
 
 /**
+ * LLMQueryResponse
  * @description Schema para resposta de query LLM.
  */
 export type LLMQueryResponse = {

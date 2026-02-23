@@ -4,6 +4,7 @@
  */
 
 /**
+ * PlaceNearbyRequest
  * @description Schema para busca de lugares próximos.
  */
 export type PlaceNearbyRequest = {

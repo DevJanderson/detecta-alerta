@@ -6,6 +6,7 @@
 import type { ModulesArbovirosesSchemasExportSchemasExportInfoResponse } from '../ModulesArbovirosesSchemasExportSchemasExportInfoResponse'
 
 /**
+ * ExportInfoResponse
  * @description Successful Response
  */
 export type GetExportInfoApiV1ArbovirosesDengueSilverExportInfoGet200 =

@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * GrupoSchemaCreate
+ */
 export type GrupoSchemaCreate = {
   /**
    * @type string

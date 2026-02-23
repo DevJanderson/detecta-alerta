@@ -4,6 +4,7 @@
  */
 
 /**
+ * TendenciaTemporal
  * @description Tendencia identificada na serie temporal.\n\nAttributes:\n    direcao: Direcao da tendencia (crescente, decrescente, estavel)\n    variacao_percentual: Variacao percentual no periodo\n    dias_analisados: Numero de dias analisados
  */
 export type TendenciaTemporal = {

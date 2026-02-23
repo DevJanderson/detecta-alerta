@@ -4,6 +4,7 @@
  */
 
 /**
+ * RealTimePaginationMetadata
  * @description Metadados de paginação cursor-based para dados em tempo real.
  */
 export type RealTimePaginationMetadata = {

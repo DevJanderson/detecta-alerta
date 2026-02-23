@@ -4,6 +4,7 @@
  */
 
 /**
+ * CustomExportRequest
  * @description Schema para requisição de export personalizado.
  */
 export type CustomExportRequest = {

@@ -4,6 +4,7 @@
  */
 
 /**
+ * ETLJobCancelResponse
  * @description Schema de resposta para cancelamento de job.
  */
 export type ETLJobCancelResponse = {

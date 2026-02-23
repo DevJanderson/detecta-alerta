@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { casoAgravoSchema } from '../casoAgravoSchema'
 import { casoAgravoUpdateSchema } from '../casoAgravoUpdateSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const atualizarCasoApiV1AgravosCasosCasoIdPutPathParamsSchema = z.object({
   caso_id: z.coerce.number().int()

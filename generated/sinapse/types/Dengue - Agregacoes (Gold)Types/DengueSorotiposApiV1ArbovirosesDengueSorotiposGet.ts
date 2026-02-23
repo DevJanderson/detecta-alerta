@@ -34,6 +34,7 @@ export type DengueSorotiposApiV1ArbovirosesDengueSorotiposGetQueryParams = {
 export type DengueSorotiposApiV1ArbovirosesDengueSorotiposGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DengueSorotiposApiV1ArbovirosesDengueSorotiposGet422 = HTTPValidationError

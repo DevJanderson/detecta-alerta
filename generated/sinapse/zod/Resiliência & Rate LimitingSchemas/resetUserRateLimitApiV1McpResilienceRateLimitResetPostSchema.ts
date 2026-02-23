@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const resetUserRateLimitApiV1McpResilienceRateLimitResetPostQueryParamsSchema = z.object({
   user_id: z.coerce.number().int()

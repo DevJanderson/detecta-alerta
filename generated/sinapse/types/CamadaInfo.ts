@@ -4,6 +4,7 @@
  */
 
 /**
+ * CamadaInfo
  * @description Informações de uma camada de dados.
  */
 export type CamadaInfo = {

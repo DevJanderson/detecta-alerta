@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { localizacaoInputSchema } from './localizacaoInputSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para criacao de noticias.

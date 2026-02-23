@@ -15,15 +15,20 @@ export type AtualizarCasoApiV1AgravosCasosCasoIdPutPathParams = {
 }
 
 /**
+ * CasoAgravo
  * @description Successful Response
  */
 export type AtualizarCasoApiV1AgravosCasosCasoIdPut200 = CasoAgravo
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type AtualizarCasoApiV1AgravosCasosCasoIdPut422 = HTTPValidationError
 
+/**
+ * CasoAgravoUpdate
+ */
 export type AtualizarCasoApiV1AgravosCasosCasoIdPutMutationRequest = CasoAgravoUpdate
 
 export type AtualizarCasoApiV1AgravosCasosCasoIdPutMutationResponse =

@@ -53,11 +53,13 @@ export type GetAnaliseTemporalApiV1NoticiasEstatisticasTemporalGetQueryParams = 
 }
 
 /**
+ * AnaliseTemporalNoticias
  * @description Successful Response
  */
 export type GetAnaliseTemporalApiV1NoticiasEstatisticasTemporalGet200 = AnaliseTemporalNoticias
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetAnaliseTemporalApiV1NoticiasEstatisticasTemporalGet422 = HTTPValidationError

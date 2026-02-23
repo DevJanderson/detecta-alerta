@@ -4,6 +4,7 @@
  */
 
 /**
+ * ExportFiltersInfo
  * @description Filtros aplicados na exportação.
  */
 export type ExportFiltersInfo = {

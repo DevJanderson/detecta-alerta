@@ -15,12 +15,14 @@ export type GetEstatisticasPorClassificacaoApiV1CnesEstatisticasPorClassificacao
   }
 
 /**
+ * EstatisticasClassificacao
  * @description Estatísticas da classificação
  */
 export type GetEstatisticasPorClassificacaoApiV1CnesEstatisticasPorClassificacaoClassificacaoGet200 =
   EstatisticasClassificacao
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type GetEstatisticasPorClassificacaoApiV1CnesEstatisticasPorClassificacaoClassificacaoGet422 =

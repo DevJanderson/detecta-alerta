@@ -9,6 +9,7 @@ import type { AnomalyUnit } from './AnomalyUnit'
 import type { TrendPaginationMetadata } from './TrendPaginationMetadata'
 
 /**
+ * AnomaliesResponse
  * @description Schema de resposta paginado para o endpoint /anomalies.
  */
 export type AnomaliesResponse = {

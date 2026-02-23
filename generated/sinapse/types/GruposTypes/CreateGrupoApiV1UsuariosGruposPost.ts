@@ -8,15 +8,20 @@ import type { GrupoSchemaDetalhes } from '../GrupoSchemaDetalhes'
 import type { HTTPValidationError } from '../HTTPValidationError'
 
 /**
+ * GrupoSchemaDetalhes
  * @description Grupo criado com sucesso
  */
 export type CreateGrupoApiV1UsuariosGruposPost201 = GrupoSchemaDetalhes
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type CreateGrupoApiV1UsuariosGruposPost422 = HTTPValidationError
 
+/**
+ * GrupoSchemaCreate
+ */
 export type CreateGrupoApiV1UsuariosGruposPostMutationRequest = GrupoSchemaCreate
 
 export type CreateGrupoApiV1UsuariosGruposPostMutationResponse =

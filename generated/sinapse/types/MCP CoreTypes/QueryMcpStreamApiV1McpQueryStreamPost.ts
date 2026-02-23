@@ -12,10 +12,14 @@ import type { LLMQueryRequest } from '../LLMQueryRequest'
 export type QueryMcpStreamApiV1McpQueryStreamPost200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type QueryMcpStreamApiV1McpQueryStreamPost422 = HTTPValidationError
 
+/**
+ * LLMQueryRequest
+ */
 export type QueryMcpStreamApiV1McpQueryStreamPostMutationRequest = LLMQueryRequest
 
 export type QueryMcpStreamApiV1McpQueryStreamPostMutationResponse =

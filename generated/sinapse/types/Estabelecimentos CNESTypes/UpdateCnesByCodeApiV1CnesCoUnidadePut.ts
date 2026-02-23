@@ -23,15 +23,20 @@ export type UpdateCnesByCodeApiV1CnesCoUnidadePutQueryParams = {
 }
 
 /**
+ * Cnes
  * @description Registro atualizado com sucesso
  */
 export type UpdateCnesByCodeApiV1CnesCoUnidadePut200 = Cnes
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type UpdateCnesByCodeApiV1CnesCoUnidadePut422 = HTTPValidationError
 
+/**
+ * CnesUpdate
+ */
 export type UpdateCnesByCodeApiV1CnesCoUnidadePutMutationRequest = CnesUpdate
 
 export type UpdateCnesByCodeApiV1CnesCoUnidadePutMutationResponse =

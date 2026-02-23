@@ -9,6 +9,7 @@ import type { AlertsSummaryMetadata } from './AlertsSummaryMetadata'
 import type { TrendPaginationMetadata } from './TrendPaginationMetadata'
 
 /**
+ * AlertsResponse
  * @description Schema de resposta paginado para o endpoint /alerts.
  * @example [object Object]
  */

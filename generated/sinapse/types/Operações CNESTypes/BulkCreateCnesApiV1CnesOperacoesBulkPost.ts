@@ -8,15 +8,20 @@ import type { CnesBulkCreate } from '../CnesBulkCreate'
 import type { HTTPValidationError } from '../HTTPValidationError'
 
 /**
+ * Response Bulk Create Cnes Api V1 Cnes Operacoes Bulk Post
  * @description Registros criados com sucesso
  */
 export type BulkCreateCnesApiV1CnesOperacoesBulkPost201 = Cnes[]
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type BulkCreateCnesApiV1CnesOperacoesBulkPost422 = HTTPValidationError
 
+/**
+ * CnesBulkCreate
+ */
 export type BulkCreateCnesApiV1CnesOperacoesBulkPostMutationRequest = CnesBulkCreate
 
 export type BulkCreateCnesApiV1CnesOperacoesBulkPostMutationResponse =

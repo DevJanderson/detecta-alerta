@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { classificacaoFinalSchema } from './classificacaoFinalSchema'
 import { tipoCasoSchema } from './tipoCasoSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para atualização de caso.

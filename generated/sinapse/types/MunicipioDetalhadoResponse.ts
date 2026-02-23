@@ -4,6 +4,7 @@
  */
 
 /**
+ * MunicipioDetalhadoResponse
  * @description Resposta detalhada com metadados.
  */
 export type MunicipioDetalhadoResponse = {

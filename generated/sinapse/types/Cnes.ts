@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * Cnes
+ */
 export type Cnes = {
   /**
    * @type integer

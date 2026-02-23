@@ -9,6 +9,7 @@ import type { TrendPaginationMetadata } from './TrendPaginationMetadata'
 import type { TrendPeriodMetadata } from './TrendPeriodMetadata'
 
 /**
+ * TrendsResponse
  * @description Schema de resposta completo para o endpoint /trends.
  * @example [object Object]
  */

@@ -8,6 +8,7 @@ import type { RealTimeFiltersMetadata } from './RealTimeFiltersMetadata'
 import type { RealTimePaginationMetadata } from './RealTimePaginationMetadata'
 
 /**
+ * RealTimeResponse
  * @description Schema de resposta paginada para dados em tempo real.
  * @example [object Object]
  */

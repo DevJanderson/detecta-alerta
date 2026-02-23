@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { casosPaginadosSchema } from '../casosPaginadosSchema'
 import { classificacaoFinalSchema } from '../classificacaoFinalSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const listarCasosApiV1AgravosCasosGetQueryParamsSchema = z.object({
   page: z.coerce.number().int().min(1).default(1).describe('Número da página'),

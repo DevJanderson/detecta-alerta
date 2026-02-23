@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * UsuarioSchemaUpdate
+ */
 export type UsuarioSchemaUpdate = {
   /**
    * @type string

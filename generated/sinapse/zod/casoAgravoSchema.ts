@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { agravoSchema } from './agravoSchema'
 import { classificacaoFinalSchema } from './classificacaoFinalSchema'
 import { tipoCasoSchema } from './tipoCasoSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema completo de caso.

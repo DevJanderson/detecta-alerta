@@ -25,11 +25,13 @@ export type ListGruposApiV1UsuariosGruposGetQueryParams = {
 }
 
 /**
+ * GruposPaginadosSchema
  * @description Lista de grupos
  */
 export type ListGruposApiV1UsuariosGruposGet200 = GruposPaginadosSchema
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ListGruposApiV1UsuariosGruposGet422 = HTTPValidationError

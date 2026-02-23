@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { exportJSONResponseSchema } from '../exportJSONResponseSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const exportJsonApiV1ArbovirosesDengueSilverExportJsonGetQueryParamsSchema = z.object({
   ano_inicio: z.optional(

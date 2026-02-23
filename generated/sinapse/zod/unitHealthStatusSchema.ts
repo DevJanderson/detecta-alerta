@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { lastDataInfoSchema } from './lastDataInfoSchema'
-import { z } from 'zod'
 
 /**
  * @description Status de saúde da coleta de uma unidade.

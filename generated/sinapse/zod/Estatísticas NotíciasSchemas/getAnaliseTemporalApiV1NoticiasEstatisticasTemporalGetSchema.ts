@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { analiseTemporalNoticiasSchema } from '../analiseTemporalNoticiasSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const getAnaliseTemporalApiV1NoticiasEstatisticasTemporalGetQueryParamsSchema = z.object({
   data_inicio: z.string().date().describe('Data inicial da análise'),

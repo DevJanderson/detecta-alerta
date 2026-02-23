@@ -4,6 +4,7 @@
  */
 
 /**
+ * ETLJobStatusResponse
  * @description Schema de resposta para status de job ETL.
  */
 export type ETLJobStatusResponse = {

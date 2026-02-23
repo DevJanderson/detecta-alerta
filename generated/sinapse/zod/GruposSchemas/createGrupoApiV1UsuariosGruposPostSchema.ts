@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { grupoSchemaCreateSchema } from '../grupoSchemaCreateSchema'
 import { grupoSchemaDetalhesSchema } from '../grupoSchemaDetalhesSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 /**
  * @description Grupo criado com sucesso

@@ -5,6 +5,9 @@
 
 import type { Cnes } from './Cnes'
 
+/**
+ * PaginatedCnesResponse
+ */
 export type PaginatedCnesResponse = {
   /**
    * @type integer

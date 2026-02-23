@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * GrupoSchemaUpdate
+ */
 export type GrupoSchemaUpdate = {
   nome?: string | null
   descricao?: string | null

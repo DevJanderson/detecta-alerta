@@ -6,6 +6,7 @@
 import type { NoticiaResumida } from './NoticiaResumida'
 
 /**
+ * NoticiasRelacionadasResponse
  * @description Resposta do endpoint de noticias relacionadas.
  */
 export type NoticiasRelacionadasResponse = {

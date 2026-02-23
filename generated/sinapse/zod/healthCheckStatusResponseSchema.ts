@@ -3,11 +3,11 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { healthCheckFiltersSchema } from './healthCheckFiltersSchema'
 import { healthCheckPaginationSchema } from './healthCheckPaginationSchema'
 import { healthCheckSummarySchema } from './healthCheckSummarySchema'
 import { unitHealthStatusSchema } from './unitHealthStatusSchema'
-import { z } from 'zod'
 
 /**
  * @description Resposta do status geral do health check.

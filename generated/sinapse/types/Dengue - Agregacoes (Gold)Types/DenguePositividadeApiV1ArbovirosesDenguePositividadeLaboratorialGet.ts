@@ -34,6 +34,7 @@ export type DenguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGetQ
 export type DenguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DenguePositividadeApiV1ArbovirosesDenguePositividadeLaboratorialGet422 =

@@ -6,6 +6,7 @@
 import type { LastDataInfo } from './LastDataInfo'
 
 /**
+ * UnitHealthStatus
  * @description Status de saúde da coleta de uma unidade.
  */
 export type UnitHealthStatus = {

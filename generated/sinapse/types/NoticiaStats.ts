@@ -4,6 +4,7 @@
  */
 
 /**
+ * NoticiaStats
  * @description Estatisticas de noticias.
  */
 export type NoticiaStats = {

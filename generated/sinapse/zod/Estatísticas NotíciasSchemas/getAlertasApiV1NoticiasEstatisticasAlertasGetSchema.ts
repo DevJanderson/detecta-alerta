@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { resumoAlertasNoticiasSchema } from '../resumoAlertasNoticiasSchema'
-import { z } from 'zod'
 
 export const getAlertasApiV1NoticiasEstatisticasAlertasGetQueryParamsSchema = z.object({
   dias_analise: z.coerce

@@ -4,6 +4,7 @@
  */
 
 /**
+ * AlertsSummaryMetadata
  * @description Metadados de resumo dos alertas.
  */
 export type AlertsSummaryMetadata = {

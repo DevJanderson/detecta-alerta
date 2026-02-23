@@ -38,6 +38,7 @@ export type DengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGetQueryPara
 export type DengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DengueHospitalizacaoApiV1ArbovirosesDengueHospitalizacaoGet422 = HTTPValidationError

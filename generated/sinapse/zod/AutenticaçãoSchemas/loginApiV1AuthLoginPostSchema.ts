@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { loginRequestSchema } from '../loginRequestSchema'
 import { tokenSchema } from '../tokenSchema'
-import { z } from 'zod'
 
 /**
  * @description Tokens de acesso e atualização

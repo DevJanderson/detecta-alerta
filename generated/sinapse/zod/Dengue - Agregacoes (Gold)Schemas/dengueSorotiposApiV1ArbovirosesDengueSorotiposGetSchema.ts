@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const dengueSorotiposApiV1ArbovirosesDengueSorotiposGetQueryParamsSchema = z.object({
   ano_inicio: z.optional(

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { LLMStatusSchema } from '../LLMStatusSchema'
-import { z } from 'zod'
 
 /**
  * @description Successful Response

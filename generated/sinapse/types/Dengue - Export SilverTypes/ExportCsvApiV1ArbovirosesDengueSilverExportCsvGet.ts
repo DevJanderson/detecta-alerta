@@ -38,6 +38,7 @@ export type ExportCsvApiV1ArbovirosesDengueSilverExportCsvGetQueryParams = {
 export type ExportCsvApiV1ArbovirosesDengueSilverExportCsvGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ExportCsvApiV1ArbovirosesDengueSilverExportCsvGet422 = HTTPValidationError

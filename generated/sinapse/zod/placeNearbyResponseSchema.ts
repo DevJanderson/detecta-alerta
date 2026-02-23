@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { placeNearbyResultSchema } from './placeNearbyResultSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para resposta de busca nearby.

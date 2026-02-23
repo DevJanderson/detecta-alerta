@@ -4,16 +4,17 @@
  */
 
 /**
- * @description Schema para métricas epidemiológicas segmentadas (ADR-017).\n\nVersão 2.0 (ADR-027): Campos duplicados removidos para reduzir redundância.\n- place_id, unit_type, week_ending_date: Movidos para WeeklyAggregationResponse\n- calculation_params: Movido para nível raiz da resposta
+ * EpidemiologicalMetrics
+ * @description Schema para metricas epidemiologicas segmentadas.\n\nVersao 2.1 (ADR-027): Campos legados renomeados para _week, segmento fim de semana removido.\n- place_id, unit_type, week_ending_date: Movidos para WeeklyAggregationResponse\n- calculation_params: Movido para nivel raiz da resposta\n- 2 segmentos: week (todos os pontos) e weekday (dias uteis)
  */
 export type EpidemiologicalMetrics = {
   /**
-   * @description Nome da unidade/região
+   * @description Nome da unidade/regiao
    * @type string
    */
   unit_name: string
   /**
-   * @description Semana epidemiológica (YYYY-WNN)
+   * @description Semana epidemiologica (YYYY-WNN)
    * @type string
    */
   epidemiological_week: string
@@ -26,105 +27,81 @@ export type EpidemiologicalMetrics = {
    */
   location_lng?: number | null
   /**
-   * @description Média de ocupação geral (%)
+   * @description Media de ocupacao semanal (%)
    */
-  average_occupancy_all?: number | null
+  average_occupancy_week?: number | null
   /**
    * @description Total de pontos de dados
    */
-  data_points_all?: number | null
+  data_points_week?: number | null
   /**
-   * @description Média móvel 42 dias - geral
+   * @description Media movel 42 dias - semana
    */
-  moving_avg_all?: number | null
+  moving_avg_week?: number | null
   /**
-   * @description Z-score geral
+   * @description Z-score semanal
    */
-  z_score_all?: number | null
+  z_score_week?: number | null
   /**
-   * @description Tendência geral: up, down, stable
+   * @description Tendencia semanal: up, down, stable
    */
-  trend_all?: string | null
+  trend_week?: string | null
   /**
-   * @description Média ocupação dias úteis (%)
+   * @description Media ocupacao dias uteis (%)
    */
   average_occupancy_weekday?: number | null
   /**
-   * @description Pontos de dados em dias úteis
+   * @description Pontos de dados em dias uteis
    */
   data_points_weekday?: number | null
   /**
-   * @description Média móvel 42 dias - dias úteis
+   * @description Media movel 42 dias - dias uteis
    */
   moving_avg_weekday?: number | null
   /**
-   * @description Z-score dias úteis
+   * @description Z-score dias uteis
    */
   z_score_weekday?: number | null
   /**
-   * @description Tendência dias úteis
+   * @description Tendencia dias uteis
    */
   trend_weekday?: string | null
-  /**
-   * @description Média ocupação fins de semana (%)
-   */
-  average_occupancy_weekend?: number | null
-  /**
-   * @description Pontos de dados em fins de semana
-   */
-  data_points_weekend?: number | null
-  /**
-   * @description Média móvel 42 dias - fins de semana
-   */
-  moving_avg_weekend?: number | null
-  /**
-   * @description Z-score fins de semana
-   */
-  z_score_weekend?: number | null
-  /**
-   * @description Tendência fins de semana
-   */
-  trend_weekend?: string | null
   /**
    * @description Status global (pior caso): green, yellow, red
    * @type string
    */
   alert_status: string
   /**
-   * @description Status métrica geral: green, yellow, red
+   * @description Status metrica semanal: green, yellow, red
    */
-  status_all?: string | null
+  status_week?: string | null
   /**
-   * @description Status métrica weekday: green, yellow, red
+   * @description Status metrica weekday: green, yellow, red
    */
   status_weekday?: string | null
   /**
-   * @description Status métrica weekend: green, yellow, red
-   */
-  status_weekend?: string | null
-  /**
-   * @description Razão do alerta (ex: Anomalia em dias úteis)
+   * @description Razao do alerta (ex: Anomalia em dias uteis)
    */
   alert_reason?: string | null
   /**
-   * @description Variação vs semana anterior - geral (%)
+   * @description Variacao vs semana anterior - semanal (%)
    */
-  vs_previous_week_all?: number | null
+  vs_previous_week_week?: number | null
   /**
-   * @description Variação vs semana anterior - dias úteis (%)
+   * @description Variacao vs semana anterior - dias uteis (%)
    */
   vs_previous_week_weekday?: number | null
   /**
-   * @description Variação vs semana anterior - fins de semana (%)
-   */
-  vs_previous_week_weekend?: number | null
-  /**
-   * @description Data/hora do cálculo
+   * @description Data/hora do calculo
    * @type string, date-time
    */
   calculated_at: string
   /**
-   * @description Nível de confiança: high, medium, low
+   * @description Nivel de confianca: high, medium, low
    */
   confidence_level?: string | null
+  /**
+   * @description Aviso sobre dados (ex: fallback para semana diferente da solicitada)
+   */
+  warning?: string | null
 }

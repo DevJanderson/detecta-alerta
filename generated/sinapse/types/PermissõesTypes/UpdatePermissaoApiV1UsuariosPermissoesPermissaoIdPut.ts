@@ -15,15 +15,20 @@ export type UpdatePermissaoApiV1UsuariosPermissoesPermissaoIdPutPathParams = {
 }
 
 /**
+ * PermissaoAcessoSchemaList
  * @description Permissão atualizada com sucesso
  */
 export type UpdatePermissaoApiV1UsuariosPermissoesPermissaoIdPut200 = PermissaoAcessoSchemaList
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type UpdatePermissaoApiV1UsuariosPermissoesPermissaoIdPut422 = HTTPValidationError
 
+/**
+ * PermissaoAcessoSchemaUpdate
+ */
 export type UpdatePermissaoApiV1UsuariosPermissoesPermissaoIdPutMutationRequest =
   PermissaoAcessoSchemaUpdate
 

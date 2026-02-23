@@ -4,6 +4,7 @@
  */
 
 /**
+ * SystemInitializeResponse
  * @description Resposta da inicialização do sistema.
  * @example [object Object]
  */

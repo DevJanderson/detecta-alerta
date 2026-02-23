@@ -3,83 +3,71 @@
  * Do not edit manually.
  */
 
-import { z } from 'zod'
+import * as z from 'zod'
 
 /**
- * @description Schema para métricas epidemiológicas segmentadas (ADR-017).\n\nVersão 2.0 (ADR-027): Campos duplicados removidos para reduzir redundância.\n- place_id, unit_type, week_ending_date: Movidos para WeeklyAggregationResponse\n- calculation_params: Movido para nível raiz da resposta
+ * @description Schema para metricas epidemiologicas segmentadas.\n\nVersao 2.1 (ADR-027): Campos legados renomeados para _week, segmento fim de semana removido.\n- place_id, unit_type, week_ending_date: Movidos para WeeklyAggregationResponse\n- calculation_params: Movido para nivel raiz da resposta\n- 2 segmentos: week (todos os pontos) e weekday (dias uteis)
  */
 export const epidemiologicalMetricsSchema = z
   .object({
-    unit_name: z.string().describe('Nome da unidade/região'),
-    epidemiological_week: z.string().describe('Semana epidemiológica (YYYY-WNN)'),
+    unit_name: z.string().describe('Nome da unidade/regiao'),
+    epidemiological_week: z.string().describe('Semana epidemiologica (YYYY-WNN)'),
     location_lat: z.optional(
       z.union([z.number(), z.null()]).describe('Latitude da unidade (apenas para level=unit)')
     ),
     location_lng: z.optional(
       z.union([z.number(), z.null()]).describe('Longitude da unidade (apenas para level=unit)')
     ),
-    average_occupancy_all: z.optional(
-      z.union([z.number(), z.null()]).describe('Média de ocupação geral (%)')
+    average_occupancy_week: z.optional(
+      z.union([z.number(), z.null()]).describe('Media de ocupacao semanal (%)')
     ),
-    data_points_all: z.optional(
+    data_points_week: z.optional(
       z.union([z.number().int(), z.null()]).describe('Total de pontos de dados')
     ),
-    moving_avg_all: z.optional(
-      z.union([z.number(), z.null()]).describe('Média móvel 42 dias - geral')
+    moving_avg_week: z.optional(
+      z.union([z.number(), z.null()]).describe('Media movel 42 dias - semana')
     ),
-    z_score_all: z.optional(z.union([z.number(), z.null()]).describe('Z-score geral')),
-    trend_all: z.optional(
-      z.union([z.string(), z.null()]).describe('Tendência geral: up, down, stable')
+    z_score_week: z.optional(z.union([z.number(), z.null()]).describe('Z-score semanal')),
+    trend_week: z.optional(
+      z.union([z.string(), z.null()]).describe('Tendencia semanal: up, down, stable')
     ),
     average_occupancy_weekday: z.optional(
-      z.union([z.number(), z.null()]).describe('Média ocupação dias úteis (%)')
+      z.union([z.number(), z.null()]).describe('Media ocupacao dias uteis (%)')
     ),
     data_points_weekday: z.optional(
-      z.union([z.number().int(), z.null()]).describe('Pontos de dados em dias úteis')
+      z.union([z.number().int(), z.null()]).describe('Pontos de dados em dias uteis')
     ),
     moving_avg_weekday: z.optional(
-      z.union([z.number(), z.null()]).describe('Média móvel 42 dias - dias úteis')
+      z.union([z.number(), z.null()]).describe('Media movel 42 dias - dias uteis')
     ),
-    z_score_weekday: z.optional(z.union([z.number(), z.null()]).describe('Z-score dias úteis')),
-    trend_weekday: z.optional(z.union([z.string(), z.null()]).describe('Tendência dias úteis')),
-    average_occupancy_weekend: z.optional(
-      z.union([z.number(), z.null()]).describe('Média ocupação fins de semana (%)')
-    ),
-    data_points_weekend: z.optional(
-      z.union([z.number().int(), z.null()]).describe('Pontos de dados em fins de semana')
-    ),
-    moving_avg_weekend: z.optional(
-      z.union([z.number(), z.null()]).describe('Média móvel 42 dias - fins de semana')
-    ),
-    z_score_weekend: z.optional(z.union([z.number(), z.null()]).describe('Z-score fins de semana')),
-    trend_weekend: z.optional(z.union([z.string(), z.null()]).describe('Tendência fins de semana')),
+    z_score_weekday: z.optional(z.union([z.number(), z.null()]).describe('Z-score dias uteis')),
+    trend_weekday: z.optional(z.union([z.string(), z.null()]).describe('Tendencia dias uteis')),
     alert_status: z.string().describe('Status global (pior caso): green, yellow, red'),
-    status_all: z.optional(
-      z.union([z.string(), z.null()]).describe('Status métrica geral: green, yellow, red')
+    status_week: z.optional(
+      z.union([z.string(), z.null()]).describe('Status metrica semanal: green, yellow, red')
     ),
     status_weekday: z.optional(
-      z.union([z.string(), z.null()]).describe('Status métrica weekday: green, yellow, red')
-    ),
-    status_weekend: z.optional(
-      z.union([z.string(), z.null()]).describe('Status métrica weekend: green, yellow, red')
+      z.union([z.string(), z.null()]).describe('Status metrica weekday: green, yellow, red')
     ),
     alert_reason: z.optional(
-      z.union([z.string(), z.null()]).describe('Razão do alerta (ex: Anomalia em dias úteis)')
+      z.union([z.string(), z.null()]).describe('Razao do alerta (ex: Anomalia em dias uteis)')
     ),
-    vs_previous_week_all: z.optional(
-      z.union([z.number(), z.null()]).describe('Variação vs semana anterior - geral (%)')
+    vs_previous_week_week: z.optional(
+      z.union([z.number(), z.null()]).describe('Variacao vs semana anterior - semanal (%)')
     ),
     vs_previous_week_weekday: z.optional(
-      z.union([z.number(), z.null()]).describe('Variação vs semana anterior - dias úteis (%)')
+      z.union([z.number(), z.null()]).describe('Variacao vs semana anterior - dias uteis (%)')
     ),
-    vs_previous_week_weekend: z.optional(
-      z.union([z.number(), z.null()]).describe('Variação vs semana anterior - fins de semana (%)')
-    ),
-    calculated_at: z.string().datetime().describe('Data/hora do cálculo'),
+    calculated_at: z.string().datetime().describe('Data/hora do calculo'),
     confidence_level: z.optional(
-      z.union([z.string(), z.null()]).describe('Nível de confiança: high, medium, low')
+      z.union([z.string(), z.null()]).describe('Nivel de confianca: high, medium, low')
+    ),
+    warning: z.optional(
+      z
+        .union([z.string(), z.null()])
+        .describe('Aviso sobre dados (ex: fallback para semana diferente da solicitada)')
     )
   })
   .describe(
-    'Schema para métricas epidemiológicas segmentadas (ADR-017).\n\nVersão 2.0 (ADR-027): Campos duplicados removidos para reduzir redundância.\n- place_id, unit_type, week_ending_date: Movidos para WeeklyAggregationResponse\n- calculation_params: Movido para nível raiz da resposta'
+    'Schema para metricas epidemiologicas segmentadas.\n\nVersao 2.1 (ADR-027): Campos legados renomeados para _week, segmento fim de semana removido.\n- place_id, unit_type, week_ending_date: Movidos para WeeklyAggregationResponse\n- calculation_params: Movido para nivel raiz da resposta\n- 2 segmentos: week (todos os pontos) e weekday (dias uteis)'
   )

@@ -6,6 +6,7 @@
 import type { HourlyDataInput } from './HourlyDataInput'
 
 /**
+ * BulkDataInput
  * @description Schema para entrada de dados em lote.
  * @example [object Object]
  */

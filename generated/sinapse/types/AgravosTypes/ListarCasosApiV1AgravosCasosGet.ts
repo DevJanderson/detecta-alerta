@@ -54,11 +54,13 @@ export type ListarCasosApiV1AgravosCasosGetQueryParams = {
 }
 
 /**
+ * CasosPaginados
  * @description Successful Response
  */
 export type ListarCasosApiV1AgravosCasosGet200 = CasosPaginados
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ListarCasosApiV1AgravosCasosGet422 = HTTPValidationError

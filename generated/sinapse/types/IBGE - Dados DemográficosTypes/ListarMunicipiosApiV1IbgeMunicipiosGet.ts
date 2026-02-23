@@ -30,11 +30,13 @@ export type ListarMunicipiosApiV1IbgeMunicipiosGetQueryParams = {
 }
 
 /**
+ * MunicipiosListResponse
  * @description Lista paginada de municípios
  */
 export type ListarMunicipiosApiV1IbgeMunicipiosGet200 = MunicipiosListResponse
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ListarMunicipiosApiV1IbgeMunicipiosGet422 = HTTPValidationError

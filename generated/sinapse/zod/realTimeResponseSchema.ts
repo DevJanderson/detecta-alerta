@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { realTimeDataResponseSchema } from './realTimeDataResponseSchema'
 import { realTimeFiltersMetadataSchema } from './realTimeFiltersMetadataSchema'
 import { realTimePaginationMetadataSchema } from './realTimePaginationMetadataSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema de resposta paginada para dados em tempo real.

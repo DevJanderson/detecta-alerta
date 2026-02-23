@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { casoAgravoSchema } from '../casoAgravoSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const obterCasoApiV1AgravosCasosCasoIdGetPathParamsSchema = z.object({
   caso_id: z.coerce.number().int()

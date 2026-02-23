@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { permissaoAcessoSchemaListSchema } from '../permissaoAcessoSchemaListSchema'
 import { permissaoAcessoSchemaUpdateSchema } from '../permissaoAcessoSchemaUpdateSchema'
-import { z } from 'zod'
 
 export const updatePermissaoApiV1UsuariosPermissoesPermissaoIdPutPathParamsSchema = z.object({
   permissao_id: z.coerce.number().int()

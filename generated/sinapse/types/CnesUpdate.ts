@@ -3,6 +3,9 @@
  * Do not edit manually.
  */
 
+/**
+ * CnesUpdate
+ */
 export type CnesUpdate = {
   co_unidade?: number | null
   place_id?: string | null

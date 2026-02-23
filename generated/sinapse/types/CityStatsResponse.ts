@@ -6,6 +6,7 @@
 import type { UnitTypeBreakdown } from './UnitTypeBreakdown'
 
 /**
+ * CityStatsResponse
  * @description Schema para estatísticas por cidade.
  */
 export type CityStatsResponse = {

@@ -4,6 +4,7 @@
  */
 
 /**
+ * EstatisticasExport
  * @description Estatísticas do dataset para exportação.
  */
 export type EstatisticasExport = {

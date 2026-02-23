@@ -5,6 +5,9 @@
 
 import type { UsuarioSchemaList } from './UsuarioSchemaList'
 
+/**
+ * UsuariosPaginadosSchema
+ */
 export type UsuariosPaginadosSchema = {
   /**
    * @type integer

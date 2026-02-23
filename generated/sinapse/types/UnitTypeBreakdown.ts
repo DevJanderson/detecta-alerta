@@ -4,6 +4,7 @@
  */
 
 /**
+ * UnitTypeBreakdown
  * @description Schema para breakdown por tipo de unidade.
  */
 export type UnitTypeBreakdown = {

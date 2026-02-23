@@ -8,15 +8,20 @@ import type { LoginRequest } from '../LoginRequest'
 import type { Token } from '../Token'
 
 /**
+ * Token
  * @description Tokens de acesso e atualização
  */
 export type LoginApiV1AuthLoginPost200 = Token
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type LoginApiV1AuthLoginPost422 = HTTPValidationError
 
+/**
+ * LoginRequest
+ */
 export type LoginApiV1AuthLoginPostMutationRequest = LoginRequest
 
 export type LoginApiV1AuthLoginPostMutationResponse = LoginApiV1AuthLoginPost200

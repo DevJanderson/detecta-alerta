@@ -4,6 +4,7 @@
  */
 
 /**
+ * HourlyDataInput
  * @description Schema para entrada de dados horários individual.
  * @example [object Object]
  */

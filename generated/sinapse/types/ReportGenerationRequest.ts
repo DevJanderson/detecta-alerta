@@ -4,6 +4,7 @@
  */
 
 /**
+ * ReportGenerationRequest
  * @description Schema para requisição de geração de relatório.
  */
 export type ReportGenerationRequest = {

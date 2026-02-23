@@ -22,6 +22,7 @@ export type AddUsuarioToGrupoApiV1UsuariosGruposGrupoIdUsuariosUsuarioIdPostPath
 export type AddUsuarioToGrupoApiV1UsuariosGruposGrupoIdUsuariosUsuarioIdPost200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type AddUsuarioToGrupoApiV1UsuariosGruposGrupoIdUsuariosUsuarioIdPost422 =

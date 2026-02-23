@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { casoAgravoCreateSchema } from '../casoAgravoCreateSchema'
 import { casoAgravoSchema } from '../casoAgravoSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 /**
  * @description Successful Response

@@ -38,6 +38,7 @@ export type DenguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGetQueryPara
 export type DenguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type DenguePiramideEtariaApiV1ArbovirosesDenguePiramideEtariaGet422 = HTTPValidationError

@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { municipiosListResponseSchema } from '../municipiosListResponseSchema'
-import { z } from 'zod'
 
 export const listarMunicipiosApiV1IbgeMunicipiosGetQueryParamsSchema = z.object({
   uf: z.optional(z.union([z.string(), z.null()]).describe('Filtrar por UF (2 caracteres)')),

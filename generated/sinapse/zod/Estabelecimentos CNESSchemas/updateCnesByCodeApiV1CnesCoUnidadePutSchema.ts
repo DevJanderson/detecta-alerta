@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { cnesSchema } from '../cnesSchema'
 import { cnesUpdateSchema } from '../cnesUpdateSchema'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
-import { z } from 'zod'
 
 export const updateCnesByCodeApiV1CnesCoUnidadePutPathParamsSchema = z.object({
   co_unidade: z.coerce.number().int()

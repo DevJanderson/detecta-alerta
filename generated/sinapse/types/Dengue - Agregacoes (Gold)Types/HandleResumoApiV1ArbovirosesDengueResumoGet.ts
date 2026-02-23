@@ -22,6 +22,7 @@ export type HandleResumoApiV1ArbovirosesDengueResumoGetQueryParams = {
 export type HandleResumoApiV1ArbovirosesDengueResumoGet200 = any
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type HandleResumoApiV1ArbovirosesDengueResumoGet422 = HTTPValidationError

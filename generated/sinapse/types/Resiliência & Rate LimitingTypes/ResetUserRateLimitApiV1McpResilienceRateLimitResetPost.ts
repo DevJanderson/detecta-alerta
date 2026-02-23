@@ -13,6 +13,7 @@ export type ResetUserRateLimitApiV1McpResilienceRateLimitResetPostQueryParams = 
 }
 
 /**
+ * Response Reset User Rate Limit Api V1 Mcp Resilience Rate Limit Reset Post
  * @description Successful Response
  */
 export type ResetUserRateLimitApiV1McpResilienceRateLimitResetPost200 = {
@@ -20,6 +21,7 @@ export type ResetUserRateLimitApiV1McpResilienceRateLimitResetPost200 = {
 }
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type ResetUserRateLimitApiV1McpResilienceRateLimitResetPost422 = HTTPValidationError

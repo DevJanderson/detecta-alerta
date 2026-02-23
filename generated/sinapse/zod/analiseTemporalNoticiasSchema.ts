@@ -3,12 +3,12 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { alertaTemporalSchema } from './alertaTemporalSchema'
 import { estatisticasPeriodoSchema } from './estatisticasPeriodoSchema'
 import { metadadosAnaliseSchema } from './metadadosAnaliseSchema'
 import { pontoTemporalSchema } from './pontoTemporalSchema'
 import { tendenciaTemporalSchema } from './tendenciaTemporalSchema'
-import { z } from 'zod'
 
 /**
  * @description Resultado completo da analise temporal de noticias.\n\nAttributes:\n    metadata: Metadados da analise\n    serie_temporal: Lista de pontos temporais\n    estatisticas_periodo: Estatisticas agregadas do periodo\n    tendencia: Tendencia identificada\n    alertas: Lista de alertas temporais\n    doencas_em_alta: Doencas com maior crescimento no periodo\n    localizacoes_em_destaque: Localizacoes com maior atividade

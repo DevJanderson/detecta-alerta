@@ -4,6 +4,7 @@
  */
 
 /**
+ * FaixaEtariaMetadataResponse
  * @description Metadados das faixas etárias disponíveis.
  */
 export type FaixaEtariaMetadataResponse = {

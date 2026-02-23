@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { classificationInfoSchema } from './classificationInfoSchema'
-import { z } from 'zod'
 
 export const cnesGroupedByUnidadeSchema = z.object({
   co_unidade: z.number().int(),

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { tokenUsageSchema } from './tokenUsageSchema'
-import { z } from 'zod'
 
 /**
  * @description Schema para resposta de query LLM.

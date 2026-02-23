@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { estatisticasExportSchema } from './estatisticasExportSchema'
 import { exportRestricoesInfoSchema } from './exportRestricoesInfoSchema'
 import { formatoExportSchema } from './formatoExportSchema'
-import { z } from 'zod'
 
 /**
  * @description Informacoes sobre opcoes de exportacao.

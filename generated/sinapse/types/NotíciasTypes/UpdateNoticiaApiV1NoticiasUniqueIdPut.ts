@@ -15,15 +15,20 @@ export type UpdateNoticiaApiV1NoticiasUniqueIdPutPathParams = {
 }
 
 /**
+ * Noticia
  * @description Notícia atualizada com sucesso
  */
 export type UpdateNoticiaApiV1NoticiasUniqueIdPut200 = Noticia
 
 /**
+ * HTTPValidationError
  * @description Validation Error
  */
 export type UpdateNoticiaApiV1NoticiasUniqueIdPut422 = HTTPValidationError
 
+/**
+ * NoticiaUpdate
+ */
 export type UpdateNoticiaApiV1NoticiasUniqueIdPutMutationRequest = NoticiaUpdate
 
 export type UpdateNoticiaApiV1NoticiasUniqueIdPutMutationResponse =

@@ -4,6 +4,7 @@
  */
 
 /**
+ * HeatmapLegendItem
  * @description Item da legenda do mapa de calor.
  */
 export type HeatmapLegendItem = {

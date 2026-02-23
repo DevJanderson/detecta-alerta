@@ -4,6 +4,7 @@
  */
 
 /**
+ * PredictionHourly
  * @description Previsão para uma hora específica.
  */
 export type PredictionHourly = {

@@ -4,6 +4,7 @@
  */
 
 /**
+ * Agravo
  * @description Schema completo de agravo.
  */
 export type Agravo = {

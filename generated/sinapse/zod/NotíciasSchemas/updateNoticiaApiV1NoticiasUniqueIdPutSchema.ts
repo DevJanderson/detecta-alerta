@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { noticiaSchema } from '../noticiaSchema'
 import { noticiaUpdateSchema } from '../noticiaUpdateSchema'
-import { z } from 'zod'
 
 export const updateNoticiaApiV1NoticiasUniqueIdPutPathParamsSchema = z.object({
   unique_id: z.string().uuid()

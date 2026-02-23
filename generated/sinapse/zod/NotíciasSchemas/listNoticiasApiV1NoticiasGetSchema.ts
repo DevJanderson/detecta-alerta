@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import * as z from 'zod'
 import { HTTPValidationErrorSchema } from '../HTTPValidationErrorSchema'
 import { noticiaListResponseSchema } from '../noticiaListResponseSchema'
-import { z } from 'zod'
 
 export const listNoticiasApiV1NoticiasGetQueryParamsSchema = z.object({
   cursor: z.optional(z.union([z.string(), z.null()]).describe('Cursor para paginação')),
