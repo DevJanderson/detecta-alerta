@@ -10,14 +10,49 @@ scaffoldVersion: '2.0.0'
 
 ## Development Workflow
 
-This document covers the day-to-day engineering processes for the Detecta Alerta project. All code changes follow trunk-based development on `main` with feature branches for non-trivial work.
+This document covers the day-to-day engineering processes for the Detecta Alerta project.
 
-## Branching & Releases
+## Branching (Gitflow)
 
-- **Model**: Trunk-based development on `main`
-- **Feature branches**: `feat/description`, `fix/description`, `chore/description`
-- **Commits**: Conventional Commits enforced by Commitlint (Husky pre-commit hook)
+The project uses **Gitflow** with three permanent branches:
+
+```
+feature/* ──→ develop ──→ staging ──→ main
+               (dev)       (QA)      (production)
+```
+
+| Branch    | Purpose                     | Deploy      |
+| --------- | --------------------------- | ----------- |
+| `main`    | Production — stable code    | Production  |
+| `staging` | QA/homologation before prod | Staging env |
+| `develop` | Feature integration         | Dev env     |
+
+### Rules
+
+- **Default working branch:** `develop` (never commit directly to `main` or `staging`)
+- **Feature branches:** created from `develop`, prefixed by commit type
+  - `feat/description`, `fix/description`, `refactor/description`, `chore/description`
+- **Merge to develop:** via PR (squash or merge commit)
+- **Merge develop → staging:** when features are ready for QA
+- **Merge staging → main:** after staging approval (release)
+- **Hotfix:** branch `hotfix/description` from `main`, merge into both `main` and `develop`
+
+### Typical flow
+
+```bash
+git checkout develop
+git pull origin develop
+git checkout -b feat/new-feature
+# ... work ...
+git push -u origin feat/new-feature
+# Open PR to develop
+```
+
+## Commits
+
+- **Convention**: Conventional Commits enforced by Commitlint (Husky pre-commit hook)
 - **Subject**: MUST be lower-case, max 72 characters
+- **Body**: max 100 characters per line
 - **Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`, `revert`
 - **Scopes**: `auth`, `home`, `usuarios`, `rumores`, `docs`, `base`, `deps`, `kubb`
 

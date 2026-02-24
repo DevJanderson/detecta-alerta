@@ -100,7 +100,43 @@ Projeto usa **`@ai-coders/context`** via MCP para planejamento e execução estr
 
 ## Regras Críticas
 
-### Git
+### Git - Branching (Gitflow)
+
+O projeto usa **Gitflow** com três branches permanentes:
+
+```
+feature/* ──→ develop ──→ staging ──→ main
+               (dev)       (QA)      (produção)
+```
+
+| Branch    | Propósito                        | Deploy           |
+| --------- | -------------------------------- | ---------------- |
+| `main`    | Produção — código estável        | Produção         |
+| `staging` | QA/homologação antes de produção | Ambiente staging |
+| `develop` | Integração de features           | Ambiente dev     |
+
+#### Regras de branching
+
+- **Branch de trabalho padrão:** `develop` (nunca commitar direto na `main` ou `staging`)
+- **Feature branches:** criar a partir de `develop`, prefixo pelo tipo do commit
+  - `feat/descricao`, `fix/descricao`, `refactor/descricao`, `chore/descricao`
+- **Merge para develop:** via PR com squash ou merge commit
+- **Merge develop → staging:** quando features estão prontas para QA
+- **Merge staging → main:** após aprovação em staging (release)
+- **Hotfix:** branch `hotfix/descricao` a partir de `main`, merge em `main` e `develop`
+
+#### Fluxo típico
+
+```bash
+git checkout develop
+git pull origin develop
+git checkout -b feat/nova-feature
+# ... trabalhar ...
+git push -u origin feat/nova-feature
+# Abrir PR para develop
+```
+
+### Git - Commits
 
 - **NÃO** incluir `Co-Authored-By` nos commits
 - Mensagens de commit em português ou inglês (consistente com o projeto)
@@ -110,6 +146,7 @@ Projeto usa **`@ai-coders/context`** via MCP para planejamento e execução estr
   - Nomes de função/classe (PascalCase) só no body, nunca no subject
   - Limites: subject ≤ 72 chars, body ≤ 100 chars por linha
   - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`, `revert`
+  - Scopes: `auth`, `home`, `usuarios`, `rumores`, `docs`, `base`, `deps`, `kubb`
 
 ### Execução
 
