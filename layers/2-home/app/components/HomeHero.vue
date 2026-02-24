@@ -1,6 +1,8 @@
 <template>
-  <section class="relative px-4 py-16 sm:px-6 lg:px-20 lg:py-32">
-    <div class="mx-auto flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+  <section class="px-4 py-16 sm:px-6 lg:px-20 lg:py-32">
+    <div
+      class="mx-auto flex flex-col items-center gap-10 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-6"
+    >
       <!-- Titulo principal (esquerda) -->
       <h1
         class="max-w-xl text-3xl font-bold leading-tight text-brand-primary-700 sm:text-4xl lg:text-6xl"
@@ -8,10 +10,8 @@
         Quais os riscos de Surtos ou Epidemias no Brasil?
       </h1>
 
-      <!-- Seta + CTA (centro - absoluto no desktop) -->
-      <div
-        class="flex flex-col items-center gap-6 lg:absolute lg:left-1/2 lg:top-[181px] lg:-translate-x-1/2"
-      >
+      <!-- Seta + CTA (centro) -->
+      <div class="flex flex-col items-center gap-6 lg:self-center">
         <div class="flex flex-col items-center gap-2">
           <span
             class="rounded-full bg-brand-secondary-700 px-2 py-1 text-base font-semibold leading-tight text-white"
