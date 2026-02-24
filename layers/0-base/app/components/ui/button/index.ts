@@ -39,7 +39,8 @@ export const buttonVariants = cva(
         // Tamanhos da marca (medidas shadcn-vue + estilo rounded)
         'brand-sm': 'h-8 px-3 gap-1.5 has-[>svg]:px-2.5 rounded-full',
         'brand-md': 'h-9 px-4 has-[>svg]:px-3 rounded-full',
-        'brand-lg': 'h-10 px-6 has-[>svg]:px-4 rounded-full'
+        'brand-lg': 'h-10 px-6 has-[>svg]:px-4 rounded-full',
+        'brand-xl': 'h-14 px-6 text-xl has-[>svg]:px-4 rounded-full'
       }
     },
     defaultVariants: {
