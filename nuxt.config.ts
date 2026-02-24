@@ -44,25 +44,43 @@ export default defineNuxtConfig({
   },
 
   // Nuxt Layers - auto-scan de ~/layers (Nuxt 4+)
-  // Ordem de prioridade: 0-base < 1-auth < 2-home < 3-usuarios < 4-rumores
+  // Ordem de prioridade: 0-base < 1-auth < 2-home < 3-usuarios < 4-rumores < 5-docs
   // Número maior = maior prioridade = sobrescreve layers anteriores
 
   site: {
-    url: 'https://alerta.sinapse.org.br'
+    url: 'https://alerta.sinapse.org.br',
+    name: 'Detecta Alerta',
+    description:
+      'Plataforma de vigilância e monitoramento epidemiológico em tempo real para o Brasil.',
+    defaultLocale: 'pt-BR'
+  },
+
+  colorMode: {
+    classSuffix: '',
+    preference: 'light',
+    fallback: 'light'
+  },
+
+  ogImage: { enabled: false },
+  linkChecker: { enabled: false },
+  seo: {
+    // Desabilitar tree-shaking de useSeoMeta em testes (Vitest)
+    // para que mocks de useSeoMeta funcionem corretamente
+    treeShakeUseSeoMeta: !process.env.VITEST
   },
 
   modules: [
     '@nuxt/eslint',
     '@nuxt/icon',
+    '@nuxt/content',
     'shadcn-nuxt',
     '@pinia/nuxt',
     '@vee-validate/nuxt',
     '@nuxt/image',
     'nuxt-security',
     'vue-sonner/nuxt',
-    '@nuxtjs/sitemap',
-    '@nuxtjs/robots',
-    'nuxt-schema-org',
+    '@nuxtjs/seo',
+    '@nuxtjs/color-mode',
     'pinia-plugin-persistedstate/nuxt'
   ],
 
@@ -176,7 +194,8 @@ export default defineNuxtConfig({
     '/design-system/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/perfil/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/admin/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
-    '/rumores/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } }
+    '/rumores/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/docs/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } }
   },
 
   // VeeValidate - validação de formulários
@@ -209,6 +228,29 @@ export default defineNuxtConfig({
     public: {
       apiBaseUrl: '', // NUXT_PUBLIC_API_BASE_URL
       siteUrl: 'https://alerta.sinapse.org.br' // NUXT_PUBLIC_SITE_URL
+    }
+  },
+
+  content: {
+    build: {
+      markdown: {
+        highlight: {
+          theme: { default: 'github-dark', dark: 'github-dark' },
+          langs: [
+            'bash',
+            'css',
+            'html',
+            'javascript',
+            'json',
+            'markdown',
+            'sql',
+            'typescript',
+            'vue',
+            'yaml',
+            'dotenv'
+          ]
+        }
+      }
     }
   },
 

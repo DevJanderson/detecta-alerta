@@ -42,13 +42,23 @@ export default defineConfig({
   // WebKit + Mobile Safari apenas no CI (requer OS oficialmente suportado)
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] }
+      name: 'Desktop Chrome',
+      use: { ...devices['Desktop Chrome'], viewport: { width: 1920, height: 1200 } }
     },
 
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] }
+      name: 'Desktop Firefox',
+      use: { ...devices['Desktop Firefox'], viewport: { width: 1920, height: 1200 } }
+    },
+
+    {
+      name: 'Laptop Chrome',
+      use: { ...devices['Desktop Chrome'], viewport: { width: 1366, height: 768 } }
+    },
+
+    {
+      name: 'Tablet',
+      use: { ...devices['iPad Pro 11'] }
     },
 
     {
@@ -58,7 +68,7 @@ export default defineConfig({
 
     ...(process.env.CI
       ? [
-          { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+          { name: 'Desktop Safari', use: { ...devices['Desktop Safari'] } },
           { name: 'Mobile Safari', use: { ...devices['iPhone 12'] } }
         ]
       : [])

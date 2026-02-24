@@ -102,12 +102,19 @@ useSeoPage({
 
 > **Nota:** `useSeoPage` **não** controla robots. Robots é controlado via `X-Robots-Tag` headers em `routeRules` no `nuxt.config.ts`.
 
-### Sitemap e Robots
+### Sitemap, Robots e Schema.org
 
-- **Sitemap**: gerado automaticamente por `@nuxtjs/sitemap` em `/sitemap.xml`
-- **Robots.txt**: gerado pelo módulo `@nuxtjs/robots` (não usar `public/robots.txt` estático)
+Gerenciados pelo módulo unificado `@nuxtjs/seo` (substitui `@nuxtjs/sitemap`, `@nuxtjs/robots` e `nuxt-schema-org`).
+
+- **Sitemap**: gerado automaticamente em `/sitemap.xml`
+- **Robots.txt**: gerado pelo sub-módulo robots (não usar `public/robots.txt` estático)
 - **X-Robots-Tag**: headers configurados em `routeRules` no `nuxt.config.ts` para rotas internas
-- **Schema.org (JSON-LD)**: `nuxt-schema-org` com `useSchemaOrg()` + `defineWebSite()` na homepage
+- **Schema.org (JSON-LD)**: `useSchemaOrg()` + `defineWebSite()` na homepage
+- **ogImage** e **linkChecker**: desabilitados (`enabled: false` no `nuxt.config.ts`)
+
+### Content
+
+Módulo `@nuxt/content` disponível para páginas com conteúdo em Markdown/YAML/JSON. Docs: [content.nuxt.com](https://content.nuxt.com)
 
 ## Componentes shadcn-vue
 
@@ -157,6 +164,8 @@ layers/                 # TUDO fica aqui (incluindo server/)
   2-home/               # Landing page
   3-usuarios/           # Gestão de perfil, usuários, grupos e permissões
   4-rumores/            # Feed de rumores epidemiológicos (notícias de saúde)
+  5-docs/               # Documentação do projeto (Nuxt Content)
+content/docs/           # Arquivos markdown da documentação
 tests/                  # unit/, integration/, e2e/
 generated/              # Código gerado (Kubb) - NÃO EDITAR
 ```
@@ -168,7 +177,7 @@ generated/              # Código gerado (Kubb) - NÃO EDITAR
 ### Ordem de Prioridade (Layers)
 
 ```
-4-rumores > 3-usuarios > 2-home > 1-auth > 0-base
+5-docs > 4-rumores > 3-usuarios > 2-home > 1-auth > 0-base
 ```
 
 Número maior = maior prioridade = sobrescreve layers anteriores.
@@ -408,4 +417,5 @@ output: {
 | [layers/2-home/CLAUDE.md](layers/2-home/CLAUDE.md)                                 | Homepage, páginas públicas              |
 | [layers/3-usuarios/CLAUDE.md](layers/3-usuarios/CLAUDE.md)                         | Perfil, usuários, grupos, permissões    |
 | [layers/4-rumores/CLAUDE.md](layers/4-rumores/CLAUDE.md)                           | Rumores epidemiológicos, feed, filtros  |
+| [layers/5-docs/CLAUDE.md](layers/5-docs/CLAUDE.md)                                 | Documentação do projeto (Nuxt Content)  |
 | [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking             |
