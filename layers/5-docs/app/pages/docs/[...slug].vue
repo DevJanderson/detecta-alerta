@@ -11,8 +11,10 @@ const slug = computed(() => {
   return `/docs/${path}`
 })
 
-const { data: page } = await useAsyncData(`docs-${slug.value}`, () =>
-  queryCollection('docs').path(slug.value).first()
+const { data: page } = await useAsyncData(
+  `docs-${slug.value}`,
+  () => queryCollection('docs').path(slug.value).first(),
+  { watch: [slug] }
 )
 
 if (!page.value) {
@@ -48,7 +50,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <div v-if="page" ref="contentRef" class="prose prose-neutral dark:prose-invert max-w-none">
+    <div v-if="page" ref="contentRef" class="prose max-w-none">
       <ContentRenderer :value="page" />
     </div>
 
