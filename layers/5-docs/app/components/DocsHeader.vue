@@ -24,10 +24,17 @@ function toggleTheme() {
           <Menu class="h-5 w-5" />
         </button>
 
-        <NuxtLink to="/docs" class="flex items-center gap-2">
-          <span class="text-lg font-bold text-foreground">Detecta Alerta</span>
-          <Badge variant="secondary" class="text-[10px] uppercase tracking-widest">docs</Badge>
-        </NuxtLink>
+        <div class="flex items-center gap-3">
+          <NuxtImg
+            src="/brand/itps-horizontal-default.svg"
+            alt="Instituto Todos pela Saúde"
+            class="h-6"
+          />
+          <div class="h-4 w-px bg-border" />
+          <NuxtLink to="/docs">
+            <NuxtImg src="/brand/detecta-default.svg" alt="Detecta Alerta" class="h-6" />
+          </NuxtLink>
+        </div>
       </div>
 
       <div class="hidden md:block">
