@@ -1,12 +1,10 @@
 <template>
   <section class="px-4 py-16 sm:px-6 lg:px-20 lg:py-32">
     <div
-      class="mx-auto flex flex-col items-center gap-10 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-6"
+      class="mx-auto flex flex-col items-center gap-10 lg:grid lg:grid-cols-[1fr_34rem_1fr] lg:items-start lg:gap-6"
     >
       <!-- Titulo principal (esquerda) -->
-      <h1
-        class="max-w-xl text-3xl font-bold leading-tight text-brand-primary-950 sm:text-4xl lg:text-6xl"
-      >
+      <h1 class="text-3xl font-bold leading-tight text-brand-primary-950 sm:text-4xl lg:text-6xl">
         Quais os riscos de Surtos ou Epidemias no Brasil?
       </h1>
 
@@ -40,15 +38,13 @@
       </div>
 
       <!-- Descricao (direita) -->
-      <div
-        class="flex max-w-md flex-col items-center gap-4 text-center lg:items-end lg:pt-12 lg:text-right"
-      >
+      <div class="flex flex-col items-center gap-4 text-center lg:items-end lg:pt-12 lg:text-right">
         <p class="text-xl leading-relaxed text-brand-secondary-900">
           O Detecta Alerta identifica, através da frequência de visitas em diferentes
           estabelecimentos, padrões que podem indicar
           <strong>potencial risco de epidemias</strong>.
         </p>
-        <p class="max-w-xs text-sm leading-normal text-brand-secondary-700">
+        <p class="text-sm leading-normal text-brand-secondary-700">
           *Dados públicos coletados do Google Maps e parcerias com instituições públicas.
         </p>
       </div>
