@@ -6,6 +6,7 @@ This directory contains plans for coordinating work across documentation and pla
 
 1. [Platform Audit Bugs Security](./platform-audit-bugs-security.md)
 2. [Pragmatic Refactoring](./pragmatic-refactoring.md)
+3. [Vue Ecosystem Audit](./vue-ecosystem-audit.md)
 
 ## How To Create Or Update Plans
 
