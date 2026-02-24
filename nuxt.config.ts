@@ -194,7 +194,8 @@ export default defineNuxtConfig({
     '/api/rumores/admin/**': { csurf: false },
 
     // Nuxt Content: API interna usa POST para queries
-    '/__nuxt_content/**': { csurf: false },
+    '/__nuxt_content/**': { csurf: false, security: { rateLimiter: false } },
+    '/api/_content/**': { csurf: false, security: { rateLimiter: false } },
 
     // SEO: robots noindex para rotas internas (header X-Robots-Tag)
     '/auth/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },

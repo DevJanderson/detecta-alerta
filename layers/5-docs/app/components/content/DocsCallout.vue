@@ -17,30 +17,30 @@ const config = computed(() => {
     tip: {
       icon: Lightbulb,
       defaultTitle: 'Dica',
-      border: 'border-emerald-500/50',
-      bg: 'bg-emerald-500/5',
-      iconColor: 'text-emerald-500'
+      border: 'border-success-600',
+      bg: 'bg-success-50',
+      iconColor: 'text-success-700'
     },
     info: {
       icon: Info,
       defaultTitle: 'Info',
-      border: 'border-blue-500/50',
-      bg: 'bg-blue-500/5',
-      iconColor: 'text-blue-500'
+      border: 'border-brand-secondary-400',
+      bg: 'bg-brand-secondary-50',
+      iconColor: 'text-brand-secondary-700'
     },
     warning: {
       icon: AlertTriangle,
       defaultTitle: 'Atenção',
-      border: 'border-amber-500/50',
-      bg: 'bg-amber-500/5',
-      iconColor: 'text-amber-500'
+      border: 'border-alert-600',
+      bg: 'bg-alert-50',
+      iconColor: 'text-alert-950'
     },
     danger: {
       icon: XCircle,
       defaultTitle: 'Perigo',
-      border: 'border-red-500/50',
-      bg: 'bg-red-500/5',
-      iconColor: 'text-red-500'
+      border: 'border-danger-600',
+      bg: 'bg-danger-50',
+      iconColor: 'text-danger-900'
     }
   }
   return configs[props.type]

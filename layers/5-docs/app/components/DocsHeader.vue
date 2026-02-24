@@ -12,9 +12,7 @@ function toggleTheme() {
 </script>
 
 <template>
-  <header
-    class="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60"
-  >
+  <header class="sticky top-0 z-30 border-b border-border bg-background">
     <div class="mx-auto flex h-14 max-w-screen-2xl items-center justify-between px-4">
       <div class="flex items-center gap-4">
         <button
@@ -57,13 +55,13 @@ function toggleTheme() {
         <NuxtLink
           to="https://github.com/ITpS"
           target="_blank"
-          class="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground"
+          class="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-brand-secondary-50 hover:text-foreground"
         >
           <Github class="h-4 w-4" />
         </NuxtLink>
 
         <button
-          class="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground"
+          class="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-brand-secondary-50 hover:text-foreground"
           @click="toggleTheme"
         >
           <Sun v-if="colorMode.value === 'dark'" class="h-4 w-4" />

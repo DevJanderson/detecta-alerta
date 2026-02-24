@@ -1,10 +1,9 @@
 <script setup lang="ts">
 const authStore = useAuthStore()
-const router = useRouter()
 
 async function handleLogout() {
   await authStore.logout()
-  router.push('/auth/login')
+  navigateTo('/auth/login')
 }
 </script>
 
@@ -32,7 +31,7 @@ async function handleLogout() {
       <!-- Menu -->
       <DropdownMenuItem
         class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
-        @click="router.push('/perfil')"
+        @click="navigateTo('/perfil')"
       >
         <Icon name="lucide:user" class="size-4" />
         <span>Meu perfil</span>
@@ -41,7 +40,7 @@ async function handleLogout() {
       <DropdownMenuItem
         v-if="authStore.hasGroup('administradores')"
         class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
-        @click="router.push('/admin/usuarios')"
+        @click="navigateTo('/admin/usuarios')"
       >
         <Icon name="lucide:users" class="size-4" />
         <span>Administração</span>
@@ -58,7 +57,7 @@ async function handleLogout() {
 
       <DropdownMenuItem
         class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
-        @click="router.push('/design-system')"
+        @click="navigateTo('/design-system')"
       >
         <Icon name="lucide:palette" class="size-4" />
         <span>Design System</span>
@@ -66,7 +65,7 @@ async function handleLogout() {
 
       <DropdownMenuItem
         class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
-        @click="router.push('/docs')"
+        @click="navigateTo('/docs')"
       >
         <Icon name="lucide:book-open" class="size-4" />
         <span>Documentação</span>
