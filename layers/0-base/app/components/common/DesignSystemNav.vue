@@ -35,8 +35,8 @@ function isActive(path: string) {
               class="flex items-center rounded-md px-2 py-1.5 text-sm transition-colors"
               :class="
                 isActive(item.path)
-                  ? 'bg-accent font-medium text-accent-foreground'
-                  : 'text-muted-foreground hover:bg-accent/50 hover:text-foreground'
+                  ? 'bg-brand-secondary-100 font-medium text-brand-secondary-900'
+                  : 'text-muted-foreground hover:bg-brand-secondary-50 hover:text-foreground'
               "
             >
               {{ item.title }}
