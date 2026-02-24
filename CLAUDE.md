@@ -323,7 +323,6 @@ Código TypeScript gerado automaticamente a partir da especificação OpenAPI.
 | --------------- | ------ | ---------------------------------- |
 | **Tipos**       | ✅ Sim | Composables, stores, endpoints BFF |
 | **Schemas Zod** | ✅ Sim | Validação de respostas no BFF      |
-| **Mocks/MSW**   | ✅ Sim | Testes unitários e integração      |
 
 ### Estrutura
 
@@ -333,37 +332,10 @@ generated/
   sinapse/
     types/                  # Tipos TypeScript (USAR)
     zod/                    # Schemas Zod para validação (USAR)
-    mocks/                  # Faker mocks para dados de teste (importar direto)
-    msw/                    # MSW handlers para interceptar requests (importar direto)
-    index.ts                # Barrel file (NÃO inclui mocks/msw)
+    index.ts                # Barrel file com todos os exports
 ```
 
 > **Input:** Spec OpenAPI é buscada diretamente de `https://staging.sinapse.org.br/openapi.json` (sem arquivo local).
-
-### ⚠️ IMPORTANTE: Mocks e MSW
-
-**Mocks e MSW NÃO são exportados no barrel principal (`index.ts`)** para evitar:
-
-- Carregar `@faker-js/faker` (~6MB) no bundle de produção
-- Travar o dev server com milhares de arquivos desnecessários
-
-**Importar diretamente quando necessário em testes:**
-
-```typescript
-// ✅ CORRETO - Importar direto para testes
-import { createToken } from '~/generated/sinapse/mocks/createToken'
-import { loginHandler } from '~/generated/sinapse/msw/AutenticaçãoHandlers'
-
-// ❌ ERRADO - NÃO exporta mocks/msw
-import { createToken } from '~/generated/sinapse' // Não funciona
-```
-
-**Configuração crítica em `kubb.config.ts`:**
-
-```typescript
-pluginFaker({ output: { barrelType: false } }) // NÃO mudar para 'named'
-pluginMsw({ output: { barrelType: false } }) // NÃO mudar para 'named'
-```
 
 ### Uso Recomendado
 

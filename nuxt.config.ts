@@ -222,13 +222,6 @@ export default defineNuxtConfig({
       // Limite para inline de assets (4kb)
       assetsInlineLimit: 4096
     }
-  },
-
-  // TypeScript - excluir mocks/msw do typecheck (código gerado, usado apenas em testes)
-  typescript: {
-    tsConfig: {
-      exclude: ['../generated/sinapse/mocks/**/*', '../generated/sinapse/msw/**/*']
-    }
   }
 
   // CSS global está em layers/0-base/

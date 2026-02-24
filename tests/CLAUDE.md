@@ -281,37 +281,14 @@ vi.mock('~/layers/1-auth/app/composables/useAuthApi', () => ({
 }))
 ```
 
-### Mocks Gerados pelo Kubb
+### Tipos Kubb em Testes
 
-O Kubb gera mocks automáticos com Faker e handlers MSW. **Importar DIRETO da pasta** (não do barrel):
-
-```typescript
-// ✅ CORRETO - Importar direto
-import { createToken } from '~/generated/sinapse/mocks/createToken'
-import { createUsuarioSchemaDetalhes } from '~/generated/sinapse/mocks/createUsuarioSchemaDetalhes'
-
-// Usar em testes
-const mockToken = createToken()
-const mockUser = createUsuarioSchemaDetalhes()
-
-// ❌ ERRADO - Não funciona (não exportado no barrel principal)
-import { createToken } from '~/generated/sinapse'
-```
-
-### MSW Handlers (API Mocking)
+Os tipos e schemas Zod gerados pelo Kubb podem ser usados em testes para type safety:
 
 ```typescript
-import { setupServer } from 'msw/node'
-import { loginHandler } from '~/generated/sinapse/msw/AutenticaçãoHandlers'
-
-const server = setupServer(...loginHandler)
-
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
+import type { Token } from '~/generated/sinapse/types/Token'
+import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
 ```
-
-> **Nota:** Mocks e MSW não são exportados no barrel principal para evitar carregar `@faker-js/faker` no bundle de produção.
 
 ---
 
