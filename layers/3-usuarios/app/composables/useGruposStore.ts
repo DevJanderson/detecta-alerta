@@ -5,21 +5,7 @@ import type {
   GrupoSchemaUpdate,
   ListarGruposParams
 } from './types'
-
-interface FetchError {
-  statusCode?: number
-  statusMessage?: string
-  data?: { message?: string }
-}
-
-function extractErrorMessage(error: unknown, defaultMessage: string): string {
-  if (error && typeof error === 'object') {
-    const fetchError = error as FetchError
-    if (fetchError.data?.message) return fetchError.data.message
-    if (fetchError.statusMessage) return fetchError.statusMessage
-  }
-  return defaultMessage
-}
+import { extractErrorMessage } from '~/layers/0-base/app/utils/error'
 
 export const useGruposStore = defineStore('grupos', () => {
   // Estado

@@ -156,9 +156,10 @@ async function handleDeleteConfirm(id: number) {
     />
 
     <!-- Dialog excluir -->
-    <UsuariosAdminDeleteDialog
+    <DeleteConfirmDialog
       :open="deleteOpen"
-      :usuario="deleteUsuario"
+      title="Excluir usuario"
+      :item="deleteUsuario"
       @confirm="handleDeleteConfirm"
       @update:open="deleteOpen = $event"
     />

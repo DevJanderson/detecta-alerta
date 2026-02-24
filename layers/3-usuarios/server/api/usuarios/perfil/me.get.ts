@@ -9,25 +9,9 @@ import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSche
 export default defineEventHandler(async event => {
   const accessToken = requireAuth(event)
 
-  try {
-    const rawUser = await fetchSinapse('/usuarios/me', {
-      accessToken
-    })
-
-    return usuarioSchemaDetalhesSchema.parse(rawUser)
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao buscar perfil'
-      })
-    }
-
-    logAuthError('Erro ao buscar perfil do usuario', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao buscar perfil'
-    })
-  }
+  return handleSinapseRequest({
+    fn: () => fetchSinapse('/usuarios/me', { accessToken }),
+    errorContext: 'Erro ao buscar perfil',
+    schema: usuarioSchemaDetalhesSchema
+  })
 })

@@ -11,26 +11,14 @@ export default defineEventHandler(async event => {
   const userId = getRouterParam(event, 'userId')
   const permId = getRouterParam(event, 'permId')
 
-  try {
-    await fetchSinapse(`/usuarios/permissoes/usuarios/${userId}/add/${permId}`, {
-      method: 'POST',
-      accessToken
-    })
+  await handleSinapseRequest({
+    fn: () =>
+      fetchSinapse(`/usuarios/permissoes/usuarios/${userId}/add/${permId}`, {
+        method: 'POST',
+        accessToken
+      }),
+    errorContext: 'Erro ao adicionar permissao'
+  })
 
-    return { message: 'Permissao adicionada' }
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao adicionar permissao'
-      })
-    }
-
-    logAuthError('Erro ao adicionar permissao ao usuario', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao adicionar permissao'
-    })
-  }
+  return { message: 'Permissao adicionada' }
 })

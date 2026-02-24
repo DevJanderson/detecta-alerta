@@ -29,38 +29,11 @@ export default defineEventHandler(async event => {
   const accessToken = requireAuth(event)
   const query = getQuery(event)
 
-  const params = new URLSearchParams()
-  for (const key of ALLOWED_PARAMS) {
-    const value = query[key]
-    if (value !== undefined && value !== null && value !== '') {
-      if (Array.isArray(value)) {
-        for (const v of value) {
-          params.append(key, String(v))
-        }
-      } else {
-        params.append(key, String(value))
-      }
-    }
-  }
-
-  const queryString = params.toString()
+  const queryString = buildQueryString(query as Record<string, unknown>, ALLOWED_PARAMS)
   const endpoint = `/noticias/${queryString ? `?${queryString}` : ''}`
 
-  try {
-    return await fetchSinapse(endpoint, { accessToken })
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao listar rumores'
-      })
-    }
-
-    logAuthError('Erro ao listar rumores', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao listar rumores'
-    })
-  }
+  return handleSinapseRequest({
+    fn: () => fetchSinapse(endpoint, { accessToken }),
+    errorContext: 'Erro ao listar rumores'
+  })
 })

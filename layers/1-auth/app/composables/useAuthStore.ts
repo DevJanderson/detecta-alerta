@@ -5,35 +5,8 @@
  */
 
 import type { AuthUser, LoginCredentials, ResetPasswordData } from './types'
-
-// ============================================================================
-// TIPOS E HELPERS
-// ============================================================================
-
-/**
- * Estrutura de erro de fetch
- */
-interface FetchError {
-  statusCode?: number
-  statusMessage?: string
-  data?: { message?: string }
-}
-
-/**
- * Extrai mensagem de erro de forma consistente
- */
-function extractErrorMessage(error: unknown, defaultMessage: string): string {
-  if (error && typeof error === 'object') {
-    const fetchError = error as FetchError
-    if (fetchError.data?.message) {
-      return fetchError.data.message
-    }
-    if (fetchError.statusMessage) {
-      return fetchError.statusMessage
-    }
-  }
-  return defaultMessage
-}
+import type { FetchError } from '~/layers/0-base/app/utils/error'
+import { extractErrorMessage } from '~/layers/0-base/app/utils/error'
 
 /**
  * Verifica se é erro 401 (não autenticado)

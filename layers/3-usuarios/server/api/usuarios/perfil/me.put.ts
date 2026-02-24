@@ -10,44 +10,23 @@ import { usuarioSchemaUpdateSchema } from '~/generated/sinapse/zod/usuarioSchema
 
 export default defineEventHandler(async event => {
   const accessToken = requireAuth(event)
+  const data = await validateBody(event, usuarioSchemaUpdateSchema)
 
-  const body = await readBody(event)
-  const result = usuarioSchemaUpdateSchema.safeParse(body)
-
-  if (!result.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Dados invalidos'
-    })
-  }
-
-  try {
-    // Buscar ID do usuario autenticado
-    const rawMe = await fetchSinapse<{ id: number }>('/usuarios/me', {
-      accessToken
-    })
-
-    // Atualizar perfil com objeto completo
-    const rawUser = await fetchSinapse(`/usuarios/${rawMe.id}`, {
-      method: 'PUT',
-      body: result.data as Record<string, unknown>,
-      accessToken
-    })
-
-    return usuarioSchemaDetalhesSchema.parse(rawUser)
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao atualizar perfil'
+  return handleSinapseRequest({
+    fn: async () => {
+      // Buscar ID do usuario autenticado
+      const rawMe = await fetchSinapse<{ id: number }>('/usuarios/me', {
+        accessToken
       })
-    }
 
-    logAuthError('Erro ao atualizar perfil do usuario', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao atualizar perfil'
-    })
-  }
+      // Atualizar perfil com objeto completo
+      return fetchSinapse(`/usuarios/${rawMe.id}`, {
+        method: 'PUT',
+        body: data as Record<string, unknown>,
+        accessToken
+      })
+    },
+    errorContext: 'Erro ao atualizar perfil',
+    schema: usuarioSchemaDetalhesSchema
+  })
 })

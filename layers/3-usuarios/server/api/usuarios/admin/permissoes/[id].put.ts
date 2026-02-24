@@ -12,38 +12,16 @@ export default defineEventHandler(async event => {
   const accessToken = event.context.auth!.accessToken!
 
   const id = getRouterParam(event, 'id')
+  const data = await validateBody(event, permissaoAcessoSchemaUpdateSchema)
 
-  const body = await readBody(event)
-  const result = permissaoAcessoSchemaUpdateSchema.safeParse(body)
-
-  if (!result.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Dados invalidos'
-    })
-  }
-
-  try {
-    const raw = await fetchSinapse(`/usuarios/permissoes/${id}`, {
-      method: 'PUT',
-      body: result.data as Record<string, unknown>,
-      accessToken
-    })
-
-    return permissaoAcessoSchemaListSchema.parse(raw)
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao atualizar permissao'
-      })
-    }
-
-    logAuthError('Erro ao atualizar permissao', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao atualizar permissao'
-    })
-  }
+  return handleSinapseRequest({
+    fn: () =>
+      fetchSinapse(`/usuarios/permissoes/${id}`, {
+        method: 'PUT',
+        body: data as Record<string, unknown>,
+        accessToken
+      }),
+    errorContext: 'Erro ao atualizar permissao',
+    schema: permissaoAcessoSchemaListSchema
+  })
 })

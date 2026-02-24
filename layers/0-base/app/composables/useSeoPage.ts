@@ -18,7 +18,7 @@ export function useSeoPage(options: SeoPageOptions) {
   const route = useRoute()
   const config = useRuntimeConfig()
 
-  const siteUrl = (config.public.siteUrl as string) || 'https://alerta.sinapse.org.br'
+  const siteUrl = config.public.siteUrl as string
   const path = options.path ?? route.path
   const canonical = `${siteUrl}${path}`
   const description = options.description ?? DEFAULT_DESCRIPTION

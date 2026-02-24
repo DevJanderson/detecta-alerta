@@ -12,25 +12,9 @@ export default defineEventHandler(async event => {
 
   const id = getRouterParam(event, 'id')
 
-  try {
-    const raw = await fetchSinapse(`/usuarios/permissoes/${id}`, {
-      accessToken
-    })
-
-    return permissaoAcessoSchemaListSchema.parse(raw)
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao buscar permissao'
-      })
-    }
-
-    logAuthError('Erro ao buscar permissao', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao buscar permissao'
-    })
-  }
+  return handleSinapseRequest({
+    fn: () => fetchSinapse(`/usuarios/permissoes/${id}`, { accessToken }),
+    errorContext: 'Erro ao buscar permissao',
+    schema: permissaoAcessoSchemaListSchema
+  })
 })

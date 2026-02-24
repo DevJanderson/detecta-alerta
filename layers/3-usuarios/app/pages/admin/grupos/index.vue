@@ -137,9 +137,10 @@ function handlePageChange(page: number) {
     />
 
     <!-- Dialog excluir -->
-    <GruposDeleteDialog
+    <DeleteConfirmDialog
       :open="deleteOpen"
-      :grupo="deleteGrupo"
+      title="Excluir grupo"
+      :item="deleteGrupo"
       @confirm="handleDeleteConfirm"
       @update:open="deleteOpen = $event"
     />

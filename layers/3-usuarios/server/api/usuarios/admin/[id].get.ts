@@ -19,25 +19,9 @@ export default defineEventHandler(async event => {
     })
   }
 
-  try {
-    const rawUser = await fetchSinapse(`/usuarios/${id}`, {
-      accessToken
-    })
-
-    return usuarioSchemaDetalhesSchema.parse(rawUser)
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao buscar usuario'
-      })
-    }
-
-    logAuthError('Erro ao buscar usuario por ID', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao buscar usuario'
-    })
-  }
+  return handleSinapseRequest({
+    fn: () => fetchSinapse(`/usuarios/${id}`, { accessToken }),
+    errorContext: 'Erro ao buscar usuario',
+    schema: usuarioSchemaDetalhesSchema
+  })
 })

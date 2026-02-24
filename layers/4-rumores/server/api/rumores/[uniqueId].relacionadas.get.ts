@@ -16,21 +16,8 @@ export default defineEventHandler(async event => {
   const query = getQuery(event)
   const limit = query.limit ? `?limit=${query.limit}` : ''
 
-  try {
-    return await fetchSinapse(`/noticias/${uniqueId}/relacionadas${limit}`, { accessToken })
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao buscar relacionadas'
-      })
-    }
-
-    logAuthError('Erro ao buscar rumores relacionados', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao buscar relacionadas'
-    })
-  }
+  return handleSinapseRequest({
+    fn: () => fetchSinapse(`/noticias/${uniqueId}/relacionadas${limit}`, { accessToken }),
+    errorContext: 'Erro ao buscar relacionadas'
+  })
 })

@@ -9,36 +9,15 @@ import { usuarioSchemaSignupResponseSchema } from '~/generated/sinapse/zod/usuar
 import { usuarioSchemaSignupSchema } from '~/generated/sinapse/zod/usuarioSchemaSignupSchema'
 
 export default defineEventHandler(async event => {
-  const body = await readBody(event)
-  const result = usuarioSchemaSignupSchema.safeParse(body)
+  const data = await validateBody(event, usuarioSchemaSignupSchema)
 
-  if (!result.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Dados invalidos'
-    })
-  }
-
-  try {
-    const rawResponse = await fetchSinapse('/usuarios/signup', {
-      method: 'POST',
-      body: result.data as Record<string, unknown>
-    })
-
-    return usuarioSchemaSignupResponseSchema.parse(rawResponse)
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao realizar cadastro'
-      })
-    }
-
-    logAuthError('Erro ao realizar signup', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao realizar cadastro'
-    })
-  }
+  return handleSinapseRequest({
+    fn: () =>
+      fetchSinapse('/usuarios/signup', {
+        method: 'POST',
+        body: data as Record<string, unknown>
+      }),
+    errorContext: 'Erro ao realizar cadastro',
+    schema: usuarioSchemaSignupResponseSchema
+  })
 })

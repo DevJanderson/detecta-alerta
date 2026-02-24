@@ -10,26 +10,10 @@ export default defineEventHandler(async event => {
 
   const id = getRouterParam(event, 'id')
 
-  try {
-    await fetchSinapse(`/usuarios/grupos/${id}`, {
-      method: 'DELETE',
-      accessToken
-    })
+  await handleSinapseRequest({
+    fn: () => fetchSinapse(`/usuarios/grupos/${id}`, { method: 'DELETE', accessToken }),
+    errorContext: 'Erro ao remover grupo'
+  })
 
-    return { message: 'Grupo removido' }
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao remover grupo'
-      })
-    }
-
-    logAuthError('Erro ao remover grupo', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao remover grupo'
-    })
-  }
+  return { message: 'Grupo removido' }
 })

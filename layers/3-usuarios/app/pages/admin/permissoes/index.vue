@@ -109,9 +109,10 @@ async function handleDeleteConfirm(id: number) {
     />
 
     <!-- Dialog excluir -->
-    <PermissoesDeleteDialog
+    <DeleteConfirmDialog
       :open="deleteOpen"
-      :permissao="deletePermissao"
+      title="Excluir permissao"
+      :item="deletePermissao"
       @confirm="handleDeleteConfirm"
       @update:open="deleteOpen = $event"
     />

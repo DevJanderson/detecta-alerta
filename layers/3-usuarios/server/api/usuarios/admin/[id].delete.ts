@@ -17,26 +17,10 @@ export default defineEventHandler(async event => {
     })
   }
 
-  try {
-    await fetchSinapse(`/usuarios/${id}`, {
-      method: 'DELETE',
-      accessToken
-    })
+  await handleSinapseRequest({
+    fn: () => fetchSinapse(`/usuarios/${id}`, { method: 'DELETE', accessToken }),
+    errorContext: 'Erro ao remover usuario'
+  })
 
-    return { message: 'Usuario removido' }
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao remover usuario'
-      })
-    }
-
-    logAuthError('Erro ao remover usuario', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao remover usuario'
-    })
-  }
+  return { message: 'Usuario removido' }
 })

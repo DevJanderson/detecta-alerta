@@ -10,26 +10,10 @@ export default defineEventHandler(async event => {
 
   const id = getRouterParam(event, 'id')
 
-  try {
-    await fetchSinapse(`/usuarios/permissoes/${id}`, {
-      method: 'DELETE',
-      accessToken
-    })
+  await handleSinapseRequest({
+    fn: () => fetchSinapse(`/usuarios/permissoes/${id}`, { method: 'DELETE', accessToken }),
+    errorContext: 'Erro ao remover permissao'
+  })
 
-    return { message: 'Permissao removida' }
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao remover permissao'
-      })
-    }
-
-    logAuthError('Erro ao remover permissao', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao remover permissao'
-    })
-  }
+  return { message: 'Permissao removida' }
 })

@@ -11,26 +11,14 @@ export default defineEventHandler(async event => {
   const id = getRouterParam(event, 'id')
   const userId = getRouterParam(event, 'userId')
 
-  try {
-    await fetchSinapse(`/usuarios/grupos/${id}/usuarios/${userId}`, {
-      method: 'DELETE',
-      accessToken
-    })
+  await handleSinapseRequest({
+    fn: () =>
+      fetchSinapse(`/usuarios/grupos/${id}/usuarios/${userId}`, {
+        method: 'DELETE',
+        accessToken
+      }),
+    errorContext: 'Erro ao remover usuario do grupo'
+  })
 
-    return { message: 'Usuario removido do grupo' }
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao remover usuario do grupo'
-      })
-    }
-
-    logAuthError('Erro ao remover usuario do grupo', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao remover usuario do grupo'
-    })
-  }
+  return { message: 'Usuario removido do grupo' }
 })

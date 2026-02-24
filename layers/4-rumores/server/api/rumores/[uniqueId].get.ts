@@ -13,21 +13,8 @@ export default defineEventHandler(async event => {
     throw createError({ statusCode: 400, statusMessage: 'uniqueId obrigatorio' })
   }
 
-  try {
-    return await fetchSinapse(`/noticias/${uniqueId}`, { accessToken })
-  } catch (error: unknown) {
-    if (isSinapseError(error)) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao buscar rumor'
-      })
-    }
-
-    logAuthError('Erro ao buscar rumor', error)
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erro ao buscar rumor'
-    })
-  }
+  return handleSinapseRequest({
+    fn: () => fetchSinapse(`/noticias/${uniqueId}`, { accessToken }),
+    errorContext: 'Erro ao buscar rumor'
+  })
 })

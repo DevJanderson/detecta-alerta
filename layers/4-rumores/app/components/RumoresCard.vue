@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import type { Noticia } from '../composables/types'
 
+const TRUNCATE_LENGTH = 150
+const MS_PER_HOUR = 1000 * 60 * 60
+const HOURS_PER_DAY = 24
+const DAYS_PER_WEEK = 7
+
 const props = defineProps<{
   noticia: Noticia
 }>()
 
 const descricaoTruncada = computed(() => {
   const texto = props.noticia.descricao || props.noticia.conteudo
-  if (texto.length <= 150) return texto
-  return texto.slice(0, 150).trimEnd() + '...'
+  if (texto.length <= TRUNCATE_LENGTH) return texto
+  return texto.slice(0, TRUNCATE_LENGTH).trimEnd() + '...'
 })
 
 const dataRelativa = computed(() => {
@@ -18,12 +23,12 @@ const dataRelativa = computed(() => {
   const agora = new Date()
   const publicacao = new Date(data)
   const diffMs = agora.getTime() - publicacao.getTime()
-  const diffHoras = Math.floor(diffMs / (1000 * 60 * 60))
-  const diffDias = Math.floor(diffHoras / 24)
+  const diffHoras = Math.floor(diffMs / MS_PER_HOUR)
+  const diffDias = Math.floor(diffHoras / HOURS_PER_DAY)
 
   if (diffHoras < 1) return 'agora'
-  if (diffHoras < 24) return `há ${diffHoras}h`
-  if (diffDias < 7) return `há ${diffDias}d`
+  if (diffHoras < HOURS_PER_DAY) return `há ${diffHoras}h`
+  if (diffDias < DAYS_PER_WEEK) return `há ${diffDias}d`
   return publicacao.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })
 })
 </script>
