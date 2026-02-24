@@ -17,6 +17,33 @@ export default defineEventHandler(async event => {
     })
   }
 
+  // Validacao de upload: tipo MIME, tamanho e quantidade
+  const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
+  const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
+  const files = formData.filter(p => p.filename)
+
+  if (files.length !== 1) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Envie exatamente um arquivo'
+    })
+  }
+
+  const file = files[0]!
+  if (!file.type || !ALLOWED_TYPES.includes(file.type)) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Tipo de arquivo nao permitido. Use JPG, PNG ou WebP'
+    })
+  }
+
+  if (file.data.length > MAX_FILE_SIZE) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Arquivo muito grande. Maximo 5MB'
+    })
+  }
+
   try {
     // Buscar ID do usuario autenticado
     const rawMe = await fetchSinapse<{ id: number }>('/usuarios/me', {
@@ -25,14 +52,8 @@ export default defineEventHandler(async event => {
 
     // Montar FormData para encaminhar a API Sinapse
     const body = new FormData()
-    for (const part of formData) {
-      if (part.filename) {
-        const blob = new Blob([new Uint8Array(part.data)], {
-          type: part.type || 'application/octet-stream'
-        })
-        body.append(part.name || 'file', blob, part.filename)
-      }
-    }
+    const blob = new Blob([new Uint8Array(file.data)], { type: file.type })
+    body.append(file.name || 'file', blob, file.filename)
 
     const sinapseApiUrl = getSinapseApiUrl()
 

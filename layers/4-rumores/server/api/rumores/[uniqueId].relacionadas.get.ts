@@ -14,10 +14,11 @@ export default defineEventHandler(async event => {
   }
 
   const query = getQuery(event)
-  const limit = query.limit ? `?limit=${query.limit}` : ''
+  const qs = buildQueryString(query, ['limit'])
 
   return handleSinapseRequest({
-    fn: () => fetchSinapse(`/noticias/${uniqueId}/relacionadas${limit}`, { accessToken }),
+    fn: () =>
+      fetchSinapse(`/noticias/${uniqueId}/relacionadas${qs ? `?${qs}` : ''}`, { accessToken }),
     errorContext: 'Erro ao buscar relacionadas'
   })
 })

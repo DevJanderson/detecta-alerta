@@ -1,36 +1,17 @@
 /**
  * Utilitarios de administracao (server-side)
- * Helpers para verificar se o usuario e admin
+ * Helpers para verificar autenticacao e permissao admin
  */
 
 import type { H3Event } from 'h3'
 
 /**
- * Verifica se o usuario autenticado e admin
- * Usa os dados do contexto de auth (injetado pelo middleware 01.auth.ts)
+ * Requer que o usuario seja admin.
+ * Reutiliza event.context.isAdmin calculado pelo middleware 02.admin.ts
+ * para evitar chamada duplicada a API.
+ * Lanca 401 se nao autenticado, 403 se nao admin.
  */
-export async function isAdmin(event: H3Event): Promise<boolean> {
-  const auth = event.context.auth
-  if (!auth?.isAuthenticated || !auth.accessToken) return false
-
-  try {
-    const rawUser = await fetchSinapse<{
-      grupos?: Array<{ nome: string }>
-    }>('/usuarios/me', {
-      accessToken: auth.accessToken
-    })
-
-    return rawUser.grupos?.some(g => g.nome === 'administradores') ?? false
-  } catch {
-    return false
-  }
-}
-
-/**
- * Requer que o usuario seja admin
- * Lanca erro 403 se nao for admin
- */
-export async function requireAdmin(event: H3Event): Promise<void> {
+export function requireAdmin(event: H3Event): void {
   const auth = event.context.auth
 
   if (!auth?.isAuthenticated || !auth.accessToken) {
@@ -40,8 +21,7 @@ export async function requireAdmin(event: H3Event): Promise<void> {
     })
   }
 
-  const admin = await isAdmin(event)
-  if (!admin) {
+  if (!event.context.isAdmin) {
     throw createError({
       statusCode: 403,
       statusMessage: 'Acesso restrito a administradores'
@@ -50,8 +30,8 @@ export async function requireAdmin(event: H3Event): Promise<void> {
 }
 
 /**
- * Obtem o access token do contexto de auth
- * Lanca 401 se nao autenticado
+ * Obtem o access token do contexto de auth.
+ * Lanca 401 se nao autenticado.
  */
 export function requireAuth(event: H3Event): string {
   const auth = event.context.auth

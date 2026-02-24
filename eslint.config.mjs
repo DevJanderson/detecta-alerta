@@ -5,29 +5,29 @@ export default withNuxt(
   { ignores: ['generated/**'] },
   {
     rules: {
-    // Vue
-    'vue/multi-word-component-names': 'off',
-    'vue/no-multiple-template-root': 'off',
-    'vue/html-self-closing': [
-      'error',
-      {
-        html: { void: 'always', normal: 'always', component: 'always' }
-      }
-    ],
+      // Vue
+      'vue/multi-word-component-names': 'off',
+      'vue/no-multiple-template-root': 'off',
+      'vue/html-self-closing': [
+        'error',
+        {
+          html: { void: 'always', normal: 'always', component: 'always' }
+        }
+      ],
 
-    // TypeScript
-    '@typescript-eslint/no-explicit-any': 'warn',
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_'
-      }
-    ],
+      // TypeScript
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_'
+        }
+      ],
 
-    // Geral
-    'no-console': ['warn', { allow: ['warn', 'error'] }],
-    'prefer-const': 'error'
+      // Geral
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'prefer-const': 'error'
     }
   }
 )

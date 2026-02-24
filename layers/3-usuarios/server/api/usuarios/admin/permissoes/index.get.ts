@@ -8,8 +8,8 @@ import { permissaoAcessoSchemaListSchema } from '~/generated/sinapse/zod/permiss
 import { z } from 'zod'
 
 export default defineEventHandler(async event => {
-  await requireAdmin(event)
-  const accessToken = event.context.auth!.accessToken!
+  requireAdmin(event)
+  const accessToken = requireAuth(event)
 
   return handleSinapseRequest({
     fn: () => fetchSinapse('/usuarios/permissoes/', { accessToken }),

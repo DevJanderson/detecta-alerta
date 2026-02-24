@@ -56,6 +56,17 @@ export function useDocsNavigation() {
         },
         { title: 'Testes', path: '/docs/contributing/testing', icon: 'lucide:test-tube' }
       ]
+    },
+    {
+      title: 'Projeto',
+      items: [
+        { title: 'Backlog', path: '/docs/projeto/backlog', icon: 'lucide:list-checks' },
+        {
+          title: 'Decisões Técnicas',
+          path: '/docs/projeto/decisoes',
+          icon: 'lucide:landmark'
+        }
+      ]
     }
   ]
 

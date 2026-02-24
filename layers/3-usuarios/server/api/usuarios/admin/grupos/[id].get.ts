@@ -7,10 +7,10 @@
 import { grupoSchemaDetalhesSchema } from '~/generated/sinapse/zod/grupoSchemaDetalhesSchema'
 
 export default defineEventHandler(async event => {
-  await requireAdmin(event)
-  const accessToken = event.context.auth!.accessToken!
+  requireAdmin(event)
+  const accessToken = requireAuth(event)
 
-  const id = getRouterParam(event, 'id')
+  const id = validateRouteParam(event, 'id')
 
   return handleSinapseRequest({
     fn: () => fetchSinapse(`/usuarios/grupos/${id}`, { accessToken }),

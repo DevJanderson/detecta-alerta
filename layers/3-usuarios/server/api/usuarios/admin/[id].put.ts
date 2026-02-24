@@ -8,17 +8,10 @@ import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSche
 import { usuarioSchemaUpdateSchema } from '~/generated/sinapse/zod/usuarioSchemaUpdateSchema'
 
 export default defineEventHandler(async event => {
-  await requireAdmin(event)
+  requireAdmin(event)
   const accessToken = requireAuth(event)
 
-  const id = getRouterParam(event, 'id')
-
-  if (!id) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'ID do usuario e obrigatorio'
-    })
-  }
+  const id = validateRouteParam(event, 'id')
 
   const data = await validateBody(event, usuarioSchemaUpdateSchema)
 

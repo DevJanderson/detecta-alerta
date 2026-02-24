@@ -1,5 +1,5 @@
 /**
- * POST /api/usuarios/admin/signup
+ * POST /api/auth/signup
  *
  * Cadastro publico de usuario (signup).
  * Nao requer autenticacao.

@@ -7,8 +7,8 @@
 import { gruposPaginadosSchemaSchema } from '~/generated/sinapse/zod/gruposPaginadosSchemaSchema'
 
 export default defineEventHandler(async event => {
-  await requireAdmin(event)
-  const accessToken = event.context.auth!.accessToken!
+  requireAdmin(event)
+  const accessToken = requireAuth(event)
 
   const query = getQuery(event)
   const queryString = buildQueryString(query as Record<string, unknown>, [

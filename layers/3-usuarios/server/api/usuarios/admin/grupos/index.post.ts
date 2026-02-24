@@ -8,8 +8,8 @@ import { grupoSchemaCreateSchema } from '~/generated/sinapse/zod/grupoSchemaCrea
 import { grupoSchemaDetalhesSchema } from '~/generated/sinapse/zod/grupoSchemaDetalhesSchema'
 
 export default defineEventHandler(async event => {
-  await requireAdmin(event)
-  const accessToken = event.context.auth!.accessToken!
+  requireAdmin(event)
+  const accessToken = requireAuth(event)
   const data = await validateBody(event, grupoSchemaCreateSchema)
 
   return handleSinapseRequest({

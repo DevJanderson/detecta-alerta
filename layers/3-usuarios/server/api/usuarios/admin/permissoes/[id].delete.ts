@@ -5,10 +5,10 @@
  */
 
 export default defineEventHandler(async event => {
-  await requireAdmin(event)
-  const accessToken = event.context.auth!.accessToken!
+  requireAdmin(event)
+  const accessToken = requireAuth(event)
 
-  const id = getRouterParam(event, 'id')
+  const id = validateRouteParam(event, 'id')
 
   await handleSinapseRequest({
     fn: () => fetchSinapse(`/usuarios/permissoes/${id}`, { method: 'DELETE', accessToken }),

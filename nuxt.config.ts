@@ -78,7 +78,7 @@ export default defineNuxtConfig({
     '@vee-validate/nuxt',
     '@nuxt/image',
     'nuxt-security',
-    'vue-sonner/nuxt',
+    ['vue-sonner/nuxt', { css: false }],
     '@nuxtjs/seo',
     '@nuxtjs/color-mode',
     'pinia-plugin-persistedstate/nuxt'
@@ -182,12 +182,19 @@ export default defineNuxtConfig({
       security: { rateLimiter: { tokensPerInterval: 5, interval: 300000 } },
       csurf: false
     },
+    '/api/auth/signup': {
+      security: { rateLimiter: { tokensPerInterval: 5, interval: 300000 } },
+      csurf: false
+    },
 
     // Rotas de usuarios: CSRF desabilitado (usam cookies httpOnly + SameSite strict)
     '/api/usuarios/**': { csurf: false },
 
     // Rotas de rumores admin: CSRF desabilitado (usam cookies httpOnly + SameSite strict)
     '/api/rumores/admin/**': { csurf: false },
+
+    // Nuxt Content: API interna usa POST para queries
+    '/__nuxt_content/**': { csurf: false },
 
     // SEO: robots noindex para rotas internas (header X-Robots-Tag)
     '/auth/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },

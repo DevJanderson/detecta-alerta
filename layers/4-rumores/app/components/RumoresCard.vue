@@ -11,7 +11,7 @@ const props = defineProps<{
 }>()
 
 const descricaoTruncada = computed(() => {
-  const texto = props.noticia.descricao || props.noticia.conteudo
+  const texto = props.noticia.descricao || props.noticia.conteudo || ''
   if (texto.length <= TRUNCATE_LENGTH) return texto
   return texto.slice(0, TRUNCATE_LENGTH).trimEnd() + '...'
 })

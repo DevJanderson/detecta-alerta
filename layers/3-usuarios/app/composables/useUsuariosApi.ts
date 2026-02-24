@@ -62,7 +62,7 @@ export function useUsuariosApi() {
   }
 
   async function signup(data: UsuarioSchemaSignup): Promise<UsuarioSchemaDetalhes> {
-    return $fetch<UsuarioSchemaDetalhes>('/api/usuarios/admin/signup', {
+    return $fetch<UsuarioSchemaDetalhes>('/api/auth/signup', {
       method: 'POST',
       body: data
     })

@@ -9,5 +9,7 @@ export function useDebounce<T>(value: Ref<T>, delay = 300): Ref<T> {
     }, delay)
   })
 
+  onScopeDispose(() => clearTimeout(timeout))
+
   return debouncedValue
 }

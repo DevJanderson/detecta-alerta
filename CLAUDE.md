@@ -138,6 +138,9 @@ const fn = x => x + 1
 - `prefer-const`: obrigatório (`error`) - usar `const` quando não reatribui
 - Variáveis prefixadas com `_` são ignoradas pelo `no-unused-vars`
 - `vue/html-self-closing`: sempre auto-fechar componentes (`<MyComp />`)
+- `vue/multi-word-component-names`: **off** — componentes single-word são permitidos (ex: `Button.vue`)
+- `@typescript-eslint/no-explicit-any`: `warn` (não bloqueia, mas evitar)
+- `generated/**` é ignorado pelo ESLint
 
 ## Sobre o Projeto
 
@@ -375,6 +378,39 @@ Prefixo numérico define ordem de execução: `01.auth.ts` roda antes de `02.log
 
 - **Utils** (`layers/0-base/app/utils/`): Funções puras, sem estado Vue
 - **Composables** (`layers/0-base/app/composables/`): Lógica com `ref`, `computed`
+
+### Server Utilities (BFF)
+
+Utilitários em `layers/0-base/server/utils/` são **auto-importados** pelo Nitro em todos os endpoints BFF:
+
+```typescript
+// handleSinapseRequest — wrapper centralizado para chamadas à API Sinapse
+// Trata erros, valida resposta com Zod (opcional) e faz logging
+export default defineEventHandler(async event => {
+  return handleSinapseRequest({
+    fn: () => fetchSinapse('/endpoint', { event }),
+    errorContext: 'Erro ao buscar dados',
+    schema: myZodSchema // opcional
+  })
+})
+
+// validateBody — lê body + valida com Zod em uma chamada
+const data = await validateBody(event, myZodSchema)
+
+// buildQueryString — constrói query params com whitelist
+const qs = buildQueryString(getQuery(event), ['page', 'search', 'status'])
+```
+
+### Tipos Compartilhados (`#shared`)
+
+Alias `#shared` aponta para `layers/0-base/shared/`. Tipos globais de API:
+
+```typescript
+import type { ApiResponse, PaginatedResponse } from '#shared/types'
+
+// ApiResponse<T> — { data: T, success: boolean, message?: string }
+// PaginatedResponse<T> — { data: T[], meta: { total, page, perPage, lastPage } }
+```
 
 ## Segurança
 

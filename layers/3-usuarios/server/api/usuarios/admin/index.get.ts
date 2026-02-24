@@ -8,7 +8,7 @@
 import { usuariosPaginadosSchemaSchema } from '~/generated/sinapse/zod/usuariosPaginadosSchemaSchema'
 
 export default defineEventHandler(async event => {
-  await requireAdmin(event)
+  requireAdmin(event)
   const accessToken = requireAuth(event)
 
   const query = getQuery(event)

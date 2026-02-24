@@ -5,11 +5,11 @@
  */
 
 export default defineEventHandler(async event => {
-  await requireAdmin(event)
-  const accessToken = event.context.auth!.accessToken!
+  requireAdmin(event)
+  const accessToken = requireAuth(event)
 
-  const userId = getRouterParam(event, 'userId')
-  const permId = getRouterParam(event, 'permId')
+  const userId = validateRouteParam(event, 'userId')
+  const permId = validateRouteParam(event, 'permId')
 
   await handleSinapseRequest({
     fn: () =>

@@ -11,11 +11,10 @@ useSeoPage({
 
 const store = useRumoresStore()
 
-// Carregar lookups para os filtros
-await store.fetchLookups()
-
-// Carregar feed inicial
-await store.fetchRumores(true)
+onMounted(async () => {
+  await store.fetchLookups()
+  await store.fetchRumores(true)
+})
 </script>
 
 <template>

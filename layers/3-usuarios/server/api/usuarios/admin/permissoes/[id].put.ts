@@ -8,10 +8,10 @@ import { permissaoAcessoSchemaUpdateSchema } from '~/generated/sinapse/zod/permi
 import { permissaoAcessoSchemaListSchema } from '~/generated/sinapse/zod/permissaoAcessoSchemaListSchema'
 
 export default defineEventHandler(async event => {
-  await requireAdmin(event)
-  const accessToken = event.context.auth!.accessToken!
+  requireAdmin(event)
+  const accessToken = requireAuth(event)
 
-  const id = getRouterParam(event, 'id')
+  const id = validateRouteParam(event, 'id')
   const data = await validateBody(event, permissaoAcessoSchemaUpdateSchema)
 
   return handleSinapseRequest({

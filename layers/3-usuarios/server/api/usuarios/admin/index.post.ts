@@ -8,7 +8,7 @@ import { usuarioSchemaCreateSchema } from '~/generated/sinapse/zod/usuarioSchema
 import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSchemaDetalhesSchema'
 
 export default defineEventHandler(async event => {
-  await requireAdmin(event)
+  requireAdmin(event)
   const accessToken = requireAuth(event)
   const data = await validateBody(event, usuarioSchemaCreateSchema)
 
