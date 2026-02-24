@@ -1,19 +1,21 @@
 # Base Layer - CLAUDE.md
 
-Camada de fundação com app.vue, error.vue, CSS global, componentes UI, composables, utilitários e tipos compartilhados por todas as outras layers.
+Camada de fundacao com app.vue, error.vue, CSS global, componentes UI, composables, utilitarios e tipos compartilhados por todas as outras layers.
 
 ---
 
-## Propósito
+## Proposito
 
 Esta layer fornece:
 
-- **Fundação da aplicação** - `app.vue`, `error.vue`, CSS global, health check
-- **Componentes UI** (shadcn-vue) - Primitivos de interface reutilizáveis
-- **Composables globais** - Lógica reativa compartilhada
-- **Utilitários** - Funções puras para uso geral
-- **Layouts** - Layout padrão da aplicação
-- **Tipos compartilhados** - Interfaces TypeScript globais
+- **Fundacao da aplicacao** - `app.vue`, `error.vue`, CSS global, health check
+- **Componentes UI** (shadcn-vue) - Primitivos de interface reutilizaveis
+- **Componentes globais** - AppHeader, AppLoading, DeleteConfirmDialog
+- **Composables globais** - useSeoPage, useDebounce
+- **Utilitarios** - cn(), extractErrorMessage()
+- **Layout padrao** - Header + conteudo
+- **Tipos compartilhados** - ApiResponse, PaginatedResponse
+- **Server utils** - handleSinapseRequest, validateBody, buildQueryString
 
 ---
 
@@ -21,70 +23,96 @@ Esta layer fornece:
 
 ```
 layers/0-base/
-├── nuxt.config.ts              # Configuração (CSS global, alias #shared)
-├── CLAUDE.md                   # Este arquivo
+├── nuxt.config.ts              # CSS global, alias #shared
+├── CLAUDE.md
 │
 ├── app/
-│   ├── app.vue                 # Root component
-│   ├── error.vue               # Página de erro (404, 500)
+│   ├── app.vue                 # Root: Toaster (vue-sonner) + NuxtLayout + NuxtPage
+│   ├── error.vue               # Pagina de erro (404, 500) com useSeoPage
 │   ├── assets/css/
-│   │   └── main.css            # Tailwind CSS + variáveis de tema
+│   │   └── main.css            # Tailwind CSS v4 + variaveis de tema
 │   ├── components/
-│   │   ├── ui/                 # shadcn-vue (auto-import)
+│   │   ├── ui/                 # shadcn-vue (21 grupos, auto-import)
 │   │   │   ├── alert/
+│   │   │   ├── alert-dialog/
 │   │   │   ├── avatar/
-│   │   │   ├── button/
+│   │   │   ├── badge/
+│   │   │   ├── button/         # Variantes extras: brand-outline, brand-secondary-soft
 │   │   │   ├── card/
+│   │   │   ├── checkbox/
+│   │   │   ├── collapsible/
+│   │   │   ├── dialog/
 │   │   │   ├── dropdown-menu/
 │   │   │   ├── input/
-│   │   │   └── label/
-│   │   ├── common/             # Componentes globais customizados
-│   │   │   └── AppLoading.vue
-│   │   └── CLAUDE.md           # Docs de componentes
+│   │   │   ├── label/
+│   │   │   ├── pagination/
+│   │   │   ├── scroll-area/
+│   │   │   ├── select/
+│   │   │   ├── separator/
+│   │   │   ├── sheet/
+│   │   │   ├── switch/
+│   │   │   ├── table/
+│   │   │   ├── tabs/
+│   │   │   └── textarea/
+│   │   └── common/
+│   │       ├── AppHeader.vue           # Header: logos, nav desktop/mobile, auth menu
+│   │       ├── AppLoading.vue          # Spinner (props: size, text)
+│   │       └── DeleteConfirmDialog.vue # Dialog generico de exclusao (AlertDialog)
 │   │
 │   ├── composables/
-│   │   └── CLAUDE.md           # Docs de composables
+│   │   ├── useSeoPage.ts       # SEO: title, OG, Twitter Cards, canonical
+│   │   └── useDebounce.ts      # Debounce reativo (default 300ms)
 │   │
 │   ├── layouts/
-│   │   └── default.vue         # Layout padrão
+│   │   └── default.vue         # AppHeader + main.flex-1
+│   │
+│   ├── pages/
+│   │   └── design-system/
+│   │       └── index.vue       # /design-system - visualizacao de cores e botoes
 │   │
 │   └── utils/
-│       └── utils.ts            # cn() para classes Tailwind
+│       ├── utils.ts            # cn() - clsx + tailwind-merge
+│       └── error.ts            # extractErrorMessage() - erros de $fetch
 │
 ├── server/
-│   └── api/
-│       └── health.get.ts       # GET /api/health - Health check
+│   ├── api/
+│   │   └── health.get.ts       # GET /api/health
+│   └── utils/                  # Auto-importados pelo Nitro em TODOS os endpoints
+│       ├── api-handler.ts      # handleSinapseRequest({ fn, errorContext, schema? })
+│       ├── query-builder.ts    # buildQueryString(query, allowedParams)
+│       └── validation.ts       # validateBody(event, zodSchema), validateRouteParam(event, name)
 │
 └── shared/
-    └── types/                  # Tipos compartilhados
-        ├── api.ts              # Tipos de API
-        └── index.ts            # Barrel file
+    └── types/
+        ├── api.ts              # ApiResponse<T>, ApiError, PaginatedResponse<T>, RequestOptions
+        └── index.ts            # Barrel file → import type { ... } from '#shared/types'
 ```
 
 ---
 
 ## O que vai nesta Layer
 
-| Tipo                      | Exemplos                               | Local                    |
-| ------------------------- | -------------------------------------- | ------------------------ |
-| Arquivos globais          | app.vue, error.vue, main.css           | `app/`                   |
-| Componentes UI primitivos | Button, Card, Input, Dialog            | `app/components/ui/`     |
-| Componentes globais       | AppLoading, AppLogo, AppHeader         | `app/components/common/` |
-| Composables reutilizáveis | useLoading, usePagination, useDebounce | `app/composables/`       |
-| Funções utilitárias puras | formatDate, cn, slugify                | `app/utils/`             |
-| Layouts globais           | default, dashboard                     | `app/layouts/`           |
-| Tipos TypeScript globais  | ApiResponse, PaginatedResult           | `shared/types/`          |
-| Endpoints utilitários     | health check                           | `server/api/`            |
+| Tipo                      | Exemplos                                   | Local                    |
+| ------------------------- | ------------------------------------------ | ------------------------ |
+| Arquivos globais          | app.vue, error.vue, main.css               | `app/`                   |
+| Componentes UI primitivos | Button, Card, Input, Dialog, Table         | `app/components/ui/`     |
+| Componentes globais       | AppHeader, AppLoading, DeleteConfirmDialog | `app/components/common/` |
+| Composables reutilizaveis | useSeoPage, useDebounce                    | `app/composables/`       |
+| Funcoes utilitarias puras | cn, extractErrorMessage                    | `app/utils/`             |
+| Layouts globais           | default                                    | `app/layouts/`           |
+| Tipos TypeScript globais  | ApiResponse, PaginatedResponse             | `shared/types/`          |
+| Server utils BFF          | handleSinapseRequest, validateBody         | `server/utils/`          |
+| Endpoints utilitarios     | health check                               | `server/api/`            |
 
 ---
 
-## O que NÃO vai nesta Layer
+## O que NAO vai nesta Layer
 
 | Tipo                               | Onde colocar                            |
 | ---------------------------------- | --------------------------------------- |
-| Componentes específicos de feature | `layers/{N}-{feature}/app/components/`  |
+| Componentes especificos de feature | `layers/{N}-{feature}/app/components/`  |
 | Stores Pinia de feature            | `layers/{N}-{feature}/app/composables/` |
-| Páginas                            | `layers/{N}-{feature}/app/pages/`       |
+| Paginas                            | `layers/{N}-{feature}/app/pages/`       |
 | Endpoints de API de feature        | `layers/{N}-{feature}/server/api/`      |
 
 ---
@@ -92,121 +120,73 @@ layers/0-base/
 ## Adicionar Componente shadcn-vue
 
 ```bash
-# Adicionar componentes
-npx shadcn-vue@latest add button
-npx shadcn-vue@latest add card
-npx shadcn-vue@latest add dialog
-
-# Ver todos disponíveis
-npx shadcn-vue@latest add --help
+npx shadcn-vue@latest add <componente>
 ```
 
-Componentes são instalados em `app/components/ui/` (configurado em `components.json`).
+Componentes sao instalados em `app/components/ui/` (configurado em `components.json`).
 
 ---
 
-## Uso dos Componentes
+## Componentes Comuns
 
-### shadcn-vue (auto-import)
+### AppHeader
 
-```vue
-<template>
-  <!-- Não precisa importar -->
-  <Button variant="outline">Clique</Button>
+Header principal da aplicacao. Exibe logos ITpS + Detecta Alerta, navegacao desktop (5 links), menu mobile via `Sheet`, estado de autenticacao via `useAuthStore` e `AuthUserMenu` (da layer 1-auth).
 
-  <Card>
-    <CardHeader>
-      <CardTitle>Título</CardTitle>
-    </CardHeader>
-    <CardContent>Conteúdo</CardContent>
-  </Card>
-</template>
-```
+### AppLoading
 
-### Variantes do Button
+Spinner de carregamento. Props: `size` (`sm`/`md`/`lg`) e `text` (opcional).
 
-```vue
-<Button variant="default">Default</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="destructive">Destructive</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="link">Link</Button>
+### DeleteConfirmDialog
 
-<Button size="sm">Small</Button>
-<Button size="default">Default</Button>
-<Button size="lg">Large</Button>
-```
+Dialog generico de confirmacao de exclusao. Props: `open`, `title`, `item: { id, nome } | null`. Emite `confirm(id)` e `update:open`. Reutilizado por todas as features que precisam de confirmacao de delete.
 
 ---
 
-## Configuração do CSS
+## Server Utils
 
-No `nuxt.config.ts` desta layer, o CSS deve ser referenciado usando o alias `~` (raiz do projeto):
+Auto-importados pelo Nitro em todos os endpoints BFF do projeto:
+
+```typescript
+// handleSinapseRequest — wrapper centralizado para chamadas a API Sinapse
+return handleSinapseRequest({
+  fn: () => fetchSinapse('/endpoint', { event }),
+  errorContext: 'Erro ao buscar dados',
+  schema: myZodSchema // opcional, valida com Zod
+})
+
+// validateBody — le body + valida com Zod
+const data = await validateBody(event, myZodSchema)
+
+// validateRouteParam — valida que route param e numerico (previne path traversal)
+const id = validateRouteParam(event, 'id')
+
+// buildQueryString — constroi query params com whitelist
+const qs = buildQueryString(getQuery(event), ['page', 'search', 'status'])
+```
+
+> **Nota:** `fetchSinapse` vive em `layers/1-auth/server/utils/auth.ts`, mas tambem e auto-importado pelo Nitro.
+
+---
+
+## Configuracao do CSS
 
 ```ts
 // layers/0-base/nuxt.config.ts
 export default defineNuxtConfig({
-  css: ['~/layers/0-base/app/assets/css/main.css']
+  css: ['~/layers/0-base/app/assets/css/main.css'],
+  alias: { '#shared': '../layers/0-base/shared' }
 })
 ```
 
-> **IMPORTANTE:** Não use caminhos relativos como `./app/assets/css/main.css` em layers. O Nuxt resolve caminhos a partir da raiz do projeto, então use sempre `~/layers/...` para evitar erros de módulo não encontrado.
-
----
-
-## Alias #shared
-
-O `nuxt.config.ts` define um alias para tipos compartilhados:
-
-```typescript
-// nuxt.config.ts
-alias: {
-  '#shared': '../layers/0-base/shared'
-}
-```
-
-**Uso:**
-
-```typescript
-import type { ApiResponse } from '#shared/types'
-```
+> **IMPORTANTE:** Use `~/layers/...` para referenciar arquivos em layers. Caminhos relativos como `./app/...` nao funcionam.
 
 ---
 
 ## Prioridade
 
-Esta é a layer com **menor prioridade** (0). Todas as outras layers podem sobrescrever seus arquivos.
+Esta e a layer com **menor prioridade** (0). Todas as outras layers podem sobrescrever seus arquivos.
 
 ```
-0-base < 1-auth < 2-home < 3-usuarios
+0-base < 1-auth < 2-home < 3-usuarios < 4-rumores < 5-docs
 ```
-
----
-
-## Documentação Detalhada
-
-Para instruções completas sobre cada área:
-
-| Área        | Documento                                              |
-| ----------- | ------------------------------------------------------ |
-| Componentes | [app/components/CLAUDE.md](app/components/CLAUDE.md)   |
-| Composables | [app/composables/CLAUDE.md](app/composables/CLAUDE.md) |
-
----
-
-## Checklist: Adicionar à Base Layer
-
-- [ ] É reutilizável por 2+ features?
-- [ ] Não tem dependência de lógica de negócio específica?
-- [ ] É um primitivo de UI ou lógica genérica?
-
-Se respondeu **sim** para todas, adicione aqui. Caso contrário, coloque na feature layer específica.
-
----
-
-## Referências
-
-- [shadcn-vue](https://www.shadcn-vue.com/)
-- [Nuxt Layers](https://nuxt.com/docs/4.x/guide/going-further/layers)
-- [Vue Composables](https://vuejs.org/guide/reusability/composables.html)

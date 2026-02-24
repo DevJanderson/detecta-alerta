@@ -1,6 +1,6 @@
 # Layer Rumores - CLAUDE.md
 
-Rumores epidemiologicos: feed publico, detalhe autenticado, filtros, estatisticas e moderacao admin.
+Feed de rumores epidemiologicos com filtros, paginacao cursor-based e infinite scroll.
 
 ## Arquitetura
 
@@ -8,7 +8,7 @@ Rumores epidemiologicos: feed publico, detalhe autenticado, filtros, estatistica
 Cliente -> BFF (Nuxt Server) -> API Sinapse (/noticias)
 ```
 
-A API Sinapse usa o termo "noticias" internamente. O BFF expoe como `/api/rumores/`.
+A API Sinapse usa o termo **"noticias"** internamente. O BFF expoe como `/api/rumores/`.
 
 ## Estrutura
 
@@ -19,39 +19,27 @@ layers/4-rumores/
 │
 ├── app/
 │   ├── components/
-│   │   ├── RumoresCard.vue               # Card individual (feed)
-│   │   ├── RumoresFeed.vue               # Lista + infinite scroll
-│   │   ├── RumoresFilters.vue            # Filtros basicos (publico)
-│   │   ├── RumoresDetalhe.vue            # Conteudo completo
-│   │   ├── RumoresRelacionados.vue       # Cards relacionados
-│   │   └── RumoresBadges.vue             # Badges doenca/localizacao
+│   │   ├── RumoresBadges.vue             # Badges doenca/localizacao/onehealth
+│   │   ├── RumoresCard.vue               # Card individual (imagem, titulo, badges, fonte, data)
+│   │   ├── RumoresFeed.vue               # Lista + infinite scroll (IntersectionObserver)
+│   │   └── RumoresFilters.vue            # Filtros: busca, doenca, estado (sync com URL)
 │   │
 │   ├── composables/
-│   │   ├── types.ts                      # Re-export Kubb + tipos BFF
+│   │   ├── types.ts                      # Re-export Kubb + RumoresListParams
 │   │   ├── useRumoresApi.ts              # Service: chamadas ao BFF
-│   │   └── useRumoresStore.ts            # Pinia: estado + filtros + paginacao
+│   │   └── useRumoresStore.ts            # Pinia: estado + filtros (persistidos) + lookups
 │   │
 │   └── pages/rumores/
-│       ├── index.vue                     # /rumores (feed publico)
-│       ├── [uniqueId].vue                # /rumores/:uniqueId (detalhe, auth)
-│       └── estatisticas.vue              # /rumores/estatisticas (dashboard, auth)
+│       └── index.vue                     # /rumores (feed, auth-guard)
 │
 └── server/api/rumores/
-    ├── index.get.ts                      # GET /api/rumores/
+    ├── index.get.ts                      # GET /api/rumores/ (cursor-based, 14 query params)
     ├── [uniqueId].get.ts                 # GET /api/rumores/:uniqueId
     ├── [uniqueId].relacionadas.get.ts    # GET /api/rumores/:uniqueId/relacionadas
-    ├── estatisticas/
-    │   ├── resumo.get.ts
-    │   ├── temporal.get.ts
-    │   ├── geografica.get.ts
-    │   └── alertas.get.ts
-    ├── operacoes/
-    │   ├── doencas.get.ts
-    │   ├── sintomas.get.ts
-    │   └── localizacoes.get.ts
-    └── admin/
-        ├── [uniqueId].put.ts
-        └── [uniqueId].delete.ts
+    └── operacoes/
+        ├── doencas.get.ts                # GET lookups de doencas
+        ├── sintomas.get.ts               # GET lookups de sintomas
+        └── localizacoes.get.ts           # GET lookups de localizacoes
 ```
 
 ## Protecao de Rotas
@@ -66,38 +54,58 @@ definePageMeta({ middleware: 'auth-guard' })
 
 ## Endpoints BFF
 
-### Leitura (autenticada)
+Todos requerem autenticacao (OAuth2).
 
-Todos os endpoints requerem token (API Sinapse exige OAuth2 em todos os endpoints de noticias).
+| Metodo | Rota BFF                              | API Sinapse                              |
+| ------ | ------------------------------------- | ---------------------------------------- |
+| GET    | `/api/rumores/`                       | `GET /noticias/`                         |
+| GET    | `/api/rumores/:uniqueId`              | `GET /noticias/{unique_id}`              |
+| GET    | `/api/rumores/:uniqueId/relacionadas` | `GET /noticias/{unique_id}/relacionadas` |
+| GET    | `/api/rumores/operacoes/doencas`      | `GET /noticias/operacoes/doencas`        |
+| GET    | `/api/rumores/operacoes/sintomas`     | `GET /noticias/operacoes/sintomas`       |
+| GET    | `/api/rumores/operacoes/localizacoes` | `GET /noticias/operacoes/localizacoes`   |
 
-| Metodo | Rota                                   | API Sinapse                              |
-| ------ | -------------------------------------- | ---------------------------------------- |
-| GET    | `/api/rumores/`                        | `GET /noticias/`                         |
-| GET    | `/api/rumores/:uniqueId`               | `GET /noticias/{unique_id}`              |
-| GET    | `/api/rumores/:uniqueId/relacionadas`  | `GET /noticias/{unique_id}/relacionadas` |
-| GET    | `/api/rumores/operacoes/doencas`       | `GET /noticias/operacoes/doencas`        |
-| GET    | `/api/rumores/operacoes/sintomas`      | `GET /noticias/operacoes/sintomas`       |
-| GET    | `/api/rumores/operacoes/localizacoes`  | `GET /noticias/operacoes/localizacoes`   |
-| GET    | `/api/rumores/estatisticas/resumo`     | `GET /noticias/estatisticas/resumo`      |
-| GET    | `/api/rumores/estatisticas/temporal`   | `GET /noticias/estatisticas/temporal`    |
-| GET    | `/api/rumores/estatisticas/geografica` | `GET /noticias/estatisticas/geografica`  |
-| GET    | `/api/rumores/estatisticas/alertas`    | `GET /noticias/estatisticas/alertas`     |
+### Query params do feed (`GET /api/rumores/`)
 
-### Admin
+Whitelist: `cursor`, `limit`, `search_term`, `doencas`, `sintomas`, `localizacoes`, `states`, `fonte`, `status`, `relevancia_minima`, `tipo_evento`, `categoria`, `classificacao_onehealth`, datas de coleta e evento.
 
-| Metodo | Rota                           | API Sinapse                    |
-| ------ | ------------------------------ | ------------------------------ |
-| PUT    | `/api/rumores/admin/:uniqueId` | `PUT /noticias/{unique_id}`    |
-| DELETE | `/api/rumores/admin/:uniqueId` | `DELETE /noticias/{unique_id}` |
+## Store (useRumoresStore)
 
-## Integracao com Kubb
+Persistencia: `filtros` sao salvos no localStorage via `pinia-plugin-persistedstate`.
 
-```typescript
-// Tipos
-import type { Noticia } from '~/generated/sinapse/types/Noticia'
-import type { NoticiaListResponse } from '~/generated/sinapse/types/NoticiaListResponse'
+**Estado:**
 
-// Schemas Zod
-import { noticiaSchema } from '~/generated/sinapse/zod/noticiaSchema'
-import { noticiaListResponseSchema } from '~/generated/sinapse/zod/noticiaListResponseSchema'
-```
+- `items` (shallowRef) — lista do feed
+- `cursor` — cursor de paginacao (cursor-based, nao offset)
+- `hasMore` — controle do infinite scroll
+- `filtros` — filtros ativos (**persistidos**)
+- `filtrosAtivos` (computed) — conta filtros aplicados
+- `doencas`, `sintomas`, `localizacoes` (shallowRef) — lookups cacheados
+- `lookupsLoaded` — evita re-fetch dos lookups
+- `rumoreAtual` — detalhe da noticia selecionada
+
+**Actions:**
+
+- `fetchRumores(reset?)` — busca pagina (limit: 20); reset limpa lista + cursor
+- `fetchRumore(uniqueId)` — busca detalhe
+- `fetchLookups()` — busca doencas + sintomas + localizacoes em paralelo (idempotente)
+- `aplicarFiltros(novosFiltros)` — merge e refetch
+- `limparFiltros()` — reseta e refetch
+
+## Componentes
+
+### RumoresFilters
+
+Sincroniza filtros com a URL via `router.replace({ query })`. Inicializa a partir de `route.query` no `onMounted`. Campos: busca (debounce 500ms via `useDebounce`), select doenca, select estado (27 UFs hardcoded).
+
+### RumoresFeed
+
+Implementa infinite scroll via `IntersectionObserver` com `rootMargin: '200px'`. Estados visuais: loading (6 skeletons), feed, fim, vazio (com/sem filtros), erro.
+
+### RumoresCard
+
+Card clicavel via `NuxtLink` para `/rumores/:uniqueId`. Exibe imagem (lazy), titulo (2 linhas), descricao truncada (150 chars), badges, favicon + fonte + data relativa.
+
+### RumoresBadges
+
+Badges: doenca principal (vermelho), localizacao "Nome, UF" (azul), classificacao onehealth (outline).

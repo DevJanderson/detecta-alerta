@@ -119,7 +119,7 @@ Projeto usa **`@ai-coders/context`** via MCP para planejamento e execução estr
 
 ### Code Style
 
-Projeto usa Prettier com: **sem ponto-e-vírgula**, **aspas simples**, **100 colunas**, **sem trailing comma**, **arrow parens: avoid**.
+Projeto usa Prettier com: **sem ponto-e-vírgula**, **aspas simples**, **100 colunas**, **sem trailing comma**, **arrow parens: avoid**, **endOfLine: lf**, **vueIndentScriptAndStyle: false**.
 
 ```typescript
 // ✅ Correto
@@ -140,6 +140,7 @@ const fn = x => x + 1
 - `vue/html-self-closing`: sempre auto-fechar componentes (`<MyComp />`)
 - `vue/multi-word-component-names`: **off** — componentes single-word são permitidos (ex: `Button.vue`)
 - `@typescript-eslint/no-explicit-any`: `warn` (não bloqueia, mas evitar)
+- `vue/no-multiple-template-root`: **off** — múltiplos root elements no template são permitidos (Vue 3 fragments)
 - `generated/**` é ignorado pelo ESLint
 
 ## Sobre o Projeto
@@ -178,6 +179,8 @@ npm run test:nuxt        # Vitest projeto "nuxt" (happy-dom + @nuxt/test-utils)
 npm run test -- path/to/file.test.ts  # Teste específico
 npm run test:e2e         # Playwright E2E
 npm run api:generate     # Gera cliente a partir do OpenAPI
+npm run api:lint         # Valida OpenAPI spec com Spectral
+npm run geo:convert      # Converte GeoJSON → TopoJSON (public/geo/)
 ```
 
 ## SEO
@@ -218,6 +221,19 @@ npx shadcn-vue@latest add <componente>
 ```
 
 Componentes ficam em `layers/0-base/app/components/ui/` (auto-import).
+
+## Bibliotecas UI Disponíveis
+
+| Biblioteca                | Uso                                        |
+| ------------------------- | ------------------------------------------ |
+| `vue-sonner`              | Toasts/notificações (módulo Nuxt, sem CSS) |
+| `@tanstack/vue-table`     | Tabelas com sort/filter/pagination         |
+| `maska`                   | Máscaras de input (CPF, telefone, etc.)    |
+| `embla-carousel-vue`      | Carrossel/slider                           |
+| `vaul-vue`                | Drawer/bottom sheet                        |
+| `@vueuse/core`            | Composables utilitários Vue                |
+| `@internationalized/date` | Datas internacionalizadas                  |
+| `@tailwindcss/typography` | Plugin prose para Markdown                 |
 
 ## Design System - Cores
 
@@ -381,10 +397,14 @@ Prefixo numérico define ordem de execução: `01.auth.ts` roda antes de `02.log
 
 ### Server Utilities (BFF)
 
-Utilitários em `layers/0-base/server/utils/` são **auto-importados** pelo Nitro em todos os endpoints BFF:
+Utilitários em `layers/0-base/server/utils/` e `layers/1-auth/server/utils/` são **auto-importados** pelo Nitro em todos os endpoints BFF:
 
 ```typescript
-// handleSinapseRequest — wrapper centralizado para chamadas à API Sinapse
+// fetchSinapse — $fetch pré-configurado para API Sinapse (layers/1-auth/server/utils/)
+// Injeta Authorization header automaticamente a partir do cookie
+const data = await fetchSinapse('/endpoint', { event })
+
+// handleSinapseRequest — wrapper centralizado para chamadas à API Sinapse (layers/0-base/server/utils/)
 // Trata erros, valida resposta com Zod (opcional) e faz logging
 export default defineEventHandler(async event => {
   return handleSinapseRequest({
@@ -394,10 +414,13 @@ export default defineEventHandler(async event => {
   })
 })
 
-// validateBody — lê body + valida com Zod em uma chamada
+// validateBody — lê body + valida com Zod em uma chamada (layers/0-base/server/utils/)
 const data = await validateBody(event, myZodSchema)
 
-// buildQueryString — constrói query params com whitelist
+// validateRouteParam — valida que route param é numérico (previne path traversal)
+const id = validateRouteParam(event, 'id')
+
+// buildQueryString — constrói query params com whitelist (layers/0-base/server/utils/)
 const qs = buildQueryString(getQuery(event), ['page', 'search', 'status'])
 ```
 

@@ -21,6 +21,8 @@ layers/2-home/
 ├── CLAUDE.md                   # Este arquivo
 │
 └── app/
+    ├── components/
+    │   └── HomeHero.vue        # Hero section da homepage
     └── pages/
         └── index.vue           # Homepage (/)
 ```
@@ -70,13 +72,13 @@ useSeoPage({
 
 ## Expandindo a Layer
 
-Se a homepage crescer, considere adicionar:
+Se a homepage crescer, considere adicionar mais componentes:
 
 ```
 layers/2-home/
 ├── app/
 │   ├── components/             # Componentes específicos da home
-│   │   ├── HomeHero.vue
+│   │   ├── HomeHero.vue        # ✅ Já existe
 │   │   ├── HomeFeatures.vue
 │   │   └── HomeCTA.vue
 │   │
