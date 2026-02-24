@@ -1,0 +1,59 @@
+extends:
+  - spectral:oas
+
+rules:
+  # LGPD - Bloqueia dados sensíveis em query params
+  no-sensitive-query-params:
+    description: Bloqueia CPF, email, senha, token em query params (LGPD)
+    severity: error
+    given: '$.paths[*][*].parameters[?(@.in=="query")]'
+    then:
+      field: name
+      function: pattern
+      functionOptions:
+        notMatch: '[cC][pP][fF]|[eE][mM][aA][iI][lL]|[sS][eE][nN][hH][aA]|[pP][aA][sS][sS][wW][oO][rR][dD]|[tT][oO][kK][eE][nN]|[sS][eE][cC][rR][eE][tT]'
+
+  # POST deve ter requestBody documentado
+  post-must-have-request-body:
+    description: POST sem requestBody documentado
+    severity: warn
+    given: '$.paths[*].post'
+    then:
+      field: requestBody
+      function: truthy
+
+  # PUT deve ter requestBody documentado
+  put-must-have-request-body:
+    description: PUT sem requestBody documentado
+    severity: warn
+    given: '$.paths[*].put'
+    then:
+      field: requestBody
+      function: truthy
+
+  # Response 200 deve ter schema definido
+  response-200-must-have-schema:
+    description: Response 200 sem schema (gera any)
+    severity: warn
+    given: '$.paths[*][*].responses.200.content.application/json'
+    then:
+      field: schema
+      function: truthy
+
+  # Response 201 deve ter schema definido
+  response-201-must-have-schema:
+    description: Response 201 sem schema (gera any)
+    severity: warn
+    given: '$.paths[*][*].responses.201.content.application/json'
+    then:
+      field: schema
+      function: truthy
+
+  # Endpoint deve ter summary
+  operation-must-have-summary:
+    description: Endpoint sem summary no Swagger
+    severity: info
+    given: '$.paths[*][get,post,put,patch,delete]'
+    then:
+      field: summary
+      function: truthy
