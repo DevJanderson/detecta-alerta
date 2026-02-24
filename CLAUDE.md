@@ -6,6 +6,98 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Sempre responda em Português Brasileiro (pt-BR).**
 
+## Princípio ETC (Easier to Change)
+
+Valor guia do projeto, inspirado no livro "The Pragmatic Programmer". ETC não é uma regra — é a pergunta que fazemos antes de cada decisão: **"isso vai facilitar mudanças futuras?"**
+
+### Checklist ETC
+
+Antes de criar ou modificar código, pergunte:
+
+- **Isolamento**: a mudança está contida em uma layer/arquivo, ou espalha impacto?
+- **Constantes**: valores mágicos estão nomeados e centralizados?
+- **Abstrações**: estou criando uma abstração útil ou prematura?
+- **Acoplamento**: componentes dependem de detalhes internos de outros?
+- **Testes**: a mudança é protegida por testes que detectam regressão?
+
+### Como o ETC se manifesta no Detecta Alerta
+
+| Decisão                       | Por quê é ETC                                      |
+| ----------------------------- | -------------------------------------------------- |
+| Nuxt Layers                   | Trocar/remover uma feature = mexer em uma layer só |
+| BFF isolando a API Sinapse    | API externa muda, frontend não sente               |
+| Kubb gerando tipos            | Contrato muda → `npm run api:generate` → pronto    |
+| CSS variables (design system) | Uma variável muda a cor em todos os componentes    |
+| Store/Service separation      | Trocar o HTTP client = mexer só no service         |
+| useSeoPage composable         | Mudar estratégia de SEO = alterar um composable    |
+
+### Anti-patterns ETC
+
+- Valores hardcoded (magic numbers, URLs inline, cores hex/rgb)
+- Componentes God Object (>300 linhas fazendo tudo)
+- Lógica duplicada sem extração
+- Acoplamento direto entre layers (import horizontal)
+- Ausência de testes em fluxos críticos
+
+## ai-context (Context Engineering)
+
+Projeto usa **`@ai-coders/context`** via MCP para planejamento e execução estruturada de tarefas. Pasta `.context/` na raiz é a fonte de verdade.
+
+### Regras
+
+- **SEMPRE usar ai-context** para planejar e executar tarefas não-triviais
+- **NÃO criar planos manualmente** em `.context/plans/` — usar MCP tools
+- **NÃO usar `sync({ action: "exportContext" })`** — sobrescreve o CLAUDE.md
+- Para tarefas triviais (typo, single-line fix), pode pular o workflow
+
+### Estrutura `.context/`
+
+```
+.context/
+├── docs/       # Documentação (arquitetura, padrões, decisões)
+├── agents/     # Playbooks de agentes (11 built-in)
+├── plans/      # Planos de trabalho ligados ao workflow PREVC
+├── skills/     # Expertise on-demand (10 built-in)
+└── workflow/   # Estado do workflow PREVC ativo (gitignored)
+```
+
+### Ferramentas MCP
+
+| Tool               | Função                                                                                          |
+| ------------------ | ----------------------------------------------------------------------------------------------- |
+| `context`          | Scaffolding: `check`, `init`, `fill`, `fillSingle`, `getMap`, `buildSemantic`, `scaffoldPlan`   |
+| `explore`          | Leitura/busca de código: `read`, `list`, `analyze`, `search`, `getStructure`                    |
+| `plan`             | Gestão de planos: `link`, `getDetails`, `updatePhase`, `updateStep`, `getStatus`, `commitPhase` |
+| `agent`            | Orquestração: `discover`, `getInfo`, `orchestrate`, `getSequence`, `getDocs`                    |
+| `skill`            | Skills on-demand: `list`, `getContent`, `getForPhase`, `scaffold`, `export`, `fill`             |
+| `sync`             | Import/export: `exportRules`, `exportDocs`, `exportAgents` (**NÃO** `exportContext`)            |
+| `workflow-init`    | Inicializa workflow PREVC com detecção de escala e gates                                        |
+| `workflow-status`  | Status atual: fase, gates, planos linkados                                                      |
+| `workflow-advance` | Avança fase PREVC (respeita gates)                                                              |
+| `workflow-manage`  | Handoffs, colaboração, aprovações, modo autônomo                                                |
+
+### Workflow PREVC (Planning → Review → Execution → Validation → Confirmation)
+
+| Escala   | Fases             | Quando usar                                         |
+| -------- | ----------------- | --------------------------------------------------- |
+| `QUICK`  | E → V             | Bug fixes, ajustes pequenos (~5 min)                |
+| `SMALL`  | P → E → V         | Features simples (~15 min)                          |
+| `MEDIUM` | P → R → E → V     | Features regulares com decisões de design (~30 min) |
+| `LARGE`  | P → R → E → V → C | Sistemas complexos, segurança, compliance (~1h+)    |
+
+### Fluxo típico de uso
+
+```
+1. context({ action: "check" })                          # Verifica .context/
+2. context({ action: "scaffoldPlan", name: "..." })      # Cria plano
+3. workflow-init({ name: "...", scale: "MEDIUM" })       # Inicia workflow
+4. workflow-advance()                                     # Avança fases
+```
+
+### Skills disponíveis
+
+`feature-breakdown`, `api-design`, `code-review`, `pr-review`, `test-generation`, `refactoring`, `bug-investigation`, `commit-message`, `documentation`, `security-audit`
+
 ## Regras Críticas
 
 ### Git

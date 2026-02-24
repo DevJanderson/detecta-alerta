@@ -49,3 +49,6 @@ coverage
 # Kubb (cache interno)
 **/.kubb/
 .claude/
+
+# ai-context (workflow é estado local)
+.context/workflow/
