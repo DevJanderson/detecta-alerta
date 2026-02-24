@@ -66,8 +66,8 @@ CSRF is enabled globally for POST, PUT, PATCH, DELETE methods using `nuxt-csurf`
 
 **Exceptions** (use httpOnly cookies + SameSite strict instead):
 
-- `/api/auth/*` — all auth endpoints
-- `/api/usuarios/**` — user management
+- `/api/auth/*` — all auth endpoints (login, logout, signup, refresh)
+- `/api/usuarios/**` — user management (profile, admin)
 - `/api/rumores/admin/**` — rumores admin operations
 
 ## Request Size Limits
@@ -102,7 +102,9 @@ CSRF is enabled globally for POST, PUT, PATCH, DELETE methods using `nuxt-csurf`
 ## Server-Side Validation
 
 ```typescript
-// All BFF endpoints validate input with Zod
+// All BFF endpoints validate input with Zod via validateBody()
+const data = await validateBody(event, myZodSchema)
+// Or manually:
 const result = schema.safeParse(body)
 if (!result.success) throw createError({ statusCode: 400 })
 ```

@@ -29,9 +29,9 @@ Layers are auto-registered from `~/layers` and ordered by numeric prefix. Higher
 | Layer        | Purpose                                                              | Key Directories                                                               |
 | ------------ | -------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | `0-base`     | Foundation: app.vue, error.vue, CSS, shadcn-vue, shared types, utils | `app/components/ui/`, `app/composables/`, `shared/types/`                     |
-| `1-auth`     | Authentication BFF: login, logout, JWT cookies, middleware           | `server/api/auth/`, `server/utils/auth.ts`, `app/composables/useAuthStore.ts` |
+| `1-auth`     | Authentication BFF: login, logout, signup, JWT cookies, middleware   | `server/api/auth/`, `server/utils/auth.ts`, `app/composables/useAuthStore.ts` |
 | `2-home`     | Landing page, public pages                                           | `app/pages/`                                                                  |
-| `3-usuarios` | User management, groups, permissions (admin)                         | `server/api/usuarios/`, `app/composables/useUsuarios*.ts`                     |
+| `3-usuarios` | User profile, admin management of users, groups, permissions         | `server/api/usuarios/`, `app/composables/useUsuarios*.ts`                     |
 | `4-rumores`  | Epidemiological rumors feed, filters, CRUD                           | `server/api/rumores/`, `app/composables/useRumores*.ts`                       |
 | `5-docs`     | Project documentation via Nuxt Content                               | `app/pages/docs/`, `app/composables/useDocsNavigation.ts`                     |
 

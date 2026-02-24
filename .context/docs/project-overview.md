@@ -40,20 +40,20 @@ See [`codebase-map.json`](./codebase-map.json) for the complete exports list. Ke
 
 - `layers/` - All application code organized as Nuxt layers
   - `0-base/` - Foundation: app.vue, CSS, shadcn-vue components, shared types, utils
-  - `1-auth/` - Authentication BFF (login, logout, JWT management)
+  - `1-auth/` - Authentication BFF (login, logout, signup, JWT management)
   - `2-home/` - Landing page and public pages
   - `3-usuarios/` - User management, groups, permissions (admin area)
   - `4-rumores/` - Epidemiological rumors feed (news monitoring)
   - `5-docs/` - Project documentation (Nuxt Content)
 - `generated/sinapse/` - Kubb-generated API client (types + Zod schemas) - DO NOT EDIT
 - `tests/` - Unit, integration, and E2E tests
-- `content/docs/` - Markdown documentation files
+- `content/docs/` - Markdown documentation (projeto/backlog, projeto/decisoes)
 - `public/` - Static assets
 
 ## Technology Stack Summary
 
 **Runtime**: Node.js with Nuxt 4 (Vue 3, Nitro server)
-**UI**: shadcn-vue components, Tailwind CSS v4, Lucide icons, VeeValidate forms
+**UI**: shadcn-vue components, Tailwind CSS v4, @tailwindcss/typography, Lucide icons, VeeValidate forms
 **State**: Pinia stores with Composition API, pinia-plugin-persistedstate
 **API Client**: Kubb (auto-generated from OpenAPI spec) with Zod validation
 **Testing**: Vitest (unit + nuxt projects), Playwright (E2E)
