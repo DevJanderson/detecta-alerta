@@ -14,7 +14,7 @@ export async function waitForHydration(page: Page) {
     .waitForFunction(
       () => {
         const el = document.querySelector('#__nuxt')
-        return el && (el as any).__vue_app__ !== undefined
+        return el && '__vue_app__' in el
       },
       { timeout: 5000 }
     )

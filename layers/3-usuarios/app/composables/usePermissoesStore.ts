@@ -7,7 +7,7 @@ import { extractErrorMessage } from '~/layers/0-base/app/utils/error'
 
 export const usePermissoesStore = defineStore('permissoes', () => {
   // Estado
-  const items = ref<PermissaoAcessoSchemaList[]>([])
+  const items = shallowRef<PermissaoAcessoSchemaList[]>([])
   const isLoading = ref(false)
   const error = ref<string | null>(null)
 

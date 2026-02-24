@@ -6,7 +6,7 @@ export const useRumoresStore = defineStore(
     const api = useRumoresApi()
 
     // === Estado do feed ===
-    const items = ref<Noticia[]>([])
+    const items = shallowRef<Noticia[]>([])
     const cursor = ref<string | null>(null)
     const hasMore = ref(true)
     const isLoading = ref(false)
@@ -23,9 +23,9 @@ export const useRumoresStore = defineStore(
     })
 
     // === Lookups (cacheados) ===
-    const doencas = ref<Doenca[]>([])
-    const sintomas = ref<Sintoma[]>([])
-    const localizacoes = ref<Regiao[]>([])
+    const doencas = shallowRef<Doenca[]>([])
+    const sintomas = shallowRef<Sintoma[]>([])
+    const localizacoes = shallowRef<Regiao[]>([])
     const lookupsLoaded = ref(false)
 
     // === Noticia atual (detalhe) ===

@@ -9,7 +9,7 @@ import { extractErrorMessage } from '~/layers/0-base/app/utils/error'
 
 export const useGruposStore = defineStore('grupos', () => {
   // Estado
-  const items = ref<GrupoSchemaList[]>([])
+  const items = shallowRef<GrupoSchemaList[]>([])
   const selectedGrupo = ref<GrupoSchemaDetalhes | null>(null)
   const total = ref(0)
   const page = ref(1)

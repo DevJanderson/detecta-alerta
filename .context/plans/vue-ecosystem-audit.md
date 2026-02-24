@@ -151,19 +151,26 @@ phases:
 
 ### Tasks
 
-| #    | Task                                                                      | Prioridade | Status  |
-| ---- | ------------------------------------------------------------------------- | ---------- | ------- |
-| 2.1  | Corrigir breaking changes Reka UI (v-model, prefixos)                     | P0         | pending |
-| 2.2  | Migrar APIs deprecadas VueUse (watchPausable, templateRef, computedEager) | P1         | pending |
-| 2.3  | Migrar toast legado para Sonner (se aplicável)                            | P1         | pending |
-| 2.4  | Migrar para `useTemplateRef()` (Vue 3.5)                                  | P1         | pending |
-| 2.5  | Migrar `withDefaults` para destructure (Vue 3.5)                          | P2         | pending |
-| 2.6  | Adicionar `markRaw()` em schemas Zod do VeeValidate                       | P2         | pending |
-| 2.7  | Avaliar `$patch()` nos stores Pinia                                       | P2         | pending |
-| 2.8  | Verificar `skipHydrate()` para SSR em stores persistidos                  | P2         | pending |
-| 2.9  | Avaliar `shallowRef()` para dados grandes                                 | P3         | pending |
-| 2.10 | Avaliar lazy hydration para componentes pesados                           | P3         | pending |
-| 2.11 | Avaliar `defineModel()` em componentes com v-model                        | P3         | pending |
+| #    | Task                                                                      | Prioridade | Status   | Notas                                                          |
+| ---- | ------------------------------------------------------------------------- | ---------- | -------- | -------------------------------------------------------------- |
+| 2.1  | Corrigir breaking changes Reka UI (v-model, prefixos)                     | P0         | n/a      | Nenhum uso de `--radix-` ou `v-model:checked` encontrado       |
+| 2.2  | Migrar APIs deprecadas VueUse (watchPausable, templateRef, computedEager) | P1         | n/a      | Nenhuma API deprecada em uso                                   |
+| 2.3  | Migrar toast legado para Sonner (se aplicável)                            | P1         | n/a      | Toast legado não encontrado                                    |
+| 2.4  | Migrar para `useTemplateRef()` (Vue 3.5)                                  | P1         | n/a      | Nenhum uso de `ref="x"` + `ref()` encontrado                   |
+| 2.5  | Migrar `withDefaults` para destructure (Vue 3.5)                          | P2         | done     | Button, Separator, AuthLoginForm migrados                      |
+| 2.6  | Adicionar `markRaw()` em schemas Zod do VeeValidate                       | P2         | n/a      | VeeValidate não usa schemas Zod inline no projeto              |
+| 2.7  | Avaliar `$patch()` nos stores Pinia                                       | P2         | avaliado | Desnecessário: composition stores com mutations síncronas      |
+| 2.8  | Verificar `skipHydrate()` para SSR em stores persistidos                  | P2         | avaliado | rumoresStore usa `persist: { pick: ['filtros'] }` — correto    |
+| 2.9  | Avaliar `shallowRef()` para dados grandes                                 | P3         | done     | 7 campos migrados em 4 stores                                  |
+| 2.10 | Avaliar lazy hydration para componentes pesados                           | P3         | avaliado | Todas as páginas requerem auth — lazy hydration não aplica     |
+| 2.11 | Avaliar `defineModel()` em componentes com v-model                        | P3         | avaliado | Componentes usam v-model via shadcn-vue (Reka UI) — já correto |
+
+**Tasks adicionais (encontradas na Phase 1):**
+
+| #    | Task                                                     | Prioridade | Status |
+| ---- | -------------------------------------------------------- | ---------- | ------ |
+| 2.12 | Migrar debounce manual para `onWatcherCleanup` (Vue 3.5) | P2         | done   |
+| 2.13 | Remover `reactiveOmit` (VueUse) do Separator.vue         | P2         | done   |
 
 **Commit Checkpoint:** `refactor: aplica correções do audit vue-ecosystem`
 
@@ -177,10 +184,10 @@ phases:
 
 | #   | Task                                                        | Status  |
 | --- | ----------------------------------------------------------- | ------- |
-| 3.1 | Rodar `npm run typecheck` — zero erros                      | pending |
-| 3.2 | Rodar `npm run quality:fix` — zero erros de lint            | pending |
-| 3.3 | Rodar `npm run test:run` — testes existentes passando       | pending |
+| 3.1 | Rodar `npm run typecheck` — zero erros                      | done    |
+| 3.2 | Rodar `npm run quality:fix` — zero erros de lint            | done    |
+| 3.3 | Rodar `npm run test:run` — testes existentes passando       | done    |
 | 3.4 | Testar manualmente páginas afetadas (forms, admin, rumores) | pending |
-| 3.5 | Atualizar `.context/docs/` se necessário                    | pending |
+| 3.5 | Atualizar `.context/docs/` se necessário                    | n/a     |
 
 **Commit Checkpoint:** `test: valida correções do audit vue-ecosystem`

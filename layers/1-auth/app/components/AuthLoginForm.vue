@@ -3,9 +3,7 @@ interface Props {
   redirectTo?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  redirectTo: '/'
-})
+const { redirectTo = '/' } = defineProps<Props>()
 
 const emit = defineEmits<{
   success: []
@@ -33,7 +31,7 @@ async function handleSubmit() {
 
   if (success) {
     emit('success')
-    router.push(props.redirectTo)
+    router.push(redirectTo)
   }
 }
 

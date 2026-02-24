@@ -11,7 +11,7 @@ import { extractErrorMessage } from '~/layers/0-base/app/utils/error'
 export const useUsuariosStore = defineStore('usuarios', () => {
   // Estado
   const perfil = ref<UsuarioSchemaDetalhes | null>(null)
-  const items = ref<UsuarioSchemaList[]>([])
+  const items = shallowRef<UsuarioSchemaList[]>([])
   const selectedUsuario = ref<UsuarioSchemaDetalhes | null>(null)
   const total = ref(0)
   const page = ref(1)

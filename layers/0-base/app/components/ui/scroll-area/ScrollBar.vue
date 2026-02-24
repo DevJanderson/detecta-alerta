@@ -8,6 +8,7 @@ import { cn } from '@/layers/0-base/app/utils/utils'
 const props = withDefaults(
   defineProps<ScrollAreaScrollbarProps & { class?: HTMLAttributes['class'] }>(),
   {
+    class: undefined,
     orientation: 'vertical'
   }
 )

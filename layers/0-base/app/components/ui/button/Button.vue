@@ -13,9 +13,13 @@ interface Props extends PrimitiveProps {
   class?: HTMLAttributes['class']
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  as: 'button'
-})
+const {
+  as = 'button',
+  variant = undefined,
+  size = undefined,
+  class: propClass = undefined,
+  asChild
+} = defineProps<Props>()
 </script>
 
 <template>
@@ -23,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
     data-slot="button"
     :as="as"
     :as-child="asChild"
-    :class="cn(buttonVariants({ variant, size }), props.class)"
+    :class="cn(buttonVariants({ variant, size }), propClass)"
   >
     <slot />
   </Primitive>

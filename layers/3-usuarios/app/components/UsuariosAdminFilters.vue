@@ -6,8 +6,6 @@ const emit = defineEmits<{
 const search = ref('')
 const status = ref('todos')
 
-let debounceTimer: ReturnType<typeof setTimeout> | null = null
-
 function emitFilter() {
   const params: { search?: string; ativo?: boolean } = {}
   if (search.value.trim()) params.search = search.value.trim()
@@ -17,8 +15,8 @@ function emitFilter() {
 }
 
 watch(search, () => {
-  if (debounceTimer) clearTimeout(debounceTimer)
-  debounceTimer = setTimeout(emitFilter, 300)
+  const timer = setTimeout(emitFilter, 300)
+  onWatcherCleanup(() => clearTimeout(timer))
 })
 
 watch(status, emitFilter)

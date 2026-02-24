@@ -23,15 +23,13 @@ const searchResults = ref<Array<{ id: number; nome: string; email: string }>>([]
 const isSearching = ref(false)
 const isRemoving = ref<number | null>(null)
 
-let searchTimeout: ReturnType<typeof setTimeout> | null = null
-
 watch(search, val => {
-  if (searchTimeout) clearTimeout(searchTimeout)
   if (!val.trim()) {
     searchResults.value = []
     return
   }
-  searchTimeout = setTimeout(() => searchUsers(val.trim()), 300)
+  const timer = setTimeout(() => searchUsers(val.trim()), 300)
+  onWatcherCleanup(() => clearTimeout(timer))
 })
 
 async function searchUsers(query: string) {

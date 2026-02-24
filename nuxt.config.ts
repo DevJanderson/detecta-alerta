@@ -262,6 +262,7 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- @tailwindcss/vite type mismatch with Nuxt's bundled vite types
     plugins: [tailwindcss() as any],
 
     // Performance - Build optimizations
