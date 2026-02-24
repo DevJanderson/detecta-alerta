@@ -43,7 +43,7 @@ onUnmounted(() => {
   <main class="flex min-h-screen items-center justify-center bg-base-50">
     <div class="text-center">
       <div
-        class="mb-4 h-8 w-8 animate-spin rounded-full border-4 border-brand-primary-200 border-t-brand-primary-600 mx-auto"
+        class="mb-4 h-8 w-8 animate-spin rounded-full border-4 border-brand-primary-200 border-t-brand-primary-900 mx-auto"
       />
       <p class="text-muted-foreground">Saindo...</p>
     </div>

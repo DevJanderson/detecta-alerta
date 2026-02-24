@@ -5,7 +5,7 @@
     >
       <!-- Titulo principal (esquerda) -->
       <h1
-        class="max-w-xl text-3xl font-bold leading-tight text-brand-primary-700 sm:text-4xl lg:text-6xl"
+        class="max-w-xl text-3xl font-bold leading-tight text-brand-primary-950 sm:text-4xl lg:text-6xl"
       >
         Quais os riscos de Surtos ou Epidemias no Brasil?
       </h1>
@@ -14,11 +14,11 @@
       <div class="flex flex-col items-center gap-6 lg:self-center">
         <div class="flex flex-col items-center gap-2">
           <span
-            class="rounded-full bg-brand-secondary-700 px-2 py-1 text-base font-semibold leading-tight text-white"
+            class="rounded-full bg-brand-secondary-900 px-2 py-1 text-base font-semibold leading-tight text-white"
           >
             selecione sua região
           </span>
-          <p class="text-center text-xs leading-normal text-brand-secondary-700">
+          <p class="text-center text-xs leading-normal text-brand-secondary-900">
             Não se preocupe!
             <br />
             Os dados são abertos. ;)
@@ -27,7 +27,7 @@
 
         <!-- Seta para baixo -->
         <svg
-          class="h-20 text-brand-primary-400"
+          class="h-20 text-brand-primary-700"
           viewBox="0 0 15 82"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -43,12 +43,12 @@
       <div
         class="flex max-w-md flex-col items-center gap-4 text-center lg:items-end lg:pt-12 lg:text-right"
       >
-        <p class="text-xl leading-relaxed text-brand-secondary-700">
+        <p class="text-xl leading-relaxed text-brand-secondary-900">
           O Detecta Alerta identifica, através da frequência de visitas em diferentes
           estabelecimentos, padrões que podem indicar
           <strong>potencial risco de epidemias</strong>.
         </p>
-        <p class="max-w-xs text-sm leading-normal text-brand-secondary-500">
+        <p class="max-w-xs text-sm leading-normal text-brand-secondary-700">
           *Dados públicos coletados do Google Maps e parcerias com instituições públicas.
         </p>
       </div>

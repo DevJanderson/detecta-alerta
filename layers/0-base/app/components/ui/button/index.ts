@@ -24,10 +24,10 @@ export const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
         // Variantes da marca - Primário (Design System Figma)
         'brand-outline':
-          'rounded-full border border-brand-primary-600 text-brand-secondary-700 [&_:is(svg,.iconify)]:text-brand-primary-600 bg-transparent hover:bg-brand-primary-600 hover:text-white hover:border-brand-primary-600 hover:[&_:is(svg,.iconify)]:text-white disabled:opacity-100 disabled:bg-base-100 disabled:text-base-400 disabled:border-base-200 disabled:[&_:is(svg,.iconify)]:text-base-400',
+          'rounded-full border border-brand-primary-900 text-brand-secondary-900 [&_:is(svg,.iconify)]:text-brand-primary-900 bg-transparent hover:bg-brand-primary-900 hover:text-white hover:border-brand-primary-900 hover:[&_:is(svg,.iconify)]:text-white disabled:opacity-100 disabled:bg-base-100 disabled:text-base-400 disabled:border-base-200 disabled:[&_:is(svg,.iconify)]:text-base-400',
         // Variantes da marca - Secundário (Design System Figma)
         'brand-secondary-soft':
-          'rounded-full bg-brand-secondary-50 border border-brand-secondary-100 text-brand-secondary-700 [&_:is(svg,.iconify)]:text-brand-primary-600 hover:bg-brand-secondary-600 hover:text-white hover:border-brand-secondary-600 hover:[&_:is(svg,.iconify)]:text-white disabled:opacity-100 disabled:bg-base-100 disabled:text-base-400 disabled:border-base-200 disabled:[&_:is(svg,.iconify)]:text-base-400'
+          'rounded-full bg-brand-secondary-50 border border-brand-secondary-100 text-brand-secondary-900 [&_:is(svg,.iconify)]:text-brand-primary-900 hover:bg-brand-secondary-900 hover:text-white hover:border-brand-secondary-900 hover:[&_:is(svg,.iconify)]:text-white disabled:opacity-100 disabled:bg-base-100 disabled:text-base-400 disabled:border-base-200 disabled:[&_:is(svg,.iconify)]:text-base-400'
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',

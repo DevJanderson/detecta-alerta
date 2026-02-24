@@ -22,7 +22,7 @@ const redirectTo = computed(() => {
     <div class="w-full max-w-md">
       <!-- Logo/Título -->
       <div class="mb-8 text-center">
-        <h1 class="text-2xl font-bold text-brand-primary-700">Detecta Alerta</h1>
+        <h1 class="text-2xl font-bold text-brand-primary-950">Detecta Alerta</h1>
         <p class="mt-2 text-sm text-muted-foreground">Plataforma de vigilância epidemiológica</p>
       </div>
 

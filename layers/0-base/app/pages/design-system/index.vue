@@ -113,14 +113,6 @@ const semanticColors = [
   { name: 'border', class: 'bg-border' },
   { name: 'ring', class: 'bg-ring' }
 ]
-
-const chartColors = [
-  { name: 'chart-1', class: 'bg-chart-1' },
-  { name: 'chart-2', class: 'bg-chart-2' },
-  { name: 'chart-3', class: 'bg-chart-3' },
-  { name: 'chart-4', class: 'bg-chart-4' },
-  { name: 'chart-5', class: 'bg-chart-5' }
-]
 </script>
 
 <template>
@@ -267,22 +259,6 @@ const chartColors = [
               class="h-16 w-full rounded-lg border border-border shadow-sm"
               :class="color.class"
             />
-            <span class="mt-1 text-xs text-muted-foreground">
-              {{ color.name }}
-            </span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Charts -->
-      <section class="mb-10">
-        <h2 class="mb-4 text-xl font-semibold text-foreground">
-          Charts
-          <span class="text-sm font-normal text-muted-foreground">(Gráficos)</span>
-        </h2>
-        <div class="grid grid-cols-5 gap-4">
-          <div v-for="color in chartColors" :key="color.name" class="flex flex-col items-center">
-            <div class="h-16 w-full rounded-lg shadow-sm" :class="color.class" />
             <span class="mt-1 text-xs text-muted-foreground">
               {{ color.name }}
             </span>

@@ -92,7 +92,7 @@ function handleRemove(usuarioId: number) {
             <span class="font-medium">{{ usuario.nome }}</span>
             <span class="ml-2 text-muted-foreground">{{ usuario.email }}</span>
           </div>
-          <Icon name="lucide:plus" class="size-4 text-brand-secondary-600" />
+          <Icon name="lucide:plus" class="size-4 text-brand-secondary-800" />
         </button>
       </div>
     </div>

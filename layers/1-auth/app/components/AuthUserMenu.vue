@@ -13,7 +13,7 @@ async function handleLogout() {
     <DropdownMenuTrigger as-child>
       <Button variant="brand-secondary-soft" size="brand-md" class="gap-2 pl-1 pr-2">
         <Avatar class="size-7 bg-brand-primary-100">
-          <AvatarFallback class="text-brand-primary-700 text-xs font-semibold">
+          <AvatarFallback class="text-brand-primary-950 text-xs font-semibold">
             {{ authStore.userInitials }}
           </AvatarFallback>
         </Avatar>
@@ -31,7 +31,7 @@ async function handleLogout() {
 
       <!-- Menu -->
       <DropdownMenuItem
-        class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-700"
+        class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
         @click="router.push('/perfil')"
       >
         <Icon name="lucide:user" class="size-4" />
@@ -40,7 +40,7 @@ async function handleLogout() {
 
       <DropdownMenuItem
         v-if="authStore.hasGroup('administradores')"
-        class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-700"
+        class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
         @click="router.push('/admin/usuarios')"
       >
         <Icon name="lucide:users" class="size-4" />
@@ -48,11 +48,31 @@ async function handleLogout() {
       </DropdownMenuItem>
 
       <DropdownMenuItem
-        class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-700"
+        class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
       >
         <Icon name="lucide:bell" class="size-4" />
         <span>Notificações</span>
       </DropdownMenuItem>
+
+      <DropdownMenuSeparator />
+
+      <DropdownMenuItem
+        class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
+        @click="router.push('/design-system')"
+      >
+        <Icon name="lucide:palette" class="size-4" />
+        <span>Design System</span>
+      </DropdownMenuItem>
+
+      <DropdownMenuItem
+        class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
+        @click="router.push('/docs')"
+      >
+        <Icon name="lucide:book-open" class="size-4" />
+        <span>Documentação</span>
+      </DropdownMenuItem>
+
+      <DropdownMenuSeparator />
 
       <!-- Sair -->
       <DropdownMenuItem
