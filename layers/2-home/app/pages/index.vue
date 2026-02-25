@@ -28,6 +28,7 @@ useSchemaOrg([
 <template>
   <div>
     <HomeHero />
+    <HomeDashboard />
     <HomeCtaMunicipio />
   </div>
 </template>
