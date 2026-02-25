@@ -28,5 +28,6 @@ useSchemaOrg([
 <template>
   <div>
     <HomeHero />
+    <HomeCtaMunicipio />
   </div>
 </template>
