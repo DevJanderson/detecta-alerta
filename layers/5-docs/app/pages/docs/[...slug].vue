@@ -7,7 +7,7 @@ definePageMeta({
 const route = useRoute()
 const slug = computed(() => {
   const parts = route.params.slug
-  if (!parts || (Array.isArray(parts) && parts.length === 0)) return '/docs/index'
+  if (!parts || (Array.isArray(parts) && parts.length === 0)) return '/docs'
   const path = Array.isArray(parts) ? parts.join('/') : parts
   return `/docs/${path}`
 })
