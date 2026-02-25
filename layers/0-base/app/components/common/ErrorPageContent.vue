@@ -38,7 +38,7 @@ const emit = defineEmits<{
     <div class="relative flex h-[368px] w-full max-w-[496px] items-center justify-center">
       <div class="size-[240px] rotate-[-45deg] rounded-[48px] bg-brand-primary-900" />
       <NuxtImg
-        src="/illustrations/error-robot.png"
+        src="/illustrations/error-robot.webp"
         alt="Robô de erro"
         class="absolute bottom-0 h-[318px] w-auto drop-shadow-[0_4px_0_rgba(0,0,0,0.1)]"
       />

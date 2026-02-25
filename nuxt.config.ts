@@ -244,19 +244,8 @@ export default defineNuxtConfig({
       markdown: {
         highlight: {
           theme: { default: 'github-dark', dark: 'github-dark' },
-          langs: [
-            'bash',
-            'css',
-            'html',
-            'javascript',
-            'json',
-            'markdown',
-            'sql',
-            'typescript',
-            'vue',
-            'yaml',
-            'dotenv'
-          ]
+          // Apenas linguagens usadas nos docs — adicionar conforme necessário
+          langs: ['bash', 'typescript', 'vue']
         }
       }
     }
