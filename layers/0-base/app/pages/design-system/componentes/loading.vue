@@ -114,6 +114,59 @@ function simulateButtonLoading() {
           &lt;/CommonLoaderBackground&gt;
         </code>
       </div>
+
+      <!-- Preview: Loader Chamativo - Texto -->
+      <p class="mb-2 mt-6 text-sm font-medium text-foreground">Loader Chamativo - Texto</p>
+      <p class="mb-3 text-sm text-muted-foreground">
+        Fundo branco com losangos concêntricos decorativos e losango central sólido com texto de
+        progresso. Usado em operações longas que precisam de destaque visual.
+      </p>
+      <div class="overflow-hidden rounded-lg border">
+        <CommonLoaderBackground variant="chamativo" class="min-h-100!">
+          <CommonLoaderChamativoTexto loading-text="gerando relatório" :percentage="12" />
+        </CommonLoaderBackground>
+      </div>
+
+      <div class="mt-4 rounded-lg bg-muted p-4">
+        <p class="mb-2 text-sm font-medium text-foreground">Uso:</p>
+        <code class="text-xs text-muted-foreground">
+          &lt;CommonLoaderBackground variant="chamativo"&gt;<br />
+          &nbsp;&nbsp;&lt;CommonLoaderChamativoTexto<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;loading-text="gerando relatório"<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;:percentage="progress"<br />
+          &nbsp;&nbsp;/&gt;<br />
+          &lt;/CommonLoaderBackground&gt;
+        </code>
+      </div>
+
+      <!-- Preview: Loader Chamativo - Curiosidades -->
+      <p class="mb-2 mt-6 text-sm font-medium text-foreground">Loader Chamativo - Curiosidades</p>
+      <p class="mb-3 text-sm text-muted-foreground">
+        Losango grande com curiosidades de saúde dentro (texto branco). Texto de progresso embaixo
+        em vermelho. Curiosidades rotacionam a cada 8 segundos.
+      </p>
+      <div class="overflow-hidden rounded-lg border">
+        <CommonLoaderBackground variant="chamativo" class="min-h-150!">
+          <CommonLoaderChamativoCuriosidades
+            :curiosidades="demoCuriosidades"
+            loading-text="gerando relatório"
+            :percentage="12"
+          />
+        </CommonLoaderBackground>
+      </div>
+
+      <div class="mt-4 rounded-lg bg-muted p-4">
+        <p class="mb-2 text-sm font-medium text-foreground">Uso:</p>
+        <code class="text-xs text-muted-foreground">
+          &lt;CommonLoaderBackground variant="chamativo"&gt;<br />
+          &nbsp;&nbsp;&lt;CommonLoaderChamativoCuriosidades<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;:curiosidades="curiosidades"<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;loading-text="gerando relatório"<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;:percentage="progress"<br />
+          &nbsp;&nbsp;/&gt;<br />
+          &lt;/CommonLoaderBackground&gt;
+        </code>
+      </div>
     </section>
 
     <!-- AppLoading (Spinner) -->
