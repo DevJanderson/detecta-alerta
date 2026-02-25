@@ -13,6 +13,8 @@ export function useDesignSystemNav() {
       title: 'Componentes',
       items: [
         { title: 'Botões', path: '/design-system/componentes/botoes' },
+        { title: 'Loading', path: '/design-system/componentes/loading' },
+        { title: 'Feedback', path: '/design-system/componentes/feedback' },
         { title: 'Página de Erro', path: '/design-system/componentes/pagina-de-erro' }
       ]
     }
