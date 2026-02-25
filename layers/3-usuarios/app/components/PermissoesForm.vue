@@ -2,16 +2,16 @@
 import type { PermissaoAcessoSchemaList } from '../composables/types'
 
 interface Props {
-  open: boolean
   permissao: PermissaoAcessoSchemaList | null
   mode: 'create' | 'edit'
 }
 
 const props = defineProps<Props>()
 
+const open = defineModel<boolean>('open', { required: true })
+
 const emit = defineEmits<{
   save: [data: { nome: string; descricao: string }]
-  'update:open': [value: boolean]
 }>()
 
 const nome = ref('')
@@ -46,7 +46,7 @@ function handleSave() {
 </script>
 
 <template>
-  <Dialog :open="open" @update:open="emit('update:open', $event)">
+  <Dialog v-model:open="open">
     <DialogContent class="sm:max-w-md">
       <DialogHeader>
         <DialogTitle>{{ titulo }}</DialogTitle>

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { toast } from 'vue-sonner'
-import type { UsuarioSchemaList } from '../../../composables/types'
+import type {
+  UsuarioSchemaList,
+  UsuarioSchemaCreate,
+  UsuarioSchemaUpdate
+} from '../../../composables/types'
 
 definePageMeta({
   middleware: 'auth-guard',
@@ -67,12 +71,15 @@ function handleDeleteClick(usuario: UsuarioSchemaList) {
   deleteOpen.value = true
 }
 
-async function handleSave(data: Record<string, unknown>) {
+async function handleSave(data: UsuarioSchemaCreate | UsuarioSchemaUpdate) {
   let success = false
   if (formMode.value === 'create') {
-    success = await usuariosStore.criar(data as never)
+    success = !!(await usuariosStore.criar(data as UsuarioSchemaCreate))
   } else if (selectedUsuario.value) {
-    success = await usuariosStore.atualizar(selectedUsuario.value.id, data as never)
+    success = !!(await usuariosStore.atualizar(
+      selectedUsuario.value.id,
+      data as UsuarioSchemaUpdate
+    ))
   }
   if (success) {
     formOpen.value = false
@@ -148,20 +155,18 @@ async function handleDeleteConfirm(id: number) {
 
     <!-- Dialog criar/editar -->
     <UsuariosAdminForm
-      :open="formOpen"
+      v-model:open="formOpen"
       :usuario="selectedUsuario"
       :mode="formMode"
       @save="handleSave"
-      @update:open="formOpen = $event"
     />
 
     <!-- Dialog excluir -->
     <DeleteConfirmDialog
-      :open="deleteOpen"
+      v-model:open="deleteOpen"
       title="Excluir usuario"
       :item="deleteUsuario"
       @confirm="handleDeleteConfirm"
-      @update:open="deleteOpen = $event"
     />
   </div>
 </template>

@@ -2,7 +2,6 @@
 import { vMaska } from 'maska/vue'
 
 interface Props {
-  open: boolean
   usuario: {
     id?: number
     nome: string
@@ -19,6 +18,8 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const open = defineModel<boolean>('open', { required: true })
+
 const emit = defineEmits<{
   save: [
     data: {
@@ -33,7 +34,6 @@ const emit = defineEmits<{
       senha?: string
     }
   ]
-  'update:open': [value: boolean]
 }>()
 
 // ESTADOS_BR auto-importado de layers/0-base/app/utils/constants
@@ -90,19 +90,16 @@ function populateFromUsuario(u: Props['usuario']) {
 watch(
   () => props.usuario,
   u => {
-    if (props.open && isEdit.value) populateFromUsuario(u)
+    if (open.value && isEdit.value) populateFromUsuario(u)
   }
 )
 
-watch(
-  () => props.open,
-  open => {
-    if (open) {
-      if (isEdit.value) populateFromUsuario(props.usuario)
-      else resetForm()
-    }
+watch(open, val => {
+  if (val) {
+    if (isEdit.value) populateFromUsuario(props.usuario)
+    else resetForm()
   }
-)
+})
 
 function handleSave() {
   if (!canSubmit.value) return
@@ -135,7 +132,7 @@ function handleSave() {
 </script>
 
 <template>
-  <Dialog :open="open" @update:open="val => emit('update:open', val)">
+  <Dialog v-model:open="open">
     <DialogContent class="sm:max-w-lg">
       <DialogHeader>
         <DialogTitle>{{ title }}</DialogTitle>

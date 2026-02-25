@@ -37,7 +37,7 @@ const tocLinks = computed(() => {
 })
 
 const { activeId, observe } = useDocsToc()
-const contentRef = ref<HTMLElement | null>(null)
+const contentRef = useTemplateRef<HTMLElement>('contentRef')
 
 onMounted(() => {
   nextTick(() => {

@@ -101,20 +101,18 @@ async function handleDeleteConfirm(id: number) {
 
     <!-- Dialog criar/editar -->
     <PermissoesForm
-      :open="formOpen"
+      v-model:open="formOpen"
       :permissao="selectedPermissao"
       :mode="formMode"
       @save="handleSave"
-      @update:open="formOpen = $event"
     />
 
     <!-- Dialog excluir -->
     <DeleteConfirmDialog
-      :open="deleteOpen"
+      v-model:open="deleteOpen"
       title="Excluir permissao"
       :item="deletePermissao"
       @confirm="handleDeleteConfirm"
-      @update:open="deleteOpen = $event"
     />
   </div>
 </template>

@@ -4,7 +4,7 @@ import { toast } from 'vue-sonner'
 const store = useUsuariosStore()
 const authStore = useAuthStore()
 
-const fileInput = ref<HTMLInputElement | null>(null)
+const fileInput = useTemplateRef<HTMLInputElement>('fileInput')
 const preview = ref<string | null>(null)
 const selectedFile = ref<File | null>(null)
 

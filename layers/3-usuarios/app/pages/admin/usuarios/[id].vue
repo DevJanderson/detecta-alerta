@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toast } from 'vue-sonner'
-import type { UsuarioSchemaDetalhes } from '../../../composables/types'
+import type { UsuarioSchemaDetalhes, UsuarioSchemaUpdate } from '../../../composables/types'
 
 definePageMeta({
   middleware: 'auth-guard',
@@ -52,8 +52,8 @@ function handleBack() {
   router.push('/admin/usuarios')
 }
 
-async function handleSave(data: Record<string, unknown>) {
-  const success = await usuariosStore.atualizar(id.value, data as never)
+async function handleSave(data: UsuarioSchemaUpdate) {
+  const success = !!(await usuariosStore.atualizar(id.value, data))
   if (success) {
     formOpen.value = false
     toast.success('Usuario atualizado com sucesso')
@@ -100,20 +100,18 @@ async function handleDeleteConfirm() {
 
       <!-- Dialog editar -->
       <UsuariosAdminForm
-        :open="formOpen"
+        v-model:open="formOpen"
         :usuario="usuario"
         mode="edit"
         @save="handleSave"
-        @update:open="formOpen = $event"
       />
 
       <!-- Dialog excluir -->
       <DeleteConfirmDialog
-        :open="deleteOpen"
+        v-model:open="deleteOpen"
         title="Excluir usuario"
         :item="{ id: usuario.id, nome: usuario.nome }"
         @confirm="handleDeleteConfirm"
-        @update:open="deleteOpen = $event"
       />
     </template>
   </div>

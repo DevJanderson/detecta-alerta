@@ -129,20 +129,18 @@ function handlePageChange(page: number) {
 
     <!-- Dialog criar/editar -->
     <GruposForm
-      :open="formOpen"
+      v-model:open="formOpen"
       :grupo="selectedGrupo"
       :mode="formMode"
       @save="handleSave"
-      @update:open="formOpen = $event"
     />
 
     <!-- Dialog excluir -->
     <DeleteConfirmDialog
-      :open="deleteOpen"
+      v-model:open="deleteOpen"
       title="Excluir grupo"
       :item="deleteGrupo"
       @confirm="handleDeleteConfirm"
-      @update:open="deleteOpen = $event"
     />
   </div>
 </template>

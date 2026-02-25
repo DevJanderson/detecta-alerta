@@ -1,20 +1,18 @@
 <script setup lang="ts">
-interface Props {
-  open: boolean
+defineProps<{
   title: string
   item: { id: number; nome: string } | null
-}
+}>()
 
-defineProps<Props>()
+const open = defineModel<boolean>('open', { required: true })
 
 const emit = defineEmits<{
   confirm: [id: number]
-  'update:open': [value: boolean]
 }>()
 </script>
 
 <template>
-  <AlertDialog :open="open" @update:open="emit('update:open', $event)">
+  <AlertDialog v-model:open="open">
     <AlertDialogContent>
       <AlertDialogHeader>
         <AlertDialogTitle>{{ title }}</AlertDialogTitle>

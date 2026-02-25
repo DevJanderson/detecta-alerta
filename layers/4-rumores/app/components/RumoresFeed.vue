@@ -2,7 +2,7 @@
 const store = useRumoresStore()
 
 // Infinite scroll via IntersectionObserver
-const sentinelRef = ref<HTMLElement | null>(null)
+const sentinelRef = useTemplateRef<HTMLElement>('sentinelRef')
 
 onMounted(() => {
   if (!sentinelRef.value) return

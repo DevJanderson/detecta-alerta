@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{
+const { size = 'md', text } = defineProps<{
   size?: 'sm' | 'md' | 'lg'
   text?: string
 }>()
@@ -13,7 +13,7 @@ const sizeClasses = {
 
 <template>
   <div class="flex items-center justify-center gap-2">
-    <Icon name="lucide:loader-2" :class="[sizeClasses[size || 'md'], 'animate-spin']" />
+    <Icon name="lucide:loader-2" :class="[sizeClasses[size], 'animate-spin']" />
     <span v-if="text" class="text-sm text-muted-foreground">
       {{ text }}
     </span>

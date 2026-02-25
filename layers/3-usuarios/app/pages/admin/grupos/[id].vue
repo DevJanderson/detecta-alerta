@@ -168,13 +168,7 @@ async function handleRemoveMembro(usuarioId: number) {
       </div>
 
       <!-- Dialog editar -->
-      <GruposForm
-        :open="formOpen"
-        :grupo="grupo"
-        mode="edit"
-        @save="handleSave"
-        @update:open="formOpen = $event"
-      />
+      <GruposForm v-model:open="formOpen" :grupo="grupo" mode="edit" @save="handleSave" />
     </template>
   </div>
 </template>

@@ -1,15 +1,15 @@
 <script setup lang="ts">
 interface Props {
-  open: boolean
   grupo: { nome: string; descricao?: string | null; ativo?: boolean } | null
   mode: 'create' | 'edit'
 }
 
 const props = defineProps<Props>()
 
+const open = defineModel<boolean>('open', { required: true })
+
 const emit = defineEmits<{
   save: [data: { nome: string; descricao: string; ativo: boolean }]
-  'update:open': [value: boolean]
 }>()
 
 const nome = ref('')
@@ -48,7 +48,7 @@ function handleSave() {
 </script>
 
 <template>
-  <Dialog :open="open" @update:open="emit('update:open', $event)">
+  <Dialog v-model:open="open">
     <DialogContent class="sm:max-w-md">
       <DialogHeader>
         <DialogTitle>{{ titulo }}</DialogTitle>

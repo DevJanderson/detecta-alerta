@@ -10,7 +10,7 @@ interface Props {
   membros: Membro[]
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
 const emit = defineEmits<{
   add: [usuarioId: number]
@@ -57,8 +57,15 @@ function handleAdd(usuarioId: number) {
 function handleRemove(usuarioId: number) {
   isRemoving.value = usuarioId
   emit('remove', usuarioId)
-  isRemoving.value = null
 }
+
+// Limpa estado de remoção quando a lista de membros é atualizada pelo pai
+watch(
+  () => props.membros,
+  () => {
+    isRemoving.value = null
+  }
+)
 </script>
 
 <template>
