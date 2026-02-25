@@ -63,12 +63,15 @@ async function handleLogout() {
         <span>Design System</span>
       </DropdownMenuItem>
 
-      <DropdownMenuItem
-        class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
-        @click="navigateTo('/docs')"
-      >
-        <Icon name="lucide:book-open" class="size-4" />
-        <span>Documentação</span>
+      <DropdownMenuItem as-child>
+        <a
+          href="/docs"
+          target="_blank"
+          class="flex cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
+        >
+          <Icon name="lucide:book-open" class="size-4" />
+          <span>Documentação</span>
+        </a>
       </DropdownMenuItem>
 
       <DropdownMenuSeparator />
