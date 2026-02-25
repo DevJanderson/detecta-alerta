@@ -2,6 +2,10 @@
 /**
  * Página inicial - Detecta Alerta
  */
+definePageMeta({
+  middleware: 'auth-guard'
+})
+
 useSeoPage({
   title: 'Detecta Alerta - Vigilância Epidemiológica',
   description:

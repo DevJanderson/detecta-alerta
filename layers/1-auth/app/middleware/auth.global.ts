@@ -5,16 +5,29 @@
  * No SSR, busca dados do usuário para que o Pinia hidrate o estado
  * corretamente, evitando flash de skeleton no header.
  * No cliente, o estado já vem hidratado do SSR (via @pinia/nuxt).
+ *
+ * Também re-valida a sessão periodicamente durante navegação no cliente,
+ * para detectar tokens expirados e acionar o redirect do plugin auth-redirect.
  */
+
+const REVALIDATION_INTERVAL = 5 * 60 * 1000 // 5 minutos
 
 export default defineNuxtRouteMiddleware(async () => {
   const authStore = useAuthStore()
 
-  // Se já inicializou (SSR ou navegação anterior), não busca novamente
-  if (authStore.isInitialized) return
+  // Primeira inicialização (SSR ou primeiro acesso no cliente)
+  if (!authStore.isInitialized) {
+    await authStore.fetchUser()
+    return
+  }
 
-  // Buscar dados do usuário (SSR e cliente)
-  // SSR: useAuthApi().getMe() encaminha cookies via useRequestHeaders()
-  // Cliente: $fetch envia cookies automaticamente
-  await authStore.fetchUser()
+  // Client-side: re-validar sessão em background se autenticado
+  // Detecta tokens expirados que o servidor já limpou
+  if (import.meta.client && authStore.isAuthenticated) {
+    const elapsed = Date.now() - authStore.lastFetchAt
+    if (elapsed > REVALIDATION_INTERVAL) {
+      // Non-blocking: não atrasa a navegação
+      authStore.fetchUser()
+    }
+  }
 })

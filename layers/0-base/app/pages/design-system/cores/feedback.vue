@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'design-system'
+  layout: 'design-system',
+  middleware: 'auth-guard'
 })
 
 useSeoPage({

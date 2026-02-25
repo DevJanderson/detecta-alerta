@@ -27,6 +27,7 @@ export const useAuthStore = defineStore('auth', () => {
   const isLoading = ref(false)
   const error = ref<string | null>(null)
   const isInitialized = ref(false)
+  const lastFetchAt = ref(0)
 
   // API instanciada no contexto de setup
   const api = useAuthApi()
@@ -136,6 +137,7 @@ export const useAuthStore = defineStore('auth', () => {
     } finally {
       isLoading.value = false
       isInitialized.value = true
+      lastFetchAt.value = Date.now()
     }
   }
 
@@ -177,6 +179,7 @@ export const useAuthStore = defineStore('auth', () => {
     isLoading,
     error,
     isInitialized,
+    lastFetchAt,
 
     // Getters
     isAuthenticated,

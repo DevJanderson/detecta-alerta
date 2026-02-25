@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'design-system'
+  layout: 'design-system',
+  middleware: 'auth-guard'
 })
 
 useSeoPage({
@@ -17,6 +18,21 @@ function cycleDemoState() {
   else demoState.value = 'loading'
 }
 
+// Demo: curiosidades do loader
+const demoCuriosidades = [
+  {
+    texto: 'O mosquito da dengue ja foi oficialmente erradicado do Brasil uma vez.',
+    fonte: 'Fiocruz',
+    fonteUrl:
+      'https://fiocruz.br/pergunta/e-verdade-que-o-mosquito-aedes-aegypti-ja-foi-eliminado-e-depois-voltou-ao-brasil'
+  },
+  {
+    texto:
+      'O governo pagava a populacao por cada rato entregue durante a campanha contra a peste bubonica.',
+    fonte: 'Toda Materia'
+  }
+]
+
 // Demo: botão loading
 const buttonLoading = ref(false)
 
@@ -32,6 +48,73 @@ function simulateButtonLoading() {
   <div>
     <h1 class="mb-2 text-3xl font-bold text-foreground">Loading States</h1>
     <p class="mb-8 text-muted-foreground">Padrões de carregamento usados na plataforma</p>
+
+    <!-- Loader Losango (Página) -->
+    <section class="mb-10">
+      <h2 class="mb-3 text-xl font-semibold text-foreground">Loader Losango</h2>
+      <p class="mb-4 text-sm text-muted-foreground">
+        Loader de marca com losangos concêntricos animados. Segue o mesmo padrão visual da página de
+        erro. Disponível em 3 tamanhos.
+      </p>
+
+      <!-- Tamanhos -->
+      <div class="mb-6 flex flex-wrap items-end gap-8">
+        <div class="flex flex-col items-center gap-2">
+          <CommonLoaderLosango size="sm" />
+          <span class="text-xs text-muted-foreground">sm</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <CommonLoaderLosango size="md" />
+          <span class="text-xs text-muted-foreground">md</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <CommonLoaderLosango size="lg" />
+          <span class="text-xs text-muted-foreground">lg</span>
+        </div>
+      </div>
+
+      <!-- Preview: Loader Discreto - Texto -->
+      <p class="mb-2 text-sm font-medium text-foreground">Loader Discreto - Texto</p>
+      <div class="overflow-hidden rounded-lg border">
+        <CommonLoaderBackground variant="discreto" class="min-h-100!">
+          <div class="flex flex-col items-center gap-10">
+            <CommonLoaderLosango size="md" />
+            <div class="flex flex-col items-center gap-4 text-brand-secondary-900">
+              <p class="flex items-baseline gap-1 text-xl font-semibold">
+                <span>Carregando</span>
+                <span class="mx-1">&bull;</span>
+                <span>12%</span>
+              </p>
+              <p class="text-base">Gerando Relatorios</p>
+            </div>
+          </div>
+        </CommonLoaderBackground>
+      </div>
+
+      <!-- Preview: Loader Discreto - Curiosidades -->
+      <p class="mb-2 mt-6 text-sm font-medium text-foreground">Loader Discreto - Curiosidades</p>
+      <p class="mb-3 text-sm text-muted-foreground">
+        Exibe curiosidades de saude que rotacionam a cada 8 segundos enquanto carrega. Losango
+        grande decorativo com loader interno.
+      </p>
+      <div class="overflow-hidden rounded-lg border">
+        <CommonLoaderBackground variant="discreto" class="min-h-150!">
+          <CommonLoaderCuriosidades :curiosidades="demoCuriosidades" :percentage="12" />
+        </CommonLoaderBackground>
+      </div>
+
+      <div class="mt-4 rounded-lg bg-muted p-4">
+        <p class="mb-2 text-sm font-medium text-foreground">Uso:</p>
+        <code class="text-xs text-muted-foreground">
+          &lt;CommonLoaderBackground variant="discreto"&gt;<br />
+          &nbsp;&nbsp;&lt;CommonLoaderCuriosidades<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;:curiosidades="curiosidades"<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;:percentage="progress"<br />
+          &nbsp;&nbsp;/&gt;<br />
+          &lt;/CommonLoaderBackground&gt;
+        </code>
+      </div>
+    </section>
 
     <!-- AppLoading (Spinner) -->
     <section class="mb-10">

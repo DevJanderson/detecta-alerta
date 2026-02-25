@@ -5,10 +5,13 @@ interface TocLink {
   depth: number
 }
 
-defineProps<{
-  links: TocLink[]
-  activeId: string
-}>()
+withDefaults(
+  defineProps<{
+    links?: TocLink[]
+    activeId?: string
+  }>(),
+  { links: () => [], activeId: '' }
+)
 </script>
 
 <template>

@@ -2,7 +2,8 @@
 import { toast } from 'vue-sonner'
 
 definePageMeta({
-  layout: 'design-system'
+  layout: 'design-system',
+  middleware: 'auth-guard'
 })
 
 useSeoPage({
