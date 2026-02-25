@@ -1,18 +1,5 @@
-export interface DocsNavItem {
-  title: string
-  path: string
-  icon?: string
-}
-
-export interface DocsNavGroup {
-  title: string
-  items: DocsNavItem[]
-}
-
 export function useDocsNavigation() {
-  const route = useRoute()
-
-  const navigation: DocsNavGroup[] = [
+  return useNavigation([
     {
       title: 'Primeiros Passos',
       items: [
@@ -68,25 +55,5 @@ export function useDocsNavigation() {
         }
       ]
     }
-  ]
-
-  const flatItems = computed(() => navigation.flatMap(group => group.items))
-
-  const currentIndex = computed(() => flatItems.value.findIndex(item => item.path === route.path))
-
-  const prevPage = computed(() =>
-    currentIndex.value > 0 ? flatItems.value[currentIndex.value - 1] : null
-  )
-
-  const nextPage = computed(() =>
-    currentIndex.value < flatItems.value.length - 1 ? flatItems.value[currentIndex.value + 1] : null
-  )
-
-  return {
-    navigation,
-    flatItems,
-    currentIndex,
-    prevPage,
-    nextPage
-  }
+  ])
 }

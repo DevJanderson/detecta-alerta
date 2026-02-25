@@ -6,7 +6,6 @@
 
 import type { AuthUser, LoginCredentials, ResetPasswordData } from './types'
 import type { FetchError } from '~/layers/0-base/app/utils/error'
-import { extractErrorMessage } from '~/layers/0-base/app/utils/error'
 
 /**
  * Verifica se é erro 401 (não autenticado)
@@ -85,19 +84,11 @@ export const useAuthStore = defineStore('auth', () => {
    * @returns true se login foi bem sucedido
    */
   async function login(credentials: LoginCredentials): Promise<boolean> {
-    isLoading.value = true
-    error.value = null
-
-    try {
+    return withStoreAction({ isLoading, error }, 'Erro ao fazer login', async () => {
       const response = await api.login(credentials)
       user.value = response.user as AuthUser
       return true
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao fazer login')
-      return false
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   /**

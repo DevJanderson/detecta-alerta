@@ -64,16 +64,9 @@ export const useRumoresStore = defineStore(
     }
 
     async function fetchRumore(uniqueId: string) {
-      isLoading.value = true
-      error.value = null
-
-      try {
+      return withStoreAction({ isLoading, error }, 'Erro ao carregar rumor', async () => {
         rumoreAtual.value = await api.obter(uniqueId)
-      } catch (e) {
-        error.value = e instanceof Error ? e.message : 'Erro ao carregar rumor'
-      } finally {
-        isLoading.value = false
-      }
+      })
     }
 
     async function fetchLookups() {

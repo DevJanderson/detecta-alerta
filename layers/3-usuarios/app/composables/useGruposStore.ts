@@ -5,7 +5,6 @@ import type {
   GrupoSchemaUpdate,
   ListarGruposParams
 } from './types'
-import { extractErrorMessage } from '~/layers/0-base/app/utils/error'
 
 export const useGruposStore = defineStore('grupos', () => {
   // Estado
@@ -19,6 +18,7 @@ export const useGruposStore = defineStore('grupos', () => {
   const error = ref<string | null>(null)
 
   const api = useGruposApi()
+  const refs = { isLoading, error }
 
   // Getters
   const hasNextPage = computed(() => page.value < pages.value)
@@ -27,102 +27,55 @@ export const useGruposStore = defineStore('grupos', () => {
   // Actions
 
   async function fetchAll(params?: ListarGruposParams): Promise<void> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao listar grupos', async () => {
       const response = await api.listar(params)
       items.value = response.grupos
       total.value = response.total
       page.value = response.page
       size.value = response.size
       pages.value = response.pages
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao listar grupos')
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   async function criar(data: GrupoSchemaCreate): Promise<boolean> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao criar grupo', async () => {
       await api.criar(data)
       return true
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao criar grupo')
-      return false
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   async function obter(id: number): Promise<void> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao obter grupo', async () => {
       selectedGrupo.value = await api.obter(id)
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao obter grupo')
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   async function atualizar(id: number, data: GrupoSchemaUpdate): Promise<boolean> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao atualizar grupo', async () => {
       selectedGrupo.value = await api.atualizar(id, data)
       return true
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao atualizar grupo')
-      return false
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   async function remover(id: number): Promise<boolean> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao remover grupo', async () => {
       await api.remover(id)
       return true
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao remover grupo')
-      return false
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   async function addUsuario(grupoId: number, usuarioId: number): Promise<boolean> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao adicionar usuario ao grupo', async () => {
       await api.addUsuario(grupoId, usuarioId)
       return true
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao adicionar usuario ao grupo')
-      return false
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   async function removeUsuario(grupoId: number, usuarioId: number): Promise<boolean> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao remover usuario do grupo', async () => {
       await api.removeUsuario(grupoId, usuarioId)
       return true
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao remover usuario do grupo')
-      return false
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   function clearError(): void {

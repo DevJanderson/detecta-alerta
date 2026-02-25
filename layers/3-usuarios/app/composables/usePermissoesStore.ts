@@ -3,7 +3,6 @@ import type {
   PermissaoAcessoSchemaCreate,
   PermissaoAcessoSchemaUpdate
 } from './types'
-import { extractErrorMessage } from '~/layers/0-base/app/utils/error'
 
 export const usePermissoesStore = defineStore('permissoes', () => {
   // Estado
@@ -12,102 +11,55 @@ export const usePermissoesStore = defineStore('permissoes', () => {
   const error = ref<string | null>(null)
 
   const api = usePermissoesApi()
+  const refs = { isLoading, error }
 
   // Actions
 
   async function fetchAll(): Promise<void> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao listar permissoes', async () => {
       items.value = await api.listar()
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao listar permissoes')
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   async function criar(data: PermissaoAcessoSchemaCreate): Promise<boolean> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao criar permissao', async () => {
       await api.criar(data)
       return true
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao criar permissao')
-      return false
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   async function obter(id: number): Promise<PermissaoAcessoSchemaList | null> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao obter permissao', async () => {
       return await api.obter(id)
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao obter permissao')
-      return null
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   async function atualizar(id: number, data: PermissaoAcessoSchemaUpdate): Promise<boolean> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao atualizar permissao', async () => {
       await api.atualizar(id, data)
       return true
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao atualizar permissao')
-      return false
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   async function remover(id: number): Promise<boolean> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao remover permissao', async () => {
       await api.remover(id)
       return true
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao remover permissao')
-      return false
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   async function addToUser(userId: number, permId: number): Promise<boolean> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao adicionar permissao ao usuario', async () => {
       await api.addToUser(userId, permId)
       return true
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao adicionar permissao ao usuario')
-      return false
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   async function removeFromUser(userId: number, permId: number): Promise<boolean> {
-    isLoading.value = true
-    error.value = null
-    try {
+    return withStoreAction(refs, 'Erro ao remover permissao do usuario', async () => {
       await api.removeFromUser(userId, permId)
       return true
-    } catch (e: unknown) {
-      error.value = extractErrorMessage(e, 'Erro ao remover permissao do usuario')
-      return false
-    } finally {
-      isLoading.value = false
-    }
+    })
   }
 
   function clearError(): void {
