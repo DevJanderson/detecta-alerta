@@ -54,5 +54,6 @@ coverage
 **/.kubb/
 .claude/
 
-# ai-context (workflow é estado local)
+# ai-context (workflow e plans são estado local)
 .context/workflow/
+.context/plans/
