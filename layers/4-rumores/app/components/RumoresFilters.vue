@@ -11,35 +11,7 @@ const searchTerm = ref('')
 const doencaSelecionada = ref(ALL)
 const estadoSelecionado = ref(ALL)
 
-const ESTADOS_BR = [
-  'AC',
-  'AL',
-  'AM',
-  'AP',
-  'BA',
-  'CE',
-  'DF',
-  'ES',
-  'GO',
-  'MA',
-  'MG',
-  'MS',
-  'MT',
-  'PA',
-  'PB',
-  'PE',
-  'PI',
-  'PR',
-  'RJ',
-  'RN',
-  'RO',
-  'RR',
-  'RS',
-  'SC',
-  'SE',
-  'SP',
-  'TO'
-]
+// ESTADOS_BR auto-importado de layers/0-base/app/utils/constants
 
 // Inicializar filtros a partir da URL
 onMounted(() => {

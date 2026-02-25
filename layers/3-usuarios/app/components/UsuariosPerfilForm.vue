@@ -15,35 +15,7 @@ const cidade = ref('')
 const funcao = ref('')
 const instituicao = ref('')
 
-const UF_LIST = [
-  'AC',
-  'AL',
-  'AM',
-  'AP',
-  'BA',
-  'CE',
-  'DF',
-  'ES',
-  'GO',
-  'MA',
-  'MG',
-  'MS',
-  'MT',
-  'PA',
-  'PB',
-  'PE',
-  'PI',
-  'PR',
-  'RJ',
-  'RN',
-  'RO',
-  'RR',
-  'RS',
-  'SC',
-  'SE',
-  'SP',
-  'TO'
-]
+// ESTADOS_BR auto-importado de layers/0-base/app/utils/constants
 
 const showConfirm = ref(false)
 const canSubmit = computed(() => nome.value.trim() && !store.isLoading)
@@ -133,7 +105,7 @@ watch(() => store.perfil, populateFromPerfil)
             <SelectValue placeholder="Selecione" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem v-for="uf in UF_LIST" :key="uf" :value="uf">
+            <SelectItem v-for="uf in ESTADOS_BR" :key="uf" :value="uf">
               {{ uf }}
             </SelectItem>
           </SelectContent>
