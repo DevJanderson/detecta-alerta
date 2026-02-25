@@ -30,21 +30,21 @@ const sizes = {
     <!-- Losango externo (rosa claro) -->
     <div class="absolute inset-0 flex items-center justify-center">
       <div class="-rotate-45">
-        <div :class="['bg-brand-primary-100 loader-breathe', sizes[size].outer]" />
+        <div :class="['bg-primary-100 loader-breathe', sizes[size].outer]" />
       </div>
     </div>
 
     <!-- Losango médio (coral) -->
     <div class="absolute inset-0 flex items-center justify-center">
       <div class="-rotate-45">
-        <div :class="['bg-brand-primary-900 loader-pulse', sizes[size].middle]" />
+        <div :class="['bg-primary-900 loader-pulse', sizes[size].middle]" />
       </div>
     </div>
 
     <!-- Losango central (coral, pequeno) -->
     <div class="absolute inset-0 flex items-center justify-center">
       <div class="-rotate-45">
-        <div :class="['bg-brand-primary-900 loader-pulse-delay', sizes[size].inner]" />
+        <div :class="['bg-primary-900 loader-pulse-delay', sizes[size].inner]" />
       </div>
     </div>
   </div>

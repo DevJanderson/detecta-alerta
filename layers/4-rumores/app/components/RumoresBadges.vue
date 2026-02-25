@@ -24,7 +24,7 @@ defineProps<{
     <Badge
       v-if="localizacoes && localizacoes.length > 0"
       variant="secondary"
-      class="bg-brand-secondary-50 text-brand-secondary-900 hover:bg-brand-secondary-100"
+      class="bg-secondary-50 text-secondary-900 hover:bg-secondary-100"
     >
       {{
         localizacoes?.[0]?.state

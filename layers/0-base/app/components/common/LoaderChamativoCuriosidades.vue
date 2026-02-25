@@ -36,7 +36,7 @@ const current = computed(() => curiosidades[currentIndex.value])
       <!-- Losango sólido (coral) -->
       <div class="absolute inset-0 flex items-center justify-center">
         <div class="-rotate-45">
-          <div class="size-72 rounded-[40px] bg-brand-primary-900 losango-pulse" />
+          <div class="size-72 rounded-[40px] bg-primary-900 losango-pulse" />
         </div>
       </div>
 
@@ -76,7 +76,7 @@ const current = computed(() => curiosidades[currentIndex.value])
     </div>
 
     <!-- Texto de progresso (fora do losango, em vermelho) -->
-    <div class="flex flex-col items-center gap-2 text-brand-primary-950">
+    <div class="flex flex-col items-center gap-2 text-primary-950">
       <p class="text-xl font-semibold">{{ loadingText }}</p>
       <div v-if="percentage !== undefined" class="flex items-baseline gap-1">
         <span class="text-4xl font-semibold leading-snug">{{ percentage }}</span>

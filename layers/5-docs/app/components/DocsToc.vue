@@ -26,7 +26,7 @@ withDefaults(
         :class="[
           link.depth === 3 ? 'pl-6' : '',
           activeId === link.id
-            ? 'border-brand-secondary-600 font-medium text-brand-secondary-900'
+            ? 'border-secondary-600 font-medium text-secondary-900'
             : 'border-transparent text-muted-foreground hover:border-border hover:text-foreground'
         ]"
       >

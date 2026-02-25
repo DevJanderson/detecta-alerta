@@ -69,7 +69,7 @@ Antes de extrair, pergunte:
 | Tipos da API        | `import type { Token } from '~/generated/sinapse/types/Token'` | `interface Token { access_token: string; ... }` manual             |
 | Validação           | `tokenSchema.safeParse(response)` (Kubb Zod)                   | Validação manual com `if/typeof`                                   |
 | SEO nas páginas     | `useSeoPage({ title, description })`                           | `useSeoMeta()` + `useHead()` repetidos                             |
-| Cor do tema         | `bg-brand-primary-600` (variável CSS)                          | `bg-[#e63946]` hardcoded                                           |
+| Cor do tema         | `bg-primary-600` (variável CSS)                                | `bg-[#e63946]` hardcoded                                           |
 | Permissões          | `authStore.hasPermission('code')`                              | `authStore.permissions.includes('code')` repetido                  |
 | Redirect seguro     | `getSafeRedirectUrl(url, '/fallback')`                         | Validação manual de URL em cada redirect                           |
 

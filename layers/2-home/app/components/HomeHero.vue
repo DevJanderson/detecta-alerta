@@ -4,7 +4,7 @@
       class="mx-auto flex flex-col items-center gap-10 lg:grid lg:grid-cols-[1fr_34rem_1fr] lg:items-start lg:gap-6"
     >
       <!-- Titulo principal (esquerda) -->
-      <h1 class="text-3xl font-bold leading-tight text-brand-primary-950 sm:text-4xl lg:text-6xl">
+      <h1 class="text-3xl font-bold leading-tight text-primary-950 sm:text-4xl lg:text-6xl">
         Quais os riscos de Surtos ou Epidemias no Brasil?
       </h1>
 
@@ -12,11 +12,11 @@
       <div class="flex flex-col items-center gap-6 lg:self-center">
         <div class="flex flex-col items-center gap-2">
           <span
-            class="rounded-full bg-brand-secondary-900 px-2 py-1 text-base font-semibold leading-tight text-white"
+            class="rounded-full bg-secondary-900 px-2 py-1 text-base font-semibold leading-tight text-white"
           >
             selecione sua região
           </span>
-          <p class="text-center text-xs leading-normal text-brand-secondary-900">
+          <p class="text-center text-xs leading-normal text-secondary-900">
             Não se preocupe!
             <br />
             Os dados são abertos. ;)
@@ -25,7 +25,7 @@
 
         <!-- Seta para baixo -->
         <svg
-          class="h-20 text-brand-primary-700"
+          class="h-20 text-primary-700"
           viewBox="0 0 15 82"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -39,12 +39,12 @@
 
       <!-- Descricao (direita) -->
       <div class="flex flex-col items-center gap-4 text-center lg:items-end lg:pt-12 lg:text-right">
-        <p class="text-xl leading-relaxed text-brand-secondary-900">
+        <p class="text-xl leading-relaxed text-secondary-900">
           O Detecta Alerta identifica, através da frequência de visitas em diferentes
           estabelecimentos, padrões que podem indicar
           <strong>potencial risco de epidemias</strong>.
         </p>
-        <p class="text-sm leading-normal text-brand-secondary-700">
+        <p class="text-sm leading-normal text-secondary-700">
           *Dados públicos coletados do Google Maps e parcerias com instituições públicas.
         </p>
       </div>

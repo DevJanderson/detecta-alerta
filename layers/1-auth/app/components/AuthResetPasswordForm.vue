@@ -108,7 +108,7 @@ function resetForm() {
 
       <!-- Link voltar -->
       <div class="text-center">
-        <NuxtLink to="/auth/login" class="text-sm text-brand-secondary-800 hover:underline">
+        <NuxtLink to="/auth/login" class="text-sm text-secondary-800 hover:underline">
           Voltar para o login
         </NuxtLink>
       </div>

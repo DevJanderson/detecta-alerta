@@ -59,7 +59,7 @@ Use este checklist antes de criar ou modificar código. A pergunta central é se
 
 | Decisão           | ETC                                            | Anti-ETC                                              |
 | ----------------- | ---------------------------------------------- | ----------------------------------------------------- |
-| Cor do tema       | `bg-brand-primary-600` (design system)         | `bg-[#e63946]` hardcoded                              |
+| Cor do tema       | `bg-primary-600` (design system)               | `bg-[#e63946]` hardcoded                              |
 | API externa       | BFF proxy (`fetchSinapse`)                     | `$fetch('https://staging.sinapse.org.br/...')` direto |
 | Tipos             | Kubb gerado (`npm run api:generate`)           | Tipos manuais copiados da API                         |
 | Tokens auth       | httpOnly cookies via `01.auth.ts` middleware   | `localStorage.setItem('token', ...)`                  |

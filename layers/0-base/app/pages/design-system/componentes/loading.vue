@@ -79,7 +79,7 @@ function simulateButtonLoading() {
         <CommonLoaderBackground variant="discreto" class="min-h-100!">
           <div class="flex flex-col items-center gap-10">
             <CommonLoaderLosango size="md" />
-            <div class="flex flex-col items-center gap-4 text-brand-secondary-900">
+            <div class="flex flex-col items-center gap-4 text-secondary-900">
               <p class="flex items-baseline gap-1 text-xl font-semibold">
                 <span>Carregando</span>
                 <span class="mx-1">&bull;</span>
@@ -232,7 +232,7 @@ function simulateButtonLoading() {
           <span class="text-xs text-muted-foreground">estado loading</span>
         </div>
         <div class="flex flex-col items-center gap-2">
-          <Button variant="brand-secondary-soft" size="brand-md" disabled>
+          <Button variant="secondary-soft" size="brand-md" disabled>
             <Icon name="lucide:loader-2" class="size-4 animate-spin" />
             Enviando...
           </Button>
@@ -336,13 +336,13 @@ function simulateButtonLoading() {
         </div>
         <div class="flex flex-col items-center gap-2">
           <div
-            class="size-8 animate-spin rounded-full border-4 border-brand-primary-200 border-t-brand-primary-900"
+            class="size-8 animate-spin rounded-full border-4 border-primary-200 border-t-primary-900"
           />
           <span class="text-xs text-muted-foreground">md (brand)</span>
         </div>
         <div class="flex flex-col items-center gap-2">
           <div
-            class="size-10 animate-spin rounded-full border-4 border-brand-secondary-200 border-t-brand-secondary-900"
+            class="size-10 animate-spin rounded-full border-4 border-secondary-200 border-t-secondary-900"
           />
           <span class="text-xs text-muted-foreground">lg (secondary)</span>
         </div>
@@ -393,7 +393,7 @@ function simulateButtonLoading() {
         <div v-else class="space-y-3">
           <div class="flex items-center gap-3">
             <div
-              class="flex size-10 items-center justify-center rounded-full bg-brand-secondary-100 text-sm font-semibold text-brand-secondary-900"
+              class="flex size-10 items-center justify-center rounded-full bg-secondary-100 text-sm font-semibold text-secondary-900"
             >
               JS
             </div>

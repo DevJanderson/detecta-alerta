@@ -11,7 +11,7 @@ const { loadingText = 'Carregando', percentage } = defineProps<{
     <div class="relative size-60">
       <div class="absolute inset-0 flex items-center justify-center">
         <div class="-rotate-45">
-          <div class="size-44 rounded-[40px] bg-brand-primary-900 loader-pulse" />
+          <div class="size-44 rounded-[40px] bg-primary-900 loader-pulse" />
         </div>
       </div>
 

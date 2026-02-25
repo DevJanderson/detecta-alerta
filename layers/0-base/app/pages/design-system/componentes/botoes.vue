@@ -43,19 +43,19 @@ useSeoPage({
       <h2 class="mb-3 text-xl font-semibold text-foreground">Brand Secondary Soft (Secundário)</h2>
       <div class="flex flex-wrap items-end gap-4">
         <div class="flex flex-col items-center gap-2">
-          <Button variant="brand-secondary-soft" size="brand-sm">Small</Button>
+          <Button variant="secondary-soft" size="brand-sm">Small</Button>
           <span class="text-xs text-muted-foreground">brand-sm</span>
         </div>
         <div class="flex flex-col items-center gap-2">
-          <Button variant="brand-secondary-soft" size="brand-md">Medium</Button>
+          <Button variant="secondary-soft" size="brand-md">Medium</Button>
           <span class="text-xs text-muted-foreground">brand-md</span>
         </div>
         <div class="flex flex-col items-center gap-2">
-          <Button variant="brand-secondary-soft" size="brand-lg">Large</Button>
+          <Button variant="secondary-soft" size="brand-lg">Large</Button>
           <span class="text-xs text-muted-foreground">brand-lg</span>
         </div>
         <div class="flex flex-col items-center gap-2">
-          <Button variant="brand-secondary-soft" size="brand-md" disabled>Disabled</Button>
+          <Button variant="secondary-soft" size="brand-md" disabled>Disabled</Button>
           <span class="text-xs text-muted-foreground">disabled</span>
         </div>
       </div>
@@ -94,7 +94,7 @@ useSeoPage({
       <p class="mb-2 text-sm font-medium text-foreground">Uso:</p>
       <code class="text-xs text-muted-foreground">
         &lt;Button variant="brand-outline" size="brand-md"&gt;Texto&lt;/Button&gt;<br />
-        &lt;Button variant="brand-secondary-soft" size="brand-lg"&gt;Texto&lt;/Button&gt;
+        &lt;Button variant="secondary-soft" size="brand-lg"&gt;Texto&lt;/Button&gt;
       </code>
     </div>
   </div>

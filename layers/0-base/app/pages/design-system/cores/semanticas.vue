@@ -44,10 +44,10 @@ const semanticColors = [
     <div class="mt-8 rounded-lg bg-muted p-4">
       <p class="mb-2 text-sm font-medium text-foreground">Mapeamento:</p>
       <code class="text-xs leading-relaxed text-muted-foreground">
-        primary → brand-primary-950<br />
-        secondary → brand-secondary-900<br />
+        primary → primary-950<br />
+        secondary → secondary-900<br />
         muted → base-100<br />
-        accent → brand-tertiary-100<br />
+        accent → tertiary-100<br />
         destructive → danger-900
       </code>
     </div>

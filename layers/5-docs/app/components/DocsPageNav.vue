@@ -9,12 +9,12 @@ const { prevPage, nextPage } = useDocsNavigation()
     <NuxtLink
       v-if="prevPage"
       :to="prevPage.path"
-      class="group flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-brand-secondary-900"
+      class="group flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-secondary-900"
     >
       <ChevronLeft class="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
       <div class="text-right">
         <span class="block text-xs text-muted-foreground">Anterior</span>
-        <span class="font-medium text-foreground group-hover:text-brand-secondary-900">{{
+        <span class="font-medium text-foreground group-hover:text-secondary-900">{{
           prevPage.title
         }}</span>
       </div>
@@ -24,11 +24,11 @@ const { prevPage, nextPage } = useDocsNavigation()
     <NuxtLink
       v-if="nextPage"
       :to="nextPage.path"
-      class="group flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-brand-secondary-900"
+      class="group flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-secondary-900"
     >
       <div>
         <span class="block text-xs text-muted-foreground">Próximo</span>
-        <span class="font-medium text-foreground group-hover:text-brand-secondary-900">{{
+        <span class="font-medium text-foreground group-hover:text-secondary-900">{{
           nextPage.title
         }}</span>
       </div>

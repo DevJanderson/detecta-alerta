@@ -61,7 +61,7 @@ Dois componentes são ortogonais quando mudar um não afeta o outro. Ortogonalid
 
 ## 6. Estilos — Design system como contrato
 
-- [ ] Cores usam variáveis do design system (`brand-primary`, `success`, etc.)?
+- [ ] Cores usam variáveis do design system (`primary`, `success`, etc.)?
 - [ ] Componentes shadcn usam tokens semânticos (`primary`, `secondary`, `muted`)?
 - [ ] Nenhum componente usa cores hardcoded (`#e63946`, `rgb(...)`, `oklch(...)`)?
 - [ ] Mudar o tema no `main.css` propaga para todos os componentes automaticamente?
@@ -77,7 +77,7 @@ Dois componentes são ortogonais quando mudar um não afeta o outro. Ortogonalid
 | **BFF/Frontend**  | Frontend chama `/api/rumores`                                   | Frontend chama `https://staging.sinapse.org.br/...` |
 | **Middleware**    | `01.auth.ts` cuida de tokens, `02.admin.ts` cuida de permissões | Um middleware faz auth + admin + logging            |
 | **Componentes**   | `<RumoresCard :rumor="item" />` via props                       | `<RumoresCard />` lê do store internamente          |
-| **Estilos**       | `bg-brand-primary-600` (variável)                               | `bg-[#e63946]` (hardcoded)                          |
+| **Estilos**       | `bg-primary-600` (variável)                                     | `bg-[#e63946]` (hardcoded)                          |
 | **Testes**        | Unit test mocka `$fetch`, roda em 500ms                         | Unit test precisa de Nuxt + API real                |
 
 ---

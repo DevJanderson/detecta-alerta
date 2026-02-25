@@ -55,13 +55,13 @@ function toggleTheme() {
         <NuxtLink
           to="https://github.com/ITpS"
           target="_blank"
-          class="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-brand-secondary-50 hover:text-foreground"
+          class="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-secondary-50 hover:text-foreground"
         >
           <Github class="h-4 w-4" />
         </NuxtLink>
 
         <button
-          class="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-brand-secondary-50 hover:text-foreground"
+          class="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-secondary-50 hover:text-foreground"
           @click="toggleTheme"
         >
           <Sun v-if="colorMode.value === 'dark'" class="h-4 w-4" />

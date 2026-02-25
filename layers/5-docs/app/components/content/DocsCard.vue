@@ -13,12 +13,12 @@ const linkProps = computed(() => (props.href ? { to: props.href } : {}))
   <component
     :is="tag"
     v-bind="linkProps"
-    class="group block rounded-lg border border-border bg-card p-4 transition-colors hover:border-brand-secondary-300"
+    class="group block rounded-lg border border-border bg-card p-4 transition-colors hover:border-secondary-300"
   >
     <div class="flex items-start gap-3">
       <Icon v-if="icon" :name="icon" class="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" />
       <div>
-        <h3 class="text-sm font-semibold text-foreground group-hover:text-brand-secondary-900">
+        <h3 class="text-sm font-semibold text-foreground group-hover:text-secondary-900">
           {{ title }}
         </h3>
         <div class="mt-1 text-sm text-muted-foreground">

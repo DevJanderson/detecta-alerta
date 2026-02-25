@@ -76,7 +76,7 @@ function togglePassword() {
         <button
           type="button"
           :aria-label="showPassword ? 'Ocultar senha' : 'Mostrar senha'"
-          class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-brand-primary-800 focus:ring-offset-2 rounded-sm"
+          class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary-800 focus:ring-offset-2 rounded-sm"
           @click="togglePassword"
         >
           <Icon v-if="!showPassword" name="lucide:eye" class="size-4" aria-hidden="true" />
@@ -87,7 +87,7 @@ function togglePassword() {
 
     <!-- Link esqueci senha -->
     <div class="text-right">
-      <NuxtLink to="/auth/reset-password" class="text-sm text-brand-secondary-800 hover:underline">
+      <NuxtLink to="/auth/reset-password" class="text-sm text-secondary-800 hover:underline">
         Esqueci minha senha
       </NuxtLink>
     </div>

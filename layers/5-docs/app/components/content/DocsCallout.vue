@@ -24,9 +24,9 @@ const config = computed(() => {
     info: {
       icon: Info,
       defaultTitle: 'Info',
-      border: 'border-brand-secondary-400',
-      bg: 'bg-brand-secondary-50',
-      iconColor: 'text-brand-secondary-700'
+      border: 'border-secondary-400',
+      bg: 'bg-secondary-50',
+      iconColor: 'text-secondary-700'
     },
     warning: {
       icon: AlertTriangle,

@@ -10,9 +10,9 @@ async function handleLogout() {
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <Button variant="brand-secondary-soft" size="brand-md" class="gap-2 pl-1 pr-2">
-        <Avatar class="size-7 bg-brand-primary-100">
-          <AvatarFallback class="text-brand-primary-950 text-xs font-semibold">
+      <Button variant="secondary-soft" size="brand-md" class="gap-2 pl-1 pr-2">
+        <Avatar class="size-7 bg-primary-100">
+          <AvatarFallback class="text-primary-950 text-xs font-semibold">
             {{ authStore.userInitials }}
           </AvatarFallback>
         </Avatar>
@@ -30,7 +30,7 @@ async function handleLogout() {
 
       <!-- Menu -->
       <DropdownMenuItem
-        class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
+        class="cursor-pointer gap-2 py-2 focus:bg-secondary-50 focus:text-secondary-900"
         @click="navigateTo('/perfil')"
       >
         <Icon name="lucide:user" class="size-4" />
@@ -39,7 +39,7 @@ async function handleLogout() {
 
       <DropdownMenuItem
         v-if="authStore.hasGroup('administradores')"
-        class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
+        class="cursor-pointer gap-2 py-2 focus:bg-secondary-50 focus:text-secondary-900"
         @click="navigateTo('/admin/usuarios')"
       >
         <Icon name="lucide:users" class="size-4" />
@@ -47,7 +47,7 @@ async function handleLogout() {
       </DropdownMenuItem>
 
       <DropdownMenuItem
-        class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
+        class="cursor-pointer gap-2 py-2 focus:bg-secondary-50 focus:text-secondary-900"
       >
         <Icon name="lucide:bell" class="size-4" />
         <span>Notificações</span>
@@ -56,7 +56,7 @@ async function handleLogout() {
       <DropdownMenuSeparator />
 
       <DropdownMenuItem
-        class="cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
+        class="cursor-pointer gap-2 py-2 focus:bg-secondary-50 focus:text-secondary-900"
         @click="navigateTo('/design-system')"
       >
         <Icon name="lucide:palette" class="size-4" />
@@ -67,7 +67,7 @@ async function handleLogout() {
         <a
           href="/docs"
           target="_blank"
-          class="flex cursor-pointer gap-2 py-2 focus:bg-brand-secondary-50 focus:text-brand-secondary-900"
+          class="flex cursor-pointer gap-2 py-2 focus:bg-secondary-50 focus:text-secondary-900"
         >
           <Icon name="lucide:book-open" class="size-4" />
           <span>Documentação</span>

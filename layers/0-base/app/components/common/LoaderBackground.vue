@@ -10,7 +10,7 @@ withDefaults(
 <template>
   <div
     class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6"
-    :class="variant === 'discreto' ? 'bg-brand-secondary-50' : 'bg-white'"
+    :class="variant === 'discreto' ? 'bg-secondary-50' : 'bg-white'"
   >
     <!-- Losangos concêntricos decorativos (variante chamativo) -->
     <NuxtImg

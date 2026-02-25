@@ -55,13 +55,13 @@ function isActive(to: string) {
           class="relative flex items-center gap-1.5 rounded-sm text-base transition-colors outline-none after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-center after:scale-x-0 after:rounded-full after:bg-current after:transition-transform after:duration-300 after:ease-out"
           :class="[
             isActive(link.to)
-              ? 'font-semibold text-brand-primary-950 hover:after:scale-x-100'
-              : 'font-normal text-brand-secondary-800 hover:text-brand-secondary-950 hover:after:scale-x-100'
+              ? 'font-semibold text-primary-950 hover:after:scale-x-100'
+              : 'font-normal text-secondary-800 hover:text-secondary-950 hover:after:scale-x-100'
           ]"
         >
           <svg
             v-if="isActive(link.to)"
-            class="size-3 shrink-0 text-brand-primary-700"
+            class="size-3 shrink-0 text-primary-700"
             viewBox="0 0 11 11"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +140,7 @@ function isActive(to: string) {
                 class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium transition-colors outline-none"
                 :class="[
                   isActive(link.to)
-                    ? 'bg-brand-primary-50 text-brand-primary-950'
+                    ? 'bg-primary-50 text-primary-950'
                     : 'text-base-700 hover:bg-base-50 hover:text-base-900'
                 ]"
               >
@@ -149,7 +149,7 @@ function isActive(to: string) {
                   class="flex size-8 shrink-0 items-center justify-center rounded-lg border"
                   :class="[
                     isActive(link.to)
-                      ? 'border-brand-primary-200 bg-white text-brand-primary-950'
+                      ? 'border-primary-200 bg-white text-primary-950'
                       : 'border-base-200 text-base-500'
                   ]"
                 >
@@ -168,7 +168,7 @@ function isActive(to: string) {
                   class="flex items-center gap-3 rounded-lg border border-base-200 px-3 py-3"
                 >
                   <span
-                    class="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-secondary-100 text-sm font-semibold text-brand-secondary-900"
+                    class="flex size-9 shrink-0 items-center justify-center rounded-full bg-secondary-100 text-sm font-semibold text-secondary-900"
                   >
                     {{ authStore.userInitials }}
                   </span>
@@ -191,8 +191,8 @@ function isActive(to: string) {
                 </div>
 
                 <!-- Não logado: card convite -->
-                <div v-else class="rounded-lg bg-brand-secondary-50 px-4 py-4">
-                  <p class="mb-3 text-sm text-brand-secondary-800">
+                <div v-else class="rounded-lg bg-secondary-50 px-4 py-4">
+                  <p class="mb-3 text-sm text-secondary-800">
                     Acesse sua conta para acompanhar alertas e relatórios.
                   </p>
                   <NuxtLink to="/auth/login">

@@ -16,27 +16,27 @@ const emit = defineEmits<{
   <div class="flex flex-col items-center gap-12">
     <!-- Info -->
     <div class="flex max-w-md flex-col items-center gap-4 text-center">
-      <h1 class="text-3xl font-semibold text-brand-primary-950">
+      <h1 class="text-3xl font-semibold text-primary-950">
         {{ title }}
       </h1>
 
-      <p class="text-base leading-relaxed text-brand-secondary-900">
+      <p class="text-base leading-relaxed text-secondary-900">
         {{ description }}
         <template v-if="showHomeLink">
-          <a href="/" class="text-brand-primary-950 underline" @click.prevent="emit('action')"
+          <a href="/" class="text-primary-950 underline" @click.prevent="emit('action')"
             >vá para a home</a
           >.
         </template>
       </p>
 
-      <p class="text-xs text-brand-secondary-900">
+      <p class="text-xs text-secondary-900">
         {{ errorCode }}
       </p>
     </div>
 
     <!-- Ilustração: robô + losango -->
     <div class="relative flex h-[368px] w-full max-w-[496px] items-center justify-center">
-      <div class="size-[240px] rotate-[-45deg] rounded-[48px] bg-brand-primary-900" />
+      <div class="size-[240px] rotate-[-45deg] rounded-[48px] bg-primary-900" />
       <NuxtImg
         src="/illustrations/error-robot.webp"
         alt="Robô de erro"

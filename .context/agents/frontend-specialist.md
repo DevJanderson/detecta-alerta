@@ -30,14 +30,14 @@ Components auto-install to `layers/0-base/app/components/ui/` and are auto-impor
 
 ### Design System Colors
 
-| Color             | Tailwind Class                | Use                             |
-| ----------------- | ----------------------------- | ------------------------------- |
-| `brand-primary`   | `bg-brand-primary-{50-950}`   | Red/Coral — CTAs, highlights    |
-| `brand-secondary` | `bg-brand-secondary-{50-950}` | Blue — Links, secondary actions |
-| `base`            | `bg-base-{0-950}`             | Neutrals — Text, backgrounds    |
-| `success`         | `bg-success-{50-950}`         | Green — Positive feedback       |
-| `alert`           | `bg-alert-{50-950}`           | Yellow — Warnings               |
-| `danger`          | `bg-danger-{50-950}`          | Red — Errors                    |
+| Color       | Tailwind Class          | Use                             |
+| ----------- | ----------------------- | ------------------------------- |
+| `primary`   | `bg-primary-{50-950}`   | Red/Coral — CTAs, highlights    |
+| `secondary` | `bg-secondary-{50-950}` | Blue — Links, secondary actions |
+| `base`      | `bg-base-{0-950}`       | Neutrals — Text, backgrounds    |
+| `success`   | `bg-success-{50-950}`   | Green — Positive feedback       |
+| `alert`     | `bg-alert-{50-950}`     | Yellow — Warnings               |
+| `danger`    | `bg-danger-{50-950}`    | Red — Errors                    |
 
 **Rules**:
 

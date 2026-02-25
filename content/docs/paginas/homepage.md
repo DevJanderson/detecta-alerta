@@ -76,7 +76,7 @@ Barra azul escura com tabs para selecionar a região do Brasil.
 
 **Comportamento:** A tab selecionada tem fundo branco e borda. A tab "Brasil" é a padrão e tem um ícone especial. Ao selecionar uma região, todos os dados da página (mapa, panorama, gráfico, tabela) são filtrados para aquela região.
 
-**Fundo:** Azul escuro (brand-secondary-900 ou similar), com as tabs em um container arredondado branco.
+**Fundo:** Azul escuro (secondary-900 ou similar), com as tabs em um container arredondado branco.
 
 ---
 

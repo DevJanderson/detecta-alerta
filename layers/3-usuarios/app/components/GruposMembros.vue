@@ -99,7 +99,7 @@ watch(
             <span class="font-medium">{{ usuario.nome }}</span>
             <span class="ml-2 text-muted-foreground">{{ usuario.email }}</span>
           </div>
-          <Icon name="lucide:plus" class="size-4 text-brand-secondary-800" />
+          <Icon name="lucide:plus" class="size-4 text-secondary-800" />
         </button>
       </div>
     </div>

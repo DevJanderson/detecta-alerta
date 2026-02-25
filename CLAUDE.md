@@ -405,19 +405,19 @@ Componentes ficam em `layers/0-base/app/components/ui/` (auto-import).
 
 ### Paleta Principal
 
-| Cor               | Classe Tailwind               | Uso                              |
-| ----------------- | ----------------------------- | -------------------------------- |
-| `brand-primary`   | `bg-brand-primary-{50-950}`   | Vermelho/Coral - CTAs, destaques |
-| `brand-secondary` | `bg-brand-secondary-{50-950}` | Azul - Links, ações secundárias  |
-| `base`            | `bg-base-{0-950}`             | Neutros - Textos, fundos         |
-| `success`         | `bg-success-{50-950}`         | Verde - Feedback positivo        |
-| `alert`           | `bg-alert-{50-950}`           | Amarelo - Avisos                 |
-| `danger`          | `bg-danger-{50-950}`          | Vermelho - Erros                 |
+| Cor         | Classe Tailwind         | Uso                              |
+| ----------- | ----------------------- | -------------------------------- |
+| `primary`   | `bg-primary-{50-950}`   | Vermelho/Coral - CTAs, destaques |
+| `secondary` | `bg-secondary-{50-950}` | Azul - Links, ações secundárias  |
+| `base`      | `bg-base-{0-950}`       | Neutros - Textos, fundos         |
+| `success`   | `bg-success-{50-950}`   | Verde - Feedback positivo        |
+| `alert`     | `bg-alert-{50-950}`     | Amarelo - Avisos                 |
+| `danger`    | `bg-danger-{50-950}`    | Vermelho - Erros                 |
 
 ### Regras
 
-- **Cores da marca** (`brand-*`, `success`, `alert`, `danger`) para elementos customizados
-- **Semânticas shadcn** (`primary`, `secondary`, `muted`) para componentes UI
+- **Escala numérica** (`primary-{50-950}`, `secondary-{50-950}`, `base-*`, `success`, `alert`, `danger`) para tons específicos
+- **Semânticas shadcn** (`primary`, `secondary`, `muted` — sem número) para componentes UI
 - **Tons baixos (50-200)** para fundos, **tons altos (600-900)** para textos
 - **Nunca usar cores hardcoded** - sempre variáveis do design system
 

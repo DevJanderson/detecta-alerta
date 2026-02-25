@@ -39,38 +39,38 @@
      ======================================== */
 
   /* PRIMARY — Vermelho/Coral da marca (#EB5E57 = 900) */
-  --color-brand-primary-50: #fdf7f7;
-  --color-brand-primary-100: #fbefee;
-  --color-brand-primary-200: #fbdcdb;
-  --color-brand-primary-300: #f8c6c4;
-  --color-brand-primary-400: #f7bebb;
-  --color-brand-primary-500: #f5b0ad;
-  --color-brand-primary-600: #f39f9b;
-  --color-brand-primary-700: #f0857f;
-  --color-brand-primary-800: #ee736d;
-  --color-brand-primary-900: #eb5e57;
-  --color-brand-primary-950: #d3242d;
+  --color-primary-50: #fdf7f7;
+  --color-primary-100: #fbefee;
+  --color-primary-200: #fbdcdb;
+  --color-primary-300: #f8c6c4;
+  --color-primary-400: #f7bebb;
+  --color-primary-500: #f5b0ad;
+  --color-primary-600: #f39f9b;
+  --color-primary-700: #f0857f;
+  --color-primary-800: #ee736d;
+  --color-primary-900: #eb5e57;
+  --color-primary-950: #d3242d;
 
   /* SECONDARY — Azul da marca (#1961AC = 900) */
-  --color-brand-secondary-50: #f8fafc;
-  --color-brand-secondary-100: #e6edf4;
-  --color-brand-secondary-200: #d8e3ee;
-  --color-brand-secondary-300: #bad0e6;
-  --color-brand-secondary-400: #88b1dd;
-  --color-brand-secondary-500: #6c9fd5;
-  --color-brand-secondary-600: #4d8acc;
-  --color-brand-secondary-700: #397dc6;
-  --color-brand-secondary-800: #326eaf;
-  --color-brand-secondary-900: #1961ac;
-  --color-brand-secondary-950: #14508f;
+  --color-secondary-50: #f8fafc;
+  --color-secondary-100: #e6edf4;
+  --color-secondary-200: #d8e3ee;
+  --color-secondary-300: #bad0e6;
+  --color-secondary-400: #88b1dd;
+  --color-secondary-500: #6c9fd5;
+  --color-secondary-600: #4d8acc;
+  --color-secondary-700: #397dc6;
+  --color-secondary-800: #326eaf;
+  --color-secondary-900: #1961ac;
+  --color-secondary-950: #14508f;
 
   /* TERTIARY — Verde acinzentado (Figma: 100, 300, 500 / interpolados: 50, 200, 400) */
-  --color-brand-tertiary-50: #eff3f3;
-  --color-brand-tertiary-100: #dfe7e7;
-  --color-brand-tertiary-200: #d9e3e2;
-  --color-brand-tertiary-300: #d3dfdd;
-  --color-brand-tertiary-400: #ccd6d4;
-  --color-brand-tertiary-500: #c4ceca;
+  --color-tertiary-50: #eff3f3;
+  --color-tertiary-100: #dfe7e7;
+  --color-tertiary-200: #d9e3e2;
+  --color-tertiary-300: #d3dfdd;
+  --color-tertiary-400: #ccd6d4;
+  --color-tertiary-500: #c4ceca;
 
   /* BASE — Neutros (Figma hex exatos) */
   --color-base-0: #ffffff;
@@ -140,11 +140,11 @@
   --popover-foreground: var(--color-base-900);
 
   /* Primary = Brand Primary (950 para bom contraste em fundo branco) */
-  --primary: var(--color-brand-primary-950);
+  --primary: var(--color-primary-950);
   --primary-foreground: var(--color-base-0);
 
   /* Secondary = Brand Secondary */
-  --secondary: var(--color-brand-secondary-900);
+  --secondary: var(--color-secondary-900);
   --secondary-foreground: var(--color-base-0);
 
   /* Muted = Base neutro */
@@ -152,7 +152,7 @@
   --muted-foreground: var(--color-base-600);
 
   /* Accent = Brand Tertiary */
-  --accent: var(--color-brand-tertiary-100);
+  --accent: var(--color-tertiary-100);
   --accent-foreground: var(--color-base-900);
 
   /* Destructive = Danger */
@@ -160,7 +160,7 @@
 
   --border: var(--color-base-200);
   --input: var(--color-base-200);
-  --ring: var(--color-brand-primary-800);
+  --ring: var(--color-primary-800);
 }
 
 @layer base {
@@ -177,7 +177,7 @@
   --tw-prose-body: var(--color-base-800);
   --tw-prose-headings: var(--color-base-900);
   --tw-prose-lead: var(--color-base-600);
-  --tw-prose-links: var(--color-brand-secondary-700);
+  --tw-prose-links: var(--color-secondary-700);
   --tw-prose-bold: var(--color-base-900);
   --tw-prose-counters: var(--color-base-500);
   --tw-prose-bullets: var(--color-base-300);

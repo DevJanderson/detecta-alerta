@@ -22,10 +22,10 @@ const mockRegions: RegionIndicator[] = [
 const levelClasses: Record<string, string> = {
   Baixo: 'text-success-400',
   Médio: 'text-alert-600',
-  Alto: 'text-brand-primary-400'
+  Alto: 'text-primary-400'
 }
 
-const trendIcons: Record<string, string> = {
+const trendIcons: Record<RegionIndicator['trend'], string> = {
   up: 'lucide:trending-up',
   down: 'lucide:trending-down',
   stable: 'lucide:minus'
@@ -33,7 +33,7 @@ const trendIcons: Record<string, string> = {
 </script>
 
 <template>
-  <div class="bg-brand-secondary-950 text-xs text-white">
+  <div class="bg-secondary-950 text-xs text-white">
     <div class="flex items-center gap-4 px-4 py-2 sm:px-6 lg:px-20">
       <span class="shrink-0 font-medium">Indicadores Regionais</span>
 

@@ -66,7 +66,7 @@ function onDeleteConfirm(_id: number) {
           Warning
         </Button>
         <Button variant="outline" size="sm" @click="toast.info('Nova versao disponivel')">
-          <Icon name="lucide:info" class="size-4 text-brand-secondary-600" />
+          <Icon name="lucide:info" class="size-4 text-secondary-600" />
           Info
         </Button>
       </div>
