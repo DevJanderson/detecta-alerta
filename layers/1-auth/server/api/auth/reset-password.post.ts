@@ -12,18 +12,8 @@ const resetPasswordSchema = z.object({
 })
 
 export default defineEventHandler(async event => {
-  // Validar body
-  const body = await readBody(event)
-  const result = resetPasswordSchema.safeParse(body)
-
-  if (!result.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Dados inválidos'
-    })
-  }
-
-  const { email } = result.data
+  // Validar body (via validateBody centralizado)
+  const { email } = await validateBody(event, resetPasswordSchema)
 
   try {
     await fetchSinapse('/auth/reset-password', {

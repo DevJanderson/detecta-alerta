@@ -21,7 +21,7 @@ if (!page.value) {
   throw createError({ statusCode: 404, statusMessage: 'Página não encontrada' })
 }
 
-useSeoMeta({
+useSeoPage({
   title: page.value?.title ? `${page.value.title} - Detecta Alerta Docs` : 'Detecta Alerta Docs',
   description: page.value?.description
 })

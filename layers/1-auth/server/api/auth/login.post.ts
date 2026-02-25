@@ -11,18 +11,8 @@ import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
 import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSchemaDetalhesSchema'
 
 export default defineEventHandler(async event => {
-  // Validar body com schema Kubb
-  const body = await readBody(event)
-  const result = loginRequestSchema.safeParse(body)
-
-  if (!result.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Dados inválidos'
-    })
-  }
-
-  const { username, password } = result.data
+  // Validar body com schema Kubb (via validateBody centralizado)
+  const { username, password } = await validateBody(event, loginRequestSchema)
 
   try {
     // Login na API Sinapse

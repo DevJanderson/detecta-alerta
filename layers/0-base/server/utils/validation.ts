@@ -36,3 +36,22 @@ export function validateRouteParam(event: H3Event, name: string): string {
 
   return value
 }
+
+/**
+ * Valida e retorna um route param UUID.
+ * Lança 400 se ausente ou com formato inválido (previne path traversal).
+ */
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
+export function validateUniqueId(event: H3Event, name: string = 'uniqueId'): string {
+  const value = getRouterParam(event, name)
+
+  if (!value || !UUID_RE.test(value)) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: `Parametro '${name}' invalido`
+    })
+  }
+
+  return value
+}

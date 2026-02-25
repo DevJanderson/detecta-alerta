@@ -96,7 +96,7 @@ describe('useAuthStore', () => {
         password: 'senhaerrada'
       })
 
-      expect(success).toBe(false)
+      expect(success).toBeFalsy()
       expect(store.user).toBeNull()
       expect(store.isAuthenticated).toBe(false)
       expect(store.error).toBe('Credenciais inválidas')

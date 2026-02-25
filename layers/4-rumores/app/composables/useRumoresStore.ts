@@ -56,8 +56,8 @@ export const useRumoresStore = defineStore(
         items.value = reset ? response.data : [...items.value, ...response.data]
         cursor.value = response.pagination?.next_cursor ?? null
         hasMore.value = response.pagination?.has_next ?? false
-      } catch (e) {
-        error.value = e instanceof Error ? e.message : 'Erro ao carregar rumores'
+      } catch (e: unknown) {
+        error.value = extractErrorMessage(e, 'Erro ao carregar rumores')
       } finally {
         isLoading.value = false
       }

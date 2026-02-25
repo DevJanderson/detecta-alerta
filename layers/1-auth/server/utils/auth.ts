@@ -243,13 +243,14 @@ export async function tryRefreshTokens(event: H3Event): Promise<RefreshResult> {
  */
 interface FetchSinapseOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
-  body?: Record<string, unknown>
+  body?: Record<string, unknown> | FormData
   accessToken?: string
   timeout?: number
 }
 
 /**
- * Fetch para API Sinapse com timeout e headers padrão
+ * Fetch para API Sinapse com timeout e headers padrão.
+ * Suporta JSON (default) e FormData (upload).
  */
 export async function fetchSinapse<T = unknown>(
   endpoint: string,
@@ -258,8 +259,11 @@ export async function fetchSinapse<T = unknown>(
   const sinapseApiUrl = getSinapseApiUrl()
   const { method = 'GET', body, accessToken, timeout = DEFAULT_FETCH_TIMEOUT } = options
 
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json'
+  const headers: Record<string, string> = {}
+
+  // FormData: browser/runtime define Content-Type com boundary automaticamente
+  if (!(body instanceof FormData)) {
+    headers['Content-Type'] = 'application/json'
   }
 
   if (accessToken) {

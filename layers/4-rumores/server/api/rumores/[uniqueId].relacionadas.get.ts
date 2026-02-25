@@ -7,11 +7,7 @@
 
 export default defineEventHandler(async event => {
   const accessToken = requireAuth(event)
-  const uniqueId = getRouterParam(event, 'uniqueId')
-
-  if (!uniqueId) {
-    throw createError({ statusCode: 400, statusMessage: 'uniqueId obrigatorio' })
-  }
+  const uniqueId = validateUniqueId(event)
 
   const query = getQuery(event)
   const qs = buildQueryString(query, ['limit'])

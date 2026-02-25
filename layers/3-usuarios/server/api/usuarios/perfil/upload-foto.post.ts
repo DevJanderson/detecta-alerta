@@ -51,19 +51,14 @@ export default defineEventHandler(async event => {
     })
 
     // Montar FormData para encaminhar a API Sinapse
-    const body = new FormData()
+    const formBody = new FormData()
     const blob = new Blob([new Uint8Array(file.data)], { type: file.type })
-    body.append(file.name || 'file', blob, file.filename)
+    formBody.append(file.name || 'file', blob, file.filename)
 
-    const sinapseApiUrl = getSinapseApiUrl()
-
-    // Usar $fetch direto pois fetchSinapse so suporta JSON body
-    const response = await $fetch(`${sinapseApiUrl}/usuarios/${rawMe.id}/upload-foto`, {
+    const response = await fetchSinapse(`/usuarios/${rawMe.id}/upload-foto`, {
       method: 'POST',
-      body,
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      },
+      body: formBody,
+      accessToken,
       timeout: 30000
     })
 
