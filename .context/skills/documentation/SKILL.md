@@ -13,40 +13,12 @@ scaffoldVersion: '2.0.0'
 
 ### Documentation Types
 
-| Type            | Location                         | When               |
-| --------------- | -------------------------------- | ------------------ |
-| Layer CLAUDE.md | `layers/{N}-{feature}/CLAUDE.md` | Every layer        |
-| Nuxt Content    | `content/docs/`                  | User-facing docs   |
-| Context docs    | `.context/docs/`                 | AI context         |
-| Inline comments | Source code                      | Complex logic only |
-
-### Layer CLAUDE.md Template
-
-```markdown
-# Layer {Feature} - CLAUDE.md
-
-Brief description.
-
-## Arquitetura
-
-(ASCII diagram of data flow)
-
-## Estrutura
-
-(Directory tree)
-
-## Composables/Store
-
-(API surface: state, getters, actions)
-
-## Uso
-
-(Code examples)
-
-## Tipos
-
-(Key interfaces)
-```
+| Type            | Location         | When               |
+| --------------- | ---------------- | ------------------ |
+| Root CLAUDE.md  | `CLAUDE.md`      | Project-wide rules |
+| Nuxt Content    | `content/docs/`  | User-facing docs   |
+| Context docs    | `.context/docs/` | AI context         |
+| Inline comments | Source code      | Complex logic only |
 
 ### Writing Rules
 

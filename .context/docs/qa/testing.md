@@ -3,7 +3,6 @@ slug: testing
 category: testing
 generatedAt: 2026-02-24T01:19:50.420Z
 relevantFiles:
-  - tests/CLAUDE.md
   - tests/e2e
   - tests/integration
   - tests/setup.ts

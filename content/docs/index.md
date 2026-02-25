@@ -19,15 +19,15 @@ A plataforma coleta e processa dados de diversas fontes do sistema de saúde bra
 ## Principais funcionalidades
 
 ::docs-card-group
-::docs-card{title="Rumores Epidemiológicos" icon="lucide:newspaper" href="/docs/architecture/overview"}
+::docs-card{title="Rumores Epidemiológicos" icon="lucide:newspaper" href="/docs/api/overview"}
 Feed de notícias de saúde com classificação automática de relevância epidemiológica.
 ::
 
-::docs-card{title="Vigilância Ativa" icon="lucide:shield" href="/docs/architecture/security"}
+::docs-card{title="Vigilância Ativa" icon="lucide:shield" href="/docs/api/overview"}
 Monitoramento contínuo com alertas configuráveis por região e agravo.
 ::
 
-::docs-card{title="Análise Geográfica" icon="lucide:map-pin" href="/docs/architecture/overview"}
+::docs-card{title="Análise Geográfica" icon="lucide:map-pin" href="/docs/api/overview"}
 Visualização geoespacial de dados epidemiológicos em mapas interativos.
 ::
 
@@ -48,15 +48,3 @@ API RESTful com documentação OpenAPI e cliente TypeScript gerado automaticamen
 | **Vitest**          | Testes unitários e de integração           |
 | **Playwright**      | Testes end-to-end                          |
 | **Kubb**            | Geração de cliente API a partir do OpenAPI |
-
-## Próximos passos
-
-::docs-card-group
-::docs-card{title="Instalação" icon="lucide:download" href="/docs/getting-started/installation"}
-Configure seu ambiente de desenvolvimento.
-::
-
-::docs-card{title="Início Rápido" icon="lucide:rocket" href="/docs/getting-started/quick-start"}
-Rode o projeto em minutos.
-::
-::

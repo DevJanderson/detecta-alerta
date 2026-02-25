@@ -6,6 +6,49 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Sempre responda em Português Brasileiro (pt-BR).**
 
+## Sobre o Projeto
+
+**Detecta Alerta** é uma plataforma de vigilância e monitoramento epidemiológico em tempo real para o Brasil. Centraliza dados de estabelecimentos de saúde (UBS, UPA, Drogarias) para análise de padrões epidemiológicos e detecção precoce de surtos.
+
+## Setup Inicial
+
+```bash
+npm install
+npm run setup          # Configura git hooks (Husky, Commitlint)
+```
+
+### Variáveis de Ambiente
+
+Criar arquivo `.env` a partir do `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+| Variável               | Obrigatória | Descrição                                                      |
+| ---------------------- | ----------- | -------------------------------------------------------------- |
+| `NUXT_SINAPSE_API_URL` | Sim         | URL da API Sinapse (incluir `/api/v1`)                         |
+| `NUXT_PUBLIC_SITE_URL` | Não         | URL pública do site (default: `https://alerta.sinapse.org.br`) |
+
+> **Pre-commit hooks:** `lint-staged` roda automaticamente ESLint + Prettier em arquivos staged (`*.{js,ts,vue,json,css,md}`).
+
+## Comandos Principais
+
+```bash
+npm run dev              # Servidor dev http://localhost:3000
+npm run build            # Build produção
+npm run typecheck        # Verificar tipos (USAR para detectar erros)
+npm run quality:fix      # Lint + format
+npm run test:run         # Vitest (todos os projetos)
+npm run test:unit        # Vitest projeto "unit" (Node puro, rápido)
+npm run test:nuxt        # Vitest projeto "nuxt" (happy-dom + @nuxt/test-utils)
+npm run test -- path/to/file.test.ts  # Teste específico
+npm run test:e2e         # Playwright E2E
+npm run api:generate     # Gera cliente a partir do OpenAPI
+npm run api:lint         # Valida OpenAPI spec com Spectral
+npm run geo:convert      # Converte GeoJSON → TopoJSON (public/geo/)
+```
+
 ## Princípio ETC (Easier to Change)
 
 Valor guia do projeto, inspirado no livro "The Pragmatic Programmer". ETC não é uma regra — é a pergunta que fazemos antes de cada decisão: **"isso vai facilitar mudanças futuras?"**
@@ -38,65 +81,6 @@ Antes de criar ou modificar código, pergunte:
 - Lógica duplicada sem extração
 - Acoplamento direto entre layers (import horizontal)
 - Ausência de testes em fluxos críticos
-
-## ai-context (Context Engineering)
-
-Projeto usa **`@ai-coders/context`** via MCP para planejamento e execução estruturada de tarefas. Pasta `.context/` na raiz é a fonte de verdade.
-
-### Regras
-
-- **SEMPRE usar ai-context** para planejar e executar tarefas não-triviais
-- **NÃO criar planos manualmente** em `.context/plans/` — usar MCP tools
-- **NÃO usar `sync({ action: "exportContext" })`** — sobrescreve o CLAUDE.md
-- Para tarefas triviais (typo, single-line fix), pode pular o workflow
-
-### Estrutura `.context/`
-
-```
-.context/
-├── docs/       # Documentação (arquitetura, padrões, decisões)
-├── agents/     # Playbooks de agentes (11 built-in)
-├── plans/      # Planos de trabalho ligados ao workflow PREVC
-├── skills/     # Expertise on-demand (10 built-in)
-└── workflow/   # Estado do workflow PREVC ativo (gitignored)
-```
-
-### Ferramentas MCP
-
-| Tool               | Função                                                                                          |
-| ------------------ | ----------------------------------------------------------------------------------------------- |
-| `context`          | Scaffolding: `check`, `init`, `fill`, `fillSingle`, `getMap`, `buildSemantic`, `scaffoldPlan`   |
-| `explore`          | Leitura/busca de código: `read`, `list`, `analyze`, `search`, `getStructure`                    |
-| `plan`             | Gestão de planos: `link`, `getDetails`, `updatePhase`, `updateStep`, `getStatus`, `commitPhase` |
-| `agent`            | Orquestração: `discover`, `getInfo`, `orchestrate`, `getSequence`, `getDocs`                    |
-| `skill`            | Skills on-demand: `list`, `getContent`, `getForPhase`, `scaffold`, `export`, `fill`             |
-| `sync`             | Import/export: `exportRules`, `exportDocs`, `exportAgents` (**NÃO** `exportContext`)            |
-| `workflow-init`    | Inicializa workflow PREVC com detecção de escala e gates                                        |
-| `workflow-status`  | Status atual: fase, gates, planos linkados                                                      |
-| `workflow-advance` | Avança fase PREVC (respeita gates)                                                              |
-| `workflow-manage`  | Handoffs, colaboração, aprovações, modo autônomo                                                |
-
-### Workflow PREVC (Planning → Review → Execution → Validation → Confirmation)
-
-| Escala   | Fases             | Quando usar                                         |
-| -------- | ----------------- | --------------------------------------------------- |
-| `QUICK`  | E → V             | Bug fixes, ajustes pequenos (~5 min)                |
-| `SMALL`  | P → E → V         | Features simples (~15 min)                          |
-| `MEDIUM` | P → R → E → V     | Features regulares com decisões de design (~30 min) |
-| `LARGE`  | P → R → E → V → C | Sistemas complexos, segurança, compliance (~1h+)    |
-
-### Fluxo típico de uso
-
-```
-1. context({ action: "check" })                          # Verifica .context/
-2. context({ action: "scaffoldPlan", name: "..." })      # Cria plano
-3. workflow-init({ name: "...", scale: "MEDIUM" })       # Inicia workflow
-4. workflow-advance()                                     # Avança fases
-```
-
-### Skills disponíveis
-
-`feature-breakdown`, `api-design`, `code-review`, `pr-review`, `test-generation`, `refactoring`, `bug-investigation`, `commit-message`, `documentation`, `security-audit`
 
 ## Regras Críticas
 
@@ -179,123 +163,6 @@ const fn = x => x + 1
 - `@typescript-eslint/no-explicit-any`: `warn` (não bloqueia, mas evitar)
 - `vue/no-multiple-template-root`: **off** — múltiplos root elements no template são permitidos (Vue 3 fragments)
 - `generated/**` é ignorado pelo ESLint
-
-## Sobre o Projeto
-
-**Detecta Alerta** é uma plataforma de vigilância e monitoramento epidemiológico em tempo real para o Brasil. Centraliza dados de estabelecimentos de saúde (UBS, UPA, Drogarias) para análise de padrões epidemiológicos e detecção precoce de surtos.
-
-## Setup Inicial
-
-```bash
-npm install
-npm run setup          # Configura git hooks (Husky, Commitlint)
-```
-
-### Variáveis de Ambiente
-
-Criar arquivo `.env` na raiz:
-
-```env
-# URL da API Sinapse (incluir /api/v1)
-NUXT_SINAPSE_API_URL=https://staging.sinapse.org.br/api/v1
-
-# URL pública do site (opcional, default: https://alerta.sinapse.org.br)
-NUXT_PUBLIC_SITE_URL=https://alerta.sinapse.org.br
-```
-
-## Comandos Principais
-
-```bash
-npm run dev              # Servidor dev http://localhost:3000
-npm run build            # Build produção
-npm run typecheck        # Verificar tipos (USAR para detectar erros)
-npm run quality:fix      # Lint + format
-npm run test:run         # Vitest (todos os projetos)
-npm run test:unit        # Vitest projeto "unit" (Node puro, rápido)
-npm run test:nuxt        # Vitest projeto "nuxt" (happy-dom + @nuxt/test-utils)
-npm run test -- path/to/file.test.ts  # Teste específico
-npm run test:e2e         # Playwright E2E
-npm run api:generate     # Gera cliente a partir do OpenAPI
-npm run api:lint         # Valida OpenAPI spec com Spectral
-npm run geo:convert      # Converte GeoJSON → TopoJSON (public/geo/)
-```
-
-## SEO
-
-### Composable `useSeoPage`
-
-Usar `useSeoPage` (não `useSeoMeta`) em todas as páginas. Gera automaticamente: title, description, Open Graph, Twitter Cards e canonical URL.
-
-```vue
-<script setup lang="ts">
-useSeoPage({
-  title: 'Detecta Alerta - Vigilância Epidemiológica',
-  description: 'Monitoramento epidemiológico em tempo real para o Brasil.'
-})
-</script>
-```
-
-> **Nota:** `useSeoPage` **não** controla robots. Robots é controlado via `X-Robots-Tag` headers em `routeRules` no `nuxt.config.ts`.
-
-### Sitemap, Robots e Schema.org
-
-Gerenciados pelo módulo unificado `@nuxtjs/seo` (substitui `@nuxtjs/sitemap`, `@nuxtjs/robots` e `nuxt-schema-org`).
-
-- **Sitemap**: gerado automaticamente em `/sitemap.xml`
-- **Robots.txt**: gerado pelo sub-módulo robots (não usar `public/robots.txt` estático)
-- **X-Robots-Tag**: headers configurados em `routeRules` no `nuxt.config.ts` para rotas internas
-- **Schema.org (JSON-LD)**: `useSchemaOrg()` + `defineWebSite()` na homepage
-- **ogImage** e **linkChecker**: desabilitados (`enabled: false` no `nuxt.config.ts`)
-
-### Content
-
-Módulo `@nuxt/content` disponível para páginas com conteúdo em Markdown/YAML/JSON. Docs: [content.nuxt.com](https://content.nuxt.com)
-
-## Componentes shadcn-vue
-
-```bash
-npx shadcn-vue@latest add <componente>
-```
-
-Componentes ficam em `layers/0-base/app/components/ui/` (auto-import).
-
-## Bibliotecas UI Disponíveis
-
-| Biblioteca                | Uso                                        |
-| ------------------------- | ------------------------------------------ |
-| `vue-sonner`              | Toasts/notificações (módulo Nuxt, sem CSS) |
-| `@tanstack/vue-table`     | Tabelas com sort/filter/pagination         |
-| `maska`                   | Máscaras de input (CPF, telefone, etc.)    |
-| `embla-carousel-vue`      | Carrossel/slider                           |
-| `vaul-vue`                | Drawer/bottom sheet                        |
-| `@vueuse/core`            | Composables utilitários Vue                |
-| `@internationalized/date` | Datas internacionalizadas                  |
-| `@tailwindcss/typography` | Plugin prose para Markdown                 |
-
-## Design System - Cores
-
-| Recurso          | Local                                   |
-| ---------------- | --------------------------------------- |
-| Arquivo de cores | `layers/0-base/app/assets/css/main.css` |
-| Visualização     | http://localhost:3000/design-system     |
-
-### Paleta Principal
-
-| Cor               | Classe Tailwind               | Uso                              |
-| ----------------- | ----------------------------- | -------------------------------- |
-| `brand-primary`   | `bg-brand-primary-{50-950}`   | Vermelho/Coral - CTAs, destaques |
-| `brand-secondary` | `bg-brand-secondary-{50-950}` | Azul - Links, ações secundárias  |
-| `base`            | `bg-base-{0-950}`             | Neutros - Textos, fundos         |
-| `success`         | `bg-success-{50-950}`         | Verde - Feedback positivo        |
-| `alert`           | `bg-alert-{50-950}`           | Amarelo - Avisos                 |
-| `danger`          | `bg-danger-{50-950}`          | Vermelho - Erros                 |
-
-### Regras
-
-- **Cores da marca** (`brand-*`, `success`, `alert`, `danger`) para elementos customizados
-- **Semânticas shadcn** (`primary`, `secondary`, `muted`) para componentes UI
-- **Tons baixos (50-200)** para fundos, **tons altos (600-900)** para textos
-- **Nunca usar cores hardcoded** - sempre variáveis do design system
 
 ## Arquitetura
 
@@ -472,6 +339,83 @@ import type { ApiResponse, PaginatedResponse } from '#shared/types'
 // PaginatedResponse<T> — { data: T[], meta: { total, page, perPage, lastPage } }
 ```
 
+## SEO
+
+### Composable `useSeoPage`
+
+Usar `useSeoPage` (não `useSeoMeta`) em todas as páginas. Gera automaticamente: title, description, Open Graph, Twitter Cards e canonical URL.
+
+```vue
+<script setup lang="ts">
+useSeoPage({
+  title: 'Detecta Alerta - Vigilância Epidemiológica',
+  description: 'Monitoramento epidemiológico em tempo real para o Brasil.'
+})
+</script>
+```
+
+> **Nota:** `useSeoPage` **não** controla robots. Robots é controlado via `X-Robots-Tag` headers em `routeRules` no `nuxt.config.ts`.
+
+### Sitemap, Robots e Schema.org
+
+Gerenciados pelo módulo unificado `@nuxtjs/seo` (substitui `@nuxtjs/sitemap`, `@nuxtjs/robots` e `nuxt-schema-org`).
+
+- **Sitemap**: gerado automaticamente em `/sitemap.xml`
+- **Robots.txt**: gerado pelo sub-módulo robots (não usar `public/robots.txt` estático)
+- **X-Robots-Tag**: headers configurados em `routeRules` no `nuxt.config.ts` para rotas internas
+- **Schema.org (JSON-LD)**: `useSchemaOrg()` + `defineWebSite()` na homepage
+- **ogImage** e **linkChecker**: desabilitados (`enabled: false` no `nuxt.config.ts`)
+
+### Content
+
+Módulo `@nuxt/content` disponível para páginas com conteúdo em Markdown/YAML/JSON. Docs: [content.nuxt.com](https://content.nuxt.com)
+
+## Componentes shadcn-vue
+
+```bash
+npx shadcn-vue@latest add <componente>
+```
+
+Componentes ficam em `layers/0-base/app/components/ui/` (auto-import).
+
+## Bibliotecas UI Disponíveis
+
+| Biblioteca                | Uso                                        |
+| ------------------------- | ------------------------------------------ |
+| `vue-sonner`              | Toasts/notificações (módulo Nuxt, sem CSS) |
+| `@tanstack/vue-table`     | Tabelas com sort/filter/pagination         |
+| `maska`                   | Máscaras de input (CPF, telefone, etc.)    |
+| `embla-carousel-vue`      | Carrossel/slider                           |
+| `vaul-vue`                | Drawer/bottom sheet                        |
+| `@vueuse/core`            | Composables utilitários Vue                |
+| `@internationalized/date` | Datas internacionalizadas                  |
+| `@tailwindcss/typography` | Plugin prose para Markdown                 |
+
+## Design System - Cores
+
+| Recurso          | Local                                   |
+| ---------------- | --------------------------------------- |
+| Arquivo de cores | `layers/0-base/app/assets/css/main.css` |
+| Visualização     | http://localhost:3000/design-system     |
+
+### Paleta Principal
+
+| Cor               | Classe Tailwind               | Uso                              |
+| ----------------- | ----------------------------- | -------------------------------- |
+| `brand-primary`   | `bg-brand-primary-{50-950}`   | Vermelho/Coral - CTAs, destaques |
+| `brand-secondary` | `bg-brand-secondary-{50-950}` | Azul - Links, ações secundárias  |
+| `base`            | `bg-base-{0-950}`             | Neutros - Textos, fundos         |
+| `success`         | `bg-success-{50-950}`         | Verde - Feedback positivo        |
+| `alert`           | `bg-alert-{50-950}`           | Amarelo - Avisos                 |
+| `danger`          | `bg-danger-{50-950}`          | Vermelho - Erros                 |
+
+### Regras
+
+- **Cores da marca** (`brand-*`, `success`, `alert`, `danger`) para elementos customizados
+- **Semânticas shadcn** (`primary`, `secondary`, `muted`) para componentes UI
+- **Tons baixos (50-200)** para fundos, **tons altos (600-900)** para textos
+- **Nunca usar cores hardcoded** - sempre variáveis do design system
+
 ## Segurança
 
 Módulo `nuxt-security` configurado com headers, rate limiter, CSRF e XSS protection.
@@ -547,7 +491,6 @@ import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
 // No endpoint BFF (server/)
 const rawResponse = await $fetch('/auth/login', { ... })
 const validated = tokenSchema.parse(rawResponse) // Valida em runtime
-
 ```
 
 ### Regenerar após mudanças no OpenAPI
@@ -592,18 +535,27 @@ output: {
 | `verbatimModuleSyntax` + ToZod | Remover `typed: true` e `inferred: true` do pluginZod |
 | Tipos não reconhecidos         | Verificar se `generated/` não está no `.gitignore`    |
 
+## ai-context (Context Engineering)
+
+Projeto usa **`@ai-coders/context`** via MCP para planejamento e execução estruturada de tarefas. Pasta `.context/` na raiz é a fonte de verdade (docs, agents, plans, skills, workflow).
+
+### Regras
+
+- **SEMPRE usar ai-context** para planejar e executar tarefas não-triviais
+- **NÃO criar planos manualmente** em `.context/plans/` — usar MCP tools
+- **NÃO usar `sync({ action: "exportContext" })`** — sobrescreve o CLAUDE.md
+- Para tarefas triviais (typo, single-line fix), pode pular o workflow
+
+### Workflow PREVC
+
+Escalas: `QUICK` (E→V), `SMALL` (P→E→V), `MEDIUM` (P→R→E→V), `LARGE` (P→R→E→V→C).
+
+Fluxo típico: `context({ action: "check" })` → `context({ action: "scaffoldPlan" })` → `workflow-init()` → `workflow-advance()`.
+
+Ferramentas MCP disponíveis: `context`, `explore`, `plan`, `agent`, `skill`, `sync`, `workflow-init`, `workflow-status`, `workflow-advance`, `workflow-manage`. Detalhes em `.context/docs/`.
+
 ## Documentação
 
-### Por Diretório (CLAUDE.md)
+### PR Template
 
-| Documento                                                                          | Conteúdo                                |
-| ---------------------------------------------------------------------------------- | --------------------------------------- |
-| [layers/0-base/CLAUDE.md](layers/0-base/CLAUDE.md)                                 | Fundação + UI: shadcn-vue, utils, tipos |
-| [layers/0-base/app/components/CLAUDE.md](layers/0-base/app/components/CLAUDE.md)   | Componentes UI                          |
-| [layers/0-base/app/composables/CLAUDE.md](layers/0-base/app/composables/CLAUDE.md) | Padrões de composables                  |
-| [layers/1-auth/CLAUDE.md](layers/1-auth/CLAUDE.md)                                 | Autenticação BFF, login, logout         |
-| [layers/2-home/CLAUDE.md](layers/2-home/CLAUDE.md)                                 | Homepage, páginas públicas              |
-| [layers/3-usuarios/CLAUDE.md](layers/3-usuarios/CLAUDE.md)                         | Perfil, usuários, grupos, permissões    |
-| [layers/4-rumores/CLAUDE.md](layers/4-rumores/CLAUDE.md)                           | Rumores epidemiológicos, feed, filtros  |
-| [layers/5-docs/CLAUDE.md](layers/5-docs/CLAUDE.md)                                 | Documentação do projeto (Nuxt Content)  |
-| [tests/CLAUDE.md](tests/CLAUDE.md)                                                 | Vitest, Playwright, mocking             |
+Disponível em `.github/PULL_REQUEST_TEMPLATE.md` — preenchido automaticamente ao abrir PRs no GitHub.

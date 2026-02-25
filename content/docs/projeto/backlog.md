@@ -5,7 +5,7 @@ description: Itens pendentes identificados na auditoria de seguranca e bugs da p
 
 # Backlog
 
-Itens pendentes identificados durante a [auditoria de seguranca e bugs](/docs/architecture/security) realizada em fevereiro de 2026. Organizados por severidade.
+Itens pendentes identificados durante a auditoria de seguranca e bugs realizada em fevereiro de 2026. Organizados por severidade.
 
 ## Alta prioridade
 

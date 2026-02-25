@@ -14,7 +14,6 @@ Welcome to the repository knowledge base. Start with the project overview, then 
 
 ## Repository Snapshot
 
-- `CLAUDE.md/`
 - `commitlint.config.js/`
 - `components.json/`
 - `content/`

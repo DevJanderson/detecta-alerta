@@ -125,4 +125,3 @@ Internal routes are protected from indexing via `X-Robots-Tag: noindex, nofollow
 ## Related Resources
 
 - [Architecture](./architecture.md)
-- [Auth Layer CLAUDE.md](../../layers/1-auth/CLAUDE.md)

@@ -20,9 +20,8 @@ scaffoldVersion: '2.0.0'
 
 ### Before Starting
 
-1. Read the relevant layer's `CLAUDE.md` for context
-2. Check existing patterns in similar layers
-3. Run `npm run typecheck` to verify current state is clean
+1. Check existing patterns in similar layers
+2. Run `npm run typecheck` to verify current state is clean
 
 ### Implementation Checklist
 
@@ -34,7 +33,6 @@ scaffoldVersion: '2.0.0'
 4. Create BFF endpoints under `server/api/{feature}/`
 5. Add `useSeoPage()` to all new pages
 6. Add tests in `tests/unit/` or `tests/integration/`
-7. Create layer `CLAUDE.md` with documentation
 
 #### Within Existing Layer
 

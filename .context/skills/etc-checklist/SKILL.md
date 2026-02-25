@@ -51,7 +51,7 @@ Use este checklist antes de criar ou modificar código. A pergunta central é se
 
 - [ ] Nomes revelam **intenção** (não implementação)?
 - [ ] Componentes prefixados com o nome da layer (`RumoresCard`, `AuthLoginForm`)?
-- [ ] Mudanças arquiteturais documentadas no CLAUDE.md da layer?
+- [ ] Mudanças arquiteturais documentadas no CLAUDE.md raiz ou `.context/docs/`?
 
 ---
 

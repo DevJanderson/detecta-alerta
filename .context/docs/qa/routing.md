@@ -3,7 +3,6 @@ slug: routing
 category: architecture
 generatedAt: 2026-02-24T01:19:48.580Z
 relevantFiles:
-  - content/docs/api/kubb-integration.md
   - content/docs/api/overview.md
   - .output/server/chunks/routes/api
   - .output/server/chunks/routes/renderer.mjs

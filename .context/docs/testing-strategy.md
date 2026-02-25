@@ -129,4 +129,3 @@ Before submitting code:
 ## Related Resources
 
 - [Development Workflow](./development-workflow.md)
-- [tests/CLAUDE.md](../../tests/CLAUDE.md) — Detailed testing patterns and examples

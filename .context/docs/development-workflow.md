@@ -111,7 +111,6 @@ Before submitting code for review, ensure:
 3. Create pages under `app/pages/{feature}/`
 4. Create server endpoints under `server/api/{feature}/`
 5. Add tests in `tests/unit/` or `tests/integration/`
-6. Update layer CLAUDE.md with documentation
 
 ## Related Resources
 

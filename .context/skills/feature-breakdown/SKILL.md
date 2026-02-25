@@ -49,10 +49,6 @@ For each feature, create tasks in this order:
 - Services → `tests/unit/` (mock `$fetch`)
 - Stores/composables → `tests/integration/` (mock API, use `mockNuxtImport`)
 
-#### 7. Documentation
-
-- Create/update `layers/{N}-{feature}/CLAUDE.md`
-
 ### Task Sizing
 
 | Size   | Description            | Typical Scope                  |
@@ -70,4 +66,3 @@ For each feature, create tasks in this order:
 - [ ] `app/pages/{feature}/`
 - [ ] `server/api/{feature}/`
 - [ ] `tests/unit/{feature}/`
-- [ ] `CLAUDE.md`
