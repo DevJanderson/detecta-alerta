@@ -25,10 +25,11 @@ Criar arquivo `.env` a partir do `.env.example`:
 cp .env.example .env
 ```
 
-| Variável               | Obrigatória | Descrição                                                      |
-| ---------------------- | ----------- | -------------------------------------------------------------- |
-| `NUXT_SINAPSE_API_URL` | Sim         | URL da API Sinapse (incluir `/api/v1`)                         |
-| `NUXT_PUBLIC_SITE_URL` | Não         | URL pública do site (default: `https://alerta.sinapse.org.br`) |
+| Variável                   | Obrigatória | Descrição                                                      |
+| -------------------------- | ----------- | -------------------------------------------------------------- |
+| `NUXT_SINAPSE_API_URL`     | Sim         | URL da API Sinapse (incluir `/api/v1`)                         |
+| `NUXT_PUBLIC_API_BASE_URL` | Não         | URL base da API pública (client-side)                          |
+| `NUXT_PUBLIC_SITE_URL`     | Não         | URL pública do site (default: `https://alerta.sinapse.org.br`) |
 
 > **Pre-commit hooks:** `lint-staged` roda automaticamente ESLint + Prettier em arquivos staged (`*.{js,ts,vue,json,css,md}`).
 
@@ -43,8 +44,12 @@ npm run test:run         # Vitest (todos os projetos)
 npm run test:unit        # Vitest projeto "unit" (Node puro, rápido)
 npm run test:nuxt        # Vitest projeto "nuxt" (happy-dom + @nuxt/test-utils)
 npm run test -- path/to/file.test.ts  # Teste específico
+npm run test:coverage    # Vitest com cobertura (v8)
+npm run test:ui          # Vitest UI (navegador)
 npm run test:e2e         # Playwright E2E
+npm run test:e2e:ui      # Playwright E2E com UI
 npm run api:generate     # Gera cliente a partir do OpenAPI
+npm run api:watch        # Regenera tipos ao detectar mudanças no OpenAPI
 npm run api:lint         # Valida OpenAPI spec com Spectral
 npm run geo:convert      # Converte GeoJSON → TopoJSON (public/geo/)
 ```
