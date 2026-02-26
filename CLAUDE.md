@@ -54,6 +54,33 @@ npm run api:lint         # Valida OpenAPI spec com Spectral
 npm run geo:convert      # Converte GeoJSON → TopoJSON (public/geo/)
 ```
 
+### Vitest - Projetos de Teste
+
+Workspace com dois projetos separados (`vitest.config.ts`):
+
+| Projeto | Comando             | Ambiente                     | Diretório                        | Quando usar                                      |
+| ------- | ------------------- | ---------------------------- | -------------------------------- | ------------------------------------------------ |
+| `unit`  | `npm run test:unit` | Node puro                    | `tests/unit/**/*.test.ts`        | Utils, funções puras, lógica sem dependência Vue |
+| `nuxt`  | `npm run test:nuxt` | happy-dom + @nuxt/test-utils | `tests/integration/**/*.test.ts` | Composables, stores, componentes Vue             |
+
+O projeto `nuxt` usa `tests/setup.ts` e tem acesso a auto-imports do Nuxt. O projeto `unit` é mais rápido por não carregar o ambiente Nuxt.
+
+### Tailwind CSS v4
+
+Tailwind v4 usa **arquivo CSS** em vez de `tailwind.config.js`. Toda configuração (cores, radius, plugins) fica em `layers/0-base/app/assets/css/main.css`:
+
+```css
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@source "../../../../"; /* Scan de classes em todas as layers */
+
+@theme inline {
+  --color-primary-50: ...; /* Cores do design system */
+}
+```
+
+Não existe `tailwind.config.js` — se precisar adicionar cores ou tokens, editar o `main.css`.
+
 ## Princípio ETC (Easier to Change)
 
 Valor guia do projeto, inspirado no livro "The Pragmatic Programmer". ETC não é uma regra — é a pergunta que fazemos antes de cada decisão: **"isso vai facilitar mudanças futuras?"**
