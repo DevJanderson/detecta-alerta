@@ -53,18 +53,18 @@ const activeFilter = ref('UBS')
         <div class="flex flex-wrap items-center justify-between gap-4">
           <div class="flex items-center gap-6">
             <label class="flex cursor-pointer items-center gap-2 text-sm text-base-700">
-              <input
-                v-model="showVariation"
-                type="checkbox"
-                class="size-4 rounded border-base-300 text-secondary-600 focus:ring-secondary-500"
+              <Switch
+                v-model:checked="showVariation"
+                default-checked
+                class="h-5 w-9 data-[state=checked]:bg-secondary-700 [&>span]:size-4 [&>span]:data-[state=checked]:translate-x-4"
               />
               mostrar variação
             </label>
             <label class="flex cursor-pointer items-center gap-2 text-sm text-base-700">
-              <input
-                v-model="showAverage"
-                type="checkbox"
-                class="size-4 rounded border-base-300 text-secondary-600 focus:ring-secondary-500"
+              <Switch
+                v-model:checked="showAverage"
+                default-checked
+                class="h-5 w-9 data-[state=checked]:bg-secondary-700 [&>span]:size-4 [&>span]:data-[state=checked]:translate-x-4"
               />
               mostrar média
             </label>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const regions = [
-  { id: 'brasil', label: 'Brasil', icon: 'lucide:globe' },
+  { id: 'brasil', label: 'Brasil' },
   { id: 'norte', label: 'Norte' },
   { id: 'nordeste', label: 'Nordeste' },
   { id: 'centro-oeste', label: 'Centro-Oeste' },
@@ -26,7 +26,7 @@ const activeRegion = defineModel<string>({ default: 'brasil' })
           v-for="region in regions"
           :key="region.id"
           :aria-selected="activeRegion === region.id"
-          class="flex flex-1 items-center justify-center gap-2 rounded-full px-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 sm:h-14 lg:px-6"
+          class="flex h-12 flex-1 min-w-0 items-center justify-center gap-2 rounded-full px-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 sm:h-14 lg:px-6"
           :class="
             activeRegion === region.id
               ? 'bg-secondary-900 font-semibold text-base-0'
@@ -34,8 +34,8 @@ const activeRegion = defineModel<string>({ default: 'brasil' })
           "
           @click="activeRegion = region.id"
         >
-          <Icon v-if="region.icon" :name="region.icon" class="size-4" />
-          {{ region.label }}
+          <Icon v-if="activeRegion === region.id" name="lucide:map-pin" class="size-4 shrink-0" />
+          <span class="truncate text-sm leading-[150%] sm:text-base">{{ region.label }}</span>
         </button>
       </div>
     </div>
