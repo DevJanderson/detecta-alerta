@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+  devtools: { enabled: process.env.NUXT_DEVTOOLS === 'true' },
 
   // Performance - Experimental features
   experimental: {
@@ -102,7 +102,9 @@ export default defineNuxtConfig({
   icon: {
     serverBundle: 'remote',
     clientBundle: {
-      scan: true
+      scan: true,
+      // Ícones escaneados automaticamente; aumentar limite se necessário
+      sizeLimitKb: 256
     }
   },
 
@@ -254,6 +256,31 @@ export default defineNuxtConfig({
   vite: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- @tailwindcss/vite type mismatch with Nuxt's bundled vite types
     plugins: [tailwindcss() as any],
+
+    // Performance - Excluir generated/ do file watcher (877 arquivos Kubb)
+    server: {
+      watch: {
+        ignored: ['**/generated/**']
+      }
+    },
+
+    // Pré-bundlar dependências pesadas (transforma uma vez, reutiliza)
+    optimizeDeps: {
+      include: [
+        'reka-ui',
+        'class-variance-authority',
+        'clsx',
+        'tailwind-merge',
+        'lucide-vue-next',
+        '@tanstack/vue-table',
+        '@vueuse/core',
+        '@internationalized/date',
+        'zod',
+        'embla-carousel-vue',
+        'vaul-vue',
+        'maska'
+      ]
+    },
 
     // Performance - Build optimizations
     build: {

@@ -1,10 +1,11 @@
-@import 'tailwindcss';
+@import 'tailwindcss' source(none);
 @import 'tw-animate-css';
 @plugin '@tailwindcss/typography';
 @import 'vue-sonner/style.css';
 
-/* Incluir layers no scan do Tailwind v4 */
+/* Desabilita auto-scan do projeto inteiro; escaneia apenas layers/ e content/ */
 @source "../../../../";
+@source "../../../../../content";
 
 @theme inline {
   /* Radius */
