@@ -45,6 +45,7 @@ export default defineNuxtConfig({
 
   // Nuxt Layers - extends explícito (ordem = prioridade crescente)
   extends: [
+    './layers/design-system',
     './layers/base',
     './layers/auth',
     './layers/home',
@@ -244,7 +245,7 @@ export default defineNuxtConfig({
 
   shadcn: {
     prefix: '',
-    componentDir: './layers/base/app/components/ui'
+    componentDir: './layers/design-system/app/components/ui'
   },
 
   runtimeConfig: {
@@ -308,5 +309,5 @@ export default defineNuxtConfig({
     }
   }
 
-  // CSS global está em layers/base/
+  // CSS global está em layers/design-system/
 })
