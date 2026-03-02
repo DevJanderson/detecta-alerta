@@ -15,7 +15,7 @@ const cidade = ref('')
 const funcao = ref('')
 const instituicao = ref('')
 
-// ESTADOS_BR auto-importado de layers/0-base/app/utils/constants
+// ESTADOS_BR auto-importado de layers/base/app/utils/constants
 
 const showConfirm = ref(false)
 const canSubmit = computed(() => nome.value.trim() && !store.isLoading)

@@ -43,9 +43,15 @@ export default defineNuxtConfig({
     server: false
   },
 
-  // Nuxt Layers - auto-scan de ~/layers (Nuxt 4+)
-  // Ordem de prioridade: 0-base < 1-auth < 2-home < 3-usuarios < 4-rumores < 5-docs
-  // Número maior = maior prioridade = sobrescreve layers anteriores
+  // Nuxt Layers - extends explícito (ordem = prioridade crescente)
+  extends: [
+    './layers/base',
+    './layers/auth',
+    './layers/home',
+    './layers/usuarios',
+    './layers/rumores',
+    './layers/docs'
+  ],
 
   site: {
     url: 'https://alerta.sinapse.org.br',
@@ -238,7 +244,7 @@ export default defineNuxtConfig({
 
   shadcn: {
     prefix: '',
-    componentDir: './layers/0-base/app/components/ui'
+    componentDir: './layers/base/app/components/ui'
   },
 
   runtimeConfig: {
@@ -302,5 +308,5 @@ export default defineNuxtConfig({
     }
   }
 
-  // CSS global está em layers/0-base/
+  // CSS global está em layers/base/
 })

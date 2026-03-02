@@ -11,7 +11,7 @@ const searchTerm = ref('')
 const doencaSelecionada = ref(ALL)
 const estadoSelecionado = ref(ALL)
 
-// ESTADOS_BR auto-importado de layers/0-base/app/utils/constants
+// ESTADOS_BR auto-importado de layers/base/app/utils/constants
 
 // Inicializar filtros a partir da URL
 onMounted(() => {

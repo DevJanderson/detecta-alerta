@@ -4,7 +4,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 
-import { useAuthApi } from '~/layers/1-auth/app/composables/useAuthApi'
+import { useAuthApi } from '~/layers/auth/app/composables/useAuthApi'
 
 // Mock do $fetch global
 const mockFetch = vi.fn()

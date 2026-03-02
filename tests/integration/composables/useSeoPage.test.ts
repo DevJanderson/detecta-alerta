@@ -23,7 +23,7 @@ mockNuxtImport(
 )
 mockNuxtImport('useRoute', () => () => ({ path: '/' }))
 
-const { useSeoPage } = await import('~/layers/0-base/app/composables/useSeoPage')
+const { useSeoPage } = await import('~/layers/base/app/composables/useSeoPage')
 
 describe('useSeoPage', () => {
   beforeEach(() => {

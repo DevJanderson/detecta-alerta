@@ -21,5 +21,13 @@ config.global.stubs = {
   }
 }
 
+// Mock do @nuxtjs/color-mode para evitar erro de inicialização nos testes
+// "Cannot read properties of undefined (reading 'preference')"
+vi.stubGlobal('useColorMode', () => ({
+  preference: 'light',
+  value: 'light',
+  forced: false
+}))
+
 // Suppress Vue warnings in tests
 config.global.config.warnHandler = () => {}

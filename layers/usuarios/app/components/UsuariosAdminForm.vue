@@ -36,7 +36,7 @@ const emit = defineEmits<{
   ]
 }>()
 
-// ESTADOS_BR auto-importado de layers/0-base/app/utils/constants
+// ESTADOS_BR auto-importado de layers/base/app/utils/constants
 
 const nome = ref('')
 const email = ref('')

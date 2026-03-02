@@ -12,7 +12,7 @@ const mockLogout = vi.fn()
 const mockGetMe = vi.fn()
 const mockResetPassword = vi.fn()
 
-vi.mock('~/layers/1-auth/app/composables/useAuthApi', () => ({
+vi.mock('~/layers/auth/app/composables/useAuthApi', () => ({
   useAuthApi: () => ({
     login: mockLogin,
     logout: mockLogout,
@@ -28,7 +28,7 @@ mockNuxtImport('useRouter', () => () => ({
   replace: vi.fn()
 }))
 
-const { useAuthStore } = await import('~/layers/1-auth/app/composables/useAuthStore')
+const { useAuthStore } = await import('~/layers/auth/app/composables/useAuthStore')
 
 const mockUser = {
   id: 1,
