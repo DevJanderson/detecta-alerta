@@ -1,0 +1,7 @@
+# Detecta Alerta - Security Policy (RFC 9116)
+# https://securitytxt.org/
+
+Contact: mailto:api@sinapse.org.br
+Expires: 2027-03-02T00:00:00.000Z
+Preferred-Languages: pt-BR, en
+Canonical: https://alerta.sinapse.org.br/.well-known/security.txt

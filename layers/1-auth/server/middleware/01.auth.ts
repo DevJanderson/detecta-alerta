@@ -11,19 +11,21 @@
  * O prefixo "01." garante execução antes de outros middlewares.
  */
 
+/** Prefixos de rotas que não requerem verificação de auth */
+const PUBLIC_PATH_PREFIXES = [
+  '/api/auth/login',
+  '/api/auth/reset-password',
+  '/_nuxt',
+  '/__nuxt',
+  '/.well-known',
+  '/favicon.ico'
+] as const
+
 export default defineEventHandler(async event => {
   // Ignorar rotas públicas e estáticas
   const path = getRequestURL(event).pathname
 
-  const publicPaths = [
-    '/api/auth/login',
-    '/api/auth/reset-password',
-    '/_nuxt',
-    '/__nuxt',
-    '/favicon.ico'
-  ]
-
-  if (publicPaths.some(p => path.startsWith(p))) {
+  if (PUBLIC_PATH_PREFIXES.some(p => path.startsWith(p))) {
     return
   }
 

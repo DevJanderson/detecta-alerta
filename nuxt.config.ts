@@ -132,8 +132,16 @@ export default defineNuxtConfig({
               'connect-src': ["'self'"],
               'frame-ancestors': ["'self'"],
               'form-action': ["'self'"],
-              'object-src': ["'none'"]
+              'object-src': ["'none'"],
+              'upgrade-insecure-requests': true
             },
+      // Permissions-Policy: restringe features do navegador não utilizadas
+      permissionsPolicy: {
+        camera: [],
+        microphone: [],
+        geolocation: [],
+        'display-capture': []
+      },
       referrerPolicy: 'strict-origin-when-cross-origin',
       strictTransportSecurity: {
         maxAge: 31536000,
@@ -161,6 +169,9 @@ export default defineNuxtConfig({
 
     // Oculta header X-Powered-By
     hidePoweredBy: true,
+
+    // Habilita nonce para CSP (necessário para Report-Only nonce-based)
+    nonce: true,
 
     // CSRF Protection (usa nuxt-csurf internamente)
     csrf: {

@@ -5,11 +5,15 @@
  * Requer autenticacao (API Sinapse exige token).
  */
 
+import { z } from 'zod'
+import { sintomaSchema } from '~/generated/sinapse/zod/sintomaSchema'
+
 export default defineEventHandler(async event => {
   const accessToken = requireAuth(event)
 
   return handleSinapseRequest({
     fn: () => fetchSinapse('/noticias/operacoes/sintomas', { accessToken }),
-    errorContext: 'Erro ao listar sintomas'
+    errorContext: 'Erro ao listar sintomas',
+    schema: z.array(sintomaSchema)
   })
 })
