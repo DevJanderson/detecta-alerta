@@ -2,7 +2,6 @@
 import type { SeparatorProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { Separator } from 'reka-ui'
-import { cn } from '@/layers/0-base/app/utils/utils'
 
 const {
   orientation = 'horizontal',

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@/layers/0-base/app/utils/utils'
 import { actionCardVariants, type ActionCardVariants } from '.'
 
 const props = defineProps<{

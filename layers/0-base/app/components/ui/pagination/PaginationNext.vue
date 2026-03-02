@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import type { PaginationNextProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import type { ButtonVariants } from '@/layers/0-base/app/components/ui/button'
 import { reactiveOmit } from '@vueuse/core'
 import { ChevronRightIcon } from 'lucide-vue-next'
 import { PaginationNext, useForwardProps } from 'reka-ui'
-import { cn } from '@/layers/0-base/app/utils/utils'
-import { buttonVariants } from '@/layers/0-base/app/components/ui/button'
 
 const props = withDefaults(
   defineProps<

@@ -2,7 +2,6 @@
 import type { HTMLAttributes } from 'vue'
 import type { AvatarVariants } from '.'
 import { AvatarRoot } from 'reka-ui'
-import { cn } from '@/layers/0-base/app/utils/utils'
 import { avatarVariant } from '.'
 
 const {

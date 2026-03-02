@@ -8,7 +8,6 @@ import {
   AlertDialogPortal,
   useForwardPropsEmits
 } from 'reka-ui'
-import { cn } from '@/layers/0-base/app/utils/utils'
 
 const props = defineProps<AlertDialogContentProps & { class?: HTMLAttributes['class'] }>()
 const emits = defineEmits<AlertDialogContentEmits>()

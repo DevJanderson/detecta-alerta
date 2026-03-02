@@ -5,7 +5,7 @@
  */
 
 import type { AuthUser, LoginCredentials, ResetPasswordData } from './types'
-import { extractErrorMessage, isUnauthorizedError } from '~/layers/0-base/app/utils/error'
+// extractErrorMessage e isUnauthorizedError são auto-importados de 0-base/app/utils/error
 
 // ============================================================================
 // STORE
