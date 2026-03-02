@@ -57,11 +57,11 @@ D --> E["Resposta\nCSP · HSTS · X-Frame-Options\nReferrer-Policy · Permission
 | **CSRF Protection**               | Token anti-CSRF em POST/PUT/PATCH/DELETE                      | `security.csrf`                                             | ✅ Ativo                           |
 | **XSS Validator**                 | Sanitiza inputs contra XSS                                    | `security.xssValidator`                                     | ✅ Ativo                           |
 | **Request Size Limiter**          | Limita body a 2MB (8MB uploads)                               | `security.requestSizeLimiter`                               | ✅ Ativo                           |
-| **Auth (httpOnly cookies)**       | Tokens JWT em cookies httpOnly + SameSite strict              | `layers/1-auth/server/utils/auth.ts`                        | ✅ Ativo                           |
-| **Auto-refresh de tokens**        | Renova JWT automaticamente antes de expirar                   | `layers/1-auth/server/middleware/01.auth.ts`                | ✅ Ativo                           |
-| **Validação Zod (server)**        | Valida body e respostas com schemas tipados                   | `layers/0-base/server/utils/validation.ts`                  | ✅ Ativo                           |
-| **Query whitelist**               | Aceita apenas query params conhecidos                         | `layers/0-base/server/utils/query-builder.ts`               | ✅ Ativo                           |
-| **Route param validation**        | Aceita apenas IDs numéricos ou UUIDs                          | `layers/0-base/server/utils/validation.ts`                  | ✅ Ativo                           |
+| **Auth (httpOnly cookies)**       | Tokens JWT em cookies httpOnly + SameSite strict              | `layers/auth/server/utils/auth.ts`                          | ✅ Ativo                           |
+| **Auto-refresh de tokens**        | Renova JWT automaticamente antes de expirar                   | `layers/auth/server/middleware/01.auth.ts`                  | ✅ Ativo                           |
+| **Validação Zod (server)**        | Valida body e respostas com schemas tipados                   | `layers/base/server/utils/validation.ts`                    | ✅ Ativo                           |
+| **Query whitelist**               | Aceita apenas query params conhecidos                         | `layers/base/server/utils/query-builder.ts`                 | ✅ Ativo                           |
+| **Route param validation**        | Aceita apenas IDs numéricos ou UUIDs                          | `layers/base/server/utils/validation.ts`                    | ✅ Ativo                           |
 | **hidePoweredBy**                 | Remove header X-Powered-By                                    | `security.hidePoweredBy`                                    | ✅ Ativo                           |
 | **upgrade-insecure-requests**     | Redireciona HTTP → HTTPS automaticamente                      | CSP directive                                               | ✅ Ativo                           |
 

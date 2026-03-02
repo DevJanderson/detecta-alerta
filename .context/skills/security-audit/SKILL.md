@@ -61,7 +61,7 @@ scaffoldVersion: '2.0.0'
 ### Key Security Files
 
 - `nuxt.config.ts` — Headers, CSP, rate limiter, CSRF
-- `layers/1-auth/server/middleware/01.auth.ts` — Token management
-- `layers/1-auth/server/utils/auth.ts` — `fetchSinapse()`, cookies
-- `layers/1-auth/app/utils/auth.ts` — Redirect validation
-- `layers/3-usuarios/server/middleware/02.admin.ts` — Admin guard
+- `layers/auth/server/middleware/01.auth.ts` — Token management
+- `layers/auth/server/utils/auth.ts` — `fetchSinapse()`, cookies
+- `layers/auth/app/utils/auth.ts` — Redirect validation
+- `layers/usuarios/server/middleware/02.admin.ts` — Admin guard

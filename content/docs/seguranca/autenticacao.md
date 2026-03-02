@@ -88,8 +88,8 @@ A margem de renovação é de **5 minutos** (`REFRESH_MARGIN_SECONDS = 5 * 60`).
 
 ### Onde está o código
 
-- **Middleware**: `layers/1-auth/server/middleware/01.auth.ts`
-- **Lógica de refresh**: `tryRefreshTokens()` em `layers/1-auth/server/utils/auth.ts`
+- **Middleware**: `layers/auth/server/middleware/01.auth.ts`
+- **Lógica de refresh**: `tryRefreshTokens()` em `layers/auth/server/utils/auth.ts`
 - **Manipulação de cookies**: `setAuthCookies()`, `clearAuthCookies()` no mesmo arquivo
 
 ---
@@ -122,7 +122,7 @@ Dois helpers são usados dentro dos handlers de endpoint para controlar acesso:
 Garante que o usuário está autenticado. Retorna o `accessToken` ou lança **401**.
 
 ```typescript
-// layers/3-usuarios/server/utils/admin.ts
+// layers/usuarios/server/utils/admin.ts
 export function requireAuth(event: H3Event): string {
   const auth = event.context.auth
   if (!auth?.isAuthenticated || !auth.accessToken) {
@@ -137,7 +137,7 @@ export function requireAuth(event: H3Event): string {
 Garante que o usuário é admin. Lança **401** se não autenticado ou **403** se não é admin.
 
 ```typescript
-// layers/3-usuarios/server/utils/admin.ts
+// layers/usuarios/server/utils/admin.ts
 export function requireAdmin(event: H3Event): void {
   const auth = event.context.auth
   if (!auth?.isAuthenticated || !auth.accessToken) {
@@ -173,7 +173,7 @@ export default defineEventHandler(async event => {
 O middleware `02.admin.ts` roda **após** o `01.auth.ts` (ordem garantida pelo prefixo numérico) e verifica se o usuário autenticado pertence ao grupo `administradores`:
 
 ```typescript
-// layers/3-usuarios/server/middleware/02.admin.ts
+// layers/usuarios/server/middleware/02.admin.ts
 export default defineEventHandler(async event => {
   const path = getRequestURL(event).pathname
 

@@ -13,7 +13,7 @@ scaffoldVersion: '2.0.0'
 
 ### UI Stack
 
-- **Component Library**: shadcn-vue (installed in `layers/0-base/app/components/ui/`)
+- **Component Library**: shadcn-vue (installed in `layers/base/app/components/ui/`)
 - **Styling**: Tailwind CSS v4
 - **Icons**: Lucide via `@nuxt/icon`
 - **Forms**: VeeValidate (`VeeForm`, `VeeField`, `VeeFieldArray`, `VeeErrorMessage`)
@@ -26,7 +26,7 @@ scaffoldVersion: '2.0.0'
 npx shadcn-vue@latest add <component>
 ```
 
-Components auto-install to `layers/0-base/app/components/ui/` and are auto-imported.
+Components auto-install to `layers/base/app/components/ui/` and are auto-imported.
 
 ### Design System Colors
 
@@ -52,8 +52,8 @@ Preview: http://localhost:3000/design-system
 
 Components must be prefixed with their layer name:
 
-- `AuthLoginForm.vue` (layer 1-auth)
-- `RumoresCard.vue` (layer 4-rumores)
+- `AuthLoginForm.vue` (layer auth)
+- `RumoresCard.vue` (layer rumores)
 
 ### SEO
 
@@ -70,7 +70,7 @@ useSeoPage({
 
 ### CSS Location
 
-Global CSS: `layers/0-base/app/assets/css/main.css`
+Global CSS: `layers/base/app/assets/css/main.css`
 
 ### Style Rules
 

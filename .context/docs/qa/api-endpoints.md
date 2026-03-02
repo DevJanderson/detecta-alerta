@@ -3,7 +3,7 @@ slug: api-endpoints
 category: features
 generatedAt: 2026-02-24T01:19:49.548Z
 relevantFiles:
-  - layers/0-base/shared/types/api.ts
+  - layers/base/shared/types/api.ts
 ---
 
 # What API endpoints are available?
@@ -12,5 +12,5 @@ relevantFiles:
 
 ### Detected API Files
 
-- `layers/0-base/shared/types/api.ts` - API-related symbol: ApiError
-- `layers/0-base/shared/types/api.ts` - API-related symbol: ApiResponse
+- `layers/base/shared/types/api.ts` - API-related symbol: ApiError
+- `layers/base/shared/types/api.ts` - API-related symbol: ApiResponse

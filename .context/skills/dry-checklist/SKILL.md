@@ -57,7 +57,7 @@ Antes de extrair, pergunte:
 - [ ] Typecheck passa (`npm run typecheck`)?
 - [ ] Lint passa sem warnings (`npm run quality:fix`)?
 - [ ] Testes existentes continuam passando (`npm run test:run`)?
-- [ ] A abstração está no nível correto (layer 0-base se cross-cutting, layer da feature se local)?
+- [ ] A abstração está no nível correto (layer base se cross-cutting, layer da feature se local)?
 
 ---
 

@@ -23,10 +23,10 @@ scaffoldVersion: '2.0.0'
 
 | Area    | Common Issues               | Where to Look                                     |
 | ------- | --------------------------- | ------------------------------------------------- |
-| Auth    | Token expiry, refresh loops | `layers/1-auth/server/middleware/01.auth.ts`      |
+| Auth    | Token expiry, refresh loops | `layers/auth/server/middleware/01.auth.ts`        |
 | API     | Response shape changed      | `generated/sinapse/` types vs actual API response |
 | State   | Stale store data            | `use*Store.ts` — check `persist.pick` config      |
-| Routing | Middleware redirect loops   | `layers/1-auth/app/middleware/auth.global.ts`     |
+| Routing | Middleware redirect loops   | `layers/auth/app/middleware/auth.global.ts`       |
 | SSR     | Hydration mismatch          | Check `useFetch` vs `$fetch` usage                |
 
 ### Debugging Tools

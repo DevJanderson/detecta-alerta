@@ -67,7 +67,7 @@ O projeto `nuxt` usa `tests/setup.ts` e tem acesso a auto-imports do Nuxt. O pro
 
 ### Tailwind CSS v4
 
-Tailwind v4 usa **arquivo CSS** em vez de `tailwind.config.js`. Toda configuração (cores, radius, plugins) fica em `layers/0-base/app/assets/css/main.css`:
+Tailwind v4 usa **arquivo CSS** em vez de `tailwind.config.js`. Toda configuração (cores, radius, plugins) fica em `layers/base/app/assets/css/main.css`:
 
 ```css
 @import 'tailwindcss';
@@ -206,28 +206,28 @@ Nuxt 4 + shadcn-vue + Tailwind CSS v4 + **Nuxt Layers**.
 
 ```
 layers/                 # TUDO fica aqui (incluindo server/)
-  0-base/               # Fundação + UI: app.vue, error.vue, CSS, shadcn-vue, utils, tipos
-  1-auth/               # Autenticação BFF (Backend-for-Frontend)
-  2-home/               # Landing page
-  3-usuarios/           # Gestão de perfil, usuários, grupos e permissões
-  4-rumores/            # Feed de rumores epidemiológicos (notícias de saúde)
-  5-docs/               # Documentação do projeto (Nuxt Content)
+  base/                 # Fundação + UI: app.vue, error.vue, CSS, shadcn-vue, utils, tipos
+  auth/                 # Autenticação BFF (Backend-for-Frontend)
+  home/                 # Landing page
+  usuarios/             # Gestão de perfil, usuários, grupos e permissões
+  rumores/              # Feed de rumores epidemiológicos (notícias de saúde)
+  docs/                 # Documentação do projeto (Nuxt Content)
 content/docs/           # Arquivos markdown da documentação
 tests/                  # unit/, integration/, e2e/
 generated/              # Código gerado (Kubb) - NÃO EDITAR
 ```
 
-> Use hífen (`-`) no nome das layers, não ponto. Layers em `~/layers` são auto-registradas.
+> Layers usam **extends explícito** no `nuxt.config.ts` (não auto-scan). A ordem no array define a prioridade.
 
-**Caminhos em layers:** Use `~/layers/...` (alias da raiz) para referenciar arquivos em `nuxt.config.ts` de layers. Caminhos relativos como `./app/...` não funcionam.
+**Caminhos em layers:** Use `createResolver(import.meta.url)` no `nuxt.config.ts` da layer para caminhos relativos portáveis. Funções em `app/utils/` e `app/composables/` são auto-importadas pelo Nuxt.
 
 ### Ordem de Prioridade (Layers)
 
-```
-5-docs > 4-rumores > 3-usuarios > 2-home > 1-auth > 0-base
-```
+Definida pela ordem no array `extends` do `nuxt.config.ts` (último = maior prioridade):
 
-Número maior = maior prioridade = sobrescreve layers anteriores.
+```
+docs > rumores > usuarios > home > auth > base
+```
 
 ### Fluxo de Dados
 
@@ -238,7 +238,7 @@ UI → Composable/Store → Service → API
 ### Estrutura de uma Feature Layer
 
 ```
-layers/{N}-{feature}/
+layers/{feature}/
 ├── nuxt.config.ts              # Obrigatório (pode ser vazio)
 ├── app/
 │   ├── components/             # Prefixar: {Feature}Card.vue
@@ -328,19 +328,19 @@ Prefixo numérico define ordem de execução: `01.auth.ts` roda antes de `02.log
 
 ### Utils vs Composables
 
-- **Utils** (`layers/0-base/app/utils/`): Funções puras, sem estado Vue
-- **Composables** (`layers/0-base/app/composables/`): Lógica com `ref`, `computed`
+- **Utils** (`layers/base/app/utils/`): Funções puras, sem estado Vue
+- **Composables** (`layers/base/app/composables/`): Lógica com `ref`, `computed`
 
 ### Server Utilities (BFF)
 
-Utilitários em `layers/0-base/server/utils/` e `layers/1-auth/server/utils/` são **auto-importados** pelo Nitro em todos os endpoints BFF:
+Utilitários em `layers/base/server/utils/` e `layers/auth/server/utils/` são **auto-importados** pelo Nitro em todos os endpoints BFF:
 
 ```typescript
-// fetchSinapse — $fetch pré-configurado para API Sinapse (layers/1-auth/server/utils/)
+// fetchSinapse — $fetch pré-configurado para API Sinapse (layers/auth/server/utils/)
 // Injeta Authorization header automaticamente a partir do cookie
 const data = await fetchSinapse('/endpoint', { event })
 
-// handleSinapseRequest — wrapper centralizado para chamadas à API Sinapse (layers/0-base/server/utils/)
+// handleSinapseRequest — wrapper centralizado para chamadas à API Sinapse (layers/base/server/utils/)
 // Trata erros, valida resposta com Zod (opcional) e faz logging
 export default defineEventHandler(async event => {
   return handleSinapseRequest({
@@ -350,19 +350,19 @@ export default defineEventHandler(async event => {
   })
 })
 
-// validateBody — lê body + valida com Zod em uma chamada (layers/0-base/server/utils/)
+// validateBody — lê body + valida com Zod em uma chamada (layers/base/server/utils/)
 const data = await validateBody(event, myZodSchema)
 
 // validateRouteParam — valida que route param é numérico (previne path traversal)
 const id = validateRouteParam(event, 'id')
 
-// buildQueryString — constrói query params com whitelist (layers/0-base/server/utils/)
+// buildQueryString — constrói query params com whitelist (layers/base/server/utils/)
 const qs = buildQueryString(getQuery(event), ['page', 'search', 'status'])
 ```
 
 ### Tipos Compartilhados (`#shared`)
 
-Alias `#shared` aponta para `layers/0-base/shared/`. Tipos globais de API:
+Alias `#shared` aponta para `layers/base/shared/`. Tipos globais de API:
 
 ```typescript
 import type { ApiResponse, PaginatedResponse } from '#shared/types'
@@ -408,7 +408,7 @@ Módulo `@nuxt/content` disponível para páginas com conteúdo em Markdown/YAML
 npx shadcn-vue@latest add <componente>
 ```
 
-Componentes ficam em `layers/0-base/app/components/ui/` (auto-import).
+Componentes ficam em `layers/base/app/components/ui/` (auto-import).
 
 ## Bibliotecas UI Disponíveis
 
@@ -425,10 +425,10 @@ Componentes ficam em `layers/0-base/app/components/ui/` (auto-import).
 
 ## Design System - Cores
 
-| Recurso          | Local                                   |
-| ---------------- | --------------------------------------- |
-| Arquivo de cores | `layers/0-base/app/assets/css/main.css` |
-| Visualização     | http://localhost:3000/design-system     |
+| Recurso          | Local                                 |
+| ---------------- | ------------------------------------- |
+| Arquivo de cores | `layers/base/app/assets/css/main.css` |
+| Visualização     | http://localhost:3000/design-system   |
 
 ### Paleta Principal
 

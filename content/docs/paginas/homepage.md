@@ -105,9 +105,9 @@ A homepage se diferencia por:
 | Item           | Valor                                        |
 | -------------- | -------------------------------------------- |
 | **Rota**       | `/`                                          |
-| **Layer**      | `2-home`                                     |
+| **Layer**      | `home`                                       |
 | **Acesso**     | Público (com login overlay)                  |
-| **Página**     | `layers/2-home/app/pages/index.vue`          |
+| **Página**     | `layers/home/app/pages/index.vue`            |
 | **SEO**        | `useSeoPage()` + `defineWebSite()` (JSON-LD) |
 | **Middleware** | `auth-guard`                                 |
 

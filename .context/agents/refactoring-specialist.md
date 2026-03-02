@@ -27,11 +27,11 @@ Refactoring must respect the layers-only architecture:
 | Component decomposition | `app/components/`          | Prefix with layer name                  |
 | Server endpoint cleanup | `server/api/`              | Validate with Zod, use `fetchSinapse()` |
 | Type consolidation      | `app/composables/types.ts` | One types file per layer                |
-| Utils extraction        | `layers/0-base/app/utils/` | Pure functions only, no Vue state       |
+| Utils extraction        | `layers/base/app/utils/`   | Pure functions only, no Vue state       |
 
 ### Rules
 
-- **Utils** (`layers/0-base/app/utils/`): Pure functions, no Vue reactivity
+- **Utils** (`layers/base/app/utils/`): Pure functions, no Vue reactivity
 - **Composables** (`layers/*/app/composables/`): Can use `ref`, `computed`, etc.
 - Services (`use*Api.ts`): Thin `$fetch` wrappers — no state
 - Stores (`use*Store.ts`): State management with `defineStore` setup function

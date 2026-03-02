@@ -23,14 +23,14 @@ Browser → Nuxt Server (BFF) → Sinapse API (FastAPI)
 
 ### Layer System
 
-| Layer        | Priority    | Purpose                                                   |
-| ------------ | ----------- | --------------------------------------------------------- |
-| `0-base`     | Lowest      | Foundation: app.vue, CSS, shadcn-vue, shared types, utils |
-| `1-auth`     | Low         | Authentication BFF (JWT cookies, login, logout)           |
-| `2-home`     | Medium      | Landing page, public pages                                |
-| `3-usuarios` | Medium-High | User management, groups, permissions (admin)              |
-| `4-rumores`  | High        | Epidemiological rumors feed, filters, CRUD                |
-| `5-docs`     | Highest     | Project documentation (Nuxt Content)                      |
+| Layer      | Priority    | Purpose                                                   |
+| ---------- | ----------- | --------------------------------------------------------- |
+| `base`     | Lowest      | Foundation: app.vue, CSS, shadcn-vue, shared types, utils |
+| `auth`     | Low         | Authentication BFF (JWT cookies, login, logout)           |
+| `home`     | Medium      | Landing page, public pages                                |
+| `usuarios` | Medium-High | User management, groups, permissions (admin)              |
+| `rumores`  | High        | Epidemiological rumors feed, filters, CRUD                |
+| `docs`     | Highest     | Project documentation (Nuxt Content)                      |
 
 Higher number = higher priority = overrides lower layers.
 

@@ -87,7 +87,7 @@ npm run api:generate
 npx shadcn-vue@latest add <component>
 ```
 
-Components are installed to `layers/0-base/app/components/ui/` and auto-imported.
+Components are installed to `layers/base/app/components/ui/` and auto-imported.
 
 ## Git Hooks (Husky)
 

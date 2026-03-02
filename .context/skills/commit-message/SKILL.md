@@ -31,12 +31,12 @@ scaffoldVersion: '2.0.0'
 
 | Scope      | Layer/Area            |
 | ---------- | --------------------- |
-| `auth`     | layers/1-auth         |
-| `home`     | layers/2-home         |
-| `usuarios` | layers/3-usuarios     |
-| `rumores`  | layers/4-rumores      |
-| `docs`     | layers/5-docs         |
-| `base`     | layers/0-base         |
+| `auth`     | layers/auth           |
+| `home`     | layers/home           |
+| `usuarios` | layers/usuarios       |
+| `rumores`  | layers/rumores        |
+| `docs`     | layers/docs           |
+| `base`     | layers/base           |
 | `deps`     | Dependency updates    |
 | `kubb`     | API client generation |
 
@@ -44,12 +44,12 @@ scaffoldVersion: '2.0.0'
 
 Determine scope from changed files:
 
-- `layers/0-base/**` → `base`
-- `layers/1-auth/**` → `auth`
-- `layers/2-home/**` → `home`
-- `layers/3-usuarios/**` → `usuarios`
-- `layers/4-rumores/**` → `rumores`
-- `layers/5-docs/**` → `docs`
+- `layers/base/**` → `base`
+- `layers/auth/**` → `auth`
+- `layers/home/**` → `home`
+- `layers/usuarios/**` → `usuarios`
+- `layers/rumores/**` → `rumores`
+- `layers/docs/**` → `docs`
 - `generated/**` or `kubb.config.ts` → `kubb`
 - `package*.json` → `deps`
 

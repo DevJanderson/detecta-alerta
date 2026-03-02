@@ -27,7 +27,7 @@ scaffoldVersion: '2.0.0'
 | Extract composable | Repeated logic              | Shared composable            |
 | Split component    | Large component             | Smaller, prefixed components |
 | Consolidate types  | Scattered types             | Layer `types.ts`             |
-| Extract util       | Pure function in composable | `layers/0-base/app/utils/`   |
+| Extract util       | Pure function in composable | `layers/base/app/utils/`     |
 
 ### Boundaries
 
@@ -35,7 +35,7 @@ scaffoldVersion: '2.0.0'
 - **Never** move code outside `layers/` directory
 - **Never** create abstractions for single-use code
 - **Never** break public composable APIs without updating all consumers
-- **Always** keep utils pure (no Vue reactivity) in `layers/0-base/app/utils/`
+- **Always** keep utils pure (no Vue reactivity) in `layers/base/app/utils/`
 - **Always** keep composables in their own layer
 
 ### Validation

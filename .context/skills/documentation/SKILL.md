@@ -40,4 +40,4 @@ description: Brief description
 ---
 ```
 
-Rendered at `/docs/` routes via layer 5-docs.
+Rendered at `/docs/` routes via layer docs.

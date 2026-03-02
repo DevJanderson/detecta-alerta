@@ -104,28 +104,28 @@
         "directories": [
           "tests/e2e",
           "tests/integration/composables",
-          "layers/0-base/app/composables",
-          "layers/0-base/app/components/ui/textarea",
-          "layers/0-base/app/components/ui/tabs",
-          "layers/0-base/app/components/ui/switch",
-          "layers/0-base/app/components/ui/table",
-          "layers/0-base/app/components/ui/separator",
-          "layers/0-base/app/components/ui/scroll-area",
-          "layers/0-base/app/components/ui/pagination",
-          "layers/0-base/app/components/ui/select",
-          "layers/0-base/app/components/ui/sheet",
-          "layers/0-base/app/components/ui/label",
-          "layers/0-base/app/components/ui/input",
-          "layers/0-base/app/components/ui/dropdown-menu",
-          "layers/0-base/app/components/ui/collapsible",
-          "layers/0-base/app/components/ui/dialog",
-          "layers/0-base/app/components/ui/checkbox",
-          "layers/0-base/app/components/ui/card",
-          "layers/0-base/app/components/ui/badge",
-          "layers/0-base/app/components/ui/avatar",
-          "layers/0-base/app/components/ui/button",
-          "layers/0-base/app/components/ui/alert-dialog",
-          "layers/0-base/app/components/ui/alert"
+          "layers/base/app/composables",
+          "layers/base/app/components/ui/textarea",
+          "layers/base/app/components/ui/tabs",
+          "layers/base/app/components/ui/switch",
+          "layers/base/app/components/ui/table",
+          "layers/base/app/components/ui/separator",
+          "layers/base/app/components/ui/scroll-area",
+          "layers/base/app/components/ui/pagination",
+          "layers/base/app/components/ui/select",
+          "layers/base/app/components/ui/sheet",
+          "layers/base/app/components/ui/label",
+          "layers/base/app/components/ui/input",
+          "layers/base/app/components/ui/dropdown-menu",
+          "layers/base/app/components/ui/collapsible",
+          "layers/base/app/components/ui/dialog",
+          "layers/base/app/components/ui/checkbox",
+          "layers/base/app/components/ui/card",
+          "layers/base/app/components/ui/badge",
+          "layers/base/app/components/ui/avatar",
+          "layers/base/app/components/ui/button",
+          "layers/base/app/components/ui/alert-dialog",
+          "layers/base/app/components/ui/alert"
         ],
         "symbolCount": 7,
         "dependsOn": []
@@ -135,12 +135,12 @@
         "description": "Shared utilities and helpers",
         "directories": [
           "tests/e2e",
-          "layers/3-usuarios/server/utils",
-          "layers/1-auth/server/utils",
-          "layers/1-auth/app/utils",
-          "layers/0-base/shared/types",
-          "layers/0-base/app/utils",
-          "layers/0-base/app/components/ui/table"
+          "layers/usuarios/server/utils",
+          "layers/auth/server/utils",
+          "layers/auth/app/utils",
+          "layers/base/shared/types",
+          "layers/base/app/utils",
+          "layers/base/app/components/ui/table"
         ],
         "symbolCount": 25,
         "dependsOn": ["Controllers"]
@@ -152,11 +152,11 @@
           "tests/unit/auth",
           "generated/sinapse/zod",
           "generated/sinapse/types",
-          "layers/4-rumores/app/composables",
-          "layers/3-usuarios/app/composables",
-          "layers/1-auth/app/composables",
-          "layers/0-base/shared/types",
-          "layers/0-base/server/api",
+          "layers/rumores/app/composables",
+          "layers/usuarios/app/composables",
+          "layers/auth/app/composables",
+          "layers/base/shared/types",
+          "layers/base/server/api",
           "generated/sinapse/zod/Unidades Detecta AlertaSchemas",
           "generated/sinapse/zod/System HealthSchemas",
           "generated/sinapse/zod/Resiliência & Rate LimitingSchemas",
@@ -225,13 +225,13 @@
           "generated/sinapse/types/Análises e AlertasTypes",
           "generated/sinapse/types/Agregacoes EpidemiologicasTypes",
           "generated/sinapse/types/AgravosTypes",
-          "layers/4-rumores/server/api/rumores",
-          "layers/1-auth/server/api/auth",
-          "layers/4-rumores/server/api/rumores/operacoes",
-          "layers/3-usuarios/server/api/usuarios/admin",
-          "layers/3-usuarios/server/api/usuarios/perfil",
-          "layers/3-usuarios/server/api/usuarios/admin/permissoes",
-          "layers/3-usuarios/server/api/usuarios/admin/grupos"
+          "layers/rumores/server/api/rumores",
+          "layers/auth/server/api/auth",
+          "layers/rumores/server/api/rumores/operacoes",
+          "layers/usuarios/server/api/usuarios/admin",
+          "layers/usuarios/server/api/usuarios/perfil",
+          "layers/usuarios/server/api/usuarios/admin/permissoes",
+          "layers/usuarios/server/api/usuarios/admin/grupos"
         ],
         "symbolCount": 934,
         "dependsOn": ["Repositories"]
@@ -293,7 +293,7 @@
       "generated/sinapse/index.ts",
       "generated/sinapse/zod/index.ts",
       "generated/sinapse/types/index.ts",
-      "layers/0-base/shared/types/index.ts",
+      "layers/base/shared/types/index.ts",
       "generated/sinapse/zod/Unidades Detecta AlertaSchemas/index.ts",
       "generated/sinapse/zod/System HealthSchemas/index.ts",
       "generated/sinapse/zod/Resiliência & Rate LimitingSchemas/index.ts",
@@ -362,34 +362,34 @@
       "generated/sinapse/types/Análises e AlertasTypes/index.ts",
       "generated/sinapse/types/Agregacoes EpidemiologicasTypes/index.ts",
       "generated/sinapse/types/AgravosTypes/index.ts",
-      "layers/0-base/app/components/ui/textarea/index.ts",
-      "layers/0-base/app/components/ui/tabs/index.ts",
-      "layers/0-base/app/components/ui/switch/index.ts",
-      "layers/0-base/app/components/ui/table/index.ts",
-      "layers/0-base/app/components/ui/separator/index.ts",
-      "layers/0-base/app/components/ui/scroll-area/index.ts",
-      "layers/0-base/app/components/ui/pagination/index.ts",
-      "layers/0-base/app/components/ui/select/index.ts",
-      "layers/0-base/app/components/ui/sheet/index.ts",
-      "layers/0-base/app/components/ui/label/index.ts",
-      "layers/0-base/app/components/ui/input/index.ts",
-      "layers/0-base/app/components/ui/dropdown-menu/index.ts",
-      "layers/0-base/app/components/ui/collapsible/index.ts",
-      "layers/0-base/app/components/ui/dialog/index.ts",
-      "layers/0-base/app/components/ui/checkbox/index.ts",
-      "layers/0-base/app/components/ui/card/index.ts",
-      "layers/0-base/app/components/ui/badge/index.ts",
-      "layers/0-base/app/components/ui/avatar/index.ts",
-      "layers/0-base/app/components/ui/button/index.ts",
-      "layers/0-base/app/components/ui/alert-dialog/index.ts",
-      "layers/0-base/app/components/ui/alert/index.ts"
+      "layers/base/app/components/ui/textarea/index.ts",
+      "layers/base/app/components/ui/tabs/index.ts",
+      "layers/base/app/components/ui/switch/index.ts",
+      "layers/base/app/components/ui/table/index.ts",
+      "layers/base/app/components/ui/separator/index.ts",
+      "layers/base/app/components/ui/scroll-area/index.ts",
+      "layers/base/app/components/ui/pagination/index.ts",
+      "layers/base/app/components/ui/select/index.ts",
+      "layers/base/app/components/ui/sheet/index.ts",
+      "layers/base/app/components/ui/label/index.ts",
+      "layers/base/app/components/ui/input/index.ts",
+      "layers/base/app/components/ui/dropdown-menu/index.ts",
+      "layers/base/app/components/ui/collapsible/index.ts",
+      "layers/base/app/components/ui/dialog/index.ts",
+      "layers/base/app/components/ui/checkbox/index.ts",
+      "layers/base/app/components/ui/card/index.ts",
+      "layers/base/app/components/ui/badge/index.ts",
+      "layers/base/app/components/ui/avatar/index.ts",
+      "layers/base/app/components/ui/button/index.ts",
+      "layers/base/app/components/ui/alert-dialog/index.ts",
+      "layers/base/app/components/ui/alert/index.ts"
     ],
     "mainEntryPoints": [],
     "moduleExports": [
       "generated/sinapse/index.ts",
       "generated/sinapse/zod/index.ts",
       "generated/sinapse/types/index.ts",
-      "layers/0-base/shared/types/index.ts",
+      "layers/base/shared/types/index.ts",
       "generated/sinapse/zod/Unidades Detecta AlertaSchemas/index.ts",
       "generated/sinapse/zod/System HealthSchemas/index.ts",
       "generated/sinapse/zod/Resiliência & Rate LimitingSchemas/index.ts",
@@ -458,27 +458,27 @@
       "generated/sinapse/types/Análises e AlertasTypes/index.ts",
       "generated/sinapse/types/Agregacoes EpidemiologicasTypes/index.ts",
       "generated/sinapse/types/AgravosTypes/index.ts",
-      "layers/0-base/app/components/ui/textarea/index.ts",
-      "layers/0-base/app/components/ui/tabs/index.ts",
-      "layers/0-base/app/components/ui/switch/index.ts",
-      "layers/0-base/app/components/ui/table/index.ts",
-      "layers/0-base/app/components/ui/separator/index.ts",
-      "layers/0-base/app/components/ui/scroll-area/index.ts",
-      "layers/0-base/app/components/ui/pagination/index.ts",
-      "layers/0-base/app/components/ui/select/index.ts",
-      "layers/0-base/app/components/ui/sheet/index.ts",
-      "layers/0-base/app/components/ui/label/index.ts",
-      "layers/0-base/app/components/ui/input/index.ts",
-      "layers/0-base/app/components/ui/dropdown-menu/index.ts",
-      "layers/0-base/app/components/ui/collapsible/index.ts",
-      "layers/0-base/app/components/ui/dialog/index.ts",
-      "layers/0-base/app/components/ui/checkbox/index.ts",
-      "layers/0-base/app/components/ui/card/index.ts",
-      "layers/0-base/app/components/ui/badge/index.ts",
-      "layers/0-base/app/components/ui/avatar/index.ts",
-      "layers/0-base/app/components/ui/button/index.ts",
-      "layers/0-base/app/components/ui/alert-dialog/index.ts",
-      "layers/0-base/app/components/ui/alert/index.ts"
+      "layers/base/app/components/ui/textarea/index.ts",
+      "layers/base/app/components/ui/tabs/index.ts",
+      "layers/base/app/components/ui/switch/index.ts",
+      "layers/base/app/components/ui/table/index.ts",
+      "layers/base/app/components/ui/separator/index.ts",
+      "layers/base/app/components/ui/scroll-area/index.ts",
+      "layers/base/app/components/ui/pagination/index.ts",
+      "layers/base/app/components/ui/select/index.ts",
+      "layers/base/app/components/ui/sheet/index.ts",
+      "layers/base/app/components/ui/label/index.ts",
+      "layers/base/app/components/ui/input/index.ts",
+      "layers/base/app/components/ui/dropdown-menu/index.ts",
+      "layers/base/app/components/ui/collapsible/index.ts",
+      "layers/base/app/components/ui/dialog/index.ts",
+      "layers/base/app/components/ui/checkbox/index.ts",
+      "layers/base/app/components/ui/card/index.ts",
+      "layers/base/app/components/ui/badge/index.ts",
+      "layers/base/app/components/ui/avatar/index.ts",
+      "layers/base/app/components/ui/button/index.ts",
+      "layers/base/app/components/ui/alert-dialog/index.ts",
+      "layers/base/app/components/ui/alert/index.ts"
     ]
   },
   "symbols": {
@@ -487,168 +487,168 @@
       {
         "name": "ApiError",
         "kind": "interface",
-        "file": "layers/0-base/shared/types/api.ts",
+        "file": "layers/base/shared/types/api.ts",
         "line": 12,
         "exported": true
       },
       {
         "name": "ApiResponse",
         "kind": "interface",
-        "file": "layers/0-base/shared/types/api.ts",
+        "file": "layers/base/shared/types/api.ts",
         "line": 6,
         "exported": true
       },
       {
         "name": "AuthGrupo",
         "kind": "interface",
-        "file": "layers/1-auth/app/composables/types.ts",
+        "file": "layers/auth/app/composables/types.ts",
         "line": 40,
         "exported": true
       },
       {
         "name": "AuthPermissao",
         "kind": "interface",
-        "file": "layers/1-auth/app/composables/types.ts",
+        "file": "layers/auth/app/composables/types.ts",
         "line": 29,
         "exported": true
       },
       {
         "name": "AuthState",
         "kind": "interface",
-        "file": "layers/1-auth/app/composables/types.ts",
+        "file": "layers/auth/app/composables/types.ts",
         "line": 68,
         "exported": true
       },
       {
         "name": "AuthUser",
         "kind": "interface",
-        "file": "layers/1-auth/app/composables/types.ts",
+        "file": "layers/auth/app/composables/types.ts",
         "line": 50,
         "exported": true
       },
       {
         "name": "DocsNavGroup",
         "kind": "interface",
-        "file": "layers/5-docs/app/composables/useDocsNavigation.ts",
+        "file": "layers/docs/app/composables/useDocsNavigation.ts",
         "line": 7,
         "exported": true
       },
       {
         "name": "DocsNavItem",
         "kind": "interface",
-        "file": "layers/5-docs/app/composables/useDocsNavigation.ts",
+        "file": "layers/docs/app/composables/useDocsNavigation.ts",
         "line": 1,
         "exported": true
       },
       {
         "name": "JwtPayload",
         "kind": "interface",
-        "file": "layers/1-auth/app/composables/types.ts",
+        "file": "layers/auth/app/composables/types.ts",
         "line": 100,
         "exported": true
       },
       {
         "name": "ListarGruposParams",
         "kind": "interface",
-        "file": "layers/3-usuarios/app/composables/types.ts",
+        "file": "layers/usuarios/app/composables/types.ts",
         "line": 55,
         "exported": true
       },
       {
         "name": "ListarUsuariosParams",
         "kind": "interface",
-        "file": "layers/3-usuarios/app/composables/types.ts",
+        "file": "layers/usuarios/app/composables/types.ts",
         "line": 40,
         "exported": true
       },
       {
         "name": "LoginResponse",
         "kind": "interface",
-        "file": "layers/1-auth/app/composables/types.ts",
+        "file": "layers/auth/app/composables/types.ts",
         "line": 78,
         "exported": true
       },
       {
         "name": "MensagemResponse",
         "kind": "interface",
-        "file": "layers/3-usuarios/app/composables/types.ts",
+        "file": "layers/usuarios/app/composables/types.ts",
         "line": 65,
         "exported": true
       },
       {
         "name": "PaginatedResponse",
         "kind": "interface",
-        "file": "layers/0-base/shared/types/api.ts",
+        "file": "layers/base/shared/types/api.ts",
         "line": 18,
         "exported": true
       },
       {
         "name": "RefreshResult",
         "kind": "interface",
-        "file": "layers/1-auth/server/utils/auth.ts",
+        "file": "layers/auth/server/utils/auth.ts",
         "line": 186,
         "exported": true
       },
       {
         "name": "RequestOptions",
         "kind": "interface",
-        "file": "layers/0-base/shared/types/api.ts",
+        "file": "layers/base/shared/types/api.ts",
         "line": 28,
         "exported": true
       },
       {
         "name": "ResetPasswordData",
         "kind": "interface",
-        "file": "layers/1-auth/app/composables/types.ts",
+        "file": "layers/auth/app/composables/types.ts",
         "line": 85,
         "exported": true
       },
       {
         "name": "ResetPasswordResponse",
         "kind": "interface",
-        "file": "layers/1-auth/app/composables/types.ts",
+        "file": "layers/auth/app/composables/types.ts",
         "line": 92,
         "exported": true
       },
       {
         "name": "RumoresListParams",
         "kind": "interface",
-        "file": "layers/4-rumores/app/composables/types.ts",
+        "file": "layers/rumores/app/composables/types.ts",
         "line": 15,
         "exported": true
       },
       {
         "name": "SinapseError",
         "kind": "interface",
-        "file": "layers/1-auth/server/utils/auth.ts",
+        "file": "layers/auth/server/utils/auth.ts",
         "line": 29,
         "exported": true
       },
       {
         "name": "FetchError",
         "kind": "interface",
-        "file": "layers/3-usuarios/app/composables/useUsuariosStore.ts",
+        "file": "layers/usuarios/app/composables/useUsuariosStore.ts",
         "line": 10,
         "exported": false
       },
       {
         "name": "FetchError",
         "kind": "interface",
-        "file": "layers/3-usuarios/app/composables/usePermissoesStore.ts",
+        "file": "layers/usuarios/app/composables/usePermissoesStore.ts",
         "line": 7,
         "exported": false
       },
       {
         "name": "FetchError",
         "kind": "interface",
-        "file": "layers/3-usuarios/app/composables/useGruposStore.ts",
+        "file": "layers/usuarios/app/composables/useGruposStore.ts",
         "line": 9,
         "exported": false
       },
       {
         "name": "FetchError",
         "kind": "interface",
-        "file": "layers/1-auth/app/composables/useAuthStore.ts",
+        "file": "layers/auth/app/composables/useAuthStore.ts",
         "line": 16,
         "exported": false,
         "description": "Estrutura de erro de fetch"
@@ -656,7 +656,7 @@
       {
         "name": "FetchSinapseOptions",
         "kind": "interface",
-        "file": "layers/1-auth/server/utils/auth.ts",
+        "file": "layers/auth/server/utils/auth.ts",
         "line": 244,
         "exported": false,
         "description": "Opções para fetchSinapse"
@@ -664,21 +664,21 @@
       {
         "name": "H3EventContext",
         "kind": "interface",
-        "file": "layers/3-usuarios/server/middleware/02.admin.ts",
+        "file": "layers/usuarios/server/middleware/02.admin.ts",
         "line": 42,
         "exported": false
       },
       {
         "name": "H3EventContext",
         "kind": "interface",
-        "file": "layers/1-auth/server/middleware/01.auth.ts",
+        "file": "layers/auth/server/middleware/01.auth.ts",
         "line": 56,
         "exported": false
       },
       {
         "name": "SeoPageOptions",
         "kind": "interface",
-        "file": "layers/0-base/app/composables/useSeoPage.ts",
+        "file": "layers/base/app/composables/useSeoPage.ts",
         "line": 1,
         "exported": false
       }
@@ -687,126 +687,126 @@
       {
         "name": "addToUser",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/usePermissoesStore.ts",
+        "file": "layers/usuarios/app/composables/usePermissoesStore.ts",
         "line": 99,
         "exported": true
       },
       {
         "name": "addToUser",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/usePermissoesApi.ts",
+        "file": "layers/usuarios/app/composables/usePermissoesApi.ts",
         "line": 40,
         "exported": true
       },
       {
         "name": "addUsuario",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useGruposStore.ts",
+        "file": "layers/usuarios/app/composables/useGruposStore.ts",
         "line": 114,
         "exported": true
       },
       {
         "name": "addUsuario",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useGruposApi.ts",
+        "file": "layers/usuarios/app/composables/useGruposApi.ts",
         "line": 39,
         "exported": true
       },
       {
         "name": "aplicarFiltros",
         "kind": "function",
-        "file": "layers/4-rumores/app/composables/useRumoresStore.ts",
+        "file": "layers/rumores/app/composables/useRumoresStore.ts",
         "line": 97,
         "exported": true
       },
       {
         "name": "atualizar",
         "kind": "function",
-        "file": "layers/4-rumores/app/composables/useRumoresApi.ts",
+        "file": "layers/rumores/app/composables/useRumoresApi.ts",
         "line": 45,
         "exported": true
       },
       {
         "name": "atualizar",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useUsuariosStore.ts",
+        "file": "layers/usuarios/app/composables/useUsuariosStore.ts",
         "line": 130,
         "exported": true
       },
       {
         "name": "atualizar",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useUsuariosApi.ts",
+        "file": "layers/usuarios/app/composables/useUsuariosApi.ts",
         "line": 51,
         "exported": true
       },
       {
         "name": "atualizar",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/usePermissoesStore.ts",
+        "file": "layers/usuarios/app/composables/usePermissoesStore.ts",
         "line": 71,
         "exported": true
       },
       {
         "name": "atualizar",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/usePermissoesApi.ts",
+        "file": "layers/usuarios/app/composables/usePermissoesApi.ts",
         "line": 24,
         "exported": true
       },
       {
         "name": "atualizar",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useGruposStore.ts",
+        "file": "layers/usuarios/app/composables/useGruposStore.ts",
         "line": 86,
         "exported": true
       },
       {
         "name": "atualizar",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useGruposApi.ts",
+        "file": "layers/usuarios/app/composables/useGruposApi.ts",
         "line": 26,
         "exported": true
       },
       {
         "name": "cleanup",
         "kind": "function",
-        "file": "layers/5-docs/app/composables/useDocsToc.ts",
+        "file": "layers/docs/app/composables/useDocsToc.ts",
         "line": 27,
         "exported": true
       },
       {
         "name": "clearAuthCookies",
         "kind": "function",
-        "file": "layers/1-auth/server/utils/auth.ts",
+        "file": "layers/auth/server/utils/auth.ts",
         "line": 147,
         "exported": true
       },
       {
         "name": "clearError",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useUsuariosStore.ts",
+        "file": "layers/usuarios/app/composables/useUsuariosStore.ts",
         "line": 172,
         "exported": true
       },
       {
         "name": "clearError",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/usePermissoesStore.ts",
+        "file": "layers/usuarios/app/composables/usePermissoesStore.ts",
         "line": 127,
         "exported": true
       },
       {
         "name": "clearError",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useGruposStore.ts",
+        "file": "layers/usuarios/app/composables/useGruposStore.ts",
         "line": 142,
         "exported": true
       },
       {
         "name": "clearError",
         "kind": "function",
-        "file": "layers/1-auth/app/composables/useAuthStore.ts",
+        "file": "layers/auth/app/composables/useAuthStore.ts",
         "line": 202,
         "exported": true,
         "description": "Limpa mensagem de erro"
@@ -814,84 +814,84 @@
       {
         "name": "cn",
         "kind": "function",
-        "file": "layers/0-base/app/utils/utils.ts",
+        "file": "layers/base/app/utils/utils.ts",
         "line": 5,
         "exported": true
       },
       {
         "name": "createAuthHeaders",
         "kind": "function",
-        "file": "layers/1-auth/server/utils/auth.ts",
+        "file": "layers/auth/server/utils/auth.ts",
         "line": 172,
         "exported": true
       },
       {
         "name": "criar",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useUsuariosStore.ts",
+        "file": "layers/usuarios/app/composables/useUsuariosStore.ts",
         "line": 104,
         "exported": true
       },
       {
         "name": "criar",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useUsuariosApi.ts",
+        "file": "layers/usuarios/app/composables/useUsuariosApi.ts",
         "line": 40,
         "exported": true
       },
       {
         "name": "criar",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/usePermissoesStore.ts",
+        "file": "layers/usuarios/app/composables/usePermissoesStore.ts",
         "line": 44,
         "exported": true
       },
       {
         "name": "criar",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/usePermissoesApi.ts",
+        "file": "layers/usuarios/app/composables/usePermissoesApi.ts",
         "line": 13,
         "exported": true
       },
       {
         "name": "criar",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useGruposStore.ts",
+        "file": "layers/usuarios/app/composables/useGruposStore.ts",
         "line": 60,
         "exported": true
       },
       {
         "name": "criar",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useGruposApi.ts",
+        "file": "layers/usuarios/app/composables/useGruposApi.ts",
         "line": 15,
         "exported": true
       },
       {
         "name": "fetchAll",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useUsuariosStore.ts",
+        "file": "layers/usuarios/app/composables/useUsuariosStore.ts",
         "line": 87,
         "exported": true
       },
       {
         "name": "fetchAll",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/usePermissoesStore.ts",
+        "file": "layers/usuarios/app/composables/usePermissoesStore.ts",
         "line": 32,
         "exported": true
       },
       {
         "name": "fetchAll",
         "kind": "function",
-        "file": "layers/3-usuarios/app/composables/useGruposStore.ts",
+        "file": "layers/usuarios/app/composables/useGruposStore.ts",
         "line": 43,
         "exported": true
       },
       {
         "name": "fetchLookups",
         "kind": "function",
-        "file": "layers/4-rumores/app/composables/useRumoresStore.ts",
+        "file": "layers/rumores/app/composables/useRumoresStore.ts",
         "line": 79,
         "exported": true
       }
@@ -1033,7 +1033,7 @@
       {
         "name": "AlertVariants",
         "kind": "type",
-        "file": "layers/0-base/app/components/ui/alert/index.ts",
+        "file": "layers/base/app/components/ui/alert/index.ts",
         "line": 24,
         "exported": true
       },
@@ -1171,28 +1171,28 @@
     {
       "name": "addToUser",
       "kind": "function",
-      "file": "layers/3-usuarios/app/composables/usePermissoesStore.ts",
+      "file": "layers/usuarios/app/composables/usePermissoesStore.ts",
       "line": 99,
       "exported": true
     },
     {
       "name": "addToUser",
       "kind": "function",
-      "file": "layers/3-usuarios/app/composables/usePermissoesApi.ts",
+      "file": "layers/usuarios/app/composables/usePermissoesApi.ts",
       "line": 40,
       "exported": true
     },
     {
       "name": "addUsuario",
       "kind": "function",
-      "file": "layers/3-usuarios/app/composables/useGruposStore.ts",
+      "file": "layers/usuarios/app/composables/useGruposStore.ts",
       "line": 114,
       "exported": true
     },
     {
       "name": "addUsuario",
       "kind": "function",
-      "file": "layers/3-usuarios/app/composables/useGruposApi.ts",
+      "file": "layers/usuarios/app/composables/useGruposApi.ts",
       "line": 39,
       "exported": true
     },
@@ -1297,7 +1297,7 @@
     {
       "name": "AlertVariants",
       "kind": "type",
-      "file": "layers/0-base/app/components/ui/alert/index.ts",
+      "file": "layers/base/app/components/ui/alert/index.ts",
       "line": 24,
       "exported": true
     },
@@ -1365,7 +1365,7 @@
         "description": "TypeScript type definitions"
       },
       {
-        "file": "layers/3-usuarios/app/composables/types.ts",
+        "file": "layers/usuarios/app/composables/types.ts",
         "importedBy": 6,
         "description": "Type definitions"
       },
@@ -1600,10 +1600,10 @@
     "config": ["package.json", "tsconfig.json", "vitest.config.ts"],
     "types": [
       "generated/sinapse/types/index.ts",
-      "layers/4-rumores/app/composables/types.ts",
-      "layers/3-usuarios/app/composables/types.ts",
-      "layers/1-auth/app/composables/types.ts",
-      "layers/0-base/shared/types/index.ts"
+      "layers/rumores/app/composables/types.ts",
+      "layers/usuarios/app/composables/types.ts",
+      "layers/auth/app/composables/types.ts",
+      "layers/base/shared/types/index.ts"
     ],
     "mainLogic": ["src"]
   }

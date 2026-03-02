@@ -3,10 +3,10 @@ slug: middleware
 category: architecture
 generatedAt: 2026-02-24T01:19:49.547Z
 relevantFiles:
-  - layers/1-auth/app/middleware/auth-guard.ts
-  - layers/1-auth/app/middleware/auth.global.ts
-  - layers/1-auth/server/middleware/01.auth.ts
-  - layers/3-usuarios/server/middleware/02.admin.ts
+  - layers/auth/app/middleware/auth-guard.ts
+  - layers/auth/app/middleware/auth.global.ts
+  - layers/auth/server/middleware/01.auth.ts
+  - layers/usuarios/server/middleware/02.admin.ts
 ---
 
 # How does middleware work?

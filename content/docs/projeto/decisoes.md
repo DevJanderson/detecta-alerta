@@ -24,26 +24,26 @@ Registro de decisoes tecnicas relevantes, no estilo ADR (Architecture Decision R
 ### Validacao de route params com regex
 
 - **Contexto:** Parametros de rota (`[id]`, `[userId]`, `[permId]`) eram interpolados na URL da API Sinapse sem validacao, permitindo path traversal.
-- **Decisao:** Todos os route params numericos validados com `/^\d+$/` antes do uso. Criada funcao `validateRouteId()` em `layers/0-base/server/utils/validation.ts`.
+- **Decisao:** Todos os route params numericos validados com `/^\d+$/` antes do uso. Criada funcao `validateRouteId()` em `layers/base/server/utils/validation.ts`.
 - **Consequencias:** Path traversal bloqueado. Funcao reutilizavel disponivel para novos endpoints.
 
-### Utils compartilhados em 0-base
+### Utils compartilhados em base
 
 - **Contexto:** Codigo duplicado em multiplas layers — `extractErrorMessage` em 4 stores, error handling em 23+ endpoints, `buildQueryString` em 3 endpoints.
-- **Decisao:** Extrair para utils compartilhados em `layers/0-base/`: `app/utils/error.ts`, `server/utils/api-handler.ts`, `server/utils/validation.ts`, `server/utils/query-builder.ts`.
+- **Decisao:** Extrair para utils compartilhados em `layers/base/`: `app/utils/error.ts`, `server/utils/api-handler.ts`, `server/utils/validation.ts`, `server/utils/query-builder.ts`.
 - **Consequencias:** ~410 linhas de duplicacao eliminadas. Padrao DRY aplicado. Novos endpoints usam utils prontos.
 
 ### Nuxt Content para documentacao
 
 - **Contexto:** Projeto precisava de documentacao tecnica acessivel e navegavel, integrada ao site principal.
-- **Decisao:** Criar layer `5-docs` com Nuxt Content v3, layout 3 colunas (sidebar + conteudo + TOC), componentes MDC customizados.
+- **Decisao:** Criar layer `docs` com Nuxt Content v3, layout 3 colunas (sidebar + conteudo + TOC), componentes MDC customizados.
 - **Consequencias:** Documentacao versionada junto ao codigo. Markdown com componentes ricos. Navegacao automatica via composable.
 
-### Layers numeradas com prefixo
+### Layers com nomes semânticos e extends explícito
 
-- **Contexto:** Nuxt layers tem ordem de prioridade — layers posteriores sobrescrevem anteriores.
-- **Decisao:** Prefixo numerico (`0-base`, `1-auth`, `2-home`, etc.) para tornar a ordem explicita e evitar ambiguidade.
-- **Consequencias:** Ordem de prioridade visivel no filesystem. Facil adicionar novas layers no lugar correto.
+- **Contexto:** Nuxt layers tem ordem de prioridade — layers posteriores sobrescrevem anteriores. Inicialmente usava-se prefixo numérico (`0-base`, `1-auth`, etc.) com auto-scan.
+- **Decisao:** Migrar para nomes semânticos (`base`, `auth`, `home`, etc.) com `extends` explícito no `nuxt.config.ts`. A ordem é controlada pela posição no array, não pelo nome.
+- **Consequencias:** Nomes mais claros. Layers portáveis (podem ser compostas em outros projetos). Sem acoplamento ao sistema de nomes.
 
 ### pinia-plugin-persistedstate com pick explicito
 

@@ -16,7 +16,7 @@ Use este checklist antes de criar ou modificar código. A pergunta central é se
 
 - [ ] A mudança está contida em **uma layer** (não espalha impacto para outras)?
 - [ ] Se cross-layer, a dependência segue a direção correta (layer N pode depender de N-1, nunca o inverso)?
-- [ ] Shared code vai para `0-base` apenas se realmente cross-cutting?
+- [ ] Shared code vai para `base` apenas se realmente cross-cutting?
 - [ ] Feature-specific permanece na layer da feature?
 
 ## 2. Constantes & Configuração

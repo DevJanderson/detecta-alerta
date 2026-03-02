@@ -118,9 +118,9 @@ Internal routes are protected from indexing via `X-Robots-Tag: noindex, nofollow
 ## Key Files
 
 - [`nuxt.config.ts`](../../nuxt.config.ts) — Security configuration (headers, rate limiter, CSRF, routeRules)
-- [`layers/1-auth/server/middleware/01.auth.ts`](../../layers/1-auth/server/middleware/01.auth.ts) — Token management
-- [`layers/1-auth/server/utils/auth.ts`](../../layers/1-auth/server/utils/auth.ts) — Auth helpers (fetchSinapse, cookie management)
-- [`layers/3-usuarios/server/middleware/02.admin.ts`](../../layers/3-usuarios/server/middleware/02.admin.ts) — Admin route guard
+- [`layers/auth/server/middleware/01.auth.ts`](../../layers/auth/server/middleware/01.auth.ts) — Token management
+- [`layers/auth/server/utils/auth.ts`](../../layers/auth/server/utils/auth.ts) — Auth helpers (fetchSinapse, cookie management)
+- [`layers/usuarios/server/middleware/02.admin.ts`](../../layers/usuarios/server/middleware/02.admin.ts) — Admin route guard
 
 ## Related Resources
 

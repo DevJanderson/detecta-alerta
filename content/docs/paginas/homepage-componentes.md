@@ -12,7 +12,7 @@ Todos os componentes envolvidos na homepage, com status de implementação e det
 
 ## Visão da Página
 
-Hierarquia de componentes na homepage (`layers/2-home/app/pages/index.vue`):
+Hierarquia de componentes na homepage (`layers/home/app/pages/index.vue`):
 
 ```
 index.vue
@@ -41,7 +41,7 @@ default.vue (layout)
 
 ## Status por Componente
 
-### Componentes Globais (layer 0-base)
+### Componentes Globais (layer base)
 
 | Componente  | Arquivo                | Status          | Dados      | Observação            |
 | ----------- | ---------------------- | --------------- | ---------- | --------------------- |
@@ -49,7 +49,7 @@ default.vue (layout)
 | `AppHeader` | `common/AppHeader.vue` | ✅ Implementado | Store auth | Pronto para produção  |
 | `AppFooter` | `common/AppFooter.vue` | ✅ Implementado | Hardcoded  | Links Sinapse com `#` |
 
-### Componentes Home (layer 2-home)
+### Componentes Home (layer home)
 
 | Componente         | Arquivo                | Status          | Dados         | Observação                            |
 | ------------------ | ---------------------- | --------------- | ------------- | ------------------------------------- |
@@ -63,7 +63,7 @@ default.vue (layout)
 | `HomeTable`        | `HomeTable.vue`        | ✅ Implementado | Mock          | 5 regiões com dados simulados         |
 | `HomeCtaMunicipio` | `HomeCtaMunicipio.vue` | ✅ Implementado | Estático      | Pronto para produção                  |
 
-### Componentes Auth (layer 1-auth)
+### Componentes Auth (layer auth)
 
 | Componente      | Arquivo             | Status          | Dados    | Observação                |
 | --------------- | ------------------- | --------------- | -------- | ------------------------- |

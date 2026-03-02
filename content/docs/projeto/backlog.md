@@ -9,18 +9,18 @@ Itens pendentes identificados durante a auditoria de seguranca e bugs realizada 
 
 ## Alta prioridade
 
-| Item | Titulo                                           | Categoria | Descricao                                                                                                                                               |
-| ---- | ------------------------------------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| H2   | Respostas de rumores sem validacao Zod           | Backend   | Endpoints em `layers/4-rumores/server/api/rumores/` repassam dados da API Sinapse sem schema Zod. Adicionar validacao em todos os endpoints de rumores. |
-| H4   | CSP com unsafe-inline e unsafe-eval              | Infra     | `nuxt.config.ts` usa `'unsafe-inline'` e `'unsafe-eval'` no CSP, anulando protecao contra XSS. Substituir por nonces (requer investigacao).             |
-| M1   | Token refresh sem protecao contra race condition | Backend   | `layers/1-auth/server/utils/auth.ts` pode disparar multiplos refreshes simultaneos. Implementar lock/mutex.                                             |
+| Item | Titulo                                           | Categoria | Descricao                                                                                                                                             |
+| ---- | ------------------------------------------------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| H2   | Respostas de rumores sem validacao Zod           | Backend   | Endpoints em `layers/rumores/server/api/rumores/` repassam dados da API Sinapse sem schema Zod. Adicionar validacao em todos os endpoints de rumores. |
+| H4   | CSP com unsafe-inline e unsafe-eval              | Infra     | `nuxt.config.ts` usa `'unsafe-inline'` e `'unsafe-eval'` no CSP, anulando protecao contra XSS. Substituir por nonces (requer investigacao).           |
+| M1   | Token refresh sem protecao contra race condition | Backend   | `layers/auth/server/utils/auth.ts` pode disparar multiplos refreshes simultaneos. Implementar lock/mutex.                                             |
 
 ## Media prioridade
 
 | Item        | Titulo                                        | Categoria | Descricao                                                                                                                              |
 | ----------- | --------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | M3          | HSTS sem preload flag                         | Infra     | Header HSTS em `nuxt.config.ts` sem diretiva `preload`. Adicionar e submeter ao HSTS preload list.                                     |
-| M4          | Rate limiting no upload de foto               | Backend   | Endpoint de upload em `layers/3-usuarios/server/api/usuarios/perfil/upload-foto.post.ts` sem rate limiting dedicado.                   |
+| M4          | Rate limiting no upload de foto               | Backend   | Endpoint de upload em `layers/usuarios/server/api/usuarios/perfil/upload-foto.post.ts` sem rate limiting dedicado.                     |
 | POTENTIAL-3 | isLoading compartilhado causa race conditions | Frontend  | Stores de usuarios, grupos e permissoes usam flag `isLoading` compartilhada — acoes concorrentes podem resetar o estado.               |
 | POTENTIAL-4 | Paginacao nao sincroniza ao filtrar           | Frontend  | `default-page` do componente de paginacao nao reseta para 1 ao aplicar novos filtros.                                                  |
 | POTENTIAL-7 | Filtros persistidos nao refletem na UI        | Frontend  | Ao recarregar a pagina, filtros salvos no `localStorage` (via pinia-plugin-persistedstate) nao sao refletidos nos controles de filtro. |
@@ -51,4 +51,4 @@ Itens corrigidos na sprint de fevereiro de 2026:
 - **M2** — Non-null assertions substituidas por validacao
 - **POTENTIAL-1** — `useDebounce` com `onScopeDispose`
 - **POTENTIAL-2** — Fallback para descricao/conteudo null no `RumoresCard`
-- **CQ-1** — Lista UF extraida para `0-base/app/utils/constants.ts`
+- **CQ-1** — Lista UF extraida para `base/app/utils/constants.ts`

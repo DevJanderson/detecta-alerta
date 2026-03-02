@@ -39,7 +39,7 @@ Componente → Store → Service → BFF endpoint → fetchSinapse() → API Sin
 
 - [ ] Cores usam variáveis CSS, não valores literais?
 - [ ] Se trocar a paleta inteira, basta alterar `main.css`?
-- [ ] Componentes UI vêm do shadcn-vue — se trocar a lib, só `layers/0-base/app/components/ui/` muda?
+- [ ] Componentes UI vêm do shadcn-vue — se trocar a lib, só `layers/base/app/components/ui/` muda?
 - [ ] Se trocar de Tailwind para outra solução CSS, as layers de feature são minimamente afetadas?
 
 ## 4. Estado — A estratégia de state pode mudar
@@ -66,16 +66,16 @@ Componente → Store → Service → BFF endpoint → fetchSinapse() → API Sin
 
 ## Quick Reference — Reversibilidade no Detecta Alerta
 
-| Decisão atual             | Reversível por quê                                  | Custo de mudança                           |
-| ------------------------- | --------------------------------------------------- | ------------------------------------------ |
-| **API Sinapse (FastAPI)** | BFF isola; Kubb regenera tipos                      | Baixo — mudar endpoints BFF + regenerar    |
-| **JWT em cookies**        | Client não sabe que é JWT; middleware abstrai       | Baixo — mudar `01.auth.ts` + `auth.ts`     |
-| **Pinia stores**          | Interface pública estável (`items`, `fetchAll`)     | Médio — trocar implementação, manter API   |
-| **shadcn-vue**            | Componentes em `0-base/app/components/ui/` isolados | Médio — trocar UI base, features não mudam |
-| **Tailwind CSS v4**       | Classes utilitárias são facilmente substituíveis    | Alto — muitas classes no template          |
-| **Nuxt 4**                | Framework core — mais difícil de trocar             | Alto — mas layers encapsulam features      |
-| **Design system (cores)** | Variáveis CSS centralizadas em `main.css`           | Baixo — alterar um arquivo                 |
-| **Kubb (code gen)**       | Tipos e schemas são apenas arquivos `.ts`           | Baixo — trocar gerador, manter output      |
+| Decisão atual             | Reversível por quê                                | Custo de mudança                           |
+| ------------------------- | ------------------------------------------------- | ------------------------------------------ |
+| **API Sinapse (FastAPI)** | BFF isola; Kubb regenera tipos                    | Baixo — mudar endpoints BFF + regenerar    |
+| **JWT em cookies**        | Client não sabe que é JWT; middleware abstrai     | Baixo — mudar `01.auth.ts` + `auth.ts`     |
+| **Pinia stores**          | Interface pública estável (`items`, `fetchAll`)   | Médio — trocar implementação, manter API   |
+| **shadcn-vue**            | Componentes em `base/app/components/ui/` isolados | Médio — trocar UI base, features não mudam |
+| **Tailwind CSS v4**       | Classes utilitárias são facilmente substituíveis  | Alto — muitas classes no template          |
+| **Nuxt 4**                | Framework core — mais difícil de trocar           | Alto — mas layers encapsulam features      |
+| **Design system (cores)** | Variáveis CSS centralizadas em `main.css`         | Baixo — alterar um arquivo                 |
+| **Kubb (code gen)**       | Tipos e schemas são apenas arquivos `.ts`         | Baixo — trocar gerador, manter output      |
 
 ---
 

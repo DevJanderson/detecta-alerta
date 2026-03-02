@@ -15,7 +15,7 @@ Um endpoint BFF (Backend-for-Frontend) é a camada entre o browser e a API Sinap
 ### Passo a passo
 
 ```typescript
-// layers/3-usuarios/server/api/usuarios/admin/permissoes/index.get.ts
+// layers/usuarios/server/api/usuarios/admin/permissoes/index.get.ts
 
 import { permissaoAcessoSchemaListSchema } from '~/generated/sinapse/zod/permissaoAcessoSchemaListSchema'
 import { z } from 'zod'

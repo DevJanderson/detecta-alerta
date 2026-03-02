@@ -34,7 +34,7 @@ Nitro uses file-based routing:
 ### BFF Endpoint Template
 
 ```typescript
-import { fetchSinapse } from '~/layers/1-auth/server/utils/auth'
+import { fetchSinapse } from '~/layers/auth/server/utils/auth'
 import { exampleSchema } from '~/generated/sinapse/zod/exampleSchema'
 
 export default defineEventHandler(async event => {

@@ -26,12 +26,12 @@ scaffoldVersion: '2.0.0'
 
 | Entity            | Description                                              | Layer             |
 | ----------------- | -------------------------------------------------------- | ----------------- |
-| **AuthUser**      | Authenticated user with permissions and groups           | 1-auth            |
-| **AuthPermissao** | Permission code (e.g., `dashboard.view`, `reports.view`) | 1-auth            |
-| **AuthGrupo**     | User group (e.g., `administradores`)                     | 1-auth            |
-| **Usuario**       | User management entity (admin CRUD)                      | 3-usuarios        |
-| **Grupo**         | Group management entity (admin CRUD)                     | 3-usuarios        |
-| **Permissao**     | Permission management entity (admin CRUD)                | 3-usuarios        |
+| **AuthUser**      | Authenticated user with permissions and groups           | auth              |
+| **AuthPermissao** | Permission code (e.g., `dashboard.view`, `reports.view`) | auth              |
+| **AuthGrupo**     | User group (e.g., `administradores`)                     | auth              |
+| **Usuario**       | User management entity (admin CRUD)                      | usuarios          |
+| **Grupo**         | Group management entity (admin CRUD)                     | usuarios          |
+| **Permissao**     | Permission management entity (admin CRUD)                | usuarios          |
 | **CasoAgravo**    | Disease case record from Sinapse API                     | generated/sinapse |
 | **Token**         | JWT token pair (access_token + refresh_token)            | generated/sinapse |
 | **LoginRequest**  | Login credentials (username + password)                  | generated/sinapse |

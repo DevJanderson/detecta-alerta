@@ -26,8 +26,8 @@ Detecta Alerta is a real-time epidemiological surveillance and monitoring platfo
 ## Entry Points
 
 - [`nuxt.config.ts`](../../nuxt.config.ts) - Root Nuxt configuration, registers all layers
-- [`layers/0-base/nuxt.config.ts`](../../layers/0-base/nuxt.config.ts) - Foundation layer config
-- [`layers/1-auth/nuxt.config.ts`](../../layers/1-auth/nuxt.config.ts) - Auth layer config
+- [`layers/base/nuxt.config.ts`](../../layers/base/nuxt.config.ts) - Foundation layer config
+- [`layers/auth/nuxt.config.ts`](../../layers/auth/nuxt.config.ts) - Auth layer config
 - [`kubb.config.ts`](../../kubb.config.ts) - API client generation config
 - [`vitest.config.ts`](../../vitest.config.ts) - Test configuration
 - [`playwright.config.ts`](../../playwright.config.ts) - E2E test configuration
@@ -39,12 +39,12 @@ See [`codebase-map.json`](./codebase-map.json) for the complete exports list. Ke
 ## File Structure & Code Organization
 
 - `layers/` - All application code organized as Nuxt layers
-  - `0-base/` - Foundation: app.vue, CSS, shadcn-vue components, shared types, utils
-  - `1-auth/` - Authentication BFF (login, logout, signup, JWT management)
-  - `2-home/` - Landing page and public pages
-  - `3-usuarios/` - User management, groups, permissions (admin area)
-  - `4-rumores/` - Epidemiological rumors feed (news monitoring)
-  - `5-docs/` - Project documentation (Nuxt Content)
+  - `base/` - Foundation: app.vue, CSS, shadcn-vue components, shared types, utils
+  - `auth/` - Authentication BFF (login, logout, signup, JWT management)
+  - `home/` - Landing page and public pages
+  - `usuarios/` - User management, groups, permissions (admin area)
+  - `rumores/` - Epidemiological rumors feed (news monitoring)
+  - `docs/` - Project documentation (Nuxt Content)
 - `generated/sinapse/` - Kubb-generated API client (types + Zod schemas) - DO NOT EDIT
 - `tests/` - Unit, integration, and E2E tests
 - `content/docs/` - Markdown documentation (projeto/backlog, projeto/decisoes)

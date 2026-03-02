@@ -39,7 +39,7 @@ API Sinapse ──→ BFF (server/api/) ──→ Composable/Store ──→ Com
 
 Cada fonte de dados segue o mesmo padrão:
 
-1. **Endpoint BFF** em `layers/2-home/server/api/home/` — proxy para API Sinapse
+1. **Endpoint BFF** em `layers/home/server/api/home/` — proxy para API Sinapse
 2. **Service** (`useHomeApi()`) — funções `$fetch` para chamar o BFF
 3. **Store** (`useHomeStore()`) — estado reativo com Pinia
 4. **Componente** — consome a store e renderiza
@@ -48,7 +48,7 @@ Cada fonte de dados segue o mesmo padrão:
 
 ## Endpoints Necessários (BFF)
 
-Endpoints a serem criados em `layers/2-home/server/api/home/`:
+Endpoints a serem criados em `layers/home/server/api/home/`:
 
 | Endpoint                | Método | Descrição                        | Parâmetros                 | Status      |
 | ----------------------- | ------ | -------------------------------- | -------------------------- | ----------- |

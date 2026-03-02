@@ -17,17 +17,17 @@ Dois componentes são ortogonais quando mudar um não afeta o outro. Ortogonalid
 - [ ] Cada layer é **auto-contida** (nuxt.config, composables, pages, server)?
 - [ ] Nenhuma layer importa diretamente de uma layer de **mesmo nível ou superior**?
 - [ ] Dependências entre layers seguem a hierarquia: `N` pode depender de `N-1`, nunca o inverso?
-- [ ] Remover uma layer (ex: `4-rumores`) não quebra as outras?
+- [ ] Remover uma layer (ex: `rumores`) não quebra as outras?
 
 ### Hierarquia válida de dependências
 
 ```
-5-docs  →  pode usar: 0-base
-4-rumores  →  pode usar: 0-base, 1-auth
-3-usuarios  →  pode usar: 0-base, 1-auth
-2-home  →  pode usar: 0-base
-1-auth  →  pode usar: 0-base
-0-base  →  não depende de nenhuma layer
+docs  →  pode usar: base
+rumores  →  pode usar: base, auth
+usuarios  →  pode usar: base, auth
+home  →  pode usar: base
+auth  →  pode usar: base
+base  →  não depende de nenhuma layer
 ```
 
 ## 2. Composables — Separação de responsabilidades
@@ -49,7 +49,7 @@ Dois componentes são ortogonais quando mudar um não afeta o outro. Ortogonalid
 
 - [ ] Componentes recebem dados via **props** (não acessam stores diretamente quando desnecessário)?
 - [ ] Eventos emitidos via **emit** (não chamam actions de store direto)?
-- [ ] Componentes UI base (`layers/0-base/app/components/ui/`) são genéricos (sem lógica de feature)?
+- [ ] Componentes UI base (`layers/base/app/components/ui/`) são genéricos (sem lógica de feature)?
 - [ ] Componentes de feature são prefixados e vivem na layer correta?
 
 ## 5. Testes — Independência de execução
@@ -72,7 +72,7 @@ Dois componentes são ortogonais quando mudar um não afeta o outro. Ortogonalid
 
 | Camada            | Ortogonal                                                       | Acoplado (anti-pattern)                             |
 | ----------------- | --------------------------------------------------------------- | --------------------------------------------------- |
-| **Layers**        | `4-rumores` só importa de `0-base` e `1-auth`                   | `4-rumores` importa de `3-usuarios`                 |
+| **Layers**        | `rumores` só importa de `base` e `auth`                         | `rumores` importa de `usuarios`                     |
 | **Service/Store** | Store chama `api.getAll()`                                      | Store faz `$fetch('/api/rumores')` direto           |
 | **BFF/Frontend**  | Frontend chama `/api/rumores`                                   | Frontend chama `https://staging.sinapse.org.br/...` |
 | **Middleware**    | `01.auth.ts` cuida de tokens, `02.admin.ts` cuida de permissões | Um middleware faz auth + admin + logging            |

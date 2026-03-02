@@ -22,14 +22,14 @@ scaffoldVersion: '2.0.0'
 
 ### Common Root Causes
 
-| Symptom             | Likely Cause                             | Where to Look                                 |
-| ------------------- | ---------------------------------------- | --------------------------------------------- |
-| 401/403 errors      | Token expired, missing auth              | `layers/1-auth/server/middleware/01.auth.ts`  |
-| Hydration mismatch  | `$fetch` in setup (should be `useFetch`) | Component `<script setup>`                    |
-| Stale data          | Store not refreshing                     | `use*Store.ts` — check fetch triggers         |
-| Redirect loop       | Middleware conflict                      | `layers/1-auth/app/middleware/auth.global.ts` |
-| Type mismatch       | API changed                              | Regenerate: `npm run api:generate`            |
-| Missing auto-import | Wrong test project                       | Move to `tests/integration/` for Nuxt env     |
+| Symptom             | Likely Cause                             | Where to Look                               |
+| ------------------- | ---------------------------------------- | ------------------------------------------- |
+| 401/403 errors      | Token expired, missing auth              | `layers/auth/server/middleware/01.auth.ts`  |
+| Hydration mismatch  | `$fetch` in setup (should be `useFetch`) | Component `<script setup>`                  |
+| Stale data          | Store not refreshing                     | `use*Store.ts` — check fetch triggers       |
+| Redirect loop       | Middleware conflict                      | `layers/auth/app/middleware/auth.global.ts` |
+| Type mismatch       | API changed                              | Regenerate: `npm run api:generate`          |
+| Missing auto-import | Wrong test project                       | Move to `tests/integration/` for Nuxt env   |
 
 ### Debugging Commands
 

@@ -92,7 +92,7 @@ mockNuxtImport('useRouter', () => () => ({ push: vi.fn() }))
 ### Mock composables
 
 ```typescript
-vi.mock('~/layers/1-auth/app/composables/useAuthApi', () => ({
+vi.mock('~/layers/auth/app/composables/useAuthApi', () => ({
   useAuthApi: () => ({ login: vi.fn().mockResolvedValue({ user: mockUser }) })
 }))
 ```

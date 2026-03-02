@@ -62,7 +62,7 @@ O objetivo é migrar do CSP atual (com `unsafe-inline` e `unsafe-eval`) para o C
 
 ### Onde está o código
 
-Plugin Nitro: `layers/0-base/server/plugins/csp-report-only.ts`
+Plugin Nitro: `layers/base/server/plugins/csp-report-only.ts`
 
 ---
 

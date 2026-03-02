@@ -56,13 +56,13 @@ scaffoldVersion: '2.0.0'
 
 ### Key Security Files
 
-| File                                              | Purpose                                               |
-| ------------------------------------------------- | ----------------------------------------------------- |
-| `nuxt.config.ts`                                  | Security headers, CSP, rate limiter, CSRF, routeRules |
-| `layers/1-auth/server/middleware/01.auth.ts`      | Token management                                      |
-| `layers/1-auth/server/utils/auth.ts`              | `fetchSinapse()`, cookie helpers                      |
-| `layers/1-auth/app/utils/auth.ts`                 | `isValidRedirectUrl()`, `getSafeRedirectUrl()`        |
-| `layers/3-usuarios/server/middleware/02.admin.ts` | Admin route guard                                     |
+| File                                            | Purpose                                               |
+| ----------------------------------------------- | ----------------------------------------------------- |
+| `nuxt.config.ts`                                | Security headers, CSP, rate limiter, CSRF, routeRules |
+| `layers/auth/server/middleware/01.auth.ts`      | Token management                                      |
+| `layers/auth/server/utils/auth.ts`              | `fetchSinapse()`, cookie helpers                      |
+| `layers/auth/app/utils/auth.ts`                 | `isValidRedirectUrl()`, `getSafeRedirectUrl()`        |
+| `layers/usuarios/server/middleware/02.admin.ts` | Admin route guard                                     |
 
 ### OWASP Top 10 Quick Check
 
