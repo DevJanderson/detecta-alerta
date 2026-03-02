@@ -67,7 +67,7 @@ O projeto `nuxt` usa `tests/setup.ts` e tem acesso a auto-imports do Nuxt. O pro
 
 ### Tailwind CSS v4
 
-Tailwind v4 usa **arquivo CSS** em vez de `tailwind.config.js`. Toda configuração (cores, radius, plugins) fica em `layers/design-system/app/assets/css/main.css`:
+Tailwind v4 usa **arquivo CSS** em vez de `tailwind.config.js`. Toda configuração (cores, radius, plugins) fica em `layers/base/app/assets/css/main.css`:
 
 ```css
 @import 'tailwindcss';
@@ -206,8 +206,8 @@ Nuxt 4 + shadcn-vue + Tailwind CSS v4 + **Nuxt Layers**.
 
 ```
 layers/                 # TUDO fica aqui (incluindo server/)
-  design-system/        # Design System: CSS tokens, shadcn-vue, cn(), buttonVariants, showcase
-  base/                 # Fundação: app.vue, error.vue, utils, composables, server utils, tipos
+  design-system/        # Showcase do DS: páginas /design-system/*, layout, navegação
+  base/                 # Fundação: Tailwind CSS, paleta, shadcn-vue, app.vue, error.vue, utils, tipos
   auth/                 # Autenticação BFF (Backend-for-Frontend)
   home/                 # Landing page
   usuarios/             # Gestão de perfil, usuários, grupos e permissões
@@ -409,7 +409,7 @@ Módulo `@nuxt/content` disponível para páginas com conteúdo em Markdown/YAML
 npx shadcn-vue@latest add <componente>
 ```
 
-Componentes ficam em `layers/design-system/app/components/ui/` (auto-import).
+Componentes ficam em `layers/base/app/components/ui/` (auto-import).
 
 ## Bibliotecas UI Disponíveis
 
@@ -426,10 +426,10 @@ Componentes ficam em `layers/design-system/app/components/ui/` (auto-import).
 
 ## Design System - Cores
 
-| Recurso          | Local                                          |
-| ---------------- | ---------------------------------------------- |
-| Arquivo de cores | `layers/design-system/app/assets/css/main.css` |
-| Visualização     | http://localhost:3000/design-system            |
+| Recurso          | Local                                 |
+| ---------------- | ------------------------------------- |
+| Arquivo de cores | `layers/base/app/assets/css/main.css` |
+| Visualização     | http://localhost:3000/design-system   |
 
 ### Paleta Principal
 

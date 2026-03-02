@@ -1,14 +1,8 @@
 /**
  * Layer Design System - Configuração
- * Tokens CSS, componentes shadcn-vue, utilitários (cn, buttonVariants)
- * e páginas de showcase do design system.
+ * Showcase do design system: páginas de demonstração,
+ * layout, navegação e componentes de exibição.
  *
- * Usa createResolver para paths relativos à layer (portável).
+ * CSS, componentes shadcn-vue e utils ficam na layer base.
  */
-import { createResolver } from '@nuxt/kit'
-
-const { resolve } = createResolver(import.meta.url)
-
-export default defineNuxtConfig({
-  css: [resolve('./app/assets/css/main.css')]
-})
+export default defineNuxtConfig({})

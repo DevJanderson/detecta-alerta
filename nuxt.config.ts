@@ -245,7 +245,7 @@ export default defineNuxtConfig({
 
   shadcn: {
     prefix: '',
-    componentDir: './layers/design-system/app/components/ui'
+    componentDir: './layers/base/app/components/ui'
   },
 
   runtimeConfig: {
