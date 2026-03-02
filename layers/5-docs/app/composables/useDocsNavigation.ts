@@ -41,6 +41,27 @@ export function useDocsNavigation() {
       items: [{ title: 'Sinapse', path: '/docs/api/overview', icon: 'lucide:plug' }]
     },
     {
+      title: 'Segurança',
+      items: [
+        { title: 'Visão Geral', path: '/docs/seguranca/visao-geral', icon: 'lucide:shield' },
+        {
+          title: 'Autenticação',
+          path: '/docs/seguranca/autenticacao',
+          icon: 'lucide:lock'
+        },
+        {
+          title: 'Headers e Proteções',
+          path: '/docs/seguranca/headers-protecoes',
+          icon: 'lucide:shield-check'
+        },
+        {
+          title: 'Guia para Devs',
+          path: '/docs/seguranca/guia-desenvolvimento',
+          icon: 'lucide:code'
+        }
+      ]
+    },
+    {
       title: 'Projeto',
       items: [
         { title: 'Backlog', path: '/docs/projeto/backlog', icon: 'lucide:list-checks' },

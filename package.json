@@ -59,6 +59,7 @@
     "embla-carousel-vue": "^8.6.0",
     "lucide-vue-next": "^0.562.0",
     "maska": "^3.2.0",
+    "mermaid": "^11.12.3",
     "nuxt": "^4.2.2",
     "nuxt-security": "^2.5.1",
     "pinia-plugin-persistedstate": "^4.7.1",
