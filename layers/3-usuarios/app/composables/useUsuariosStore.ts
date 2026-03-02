@@ -35,17 +35,27 @@ export const useUsuariosStore = defineStore('usuarios', () => {
   }
 
   async function updatePerfil(data: UsuarioSchemaUpdate): Promise<boolean> {
-    return withStoreAction(refs, 'Erro ao atualizar perfil', async () => {
-      perfil.value = await api.updateMe(data)
-      return true
-    })
+    return withStoreAction(
+      refs,
+      'Erro ao atualizar perfil',
+      async () => {
+        perfil.value = await api.updateMe(data)
+        return true
+      },
+      false
+    )
   }
 
   async function uploadFoto(file: File): Promise<boolean> {
-    return withStoreAction(refs, 'Erro ao enviar foto', async () => {
-      await api.uploadFoto(file)
-      return true
-    })
+    return withStoreAction(
+      refs,
+      'Erro ao enviar foto',
+      async () => {
+        await api.uploadFoto(file)
+        return true
+      },
+      false
+    )
   }
 
   // Admin
@@ -62,10 +72,15 @@ export const useUsuariosStore = defineStore('usuarios', () => {
   }
 
   async function criar(data: UsuarioSchemaCreate): Promise<boolean> {
-    return withStoreAction(refs, 'Erro ao criar usuario', async () => {
-      await api.criar(data)
-      return true
-    })
+    return withStoreAction(
+      refs,
+      'Erro ao criar usuario',
+      async () => {
+        await api.criar(data)
+        return true
+      },
+      false
+    )
   }
 
   async function obter(id: number): Promise<void> {
@@ -75,24 +90,39 @@ export const useUsuariosStore = defineStore('usuarios', () => {
   }
 
   async function atualizar(id: number, data: UsuarioSchemaUpdate): Promise<boolean> {
-    return withStoreAction(refs, 'Erro ao atualizar usuario', async () => {
-      selectedUsuario.value = await api.atualizar(id, data)
-      return true
-    })
+    return withStoreAction(
+      refs,
+      'Erro ao atualizar usuario',
+      async () => {
+        selectedUsuario.value = await api.atualizar(id, data)
+        return true
+      },
+      false
+    )
   }
 
   async function remover(id: number): Promise<boolean> {
-    return withStoreAction(refs, 'Erro ao remover usuario', async () => {
-      await api.remover(id)
-      return true
-    })
+    return withStoreAction(
+      refs,
+      'Erro ao remover usuario',
+      async () => {
+        await api.remover(id)
+        return true
+      },
+      false
+    )
   }
 
   async function signup(data: UsuarioSchemaSignup): Promise<boolean> {
-    return withStoreAction(refs, 'Erro ao cadastrar usuario', async () => {
-      await api.signup(data)
-      return true
-    })
+    return withStoreAction(
+      refs,
+      'Erro ao cadastrar usuario',
+      async () => {
+        await api.signup(data)
+        return true
+      },
+      false
+    )
   }
 
   function clearError(): void {

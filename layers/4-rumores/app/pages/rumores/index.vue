@@ -12,8 +12,7 @@ useSeoPage({
 const store = useRumoresStore()
 
 onMounted(async () => {
-  await store.fetchLookups()
-  await store.fetchRumores(true)
+  await Promise.all([store.fetchLookups(), store.fetchRumores(true)])
 })
 </script>
 

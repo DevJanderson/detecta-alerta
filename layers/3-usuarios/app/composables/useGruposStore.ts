@@ -38,10 +38,15 @@ export const useGruposStore = defineStore('grupos', () => {
   }
 
   async function criar(data: GrupoSchemaCreate): Promise<boolean> {
-    return withStoreAction(refs, 'Erro ao criar grupo', async () => {
-      await api.criar(data)
-      return true
-    })
+    return withStoreAction(
+      refs,
+      'Erro ao criar grupo',
+      async () => {
+        await api.criar(data)
+        return true
+      },
+      false
+    )
   }
 
   async function obter(id: number): Promise<void> {
@@ -51,31 +56,51 @@ export const useGruposStore = defineStore('grupos', () => {
   }
 
   async function atualizar(id: number, data: GrupoSchemaUpdate): Promise<boolean> {
-    return withStoreAction(refs, 'Erro ao atualizar grupo', async () => {
-      selectedGrupo.value = await api.atualizar(id, data)
-      return true
-    })
+    return withStoreAction(
+      refs,
+      'Erro ao atualizar grupo',
+      async () => {
+        selectedGrupo.value = await api.atualizar(id, data)
+        return true
+      },
+      false
+    )
   }
 
   async function remover(id: number): Promise<boolean> {
-    return withStoreAction(refs, 'Erro ao remover grupo', async () => {
-      await api.remover(id)
-      return true
-    })
+    return withStoreAction(
+      refs,
+      'Erro ao remover grupo',
+      async () => {
+        await api.remover(id)
+        return true
+      },
+      false
+    )
   }
 
   async function addUsuario(grupoId: number, usuarioId: number): Promise<boolean> {
-    return withStoreAction(refs, 'Erro ao adicionar usuario ao grupo', async () => {
-      await api.addUsuario(grupoId, usuarioId)
-      return true
-    })
+    return withStoreAction(
+      refs,
+      'Erro ao adicionar usuario ao grupo',
+      async () => {
+        await api.addUsuario(grupoId, usuarioId)
+        return true
+      },
+      false
+    )
   }
 
   async function removeUsuario(grupoId: number, usuarioId: number): Promise<boolean> {
-    return withStoreAction(refs, 'Erro ao remover usuario do grupo', async () => {
-      await api.removeUsuario(grupoId, usuarioId)
-      return true
-    })
+    return withStoreAction(
+      refs,
+      'Erro ao remover usuario do grupo',
+      async () => {
+        await api.removeUsuario(grupoId, usuarioId)
+        return true
+      },
+      false
+    )
   }
 
   function clearError(): void {

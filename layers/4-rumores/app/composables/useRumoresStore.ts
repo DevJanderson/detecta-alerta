@@ -87,14 +87,14 @@ export const useRumoresStore = defineStore(
       }
     }
 
-    function aplicarFiltros(novosFiltros: Partial<RumoresListParams>) {
+    async function aplicarFiltros(novosFiltros: Partial<RumoresListParams>) {
       filtros.value = { ...filtros.value, ...novosFiltros }
-      fetchRumores(true)
+      await fetchRumores(true)
     }
 
-    function limparFiltros() {
+    async function limparFiltros() {
       filtros.value = {}
-      fetchRumores(true)
+      await fetchRumores(true)
     }
 
     return {

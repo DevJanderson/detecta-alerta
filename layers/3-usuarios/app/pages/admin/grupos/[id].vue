@@ -34,8 +34,7 @@ async function loadGrupo() {
   try {
     grupo.value = await useGruposApi().obter(id.value)
   } catch (e: unknown) {
-    const fetchError = e as { statusMessage?: string }
-    error.value = fetchError.statusMessage || 'Erro ao carregar grupo'
+    error.value = extractErrorMessage(e, 'Erro ao carregar grupo')
   } finally {
     isLoading.value = false
   }

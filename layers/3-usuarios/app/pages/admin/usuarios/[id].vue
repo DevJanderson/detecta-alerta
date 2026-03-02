@@ -37,8 +37,7 @@ async function loadUsuario() {
   try {
     usuario.value = await useUsuariosApi().obter(id.value)
   } catch (e: unknown) {
-    const fetchError = e as { statusMessage?: string }
-    error.value = fetchError.statusMessage || 'Erro ao carregar usuario'
+    error.value = extractErrorMessage(e, 'Erro ao carregar usuario')
   } finally {
     isLoading.value = false
   }

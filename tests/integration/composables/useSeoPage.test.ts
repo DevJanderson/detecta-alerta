@@ -21,6 +21,7 @@ mockNuxtImport(
     (...args: unknown[]) =>
       mockUseSeoMeta(...args)
 )
+mockNuxtImport('useRoute', () => () => ({ path: '/' }))
 
 const { useSeoPage } = await import('~/layers/0-base/app/composables/useSeoPage')
 

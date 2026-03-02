@@ -17,3 +17,10 @@ export function extractErrorMessage(error: unknown, defaultMessage: string): str
   }
   return defaultMessage
 }
+
+export function isUnauthorizedError(error: unknown): boolean {
+  if (error && typeof error === 'object' && 'statusCode' in error) {
+    return (error as FetchError).statusCode === 401
+  }
+  return false
+}
