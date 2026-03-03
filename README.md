@@ -83,12 +83,14 @@ npm run test:e2e     # Testes E2E
 
 ```
 layers/
-├── 0-base/      # Fundação + UI: app.vue, CSS, shadcn-vue, utils, tipos
-├── 1-auth/      # Autenticação BFF
-├── 2-home/      # Homepage
-└── 3-usuarios/  # Gestão de perfil, usuários, grupos e permissões
+├── base/        # Fundação + UI: app.vue, CSS, shadcn-vue, utils, tipos
+├── auth/        # Autenticação BFF
+├── home/        # Homepage
+├── usuarios/    # Gestão de perfil, usuários, grupos e permissões
+├── rumores/     # Feed de rumores epidemiológicos
+└── docs/        # Documentação do projeto (Nuxt Content)
 
-tests/           # Testes (unit, e2e)
+tests/           # Testes (unit, integration, e2e)
 ```
 
 ## Licença

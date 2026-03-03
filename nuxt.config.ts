@@ -45,7 +45,6 @@ export default defineNuxtConfig({
 
   // Nuxt Layers - extends explícito (ordem = prioridade crescente)
   extends: [
-    './layers/design-system',
     './layers/base',
     './layers/auth',
     './layers/home',
@@ -92,7 +91,7 @@ export default defineNuxtConfig({
   ],
 
   robots: {
-    disallow: ['/api/', '/auth/', '/design-system/', '/geo/'],
+    disallow: ['/api/', '/auth/', '/geo/'],
     sitemap: '/sitemap.xml'
   },
 
@@ -219,7 +218,6 @@ export default defineNuxtConfig({
 
     // SEO: robots noindex para rotas internas (header X-Robots-Tag)
     '/auth/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
-    '/design-system/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/perfil/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/admin/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/rumores/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
@@ -308,6 +306,4 @@ export default defineNuxtConfig({
       assetsInlineLimit: 4096
     }
   }
-
-  // CSS global está em layers/design-system/
 })

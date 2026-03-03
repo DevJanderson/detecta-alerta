@@ -55,14 +55,6 @@ async function handleLogout() {
 
       <DropdownMenuSeparator />
 
-      <DropdownMenuItem
-        class="cursor-pointer gap-2 py-2 focus:bg-secondary-50 focus:text-secondary-900"
-        @click="navigateTo('/design-system')"
-      >
-        <Icon name="lucide:palette" class="size-4" />
-        <span>Design System</span>
-      </DropdownMenuItem>
-
       <DropdownMenuItem as-child>
         <a
           href="/docs"

@@ -162,7 +162,7 @@ git push -u origin feat/nova-feature
   - Nomes de função/classe (PascalCase) só no body, nunca no subject
   - Limites: subject ≤ 72 chars, body ≤ 100 chars por linha
   - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`, `revert`
-  - Scopes: `auth`, `home`, `usuarios`, `rumores`, `docs`, `base`, `design-system`, `deps`, `kubb`
+  - Scopes: `auth`, `home`, `usuarios`, `rumores`, `docs`, `base`, `deps`, `kubb`
 
 ### Execução
 
@@ -206,7 +206,6 @@ Nuxt 4 + shadcn-vue + Tailwind CSS v4 + **Nuxt Layers**.
 
 ```
 layers/                 # TUDO fica aqui (incluindo server/)
-  design-system/        # Showcase do DS: páginas /design-system/*, layout, navegação
   base/                 # Fundação: Tailwind CSS, paleta, shadcn-vue, app.vue, error.vue, utils, tipos
   auth/                 # Autenticação BFF (Backend-for-Frontend)
   home/                 # Landing page
@@ -227,7 +226,7 @@ generated/              # Código gerado (Kubb) - NÃO EDITAR
 Definida pela ordem no array `extends` do `nuxt.config.ts` (último = maior prioridade):
 
 ```
-docs > rumores > usuarios > home > auth > base > design-system
+docs > rumores > usuarios > home > auth > base
 ```
 
 ### Fluxo de Dados
@@ -429,7 +428,6 @@ Componentes ficam em `layers/base/app/components/ui/` (auto-import). O shadcn-vu
 | Recurso          | Local                                 |
 | ---------------- | ------------------------------------- |
 | Arquivo de cores | `layers/base/app/assets/css/main.css` |
-| Visualização     | http://localhost:3000/design-system   |
 
 ### Paleta Principal
 
