@@ -226,6 +226,8 @@ export async function tryRefreshTokens(event: H3Event): Promise<RefreshResult> {
     // Atualizar cookies com novos tokens
     setAuthCookies(event, tokenResponse.access_token, tokenResponse.refresh_token)
 
+    logger.debug('Token renovado com sucesso')
+
     return { success: true, accessToken: tokenResponse.access_token }
   } catch (error) {
     logAuthError('Falha ao renovar tokens', error)

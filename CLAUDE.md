@@ -360,6 +360,30 @@ const id = validateRouteParam(event, 'id')
 const qs = buildQueryString(getQuery(event), ['page', 'search', 'status'])
 ```
 
+### Logger (Server-side)
+
+Logger centralizado em `layers/base/server/utils/logger.ts`, auto-importado pelo Nitro. Usa `consola`.
+
+| Ambiente | Formato                              | Uso                      |
+| -------- | ------------------------------------ | ------------------------ |
+| Dev      | Texto colorido (FancyReporter)       | Terminal legível         |
+| Produção | JSON estruturado (uma linha por log) | Datadog, Grafana, Sentry |
+
+```typescript
+// Uso básico (auto-importado, sem import necessário)
+logger.info('Evento aconteceu', { userId: 42, action: 'login' })
+logger.warn('Situação inesperada', { detail: 'valor' })
+logger.error('Falha na operação', { endpoint: '/api/x' })
+logger.debug('Debug info') // só aparece se CONSOLA_LEVEL=4
+```
+
+**Regras:**
+
+- **Nunca logar dados sensíveis** (senhas, tokens, dados pessoais)
+- Em produção, `logAuthError()` omite detalhes do erro (apenas contexto)
+- Log level controlável via `CONSOLA_LEVEL` (0=error, 3=info, 4=debug)
+- Logs de negócio (login, refresh) usam `logger.info` / `logger.warn`
+
 ### Tipos Compartilhados (`#shared`)
 
 Alias `#shared` aponta para `layers/base/shared/`. Tipos globais de API:

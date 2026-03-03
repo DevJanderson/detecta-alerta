@@ -33,6 +33,8 @@ export default defineEventHandler(async event => {
     })
     const user = usuarioSchemaDetalhesSchema.parse(rawUser)
 
+    logger.info('Login bem-sucedido', { username, userId: user.id })
+
     return { user }
   } catch (error: unknown) {
     // Limpar cookies em caso de erro
@@ -41,6 +43,7 @@ export default defineEventHandler(async event => {
     // Tratar erros da API Sinapse
     if (isSinapseError(error)) {
       if (error.statusCode === 401 || error.statusCode === 422) {
+        logger.warn('Login falhou: credenciais inválidas', { username })
         throw createError({
           statusCode: 401,
           statusMessage: 'Credenciais inválidas'
