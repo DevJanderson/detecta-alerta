@@ -1,5 +1,10 @@
 <script setup lang="ts">
-const activeRegion = ref('brasil')
+const store = useHomeStore()
+
+onMounted(async () => {
+  await store.fetchLookups()
+  await store.fetchAll()
+})
 </script>
 
 <template>
@@ -8,7 +13,7 @@ const activeRegion = ref('brasil')
     <div
       class="relative z-40 w-full lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-[45%] lg:max-w-[45%] lg:flex-col lg:self-start"
     >
-      <HomeRegionTabs v-model="activeRegion" />
+      <HomeRegionTabs />
       <HomeMap />
     </div>
 
@@ -18,7 +23,7 @@ const activeRegion = ref('brasil')
       <div class="hidden lg:block lg:h-[180px]" />
 
       <HomeFilters />
-      <HomePanorama :region="activeRegion === 'brasil' ? 'Brasil' : activeRegion" />
+      <HomePanorama />
       <HomeChart />
       <HomeTable />
     </div>

@@ -1,14 +1,5 @@
 <script setup lang="ts">
-const regions = [
-  { id: 'brasil', label: 'Brasil' },
-  { id: 'norte', label: 'Norte' },
-  { id: 'nordeste', label: 'Nordeste' },
-  { id: 'centro-oeste', label: 'Centro-Oeste' },
-  { id: 'sudeste', label: 'Sudeste' },
-  { id: 'sul', label: 'Sul' }
-]
-
-const activeRegion = defineModel<string>({ default: 'brasil' })
+const store = useHomeStore()
 </script>
 
 <template>
@@ -23,18 +14,22 @@ const activeRegion = defineModel<string>({ default: 'brasil' })
         class="flex items-center gap-2 self-stretch overflow-hidden rounded-full border border-secondary-100 bg-base-0 p-1"
       >
         <button
-          v-for="region in regions"
+          v-for="region in store.regions"
           :key="region.id"
-          :aria-selected="activeRegion === region.id"
+          :aria-selected="store.filtros.region === region.id"
           class="flex h-12 flex-1 min-w-0 items-center justify-center gap-2 rounded-full px-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 sm:h-14 lg:px-6"
           :class="
-            activeRegion === region.id
+            store.filtros.region === region.id
               ? 'bg-secondary-900 font-semibold text-base-0'
               : 'bg-transparent font-normal text-secondary-700 hover:bg-secondary-50'
           "
-          @click="activeRegion = region.id"
+          @click="store.setRegion(region.id)"
         >
-          <Icon v-if="activeRegion === region.id" name="lucide:map-pin" class="size-4 shrink-0" />
+          <Icon
+            v-if="store.filtros.region === region.id"
+            name="lucide:map-pin"
+            class="size-4 shrink-0"
+          />
           <span class="truncate text-sm leading-[150%] sm:text-base">{{ region.label }}</span>
         </button>
       </div>

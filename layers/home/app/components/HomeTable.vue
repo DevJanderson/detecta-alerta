@@ -1,59 +1,7 @@
 <script setup lang="ts">
-type Level = 'Baixo' | 'Médio' | 'Alto'
-type Trend = 'up' | 'down' | 'stable'
+import type { Level, Trend } from '../composables/types'
 
-interface CellData {
-  level: Level
-  value: string
-  trend: Trend
-}
-
-interface RegionRow {
-  region: string
-  todos: CellData
-  drogarias: CellData
-  upa: CellData
-  ubs: CellData
-}
-
-// Mock data
-const rows: RegionRow[] = [
-  {
-    region: 'Centro-Oeste',
-    todos: { level: 'Médio', value: '46.5%', trend: 'up' },
-    drogarias: { level: 'Baixo', value: '46.9%', trend: 'up' },
-    upa: { level: 'Médio', value: '49.4%', trend: 'down' },
-    ubs: { level: 'Baixo', value: '43.4%', trend: 'up' }
-  },
-  {
-    region: 'Nordeste',
-    todos: { level: 'Médio', value: '43.4%', trend: 'stable' },
-    drogarias: { level: 'Baixo', value: '45.5%', trend: 'stable' },
-    upa: { level: 'Médio', value: '49.7%', trend: 'up' },
-    ubs: { level: 'Baixo', value: '35%', trend: 'down' }
-  },
-  {
-    region: 'Norte',
-    todos: { level: 'Médio', value: '44.3%', trend: 'up' },
-    drogarias: { level: 'Baixo', value: '46%', trend: 'stable' },
-    upa: { level: 'Médio', value: '47.7%', trend: 'up' },
-    ubs: { level: 'Baixo', value: '39.3%', trend: 'stable' }
-  },
-  {
-    region: 'Sudeste',
-    todos: { level: 'Médio', value: '44.8%', trend: 'up' },
-    drogarias: { level: 'Baixo', value: '42%', trend: 'stable' },
-    upa: { level: 'Médio', value: '48.9%', trend: 'up' },
-    ubs: { level: 'Baixo', value: '43.6%', trend: 'up' }
-  },
-  {
-    region: 'Sul',
-    todos: { level: 'Médio', value: '44.2%', trend: 'up' },
-    drogarias: { level: 'Baixo', value: '47.8%', trend: 'stable' },
-    upa: { level: 'Médio', value: '44.6%', trend: 'down' },
-    ubs: { level: 'Baixo', value: '41.4%', trend: 'up' }
-  }
-]
+const store = useHomeStore()
 
 const levelColors: Record<Level, string> = {
   Baixo: 'text-success-800',
@@ -113,7 +61,7 @@ const columns = [
           </thead>
           <tbody>
             <tr
-              v-for="row in rows"
+              v-for="row in store.regionRows"
               :key="row.region"
               class="border-b border-base-50 transition-colors hover:bg-base-50"
             >
@@ -123,7 +71,7 @@ const columns = [
                   <span :class="levelColors[row[col.key].level]" class="font-medium">
                     {{ row[col.key].level }}
                   </span>
-                  <span class="text-base-500">• {{ row[col.key].value }}</span>
+                  <span class="text-base-500">&#x2022; {{ row[col.key].value }}</span>
                   <Icon
                     :name="trendIcons[row[col.key].trend]"
                     :class="trendColors[row[col.key].trend]"
