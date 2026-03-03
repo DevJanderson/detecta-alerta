@@ -63,7 +63,7 @@ Workspace com dois projetos separados (`vitest.config.ts`):
 | `unit`  | `npm run test:unit` | Node puro                    | `tests/unit/**/*.test.ts`        | Utils, funções puras, lógica sem dependência Vue |
 | `nuxt`  | `npm run test:nuxt` | happy-dom + @nuxt/test-utils | `tests/integration/**/*.test.ts` | Composables, stores, componentes Vue             |
 
-O projeto `nuxt` usa `tests/setup.ts` e tem acesso a auto-imports do Nuxt. O projeto `unit` é mais rápido por não carregar o ambiente Nuxt.
+O projeto `nuxt` usa `tests/setup.ts` (stubs de `NuxtLink`, `ClientOnly`, `NuxtImg`, `Icon` e mock de `useColorMode`) e tem acesso a auto-imports do Nuxt. O projeto `unit` é mais rápido por não carregar o ambiente Nuxt.
 
 ### Tailwind CSS v4
 
@@ -162,7 +162,7 @@ git push -u origin feat/nova-feature
   - Nomes de função/classe (PascalCase) só no body, nunca no subject
   - Limites: subject ≤ 72 chars, body ≤ 100 chars por linha
   - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`, `revert`
-  - Scopes: `auth`, `home`, `usuarios`, `rumores`, `docs`, `base`, `deps`, `kubb`
+  - Scopes: `auth`, `home`, `usuarios`, `rumores`, `docs`, `base`, `design-system`, `deps`, `kubb`
 
 ### Execução
 
@@ -409,7 +409,7 @@ Módulo `@nuxt/content` disponível para páginas com conteúdo em Markdown/YAML
 npx shadcn-vue@latest add <componente>
 ```
 
-Componentes ficam em `layers/base/app/components/ui/` (auto-import).
+Componentes ficam em `layers/base/app/components/ui/` (auto-import). O shadcn-vue usa **reka-ui** como base headless — para customizações avançadas de comportamento (acessibilidade, keyboard navigation), consultar a [API do reka-ui](https://reka-ui.com).
 
 ## Bibliotecas UI Disponíveis
 
