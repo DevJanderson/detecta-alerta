@@ -67,8 +67,7 @@ See [`codebase-map.json`](./codebase-map.json) for the complete exports list. Ke
 2. Copy `.env.example` to `.env` and configure `NUXT_SINAPSE_API_URL`
 3. Run `npm run setup` to configure git hooks (Husky, Commitlint)
 4. Run `npm run dev` to start dev server at http://localhost:3000
-5. Visit http://localhost:3000/design-system to review the color palette
-6. Review [Development Workflow](./development-workflow.md) for day-to-day tasks
+5. Review [Development Workflow](./development-workflow.md) for day-to-day tasks
 
 ## Related Resources
 

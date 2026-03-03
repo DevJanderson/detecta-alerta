@@ -290,10 +290,7 @@ export default defineNuxtConfig({
         'lucide-vue-next',
         '@tanstack/vue-table',
         '@vueuse/core',
-        '@internationalized/date',
         'zod',
-        'embla-carousel-vue',
-        'vaul-vue',
         'maska'
       ]
     },

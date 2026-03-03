@@ -6,7 +6,6 @@ relevantFiles:
   - content/docs/api/overview.md
   - .output/server/chunks/routes/api
   - .output/server/chunks/routes/renderer.mjs
-  - layers/base/app/pages/design-system
   - layers/base/server/api/health.get.ts
   - layers/auth/app/pages/auth
   - layers/auth/server/api/auth

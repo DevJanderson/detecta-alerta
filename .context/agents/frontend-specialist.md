@@ -46,8 +46,6 @@ Components auto-install to `layers/base/app/components/ui/` and are auto-importe
 - Low tones (50-200) for backgrounds, high tones (600-900) for text
 - **Never hardcode colors** — always use design system variables
 
-Preview: http://localhost:3000/design-system
-
 ### Component Naming
 
 Components must be prefixed with their layer name:

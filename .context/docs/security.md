@@ -113,7 +113,7 @@ if (!result.success) throw createError({ statusCode: 400 })
 
 Internal routes are protected from indexing via `X-Robots-Tag: noindex, nofollow`:
 
-- `/auth/**`, `/design-system/**`, `/perfil/**`, `/admin/**`, `/rumores/**`, `/docs/**`
+- `/auth/**`, `/perfil/**`, `/admin/**`, `/rumores/**`, `/docs/**`
 
 ## Key Files
 
