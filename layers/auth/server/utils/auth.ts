@@ -54,10 +54,10 @@ export function isSinapseError(error: unknown): error is SinapseError {
  */
 export function logAuthError(context: string, error: unknown): void {
   if (process.env.NODE_ENV !== 'production') {
-    console.error(`[Auth] ${context}:`, error)
+    logger.error(`[Auth] ${context}:`, error)
   } else {
     // Em produção, log apenas contexto sem detalhes sensíveis
-    console.error(`[Auth] ${context}`)
+    logger.error(`[Auth] ${context}`)
   }
 }
 

@@ -1,3 +1,4 @@
+/// <reference types="vitest/globals" />
 /**
  * Vitest Setup - Projeto "nuxt"
  * Executado antes dos testes em tests/integration/
