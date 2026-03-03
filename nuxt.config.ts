@@ -48,6 +48,7 @@ export default defineNuxtConfig({
     './layers/base',
     './layers/auth',
     './layers/home',
+    './layers/meu-municipio',
     './layers/usuarios',
     './layers/rumores',
     './layers/docs'
