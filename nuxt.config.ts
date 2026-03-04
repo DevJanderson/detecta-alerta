@@ -49,6 +49,7 @@ export default defineNuxtConfig({
     './layers/auth',
     './layers/home',
     './layers/meu-municipio',
+    './layers/mapa-risco',
     './layers/usuarios',
     './layers/rumores',
     './layers/docs'
@@ -88,7 +89,8 @@ export default defineNuxtConfig({
     ['vue-sonner/nuxt', { css: false }],
     '@nuxtjs/seo',
     '@nuxtjs/color-mode',
-    'pinia-plugin-persistedstate/nuxt'
+    'pinia-plugin-persistedstate/nuxt',
+    '@nuxtjs/leaflet'
   ],
 
   robots: {
