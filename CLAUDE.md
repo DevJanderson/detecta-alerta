@@ -162,7 +162,7 @@ git push -u origin feat/nova-feature
   - Nomes de função/classe (PascalCase) só no body, nunca no subject
   - Limites: subject ≤ 72 chars, body ≤ 100 chars por linha
   - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`, `revert`
-  - Scopes: `auth`, `home`, `usuarios`, `rumores`, `docs`, `base`, `deps`, `kubb`
+  - Scopes: `auth`, `home`, `meu-municipio`, `mapa-risco`, `usuarios`, `rumores`, `docs`, `base`, `deps`, `kubb`
 
 ### Execução
 
@@ -209,12 +209,14 @@ layers/                 # TUDO fica aqui (incluindo server/)
   base/                 # Fundação: Tailwind CSS, paleta, shadcn-vue, app.vue, error.vue, utils, tipos
   auth/                 # Autenticação BFF (Backend-for-Frontend)
   home/                 # Landing page
+  meu-municipio/        # Página do município (mapa Leaflet + aside com dados)
+  mapa-risco/           # Mapa de risco epidemiológico
   usuarios/             # Gestão de perfil, usuários, grupos e permissões
   rumores/              # Feed de rumores epidemiológicos (notícias de saúde)
   docs/                 # Documentação do projeto (Nuxt Content)
 content/docs/           # Arquivos markdown da documentação
 tests/                  # unit/, integration/, e2e/
-generated/              # Código gerado (Kubb) - NÃO EDITAR
+generated/              # Código gerado (Kubb) - NÃO EDITAR, commitado no repo
 ```
 
 > Layers usam **extends explícito** no `nuxt.config.ts` (não auto-scan). A ordem no array define a prioridade.
@@ -226,7 +228,7 @@ generated/              # Código gerado (Kubb) - NÃO EDITAR
 Definida pela ordem no array `extends` do `nuxt.config.ts` (último = maior prioridade):
 
 ```
-docs > rumores > usuarios > home > auth > base
+docs > rumores > usuarios > mapa-risco > meu-municipio > home > auth > base
 ```
 
 ### Fluxo de Dados
@@ -324,12 +326,35 @@ Componentes auto-importados com prefixo `Vee`:
 
 ### Server Middleware
 
-Prefixo numérico define ordem de execução: `01.auth.ts` roda antes de `02.logger.ts`.
+Prefixo numérico define ordem de execução: `01.auth.ts` → `02.admin.ts`.
+
+Middlewares injetam contexto acessível nos endpoints:
+
+```typescript
+// Disponível em qualquer endpoint após os middlewares
+event.context.auth?.isAuthenticated // boolean
+event.context.auth?.accessToken // string (token JWT)
+event.context.isAdmin // boolean (verificado pelo 02.admin)
+```
 
 ### Utils vs Composables
 
 - **Utils** (`layers/base/app/utils/`): Funções puras, sem estado Vue
 - **Composables** (`layers/base/app/composables/`): Lógica com `ref`, `computed`
+
+### Utilitários Importantes (auto-importados)
+
+```typescript
+// cn() — merge de classes CSS (clsx + tailwind-merge)
+cn('px-4 py-2', isActive && 'bg-primary-500', className)
+
+// withStoreAction<T>() — wrapper para ações async em stores
+// Gerencia isLoading, error e try-catch automaticamente
+const { data, isLoading, error } = await withStoreAction(() => api.getAll())
+
+// extractErrorMessage() — extrai mensagem de erro de qualquer tipo
+const msg = extractErrorMessage(error) // string consistente
+```
 
 ### Server Utilities (BFF)
 
@@ -355,6 +380,9 @@ const data = await validateBody(event, myZodSchema)
 
 // validateRouteParam — valida que route param é numérico (previne path traversal)
 const id = validateRouteParam(event, 'id')
+
+// validateUniqueId — valida que route param é UUID válido
+const uuid = validateUniqueId(event, 'uniqueId')
 
 // buildQueryString — constrói query params com whitelist (layers/base/server/utils/)
 const qs = buildQueryString(getQuery(event), ['page', 'search', 'status'])
@@ -418,13 +446,13 @@ Gerenciados pelo módulo unificado `@nuxtjs/seo` (substitui `@nuxtjs/sitemap`, `
 
 - **Sitemap**: gerado automaticamente em `/sitemap.xml`
 - **Robots.txt**: gerado pelo sub-módulo robots (não usar `public/robots.txt` estático)
-- **X-Robots-Tag**: headers configurados em `routeRules` no `nuxt.config.ts` para rotas internas
+- **X-Robots-Tag**: `noindex, nofollow` em `/auth/**`, `/perfil/**`, `/admin/**`, `/rumores/**`, `/docs/**`
 - **Schema.org (JSON-LD)**: `useSchemaOrg()` + `defineWebSite()` na homepage
 - **ogImage** e **linkChecker**: desabilitados (`enabled: false` no `nuxt.config.ts`)
 
 ### Content
 
-Módulo `@nuxt/content` disponível para páginas com conteúdo em Markdown/YAML/JSON. Docs: [content.nuxt.com](https://content.nuxt.com)
+Módulo `@nuxt/content` disponível para páginas com conteúdo em Markdown/YAML/JSON. Highlight restrito a `bash`, `typescript`, `vue` — adicionar novas linguagens em `nuxt.config.ts` (`content.build.markdown.highlight.langs`). Docs: [content.nuxt.com](https://content.nuxt.com)
 
 ## Componentes shadcn-vue
 
@@ -436,13 +464,14 @@ Componentes ficam em `layers/base/app/components/ui/` (auto-import). O shadcn-vu
 
 ## Bibliotecas UI Disponíveis
 
-| Biblioteca                | Uso                                        |
-| ------------------------- | ------------------------------------------ |
-| `vue-sonner`              | Toasts/notificações (módulo Nuxt, sem CSS) |
-| `@tanstack/vue-table`     | Tabelas com sort/filter/pagination         |
-| `maska`                   | Máscaras de input (CPF, telefone, etc.)    |
-| `@vueuse/core`            | Composables utilitários Vue                |
-| `@tailwindcss/typography` | Plugin prose para Markdown                 |
+| Biblioteca                | Uso                                           |
+| ------------------------- | --------------------------------------------- |
+| `vue-sonner`              | Toasts/notificações (módulo Nuxt, sem CSS)    |
+| `@tanstack/vue-table`     | Tabelas com sort/filter/pagination            |
+| `@nuxtjs/leaflet`         | Mapas interativos (meu-municipio, mapa-risco) |
+| `maska`                   | Máscaras de input (CPF, telefone, etc.)       |
+| `@vueuse/core`            | Composables utilitários Vue                   |
+| `@tailwindcss/typography` | Plugin prose para Markdown                    |
 
 ## Design System - Cores
 
