@@ -168,9 +168,25 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
+  }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Esconde scrollbar nativo sem travar o scroll (Firefox + Chrome/Safari) */
+.scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
 }
 
 /* Prose (typography) — alinha com o design system */
