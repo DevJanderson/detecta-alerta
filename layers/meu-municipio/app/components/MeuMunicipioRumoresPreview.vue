@@ -1,24 +1,5 @@
 <script setup lang="ts">
-const noticias = [
-  {
-    id: '1',
-    title: 'Aumento de casos de dengue preocupa autoridades em São Paulo',
-    source: 'Folha de S.Paulo',
-    time: 'Há 2h'
-  },
-  {
-    id: '2',
-    title: 'UBS da zona leste registra lotação acima da média',
-    source: 'G1',
-    time: 'Há 5h'
-  },
-  {
-    id: '3',
-    title: 'Campanha de vacinação contra gripe começa na próxima semana',
-    source: 'Estadão',
-    time: 'Ontem'
-  }
-]
+const noticias = mockNoticias.slice(0, 3)
 </script>
 
 <template>
