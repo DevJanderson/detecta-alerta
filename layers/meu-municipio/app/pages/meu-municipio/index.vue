@@ -8,6 +8,10 @@ useSeoPage({
   description:
     'Monitoramento epidemiológico municipal com mapa interativo, unidades de saúde e indicadores em tempo real.'
 })
+
+useHead({
+  bodyAttrs: { class: 'scrollbar-hidden' }
+})
 </script>
 
 <template>

@@ -67,6 +67,30 @@ export const useMeuMunicipioStore = defineStore(
       }
     }
 
+    async function fetchAll() {
+      const ibgeCode = filtros.value.municipio?.ibgeCode
+      const uf = filtros.value.municipio?.uf
+      if (!ibgeCode || !uf) return
+
+      return withStoreAction(
+        { isLoading, error },
+        'Erro ao carregar dados do município',
+        async () => {
+          const [summaries, unis, lot, rumoresData] = await Promise.all([
+            api.getUnitTypeSummaries(ibgeCode),
+            api.getUnidades(ibgeCode),
+            api.getLotacao(ibgeCode),
+            api.getRumores(uf, 5)
+          ])
+          unitTypeSummaries.value = summaries
+          unidades.value = unis
+          lotacao.value = lot
+          rumorDestaque.value = rumoresData.destaque
+          rumores.value = rumoresData.items
+        }
+      )
+    }
+
     async function fetchMunicipioData() {
       const ibgeCode = filtros.value.municipio?.ibgeCode
       if (!ibgeCode) return
@@ -87,15 +111,6 @@ export const useMeuMunicipioStore = defineStore(
       )
     }
 
-    async function fetchRumores() {
-      const uf = filtros.value.municipio?.uf
-      if (!uf) return
-
-      const data = await api.getRumores(uf, 5)
-      rumorDestaque.value = data.destaque
-      rumores.value = data.items
-    }
-
     async function fetchUnidadeDetalhe(placeId: string) {
       return withStoreAction(
         { isLoading, error },
@@ -109,10 +124,6 @@ export const useMeuMunicipioStore = defineStore(
           unidadeLotacao.value = lot
         }
       )
-    }
-
-    async function fetchAll() {
-      await Promise.all([fetchMunicipioData(), fetchRumores()])
     }
 
     // === Setters ===
@@ -173,10 +184,9 @@ export const useMeuMunicipioStore = defineStore(
       panelView,
       // Actions
       fetchLookups,
-      fetchMunicipioData,
-      fetchRumores,
-      fetchUnidadeDetalhe,
       fetchAll,
+      fetchMunicipioData,
+      fetchUnidadeDetalhe,
       // Setters
       setMunicipio,
       setSemana,

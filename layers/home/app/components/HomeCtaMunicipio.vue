@@ -13,7 +13,7 @@
       </div>
 
       <Button as-child variant="brand-outline" size="brand-lg">
-        <NuxtLink to="/municipio">
+        <NuxtLink to="/meu-municipio">
           ir para Meu Município
           <Icon name="lucide:arrow-right" class="size-4" />
         </NuxtLink>
