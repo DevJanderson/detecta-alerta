@@ -7,14 +7,23 @@ const BRAZIL_ZOOM = 4
 const TILE_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png'
 const TILE_ATTRIBUTION = '&copy; OpenStreetMap, &copy; CartoDB'
 
-async function onMapReady(map: LeafletMap) {
-  // Remove controles padrão que o @nuxtjs/leaflet cria mesmo com props false
+const mapInstance = ref<LeafletMap | null>(null)
+
+function onMapReady(map: LeafletMap) {
   map.zoomControl?.remove()
   map.attributionControl?.remove()
-
-  const L = await import('leaflet')
-  L.control.zoom({ position: 'bottomright' }).addTo(map)
+  mapInstance.value = map
 }
+
+function zoomIn() {
+  mapInstance.value?.zoomIn()
+}
+
+function zoomOut() {
+  mapInstance.value?.zoomOut()
+}
+
+defineExpose({ mapInstance, zoomIn, zoomOut })
 </script>
 
 <template>

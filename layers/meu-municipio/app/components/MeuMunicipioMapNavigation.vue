@@ -13,7 +13,7 @@ const buttons = [
       <button
         type="button"
         :aria-label="button.label"
-        class="flex size-9 items-center justify-center rounded-full border border-secondary-100 bg-secondary-50 shadow-md transition-all duration-200 hover:border-secondary-200 hover:bg-secondary-100 lg:size-10"
+        class="flex size-9 items-center justify-center rounded-full border border-secondary-100 bg-secondary-50 shadow-md transition-all duration-200 hover:border-secondary-200 hover:bg-secondary-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 lg:size-10"
       >
         <Icon :name="button.icon" class="size-4 text-primary-500" aria-hidden="true" />
       </button>
