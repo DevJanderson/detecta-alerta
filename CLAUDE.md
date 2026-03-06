@@ -2,15 +2,23 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Idioma
+---
+
+## 1. IDENTIDADE
+
+### Idioma
 
 **Sempre responda em Português Brasileiro (pt-BR).**
 
-## Sobre o Projeto
+### Sobre o Projeto
 
 **Detecta Alerta** é uma plataforma de vigilância e monitoramento epidemiológico em tempo real para o Brasil. Centraliza dados de estabelecimentos de saúde (UBS, UPA, Drogarias) para análise de padrões epidemiológicos e detecção precoce de surtos.
 
-## Setup Inicial
+---
+
+## 2. ANTES DE COMEÇAR
+
+### Setup Inicial
 
 ```bash
 npm install
@@ -30,10 +38,11 @@ cp .env.example .env
 | `NUXT_SINAPSE_API_URL`     | Sim         | URL da API Sinapse (incluir `/api/v1`)                         |
 | `NUXT_PUBLIC_API_BASE_URL` | Não         | URL base da API pública (client-side)                          |
 | `NUXT_PUBLIC_SITE_URL`     | Não         | URL pública do site (default: `https://alerta.sinapse.org.br`) |
+| `NUXT_DEVTOOLS`            | Não         | Habilita Nuxt DevTools (default: `false`)                      |
 
-> **Pre-commit hooks:** `lint-staged` roda automaticamente ESLint + Prettier em arquivos staged (`*.{js,ts,vue,json,css,md}`).
+> **Pre-commit hooks:** `lint-staged` roda automaticamente ESLint + Prettier em arquivos staged. ESLint + Prettier em `*.{js,ts,vue}`, apenas Prettier em `*.{json,css,md}`.
 
-## Comandos Principais
+### Comandos Principais
 
 ```bash
 npm run dev              # Servidor dev http://localhost:3000
@@ -54,115 +63,24 @@ npm run api:lint         # Valida OpenAPI spec com Spectral
 npm run geo:convert      # Converte GeoJSON → TopoJSON (public/geo/)
 ```
 
-### Vitest - Projetos de Teste
+---
 
-Workspace com dois projetos separados (`vitest.config.ts`):
+## 3. PRINCÍPIOS
 
-| Projeto | Comando             | Ambiente                     | Diretório                        | Quando usar                                      |
-| ------- | ------------------- | ---------------------------- | -------------------------------- | ------------------------------------------------ |
-| `unit`  | `npm run test:unit` | Node puro                    | `tests/unit/**/*.test.ts`        | Utils, funções puras, lógica sem dependência Vue |
-| `nuxt`  | `npm run test:nuxt` | happy-dom + @nuxt/test-utils | `tests/integration/**/*.test.ts` | Composables, stores, componentes Vue             |
+### Princípio ETC (Easier to Change)
 
-O projeto `nuxt` usa `tests/setup.ts` (stubs de `NuxtLink`, `ClientOnly`, `NuxtImg`, `Icon` e mock de `useColorMode`) e tem acesso a auto-imports do Nuxt. O projeto `unit` é mais rápido por não carregar o ambiente Nuxt.
-
-### Tailwind CSS v4
-
-Tailwind v4 usa **arquivo CSS** em vez de `tailwind.config.js`. Toda configuração (cores, radius, plugins) fica em `layers/base/app/assets/css/main.css`:
-
-```css
-@import 'tailwindcss';
-@plugin '@tailwindcss/typography';
-@source "../../../../"; /* Scan de classes em todas as layers */
-
-@theme inline {
-  --color-primary-50: ...; /* Cores do design system */
-}
-```
-
-Não existe `tailwind.config.js` — se precisar adicionar cores ou tokens, editar o `main.css`.
-
-## Princípio ETC (Easier to Change)
-
-Valor guia do projeto, inspirado no livro "The Pragmatic Programmer". ETC não é uma regra — é a pergunta que fazemos antes de cada decisão: **"isso vai facilitar mudanças futuras?"**
-
-### Checklist ETC
-
-Antes de criar ou modificar código, pergunte:
+Valor guia do projeto, inspirado no livro "The Pragmatic Programmer". Antes de cada decisão, pergunte: **"isso vai facilitar mudanças futuras?"**
 
 - **Isolamento**: a mudança está contida em uma layer/arquivo, ou espalha impacto?
 - **Constantes**: valores mágicos estão nomeados e centralizados?
 - **Abstrações**: estou criando uma abstração útil ou prematura?
 - **Acoplamento**: componentes dependem de detalhes internos de outros?
-- **Testes**: a mudança é protegida por testes que detectam regressão?
 
-### Como o ETC se manifesta no Detecta Alerta
+**Anti-patterns:** valores hardcoded (magic numbers, URLs inline, cores hex/rgb), componentes God Object (>300 linhas), lógica duplicada sem extração, acoplamento direto entre layers (import horizontal).
 
-| Decisão                       | Por quê é ETC                                      |
-| ----------------------------- | -------------------------------------------------- |
-| Nuxt Layers                   | Trocar/remover uma feature = mexer em uma layer só |
-| BFF isolando a API Sinapse    | API externa muda, frontend não sente               |
-| Kubb gerando tipos            | Contrato muda → `npm run api:generate` → pronto    |
-| CSS variables (design system) | Uma variável muda a cor em todos os componentes    |
-| Store/Service separation      | Trocar o HTTP client = mexer só no service         |
-| useSeoPage composable         | Mudar estratégia de SEO = alterar um composable    |
+---
 
-### Anti-patterns ETC
-
-- Valores hardcoded (magic numbers, URLs inline, cores hex/rgb)
-- Componentes God Object (>300 linhas fazendo tudo)
-- Lógica duplicada sem extração
-- Acoplamento direto entre layers (import horizontal)
-- Ausência de testes em fluxos críticos
-
-## Regras Críticas
-
-### Git - Branching (Gitflow)
-
-O projeto usa **Gitflow** com três branches permanentes:
-
-```
-feature/* ──→ develop ──→ staging ──→ main
-               (dev)       (QA)      (produção)
-```
-
-| Branch    | Propósito                        | Deploy           |
-| --------- | -------------------------------- | ---------------- |
-| `main`    | Produção — código estável        | Produção         |
-| `staging` | QA/homologação antes de produção | Ambiente staging |
-| `develop` | Integração de features           | Ambiente dev     |
-
-#### Regras de branching
-
-- **Branch de trabalho padrão:** `develop` (nunca commitar direto na `main` ou `staging`)
-- **Feature branches:** criar a partir de `develop`, prefixo pelo tipo do commit
-  - `feat/descricao`, `fix/descricao`, `refactor/descricao`, `chore/descricao`
-- **Merge para develop:** via PR com squash ou merge commit
-- **Merge develop → staging:** quando features estão prontas para QA
-- **Merge staging → main:** após aprovação em staging (release)
-- **Hotfix:** branch `hotfix/descricao` a partir de `main`, merge em `main` e `develop`
-
-#### Fluxo típico
-
-```bash
-git checkout develop
-git pull origin develop
-git checkout -b feat/nova-feature
-# ... trabalhar ...
-git push -u origin feat/nova-feature
-# Abrir PR para develop
-```
-
-### Git - Commits
-
-- **NÃO** incluir `Co-Authored-By` nos commits
-- Mensagens de commit em português ou inglês (consistente com o projeto)
-- Commitlint exige `subject-case: lower-case` (severity error)
-  - ✅ `feat(auth): implementa login com oauth`
-  - ❌ `feat(auth): Implementa Login` ← falha no commit
-  - Nomes de função/classe (PascalCase) só no body, nunca no subject
-  - Limites: subject ≤ 72 chars, body ≤ 100 chars por linha
-  - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`, `revert`
-  - Scopes: `auth`, `home`, `meu-municipio`, `mapa-risco`, `usuarios`, `rumores`, `docs`, `base`, `deps`, `kubb`
+## 4. REGRAS CRÍTICAS
 
 ### Execução
 
@@ -170,22 +88,7 @@ git push -u origin feat/nova-feature
 - Para verificar erros, usar apenas `npm run typecheck` ou `npm run build`
 - Evitar processos que ficam rodando indefinidamente
 
-### Code Style
-
-Projeto usa Prettier com: **sem ponto-e-vírgula**, **aspas simples**, **100 colunas**, **sem trailing comma**, **arrow parens: avoid**, **endOfLine: lf**, **vueIndentScriptAndStyle: false**.
-
-```typescript
-// ✅ Correto
-const name = 'detecta'
-const fn = x => x + 1
-import { ref } from 'vue'
-
-// ❌ Incorreto
-const name = 'detecta'
-const fn = x => x + 1
-```
-
-### Regras ESLint Importantes
+### ESLint
 
 - `no-console`: apenas `console.warn` e `console.error` permitidos
 - `prefer-const`: obrigatório (`error`) - usar `const` quando não reatribui
@@ -193,10 +96,12 @@ const fn = x => x + 1
 - `vue/html-self-closing`: sempre auto-fechar componentes (`<MyComp />`)
 - `vue/multi-word-component-names`: **off** — componentes single-word são permitidos (ex: `Button.vue`)
 - `@typescript-eslint/no-explicit-any`: `warn` (não bloqueia, mas evitar)
-- `vue/no-multiple-template-root`: **off** — múltiplos root elements no template são permitidos (Vue 3 fragments)
+- `vue/no-multiple-template-root`: **off** — múltiplos root elements permitidos (Vue 3 fragments)
 - `generated/**` é ignorado pelo ESLint
 
-## Arquitetura
+---
+
+## 5. ARQUITETURA
 
 Nuxt 4 + shadcn-vue + Tailwind CSS v4 + **Nuxt Layers**.
 
@@ -252,7 +157,40 @@ layers/{feature}/
 └── server/api/{feature}/       # CRUD endpoints
 ```
 
-## Padrões de Código
+### Autenticação (Client-side)
+
+A layer `auth` inclui middlewares client-side além do BFF:
+
+- `auth.global.ts` — middleware global que roda em todas as rotas
+- `auth-guard.ts` — proteção de rotas autenticadas
+- `auth-redirect.client.ts` — plugin de redirecionamento pós-login
+
+---
+
+## 6. ONDE COLOCAR
+
+Árvore de decisão para posicionar código novo:
+
+```
+Preciso criar...
+├── Função pura (sem ref/computed)?       → layers/{feature}/app/utils/
+├── Lógica com estado Vue (ref/computed)? → layers/{feature}/app/composables/
+├── Componente visual?                    → layers/{feature}/app/components/{Feature}Nome.vue
+├── Página/rota?                          → layers/{feature}/app/pages/{feature}/
+├── Layout customizado?                   → layers/{feature}/app/layouts/
+├── Endpoint BFF?                         → layers/{feature}/server/api/{feature}/
+├── Tipo/interface da feature?            → layers/{feature}/app/composables/types.ts
+└── Tipo compartilhado entre layers?      → layers/base/shared/types/
+```
+
+### Utils vs Composables
+
+- **Utils** (`layers/base/app/utils/`): Funções puras, sem estado Vue
+- **Composables** (`layers/base/app/composables/`): Lógica com `ref`, `computed`
+
+---
+
+## 7. COMO CONSTRUIR
 
 ### Service (API)
 
@@ -337,11 +275,6 @@ event.context.auth?.accessToken // string (token JWT)
 event.context.isAdmin // boolean (verificado pelo 02.admin)
 ```
 
-### Utils vs Composables
-
-- **Utils** (`layers/base/app/utils/`): Funções puras, sem estado Vue
-- **Composables** (`layers/base/app/composables/`): Lógica com `ref`, `computed`
-
 ### Utilitários Importantes (auto-importados)
 
 ```typescript
@@ -392,11 +325,6 @@ const qs = buildQueryString(getQuery(event), ['page', 'search', 'status'])
 
 Logger centralizado em `layers/base/server/utils/logger.ts`, auto-importado pelo Nitro. Usa `consola`.
 
-| Ambiente | Formato                              | Uso                      |
-| -------- | ------------------------------------ | ------------------------ |
-| Dev      | Texto colorido (FancyReporter)       | Terminal legível         |
-| Produção | JSON estruturado (uma linha por log) | Datadog, Grafana, Sentry |
-
 ```typescript
 // Uso básico (auto-importado, sem import necessário)
 logger.info('Evento aconteceu', { userId: 42, action: 'login' })
@@ -405,12 +333,7 @@ logger.error('Falha na operação', { endpoint: '/api/x' })
 logger.debug('Debug info') // só aparece se CONSOLA_LEVEL=4
 ```
 
-**Regras:**
-
-- **Nunca logar dados sensíveis** (senhas, tokens, dados pessoais)
-- Em produção, `logAuthError()` omite detalhes do erro (apenas contexto)
-- Log level controlável via `CONSOLA_LEVEL` (0=error, 3=info, 4=debug)
-- Logs de negócio (login, refresh) usam `logger.info` / `logger.warn`
+**Nunca logar dados sensíveis** (senhas, tokens, dados pessoais). Log level controlável via `CONSOLA_LEVEL` (0=error, 3=info, 4=debug).
 
 ### Tipos Compartilhados (`#shared`)
 
@@ -423,9 +346,92 @@ import type { ApiResponse, PaginatedResponse } from '#shared/types'
 // PaginatedResponse<T> — { data: T[], meta: { total, page, perPage, lastPage } }
 ```
 
-## SEO
+---
 
-### Composable `useSeoPage`
+## 8. COMO VALIDAR
+
+### Vitest - Projetos de Teste
+
+Workspace com dois projetos separados (`vitest.config.ts`):
+
+| Projeto | Comando             | Ambiente                     | Diretório                        | Quando usar                                      |
+| ------- | ------------------- | ---------------------------- | -------------------------------- | ------------------------------------------------ |
+| `unit`  | `npm run test:unit` | Node puro                    | `tests/unit/**/*.test.ts`        | Utils, funções puras, lógica sem dependência Vue |
+| `nuxt`  | `npm run test:nuxt` | happy-dom + @nuxt/test-utils | `tests/integration/**/*.test.ts` | Composables, stores, componentes Vue             |
+
+O projeto `nuxt` usa `tests/setup.ts` (stubs de `NuxtLink`, `ClientOnly`, `NuxtImg`, `Icon` e mock de `useColorMode`) e tem acesso a auto-imports do Nuxt. O projeto `unit` é mais rápido por não carregar o ambiente Nuxt.
+
+### Verificação Rápida
+
+```bash
+npm run typecheck        # Verificar tipos (USAR para detectar erros)
+npm run quality:fix      # Lint + format
+npm run test:run         # Todos os testes
+```
+
+---
+
+## 9. COMO ENTREGAR
+
+### Git - Branching (Gitflow)
+
+O projeto usa **Gitflow** com três branches permanentes:
+
+```
+feature/* ──→ develop ──→ staging ──→ main
+               (dev)       (QA)      (produção)
+```
+
+| Branch    | Propósito                        | Deploy           |
+| --------- | -------------------------------- | ---------------- |
+| `main`    | Produção — código estável        | Produção         |
+| `staging` | QA/homologação antes de produção | Ambiente staging |
+| `develop` | Integração de features           | Ambiente dev     |
+
+#### Regras de branching
+
+- **Branch de trabalho padrão:** `develop` (nunca commitar direto na `main` ou `staging`)
+- **Feature branches:** criar a partir de `develop`, prefixo pelo tipo do commit
+  - `feat/descricao`, `fix/descricao`, `refactor/descricao`, `chore/descricao`
+- **Merge para develop:** via PR com squash ou merge commit
+- **Merge develop → staging:** quando features estão prontas para QA
+- **Merge staging → main:** após aprovação em staging (release)
+- **Hotfix:** branch `hotfix/descricao` a partir de `main`, merge em `main` e `develop`
+
+#### Fluxo típico
+
+```bash
+git checkout develop
+git pull origin develop
+git checkout -b feat/nova-feature
+# ... trabalhar ...
+git push -u origin feat/nova-feature
+# Abrir PR para develop
+```
+
+### Git - Commits
+
+- **NÃO** incluir `Co-Authored-By` nos commits
+- Mensagens de commit em português ou inglês (consistente com o projeto)
+- Commitlint exige `subject-case: lower-case` (severity error)
+  - ✅ `feat(auth): implementa login com oauth`
+  - ❌ `feat(auth): Implementa Login` ← falha no commit
+  - Nomes de função/classe (PascalCase) só no body, nunca no subject
+  - Limites: subject ≤ 72 chars, body ≤ 100 chars por linha
+  - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`, `revert`
+  - Scopes sugeridos (não enforced pelo commitlint): `auth`, `home`, `meu-municipio`, `mapa-risco`, `usuarios`, `rumores`, `docs`, `base`, `deps`, `kubb`
+
+### PR Template
+
+Disponível em `.github/PULL_REQUEST_TEMPLATE.md` — preenchido automaticamente ao abrir PRs no GitHub.
+
+---
+
+## 10. REFERÊNCIA
+
+### SEO
+
+#### Composable `useSeoPage`
 
 Usar `useSeoPage` (não `useSeoMeta`) em todas as páginas. Gera automaticamente: title, description, Open Graph, Twitter Cards e canonical URL.
 
@@ -440,7 +446,7 @@ useSeoPage({
 
 > **Nota:** `useSeoPage` **não** controla robots. Robots é controlado via `X-Robots-Tag` headers em `routeRules` no `nuxt.config.ts`.
 
-### Sitemap, Robots e Schema.org
+#### Sitemap, Robots e Schema.org
 
 Gerenciados pelo módulo unificado `@nuxtjs/seo` (substitui `@nuxtjs/sitemap`, `@nuxtjs/robots` e `nuxt-schema-org`).
 
@@ -450,103 +456,35 @@ Gerenciados pelo módulo unificado `@nuxtjs/seo` (substitui `@nuxtjs/sitemap`, `
 - **Schema.org (JSON-LD)**: `useSchemaOrg()` + `defineWebSite()` na homepage
 - **ogImage** e **linkChecker**: desabilitados (`enabled: false` no `nuxt.config.ts`)
 
-### Content
+#### Content
 
 Módulo `@nuxt/content` disponível para páginas com conteúdo em Markdown/YAML/JSON. Highlight restrito a `bash`, `typescript`, `vue` — adicionar novas linguagens em `nuxt.config.ts` (`content.build.markdown.highlight.langs`). Docs: [content.nuxt.com](https://content.nuxt.com)
 
-## Componentes shadcn-vue
+### Segurança
 
-```bash
-npx shadcn-vue@latest add <componente>
-```
+Módulo `nuxt-security` configurado com headers, rate limiter, CSRF e XSS protection. O CSRF usa `nuxt-csurf` internamente.
 
-Componentes ficam em `layers/base/app/components/ui/` (auto-import). O shadcn-vue usa **reka-ui** como base headless — para customizações avançadas de comportamento (acessibilidade, keyboard navigation), consultar a [API do reka-ui](https://reka-ui.com).
+**Regras para o código:**
 
-## Bibliotecas UI Disponíveis
-
-| Biblioteca                | Uso                                           |
-| ------------------------- | --------------------------------------------- |
-| `vue-sonner`              | Toasts/notificações (módulo Nuxt, sem CSS)    |
-| `@tanstack/vue-table`     | Tabelas com sort/filter/pagination            |
-| `@nuxtjs/leaflet`         | Mapas interativos (meu-municipio, mapa-risco) |
-| `maska`                   | Máscaras de input (CPF, telefone, etc.)       |
-| `@vueuse/core`            | Composables utilitários Vue                   |
-| `@tailwindcss/typography` | Plugin prose para Markdown                    |
-
-## Design System - Cores
-
-| Recurso          | Local                                 |
-| ---------------- | ------------------------------------- |
-| Arquivo de cores | `layers/base/app/assets/css/main.css` |
-
-### Paleta Principal
-
-| Cor         | Classe Tailwind         | Uso                              |
-| ----------- | ----------------------- | -------------------------------- |
-| `primary`   | `bg-primary-{50-950}`   | Vermelho/Coral - CTAs, destaques |
-| `secondary` | `bg-secondary-{50-950}` | Azul - Links, ações secundárias  |
-| `base`      | `bg-base-{0-950}`       | Neutros - Textos, fundos         |
-| `success`   | `bg-success-{50-950}`   | Verde - Feedback positivo        |
-| `alert`     | `bg-alert-{50-950}`     | Amarelo - Avisos                 |
-| `danger`    | `bg-danger-{50-950}`    | Vermelho - Erros                 |
-
-### Regras
-
-- **Escala numérica** (`primary-{50-950}`, `secondary-{50-950}`, `base-*`, `success`, `alert`, `danger`) para tons específicos
-- **Semânticas shadcn** (`primary`, `secondary`, `muted` — sem número) para componentes UI
-- **Tons baixos (50-200)** para fundos, **tons altos (600-900)** para textos
-- **Nunca usar cores hardcoded** - sempre variáveis do design system
-
-## Segurança
-
-Módulo `nuxt-security` configurado com headers, rate limiter, CSRF e XSS protection.
-
-> **Nota:** O CSRF usa `nuxt-csurf` internamente (não precisa instalar separadamente).
-
-### Configuração Atual
-
-| Feature           | Configuração                                                            |
-| ----------------- | ----------------------------------------------------------------------- |
-| **Headers**       | CSP (desabilitado em dev), HSTS, X-Frame-Options, etc.                  |
-| **Rate Limiter**  | 150 req/5min (global), 10 req/5min (login), 5 req/5min (reset-password) |
-| **CSRF**          | Habilitado para POST/PUT/PATCH/DELETE (desabilitado em `/api/auth/*`)   |
-| **XSS Validator** | Habilitado com defaults                                                 |
-| **Request Size**  | 2MB (geral), 8MB (upload)                                               |
-
-### Desabilitar CSRF por Rota
-
-```typescript
-// nuxt.config.ts
-routeRules: {
-  '/api/minha-rota': { csurf: false }
-}
-```
-
-### Padrões de Código
-
-```typescript
-// Tokens em cookies httpOnly (nunca localStorage)
-setCookie(event, 'token', value, { httpOnly: true, secure: true, sameSite: 'strict' })
-
-// SEMPRE validar no servidor com Zod
-const result = schema.safeParse(body)
-if (!result.success) throw createError({ statusCode: 400 })
-```
+- Tokens em cookies `httpOnly` (nunca localStorage)
+- SEMPRE validar no servidor com Zod (`schema.safeParse(body)`)
+- CSRF habilitado para POST/PUT/PATCH/DELETE (desabilitado em `/api/auth/*`)
+- Desabilitar CSRF por rota: `routeRules: { '/api/rota': { csurf: false } }`
 
 Docs: [nuxt-security.vercel.app](https://nuxt-security.vercel.app)
 
-## API Client (Kubb)
+### API Client (Kubb)
 
 Código TypeScript gerado automaticamente a partir da especificação OpenAPI.
 
-### O que usar do Kubb
+#### O que usar do Kubb
 
 | Componente      | Usar?  | Onde                               |
 | --------------- | ------ | ---------------------------------- |
 | **Tipos**       | ✅ Sim | Composables, stores, endpoints BFF |
 | **Schemas Zod** | ✅ Sim | Validação de respostas no BFF      |
 
-### Estrutura
+#### Estrutura
 
 ```
 kubb.config.ts              # Configuração do Kubb (input: URL remota)
@@ -559,7 +497,7 @@ generated/
 
 > **Input:** Spec OpenAPI é buscada diretamente de `https://staging.sinapse.org.br/openapi.json` (sem arquivo local).
 
-### Uso Recomendado
+#### Uso Recomendado
 
 ```typescript
 // ✅ CORRETO - Tipos para autocomplete e type safety
@@ -574,13 +512,13 @@ const rawResponse = await $fetch('/auth/login', { ... })
 const validated = tokenSchema.parse(rawResponse) // Valida em runtime
 ```
 
-### Regenerar após mudanças no OpenAPI
+#### Regenerar após mudanças no OpenAPI
 
 ```bash
 npm run api:generate
 ```
 
-### Configuração Importante (`kubb.config.ts`)
+#### Configuração Importante (`kubb.config.ts`)
 
 O projeto usa `verbatimModuleSyntax: true` no TypeScript, o que exige configurações específicas:
 
@@ -601,42 +539,76 @@ output: {
 | `pluginZod` | **NÃO usar** `typed: true` ou `inferred: true` | Gera `import { ToZod }` que conflita com `verbatimModuleSyntax` |
 | `pluginTs`  | Usar normalmente                               | Sem restrições                                                  |
 
-### Adicionar Nova API
+### Design System
 
-1. Obter a URL do OpenAPI spec (ou arquivo local)
-2. Criar nova config em `kubb.config.ts` ou arquivo separado
-3. Ajustar `input.path` e `output.path` para `./generated/<nome>`
-4. Executar `npm run api:generate`
+#### Tailwind CSS v4
 
-### Troubleshooting
+Tailwind v4 usa **arquivo CSS** em vez de `tailwind.config.js`. Toda configuração (cores, radius, plugins) fica em `layers/base/app/assets/css/main.css`:
 
-| Erro                           | Solução                                               |
-| ------------------------------ | ----------------------------------------------------- |
-| `allowImportingTsExtensions`   | Adicionar `extension: { '.ts': '' }` no output        |
-| `verbatimModuleSyntax` + ToZod | Remover `typed: true` e `inferred: true` do pluginZod |
-| Tipos não reconhecidos         | Verificar se `generated/` não está no `.gitignore`    |
+```css
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@source "../../../../"; /* Scan de classes em todas as layers */
 
-## ai-context (Context Engineering)
+@theme inline {
+  --color-primary-50: ...; /* Cores do design system */
+}
+```
+
+Não existe `tailwind.config.js` — se precisar adicionar cores ou tokens, editar o `main.css`.
+
+#### Paleta Principal
+
+| Cor         | Classe Tailwind         | Uso                              |
+| ----------- | ----------------------- | -------------------------------- |
+| `primary`   | `bg-primary-{50-950}`   | Vermelho/Coral - CTAs, destaques |
+| `secondary` | `bg-secondary-{50-950}` | Azul - Links, ações secundárias  |
+| `base`      | `bg-base-{0-950}`       | Neutros - Textos, fundos         |
+| `success`   | `bg-success-{50-950}`   | Verde - Feedback positivo        |
+| `alert`     | `bg-alert-{50-950}`     | Amarelo - Avisos                 |
+| `danger`    | `bg-danger-{50-950}`    | Vermelho - Erros                 |
+
+#### Regras de Cores
+
+- **Escala numérica** (`primary-{50-950}`, `secondary-{50-950}`, `base-*`, `success`, `alert`, `danger`) para tons específicos
+- **Semânticas shadcn** (`primary`, `secondary`, `muted` — sem número) para componentes UI
+- **Tons baixos (50-200)** para fundos, **tons altos (600-900)** para textos
+- **Nunca usar cores hardcoded** - sempre variáveis do design system
+
+### Componentes shadcn-vue
+
+```bash
+npx shadcn-vue@latest add <componente>
+```
+
+Componentes ficam em `layers/base/app/components/ui/` (auto-import). O shadcn-vue usa **reka-ui** como base headless — para customizações avançadas de comportamento (acessibilidade, keyboard navigation), consultar a [API do reka-ui](https://reka-ui.com).
+
+### Bibliotecas UI Disponíveis
+
+| Biblioteca                | Uso                                           |
+| ------------------------- | --------------------------------------------- |
+| `vue-sonner`              | Toasts/notificações (módulo Nuxt, sem CSS)    |
+| `@tanstack/vue-table`     | Tabelas com sort/filter/pagination            |
+| `@nuxtjs/leaflet`         | Mapas interativos (meu-municipio, mapa-risco) |
+| `maska`                   | Máscaras de input (CPF, telefone, etc.)       |
+| `@vueuse/core`            | Composables utilitários Vue                   |
+| `@tailwindcss/typography` | Plugin prose para Markdown                    |
+
+### ai-context (Context Engineering)
 
 Projeto usa **`@ai-coders/context`** via MCP para planejamento e execução estruturada de tarefas. Pasta `.context/` na raiz é a fonte de verdade (docs, agents, plans, skills, workflow).
 
-### Regras
+#### Regras
 
 - **SEMPRE usar ai-context** para planejar e executar tarefas não-triviais
 - **NÃO criar planos manualmente** em `.context/plans/` — usar MCP tools
 - **NÃO usar `sync({ action: "exportContext" })`** — sobrescreve o CLAUDE.md
 - Para tarefas triviais (typo, single-line fix), pode pular o workflow
 
-### Workflow PREVC
+#### Workflow PREVC
 
 Escalas: `QUICK` (E→V), `SMALL` (P→E→V), `MEDIUM` (P→R→E→V), `LARGE` (P→R→E→V→C).
 
 Fluxo típico: `context({ action: "check" })` → `context({ action: "scaffoldPlan" })` → `workflow-init()` → `workflow-advance()`.
 
 Ferramentas MCP disponíveis: `context`, `explore`, `plan`, `agent`, `skill`, `sync`, `workflow-init`, `workflow-status`, `workflow-advance`, `workflow-manage`. Detalhes em `.context/docs/`.
-
-## Documentação
-
-### PR Template
-
-Disponível em `.github/PULL_REQUEST_TEMPLATE.md` — preenchido automaticamente ao abrir PRs no GitHub.
