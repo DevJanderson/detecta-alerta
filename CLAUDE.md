@@ -585,14 +585,14 @@ Componentes ficam em `layers/base/app/components/ui/` (auto-import). O shadcn-vu
 
 ### Bibliotecas UI Disponíveis
 
-| Biblioteca                | Uso                                           |
-| ------------------------- | --------------------------------------------- |
-| `vue-sonner`              | Toasts/notificações (módulo Nuxt, sem CSS)    |
-| `@tanstack/vue-table`     | Tabelas com sort/filter/pagination            |
-| `@nuxtjs/leaflet`         | Mapas interativos (meu-municipio, mapa-risco) |
-| `maska`                   | Máscaras de input (CPF, telefone, etc.)       |
-| `@vueuse/core`            | Composables utilitários Vue                   |
-| `@tailwindcss/typography` | Plugin prose para Markdown                    |
+| Biblioteca                | Uso                                             |
+| ------------------------- | ----------------------------------------------- |
+| `vue-sonner`              | Toasts/notificações (módulo Nuxt, sem CSS)      |
+| `@tanstack/vue-table`     | Tabelas com sort/filter/pagination              |
+| `leaflet`                 | Mapas interativos (API direta, sem módulo Nuxt) |
+| `maska`                   | Máscaras de input (CPF, telefone, etc.)         |
+| `@vueuse/core`            | Composables utilitários Vue                     |
+| `@tailwindcss/typography` | Plugin prose para Markdown                      |
 
 ### ai-context (Context Engineering)
 

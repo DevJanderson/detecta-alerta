@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { Map as LeafletMap } from 'leaflet'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 
 const BRAZIL_CENTER: [number, number] = [-14.235, -51.9253]
 const BRAZIL_ZOOM = 4
@@ -7,38 +8,43 @@ const BRAZIL_ZOOM = 4
 const TILE_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png'
 const TILE_ATTRIBUTION = '&copy; OpenStreetMap, &copy; CartoDB'
 
-const mapInstance = ref<LeafletMap | null>(null)
+const mapContainer = ref<HTMLElement | null>(null)
+const map = shallowRef<L.Map | null>(null)
 
-function onMapReady(map: LeafletMap) {
-  map.zoomControl?.remove()
-  map.attributionControl?.remove()
-  mapInstance.value = map
-}
+onMounted(() => {
+  if (!mapContainer.value) return
+
+  map.value = L.map(mapContainer.value, {
+    center: BRAZIL_CENTER,
+    zoom: BRAZIL_ZOOM,
+    minZoom: 4,
+    maxZoom: 18,
+    zoomControl: false,
+    attributionControl: false,
+    preferCanvas: true
+  })
+
+  L.tileLayer(TILE_URL, { attribution: TILE_ATTRIBUTION }).addTo(map.value)
+})
+
+onUnmounted(() => {
+  if (map.value) {
+    map.value.remove()
+    map.value = null
+  }
+})
 
 function zoomIn() {
-  mapInstance.value?.zoomIn()
+  map.value?.zoomIn()
 }
 
 function zoomOut() {
-  mapInstance.value?.zoomOut()
+  map.value?.zoomOut()
 }
 
-defineExpose({ mapInstance, zoomIn, zoomOut })
+defineExpose({ map, zoomIn, zoomOut })
 </script>
 
 <template>
-  <div class="absolute inset-0">
-    <LMap
-      :zoom="BRAZIL_ZOOM"
-      :center="BRAZIL_CENTER"
-      :min-zoom="4"
-      :max-zoom="18"
-      :use-global-leaflet="false"
-      :zoom-control="false"
-      class="h-full w-full"
-      @ready="onMapReady"
-    >
-      <LTileLayer :url="TILE_URL" :attribution="TILE_ATTRIBUTION" layer-type="base" />
-    </LMap>
-  </div>
+  <div ref="mapContainer" class="absolute inset-0" />
 </template>

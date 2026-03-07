@@ -89,8 +89,7 @@ export default defineNuxtConfig({
     ['vue-sonner/nuxt', { css: false }],
     '@nuxtjs/seo',
     '@nuxtjs/color-mode',
-    'pinia-plugin-persistedstate/nuxt',
-    '@nuxtjs/leaflet'
+    'pinia-plugin-persistedstate/nuxt'
   ],
 
   robots: {
