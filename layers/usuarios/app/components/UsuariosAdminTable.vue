@@ -31,8 +31,7 @@ const emit = defineEmits<{
         <TableCell class="font-medium">{{ u.nome }}</TableCell>
         <TableCell>{{ u.email }}</TableCell>
         <TableCell>
-          <Badge v-if="u.ativo !== false" class="bg-success-100 text-success-800"> Ativo </Badge>
-          <Badge v-else class="bg-danger-100 text-danger-800"> Inativo </Badge>
+          <StatusBadge :active="u.ativo !== false" />
         </TableCell>
         <TableCell>
           <div class="flex flex-wrap gap-1">
@@ -43,17 +42,11 @@ const emit = defineEmits<{
           </div>
         </TableCell>
         <TableCell class="text-right">
-          <div class="flex justify-end gap-1">
-            <Button variant="ghost" size="icon" @click="emit('view', u.id)">
-              <Icon name="lucide:eye" class="size-4" />
-            </Button>
-            <Button variant="ghost" size="icon" @click="emit('edit', u)">
-              <Icon name="lucide:pencil" class="size-4" />
-            </Button>
-            <Button variant="ghost" size="icon" @click="emit('delete', u)">
-              <Icon name="lucide:trash-2" class="size-4 text-danger-600" />
-            </Button>
-          </div>
+          <TableActions
+            @view="emit('view', u.id)"
+            @edit="emit('edit', u)"
+            @delete="emit('delete', u)"
+          />
         </TableCell>
       </TableRow>
     </TableBody>

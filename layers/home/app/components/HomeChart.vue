@@ -89,15 +89,12 @@ const activeFilter = ref('UBS')
         </div>
 
         <!-- Placeholder do gráfico -->
-        <div
-          class="flex h-64 items-center justify-center rounded-lg border border-dashed border-base-200 bg-base-50"
-        >
-          <div class="text-center">
-            <Icon name="lucide:chart-line" class="mx-auto size-12 text-base-300" />
-            <p class="mt-2 text-sm text-base-400">Gráfico de lotação semanal</p>
-            <p class="text-xs text-base-300">(ApexCharts — integração futura)</p>
-          </div>
-        </div>
+        <CommonPlaceholderBox
+          icon="lucide:chart-line"
+          label="Gráfico de lotação semanal"
+          sublabel="(ApexCharts — integração futura)"
+          class="h-64"
+        />
 
         <!-- Legenda -->
         <div class="flex flex-wrap items-center justify-between gap-4 text-xs text-base-500">

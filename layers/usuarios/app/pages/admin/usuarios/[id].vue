@@ -76,9 +76,7 @@ async function handleDeleteConfirm() {
 <template>
   <div class="mx-auto max-w-4xl px-4 py-8">
     <!-- Loading -->
-    <div v-if="isLoading" class="flex items-center justify-center py-12">
-      <Icon name="lucide:loader-2" class="size-6 animate-spin text-muted-foreground" />
-    </div>
+    <CommonLoadingSpinner v-if="isLoading" />
 
     <!-- Erro -->
     <Alert v-else-if="error" variant="destructive">

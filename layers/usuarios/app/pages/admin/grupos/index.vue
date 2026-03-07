@@ -93,9 +93,7 @@ function handlePageChange(page: number) {
     </div>
 
     <!-- Loading -->
-    <div v-if="gruposStore.isLoading" class="flex items-center justify-center py-12">
-      <Icon name="lucide:loader-2" class="size-6 animate-spin text-muted-foreground" />
-    </div>
+    <CommonLoadingSpinner v-if="gruposStore.isLoading" />
 
     <!-- Tabela -->
     <template v-else>
@@ -107,24 +105,13 @@ function handlePageChange(page: number) {
       />
 
       <!-- Paginacao -->
-      <div v-if="gruposStore.pages > 1" class="mt-4 flex justify-center">
-        <Pagination
-          :total="gruposStore.total"
-          :items-per-page="gruposStore.size"
-          :sibling-count="1"
-          show-edges
-          :default-page="gruposStore.page"
-          @update:page="handlePageChange"
-        >
-          <PaginationContent>
-            <PaginationFirst />
-            <PaginationPrevious />
-            <PaginationItem v-for="item in gruposStore.pages" :key="item" :value="item" />
-            <PaginationNext />
-            <PaginationLast />
-          </PaginationContent>
-        </Pagination>
-      </div>
+      <CommonSimplePagination
+        :total="gruposStore.total"
+        :per-page="gruposStore.size"
+        :current-page="gruposStore.page"
+        :pages="gruposStore.pages"
+        @update:page="handlePageChange"
+      />
     </template>
 
     <!-- Dialog criar/editar -->

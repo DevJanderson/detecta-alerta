@@ -87,9 +87,7 @@ async function handleDeleteConfirm(id: number) {
     </div>
 
     <!-- Loading -->
-    <div v-if="permissoesStore.isLoading" class="flex items-center justify-center py-12">
-      <Icon name="lucide:loader-2" class="size-6 animate-spin text-muted-foreground" />
-    </div>
+    <CommonLoadingSpinner v-if="permissoesStore.isLoading" />
 
     <!-- Tabela -->
     <PermissoesTable

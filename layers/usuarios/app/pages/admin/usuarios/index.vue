@@ -119,9 +119,7 @@ async function handleDeleteConfirm(id: number) {
     <UsuariosAdminFilters class="mb-4" @filter="handleFilter" />
 
     <!-- Loading -->
-    <div v-if="usuariosStore.isLoading" class="flex items-center justify-center py-12">
-      <Icon name="lucide:loader-2" class="size-6 animate-spin text-muted-foreground" />
-    </div>
+    <CommonLoadingSpinner v-if="usuariosStore.isLoading" />
 
     <!-- Tabela -->
     <template v-else>
@@ -133,24 +131,13 @@ async function handleDeleteConfirm(id: number) {
       />
 
       <!-- Paginacao -->
-      <div v-if="usuariosStore.pages > 1" class="mt-4 flex justify-center">
-        <Pagination
-          :total="usuariosStore.total"
-          :items-per-page="usuariosStore.size"
-          :sibling-count="1"
-          show-edges
-          :default-page="usuariosStore.page"
-          @update:page="handlePageChange"
-        >
-          <PaginationContent>
-            <PaginationFirst />
-            <PaginationPrevious />
-            <PaginationItem v-for="item in usuariosStore.pages" :key="item" :value="item" />
-            <PaginationNext />
-            <PaginationLast />
-          </PaginationContent>
-        </Pagination>
-      </div>
+      <CommonSimplePagination
+        :total="usuariosStore.total"
+        :per-page="usuariosStore.size"
+        :current-page="usuariosStore.page"
+        :pages="usuariosStore.pages"
+        @update:page="handlePageChange"
+      />
     </template>
 
     <!-- Dialog criar/editar -->

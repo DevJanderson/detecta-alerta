@@ -37,7 +37,6 @@ watch(
 )
 
 function handleSave() {
-  if (!canSubmit.value) return
   emit('save', {
     nome: nome.value.trim(),
     descricao: descricao.value.trim()
@@ -46,50 +45,32 @@ function handleSave() {
 </script>
 
 <template>
-  <Dialog v-model:open="open">
-    <DialogContent class="sm:max-w-md">
-      <DialogHeader>
-        <DialogTitle>{{ titulo }}</DialogTitle>
-        <DialogDescription>
-          {{
-            mode === 'create'
-              ? 'Preencha os dados da nova permissao.'
-              : 'Altere os dados da permissao.'
-          }}
-        </DialogDescription>
-      </DialogHeader>
+  <CrudFormDialog
+    v-model:open="open"
+    :mode="mode"
+    :title="titulo"
+    :can-submit="canSubmit"
+    :is-loading="isLoading"
+    @save="handleSave"
+  >
+    <div class="space-y-2">
+      <Label for="permissao-nome">Nome</Label>
+      <Input
+        id="permissao-nome"
+        v-model="nome"
+        placeholder="Nome da permissao"
+        :disabled="isLoading"
+      />
+    </div>
 
-      <form class="space-y-4" @submit.prevent="handleSave">
-        <div class="space-y-2">
-          <Label for="permissao-nome">Nome</Label>
-          <Input
-            id="permissao-nome"
-            v-model="nome"
-            placeholder="Nome da permissao"
-            :disabled="isLoading"
-          />
-        </div>
-
-        <div class="space-y-2">
-          <Label for="permissao-descricao">Descricao</Label>
-          <Textarea
-            id="permissao-descricao"
-            v-model="descricao"
-            placeholder="Descricao da permissao"
-            :disabled="isLoading"
-          />
-        </div>
-
-        <DialogFooter>
-          <DialogClose as-child>
-            <Button type="button" variant="outline">Cancelar</Button>
-          </DialogClose>
-          <Button type="submit" :disabled="!canSubmit">
-            <Icon v-if="isLoading" name="lucide:loader-2" class="size-4 animate-spin" />
-            {{ mode === 'create' ? 'Criar' : 'Salvar' }}
-          </Button>
-        </DialogFooter>
-      </form>
-    </DialogContent>
-  </Dialog>
+    <div class="space-y-2">
+      <Label for="permissao-descricao">Descricao</Label>
+      <Textarea
+        id="permissao-descricao"
+        v-model="descricao"
+        placeholder="Descricao da permissao"
+        :disabled="isLoading"
+      />
+    </div>
+  </CrudFormDialog>
 </template>

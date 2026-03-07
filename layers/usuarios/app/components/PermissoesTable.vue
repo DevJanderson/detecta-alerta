@@ -32,20 +32,11 @@ const emit = defineEmits<{
           {{ permissao.descricao || '-' }}
         </TableCell>
         <TableCell class="text-right">
-          <div class="flex items-center justify-end gap-1">
-            <Button variant="ghost" size="icon" title="Editar" @click="emit('edit', permissao)">
-              <Icon name="lucide:pencil" class="size-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              title="Excluir"
-              class="text-danger-600 hover:text-danger-700"
-              @click="emit('delete', permissao)"
-            >
-              <Icon name="lucide:trash-2" class="size-4" />
-            </Button>
-          </div>
+          <TableActions
+            :show-view="false"
+            @edit="emit('edit', permissao)"
+            @delete="emit('delete', permissao)"
+          />
         </TableCell>
       </TableRow>
     </TableBody>

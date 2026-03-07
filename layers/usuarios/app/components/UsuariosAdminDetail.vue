@@ -21,10 +21,7 @@ const emit = defineEmits<{
           <CardTitle>{{ usuario.nome }}</CardTitle>
           <CardDescription>{{ usuario.email }}</CardDescription>
         </div>
-        <Badge v-if="usuario.ativo !== false" class="bg-success-100 text-success-800">
-          Ativo
-        </Badge>
-        <Badge v-else class="bg-danger-100 text-danger-800"> Inativo </Badge>
+        <StatusBadge :active="usuario.ativo !== false" />
       </div>
     </CardHeader>
 

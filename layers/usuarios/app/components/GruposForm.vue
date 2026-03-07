@@ -38,7 +38,6 @@ watch(
 )
 
 function handleSave() {
-  if (!canSubmit.value) return
   emit('save', {
     nome: nome.value.trim(),
     descricao: descricao.value.trim(),
@@ -48,46 +47,32 @@ function handleSave() {
 </script>
 
 <template>
-  <Dialog v-model:open="open">
-    <DialogContent class="sm:max-w-md">
-      <DialogHeader>
-        <DialogTitle>{{ titulo }}</DialogTitle>
-        <DialogDescription>
-          {{ mode === 'create' ? 'Preencha os dados do novo grupo.' : 'Altere os dados do grupo.' }}
-        </DialogDescription>
-      </DialogHeader>
+  <CrudFormDialog
+    v-model:open="open"
+    :mode="mode"
+    :title="titulo"
+    :can-submit="canSubmit"
+    :is-loading="isLoading"
+    @save="handleSave"
+  >
+    <div class="space-y-2">
+      <Label for="grupo-nome">Nome</Label>
+      <Input id="grupo-nome" v-model="nome" placeholder="Nome do grupo" :disabled="isLoading" />
+    </div>
 
-      <form class="space-y-4" @submit.prevent="handleSave">
-        <div class="space-y-2">
-          <Label for="grupo-nome">Nome</Label>
-          <Input id="grupo-nome" v-model="nome" placeholder="Nome do grupo" :disabled="isLoading" />
-        </div>
+    <div class="space-y-2">
+      <Label for="grupo-descricao">Descricao</Label>
+      <Textarea
+        id="grupo-descricao"
+        v-model="descricao"
+        placeholder="Descricao do grupo"
+        :disabled="isLoading"
+      />
+    </div>
 
-        <div class="space-y-2">
-          <Label for="grupo-descricao">Descricao</Label>
-          <Textarea
-            id="grupo-descricao"
-            v-model="descricao"
-            placeholder="Descricao do grupo"
-            :disabled="isLoading"
-          />
-        </div>
-
-        <div class="flex items-center gap-2">
-          <Switch id="grupo-ativo" :checked="ativo" @update:checked="ativo = $event" />
-          <Label for="grupo-ativo">Ativo</Label>
-        </div>
-
-        <DialogFooter>
-          <DialogClose as-child>
-            <Button type="button" variant="outline">Cancelar</Button>
-          </DialogClose>
-          <Button type="submit" :disabled="!canSubmit">
-            <Icon v-if="isLoading" name="lucide:loader-2" class="size-4 animate-spin" />
-            {{ mode === 'create' ? 'Criar' : 'Salvar' }}
-          </Button>
-        </DialogFooter>
-      </form>
-    </DialogContent>
-  </Dialog>
+    <div class="flex items-center gap-2">
+      <Switch id="grupo-ativo" :checked="ativo" @update:checked="ativo = $event" />
+      <Label for="grupo-ativo">Ativo</Label>
+    </div>
+  </CrudFormDialog>
 </template>

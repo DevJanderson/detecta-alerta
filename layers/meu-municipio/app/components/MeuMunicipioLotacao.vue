@@ -10,14 +10,11 @@
       </span>
     </header>
 
-    <div
-      class="flex h-[260px] items-center justify-center rounded-lg border border-dashed border-base-200"
-    >
-      <div class="text-center">
-        <Icon name="lucide:chart-line" class="mx-auto size-10 text-base-300" />
-        <p class="mt-2 text-sm text-base-400">Gráfico de lotação</p>
-        <p class="text-xs text-base-300">(ApexCharts — integração futura)</p>
-      </div>
-    </div>
+    <CommonPlaceholderBox
+      icon="lucide:chart-line"
+      label="Gráfico de lotação"
+      sublabel="(ApexCharts — integração futura)"
+      class="h-65"
+    />
   </section>
 </template>
