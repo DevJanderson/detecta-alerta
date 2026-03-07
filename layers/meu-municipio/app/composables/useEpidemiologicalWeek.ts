@@ -18,6 +18,23 @@ export interface EpidemiologicalWeekData {
   year: number
 }
 
+export const MONTHS_FULL = [
+  'Janeiro',
+  'Fevereiro',
+  'Março',
+  'Abril',
+  'Maio',
+  'Junho',
+  'Julho',
+  'Agosto',
+  'Setembro',
+  'Outubro',
+  'Novembro',
+  'Dezembro'
+]
+
+export const WEEKDAYS_SHORT = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+
 const MONTHS_SHORT = [
   'jan.',
   'fev.',

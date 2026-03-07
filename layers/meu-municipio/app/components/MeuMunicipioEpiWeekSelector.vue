@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { EpidemiologicalWeekData } from '../composables/useEpidemiologicalWeek'
+import { MONTHS_FULL, WEEKDAYS_SHORT } from '../composables/useEpidemiologicalWeek'
 
 const { weekData } = useEpidemiologicalWeek()
 
@@ -12,31 +13,6 @@ const viewYear = ref(new Date().getFullYear())
 const emit = defineEmits<{
   'week-change': [data: EpidemiologicalWeekData]
 }>()
-
-// ============================================================================
-// CONSTANTS
-// ============================================================================
-
-const MONTHS = [
-  'Janeiro',
-  'Fevereiro',
-  'Março',
-  'Abril',
-  'Maio',
-  'Junho',
-  'Julho',
-  'Agosto',
-  'Setembro',
-  'Outubro',
-  'Novembro',
-  'Dezembro'
-]
-
-const WEEKDAYS = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
-
-// ============================================================================
-// COMPUTED
-// ============================================================================
 
 const displayText = computed(() => {
   const data = selectedWeekData.value
@@ -259,7 +235,7 @@ watch(
                 v-model="viewMonth"
                 class="h-8 w-full cursor-pointer appearance-none rounded-full border border-base-100 bg-base-0 px-3 pr-7 text-xs font-semibold text-base-950 focus:border-primary-500 focus:outline-none"
               >
-                <option v-for="(month, index) in MONTHS" :key="index" :value="index">
+                <option v-for="(month, index) in MONTHS_FULL" :key="index" :value="index">
                   {{ month }}
                 </option>
               </select>
@@ -327,7 +303,7 @@ watch(
             <!-- Weekday Headers -->
             <div class="mb-1 flex gap-1">
               <div
-                v-for="day in WEEKDAYS"
+                v-for="day in WEEKDAYS_SHORT"
                 :key="day"
                 class="flex size-9 items-center justify-center text-xs text-secondary-500"
               >

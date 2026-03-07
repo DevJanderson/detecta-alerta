@@ -13,9 +13,6 @@
 export type { LoginRequest as LoginCredentials } from '~/generated/sinapse/types/LoginRequest'
 export type { Token as TokenResponse } from '~/generated/sinapse/types/Token'
 export type { RefreshTokenRequest } from '~/generated/sinapse/types/RefreshTokenRequest'
-export type { UsuarioSchemaDetalhes as SinapseUser } from '~/generated/sinapse/types/UsuarioSchemaDetalhes'
-export type { GrupoSchemaList as SinapseGrupo } from '~/generated/sinapse/types/GrupoSchemaList'
-export type { PermissaoAcessoSchemaList as SinapsePermissao } from '~/generated/sinapse/types/PermissaoAcessoSchemaList'
 
 // ============================================================================
 // TIPOS ESPECÍFICOS DO BFF

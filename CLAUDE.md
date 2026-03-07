@@ -294,9 +294,9 @@ const msg = extractErrorMessage(error) // string consistente
 Utilitários em `layers/base/server/utils/` e `layers/auth/server/utils/` são **auto-importados** pelo Nitro em todos os endpoints BFF:
 
 ```typescript
-// fetchSinapse — $fetch pré-configurado para API Sinapse (layers/auth/server/utils/)
-// Injeta Authorization header automaticamente a partir do cookie
-const data = await fetchSinapse('/endpoint', { event })
+// fetchSinapse — fetch pré-configurado para API Sinapse (layers/auth/server/utils/)
+// Injeta Authorization header via accessToken extraído do cookie
+const data = await fetchSinapse('/endpoint', { accessToken })
 
 // handleSinapseRequest — wrapper centralizado para chamadas à API Sinapse (layers/base/server/utils/)
 // Trata erros, valida resposta com Zod (opcional) e faz logging
