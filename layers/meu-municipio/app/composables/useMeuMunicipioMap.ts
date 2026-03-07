@@ -29,8 +29,8 @@ function buildConnectionLines(): GeoJSON.FeatureCollection {
       const steps = 30
       for (let i = 0; i <= steps; i++) {
         const t = i / steps
-        const lng = from.coords[0] + (to.coords[0] - from.coords[0]) * t
-        const lat = from.coords[1] + (to.coords[1] - from.coords[1]) * t
+        const lng = from.coords.lng + (to.coords.lng - from.coords.lng) * t
+        const lat = from.coords.lat + (to.coords.lat - from.coords.lat) * t
         const arc = Math.sin(t * Math.PI) * 1.5
         points.push([lng, lat + arc])
       }
@@ -186,7 +186,7 @@ function addHeatmapLayer(m: maplibregl.Map) {
       type: 'FeatureCollection',
       features: ALERT_CITIES.map(city => ({
         type: 'Feature' as const,
-        geometry: { type: 'Point' as const, coordinates: city.coords },
+        geometry: { type: 'Point' as const, coordinates: [city.coords.lng, city.coords.lat] },
         properties: { weight: city.cases / 1247 }
       }))
     }
@@ -233,7 +233,7 @@ function addAlertLayers(m: maplibregl.Map) {
       type: 'FeatureCollection',
       features: ALERT_CITIES.map(city => ({
         type: 'Feature' as const,
-        geometry: { type: 'Point' as const, coordinates: city.coords },
+        geometry: { type: 'Point' as const, coordinates: [city.coords.lng, city.coords.lat] },
         properties: { name: city.name, level: city.level, cases: city.cases, trend: city.trend }
       }))
     }
@@ -446,7 +446,7 @@ export function useMeuMunicipioMap(container: Ref<HTMLElement | null>) {
 
       setTimeout(() => {
         m.flyTo({
-          center: BRAZIL_CENTER,
+          center: [BRAZIL_CENTER.lng, BRAZIL_CENTER.lat],
           zoom: BRAZIL_ZOOM,
           pitch: 45,
           bearing: -10,
@@ -466,7 +466,7 @@ export function useMeuMunicipioMap(container: Ref<HTMLElement | null>) {
 
       e.preventDefault()
       m.flyTo({
-        center: BRAZIL_CENTER,
+        center: [BRAZIL_CENTER.lng, BRAZIL_CENTER.lat],
         zoom: BRAZIL_ZOOM,
         pitch: 0,
         bearing: 0,
