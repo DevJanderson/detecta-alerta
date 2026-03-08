@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative min-h-[280px] h-[50vh] bg-[url('/patterns/pattern-dot.svg')] sm:h-[55vh] md:h-[60vh] lg:h-auto lg:flex-1"
+    class="relative min-h-70 h-[50vh] bg-[url('/patterns/pattern-dot.svg')] sm:h-[55vh] md:h-[60vh] lg:h-auto lg:flex-1"
   >
     <!-- Legenda -->
     <div
@@ -23,7 +23,7 @@
 
     <!-- Tooltip "Clique na região" -->
     <div
-      class="absolute top-6 right-6 z-20 flex w-[227px] items-center gap-6 rounded-lg border border-secondary-100 bg-secondary-100 px-4 py-3"
+      class="absolute top-6 right-6 z-20 flex w-56.75 items-center gap-6 rounded-lg border border-secondary-100 bg-secondary-100 px-4 py-3"
     >
       <Icon name="lucide:mouse-pointer-click" class="size-5 shrink-0 text-secondary-700" />
       <div>

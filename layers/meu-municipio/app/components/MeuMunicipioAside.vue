@@ -9,7 +9,7 @@ const tabs = [
 
 <template>
   <aside
-    class="hidden h-full w-[520px] shrink-0 flex-col overflow-hidden border-l border-base-100 bg-base-0 lg:flex"
+    class="hidden h-full w-130 shrink-0 flex-col overflow-hidden border-l border-base-100 bg-base-0 lg:flex"
   >
     <!-- HEADER -->
     <header class="bg-secondary-50">
