@@ -52,7 +52,7 @@ API RESTful com documentação OpenAPI e cliente TypeScript gerado automaticamen
 | **MapLibre GL**     | Mapas interativos vetoriais                |
 | **Vitest**          | Testes unitários e de integração           |
 | **Playwright**      | Testes end-to-end                          |
-| **Kubb**            | Geração de cliente API a partir do OpenAPI |
+| **Zod**             | Validação de dados e tipos da API          |
 
 ---
 
@@ -428,10 +428,10 @@ layers/{feature}/
 
 ## 1. Types (`types.ts`)
 
-Define interfaces da feature. Pode importar tipos gerados pelo Kubb:
+Define interfaces da feature. Pode importar tipos compartilhados da API:
 
 ```typescript
-import type { UsuarioSchemaDetalhes } from '~/generated/sinapse/types/UsuarioSchemaDetalhes'
+import type { UsuarioSchemaDetalhes } from '#shared/types/sinapse'
 
 export interface ListarUsuariosParams {
   page?: number
@@ -636,12 +636,12 @@ Do livro _The Pragmatic Programmer_. Antes de cada decisão, a pergunta é:
 
 > **"Isso vai facilitar mudanças futuras?"**
 
-| Aspecto          | Pergunta                                                         |
-| ---------------- | ---------------------------------------------------------------- |
-| **Isolamento**   | A mudança está contida em uma layer/arquivo, ou espalha impacto? |
-| **Constantes**   | Valores mágicos estão nomeados e centralizados?                  |
-| **Abstrações**   | Estou criando uma abstração útil ou prematura?                   |
-| **Acoplamento**  | Componentes dependem de detalhes internos de outros?             |
+| Aspecto         | Pergunta                                                         |
+| --------------- | ---------------------------------------------------------------- |
+| **Isolamento**  | A mudança está contida em uma layer/arquivo, ou espalha impacto? |
+| **Constantes**  | Valores mágicos estão nomeados e centralizados?                  |
+| **Abstrações**  | Estou criando uma abstração útil ou prematura?                   |
+| **Acoplamento** | Componentes dependem de detalhes internos de outros?             |
 
 ETC não é uma regra rígida — é um filtro mental aplicado em toda decisão de design.
 
@@ -651,13 +651,13 @@ ETC não é uma regra rígida — é um filtro mental aplicado em toda decisão 
 
 ### Do DDD (estilo funcional)
 
-| Conceito            | Implementação no projeto                                 | Estilo                                         |
-| ------------------- | -------------------------------------------------------- | ---------------------------------------------- |
-| **Value Objects**   | `createEmail()`, `createCodigoIBGE()`, `createCoordenadas()` | Factory + `Object.freeze()` (não classes)      |
-| **Result type**     | `ok()`, `fail()`, `unwrap()`, `combineResults()`         | Discriminated union (não classe `Result<T>`)   |
-| **Domain Errors**   | `AuthErrors`, `HomeErrors`, `MeuMunicipioErrors`         | Objetos `as const` (não exceções tipadas)      |
-| **Domain Models**   | `createUserModel()` enriquece DTO com lógica derivada    | Factory + `Object.freeze()` (mesmo padrão VOs) |
-| **Use Cases**       | `executeLogin()` retorna `Result<T>`                     | Função async pura (não classe `UseCase<I,O>`)  |
+| Conceito          | Implementação no projeto                                     | Estilo                                         |
+| ----------------- | ------------------------------------------------------------ | ---------------------------------------------- |
+| **Value Objects** | `createEmail()`, `createCodigoIBGE()`, `createCoordenadas()` | Factory + `Object.freeze()` (não classes)      |
+| **Result type**   | `ok()`, `fail()`, `unwrap()`, `combineResults()`             | Discriminated union (não classe `Result<T>`)   |
+| **Domain Errors** | `AuthErrors`, `HomeErrors`, `MeuMunicipioErrors`             | Objetos `as const` (não exceções tipadas)      |
+| **Domain Models** | `createUserModel()` enriquece DTO com lógica derivada        | Factory + `Object.freeze()` (mesmo padrão VOs) |
+| **Use Cases**     | `executeLogin()` retorna `Result<T>`                         | Função async pura (não classe `UseCase<I,O>`)  |
 
 **Padrão funcional**: tudo é função pura + objeto imutável. Sem classes, sem herança, sem `this`. Mais idiomático no Vue/TypeScript e mais fácil de testar.
 
@@ -665,22 +665,22 @@ Detalhes de implementação: [Domain Primitives](/docs/arquitetura/domain-primit
 
 ### Do Clean Code
 
-| Princípio                          | Como aplicamos                                                              |
-| ---------------------------------- | --------------------------------------------------------------------------- |
-| **Funções pequenas**               | Composables orquestradores delegam para funções puras em `utils/`           |
-| **Nomes descritivos**              | `withStoreAction`, `extractErrorMessage`, `buildQueryString` — sem siglas   |
-| **Responsabilidade única**         | Cada layer é autônoma; cada arquivo tem uma razão para mudar                |
-| **DRY com critério**               | Extrair só quando a duplicação é real (2+ ocorrências), não hipotética      |
-| **Separação de concerns**          | UI → Store → Service → BFF → API externa                                   |
+| Princípio                  | Como aplicamos                                                            |
+| -------------------------- | ------------------------------------------------------------------------- |
+| **Funções pequenas**       | Composables orquestradores delegam para funções puras em `utils/`         |
+| **Nomes descritivos**      | `withStoreAction`, `extractErrorMessage`, `buildQueryString` — sem siglas |
+| **Responsabilidade única** | Cada layer é autônoma; cada arquivo tem uma razão para mudar              |
+| **DRY com critério**       | Extrair só quando a duplicação é real (2+ ocorrências), não hipotética    |
+| **Separação de concerns**  | UI → Store → Service → BFF → API externa                                  |
 
 ### Do Pragmatic Programmer
 
-| Princípio              | Aplicação                                                                                        |
-| ---------------------- | ------------------------------------------------------------------------------------------------ |
-| **ETC**                | Filtro para toda decisão de design                                                               |
-| **Ortogonalidade**     | Layers não importam entre si; mudança em `auth` não afeta `home`                                 |
-| **Reversibilidade**    | Decisões fáceis de desfazer — VOs funcionais são mais fáceis de refatorar que hierarquias de classe |
-| **Não se repita (DRY)**| `withStoreAction` elimina try/catch em todos os stores; domain errors centralizam mensagens       |
+| Princípio               | Aplicação                                                                                           |
+| ----------------------- | --------------------------------------------------------------------------------------------------- |
+| **ETC**                 | Filtro para toda decisão de design                                                                  |
+| **Ortogonalidade**      | Layers não importam entre si; mudança em `auth` não afeta `home`                                    |
+| **Reversibilidade**     | Decisões fáceis de desfazer — VOs funcionais são mais fáceis de refatorar que hierarquias de classe |
+| **Não se repita (DRY)** | `withStoreAction` elimina try/catch em todos os stores; domain errors centralizam mensagens         |
 
 ---
 
@@ -688,27 +688,27 @@ Detalhes de implementação: [Domain Primitives](/docs/arquitetura/domain-primit
 
 ### DDD Enterprise Clássico
 
-| Conceito rejeitado              | Motivo                                                                         |
-| ------------------------------- | ------------------------------------------------------------------------------ |
-| `class Result<T>`               | Discriminated unions têm narrowing nativo do TS — `.ok` em vez de `.isOk()`    |
-| `class ValueObject<T>`          | Projeto já usava factory + freeze — classes criariam dois estilos incompatíveis |
-| `class Entity<Type, Props>`     | BFF é proxy, não gerencia ciclo de vida de entidades                           |
-| `class UseCase<IN, OUT>`        | Função async pura faz o mesmo sem indireção                                    |
-| Repository pattern              | Desnecessário num BFF que repassa chamadas para API Sinapse                    |
-| Bounded Contexts formais        | Layers do Nuxt já isolam domínios naturalmente                                 |
-| Event Sourcing / Domain Events  | Complexidade desproporcional para um frontend BFF                              |
+| Conceito rejeitado             | Motivo                                                                          |
+| ------------------------------ | ------------------------------------------------------------------------------- |
+| `class Result<T>`              | Discriminated unions têm narrowing nativo do TS — `.ok` em vez de `.isOk()`     |
+| `class ValueObject<T>`         | Projeto já usava factory + freeze — classes criariam dois estilos incompatíveis |
+| `class Entity<Type, Props>`    | BFF é proxy, não gerencia ciclo de vida de entidades                            |
+| `class UseCase<IN, OUT>`       | Função async pura faz o mesmo sem indireção                                     |
+| Repository pattern             | Desnecessário num BFF que repassa chamadas para API Sinapse                     |
+| Bounded Contexts formais       | Layers do Nuxt já isolam domínios naturalmente                                  |
+| Event Sourcing / Domain Events | Complexidade desproporcional para um frontend BFF                               |
 
 **Motivação central**: abstração prematura dificulta mudanças futuras (viola ETC). O projeto é um BFF que faz proxy para a API Sinapse — não gerencia persistência, transações ou agregados complexos.
 
 ### Over-engineering
 
-| Anti-pattern                   | Regra do projeto                                                    |
-| ------------------------------ | ------------------------------------------------------------------- |
-| Abstração antes de duplicação  | Extrair só quando repete 2+ vezes                                   |
-| God composables (>300 linhas)  | Quebrar em orquestrador + funções puras em `utils/`                 |
-| Componentes genéricos demais   | Mover para `base/common/` só quando outra layer precisar            |
-| Feature flags / backward compat| Mudar direto — o código é nosso                                     |
-| Classes onde funções bastam    | Preferir funções puras composáveis                                  |
+| Anti-pattern                    | Regra do projeto                                         |
+| ------------------------------- | -------------------------------------------------------- |
+| Abstração antes de duplicação   | Extrair só quando repete 2+ vezes                        |
+| God composables (>300 linhas)   | Quebrar em orquestrador + funções puras em `utils/`      |
+| Componentes genéricos demais    | Mover para `base/common/` só quando outra layer precisar |
+| Feature flags / backward compat | Mudar direto — o código é nosso                          |
+| Classes onde funções bastam     | Preferir funções puras composáveis                       |
 
 ---
 
@@ -848,7 +848,7 @@ Para detalhes sobre cada primitivo, veja:
 | **shadcn-vue + reka-ui**    | Componentes UI acessíveis                             |
 | **Pinia**                   | Gerenciamento de estado                               |
 | **MapLibre GL**             | Mapas interativos                                     |
-| **Kubb**                    | Geração de tipos e schemas Zod a partir do OpenAPI    |
+| **Zod**                     | Validação de dados e tipos da API (`#shared`)         |
 | **Vitest**                  | Testes unitários e de integração                      |
 | **Playwright**              | Testes E2E                                            |
 
@@ -877,7 +877,7 @@ BFF-->>B: Set-Cookie: access_token (httpOnly)<br/>Set-Cookie: refresh_token (htt
 
 1. O **browser** envia credenciais para o BFF (`/api/auth/login`)
 2. O **BFF** repassa para a API Sinapse e recebe os tokens JWT
-3. O BFF valida a resposta com o schema Zod gerado pelo Kubb (`tokenSchema.parse`)
+3. O BFF valida a resposta com o schema Zod (`tokenSchema.parse` de `#shared/types/sinapse`)
 4. O BFF armazena os tokens em **cookies httpOnly** e retorna os dados do usuário
 5. O browser **nunca tem acesso direto** aos tokens
 
@@ -1078,7 +1078,7 @@ Um endpoint BFF (Backend-for-Frontend) é a camada entre o browser e a API Sinap
 ```typescript
 // layers/usuarios/server/api/usuarios/admin/permissoes/index.get.ts
 
-import { permissaoAcessoSchemaListSchema } from '~/generated/sinapse/zod/permissaoAcessoSchemaListSchema'
+import { permissaoAcessoSchemaListSchema } from '#shared/types/sinapse'
 import { z } from 'zod'
 
 export default defineEventHandler(async event => {
@@ -1266,7 +1266,7 @@ Use esta lista ao revisar PRs que criam ou modificam endpoints BFF:
 - [ ] **Erros**: tratados com `handleSinapseRequest()` (sem try/catch manual vazando detalhes)?
 - [ ] **Tokens**: acessados via `event.context.auth` (nunca de headers ou query string)?
 - [ ] **Dados sensíveis**: nenhum token, senha ou dado pessoal nos logs ou na resposta de erro?
-- [ ] **Schema Zod**: respostas da API validadas com schema Kubb quando disponível?
+- [ ] **Schema Zod**: respostas da API validadas com schema Zod de `#shared/types/sinapse`?
 
 ---
 
@@ -2892,14 +2892,14 @@ User stories principais da página Meu Município, derivadas do [BDD spec](/test
 
 **Controles:**
 
-| Ação            | Elemento                 |
-| --------------- | ------------------------ |
-| Zoom in/out     | Botões +/−               |
-| Centralizar     | Botão "Centralizar"      |
+| Ação              | Elemento                  |
+| ----------------- | ------------------------- |
+| Zoom in/out       | Botões +/−                |
+| Centralizar       | Botão "Centralizar"       |
 | Minha localização | Botão "Mostrar meu Local" |
-| Tela cheia      | Botão "Tela cheia"       |
-| Trocar tileset  | Botão "Trocar Mapa"      |
-| Trocar município | Botão "Trocar local"    |
+| Tela cheia        | Botão "Tela cheia"        |
+| Trocar tileset    | Botão "Trocar Mapa"       |
+| Trocar município  | Botão "Trocar local"      |
 
 ---
 
@@ -2941,9 +2941,9 @@ Mapa técnico dos 16 componentes da página Meu Município, organizados por áre
 
 ## Orquestrador
 
-| Componente | Arquivo | Status | Dados | Descrição |
-| ---------- | ------- | ------ | ----- | --------- |
-| Página | `pages/meu-municipio/index.vue` | ✅ Implementado | Store | Orquestra layout: mapa + busca + SE + controles + aside |
+| Componente | Arquivo                         | Status          | Dados | Descrição                                               |
+| ---------- | ------------------------------- | --------------- | ----- | ------------------------------------------------------- |
+| Página     | `pages/meu-municipio/index.vue` | ✅ Implementado | Store | Orquestra layout: mapa + busca + SE + controles + aside |
 
 A página usa `useMeuMunicipioStore()` para estado centralizado e `useTemplateRef('map')` para acesso ao componente do mapa.
 
@@ -2951,67 +2951,67 @@ A página usa `useMeuMunicipioStore()` para estado centralizado e `useTemplateRe
 
 ## Mapa
 
-| Componente | Arquivo | Status | Dados | Descrição |
-| ---------- | ------- | ------ | ----- | --------- |
-| `MeuMunicipioMap` | `MeuMunicipioMap.vue` | ✅ Implementado | Mock | Wrapper do composable `useMeuMunicipioMap` |
-| `MeuMunicipioMapZoom` | `MeuMunicipioMapZoom.vue` | ✅ Implementado | — | Botões +/− emitem `zoom-in`/`zoom-out` |
-| `MeuMunicipioMapNavigation` | `MeuMunicipioMapNavigation.vue` | 🎭 Mockado | — | 4 botões de navegação (centralizar, local, fullscreen, trocar mapa) |
-| `MeuMunicipioMapSinapseStatus` | `MeuMunicipioMapSinapseStatus.vue` | 🎭 Mockado | — | Badge "Dados via Sinapse, há X minutos" |
-| `MeuMunicipioMapChangeLocation` | `MeuMunicipioMapChangeLocation.vue` | ✅ Implementado | — | Botão "Trocar local" → `store.openOnboarding()` |
+| Componente                      | Arquivo                             | Status          | Dados | Descrição                                                           |
+| ------------------------------- | ----------------------------------- | --------------- | ----- | ------------------------------------------------------------------- |
+| `MeuMunicipioMap`               | `MeuMunicipioMap.vue`               | ✅ Implementado | Mock  | Wrapper do composable `useMeuMunicipioMap`                          |
+| `MeuMunicipioMapZoom`           | `MeuMunicipioMapZoom.vue`           | ✅ Implementado | —     | Botões +/− emitem `zoom-in`/`zoom-out`                              |
+| `MeuMunicipioMapNavigation`     | `MeuMunicipioMapNavigation.vue`     | 🎭 Mockado      | —     | 4 botões de navegação (centralizar, local, fullscreen, trocar mapa) |
+| `MeuMunicipioMapSinapseStatus`  | `MeuMunicipioMapSinapseStatus.vue`  | 🎭 Mockado      | —     | Badge "Dados via Sinapse, há X minutos"                             |
+| `MeuMunicipioMapChangeLocation` | `MeuMunicipioMapChangeLocation.vue` | ✅ Implementado | —     | Botão "Trocar local" → `store.openOnboarding()`                     |
 
 ### Composable do mapa (`useMeuMunicipioMap`)
 
 Orquestrador de 96 linhas que delega para 5 módulos puros em `utils/`:
 
-| Módulo | Responsabilidade |
-| ------ | ---------------- |
-| `map-config.ts` | Constantes: centro do Brasil, zoom, URL do estilo vetorial |
-| `map-colors.ts` | Cores por nível e região + expressões MapLibre |
-| `map-layers.ts` | Funções para adicionar as 4 camadas (states, alerts, connections, heatmap) |
-| `map-connections.ts` | Gera arcos GeoJSON entre cidades (rotas de propagação) |
-| `map-mock-data.ts` | 12 cidades com alertas + 10 conexões (dados temporários) |
+| Módulo               | Responsabilidade                                                           |
+| -------------------- | -------------------------------------------------------------------------- |
+| `map-config.ts`      | Constantes: centro do Brasil, zoom, URL do estilo vetorial                 |
+| `map-colors.ts`      | Cores por nível e região + expressões MapLibre                             |
+| `map-layers.ts`      | Funções para adicionar as 4 camadas (states, alerts, connections, heatmap) |
+| `map-connections.ts` | Gera arcos GeoJSON entre cidades (rotas de propagação)                     |
+| `map-mock-data.ts`   | 12 cidades com alertas + 10 conexões (dados temporários)                   |
 
 ---
 
 ## Busca e Seleção
 
-| Componente | Arquivo | Status | Dados | Descrição |
-| ---------- | ------- | ------ | ----- | --------- |
-| `MeuMunicipioSearchField` | `MeuMunicipioSearchField.vue` | 🎭 Mockado | Lista estática | Busca com autocomplete e navegação por teclado |
-| `MeuMunicipioEpiWeekSelector` | `MeuMunicipioEpiWeekSelector.vue` | ✅ Implementado | VO | Calendário de semana epidemiológica |
-| `MeuMunicipioOnboarding` | `MeuMunicipioOnboarding.vue` | ✅ Implementado | Store | Modal de seleção inicial (busca + geolocalização) |
+| Componente                    | Arquivo                           | Status          | Dados          | Descrição                                         |
+| ----------------------------- | --------------------------------- | --------------- | -------------- | ------------------------------------------------- |
+| `MeuMunicipioSearchField`     | `MeuMunicipioSearchField.vue`     | 🎭 Mockado      | Lista estática | Busca com autocomplete e navegação por teclado    |
+| `MeuMunicipioEpiWeekSelector` | `MeuMunicipioEpiWeekSelector.vue` | ✅ Implementado | VO             | Calendário de semana epidemiológica               |
+| `MeuMunicipioOnboarding`      | `MeuMunicipioOnboarding.vue`      | ✅ Implementado | Store          | Modal de seleção inicial (busca + geolocalização) |
 
 ---
 
 ## Painel Lateral (Aside)
 
-| Componente | Arquivo | Status | Dados | Descrição |
-| ---------- | ------- | ------ | ----- | --------- |
-| `MeuMunicipioAside` | `MeuMunicipioAside.vue` | ✅ Implementado | Store | Container com header + tabs (resumo/rumores) |
-| `MeuMunicipioAsideResumo` | `MeuMunicipioAsideResumo.vue` | 🎭 Mockado | — | Container dos sub-componentes da aba resumo |
-| `MeuMunicipioAsideRumores` | `MeuMunicipioAsideRumores.vue` | 🎭 Mockado | Mocks | Lista de rumores na aba rumores |
+| Componente                 | Arquivo                        | Status          | Dados | Descrição                                    |
+| -------------------------- | ------------------------------ | --------------- | ----- | -------------------------------------------- |
+| `MeuMunicipioAside`        | `MeuMunicipioAside.vue`        | ✅ Implementado | Store | Container com header + tabs (resumo/rumores) |
+| `MeuMunicipioAsideResumo`  | `MeuMunicipioAsideResumo.vue`  | 🎭 Mockado      | —     | Container dos sub-componentes da aba resumo  |
+| `MeuMunicipioAsideRumores` | `MeuMunicipioAsideRumores.vue` | 🎭 Mockado      | Mocks | Lista de rumores na aba rumores              |
 
 ---
 
 ## Dados do Município
 
-| Componente | Arquivo | Status | Dados | Descrição |
-| ---------- | ------- | ------ | ----- | --------- |
-| `MeuMunicipioFiltros` | `MeuMunicipioFiltros.vue` | 🎭 Mockado | Mock | Filtros UBS/UPA/Drogaria com contagem |
-| `MeuMunicipioLotacao` | `MeuMunicipioLotacao.vue` | 🔲 Placeholder | — | Card de lotação (nível de risco + gráfico) |
-| `MeuMunicipioAlerta` | `MeuMunicipioAlerta.vue` | 🎭 Mockado | Mock | Card de alerta epidemiológico |
-| `MeuMunicipioRumoresPreview` | `MeuMunicipioRumoresPreview.vue` | 🎭 Mockado | Mocks | Prévia dos 3 rumores mais recentes |
-| `MeuMunicipioRumorCard` | `MeuMunicipioRumorCard.vue` | ✅ Implementado | Props | Card de notícia com título, fonte, tags |
+| Componente                   | Arquivo                          | Status          | Dados | Descrição                                  |
+| ---------------------------- | -------------------------------- | --------------- | ----- | ------------------------------------------ |
+| `MeuMunicipioFiltros`        | `MeuMunicipioFiltros.vue`        | 🎭 Mockado      | Mock  | Filtros UBS/UPA/Drogaria com contagem      |
+| `MeuMunicipioLotacao`        | `MeuMunicipioLotacao.vue`        | 🔲 Placeholder  | —     | Card de lotação (nível de risco + gráfico) |
+| `MeuMunicipioAlerta`         | `MeuMunicipioAlerta.vue`         | 🎭 Mockado      | Mock  | Card de alerta epidemiológico              |
+| `MeuMunicipioRumoresPreview` | `MeuMunicipioRumoresPreview.vue` | 🎭 Mockado      | Mocks | Prévia dos 3 rumores mais recentes         |
+| `MeuMunicipioRumorCard`      | `MeuMunicipioRumorCard.vue`      | ✅ Implementado | Props | Card de notícia com título, fonte, tags    |
 
 ---
 
 ## Legenda de Status
 
-| Ícone | Status | Significado |
-| ----- | ------ | ----------- |
-| ✅ | Implementado | Componente funcional, pode ter dados mock |
-| 🎭 | Mockado | UI completa, dados hardcoded, pronto para integração API |
-| 🔲 | Placeholder | Estrutura visual mínima, funcionalidade pendente |
+| Ícone | Status       | Significado                                              |
+| ----- | ------------ | -------------------------------------------------------- |
+| ✅    | Implementado | Componente funcional, pode ter dados mock                |
+| 🎭    | Mockado      | UI completa, dados hardcoded, pronto para integração API |
+| 🔲    | Placeholder  | Estrutura visual mínima, funcionalidade pendente         |
 
 ---
 
@@ -3061,16 +3061,16 @@ Estado atual dos dados consumidos pela página Meu Município e endpoints BFF a 
 
 Toda a página funciona com dados mock. Não há endpoints BFF nem chamadas à API Sinapse.
 
-| Dado | Fonte atual | Arquivo | Substituir por |
-| ---- | ----------- | ------- | -------------- |
-| Municípios (busca) | Lista estática inline | `MeuMunicipioSearchField.vue` | API ou lista local (~5570 itens) |
-| Alertas (mapa) | 12 cidades hardcoded | `utils/map-mock-data.ts` | `/api/meu-municipio/alertas` |
-| Conexões (mapa) | 10 rotas hardcoded | `utils/map-mock-data.ts` | `/api/meu-municipio/alertas` |
-| Município selecionado | São Paulo (default) | `useMeuMunicipioStore.ts` | Busca ou geolocalização |
-| Notícias/rumores | 6 notícias mock | `composables/mocks.ts` | `/api/meu-municipio/noticias` |
-| Filtros (UBS/UPA/Drogaria) | Contagens estáticas | `MeuMunicipioFiltros.vue` | `/api/meu-municipio/unidades` |
-| Lotação | Placeholder vazio | `MeuMunicipioLotacao.vue` | `/api/meu-municipio/lotacao` |
-| Alerta epidemiológico | Texto estático | `MeuMunicipioAlerta.vue` | `/api/meu-municipio/alertas` |
+| Dado                       | Fonte atual           | Arquivo                       | Substituir por                   |
+| -------------------------- | --------------------- | ----------------------------- | -------------------------------- |
+| Municípios (busca)         | Lista estática inline | `MeuMunicipioSearchField.vue` | API ou lista local (~5570 itens) |
+| Alertas (mapa)             | 12 cidades hardcoded  | `utils/map-mock-data.ts`      | `/api/meu-municipio/alertas`     |
+| Conexões (mapa)            | 10 rotas hardcoded    | `utils/map-mock-data.ts`      | `/api/meu-municipio/alertas`     |
+| Município selecionado      | São Paulo (default)   | `useMeuMunicipioStore.ts`     | Busca ou geolocalização          |
+| Notícias/rumores           | 6 notícias mock       | `composables/mocks.ts`        | `/api/meu-municipio/noticias`    |
+| Filtros (UBS/UPA/Drogaria) | Contagens estáticas   | `MeuMunicipioFiltros.vue`     | `/api/meu-municipio/unidades`    |
+| Lotação                    | Placeholder vazio     | `MeuMunicipioLotacao.vue`     | `/api/meu-municipio/lotacao`     |
+| Alerta epidemiológico      | Texto estático        | `MeuMunicipioAlerta.vue`      | `/api/meu-municipio/alertas`     |
 
 ---
 
@@ -3082,12 +3082,12 @@ Quando a integração com a API Sinapse for feita, criar estes endpoints em `lay
 
 Dados de lotação agregados por município e semana.
 
-| Param | Tipo | Descrição |
-| ----- | ---- | --------- |
-| `municipio` | query (string) | Código IBGE do município |
-| `semana` | query (number) | Semana epidemiológica |
-| `ano` | query (number) | Ano |
-| `tipo` | query (string?) | Filtro: `ubs`, `upa`, `drogaria` |
+| Param       | Tipo            | Descrição                        |
+| ----------- | --------------- | -------------------------------- |
+| `municipio` | query (string)  | Código IBGE do município         |
+| `semana`    | query (number)  | Semana epidemiológica            |
+| `ano`       | query (number)  | Ano                              |
+| `tipo`      | query (string?) | Filtro: `ubs`, `upa`, `drogaria` |
 
 **API Sinapse:** `GET /api/v1/detecta_alerta/epidemiological/aggregations`
 
@@ -3106,10 +3106,10 @@ Dados de lotação agregados por município e semana.
 
 Unidades de saúde do município com coordenadas para marcadores no mapa.
 
-| Param | Tipo | Descrição |
-| ----- | ---- | --------- |
-| `municipio` | query (string) | Código IBGE do município |
-| `tipo` | query (string?) | Filtro: `ubs`, `upa`, `drogaria` |
+| Param       | Tipo            | Descrição                        |
+| ----------- | --------------- | -------------------------------- |
+| `municipio` | query (string)  | Código IBGE do município         |
+| `tipo`      | query (string?) | Filtro: `ubs`, `upa`, `drogaria` |
 
 **API Sinapse:** `GET /api/v1/detecta_alerta/units/{placeId}`
 
@@ -3140,10 +3140,10 @@ Detalhes de uma unidade individual (drill-down).
 
 Rumores filtrados por estado do município.
 
-| Param | Tipo | Descrição |
-| ----- | ---- | --------- |
-| `uf` | query (string) | UF do município (ex: "SE") |
-| `semana` | query (number?) | Semana epidemiológica |
+| Param    | Tipo            | Descrição                  |
+| -------- | --------------- | -------------------------- |
+| `uf`     | query (string)  | UF do município (ex: "SE") |
+| `semana` | query (number?) | Semana epidemiológica      |
 
 **API Sinapse:** `GET /api/v1/noticias/`
 
@@ -3151,8 +3151,8 @@ Rumores filtrados por estado do município.
 
 Alertas epidemiológicos ativos para o município.
 
-| Param | Tipo | Descrição |
-| ----- | ---- | --------- |
+| Param       | Tipo           | Descrição                |
+| ----------- | -------------- | ------------------------ |
 | `municipio` | query (string) | Código IBGE do município |
 
 ---
@@ -3187,13 +3187,13 @@ export function useMeuMunicipioApi() {
 
 ## Estratégia de Cache (planejada)
 
-| Dado | TTL sugerido | Motivo |
-| ---- | ------------ | ------ |
-| Lotação (agregado) | 5 min | Atualiza frequentemente |
-| Unidades (lista) | 24h | Raramente muda |
-| Detalhes CNES | 24h | Dados estáveis |
-| Notícias | 15 min | Feed com atualizações moderadas |
-| Alertas | 5 min | Necessita ser recente |
+| Dado               | TTL sugerido | Motivo                          |
+| ------------------ | ------------ | ------------------------------- |
+| Lotação (agregado) | 5 min        | Atualiza frequentemente         |
+| Unidades (lista)   | 24h          | Raramente muda                  |
+| Detalhes CNES      | 24h          | Dados estáveis                  |
+| Notícias           | 15 min       | Feed com atualizações moderadas |
+| Alertas            | 5 min        | Necessita ser recente           |
 
 ---
 
@@ -3226,13 +3226,13 @@ Especificação detalhada das seções da página Meu Município, com elementos,
 
 Campo de busca com autocomplete para selecionar município.
 
-| Elemento     | Descrição                                                |
-| ------------ | -------------------------------------------------------- |
-| Input        | Placeholder "Buscar município", ícone de lupa            |
-| Autocomplete | Dropdown com sugestões filtradas (mínimo 3 caracteres)   |
-| Formato      | "{nome}, {UF}" (ex: "Aracaju, SE")                      |
-| Atalho       | Ctrl+K foca o campo                                      |
-| Limpar       | Botão × reseta seleção e volta ao estado inicial         |
+| Elemento     | Descrição                                              |
+| ------------ | ------------------------------------------------------ |
+| Input        | Placeholder "Buscar município", ícone de lupa          |
+| Autocomplete | Dropdown com sugestões filtradas (mínimo 3 caracteres) |
+| Formato      | "{nome}, {UF}" (ex: "Aracaju, SE")                     |
+| Atalho       | Ctrl+K foca o campo                                    |
+| Limpar       | Botão × reseta seleção e volta ao estado inicial       |
 
 **Comportamento:**
 
@@ -3257,12 +3257,12 @@ Campo de busca com autocomplete para selecionar município.
 
 Calendário para selecionar semana epidemiológica (SE).
 
-| Elemento     | Descrição                                                |
-| ------------ | -------------------------------------------------------- |
-| Display      | "SE {n} ({início} a {fim} {mês}. {ano})"                |
-| Calendário   | Grid mensal com semanas destacadas                       |
-| Navegação    | Setas para mês anterior/próximo                          |
-| Restrição    | Semanas futuras desabilitadas                            |
+| Elemento   | Descrição                                |
+| ---------- | ---------------------------------------- |
+| Display    | "SE {n} ({início} a {fim} {mês}. {ano})" |
+| Calendário | Grid mensal com semanas destacadas       |
+| Navegação  | Setas para mês anterior/próximo          |
+| Restrição  | Semanas futuras desabilitadas            |
 
 **Comportamento:**
 
@@ -3286,24 +3286,24 @@ Calendário para selecionar semana epidemiológica (SE).
 
 Mapa vetorial com MapLibre GL e estilo OpenFreeMap Liberty.
 
-| Elemento    | Descrição                                                      |
-| ----------- | -------------------------------------------------------------- |
-| Base        | MapLibre GL com tiles vetoriais OpenFreeMap                    |
-| Geodata     | TopoJSON dos estados brasileiros (`public/geo/`)               |
-| Camadas     | States, Alerts (pulso), Connections (arcos), Heatmap           |
-| Hover       | Estado muda de cor ao passar mouse, tooltip com nome           |
-| Click       | Alerta abre popup com dados + flyTo                            |
+| Elemento | Descrição                                            |
+| -------- | ---------------------------------------------------- |
+| Base     | MapLibre GL com tiles vetoriais OpenFreeMap          |
+| Geodata  | TopoJSON dos estados brasileiros (`public/geo/`)     |
+| Camadas  | States, Alerts (pulso), Connections (arcos), Heatmap |
+| Hover    | Estado muda de cor ao passar mouse, tooltip com nome |
+| Click    | Alerta abre popup com dados + flyTo                  |
 
 **Camadas do mapa:**
 
-| Camada        | Fonte              | Descrição                                             |
-| ------------- | ------------------- | ----------------------------------------------------- |
-| `states-fill` | TopoJSON            | Preenchimento por região com cores temáticas           |
-| `states-line` | TopoJSON            | Bordas dos estados                                     |
-| `alerts`      | Mock (12 cidades)   | Círculos pulsantes com cor por nível de alerta         |
-| `connections` | Mock (10 rotas)     | Arcos tracejados entre cidades (rotas de propagação)   |
-| `heatmap`     | Mock (12 cidades)   | Mapa de calor baseado em número de casos               |
-| `alert-labels`| Mock (12 cidades)   | Contagem de casos sobre cada círculo                   |
+| Camada         | Fonte             | Descrição                                            |
+| -------------- | ----------------- | ---------------------------------------------------- |
+| `states-fill`  | TopoJSON          | Preenchimento por região com cores temáticas         |
+| `states-line`  | TopoJSON          | Bordas dos estados                                   |
+| `alerts`       | Mock (12 cidades) | Círculos pulsantes com cor por nível de alerta       |
+| `connections`  | Mock (10 rotas)   | Arcos tracejados entre cidades (rotas de propagação) |
+| `heatmap`      | Mock (12 cidades) | Mapa de calor baseado em número de casos             |
+| `alert-labels` | Mock (12 cidades) | Contagem de casos sobre cada círculo                 |
 
 **Critérios de aceite:**
 
@@ -3323,12 +3323,12 @@ Mapa vetorial com MapLibre GL e estilo OpenFreeMap Liberty.
 **Status:** 🎭 Mockado (botões sem ação)
 **Componentes:** `MeuMunicipioMapNavigation`, `MeuMunicipioMapZoom`, `MeuMunicipioMapSinapseStatus`, `MeuMunicipioMapChangeLocation`
 
-| Controle          | Componente                      | Funcional? |
-| ----------------- | ------------------------------- | ---------- |
-| Zoom +/−          | `MeuMunicipioMapZoom`           | ✅ Sim     |
-| Navegação (4 btns)| `MeuMunicipioMapNavigation`     | 🔲 Mock   |
-| Status Sinapse    | `MeuMunicipioMapSinapseStatus`  | 🔲 Mock   |
-| Trocar local      | `MeuMunicipioMapChangeLocation` | ✅ Sim     |
+| Controle           | Componente                      | Funcional? |
+| ------------------ | ------------------------------- | ---------- |
+| Zoom +/−           | `MeuMunicipioMapZoom`           | ✅ Sim     |
+| Navegação (4 btns) | `MeuMunicipioMapNavigation`     | 🔲 Mock    |
+| Status Sinapse     | `MeuMunicipioMapSinapseStatus`  | 🔲 Mock    |
+| Trocar local       | `MeuMunicipioMapChangeLocation` | ✅ Sim     |
 
 **Critérios de aceite:**
 
@@ -3349,28 +3349,28 @@ Mapa vetorial com MapLibre GL e estilo OpenFreeMap Liberty.
 
 Painel fixo à direita (520px desktop, hidden mobile) com dados do município.
 
-| Elemento     | Descrição                                                |
-| ------------ | -------------------------------------------------------- |
-| Header       | Nome do município (do store) + estado + região           |
-| Tabs         | "resumo" e "rumores"                                     |
-| Ações        | Compartilhar, imprimir, colapsar (planejado)             |
-| Largura      | `w-130` (520px) no desktop, oculto no mobile             |
+| Elemento | Descrição                                      |
+| -------- | ---------------------------------------------- |
+| Header   | Nome do município (do store) + estado + região |
+| Tabs     | "resumo" e "rumores"                           |
+| Ações    | Compartilhar, imprimir, colapsar (planejado)   |
+| Largura  | `w-130` (520px) no desktop, oculto no mobile   |
 
 **Tab Resumo:**
 
-| Sub-seção    | Componente                     | Status         |
-| ------------ | ------------------------------ | -------------- |
-| Filtros      | `MeuMunicipioFiltros`          | 🎭 Mock        |
-| Lotação      | `MeuMunicipioLotacao`          | 🔲 Placeholder |
-| Alerta       | `MeuMunicipioAlerta`           | 🎭 Mock        |
-| Rumores      | `MeuMunicipioRumoresPreview`   | 🎭 Mock        |
+| Sub-seção | Componente                   | Status         |
+| --------- | ---------------------------- | -------------- |
+| Filtros   | `MeuMunicipioFiltros`        | 🎭 Mock        |
+| Lotação   | `MeuMunicipioLotacao`        | 🔲 Placeholder |
+| Alerta    | `MeuMunicipioAlerta`         | 🎭 Mock        |
+| Rumores   | `MeuMunicipioRumoresPreview` | 🎭 Mock        |
 
 **Tab Rumores:**
 
-| Sub-seção    | Componente                     | Status         |
-| ------------ | ------------------------------ | -------------- |
-| Lista        | `MeuMunicipioAsideRumores`     | 🎭 Mock        |
-| Card         | `MeuMunicipioRumorCard`        | ✅ Implementado|
+| Sub-seção | Componente                 | Status          |
+| --------- | -------------------------- | --------------- |
+| Lista     | `MeuMunicipioAsideRumores` | 🎭 Mock         |
+| Card      | `MeuMunicipioRumorCard`    | ✅ Implementado |
 
 **Critérios de aceite:**
 
@@ -3390,11 +3390,11 @@ Painel fixo à direita (520px desktop, hidden mobile) com dados do município.
 
 Modal de seleção inicial exibida quando nenhum município está selecionado.
 
-| Elemento        | Descrição                                     |
-| --------------- | --------------------------------------------- |
-| Busca           | Campo "Buscar município" com autocomplete     |
-| Geolocalização  | Botão "Usar minha localização"                |
-| Visibilidade    | Controlada por `store.showOnboarding`         |
+| Elemento       | Descrição                                 |
+| -------------- | ----------------------------------------- |
+| Busca          | Campo "Buscar município" com autocomplete |
+| Geolocalização | Botão "Usar minha localização"            |
+| Visibilidade   | Controlada por `store.showOnboarding`     |
 
 **Critérios de aceite:**
 
@@ -3408,10 +3408,10 @@ Modal de seleção inicial exibida quando nenhum município está selecionado.
 
 ## 4.7 Responsividade
 
-| Breakpoint  | Largura    | Comportamento                                       |
-| ----------- | ---------- | --------------------------------------------------- |
-| **Mobile**  | < 1024px   | Mapa tela cheia, aside oculto (drawer/bottom sheet) |
-| **Desktop** | ≥ 1024px   | Mapa à esquerda, aside fixo à direita (520px)       |
+| Breakpoint  | Largura  | Comportamento                                       |
+| ----------- | -------- | --------------------------------------------------- |
+| **Mobile**  | < 1024px | Mapa tela cheia, aside oculto (drawer/bottom sheet) |
+| **Desktop** | ≥ 1024px | Mapa à esquerda, aside fixo à direita (520px)       |
 
 **Critérios de aceite:**
 

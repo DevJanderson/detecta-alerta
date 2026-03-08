@@ -5,7 +5,7 @@
  */
 
 import { PermissoesErrors } from '#shared/domain/errors'
-import { permissaoAcessoSchemaListSchema } from '~/generated/sinapse/zod/permissaoAcessoSchemaListSchema'
+import { permissaoAcessoSchemaListSchema } from '#shared/types/sinapse/permissao'
 import { z } from 'zod'
 
 export default defineEventHandler(async event => {

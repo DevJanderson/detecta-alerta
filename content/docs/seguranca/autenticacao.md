@@ -25,7 +25,7 @@ BFF-->>B: Set-Cookie: access_token (httpOnly)<br/>Set-Cookie: refresh_token (htt
 
 1. O **browser** envia credenciais para o BFF (`/api/auth/login`)
 2. O **BFF** repassa para a API Sinapse e recebe os tokens JWT
-3. O BFF valida a resposta com o schema Zod gerado pelo Kubb (`tokenSchema.parse`)
+3. O BFF valida a resposta com o schema Zod (`tokenSchema.parse` de `#shared/types/sinapse`)
 4. O BFF armazena os tokens em **cookies httpOnly** e retorna os dados do usuário
 5. O browser **nunca tem acesso direto** aos tokens
 

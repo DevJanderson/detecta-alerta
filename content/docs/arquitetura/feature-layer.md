@@ -26,10 +26,10 @@ layers/{feature}/
 
 ## 1. Types (`types.ts`)
 
-Define interfaces da feature. Pode importar tipos gerados pelo Kubb:
+Define interfaces da feature. Pode importar tipos compartilhados da API:
 
 ```typescript
-import type { UsuarioSchemaDetalhes } from '~/generated/sinapse/types/UsuarioSchemaDetalhes'
+import type { UsuarioSchemaDetalhes } from '#shared/types/sinapse'
 
 export interface ListarUsuariosParams {
   page?: number

@@ -1,7 +1,0 @@
-{
-  "type": "string",
-  "enum": ["FULL_WEEK", "WEEKDAY_ONLY", "PARTIAL_WEEKEND", "UNKNOWN"],
-  "title": "OperationalProfileEnum",
-  "description": "Perfis operacionais das unidades de saúde.",
-  "x-readme-ref-name": "OperationalProfileEnum"
-}

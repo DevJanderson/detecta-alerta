@@ -38,14 +38,14 @@ API RESTful com documentação OpenAPI e cliente TypeScript gerado automaticamen
 
 ## Stack tecnológica
 
-| Tecnologia          | Uso                                        |
-| ------------------- | ------------------------------------------ |
-| **Nuxt 4**          | Framework fullstack (SSR + SPA)            |
-| **Vue 3**           | Framework reativo de UI                    |
-| **Tailwind CSS v4** | Estilização utility-first                  |
-| **shadcn-vue**      | Componentes UI acessíveis                  |
-| **Pinia**           | Gerenciamento de estado                    |
-| **MapLibre GL**     | Mapas interativos vetoriais                |
-| **Vitest**          | Testes unitários e de integração           |
-| **Playwright**      | Testes end-to-end                          |
-| **Kubb**            | Geração de cliente API a partir do OpenAPI |
+| Tecnologia          | Uso                               |
+| ------------------- | --------------------------------- |
+| **Nuxt 4**          | Framework fullstack (SSR + SPA)   |
+| **Vue 3**           | Framework reativo de UI           |
+| **Tailwind CSS v4** | Estilização utility-first         |
+| **shadcn-vue**      | Componentes UI acessíveis         |
+| **Pinia**           | Gerenciamento de estado           |
+| **MapLibre GL**     | Mapas interativos vetoriais       |
+| **Vitest**          | Testes unitários e de integração  |
+| **Playwright**      | Testes end-to-end                 |
+| **Zod**             | Validação de dados e tipos da API |

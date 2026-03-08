@@ -5,7 +5,7 @@
  */
 
 import { GruposErrors } from '#shared/domain/errors'
-import { gruposPaginadosSchemaSchema } from '~/generated/sinapse/zod/gruposPaginadosSchemaSchema'
+import { gruposPaginadosSchemaSchema } from '#shared/types/sinapse/grupo'
 
 export default defineEventHandler(async event => {
   requireAdmin(event)

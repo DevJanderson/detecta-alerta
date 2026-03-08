@@ -5,8 +5,10 @@
  */
 
 import { UsuariosErrors } from '#shared/domain/errors'
-import { usuarioSchemaCreateSchema } from '~/generated/sinapse/zod/usuarioSchemaCreateSchema'
-import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSchemaDetalhesSchema'
+import {
+  usuarioSchemaCreateSchema,
+  usuarioSchemaDetalhesSchema
+} from '#shared/types/sinapse/usuario'
 
 export default defineEventHandler(async event => {
   requireAdmin(event)

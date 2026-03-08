@@ -5,7 +5,7 @@
  * Toda lógica de negócio está em server/usecase/login.ts.
  */
 
-import { loginRequestSchema } from '~/generated/sinapse/zod/loginRequestSchema'
+import { loginRequestSchema } from '#shared/types/sinapse/auth'
 import { executeLogin, handleLoginResult } from '../../usecase/login'
 
 export default defineEventHandler(async event => {

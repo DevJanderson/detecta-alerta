@@ -5,7 +5,7 @@
  * Usado para inicializar o estado de autenticação no cliente.
  */
 
-import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSchemaDetalhesSchema'
+import { usuarioSchemaDetalhesSchema } from '#shared/types/sinapse/usuario'
 
 export default defineEventHandler(async event => {
   // Tentar renovar tokens se necessário (lógica centralizada)

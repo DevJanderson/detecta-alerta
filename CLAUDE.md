@@ -57,8 +57,6 @@ npm run test:coverage    # Vitest com cobertura (v8)
 npm run test:ui          # Vitest UI (navegador)
 npm run test:e2e         # Playwright E2E
 npm run test:e2e:ui      # Playwright E2E com UI
-npm run api:generate     # Gera cliente a partir do OpenAPI
-npm run api:watch        # Regenera tipos ao detectar mudanças no OpenAPI
 npm run api:lint         # Valida OpenAPI spec com Spectral
 npm run geo:convert      # Converte GeoJSON → TopoJSON (public/geo/)
 npm run docs:llms        # Gera public/llms-full.txt (docs para IA)
@@ -98,7 +96,6 @@ Valor guia do projeto, inspirado no livro "The Pragmatic Programmer". Antes de c
 - `vue/multi-word-component-names`: **off** — componentes single-word são permitidos (ex: `Button.vue`)
 - `@typescript-eslint/no-explicit-any`: `warn` (não bloqueia, mas evitar)
 - `vue/no-multiple-template-root`: **off** — múltiplos root elements permitidos (Vue 3 fragments)
-- `generated/**` é ignorado pelo ESLint
 
 ---
 
@@ -122,7 +119,6 @@ layers/                 # TUDO fica aqui (incluindo server/)
   docs/                 # Documentação do projeto (Nuxt Content)
 content/docs/           # Arquivos markdown da documentação
 tests/                  # unit/, integration/, e2e/
-generated/              # Código gerado (Kubb) - NÃO EDITAR, commitado no repo
 ```
 
 > Layers usam **extends explícito** no `nuxt.config.ts` (não auto-scan). A ordem no array define a prioridade.
@@ -460,7 +456,7 @@ git push -u origin feat/nova-feature
   - Nomes de função/classe (PascalCase) só no body, nunca no subject
   - Limites: subject ≤ 72 chars, body ≤ 100 chars por linha
   - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`, `revert`
-  - Scopes sugeridos (não enforced pelo commitlint): `auth`, `home`, `meu-municipio`, `mapa-risco`, `usuarios`, `rumores`, `docs`, `base`, `deps`, `kubb`
+  - Scopes sugeridos (não enforced pelo commitlint): `auth`, `home`, `meu-municipio`, `mapa-risco`, `usuarios`, `rumores`, `docs`, `base`, `deps`
 
 ### PR Template
 
@@ -514,71 +510,38 @@ Módulo `nuxt-security` configurado com headers, rate limiter, CSRF e XSS protec
 
 Docs: [nuxt-security.vercel.app](https://nuxt-security.vercel.app)
 
-### API Client (Kubb)
+### Tipos da API Sinapse
 
-Código TypeScript gerado automaticamente a partir da especificação OpenAPI.
-
-#### O que usar do Kubb
-
-| Componente      | Usar?  | Onde                               |
-| --------------- | ------ | ---------------------------------- |
-| **Tipos**       | ✅ Sim | Composables, stores, endpoints BFF |
-| **Schemas Zod** | ✅ Sim | Validação de respostas no BFF      |
+Tipos TypeScript e schemas Zod da API Sinapse são escritos manualmente em `layers/base/shared/types/sinapse/`. Importados via alias `#shared`.
 
 #### Estrutura
 
 ```
-kubb.config.ts              # Configuração do Kubb (input: URL remota)
-generated/
-  sinapse/
-    types/                  # Tipos TypeScript (USAR)
-    zod/                    # Schemas Zod para validação (USAR)
-    index.ts                # Barrel file com todos os exports
+layers/base/shared/types/sinapse/
+├── index.ts          # Barrel export
+├── auth.ts           # LoginRequest, Token, RefreshTokenRequest
+├── usuario.ts        # UsuarioSchema* (Detalhes, List, Create, Update, Signup)
+├── grupo.ts          # GrupoSchema* (List, Detalhes, Create, Update)
+└── permissao.ts      # PermissaoAcessoSchema* (List, Create, Update)
 ```
 
-> **Input:** Spec OpenAPI é buscada diretamente de `https://staging.sinapse.org.br/openapi.json` (sem arquivo local).
-
-#### Uso Recomendado
+#### Uso
 
 ```typescript
-// ✅ CORRETO - Tipos para autocomplete e type safety
-import type { Token } from '~/generated/sinapse/types/Token'
-import type { CasoAgravo } from '~/generated/sinapse/types/CasoAgravo'
+// Tipos (client e server)
+import type { Token, UsuarioSchemaDetalhes } from '#shared/types/sinapse'
 
-// ✅ CORRETO - Schemas Zod para validar respostas no BFF
-import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
-
-// No endpoint BFF (server/)
-const rawResponse = await $fetch('/auth/login', { ... })
-const validated = tokenSchema.parse(rawResponse) // Valida em runtime
+// Schemas Zod para validação no BFF (server/)
+import { tokenSchema, usuarioSchemaDetalhesSchema } from '#shared/types/sinapse'
+const validated = tokenSchema.parse(rawResponse)
 ```
 
-#### Regenerar após mudanças no OpenAPI
+#### Adicionar novos tipos
 
-```bash
-npm run api:generate
-```
-
-#### Configuração Importante (`kubb.config.ts`)
-
-O projeto usa `verbatimModuleSyntax: true` no TypeScript, o que exige configurações específicas:
-
-```typescript
-output: {
-  path: './generated/sinapse',
-  clean: true,
-  // OBRIGATÓRIO: Remove extensão .ts dos imports
-  // Sem isso: erro "allowImportingTsExtensions"
-  extension: { '.ts': '' },
-},
-```
-
-**Regras para plugins:**
-
-| Plugin      | Configuração                                   | Motivo                                                          |
-| ----------- | ---------------------------------------------- | --------------------------------------------------------------- |
-| `pluginZod` | **NÃO usar** `typed: true` ou `inferred: true` | Gera `import { ToZod }` que conflita com `verbatimModuleSyntax` |
-| `pluginTs`  | Usar normalmente                               | Sem restrições                                                  |
+1. Criar/editar arquivo em `layers/base/shared/types/sinapse/`
+2. Exportar no `index.ts` (barrel)
+3. Cada arquivo contém tipos TypeScript + schemas Zod correspondentes
+4. Consultar a spec OpenAPI em `https://staging.sinapse.org.br/openapi.json` como referência
 
 ### Design System
 

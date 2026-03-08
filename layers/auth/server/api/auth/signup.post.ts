@@ -6,8 +6,10 @@
  */
 
 import { AuthErrors } from '#shared/domain/errors'
-import { usuarioSchemaSignupResponseSchema } from '~/generated/sinapse/zod/usuarioSchemaSignupResponseSchema'
-import { usuarioSchemaSignupSchema } from '~/generated/sinapse/zod/usuarioSchemaSignupSchema'
+import {
+  usuarioSchemaSignupSchema,
+  usuarioSchemaSignupResponseSchema
+} from '#shared/types/sinapse/usuario'
 
 export default defineEventHandler(async event => {
   const data = await validateBody(event, usuarioSchemaSignupSchema)

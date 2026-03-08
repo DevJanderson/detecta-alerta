@@ -17,7 +17,7 @@ Um endpoint BFF (Backend-for-Frontend) é a camada entre o browser e a API Sinap
 ```typescript
 // layers/usuarios/server/api/usuarios/admin/permissoes/index.get.ts
 
-import { permissaoAcessoSchemaListSchema } from '~/generated/sinapse/zod/permissaoAcessoSchemaListSchema'
+import { permissaoAcessoSchemaListSchema } from '#shared/types/sinapse'
 import { z } from 'zod'
 
 export default defineEventHandler(async event => {
@@ -205,7 +205,7 @@ Use esta lista ao revisar PRs que criam ou modificam endpoints BFF:
 - [ ] **Erros**: tratados com `handleSinapseRequest()` (sem try/catch manual vazando detalhes)?
 - [ ] **Tokens**: acessados via `event.context.auth` (nunca de headers ou query string)?
 - [ ] **Dados sensíveis**: nenhum token, senha ou dado pessoal nos logs ou na resposta de erro?
-- [ ] **Schema Zod**: respostas da API validadas com schema Kubb quando disponível?
+- [ ] **Schema Zod**: respostas da API validadas com schema Zod de `#shared/types/sinapse`?
 
 ---
 

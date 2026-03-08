@@ -5,7 +5,7 @@
  */
 
 import { UsuariosErrors } from '#shared/domain/errors'
-import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSchemaDetalhesSchema'
+import { usuarioSchemaDetalhesSchema } from '#shared/types/sinapse/usuario'
 
 export default defineEventHandler(async event => {
   const accessToken = requireAuth(event)

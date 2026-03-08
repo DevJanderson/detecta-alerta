@@ -1,8 +1,0 @@
-export {
-  getMcpStatsApiV1McpMetricsStatsGet200Schema,
-  getMcpStatsApiV1McpMetricsStatsGetQueryResponseSchema
-} from './getMcpStatsApiV1McpMetricsStatsGetSchema'
-export {
-  prometheusMetricsApiV1McpMetricsPrometheusGet200Schema,
-  prometheusMetricsApiV1McpMetricsPrometheusGetQueryResponseSchema
-} from './prometheusMetricsApiV1McpMetricsPrometheusGetSchema'

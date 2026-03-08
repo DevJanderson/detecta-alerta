@@ -1,18 +1,20 @@
 /**
  * Types do módulo Auth
  *
- * Usa tipos do Kubb (gerados do OpenAPI) como base,
+ * Usa tipos manuais de #shared/types/sinapse como base,
  * com extensões específicas para o BFF.
  */
 
 // ============================================================================
-// RE-EXPORT DOS TIPOS KUBB
-// Tipos gerados automaticamente da API Sinapse
+// RE-EXPORT DOS TIPOS SINAPSE
+// Tipos definidos manualmente em shared/types/sinapse/
 // ============================================================================
 
-export type { LoginRequest as LoginCredentials } from '~/generated/sinapse/types/LoginRequest'
-export type { Token as TokenResponse } from '~/generated/sinapse/types/Token'
-export type { RefreshTokenRequest } from '~/generated/sinapse/types/RefreshTokenRequest'
+export type {
+  LoginRequest as LoginCredentials,
+  Token as TokenResponse,
+  RefreshTokenRequest
+} from '#shared/types/sinapse/auth'
 
 // ============================================================================
 // TIPOS ESPECÍFICOS DO BFF

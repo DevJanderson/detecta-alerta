@@ -5,7 +5,7 @@
  */
 
 import { PermissoesErrors } from '#shared/domain/errors'
-import { permissaoAcessoSchemaListSchema } from '~/generated/sinapse/zod/permissaoAcessoSchemaListSchema'
+import { permissaoAcessoSchemaListSchema } from '#shared/types/sinapse/permissao'
 
 export default defineEventHandler(async event => {
   requireAdmin(event)

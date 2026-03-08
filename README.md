@@ -44,7 +44,7 @@ Permitir a detecção precoce de surtos e ameaças à saúde pública através d
 | State      | Pinia                               |
 | Validação  | Zod, VeeValidate                    |
 | Mapas      | MapLibre GL (OpenFreeMap)           |
-| API Client | Kubb (geração a partir do OpenAPI)  |
+| API Client | Tipos manuais + Zod (`#shared`)     |
 | Qualidade  | ESLint, Prettier, Husky, Commitlint |
 | Testes     | Vitest, Playwright                  |
 
@@ -75,7 +75,6 @@ npm run test:nuxt        # Testes com ambiente Nuxt
 npm run test:e2e         # Testes E2E (Playwright)
 
 # API e dados
-npm run api:generate     # Gera cliente TypeScript do OpenAPI
 npm run geo:convert      # Converte GeoJSON → TopoJSON
 npm run docs:llms        # Gera public/llms-full.txt
 ```
@@ -95,7 +94,6 @@ layers/
 
 content/docs/        # Markdown da documentação
 tests/               # unit/, integration/, e2e/
-generated/           # Cliente API gerado (Kubb) — não editar
 ```
 
 ## Documentação

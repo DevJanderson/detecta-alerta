@@ -15,9 +15,9 @@ import type { H3Event } from 'h3'
 import { ok, fail } from '#shared/domain/result'
 import type { Result } from '#shared/domain/result'
 import { AuthErrors } from '#shared/domain/errors'
-import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
-import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSchemaDetalhesSchema'
-import type { UsuarioSchemaDetalhes } from '~/generated/sinapse/types/UsuarioSchemaDetalhes'
+import { tokenSchema } from '#shared/types/sinapse/auth'
+import type { UsuarioSchemaDetalhes } from '#shared/types/sinapse/usuario'
+import { usuarioSchemaDetalhesSchema } from '#shared/types/sinapse/usuario'
 
 export interface LoginInput {
   username: string

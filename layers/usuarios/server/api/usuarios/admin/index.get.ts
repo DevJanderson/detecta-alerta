@@ -6,7 +6,7 @@
  */
 
 import { UsuariosErrors } from '#shared/domain/errors'
-import { usuariosPaginadosSchemaSchema } from '~/generated/sinapse/zod/usuariosPaginadosSchemaSchema'
+import { usuariosPaginadosSchemaSchema } from '#shared/types/sinapse/usuario'
 
 export default defineEventHandler(async event => {
   requireAdmin(event)

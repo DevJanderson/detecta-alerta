@@ -5,8 +5,7 @@
  */
 
 import { GruposErrors } from '#shared/domain/errors'
-import { grupoSchemaCreateSchema } from '~/generated/sinapse/zod/grupoSchemaCreateSchema'
-import { grupoSchemaDetalhesSchema } from '~/generated/sinapse/zod/grupoSchemaDetalhesSchema'
+import { grupoSchemaCreateSchema, grupoSchemaDetalhesSchema } from '#shared/types/sinapse/grupo'
 
 export default defineEventHandler(async event => {
   requireAdmin(event)

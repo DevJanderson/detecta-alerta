@@ -102,6 +102,6 @@ Para detalhes sobre cada primitivo, veja:
 | **shadcn-vue + reka-ui**    | Componentes UI acessíveis                             |
 | **Pinia**                   | Gerenciamento de estado                               |
 | **MapLibre GL**             | Mapas interativos                                     |
-| **Kubb**                    | Geração de tipos e schemas Zod a partir do OpenAPI    |
+| **Zod**                     | Validação de dados e tipos da API (`#shared`)         |
 | **Vitest**                  | Testes unitários e de integração                      |
 | **Playwright**              | Testes E2E                                            |

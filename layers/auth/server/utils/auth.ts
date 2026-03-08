@@ -6,9 +6,9 @@
 import type { H3Event } from 'h3'
 import { AuthErrors } from '#shared/domain/errors'
 
-// Tipos e schemas do Kubb (gerados do OpenAPI da API Sinapse)
-import type { Token } from '~/generated/sinapse/types/Token'
-import { tokenSchema } from '~/generated/sinapse/zod/tokenSchema'
+// Tipos e schemas da API Sinapse
+import type { Token } from '#shared/types/sinapse/auth'
+import { tokenSchema } from '#shared/types/sinapse/auth'
 
 // ============================================================================
 // CONSTANTES
@@ -44,7 +44,7 @@ export interface SinapseError {
 }
 
 /**
- * Alias para tipo de resposta de tokens (do Kubb)
+ * Alias para tipo de resposta de tokens
  */
 export type TokenResponse = Token
 
@@ -231,7 +231,7 @@ export async function tryRefreshTokens(event: H3Event): Promise<RefreshResult> {
       timeout: DEFAULT_FETCH_TIMEOUT
     })
 
-    // Validar resposta com schema Kubb (garante que API não mudou)
+    // Validar resposta com schema Zod (garante que API não mudou)
     const tokenResponse = tokenSchema.parse(rawResponse)
 
     // Atualizar cookies com novos tokens
