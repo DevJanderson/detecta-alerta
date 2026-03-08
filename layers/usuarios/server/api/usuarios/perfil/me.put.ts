@@ -5,6 +5,7 @@
  * Busca o ID do usuario via /usuarios/me e depois atualiza.
  */
 
+import { UsuariosErrors } from '#shared/domain/errors'
 import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSchemaDetalhesSchema'
 import { usuarioSchemaUpdateSchema } from '~/generated/sinapse/zod/usuarioSchemaUpdateSchema'
 
@@ -26,7 +27,7 @@ export default defineEventHandler(async event => {
         accessToken
       })
     },
-    errorContext: 'Erro ao atualizar perfil',
+    errorContext: UsuariosErrors.PROFILE_UPDATE_FAILED,
     schema: usuarioSchemaDetalhesSchema
   })
 })

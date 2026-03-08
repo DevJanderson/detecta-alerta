@@ -4,6 +4,7 @@
  * Retorna detalhes de um usuario especifico (somente admin).
  */
 
+import { UsuariosErrors } from '#shared/domain/errors'
 import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSchemaDetalhesSchema'
 
 export default defineEventHandler(async event => {
@@ -14,7 +15,7 @@ export default defineEventHandler(async event => {
 
   return handleSinapseRequest({
     fn: () => fetchSinapse(`/usuarios/${id}`, { accessToken }),
-    errorContext: 'Erro ao buscar usuario',
+    errorContext: UsuariosErrors.GET_FAILED,
     schema: usuarioSchemaDetalhesSchema
   })
 })

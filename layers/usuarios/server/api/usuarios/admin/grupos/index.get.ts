@@ -4,6 +4,7 @@
  * Lista grupos paginados. Requer admin.
  */
 
+import { GruposErrors } from '#shared/domain/errors'
 import { gruposPaginadosSchemaSchema } from '~/generated/sinapse/zod/gruposPaginadosSchemaSchema'
 
 export default defineEventHandler(async event => {
@@ -21,7 +22,7 @@ export default defineEventHandler(async event => {
 
   return handleSinapseRequest({
     fn: () => fetchSinapse(endpoint, { accessToken }),
-    errorContext: 'Erro ao listar grupos',
+    errorContext: GruposErrors.LIST_FAILED,
     schema: gruposPaginadosSchemaSchema
   })
 })

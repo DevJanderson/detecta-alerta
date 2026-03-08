@@ -4,6 +4,8 @@
  * Remove um usuario especifico (somente admin).
  */
 
+import { UsuariosErrors } from '#shared/domain/errors'
+
 export default defineEventHandler(async event => {
   requireAdmin(event)
   const accessToken = requireAuth(event)
@@ -12,7 +14,7 @@ export default defineEventHandler(async event => {
 
   await handleSinapseRequest({
     fn: () => fetchSinapse(`/usuarios/${id}`, { method: 'DELETE', accessToken }),
-    errorContext: 'Erro ao remover usuario'
+    errorContext: UsuariosErrors.DELETE_FAILED
   })
 
   return { message: 'Usuario removido' }

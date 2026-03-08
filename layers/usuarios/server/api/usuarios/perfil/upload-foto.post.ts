@@ -5,6 +5,8 @@
  * Le multipart form data e encaminha para a API Sinapse.
  */
 
+import { UsuariosErrors } from '#shared/domain/errors'
+
 export default defineEventHandler(async event => {
   const accessToken = requireAuth(event)
 
@@ -13,7 +15,7 @@ export default defineEventHandler(async event => {
   if (!formData || formData.length === 0) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Nenhum arquivo enviado'
+      statusMessage: UsuariosErrors.PHOTO_NO_FILE
     })
   }
 
@@ -25,7 +27,7 @@ export default defineEventHandler(async event => {
   if (files.length !== 1) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Envie exatamente um arquivo'
+      statusMessage: UsuariosErrors.PHOTO_TOO_MANY
     })
   }
 
@@ -33,14 +35,14 @@ export default defineEventHandler(async event => {
   if (!file.type || !ALLOWED_TYPES.includes(file.type)) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Tipo de arquivo nao permitido. Use JPG, PNG ou WebP'
+      statusMessage: UsuariosErrors.PHOTO_INVALID_TYPE
     })
   }
 
   if (file.data.length > MAX_FILE_SIZE) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Arquivo muito grande. Maximo 5MB'
+      statusMessage: UsuariosErrors.PHOTO_TOO_LARGE
     })
   }
 
@@ -67,7 +69,7 @@ export default defineEventHandler(async event => {
     if (isSinapseError(error)) {
       throw createError({
         statusCode: error.statusCode,
-        statusMessage: error.statusMessage || 'Erro ao enviar foto'
+        statusMessage: error.statusMessage || UsuariosErrors.PHOTO_UPLOAD_FAILED
       })
     }
 
@@ -75,7 +77,7 @@ export default defineEventHandler(async event => {
 
     throw createError({
       statusCode: 500,
-      statusMessage: 'Erro ao enviar foto'
+      statusMessage: UsuariosErrors.PHOTO_UPLOAD_FAILED
     })
   }
 })

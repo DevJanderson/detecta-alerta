@@ -4,6 +4,8 @@
  * Remove permissao de um usuario. Requer admin.
  */
 
+import { PermissoesErrors } from '#shared/domain/errors'
+
 export default defineEventHandler(async event => {
   requireAdmin(event)
   const accessToken = requireAuth(event)
@@ -17,7 +19,7 @@ export default defineEventHandler(async event => {
         method: 'DELETE',
         accessToken
       }),
-    errorContext: 'Erro ao remover permissao'
+    errorContext: PermissoesErrors.REMOVE_FROM_USER_FAILED
   })
 
   return { message: 'Permissao removida' }

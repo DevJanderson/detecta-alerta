@@ -5,6 +5,7 @@
 
 import type { H3Event } from 'h3'
 import type { JwtPayload } from '../../app/composables/types'
+import { AuthErrors } from '#shared/domain/errors'
 
 // Tipos e schemas do Kubb (gerados do OpenAPI da API Sinapse)
 import type { Token } from '~/generated/sinapse/types/Token'
@@ -159,7 +160,7 @@ export function getSinapseApiUrl(): string {
   if (!url) {
     throw createError({
       statusCode: 500,
-      statusMessage: 'NUXT_SINAPSE_API_URL não configurada'
+      statusMessage: AuthErrors.CONFIG_MISSING
     })
   }
 
@@ -208,7 +209,7 @@ export async function tryRefreshTokens(event: H3Event): Promise<RefreshResult> {
   // Sem refresh token - não conseguimos renovar
   if (!refreshToken) {
     clearAuthCookies(event)
-    return { success: false, error: 'Refresh token não encontrado' }
+    return { success: false, error: AuthErrors.REFRESH_TOKEN_MISSING }
   }
 
   try {
@@ -232,7 +233,7 @@ export async function tryRefreshTokens(event: H3Event): Promise<RefreshResult> {
   } catch (error) {
     logAuthError('Falha ao renovar tokens', error)
     clearAuthCookies(event)
-    return { success: false, error: 'Sessão expirada' }
+    return { success: false, error: AuthErrors.SESSION_EXPIRED }
   }
 }
 

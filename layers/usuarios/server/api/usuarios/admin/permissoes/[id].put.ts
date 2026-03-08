@@ -4,6 +4,7 @@
  * Atualiza uma permissao. Requer admin.
  */
 
+import { PermissoesErrors } from '#shared/domain/errors'
 import { permissaoAcessoSchemaUpdateSchema } from '~/generated/sinapse/zod/permissaoAcessoSchemaUpdateSchema'
 import { permissaoAcessoSchemaListSchema } from '~/generated/sinapse/zod/permissaoAcessoSchemaListSchema'
 
@@ -21,7 +22,7 @@ export default defineEventHandler(async event => {
         body: data as Record<string, unknown>,
         accessToken
       }),
-    errorContext: 'Erro ao atualizar permissao',
+    errorContext: PermissoesErrors.UPDATE_FAILED,
     schema: permissaoAcessoSchemaListSchema
   })
 })

@@ -4,6 +4,7 @@
  * Retorna detalhes de um grupo. Requer admin.
  */
 
+import { GruposErrors } from '#shared/domain/errors'
 import { grupoSchemaDetalhesSchema } from '~/generated/sinapse/zod/grupoSchemaDetalhesSchema'
 
 export default defineEventHandler(async event => {
@@ -14,7 +15,7 @@ export default defineEventHandler(async event => {
 
   return handleSinapseRequest({
     fn: () => fetchSinapse(`/usuarios/grupos/${id}`, { accessToken }),
-    errorContext: 'Erro ao buscar grupo',
+    errorContext: GruposErrors.GET_FAILED,
     schema: grupoSchemaDetalhesSchema
   })
 })

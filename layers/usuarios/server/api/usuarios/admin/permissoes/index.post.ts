@@ -4,6 +4,7 @@
  * Cria uma nova permissao. Requer admin.
  */
 
+import { PermissoesErrors } from '#shared/domain/errors'
 import { permissaoAcessoSchemaCreateSchema } from '~/generated/sinapse/zod/permissaoAcessoSchemaCreateSchema'
 import { permissaoAcessoSchemaListSchema } from '~/generated/sinapse/zod/permissaoAcessoSchemaListSchema'
 
@@ -19,7 +20,7 @@ export default defineEventHandler(async event => {
         body: data as Record<string, unknown>,
         accessToken
       }),
-    errorContext: 'Erro ao criar permissao',
+    errorContext: PermissoesErrors.CREATE_FAILED,
     schema: permissaoAcessoSchemaListSchema
   })
 })

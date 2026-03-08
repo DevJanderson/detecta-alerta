@@ -1,4 +1,5 @@
 import type { PanoramaData, RegionRow, HomeFilters, SelectOption, RegionOption } from './types'
+import { HomeErrors } from '#shared/domain/errors'
 
 export const useHomeStore = defineStore(
   'home',
@@ -47,7 +48,7 @@ export const useHomeStore = defineStore(
     }
 
     async function fetchPanorama() {
-      return withStoreAction({ isLoading, error }, 'Erro ao carregar panorama', async () => {
+      return withStoreAction({ isLoading, error }, HomeErrors.PANORAMA_FAILED, async () => {
         panorama.value = await api.getPanorama({
           region: filtros.value.region,
           estado: filtros.value.estado,
@@ -57,7 +58,7 @@ export const useHomeStore = defineStore(
     }
 
     async function fetchRegionTable() {
-      return withStoreAction({ isLoading, error }, 'Erro ao carregar tabela', async () => {
+      return withStoreAction({ isLoading, error }, HomeErrors.TABLE_FAILED, async () => {
         regionRows.value = await api.getRegionTable({
           estado: filtros.value.estado,
           semana: filtros.value.semana
@@ -66,7 +67,7 @@ export const useHomeStore = defineStore(
     }
 
     async function fetchAll() {
-      return withStoreAction({ isLoading, error }, 'Erro ao carregar dados', async () => {
+      return withStoreAction({ isLoading, error }, HomeErrors.DATA_FAILED, async () => {
         const [p, r] = await Promise.all([
           api.getPanorama({
             region: filtros.value.region,

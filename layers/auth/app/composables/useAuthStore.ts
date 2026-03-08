@@ -5,7 +5,10 @@
  */
 
 import type { AuthUser, LoginCredentials, ResetPasswordData } from './types'
-// extractErrorMessage e isUnauthorizedError são auto-importados de layers/base/app/utils/error
+import type { UserModel } from '../utils/user-model'
+import { AuthErrors } from '#shared/domain/errors'
+// createUserModel, userHas* são auto-importados de layers/auth/app/utils/
+// extractErrorMessage e isUnauthorizedError são auto-importados de layers/base/app/utils/
 
 // ============================================================================
 // STORE
@@ -13,7 +16,7 @@ import type { AuthUser, LoginCredentials, ResetPasswordData } from './types'
 
 export const useAuthStore = defineStore('auth', () => {
   // Estado
-  const user = ref<AuthUser | null>(null)
+  const user = ref<UserModel | null>(null)
   const isLoading = ref(false)
   const error = ref<string | null>(null)
   const isInitialized = ref(false)
@@ -27,43 +30,30 @@ export const useAuthStore = defineStore('auth', () => {
   // --------------------------------------------------------------------------
 
   const isAuthenticated = computed(() => !!user.value)
-  const userName = computed(() => user.value?.nome || '')
-  const userEmail = computed(() => user.value?.email || '')
-
-  const userInitials = computed(() => {
-    if (!user.value?.nome) return ''
-    const names = user.value.nome.split(' ')
-    if (names.length >= 2) {
-      const first = names[0]?.[0] ?? ''
-      const last = names[names.length - 1]?.[0] ?? ''
-      return `${first}${last}`.toUpperCase()
-    }
-    return (names[0] ?? '').substring(0, 2).toUpperCase()
-  })
-
-  // Permissões e grupos
-  const permissions = computed(() => user.value?.permissoes?.map(p => p.codigo) || [])
-
-  const groups = computed(() => user.value?.grupos?.map(g => g.nome) || [])
+  const userName = computed(() => user.value?.nome ?? '')
+  const userEmail = computed(() => user.value?.email ?? '')
+  const userInitials = computed(() => user.value?.initials ?? '')
+  const permissions = computed(() => user.value?.permissions ?? [])
+  const groups = computed(() => user.value?.groups ?? [])
 
   // --------------------------------------------------------------------------
-  // HELPERS DE PERMISSÃO
+  // HELPERS DE PERMISSÃO (delegam para o UserModel)
   // --------------------------------------------------------------------------
 
   function hasPermission(codigo: string): boolean {
-    return permissions.value.includes(codigo)
+    return user.value ? userHasPermission(user.value, codigo) : false
   }
 
   function hasAnyPermission(codigos: string[]): boolean {
-    return codigos.some(codigo => permissions.value.includes(codigo))
+    return user.value ? userHasAnyPermission(user.value, codigos) : false
   }
 
   function hasGroup(nome: string): boolean {
-    return groups.value.includes(nome)
+    return user.value ? userHasGroup(user.value, nome) : false
   }
 
   function hasAnyGroup(nomes: string[]): boolean {
-    return nomes.some(nome => groups.value.includes(nome))
+    return user.value ? userHasAnyGroup(user.value, nomes) : false
   }
 
   // --------------------------------------------------------------------------
@@ -77,10 +67,10 @@ export const useAuthStore = defineStore('auth', () => {
   async function login(credentials: LoginCredentials): Promise<boolean> {
     return withStoreAction(
       { isLoading, error },
-      'Erro ao fazer login',
+      AuthErrors.LOGIN_FAILED,
       async () => {
         const response = await api.login(credentials)
-        user.value = response.user as AuthUser
+        user.value = createUserModel(response.user as AuthUser)
         return true
       },
       false
@@ -102,7 +92,7 @@ export const useAuthStore = defineStore('auth', () => {
     } catch (e: unknown) {
       // Log do erro mas limpa estado local mesmo assim
       // (é mais importante o usuário sair do que manter sessão inconsistente)
-      console.warn('Erro ao fazer logout no servidor:', e)
+      console.warn(AuthErrors.LOGOUT_FAILED, e)
       user.value = null
       return false
     } finally {
@@ -121,13 +111,13 @@ export const useAuthStore = defineStore('auth', () => {
 
     try {
       const response = await api.getMe()
-      user.value = response.user
+      user.value = response.user ? createUserModel(response.user) : null
     } catch (e: unknown) {
       // Se 401, não é erro - apenas não está autenticado
       if (isUnauthorizedError(e)) {
         user.value = null
       } else {
-        error.value = extractErrorMessage(e, 'Erro ao carregar usuário')
+        error.value = extractErrorMessage(e, AuthErrors.FETCH_USER_FAILED)
       }
     } finally {
       isLoading.value = false
@@ -149,7 +139,7 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await api.resetPassword(data)
       return { success: true, message: response.message }
     } catch (e: unknown) {
-      const message = extractErrorMessage(e, 'Erro ao solicitar reset de senha')
+      const message = extractErrorMessage(e, AuthErrors.RESET_PASSWORD_FAILED)
       error.value = message
       return { success: false, message }
     } finally {

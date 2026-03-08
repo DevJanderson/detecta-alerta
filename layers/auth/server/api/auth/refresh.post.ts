@@ -6,13 +6,15 @@
  * mas o refresh automático já é feito pelo server middleware.
  */
 
+import { AuthErrors } from '#shared/domain/errors'
+
 export default defineEventHandler(async event => {
   const refreshResult = await tryRefreshTokens(event)
 
   if (!refreshResult.success) {
     throw createError({
       statusCode: 401,
-      statusMessage: refreshResult.error || 'Sessão expirada. Faça login novamente.'
+      statusMessage: refreshResult.error || AuthErrors.SESSION_EXPIRED
     })
   }
 

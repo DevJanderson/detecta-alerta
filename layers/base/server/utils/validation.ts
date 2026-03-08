@@ -5,6 +5,7 @@
 
 import type { H3Event } from 'h3'
 import type { ZodType } from 'zod'
+import { ValidationErrors } from '#shared/domain/errors'
 
 export async function validateBody<T>(event: H3Event, schema: ZodType<T>): Promise<T> {
   const body = await readBody(event)
@@ -13,7 +14,7 @@ export async function validateBody<T>(event: H3Event, schema: ZodType<T>): Promi
   if (!result.success) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Dados invalidos'
+      statusMessage: ValidationErrors.INVALID_BODY
     })
   }
 
@@ -30,7 +31,7 @@ export function validateRouteParam(event: H3Event, name: string): string {
   if (!value || !/^\d+$/.test(value)) {
     throw createError({
       statusCode: 400,
-      statusMessage: `Parametro '${name}' invalido`
+      statusMessage: ValidationErrors.INVALID_PARAM(name)
     })
   }
 
@@ -49,7 +50,7 @@ export function validateUniqueId(event: H3Event, name: string = 'uniqueId'): str
   if (!value || !UUID_RE.test(value)) {
     throw createError({
       statusCode: 400,
-      statusMessage: `Parametro '${name}' invalido`
+      statusMessage: ValidationErrors.INVALID_PARAM(name)
     })
   }
 

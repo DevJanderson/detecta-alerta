@@ -4,6 +4,7 @@
  * Atualiza um usuario especifico (somente admin).
  */
 
+import { UsuariosErrors } from '#shared/domain/errors'
 import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSchemaDetalhesSchema'
 import { usuarioSchemaUpdateSchema } from '~/generated/sinapse/zod/usuarioSchemaUpdateSchema'
 
@@ -22,7 +23,7 @@ export default defineEventHandler(async event => {
         body: data as Record<string, unknown>,
         accessToken
       }),
-    errorContext: 'Erro ao atualizar usuario',
+    errorContext: UsuariosErrors.UPDATE_FAILED,
     schema: usuarioSchemaDetalhesSchema
   })
 })

@@ -3,6 +3,7 @@ import type {
   PermissaoAcessoSchemaCreate,
   PermissaoAcessoSchemaUpdate
 } from './types'
+import { PermissoesErrors } from '#shared/domain/errors'
 
 export const usePermissoesStore = defineStore('permissoes', () => {
   // Estado
@@ -16,7 +17,7 @@ export const usePermissoesStore = defineStore('permissoes', () => {
   // Actions
 
   async function fetchAll(): Promise<void> {
-    return withStoreAction(refs, 'Erro ao listar permissoes', async () => {
+    return withStoreAction(refs, PermissoesErrors.LIST_FAILED, async () => {
       items.value = await api.listar()
     })
   }
@@ -24,7 +25,7 @@ export const usePermissoesStore = defineStore('permissoes', () => {
   async function criar(data: PermissaoAcessoSchemaCreate): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao criar permissao',
+      PermissoesErrors.CREATE_FAILED,
       async () => {
         await api.criar(data)
         return true
@@ -36,7 +37,7 @@ export const usePermissoesStore = defineStore('permissoes', () => {
   async function obter(id: number): Promise<PermissaoAcessoSchemaList | null> {
     return withStoreAction(
       refs,
-      'Erro ao obter permissao',
+      PermissoesErrors.GET_FAILED,
       async () => {
         return await api.obter(id)
       },
@@ -47,7 +48,7 @@ export const usePermissoesStore = defineStore('permissoes', () => {
   async function atualizar(id: number, data: PermissaoAcessoSchemaUpdate): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao atualizar permissao',
+      PermissoesErrors.UPDATE_FAILED,
       async () => {
         await api.atualizar(id, data)
         return true
@@ -59,7 +60,7 @@ export const usePermissoesStore = defineStore('permissoes', () => {
   async function remover(id: number): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao remover permissao',
+      PermissoesErrors.DELETE_FAILED,
       async () => {
         await api.remover(id)
         return true
@@ -71,7 +72,7 @@ export const usePermissoesStore = defineStore('permissoes', () => {
   async function addToUser(userId: number, permId: number): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao adicionar permissao ao usuario',
+      PermissoesErrors.ADD_TO_USER_FAILED,
       async () => {
         await api.addToUser(userId, permId)
         return true
@@ -83,7 +84,7 @@ export const usePermissoesStore = defineStore('permissoes', () => {
   async function removeFromUser(userId: number, permId: number): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao remover permissao do usuario',
+      PermissoesErrors.REMOVE_FROM_USER_FAILED,
       async () => {
         await api.removeFromUser(userId, permId)
         return true

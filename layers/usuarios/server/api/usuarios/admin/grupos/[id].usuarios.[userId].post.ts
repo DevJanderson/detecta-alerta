@@ -4,6 +4,8 @@
  * Adiciona usuario a um grupo. Requer admin.
  */
 
+import { GruposErrors } from '#shared/domain/errors'
+
 export default defineEventHandler(async event => {
   requireAdmin(event)
   const accessToken = requireAuth(event)
@@ -17,7 +19,7 @@ export default defineEventHandler(async event => {
         method: 'POST',
         accessToken
       }),
-    errorContext: 'Erro ao adicionar usuario ao grupo'
+    errorContext: GruposErrors.ADD_USER_FAILED
   })
 
   return { message: 'Usuario adicionado ao grupo' }

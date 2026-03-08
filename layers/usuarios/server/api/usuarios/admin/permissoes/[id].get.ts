@@ -4,6 +4,7 @@
  * Retorna detalhes de uma permissao. Requer admin.
  */
 
+import { PermissoesErrors } from '#shared/domain/errors'
 import { permissaoAcessoSchemaListSchema } from '~/generated/sinapse/zod/permissaoAcessoSchemaListSchema'
 
 export default defineEventHandler(async event => {
@@ -14,7 +15,7 @@ export default defineEventHandler(async event => {
 
   return handleSinapseRequest({
     fn: () => fetchSinapse(`/usuarios/permissoes/${id}`, { accessToken }),
-    errorContext: 'Erro ao buscar permissao',
+    errorContext: PermissoesErrors.GET_FAILED,
     schema: permissaoAcessoSchemaListSchema
   })
 })

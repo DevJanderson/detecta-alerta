@@ -4,6 +4,8 @@
  * Remove uma permissao. Requer admin.
  */
 
+import { PermissoesErrors } from '#shared/domain/errors'
+
 export default defineEventHandler(async event => {
   requireAdmin(event)
   const accessToken = requireAuth(event)
@@ -12,7 +14,7 @@ export default defineEventHandler(async event => {
 
   await handleSinapseRequest({
     fn: () => fetchSinapse(`/usuarios/permissoes/${id}`, { method: 'DELETE', accessToken }),
-    errorContext: 'Erro ao remover permissao'
+    errorContext: PermissoesErrors.DELETE_FAILED
   })
 
   return { message: 'Permissao removida' }

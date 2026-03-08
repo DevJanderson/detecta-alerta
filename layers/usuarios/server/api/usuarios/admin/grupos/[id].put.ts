@@ -4,6 +4,7 @@
  * Atualiza um grupo. Requer admin.
  */
 
+import { GruposErrors } from '#shared/domain/errors'
 import { grupoSchemaUpdateSchema } from '~/generated/sinapse/zod/grupoSchemaUpdateSchema'
 import { grupoSchemaDetalhesSchema } from '~/generated/sinapse/zod/grupoSchemaDetalhesSchema'
 
@@ -21,7 +22,7 @@ export default defineEventHandler(async event => {
         body: data as Record<string, unknown>,
         accessToken
       }),
-    errorContext: 'Erro ao atualizar grupo',
+    errorContext: GruposErrors.UPDATE_FAILED,
     schema: grupoSchemaDetalhesSchema
   })
 })

@@ -4,6 +4,7 @@
  * Cria um novo usuario (somente admin).
  */
 
+import { UsuariosErrors } from '#shared/domain/errors'
 import { usuarioSchemaCreateSchema } from '~/generated/sinapse/zod/usuarioSchemaCreateSchema'
 import { usuarioSchemaDetalhesSchema } from '~/generated/sinapse/zod/usuarioSchemaDetalhesSchema'
 
@@ -19,7 +20,7 @@ export default defineEventHandler(async event => {
         body: data as Record<string, unknown>,
         accessToken
       }),
-    errorContext: 'Erro ao criar usuario',
+    errorContext: UsuariosErrors.CREATE_FAILED,
     schema: usuarioSchemaDetalhesSchema
   })
 })

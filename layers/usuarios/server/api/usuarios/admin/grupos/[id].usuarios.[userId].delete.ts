@@ -4,6 +4,8 @@
  * Remove usuario de um grupo. Requer admin.
  */
 
+import { GruposErrors } from '#shared/domain/errors'
+
 export default defineEventHandler(async event => {
   requireAdmin(event)
   const accessToken = requireAuth(event)
@@ -17,7 +19,7 @@ export default defineEventHandler(async event => {
         method: 'DELETE',
         accessToken
       }),
-    errorContext: 'Erro ao remover usuario do grupo'
+    errorContext: GruposErrors.REMOVE_USER_FAILED
   })
 
   return { message: 'Usuario removido do grupo' }

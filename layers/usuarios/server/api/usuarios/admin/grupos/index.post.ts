@@ -4,6 +4,7 @@
  * Cria um novo grupo. Requer admin.
  */
 
+import { GruposErrors } from '#shared/domain/errors'
 import { grupoSchemaCreateSchema } from '~/generated/sinapse/zod/grupoSchemaCreateSchema'
 import { grupoSchemaDetalhesSchema } from '~/generated/sinapse/zod/grupoSchemaDetalhesSchema'
 
@@ -19,7 +20,7 @@ export default defineEventHandler(async event => {
         body: data as Record<string, unknown>,
         accessToken
       }),
-    errorContext: 'Erro ao criar grupo',
+    errorContext: GruposErrors.CREATE_FAILED,
     schema: grupoSchemaDetalhesSchema
   })
 })

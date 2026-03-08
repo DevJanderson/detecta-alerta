@@ -4,6 +4,8 @@
  * Remove um grupo. Requer admin.
  */
 
+import { GruposErrors } from '#shared/domain/errors'
+
 export default defineEventHandler(async event => {
   requireAdmin(event)
   const accessToken = requireAuth(event)
@@ -12,7 +14,7 @@ export default defineEventHandler(async event => {
 
   await handleSinapseRequest({
     fn: () => fetchSinapse(`/usuarios/grupos/${id}`, { method: 'DELETE', accessToken }),
-    errorContext: 'Erro ao remover grupo'
+    errorContext: GruposErrors.DELETE_FAILED
   })
 
   return { message: 'Grupo removido' }

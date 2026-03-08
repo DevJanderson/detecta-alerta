@@ -5,6 +5,7 @@ import type {
   GrupoSchemaUpdate,
   ListarGruposParams
 } from './types'
+import { GruposErrors } from '#shared/domain/errors'
 
 export const useGruposStore = defineStore('grupos', () => {
   // Estado
@@ -27,7 +28,7 @@ export const useGruposStore = defineStore('grupos', () => {
   // Actions
 
   async function fetchAll(params?: ListarGruposParams): Promise<void> {
-    return withStoreAction(refs, 'Erro ao listar grupos', async () => {
+    return withStoreAction(refs, GruposErrors.LIST_FAILED, async () => {
       const response = await api.listar(params)
       items.value = response.grupos
       total.value = response.total
@@ -40,7 +41,7 @@ export const useGruposStore = defineStore('grupos', () => {
   async function criar(data: GrupoSchemaCreate): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao criar grupo',
+      GruposErrors.CREATE_FAILED,
       async () => {
         await api.criar(data)
         return true
@@ -50,7 +51,7 @@ export const useGruposStore = defineStore('grupos', () => {
   }
 
   async function obter(id: number): Promise<void> {
-    return withStoreAction(refs, 'Erro ao obter grupo', async () => {
+    return withStoreAction(refs, GruposErrors.GET_FAILED, async () => {
       selectedGrupo.value = await api.obter(id)
     })
   }
@@ -58,7 +59,7 @@ export const useGruposStore = defineStore('grupos', () => {
   async function atualizar(id: number, data: GrupoSchemaUpdate): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao atualizar grupo',
+      GruposErrors.UPDATE_FAILED,
       async () => {
         selectedGrupo.value = await api.atualizar(id, data)
         return true
@@ -70,7 +71,7 @@ export const useGruposStore = defineStore('grupos', () => {
   async function remover(id: number): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao remover grupo',
+      GruposErrors.DELETE_FAILED,
       async () => {
         await api.remover(id)
         return true
@@ -82,7 +83,7 @@ export const useGruposStore = defineStore('grupos', () => {
   async function addUsuario(grupoId: number, usuarioId: number): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao adicionar usuario ao grupo',
+      GruposErrors.ADD_USER_FAILED,
       async () => {
         await api.addUsuario(grupoId, usuarioId)
         return true
@@ -94,7 +95,7 @@ export const useGruposStore = defineStore('grupos', () => {
   async function removeUsuario(grupoId: number, usuarioId: number): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao remover usuario do grupo',
+      GruposErrors.REMOVE_USER_FAILED,
       async () => {
         await api.removeUsuario(grupoId, usuarioId)
         return true

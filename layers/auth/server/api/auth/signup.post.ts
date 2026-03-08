@@ -5,6 +5,7 @@
  * Nao requer autenticacao.
  */
 
+import { AuthErrors } from '#shared/domain/errors'
 import { usuarioSchemaSignupResponseSchema } from '~/generated/sinapse/zod/usuarioSchemaSignupResponseSchema'
 import { usuarioSchemaSignupSchema } from '~/generated/sinapse/zod/usuarioSchemaSignupSchema'
 
@@ -17,7 +18,7 @@ export default defineEventHandler(async event => {
         method: 'POST',
         body: data as Record<string, unknown>
       }),
-    errorContext: 'Erro ao realizar cadastro',
+    errorContext: AuthErrors.SIGNUP_FAILED,
     schema: usuarioSchemaSignupResponseSchema
   })
 })

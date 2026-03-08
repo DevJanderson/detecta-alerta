@@ -5,6 +5,7 @@
  * Query params: page, size, nome, email, admin, ativo, cidade, estado, search
  */
 
+import { UsuariosErrors } from '#shared/domain/errors'
 import { usuariosPaginadosSchemaSchema } from '~/generated/sinapse/zod/usuariosPaginadosSchemaSchema'
 
 export default defineEventHandler(async event => {
@@ -28,7 +29,7 @@ export default defineEventHandler(async event => {
 
   return handleSinapseRequest({
     fn: () => fetchSinapse(endpoint, { accessToken }),
-    errorContext: 'Erro ao listar usuarios',
+    errorContext: UsuariosErrors.LIST_FAILED,
     schema: usuariosPaginadosSchemaSchema
   })
 })

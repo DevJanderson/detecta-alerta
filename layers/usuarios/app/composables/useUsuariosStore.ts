@@ -6,6 +6,7 @@ import type {
   UsuarioSchemaSignup,
   ListarUsuariosParams
 } from './types'
+import { UsuariosErrors } from '#shared/domain/errors'
 
 export const useUsuariosStore = defineStore('usuarios', () => {
   // Estado
@@ -29,7 +30,7 @@ export const useUsuariosStore = defineStore('usuarios', () => {
   // Perfil (self-service)
 
   async function fetchPerfil(): Promise<void> {
-    return withStoreAction(refs, 'Erro ao carregar perfil', async () => {
+    return withStoreAction(refs, UsuariosErrors.PROFILE_FETCH_FAILED, async () => {
       perfil.value = await api.getMe()
     })
   }
@@ -37,7 +38,7 @@ export const useUsuariosStore = defineStore('usuarios', () => {
   async function updatePerfil(data: UsuarioSchemaUpdate): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao atualizar perfil',
+      UsuariosErrors.PROFILE_UPDATE_FAILED,
       async () => {
         perfil.value = await api.updateMe(data)
         return true
@@ -49,7 +50,7 @@ export const useUsuariosStore = defineStore('usuarios', () => {
   async function uploadFoto(file: File): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao enviar foto',
+      UsuariosErrors.PHOTO_UPLOAD_FAILED,
       async () => {
         await api.uploadFoto(file)
         return true
@@ -61,7 +62,7 @@ export const useUsuariosStore = defineStore('usuarios', () => {
   // Admin
 
   async function fetchAll(params?: ListarUsuariosParams): Promise<void> {
-    return withStoreAction(refs, 'Erro ao listar usuarios', async () => {
+    return withStoreAction(refs, UsuariosErrors.LIST_FAILED, async () => {
       const response = await api.listar(params)
       items.value = response.usuarios
       total.value = response.total
@@ -74,7 +75,7 @@ export const useUsuariosStore = defineStore('usuarios', () => {
   async function criar(data: UsuarioSchemaCreate): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao criar usuario',
+      UsuariosErrors.CREATE_FAILED,
       async () => {
         await api.criar(data)
         return true
@@ -84,7 +85,7 @@ export const useUsuariosStore = defineStore('usuarios', () => {
   }
 
   async function obter(id: number): Promise<void> {
-    return withStoreAction(refs, 'Erro ao obter usuario', async () => {
+    return withStoreAction(refs, UsuariosErrors.GET_FAILED, async () => {
       selectedUsuario.value = await api.obter(id)
     })
   }
@@ -92,7 +93,7 @@ export const useUsuariosStore = defineStore('usuarios', () => {
   async function atualizar(id: number, data: UsuarioSchemaUpdate): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao atualizar usuario',
+      UsuariosErrors.UPDATE_FAILED,
       async () => {
         selectedUsuario.value = await api.atualizar(id, data)
         return true
@@ -104,7 +105,7 @@ export const useUsuariosStore = defineStore('usuarios', () => {
   async function remover(id: number): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao remover usuario',
+      UsuariosErrors.DELETE_FAILED,
       async () => {
         await api.remover(id)
         return true
@@ -116,7 +117,7 @@ export const useUsuariosStore = defineStore('usuarios', () => {
   async function signup(data: UsuarioSchemaSignup): Promise<boolean> {
     return withStoreAction(
       refs,
-      'Erro ao cadastrar usuario',
+      UsuariosErrors.SIGNUP_FAILED,
       async () => {
         await api.signup(data)
         return true

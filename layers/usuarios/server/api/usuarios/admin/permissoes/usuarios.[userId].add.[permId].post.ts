@@ -4,6 +4,8 @@
  * Adiciona permissao a um usuario. Requer admin.
  */
 
+import { PermissoesErrors } from '#shared/domain/errors'
+
 export default defineEventHandler(async event => {
   requireAdmin(event)
   const accessToken = requireAuth(event)
@@ -17,7 +19,7 @@ export default defineEventHandler(async event => {
         method: 'POST',
         accessToken
       }),
-    errorContext: 'Erro ao adicionar permissao'
+    errorContext: PermissoesErrors.ADD_TO_USER_FAILED
   })
 
   return { message: 'Permissao adicionada' }
