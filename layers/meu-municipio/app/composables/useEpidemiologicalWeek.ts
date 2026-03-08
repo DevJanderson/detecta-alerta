@@ -1,7 +1,13 @@
 /**
  * Composable para cálculo de semana epidemiológica
- * Padrão brasileiro: semana começa no domingo
+ *
+ * Delega ao Value Object `semanaEpidemiologicaFromDate()` para evitar
+ * duplicação de lógica. Este composable adiciona reatividade Vue.
  */
+import {
+  semanaEpidemiologicaFromDate,
+  formatSemanaEpidemiologicaCurta
+} from '../utils/semana-epidemiologica'
 
 export interface EpidemiologicalWeekData {
   /** Número da semana epidemiológica (1-53) */
@@ -56,38 +62,15 @@ export function formatShortDate(date: Date): string {
   return `${day} ${MONTHS_SHORT[date.getMonth()]}`
 }
 
-/** Calcula a semana epidemiológica de uma data (padrão brasileiro, semana começa no domingo) */
+/** Calcula a semana epidemiológica de uma data (delega ao VO) */
 export function getEpidemiologicalWeek(date: Date): number {
-  const year = date.getFullYear()
-  const firstDayOfYear = new Date(year, 0, 1)
-
-  const firstSunday = new Date(firstDayOfYear)
-  const dayOfWeek = firstDayOfYear.getDay()
-  if (dayOfWeek !== 0) {
-    firstSunday.setDate(firstDayOfYear.getDate() + (7 - dayOfWeek))
-  }
-
-  if (date < firstSunday) {
-    return getEpidemiologicalWeek(new Date(year - 1, 11, 31))
-  }
-
-  const diffTime = date.getTime() - firstSunday.getTime()
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
-  return Math.min(Math.floor(diffDays / 7) + 1, 53)
+  return semanaEpidemiologicaFromDate(date).semana
 }
 
-/** Retorna o intervalo (domingo–sábado) da semana epidemiológica de uma data */
+/** Retorna o intervalo (domingo–sábado) da semana epidemiológica de uma data (delega ao VO) */
 export function getCurrentWeekRange(date: Date): { start: Date; end: Date } {
-  const dayOfWeek = date.getDay()
-  const start = new Date(date)
-  start.setDate(date.getDate() - dayOfWeek)
-  start.setHours(0, 0, 0, 0)
-
-  const end = new Date(start)
-  end.setDate(start.getDate() + 6)
-  end.setHours(23, 59, 59, 999)
-
-  return { start, end }
+  const se = semanaEpidemiologicaFromDate(date)
+  return { start: se.inicio, end: se.fim }
 }
 
 /** Composable reativo com dados da semana epidemiológica atual */
@@ -96,16 +79,15 @@ export function useEpidemiologicalWeek() {
 
   const weekData = computed<EpidemiologicalWeekData>(() => {
     const date = currentDate.value
-    const week = getEpidemiologicalWeek(date)
-    const { start, end } = getCurrentWeekRange(date)
+    const se = semanaEpidemiologicaFromDate(date)
 
     return {
-      week,
-      weekText: `SE ${week}`,
-      periodText: `${formatShortDate(start)} a ${formatShortDate(end)}`,
-      startDate: start,
-      endDate: end,
-      year: date.getFullYear()
+      week: se.semana,
+      weekText: formatSemanaEpidemiologicaCurta(se),
+      periodText: `${formatShortDate(se.inicio)} a ${formatShortDate(se.fim)}`,
+      startDate: se.inicio,
+      endDate: se.fim,
+      year: se.ano
     }
   })
 

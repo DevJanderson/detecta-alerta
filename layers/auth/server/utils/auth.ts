@@ -4,7 +4,6 @@
  */
 
 import type { H3Event } from 'h3'
-import type { JwtPayload } from '../../app/composables/types'
 import { AuthErrors } from '#shared/domain/errors'
 
 // Tipos e schemas do Kubb (gerados do OpenAPI da API Sinapse)
@@ -23,6 +22,17 @@ const DEFAULT_FETCH_TIMEOUT = 15000 // 15 segundos
 // ============================================================================
 // TIPOS
 // ============================================================================
+
+/**
+ * Token JWT decodificado (payload)
+ * Usado apenas no servidor para verificar expiração
+ */
+interface JwtPayload {
+  sub: string
+  exp: number
+  iat?: number
+  [key: string]: unknown
+}
 
 /**
  * Erro retornado pela API Sinapse

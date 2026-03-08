@@ -89,14 +89,3 @@ export interface ResetPasswordData {
 export interface ResetPasswordResponse {
   message: string
 }
-
-/**
- * Token JWT decodificado (payload)
- * Usado apenas no servidor para verificar expiração
- */
-export interface JwtPayload {
-  sub: string
-  exp: number
-  iat?: number
-  [key: string]: unknown
-}

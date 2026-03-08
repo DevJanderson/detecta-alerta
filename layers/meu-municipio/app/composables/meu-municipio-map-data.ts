@@ -1,5 +1,3 @@
-import type { Coordenadas } from '../../../base/app/utils/coordenadas'
-
 interface AlertCity {
   name: string
   coords: Coordenadas
