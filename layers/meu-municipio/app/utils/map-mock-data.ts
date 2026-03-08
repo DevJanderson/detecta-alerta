@@ -1,12 +1,8 @@
-import type { AlertCity, CityConnection } from './types'
+/**
+ * Dados mock do mapa — temporário até integração com API
+ */
+import type { AlertCity, CityConnection } from '../composables/types'
 
-export const BRAZIL_CENTER: Coordenadas = Object.freeze({ lng: -51.9253, lat: -14.235 })
-export const BRAZIL_ZOOM = 4
-
-// Estilo vetorial gratuito (OpenFreeMap — sem API key)
-export const VECTOR_STYLE = 'https://tiles.openfreemap.org/styles/liberty'
-
-// Dados mock: cidades com "alerta epidemiológico"
 export const ALERT_CITIES: AlertCity[] = [
   {
     name: 'São Paulo',
@@ -94,7 +90,9 @@ export const ALERT_CITIES: AlertCity[] = [
   }
 ]
 
-// Conexões entre cidades (rotas de propagação simuladas)
+/** Máximo de casos (para normalização do heatmap weight) */
+export const MAX_CASES = Math.max(...ALERT_CITIES.map(c => c.cases))
+
 export const CONNECTIONS: CityConnection[] = [
   { from: 'São Paulo', to: 'Rio de Janeiro' },
   { from: 'São Paulo', to: 'Belo Horizonte' },
@@ -107,23 +105,3 @@ export const CONNECTIONS: CityConnection[] = [
   { from: 'Belo Horizonte', to: 'Brasília' },
   { from: 'Curitiba', to: 'Porto Alegre' }
 ]
-
-export const LEVEL_COLORS: Record<string, string> = {
-  alto: '#e53e3e',
-  medio: '#eab308',
-  baixo: '#22c55e'
-}
-
-export const LEVEL_LABELS: Record<string, string> = {
-  alto: 'Alto',
-  medio: 'Moderado',
-  baixo: 'Baixo'
-}
-
-export const REGION_COLORS: Record<string, string> = {
-  Norte: '#22c55e',
-  Nordeste: '#eab308',
-  'Centro-Oeste': '#f97316',
-  Sudeste: '#3b82f6',
-  Sul: '#8b5cf6'
-}
