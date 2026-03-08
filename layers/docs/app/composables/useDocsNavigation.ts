@@ -37,6 +37,31 @@ export function useDocsNavigation() {
       ]
     },
     {
+      title: 'Arquitetura',
+      items: [
+        {
+          title: 'Visão Geral',
+          path: '/docs/arquitetura/visao-geral',
+          icon: 'lucide:blocks'
+        },
+        {
+          title: 'Domain Primitives',
+          path: '/docs/arquitetura/domain-primitives',
+          icon: 'lucide:diamond'
+        },
+        {
+          title: 'Error Handling',
+          path: '/docs/arquitetura/error-handling',
+          icon: 'lucide:alert-triangle'
+        },
+        {
+          title: 'Padrão Feature Layer',
+          path: '/docs/arquitetura/feature-layer',
+          icon: 'lucide:layers'
+        }
+      ]
+    },
+    {
       title: 'Meu Município',
       items: [
         {
