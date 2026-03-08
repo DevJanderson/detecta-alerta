@@ -40,6 +40,11 @@ export function useDocsNavigation() {
       title: 'Arquitetura',
       items: [
         {
+          title: 'Filosofia e Estilo',
+          path: '/docs/arquitetura/filosofia',
+          icon: 'lucide:compass'
+        },
+        {
           title: 'Visão Geral',
           path: '/docs/arquitetura/visao-geral',
           icon: 'lucide:blocks'
@@ -68,6 +73,26 @@ export function useDocsNavigation() {
           title: 'Visão Geral',
           path: '/docs/paginas/meu-municipio',
           icon: 'lucide:map-pin'
+        },
+        {
+          title: 'Casos de Uso',
+          path: '/docs/paginas/meu-municipio-casos-de-uso',
+          icon: 'lucide:users'
+        },
+        {
+          title: 'Requisitos',
+          path: '/docs/paginas/meu-municipio-requisitos',
+          icon: 'lucide:list-checks'
+        },
+        {
+          title: 'Componentes',
+          path: '/docs/paginas/meu-municipio-componentes',
+          icon: 'lucide:component'
+        },
+        {
+          title: 'Dados e APIs',
+          path: '/docs/paginas/meu-municipio-dados',
+          icon: 'lucide:database'
         }
       ]
     },

@@ -8,14 +8,11 @@ order: 1
 
 O Detecta Alerta usa **Nuxt 4** com arquitetura **layers-only** — não existe pasta `app/` na raiz. Todo código vive dentro de layers independentes que são compostas via `extends` no `nuxt.config.ts`.
 
-## Princípio Guia: ETC (Easier to Change)
+## Estilo Arquitetural
 
-Antes de cada decisão arquitetural, a pergunta é: **"isso vai facilitar mudanças futuras?"**
+O projeto adota um **DDD Funcional Leve** — conceitos de Domain-Driven Design e Clean Code implementados com funções puras e objetos imutáveis, sem classes ou herança. O princípio guia é **ETC (Easier to Change)**: toda decisão passa pelo filtro "isso facilita mudanças futuras?".
 
-- **Isolamento** — cada layer é autônoma, com seus próprios componentes, stores, APIs e server routes
-- **Constantes nomeadas** — valores mágicos centralizados em objetos tipados
-- **Abstrações sob demanda** — extrair só quando a duplicação é real (não hipotética)
-- **Zero acoplamento horizontal** — layers não importam diretamente de outras layers
+Para entender o porquê de cada escolha (o que adotamos, o que rejeitamos e por quê), veja [Filosofia e Estilo](/docs/arquitetura/filosofia).
 
 ## Layers
 

@@ -6,7 +6,8 @@ Stack: Nuxt 4, Vue 3, Tailwind CSS v4, shadcn-vue, Pinia, MapLibre GL, Vitest, P
 
 ## Arquitetura
 
-- [Visão Geral](https://alerta.sinapse.org.br/docs/arquitetura/visao-geral): Estrutura Nuxt Layers, fluxo de dados, princípios de design (ETC)
+- [Filosofia e Estilo](https://alerta.sinapse.org.br/docs/arquitetura/filosofia): DDD Funcional Leve, ETC, o que adotamos e rejeitamos
+- [Visão Geral](https://alerta.sinapse.org.br/docs/arquitetura/visao-geral): Estrutura Nuxt Layers, fluxo de dados
 - [Feature Layer Pattern](https://alerta.sinapse.org.br/docs/arquitetura/feature-layer): Padrão types → API composable → Pinia store → componentes
 - [Domain Primitives](https://alerta.sinapse.org.br/docs/arquitetura/domain-primitives): Result type, Value Objects com tryCreate, useVoField
 - [Error Handling](https://alerta.sinapse.org.br/docs/arquitetura/error-handling): Domain errors tipados, withStoreAction, fluxo servidor→UI
@@ -27,7 +28,11 @@ Stack: Nuxt 4, Vue 3, Tailwind CSS v4, shadcn-vue, Pinia, MapLibre GL, Vitest, P
 - [Homepage — Dados e APIs](https://alerta.sinapse.org.br/docs/paginas/homepage-dados): 7 endpoints BFF pendentes, dados mock, cache
 - [Homepage — Estados UI](https://alerta.sinapse.org.br/docs/paginas/homepage-estados-ui): Loading, vazio, erro, sucesso, transições
 - [Homepage — Casos de Uso](https://alerta.sinapse.org.br/docs/paginas/homepage-casos-de-uso): 7 user stories principais
-- [Meu Município](https://alerta.sinapse.org.br/docs/paginas/meu-municipio): WebGIS com MapLibre GL, store centralizado, módulos do mapa
+- [Meu Município — Visão Geral](https://alerta.sinapse.org.br/docs/paginas/meu-municipio): WebGIS com MapLibre GL, store centralizado, módulos do mapa
+- [Meu Município — Casos de Uso](https://alerta.sinapse.org.br/docs/paginas/meu-municipio-casos-de-uso): 8 user stories (busca, geolocalização, lotação, rumores, drill-down)
+- [Meu Município — Requisitos](https://alerta.sinapse.org.br/docs/paginas/meu-municipio-requisitos): Requisitos funcionais por seção com critérios de aceite
+- [Meu Município — Componentes](https://alerta.sinapse.org.br/docs/paginas/meu-municipio-componentes): Mapa técnico dos 16 componentes e dependências
+- [Meu Município — Dados e APIs](https://alerta.sinapse.org.br/docs/paginas/meu-municipio-dados): 4 endpoints BFF planejados, dados mock atuais, cache
 
 ## Projeto
 
