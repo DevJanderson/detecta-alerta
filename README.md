@@ -18,12 +18,13 @@ Permitir a detecção precoce de surtos e ameaças à saúde pública através d
 
 ## Funcionalidades
 
-| Módulo                  | Descrição                                                                            |
-| ----------------------- | ------------------------------------------------------------------------------------ |
-| **Dashboard**           | Painel com mapa do Brasil, gráficos de tendências, alertas por região e estatísticas |
-| **Meu Município**       | WebGIS interativo para explorar unidades de saúde por município                      |
-| **Rumores**             | Feed de notícias epidemiológicas para monitorar tendências e boatos de saúde         |
-| **Lugares Monitorados** | Gestão de unidades de saúde (CRUD) - exclusivo para administradores                  |
+| Módulo            | Descrição                                                                            |
+| ----------------- | ------------------------------------------------------------------------------------ |
+| **Dashboard**     | Painel com mapa do Brasil, gráficos de tendências, alertas por região e estatísticas |
+| **Meu Município** | WebGIS interativo com MapLibre GL para explorar dados epidemiológicos por município  |
+| **Mapa de Risco** | Mapa de risco epidemiológico por região                                              |
+| **Rumores**       | Feed de notícias epidemiológicas para monitorar tendências e boatos de saúde         |
+| **Usuários**      | Gestão de perfil, usuários, grupos e permissões (administradores)                    |
 
 ## Dados Monitorados
 
@@ -34,30 +35,25 @@ Permitir a detecção precoce de surtos e ameaças à saúde pública através d
 - Dados CNES de profissionais de saúde
 - Notícias e rumores epidemiológicos por região
 
-## Público-Alvo
-
-1. **Gestores de Saúde Pública** - Secretários municipais, diretores de vigilância epidemiológica
-2. **Epidemiologistas e Analistas** - Profissionais que investigam padrões e anomalias
-3. **Administradores da Rede** - Responsáveis por manter a base de unidades monitoradas
-4. **Público Geral** - Acesso a dados agregados para transparência
-
 ## Stack
 
-| Categoria | Tecnologia                          |
-| --------- | ----------------------------------- |
-| Framework | Nuxt 4, Vue 3.5, TypeScript         |
-| UI        | Tailwind CSS 4, shadcn-vue          |
-| State     | Pinia                               |
-| Validação | Zod, VeeValidate                    |
-| Mapas     | WebGIS                              |
-| Qualidade | ESLint, Prettier, Husky, Commitlint |
-| Testes    | Vitest, Playwright, Testing Library |
+| Categoria  | Tecnologia                          |
+| ---------- | ----------------------------------- |
+| Framework  | Nuxt 4, Vue 3.5, TypeScript         |
+| UI         | Tailwind CSS 4, shadcn-vue          |
+| State      | Pinia                               |
+| Validação  | Zod, VeeValidate                    |
+| Mapas      | MapLibre GL (OpenFreeMap)           |
+| API Client | Kubb (geração a partir do OpenAPI)  |
+| Qualidade  | ESLint, Prettier, Husky, Commitlint |
+| Testes     | Vitest, Playwright                  |
 
 ## Início Rápido
 
 ```bash
 npm install
 npm run setup    # Configura git hooks
+cp .env.example .env  # Configurar variáveis
 npm run dev      # http://localhost:3000
 ```
 
@@ -65,33 +61,48 @@ npm run dev      # http://localhost:3000
 
 ```bash
 # Desenvolvimento
-npm run dev          # Servidor dev
-npm run build        # Build produção
+npm run dev              # Servidor dev
+npm run build            # Build produção
+npm run typecheck        # Verificar tipos
 
 # Qualidade de código
-npm run lint:fix     # Corrigir ESLint
-npm run format       # Formatar com Prettier
-npm run typecheck    # Verificar tipos
-npm run quality:fix  # Lint + format
+npm run quality:fix      # Lint + format
 
 # Testes
-npm run test:run     # Testes unitários
-npm run test:e2e     # Testes E2E
+npm run test:run         # Todos os testes
+npm run test:unit        # Testes unitários (Node puro)
+npm run test:nuxt        # Testes com ambiente Nuxt
+npm run test:e2e         # Testes E2E (Playwright)
+
+# API e dados
+npm run api:generate     # Gera cliente TypeScript do OpenAPI
+npm run geo:convert      # Converte GeoJSON → TopoJSON
+npm run docs:llms        # Gera public/llms-full.txt
 ```
 
 ## Estrutura
 
 ```
 layers/
-├── base/        # Fundação + UI: app.vue, CSS, shadcn-vue, utils, tipos
-├── auth/        # Autenticação BFF
-├── home/        # Homepage
-├── usuarios/    # Gestão de perfil, usuários, grupos e permissões
-├── rumores/     # Feed de rumores epidemiológicos
-└── docs/        # Documentação do projeto (Nuxt Content)
+├── base/            # Fundação: Tailwind, shadcn-vue, utils, tipos, domain
+├── auth/            # Autenticação BFF (cookies httpOnly, refresh)
+├── home/            # Homepage (dashboard, panorama, tabela)
+├── meu-municipio/   # WebGIS municipal (MapLibre GL, alertas, rumores)
+├── mapa-risco/      # Mapa de risco epidemiológico
+├── usuarios/        # Perfil, usuários, grupos, permissões (admin)
+├── rumores/         # Feed de rumores epidemiológicos
+└── docs/            # Documentação (Nuxt Content)
 
-tests/           # Testes (unit, integration, e2e)
+content/docs/        # Markdown da documentação
+tests/               # unit/, integration/, e2e/
+generated/           # Cliente API gerado (Kubb) — não editar
 ```
+
+## Documentação
+
+- **Desenvolvedores**: Documentação navegável em `/docs` (Nuxt Content)
+- **IA/LLMs**: [`/llms.txt`](public/llms.txt) — índice para IA, [`/llms-full.txt`](public/llms-full.txt) — docs completas
+- **Agentes de código**: `CLAUDE.md` na raiz com instruções de arquitetura e padrões
 
 ## Licença
 

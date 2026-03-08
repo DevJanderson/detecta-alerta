@@ -45,6 +45,7 @@ API RESTful com documentação OpenAPI e cliente TypeScript gerado automaticamen
 | **Tailwind CSS v4** | Estilização utility-first                  |
 | **shadcn-vue**      | Componentes UI acessíveis                  |
 | **Pinia**           | Gerenciamento de estado                    |
+| **MapLibre GL**     | Mapas interativos vetoriais                |
 | **Vitest**          | Testes unitários e de integração           |
 | **Playwright**      | Testes end-to-end                          |
 | **Kubb**            | Geração de cliente API a partir do OpenAPI |

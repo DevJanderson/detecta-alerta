@@ -127,7 +127,7 @@ Seção dividida em duas colunas: mapa à esquerda (sticky) e dados à direita (
 
 ### 3.5a Mapa Interativo
 
-**Status:** 🔧 Esqueleto (Leaflet pendente)
+**Status:** 🔧 Esqueleto (MapLibre GL pendente)
 **Componente:** `HomeMap`
 
 | Elemento | Descrição                                                                      |
@@ -146,7 +146,7 @@ Seção dividida em duas colunas: mapa à esquerda (sticky) e dados à direita (
 **Critérios de aceite:**
 
 - [x] Estrutura visual com legenda e tooltip
-- [ ] Renderização do mapa SVG/Leaflet com dados reais
+- [ ] Renderização do mapa SVG/MapLibre GL com dados reais
 - [ ] Interação: clique no estado filtra dados
 - [ ] Cores dinâmicas baseadas no nível de movimento
 

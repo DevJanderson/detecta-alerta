@@ -95,7 +95,7 @@ A homepage se diferencia por:
 | ---------------------------------- | ---------- | ----------------------- |
 | API Sinapse (`/api/v1`)            | Backend    | ✅ Disponível (staging) |
 | TopoJSON do Brasil (`public/geo/`) | Asset      | ✅ Disponível           |
-| Leaflet (mapa interativo)          | Biblioteca | 🔲 Não integrado        |
+| MapLibre GL (mapa interativo)      | Biblioteca | 🔲 Não integrado        |
 | ApexCharts (gráficos)              | Biblioteca | 🔲 Não integrado        |
 | Dados de semanas epidemiológicas   | API        | 🔲 Endpoint não mapeado |
 | Análise de especialistas           | API/IA     | 🔲 Endpoint não mapeado |

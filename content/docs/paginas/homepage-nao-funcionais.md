@@ -12,15 +12,15 @@ Requisitos transversais que afetam a qualidade da homepage independentemente das
 
 ## Performance
 
-| Requisito                               | Meta            | Como medir              | Status                   |
-| --------------------------------------- | --------------- | ----------------------- | ------------------------ |
-| First Contentful Paint (FCP)            | < 1.5s          | Lighthouse              | 🔲 Não medido            |
-| Largest Contentful Paint (LCP)          | < 2.5s          | Lighthouse / Web Vitals | 🔲 Não medido            |
-| Time to Interactive (TTI)               | < 3s            | Lighthouse              | 🔲 Não medido            |
-| Cumulative Layout Shift (CLS)           | < 0.1           | Lighthouse / Web Vitals | 🔲 Não medido            |
-| Mapa SVG carrega sem travar UI          | < 2s            | Manual                  | 🔲 Pendente (Leaflet)    |
-| Gráfico renderiza sem delay perceptível | < 1s            | Manual                  | 🔲 Pendente (ApexCharts) |
-| Bundle JS da homepage                   | < 200KB gzipped | Build analysis          | 🔲 Não medido            |
+| Requisito                               | Meta            | Como medir              | Status                    |
+| --------------------------------------- | --------------- | ----------------------- | ------------------------- |
+| First Contentful Paint (FCP)            | < 1.5s          | Lighthouse              | 🔲 Não medido             |
+| Largest Contentful Paint (LCP)          | < 2.5s          | Lighthouse / Web Vitals | 🔲 Não medido             |
+| Time to Interactive (TTI)               | < 3s            | Lighthouse              | 🔲 Não medido             |
+| Cumulative Layout Shift (CLS)           | < 0.1           | Lighthouse / Web Vitals | 🔲 Não medido             |
+| Mapa SVG carrega sem travar UI          | < 2s            | Manual                  | 🔲 Pendente (MapLibre GL) |
+| Gráfico renderiza sem delay perceptível | < 1s            | Manual                  | 🔲 Pendente (ApexCharts)  |
+| Bundle JS da homepage                   | < 200KB gzipped | Build analysis          | 🔲 Não medido             |
 
 ### Estratégias de performance
 

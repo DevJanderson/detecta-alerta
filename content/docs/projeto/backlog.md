@@ -34,7 +34,6 @@ Itens pendentes identificados durante a auditoria de seguranca e bugs realizada 
 | CQ-4 | Texto sem acentuacao em dialogs               | Frontend  | Dialogs de exclusao usam texto sem acentos (`Excluir usuario` em vez de `Excluir usuario`).        |
 | CQ-5 | Upload sem validacao MIME client-side         | Frontend  | Componente de upload aceita qualquer tipo de arquivo antes de enviar ao servidor.                  |
 | CQ-6 | `as Record<string, unknown>` em body validado | Backend   | Cast desnecessario em bodies ja validados por Zod. Remover e usar inferencia de tipo.              |
-| CQ-7 | fetchSinapse nao suporta FormData             | Backend   | Wrapper `fetchSinapse` nao trata corretamente requisicoes com `FormData` (upload).                 |
 
 ## Itens resolvidos
 
@@ -52,3 +51,4 @@ Itens corrigidos na sprint de fevereiro de 2026:
 - **POTENTIAL-1** — `useDebounce` com `onScopeDispose`
 - **POTENTIAL-2** — Fallback para descricao/conteudo null no `RumoresCard`
 - **CQ-1** — Lista UF extraida para `base/app/utils/constants.ts`
+- **CQ-7** — `fetchSinapse` agora suporta FormData (upload)

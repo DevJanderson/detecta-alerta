@@ -1,0 +1,2977 @@
+# Detecta Alerta — Documentação Completa
+
+> Plataforma de vigilância e monitoramento epidemiológico em tempo real para o Brasil.
+> Gerado automaticamente a partir de content/docs/.
+
+---
+
+<!-- source: content/docs/index.md -->
+
+# Detecta Alerta
+
+**Detecta Alerta** é uma plataforma de vigilância e monitoramento epidemiológico em tempo real para o Brasil. Centraliza dados de estabelecimentos de saúde (UBS, UPA, Drogarias) para análise de padrões epidemiológicos e detecção precoce de surtos.
+
+## O que é
+
+A plataforma coleta e processa dados de diversas fontes do sistema de saúde brasileiro, permitindo:
+
+- **Monitoramento em tempo real** de indicadores epidemiológicos
+- **Detecção precoce de surtos** através de algoritmos de vigilância
+- **Análise de rumores** epidemiológicos a partir de notícias e fontes públicas
+- **Visualização geográfica** da distribuição de casos e agravos
+
+## Principais funcionalidades
+
+::docs-card-group
+::docs-card{title="Rumores Epidemiológicos" icon="lucide:newspaper" href="/docs/api/overview"}
+Feed de notícias de saúde com classificação automática de relevância epidemiológica.
+::
+
+::docs-card{title="Vigilância Ativa" icon="lucide:shield" href="/docs/api/overview"}
+Monitoramento contínuo com alertas configuráveis por região e agravo.
+::
+
+::docs-card{title="Análise Geográfica" icon="lucide:map-pin" href="/docs/api/overview"}
+Visualização geoespacial de dados epidemiológicos em mapas interativos.
+::
+
+::docs-card{title="API Integrada" icon="lucide:plug" href="/docs/api/overview"}
+API RESTful com documentação OpenAPI e cliente TypeScript gerado automaticamente.
+::
+::
+
+## Stack tecnológica
+
+| Tecnologia          | Uso                                        |
+| ------------------- | ------------------------------------------ |
+| **Nuxt 4**          | Framework fullstack (SSR + SPA)            |
+| **Vue 3**           | Framework reativo de UI                    |
+| **Tailwind CSS v4** | Estilização utility-first                  |
+| **shadcn-vue**      | Componentes UI acessíveis                  |
+| **Pinia**           | Gerenciamento de estado                    |
+| **MapLibre GL**     | Mapas interativos vetoriais                |
+| **Vitest**          | Testes unitários e de integração           |
+| **Playwright**      | Testes end-to-end                          |
+| **Kubb**            | Geração de cliente API a partir do OpenAPI |
+
+---
+
+<!-- source: content/docs/arquitetura/domain-primitives.md -->
+
+# Arquitetura — Domain Primitives
+
+Domain primitives são os blocos fundamentais de tipagem e validação do projeto. Vivem em `layers/base/shared/domain/` e `layers/base/app/utils/`.
+
+## Result
+
+Discriminated union leve para representar sucesso ou falha **sem exceções**.
+
+```typescript
+import { ok, fail } from '#shared/domain/result'
+import type { Result } from '#shared/domain/result'
+
+// Sucesso
+const result = ok(42) // Result<number, never>
+
+// Falha
+const error = fail('Dados inválidos') // Result<never, string>
+
+// Narrowing
+if (result.ok) {
+  console.log(result.value) // 42
+} else {
+  console.log(result.error) // string
+}
+```
+
+### Helpers
+
+| Função                       | Descrição                                               |
+| ---------------------------- | ------------------------------------------------------- |
+| `ok(value)`                  | Cria Result de sucesso                                  |
+| `fail(error)`                | Cria Result de falha                                    |
+| `combineResults(results)`    | Combina múltiplos Results — falha se qualquer um falhar |
+| `unwrap(result)`             | Extrai valor ou lança erro                              |
+| `unwrapOr(result, fallback)` | Extrai valor ou retorna fallback                        |
+
+### Quando usar
+
+| Cenário                                | Usar Result?                    |
+| -------------------------------------- | ------------------------------- |
+| Use case no server (lógica de negócio) | ✅ Sim                          |
+| Factory `tryCreate*()` de Value Object | ✅ Sim                          |
+| Store action (fetch de API)            | ❌ Não — usar `withStoreAction` |
+| Validação simples de campo             | ❌ Não — usar Zod direto        |
+
+### Por que não classes?
+
+O projeto rejeitou a abordagem DDD clássica com `class Result<T>` porque:
+
+- VOs já usavam padrão funcional (factory + `Object.freeze`) — classes criariam dois estilos
+- Discriminated unions têm narrowing nativo do TypeScript (sem `.isOk()`)
+- Sem herança, sem métodos — apenas funções puras composáveis
+
+## Value Objects
+
+Value Objects encapsulam regras de validação e formatação de dados do domínio. Seguem o padrão funcional:
+
+```typescript
+// Factory que lança exceção (uso em código confiável)
+const email = createEmail('user@example.com')
+
+// Factory que retorna Result (uso em formulários e validação)
+const result = tryCreateEmail('invalido')
+if (!result.ok) {
+  console.log(result.error) // 'Formato de email inválido'
+}
+```
+
+### Padrão de implementação
+
+```typescript
+// 1. Tipo branded (opaco)
+export type Email = string & { readonly __brand: unique symbol }
+
+// 2. Factory com throw (uso interno)
+export function createEmail(value: string): Email {
+  const trimmed = value.trim().toLowerCase()
+  if (!isValidEmail(trimmed)) throw new Error('Email inválido')
+  return trimmed as Email
+}
+
+// 3. Factory com Result (uso em formulários)
+export function tryCreateEmail(value: string): Result<Email> {
+  const trimmed = value.trim().toLowerCase()
+  if (!trimmed) return fail('Email é obrigatório')
+  if (!isValidEmail(trimmed)) return fail('Formato de email inválido')
+  return ok(trimmed as Email)
+}
+
+// 4. Funções puras associadas
+export function emailEquals(a: Email, b: Email): boolean {
+  return a === b
+}
+```
+
+### VOs existentes
+
+| Value Object           | Local                                              | Uso                                                |
+| ---------------------- | -------------------------------------------------- | -------------------------------------------------- |
+| `Email`                | `base/app/utils/email.ts`                          | Validação de formato, comparação                   |
+| `CodigoIBGE`           | `base/app/utils/codigo-ibge.ts`                    | Validação 7 dígitos, extração UF                   |
+| `Coordenadas`          | `base/app/utils/coordenadas.ts`                    | Ranges válidos, bounds Brasil, distância haversine |
+| `SemanaEpidemiologica` | `meu-municipio/app/utils/semana-epidemiologica.ts` | Cálculo padrão brasileiro (domingo–sábado)         |
+
+### Onde posicionar
+
+VOs são funções puras → vão em `utils/` (não `composables/`).
+
+- **Cross-layer** (usado por 2+ layers) → `layers/base/app/utils/`
+- **Feature-specific** → `layers/{feature}/app/utils/`
+
+## useVoField — Validação Reativa
+
+Composable que conecta `tryCreate*()` a formulários Vue reativos:
+
+```typescript
+const input = ref('')
+const { isValid, error, value } = useVoField(input, tryCreateEmail)
+
+// Template
+// <Input v-model="input" />
+// <span v-if="error">{{ error }}</span>
+// <Button :disabled="!isValid" />
+```
+
+### API
+
+```typescript
+function useVoField<T>(
+  input: Ref<string> | ComputedRef<string>,
+  factory: (value: string) => Result<T>
+): {
+  isValid: ComputedRef<boolean>
+  error: ComputedRef<string | null>
+  value: ComputedRef<T | null>
+}
+```
+
+**Vantagem**: a mesma regra de validação do `tryCreate` é reutilizada no client (formulário) e no server (endpoint BFF). Uma única fonte de verdade.
+
+## Domain Models
+
+Domain Models enriquecem DTOs da API com lógica de negócio. Mesmo padrão funcional dos VOs:
+
+```typescript
+// Factory + Object.freeze
+const model = createUserModel(authUserDTO)
+
+// Campos derivados
+model.initials // "JS"
+model.isAdmin // true
+model.permissions // ["dashboard.view", "reports.export"]
+
+// Funções puras associadas
+userHasPermission(model, 'dashboard.view') // true
+userHasAnyGroup(model, ['admin', 'editor']) // true
+```
+
+### Models existentes
+
+| Model       | Local                          | Enriquece                                               |
+| ----------- | ------------------------------ | ------------------------------------------------------- |
+| `UserModel` | `auth/app/utils/user-model.ts` | `AuthUser` DTO → initials, permissions, groups, isAdmin |
+
+### Quando criar novo model
+
+Quando um DTO da API precisa de lógica derivada (cálculos, formatações, verificações) que aparece em 2+ lugares. Não criar para DTOs usados apenas para exibição direta.
+
+---
+
+<!-- source: content/docs/arquitetura/error-handling.md -->
+
+# Arquitetura — Error Handling
+
+O projeto usa **domain errors tipados** — constantes `as const` organizadas por domínio, compartilhadas entre client e server via `#shared/domain/errors`.
+
+## Domain Errors
+
+Cada domínio tem seu objeto de erros em `layers/base/shared/domain/errors.ts`:
+
+| Objeto             | Domínio       | Exemplos                                                 |
+| ------------------ | ------------- | -------------------------------------------------------- |
+| `AuthErrors`       | Autenticação  | `LOGIN_FAILED`, `INVALID_CREDENTIALS`, `SESSION_EXPIRED` |
+| `UsuariosErrors`   | Usuários      | `LIST_FAILED`, `CREATE_FAILED`, `PHOTO_TOO_LARGE`        |
+| `GruposErrors`     | Grupos        | `LIST_FAILED`, `ADD_USER_FAILED`                         |
+| `PermissoesErrors` | Permissões    | `LIST_FAILED`, `ADD_TO_USER_FAILED`                      |
+| `HomeErrors`       | Homepage      | `PANORAMA_FAILED`, `TABLE_FAILED`                        |
+| `ValidationErrors` | Validação BFF | `INVALID_BODY`, `INVALID_PARAM(name)`                    |
+
+### Uso
+
+```typescript
+import { UsuariosErrors } from '#shared/domain/errors'
+
+// No store (client)
+withStoreAction(refs, UsuariosErrors.LIST_FAILED, async () => { ... })
+
+// No server route
+throw createError({ statusCode: 400, statusMessage: UsuariosErrors.CREATE_FAILED })
+
+// No componente (reação a código específico)
+if (error.value === AuthErrors.INVALID_CREDENTIALS) {
+  // mostrar mensagem específica
+}
+```
+
+### Tipos utilitários
+
+```typescript
+type AuthErrorCode = (typeof AuthErrors)[keyof typeof AuthErrors]
+// => 'Credenciais inválidas' | 'Sessão expirada...' | ...
+```
+
+## Client: Stores
+
+### `withStoreAction()`
+
+Wrapper que elimina boilerplate de `isLoading` / `error` / `try-catch` em todas as actions de store:
+
+```typescript
+// Sem retorno (void)
+async function fetchAll(): Promise<void> {
+  return withStoreAction(refs, UsuariosErrors.LIST_FAILED, async () => {
+    items.value = await api.listar()
+  })
+}
+
+// Com retorno e defaultValue
+async function criar(data: CreateData): Promise<boolean> {
+  return withStoreAction(
+    refs,
+    UsuariosErrors.CREATE_FAILED,
+    async () => {
+      await api.criar(data)
+      return true
+    },
+    false
+  ) // retorna false em caso de erro
+}
+```
+
+**Todos os stores do projeto** seguem este padrão. O segundo argumento é sempre um domain error.
+
+### `extractErrorMessage()`
+
+Função pura que extrai string de qualquer tipo de erro (`Error`, `FetchError`, `string`, `unknown`). Usada internamente pelo `withStoreAction` e diretamente em stores com fluxo customizado.
+
+## Server: Endpoints BFF
+
+### Validação
+
+Utilitários auto-importados em `layers/base/server/utils/validation.ts`:
+
+```typescript
+// Valida body com Zod → 400 + ValidationErrors.INVALID_BODY
+const data = await validateBody(event, myZodSchema)
+
+// Valida param numérico → 400 + ValidationErrors.INVALID_PARAM
+const id = validateRouteParam(event, 'id')
+
+// Valida param UUID
+const uuid = validateUniqueId(event, 'uniqueId')
+```
+
+### Chamadas à API Sinapse
+
+```typescript
+// handleSinapseRequest — wrapper com tratamento de erros
+return handleSinapseRequest({
+  fn: () => fetchSinapse(`/usuarios/${id}`, { accessToken }),
+  errorContext: UsuariosErrors.UPDATE_FAILED,
+  schema: myZodSchema // validação Zod opcional
+})
+```
+
+### Auth helpers
+
+```typescript
+requireAuth(event) // → 401 + AuthErrors.NOT_AUTHENTICATED
+requireAdmin(event) // → 403 + AuthErrors.ADMIN_ONLY
+```
+
+## Server: Use Cases
+
+Para lógica de negócio complexa, use cases retornam `Result<T>` em vez de lançar exceções:
+
+```typescript
+// Use case puro e testável
+export async function executeLogin(input: LoginInput): Promise<Result<LoginOutput>> {
+  try {
+    const tokens = await fetchSinapse('/auth/login', { method: 'POST', body: input })
+    const user = await fetchSinapse('/usuarios/me', { accessToken: tokens.access_token })
+    return ok({ user, accessToken: tokens.access_token, refreshToken: tokens.refresh_token })
+  } catch (error) {
+    if (isCredentialsError(error)) return fail(AuthErrors.INVALID_CREDENTIALS)
+    return fail(AuthErrors.LOGIN_FAILED)
+  }
+}
+
+// Adapter HTTP converte Result → resposta H3
+export function handleLoginResult(event: H3Event, result: Result<LoginOutput>) {
+  if (!result.ok) {
+    throw createError({ statusCode: 401, statusMessage: result.error })
+  }
+  setAuthCookies(event, result.value.accessToken, result.value.refreshToken)
+  return { user: result.value.user }
+}
+```
+
+## Fluxo Completo
+
+::docs-mermaid{title="Fluxo de erro do servidor até a UI"}
+graph TD
+A["API Sinapse"] -->|FetchError| B["Server Route"]
+B -->|createError + domain error| C["$fetch no client"]
+C -->|FetchError| D["withStoreAction"]
+D -->|extractErrorMessage| E["store.error.value"]
+E --> F["Componente exibe erro"]
+::
+
+```
+Sinapse retorna erro
+  → Server route captura, lança createError(statusCode, domain error)
+    → $fetch no client recebe FetchError
+      → withStoreAction captura, extractErrorMessage → error.value
+        → Componente exibe error.value ao usuário
+```
+
+## Como adicionar erros para novo domínio
+
+1. Criar objeto `as const` em `layers/base/shared/domain/errors.ts`:
+
+```typescript
+export const RumoresErrors = {
+  LIST_FAILED: 'Erro ao listar rumores',
+  CREATE_FAILED: 'Erro ao criar rumor'
+} as const
+```
+
+2. Exportar no barrel `layers/base/shared/domain/index.ts`
+3. Importar nos stores: `import { RumoresErrors } from '#shared/domain/errors'`
+4. Usar como segundo argumento do `withStoreAction()`
+5. Usar nos server routes com `handleSinapseRequest({ errorContext: RumoresErrors.X })`
+
+---
+
+<!-- source: content/docs/arquitetura/feature-layer.md -->
+
+# Arquitetura — Padrão Feature Layer
+
+Toda funcionalidade do Detecta Alerta segue o mesmo padrão de organização dentro de uma layer. Este documento descreve o fluxo `types → api → store → componentes`.
+
+## Estrutura
+
+```
+layers/{feature}/
+├── nuxt.config.ts                  # Obrigatório (pode ser vazio)
+├── app/
+│   ├── components/                 # Prefixo: {Feature}NomeComponente.vue
+│   ├── composables/
+│   │   ├── types.ts                # Interfaces e tipos da feature
+│   │   ├── use{Feature}Api.ts      # Service stateless ($fetch)
+│   │   └── use{Feature}Store.ts    # Pinia store (estado + actions)
+│   ├── pages/{feature}/            # Rotas
+│   └── utils/                      # Funções puras, Value Objects
+└── server/api/{feature}/           # Endpoints BFF
+```
+
+## 1. Types (`types.ts`)
+
+Define interfaces da feature. Pode importar tipos gerados pelo Kubb:
+
+```typescript
+import type { UsuarioSchemaDetalhes } from '~/generated/sinapse/types/UsuarioSchemaDetalhes'
+
+export interface ListarUsuariosParams {
+  page?: number
+  search?: string
+}
+
+export type UsuarioSchemaList = Pick<UsuarioSchemaDetalhes, 'id' | 'nome' | 'email' | 'ativo'>
+```
+
+## 2. API Composable (`use{Feature}Api.ts`)
+
+Service stateless que encapsula chamadas `$fetch` ao BFF:
+
+```typescript
+export function useUsuariosApi() {
+  async function listar(params?: ListarUsuariosParams) {
+    return $fetch('/api/usuarios/admin', { params })
+  }
+
+  async function criar(data: UsuarioSchemaCreate) {
+    return $fetch('/api/usuarios/admin', { method: 'POST', body: data })
+  }
+
+  async function obter(id: number) {
+    return $fetch(`/api/usuarios/admin/${id}`)
+  }
+
+  return { listar, criar, obter }
+}
+```
+
+**Regras:**
+
+- Sem estado (`ref`, `computed`) — isso é papel do store
+- Sem tratamento de erro — o store faz isso via `withStoreAction`
+- Instanciado dentro do `setup` do store (não no topo do módulo)
+
+## 3. Store (`use{Feature}Store.ts`)
+
+Pinia store com Composition API que gerencia estado e actions:
+
+```typescript
+import type { UsuarioSchemaList, ListarUsuariosParams } from './types'
+import { UsuariosErrors } from '#shared/domain/errors'
+
+export const useUsuariosStore = defineStore('usuarios', () => {
+  // Estado
+  const items = shallowRef<UsuarioSchemaList[]>([])
+  const isLoading = ref(false)
+  const error = ref<string | null>(null)
+
+  // API instanciada no setup
+  const api = useUsuariosApi()
+  const refs = { isLoading, error }
+
+  // Actions — sempre usam withStoreAction + domain error
+  async function fetchAll(params?: ListarUsuariosParams): Promise<void> {
+    return withStoreAction(refs, UsuariosErrors.LIST_FAILED, async () => {
+      const response = await api.listar(params)
+      items.value = response.usuarios
+    })
+  }
+
+  async function criar(data: UsuarioSchemaCreate): Promise<boolean> {
+    return withStoreAction(
+      refs,
+      UsuariosErrors.CREATE_FAILED,
+      async () => {
+        await api.criar(data)
+        return true
+      },
+      false
+    )
+  }
+
+  return { items, isLoading, error, fetchAll, criar }
+})
+```
+
+### Padrões do store
+
+| Padrão                           | Descrição                                                   |
+| -------------------------------- | ----------------------------------------------------------- |
+| `shallowRef` para listas         | Performance — evita deep reactivity em arrays grandes       |
+| `withStoreAction` + domain error | Gerencia `isLoading`, `error` e `try-catch` automaticamente |
+| `defaultValue: false`            | Actions que retornam `boolean` usam `false` como fallback   |
+| `refs = { isLoading, error }`    | Objeto reutilizado em todas as actions                      |
+
+### Persistência
+
+Para filtros e preferências do usuário, usar `pinia-plugin-persistedstate` com `pick` explícito:
+
+```typescript
+export const useHomeStore = defineStore(
+  'home',
+  () => {
+    const filtros = ref({ region: 'brasil', estado: '', semana: '4' })
+    const panorama = ref(null) // NÃO persistir dados de API
+
+    return { filtros, panorama }
+  },
+  {
+    persist: { pick: ['filtros'] } // Apenas filtros
+  }
+)
+```
+
+## 4. Componentes
+
+Componentes leem do store diretamente — sem props de dados do store:
+
+```vue
+<script setup lang="ts">
+const store = useUsuariosStore()
+
+onMounted(() => {
+  store.fetchAll()
+})
+</script>
+
+<template>
+  <div v-if="store.isLoading">Carregando...</div>
+  <div v-else-if="store.error">{{ store.error }}</div>
+  <div v-else>
+    <UsuarioCard v-for="u in store.items" :key="u.id" :usuario="u" />
+  </div>
+</template>
+```
+
+### Filtros com setters async
+
+Filtros usam `@change` + setters async do store (não `v-model` direto no filtro que dispara fetch):
+
+```vue
+<select @change="store.setEstado($event.target.value)">
+  <option v-for="e in store.estados" :key="e.value" :value="e.value">
+    {{ e.label }}
+  </option>
+</select>
+```
+
+```typescript
+// No store
+async function setEstado(estado: string) {
+  filtros.value.estado = estado
+  await fetchAll() // Re-fetch com novo filtro
+}
+```
+
+## 5. Server Routes (BFF)
+
+Endpoints seguem padrão consistente:
+
+```typescript
+import { UsuariosErrors } from '#shared/domain/errors'
+
+export default defineEventHandler(async event => {
+  // 1. Auth
+  requireAdmin(event)
+
+  // 2. Validação
+  const id = validateRouteParam(event, 'id')
+  const body = await validateBody(event, updateSchema)
+
+  // 3. Chamada à API Sinapse
+  return handleSinapseRequest({
+    fn: () =>
+      fetchSinapse(`/usuarios/${id}`, {
+        method: 'PUT',
+        body,
+        accessToken: event.context.auth.accessToken
+      }),
+    errorContext: UsuariosErrors.UPDATE_FAILED
+  })
+})
+```
+
+## Checklist para nova feature
+
+- [ ] Criar `layers/{feature}/nuxt.config.ts`
+- [ ] Adicionar layer ao array `extends` do `nuxt.config.ts` raiz
+- [ ] Criar `types.ts` com interfaces
+- [ ] Criar `use{Feature}Api.ts` (service stateless)
+- [ ] Criar `use{Feature}Store.ts` (Pinia + withStoreAction)
+- [ ] Adicionar domain errors em `#shared/domain/errors.ts`
+- [ ] Criar server routes em `server/api/{feature}/`
+- [ ] Criar componentes com prefixo `{Feature}*`
+- [ ] Criar página em `pages/{feature}/`
+- [ ] Adicionar testes unitários
+
+---
+
+<!-- source: content/docs/arquitetura/visao-geral.md -->
+
+# Arquitetura — Visão Geral
+
+O Detecta Alerta usa **Nuxt 4** com arquitetura **layers-only** — não existe pasta `app/` na raiz. Todo código vive dentro de layers independentes que são compostas via `extends` no `nuxt.config.ts`.
+
+## Princípio Guia: ETC (Easier to Change)
+
+Antes de cada decisão arquitetural, a pergunta é: **"isso vai facilitar mudanças futuras?"**
+
+- **Isolamento** — cada layer é autônoma, com seus próprios componentes, stores, APIs e server routes
+- **Constantes nomeadas** — valores mágicos centralizados em objetos tipados
+- **Abstrações sob demanda** — extrair só quando a duplicação é real (não hipotética)
+- **Zero acoplamento horizontal** — layers não importam diretamente de outras layers
+
+## Layers
+
+| Layer           | Responsabilidade                                                       | Rota                  |
+| --------------- | ---------------------------------------------------------------------- | --------------------- |
+| `base`          | Fundação: Tailwind, shadcn-vue, utils, tipos compartilhados, `app.vue` | —                     |
+| `auth`          | Autenticação BFF (login, logout, refresh, middlewares)                 | `/auth/*`             |
+| `home`          | Homepage com panorama epidemiológico                                   | `/`                   |
+| `meu-municipio` | Página do município (mapa MapLibre + aside com dados)                  | `/meu-municipio`      |
+| `mapa-risco`    | Mapa de risco epidemiológico                                           | `/mapa-risco`         |
+| `usuarios`      | Perfil, admin de usuários, grupos e permissões                         | `/perfil`, `/admin/*` |
+| `rumores`       | Feed de rumores epidemiológicos                                        | `/rumores`            |
+| `docs`          | Documentação do projeto (Nuxt Content)                                 | `/docs/*`             |
+
+### Ordem de prioridade
+
+Definida pela posição no array `extends` (último = maior prioridade):
+
+```
+docs > rumores > usuarios > mapa-risco > meu-municipio > home > auth > base
+```
+
+### Estrutura de uma Feature Layer
+
+```
+layers/{feature}/
+├── nuxt.config.ts              # Obrigatório
+├── app/
+│   ├── components/             # Prefixo: {Feature}Card.vue
+│   ├── composables/
+│   │   ├── types.ts            # Interfaces da feature
+│   │   ├── use{Feature}Api.ts  # Service ($fetch para BFF)
+│   │   └── use{Feature}Store.ts # Pinia store
+│   ├── pages/{feature}/        # Rotas da feature
+│   └── utils/                  # Funções puras
+└── server/api/{feature}/       # Endpoints BFF
+```
+
+## Fluxo de Dados
+
+::docs-mermaid{title="Fluxo de uma requisição de dados"}
+graph LR
+A["Componente Vue"] --> B["Store (Pinia)"]
+B --> C["API Composable ($fetch)"]
+C --> D["Server Route (BFF)"]
+D --> E["API Sinapse"]
+E --> D
+D --> C
+C --> B
+B --> A
+::
+
+O BFF (Backend-for-Frontend) no Nitro age como proxy seguro:
+
+- **Client → BFF**: usa cookies `httpOnly` (sem tokens expostos)
+- **BFF → Sinapse**: injeta `Authorization` header com access token
+- **Validação**: body validado com Zod, route params com regex
+- **Erros**: capturados e mapeados para domain errors tipados
+
+## Shared Domain (`#shared`)
+
+O alias `#shared` aponta para `layers/base/shared/`. Contém primitivos compartilhados entre client e server:
+
+```
+layers/base/shared/
+├── domain/
+│   ├── result.ts       # Result<T> — discriminated union
+│   ├── errors.ts       # Domain errors tipados por módulo
+│   └── index.ts        # Barrel export
+└── types/
+    └── api.ts          # ApiResponse<T>, PaginatedResponse<T>
+```
+
+Para detalhes sobre cada primitivo, veja:
+
+- [Domain Primitives](/docs/arquitetura/domain-primitives) — Result, Value Objects, tryCreate
+- [Error Handling](/docs/arquitetura/error-handling) — domain errors, withStoreAction, fluxo completo
+- [Padrão Feature Layer](/docs/arquitetura/feature-layer) — types → api → store → componentes
+
+## Tecnologias Principais
+
+| Tecnologia                  | Uso                                                   |
+| --------------------------- | ----------------------------------------------------- |
+| **Nuxt 4**                  | Framework fullstack (SSR + SPA)                       |
+| **Vue 3 + Composition API** | UI reativa                                            |
+| **Tailwind CSS v4**         | Estilização (config em CSS, sem `tailwind.config.js`) |
+| **shadcn-vue + reka-ui**    | Componentes UI acessíveis                             |
+| **Pinia**                   | Gerenciamento de estado                               |
+| **MapLibre GL**             | Mapas interativos                                     |
+| **Kubb**                    | Geração de tipos e schemas Zod a partir do OpenAPI    |
+| **Vitest**                  | Testes unitários e de integração                      |
+| **Playwright**              | Testes E2E                                            |
+
+---
+
+<!-- source: content/docs/seguranca/autenticacao.md -->
+
+# Segurança — Autenticação
+
+O Detecta Alerta usa um padrão **BFF (Backend-for-Frontend)** para autenticação. Tokens JWT nunca ficam acessíveis ao JavaScript do navegador — são armazenados exclusivamente em cookies `httpOnly`.
+
+## Fluxo de Login
+
+::docs-mermaid{title="Fluxo de login"}
+sequenceDiagram
+participant B as Browser
+participant BFF as BFF (Nitro)
+participant API as API Sinapse
+
+B->>BFF: POST /api/auth/login<br/>{ email, senha }
+BFF->>API: POST /auth/login<br/>{ email, senha }
+API-->>BFF: { access_token, refresh_token }
+Note over BFF: tokenSchema.parse()<br/>Valida com Zod
+BFF-->>B: Set-Cookie: access_token (httpOnly)<br/>Set-Cookie: refresh_token (httpOnly)<br/>{ user }
+::
+
+1. O **browser** envia credenciais para o BFF (`/api/auth/login`)
+2. O **BFF** repassa para a API Sinapse e recebe os tokens JWT
+3. O BFF valida a resposta com o schema Zod gerado pelo Kubb (`tokenSchema.parse`)
+4. O BFF armazena os tokens em **cookies httpOnly** e retorna os dados do usuário
+5. O browser **nunca tem acesso direto** aos tokens
+
+---
+
+## Cookies de Autenticação
+
+Os tokens são armazenados em dois cookies separados, cada um com atributos de segurança:
+
+| Atributo     | `access_token`                                  | `refresh_token`                                 |
+| ------------ | ----------------------------------------------- | ----------------------------------------------- |
+| **httpOnly** | `true` — inacessível via JavaScript             | `true` — inacessível via JavaScript             |
+| **secure**   | `true` em produção — só HTTPS                   | `true` em produção — só HTTPS                   |
+| **sameSite** | `strict` — não enviado em requests cross-origin | `strict` — não enviado em requests cross-origin |
+| **path**     | `/`                                             | `/`                                             |
+| **maxAge**   | Não definido (sessão do navegador)              | 7 dias                                          |
+
+### Por que httpOnly e não localStorage?
+
+::docs-warning
+**Nunca armazene tokens em `localStorage` ou `sessionStorage`.**
+::
+
+| Aspecto                  | localStorage                                   | Cookie httpOnly                     |
+| ------------------------ | ---------------------------------------------- | ----------------------------------- |
+| Acessível via JavaScript | Sim — qualquer script na página                | Não — invisível para JS             |
+| Vulnerável a XSS         | Sim — `document.cookie` ou storage API         | Não — cookie não aparece no JS      |
+| Enviado automaticamente  | Não — precisa ler e injetar manualmente        | Sim — browser envia em cada request |
+| CSRF                     | Não vulnerável (não é enviado automaticamente) | Mitigado com `SameSite: strict`     |
+
+O atributo `SameSite: strict` garante que os cookies **não são enviados** em requisições originadas de outros sites, mitigando ataques CSRF sem precisar de token CSRF adicional nas rotas de auth.
+
+::docs-tip
+O CSRF nas rotas `/api/auth/*` e `/api/usuarios/**` está desabilitado intencionalmente porque essas rotas já são protegidas por `httpOnly + SameSite: strict`.
+::
+
+---
+
+## Refresh Automático de Tokens
+
+O middleware `01.auth.ts` verifica automaticamente se o `access_token` está próximo de expirar e o renova antes que expire:
+
+::docs-mermaid{title="Fluxo de refresh automático"}
+flowchart TD
+A["Requisição chega"] --> B{"Rota pública?"}
+B -- Sim --> C["Ignora auth"]
+B -- Não --> D{"Tem access_token?"}
+D -- Não --> E["{ isAuthenticated: false }"]
+D -- Sim --> F{"Expira em < 5 min?"}
+F -- Não --> G["Usa token atual"]
+F -- Sim --> H{"Tem refresh_token?"}
+H -- Não --> I["Limpa cookies\n{ isAuthenticated: false }"]
+H -- Sim --> J["POST /auth/refresh\npara API Sinapse"]
+J --> K{"Sucesso?"}
+K -- Não --> I
+K -- Sim --> L["Atualiza cookies\n{ isAuthenticated: true }"]
+::
+
+A margem de renovação é de **5 minutos** (`REFRESH_MARGIN_SECONDS = 5 * 60`). O token é renovado antes de expirar para evitar que requisições falhem com 401.
+
+### Onde está o código
+
+- **Middleware**: `layers/auth/server/middleware/01.auth.ts`
+- **Lógica de refresh**: `tryRefreshTokens()` em `layers/auth/server/utils/auth.ts`
+- **Manipulação de cookies**: `setAuthCookies()`, `clearAuthCookies()` no mesmo arquivo
+
+---
+
+## Rotas Públicas
+
+O middleware de auth ignora rotas que não precisam de verificação:
+
+```typescript
+const PUBLIC_PATH_PREFIXES = [
+  '/api/auth/login',
+  '/api/auth/reset-password',
+  '/_nuxt', // Assets estáticos do Nuxt
+  '/__nuxt', // DevTools
+  '/.well-known', // security.txt
+  '/favicon.ico'
+] as const
+```
+
+Rotas que não estão nesta lista **passam pelo middleware**, mas isso não significa que exigem autenticação. Se não houver token, o contexto é marcado como `{ isAuthenticated: false }` e a rota pode decidir se permite acesso anônimo.
+
+---
+
+## Guards de Acesso
+
+Dois helpers são usados dentro dos handlers de endpoint para controlar acesso:
+
+### `requireAuth(event)`
+
+Garante que o usuário está autenticado. Retorna o `accessToken` ou lança **401**.
+
+```typescript
+// layers/usuarios/server/utils/admin.ts
+export function requireAuth(event: H3Event): string {
+  const auth = event.context.auth
+  if (!auth?.isAuthenticated || !auth.accessToken) {
+    throw createError({ statusCode: 401, statusMessage: 'Nao autenticado' })
+  }
+  return auth.accessToken
+}
+```
+
+### `requireAdmin(event)`
+
+Garante que o usuário é admin. Lança **401** se não autenticado ou **403** se não é admin.
+
+```typescript
+// layers/usuarios/server/utils/admin.ts
+export function requireAdmin(event: H3Event): void {
+  const auth = event.context.auth
+  if (!auth?.isAuthenticated || !auth.accessToken) {
+    throw createError({ statusCode: 401, statusMessage: 'Nao autenticado' })
+  }
+  if (!event.context.isAdmin) {
+    throw createError({ statusCode: 403, statusMessage: 'Acesso restrito a administradores' })
+  }
+}
+```
+
+### Uso nos endpoints
+
+```typescript
+// Endpoint que requer apenas autenticação
+export default defineEventHandler(async event => {
+  const accessToken = requireAuth(event)
+  // ... usar accessToken para chamar API Sinapse
+})
+
+// Endpoint que requer autenticação + admin
+export default defineEventHandler(async event => {
+  requireAdmin(event)
+  const accessToken = requireAuth(event)
+  // ... apenas administradores chegam aqui
+})
+```
+
+---
+
+## Middleware Admin (02.admin.ts)
+
+O middleware `02.admin.ts` roda **após** o `01.auth.ts` (ordem garantida pelo prefixo numérico) e verifica se o usuário autenticado pertence ao grupo `administradores`:
+
+```typescript
+// layers/usuarios/server/middleware/02.admin.ts
+export default defineEventHandler(async event => {
+  const path = getRequestURL(event).pathname
+
+  // Apenas verificar em rotas de admin
+  if (!path.startsWith('/api/usuarios/admin')) return
+
+  const auth = event.context.auth
+  if (!auth?.isAuthenticated || !auth.accessToken) {
+    event.context.isAdmin = false
+    return
+  }
+
+  const rawUser = await fetchSinapse<{
+    grupos?: Array<{ nome: string }>
+  }>('/usuarios/me', { accessToken: auth.accessToken })
+
+  event.context.isAdmin = rawUser.grupos?.some(g => g.nome === 'administradores') ?? false
+})
+```
+
+O resultado é injetado em `event.context.isAdmin` e consumido pelo helper `requireAdmin()`, evitando chamadas duplicadas à API.
+
+---
+
+## Resumo da Cadeia de Auth
+
+::docs-mermaid{title="Cadeia completa de autenticação"}
+graph LR
+A["Requisição"] --> B["01.auth.ts\nVerifica/renova token\nInjeta event.context.auth"]
+B --> C["02.admin.ts\nVerifica grupo admin\nInjeta event.context.isAdmin"]
+C --> D["Handler\nrequireAuth()\nrequireAdmin()"]
+D --> E["fetchSinapse\nEnvia token p/ API"]
+E --> F["Resposta"]
+::
+
+---
+
+<!-- source: content/docs/seguranca/guia-desenvolvimento.md -->
+
+# Segurança — Guia para Desenvolvedores
+
+Receitas práticas para escrever código seguro no Detecta Alerta. Para cada situação: **o que fazer**, **como fazer** e **por que**.
+
+## Como Criar um Endpoint BFF Seguro
+
+Um endpoint BFF (Backend-for-Frontend) é a camada entre o browser e a API Sinapse. Todo o código roda no servidor — tokens e dados sensíveis nunca chegam ao client.
+
+### Passo a passo
+
+```typescript
+// layers/usuarios/server/api/usuarios/admin/permissoes/index.get.ts
+
+import { permissaoAcessoSchemaListSchema } from '~/generated/sinapse/zod/permissaoAcessoSchemaListSchema'
+import { z } from 'zod'
+
+export default defineEventHandler(async event => {
+  // 1. Verificar permissão (lança 401/403 automaticamente)
+  requireAdmin(event)
+  const accessToken = requireAuth(event)
+
+  // 2. Chamar API Sinapse com tratamento de erro centralizado
+  return handleSinapseRequest({
+    fn: () => fetchSinapse('/usuarios/permissoes/', { accessToken }),
+    errorContext: 'Erro ao listar permissoes',
+    schema: z.array(permissaoAcessoSchemaListSchema) // 3. Validar resposta
+  })
+})
+```
+
+### O que cada parte faz
+
+| Passo                    | Função                                                | O que acontece se falhar                                                |
+| ------------------------ | ----------------------------------------------------- | ----------------------------------------------------------------------- |
+| `requireAdmin(event)`    | Verifica autenticação + grupo admin                   | 401 (não autenticado) ou 403 (não admin)                                |
+| `requireAuth(event)`     | Retorna o access token                                | 401 (não autenticado)                                                   |
+| `handleSinapseRequest()` | Executa chamada com try/catch centralizado            | Erro da Sinapse retornado com status correto, erro genérico retorna 500 |
+| `schema: z.array(...)`   | Valida que a resposta da API está no formato esperado | Lança erro se API mudou o formato                                       |
+
+---
+
+## Como Validar Body com Zod
+
+Use `validateBody()` para ler e validar o body de uma requisição POST/PUT/PATCH em uma única chamada:
+
+```typescript
+import { z } from 'zod'
+
+const meuSchema = z.object({
+  nome: z.string().min(1).max(100),
+  email: z.string().email(),
+  ativo: z.boolean().default(true)
+})
+
+export default defineEventHandler(async event => {
+  const accessToken = requireAuth(event)
+
+  // Lê body + valida com Zod → retorna dados tipados ou lança 400
+  const body = await validateBody(event, meuSchema)
+
+  // body tem tipo { nome: string, email: string, ativo: boolean }
+  return handleSinapseRequest({
+    fn: () =>
+      fetchSinapse('/endpoint', {
+        method: 'POST',
+        body,
+        accessToken
+      }),
+    errorContext: 'Erro ao criar recurso'
+  })
+})
+```
+
+::docs-warning
+**Sempre** valide o body no servidor, mesmo que o formulário já valide no client. Validação client-side é UX — validação server-side é segurança.
+::
+
+---
+
+## Como Validar Route Params
+
+Route params vêm diretamente da URL e **nunca devem ser confiados**. Sem validação, um atacante pode injetar valores como `../../../etc/passwd` (path traversal).
+
+### ID numérico
+
+```typescript
+// /api/usuarios/[id].get.ts
+export default defineEventHandler(async event => {
+  const accessToken = requireAuth(event)
+
+  // Aceita apenas dígitos (ex: "123") — lança 400 se inválido
+  const id = validateRouteParam(event, 'id')
+
+  return handleSinapseRequest({
+    fn: () => fetchSinapse(`/usuarios/${id}`, { accessToken }),
+    errorContext: 'Erro ao buscar usuario'
+  })
+})
+```
+
+### UUID
+
+```typescript
+// /api/recursos/[uniqueId].get.ts
+export default defineEventHandler(async event => {
+  const accessToken = requireAuth(event)
+
+  // Aceita apenas UUIDs válidos — lança 400 se inválido
+  const uniqueId = validateUniqueId(event, 'uniqueId')
+
+  return handleSinapseRequest({
+    fn: () => fetchSinapse(`/recursos/${uniqueId}`, { accessToken }),
+    errorContext: 'Erro ao buscar recurso'
+  })
+})
+```
+
+---
+
+## Como Construir Query Strings Seguras
+
+Use `buildQueryString()` para aceitar **apenas query params conhecidos** e ignorar o resto. Isso previne injeção de parâmetros inesperados na API upstream.
+
+```typescript
+// /api/usuarios/index.get.ts
+export default defineEventHandler(async event => {
+  const accessToken = requireAuth(event)
+
+  // Aceita APENAS page, search e status — ignora qualquer outro param
+  const qs = buildQueryString(getQuery(event), ['page', 'search', 'status'])
+
+  return handleSinapseRequest({
+    fn: () => fetchSinapse(`/usuarios/?${qs}`, { accessToken }),
+    errorContext: 'Erro ao listar usuarios'
+  })
+})
+```
+
+### Como funciona internamente
+
+```typescript
+export function buildQueryString(query: Record<string, unknown>, allowedParams: string[]): string {
+  const params = new URLSearchParams()
+
+  for (const key of allowedParams) {
+    const value = query[key]
+    if (value === undefined || value === null || value === '') continue
+
+    if (Array.isArray(value)) {
+      for (const v of value) params.append(key, String(v))
+    } else {
+      params.append(key, String(value))
+    }
+  }
+
+  return params.toString()
+}
+```
+
+A **whitelist** é a parte importante: apenas parâmetros listados em `allowedParams` são incluídos. Qualquer parâmetro extra enviado pelo client é silenciosamente descartado.
+
+---
+
+## Como Tratar Erros sem Vazar Dados
+
+`handleSinapseRequest()` centraliza o tratamento de erro de todas as chamadas à API Sinapse:
+
+```typescript
+return handleSinapseRequest({
+  fn: () => fetchSinapse('/endpoint', { accessToken }),
+  errorContext: 'Erro ao buscar dados',
+  schema: meuSchema // opcional — valida resposta com Zod
+})
+```
+
+### O que acontece internamente
+
+| Cenário             | Comportamento                                                      |
+| ------------------- | ------------------------------------------------------------------ |
+| Sucesso             | Retorna os dados (validados com Zod se `schema` foi fornecido)     |
+| Erro da API Sinapse | Retorna o `statusCode` e `statusMessage` da API                    |
+| Erro desconhecido   | Retorna 500 com a mensagem de `errorContext` (sem stack trace)     |
+| Logs em produção    | Apenas o contexto — **nunca** o erro completo (pode conter tokens) |
+
+::docs-info
+Em desenvolvimento, o erro completo é logado para facilitar debugging. Em produção, apenas o contexto é logado via `logAuthError()`.
+::
+
+---
+
+## Checklist de Segurança para Code Review
+
+Use esta lista ao revisar PRs que criam ou modificam endpoints BFF:
+
+- [ ] **Auth**: usa `requireAuth()` ou `requireAdmin()` para rotas protegidas?
+- [ ] **Body**: validado com `validateBody(event, schema)` antes de usar?
+- [ ] **Route params**: validados com `validateRouteParam()` ou `validateUniqueId()`?
+- [ ] **Query params**: construídos com `buildQueryString()` e whitelist explícita?
+- [ ] **Erros**: tratados com `handleSinapseRequest()` (sem try/catch manual vazando detalhes)?
+- [ ] **Tokens**: acessados via `event.context.auth` (nunca de headers ou query string)?
+- [ ] **Dados sensíveis**: nenhum token, senha ou dado pessoal nos logs ou na resposta de erro?
+- [ ] **Schema Zod**: respostas da API validadas com schema Kubb quando disponível?
+
+---
+
+## Anti-patterns: O que Nunca Fazer
+
+### Tokens no localStorage
+
+```typescript
+// ❌ NUNCA — vulnerável a XSS
+localStorage.setItem('token', response.access_token)
+
+// ✅ CORRETO — tokens ficam no servidor (BFF)
+setAuthCookies(event, accessToken, refreshToken)
+```
+
+### Body sem validação
+
+```typescript
+// ❌ NUNCA — aceita qualquer coisa que o client enviar
+const body = await readBody(event)
+await fetchSinapse('/usuarios', { method: 'POST', body, accessToken })
+
+// ✅ CORRETO — valida formato e tipos com Zod
+const body = await validateBody(event, createUserSchema)
+await fetchSinapse('/usuarios', { method: 'POST', body, accessToken })
+```
+
+### Route param sem validação
+
+```typescript
+// ❌ NUNCA — aceita "../../../etc/passwd", "1; DROP TABLE"
+const id = getRouterParam(event, 'id')
+await fetchSinapse(`/usuarios/${id}`, { accessToken })
+
+// ✅ CORRETO — aceita apenas dígitos
+const id = validateRouteParam(event, 'id')
+await fetchSinapse(`/usuarios/${id}`, { accessToken })
+```
+
+### Query params sem whitelist
+
+```typescript
+// ❌ NUNCA — repassa todos os params para a API upstream
+const query = getQuery(event)
+const qs = new URLSearchParams(query as Record<string, string>).toString()
+await fetchSinapse(`/usuarios?${qs}`, { accessToken })
+
+// ✅ CORRETO — aceita apenas params conhecidos
+const qs = buildQueryString(getQuery(event), ['page', 'search', 'status'])
+await fetchSinapse(`/usuarios?${qs}`, { accessToken })
+```
+
+### Erro com detalhes internos
+
+```typescript
+// ❌ NUNCA — expõe stack trace, mensagens internas, tokens
+catch (error) {
+  throw createError({
+    statusCode: 500,
+    statusMessage: `Erro: ${error.message}`,
+    data: error // NUNCA enviar o objeto de erro completo
+  })
+}
+
+// ✅ CORRETO — mensagem genérica, sem detalhes
+catch (error) {
+  logAuthError('Erro ao buscar usuario', error) // Log seguro
+  throw createError({
+    statusCode: 500,
+    statusMessage: 'Erro ao buscar usuario'
+  })
+}
+
+// ✅ MELHOR — usar handleSinapseRequest que faz tudo isso
+return handleSinapseRequest({
+  fn: () => fetchSinapse('/usuarios', { accessToken }),
+  errorContext: 'Erro ao buscar usuario'
+})
+```
+
+### console.log em produção
+
+```typescript
+// ❌ NUNCA — console.log não é permitido pelo ESLint
+console.log('Token:', accessToken)
+console.log('Body:', body)
+
+// ✅ CORRETO — apenas warn e error, sem dados sensíveis
+console.error('[Usuarios] Erro ao buscar permissoes')
+```
+
+---
+
+<!-- source: content/docs/seguranca/headers-protecoes.md -->
+
+# Segurança — Headers e Proteções
+
+O Detecta Alerta usa o módulo [`nuxt-security`](https://nuxt-security.vercel.app) para aplicar automaticamente headers de segurança e proteções em todas as respostas. A configuração fica no `nuxt.config.ts`, seção `security`.
+
+## CSP (Content Security Policy) — Enforcing
+
+CSP é a proteção mais importante contra XSS. Define quais recursos o navegador pode carregar e de onde.
+
+::docs-info
+O CSP está **desabilitado em desenvolvimento** porque interfere com o HMR (Hot Module Replacement) do Vite. Em produção/staging ele é enforcing.
+::
+
+### Diretivas atuais
+
+| Diretiva                    | Valor                                  | O que controla                                                  |
+| --------------------------- | -------------------------------------- | --------------------------------------------------------------- |
+| `default-src`               | `'self'`                               | Fallback: só permite recursos do próprio domínio                |
+| `script-src`                | `'self' 'unsafe-inline' 'unsafe-eval'` | Scripts — permite inline e eval (necessário para o framework)   |
+| `style-src`                 | `'self' 'unsafe-inline'`               | Estilos — permite inline (Tailwind injeta estilos)              |
+| `img-src`                   | `'self' data: https:`                  | Imagens — próprio domínio, data URIs e qualquer HTTPS           |
+| `font-src`                  | `'self' data:`                         | Fontes — próprio domínio e data URIs                            |
+| `connect-src`               | `'self'`                               | Fetch/XHR — só próprio domínio (BFF, não chama API diretamente) |
+| `frame-ancestors`           | `'self'`                               | Quem pode embutir a página em iframe — só o próprio site        |
+| `form-action`               | `'self'`                               | Destino de forms — só próprio domínio                           |
+| `object-src`                | `'none'`                               | Bloqueia Flash, Java applets, etc.                              |
+| `upgrade-insecure-requests` | `true`                                 | Converte automaticamente HTTP → HTTPS                           |
+| `base-uri`                  | `'self'`                               | Previne alteração da base URL via `<base>`                      |
+
+---
+
+## CSP Report-Only (Nonce-based)
+
+Além do CSP enforcing, existe um segundo header **CSP-Report-Only** com política mais restritiva usando **nonce**:
+
+```
+Content-Security-Policy-Report-Only:
+  default-src 'self';
+  script-src 'self' 'strict-dynamic' 'nonce-<random>';
+  style-src 'self' 'unsafe-inline';
+  ...
+```
+
+### O que é nonce?
+
+Um **nonce** (number used once) é um valor aleatório gerado a cada request e injetado nos `<script>` da página. O navegador só executa scripts que tenham o nonce correto, bloqueando scripts injetados por atacantes.
+
+### Como funciona o Report-Only?
+
+- O header `Content-Security-Policy-Report-Only` **não bloqueia** nada
+- Violações aparecem como **warnings no console** do navegador
+- Serve para testar uma política mais restritiva antes de ativá-la
+
+### Roadmap
+
+O objetivo é migrar do CSP atual (com `unsafe-inline` e `unsafe-eval`) para o CSP nonce-based. Quando as violações no Report-Only zerarem em staging, a política restritiva será promovida para o CSP principal.
+
+### Onde está o código
+
+Plugin Nitro: `layers/base/server/plugins/csp-report-only.ts`
+
+---
+
+## Permissions-Policy
+
+Bloqueia acesso a APIs do navegador que a aplicação não utiliza. Um atacante que consiga injetar código não poderá acessar:
+
+| Feature           | Valor        | Efeito                                  |
+| ----------------- | ------------ | --------------------------------------- |
+| `camera`          | `()` (vazio) | Nenhuma origem pode usar a câmera       |
+| `microphone`      | `()`         | Nenhuma origem pode usar o microfone    |
+| `geolocation`     | `()`         | Nenhuma origem pode usar geolocalização |
+| `display-capture` | `()`         | Nenhuma origem pode capturar a tela     |
+
+---
+
+## HSTS (HTTP Strict Transport Security)
+
+Instrui o navegador a **sempre usar HTTPS** ao acessar o domínio, por 1 ano:
+
+```
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+```
+
+| Atributo            | Valor              | Significado                                    |
+| ------------------- | ------------------ | ---------------------------------------------- |
+| `max-age`           | `31536000` (1 ano) | Navegador lembra por 1 ano que deve usar HTTPS |
+| `includeSubDomains` | `true`             | Subdomínios também forçam HTTPS                |
+
+Após a primeira visita, o navegador recusa conexões HTTP, mesmo se o usuário digitar `http://`.
+
+---
+
+## X-Frame-Options
+
+Previne **clickjacking** — um ataque onde um site malicioso embutia a página em um iframe transparente para capturar cliques:
+
+```
+X-Frame-Options: SAMEORIGIN
+```
+
+Permite que a página seja embutida apenas em iframes do mesmo domínio. Reforçado pela diretiva CSP `frame-ancestors 'self'`.
+
+---
+
+## X-Content-Type-Options
+
+Previne **MIME sniffing** — quando o navegador tenta "adivinhar" o tipo de um arquivo e pode executar acidentalmente um arquivo texto como script:
+
+```
+X-Content-Type-Options: nosniff
+```
+
+Força o navegador a respeitar o `Content-Type` declarado pelo servidor.
+
+---
+
+## Referrer-Policy
+
+Controla quanta informação é enviada no header `Referer` quando o usuário navega para outro site:
+
+```
+Referrer-Policy: strict-origin-when-cross-origin
+```
+
+| Navegação                     | O que é enviado                                   |
+| ----------------------------- | ------------------------------------------------- |
+| Mesmo domínio                 | URL completa (path, query, etc.)                  |
+| Outro domínio (HTTPS → HTTPS) | Apenas a origem (`https://alerta.sinapse.org.br`) |
+| HTTPS → HTTP                  | Nada (downgrade = sem referer)                    |
+
+Protege contra vazamento de URLs internas com dados sensíveis (IDs, tokens em query string, etc.).
+
+---
+
+## Rate Limiting
+
+Limita o número de requisições por IP em um intervalo de tempo. Previne **brute-force**, **DoS** e **scraping abusivo**.
+
+### Limites configurados
+
+| Rota                        | Limite       | Intervalo | Motivo                             |
+| --------------------------- | ------------ | --------- | ---------------------------------- |
+| **Global** (todas as rotas) | 150 requests | 5 minutos | Proteção geral                     |
+| `/api/auth/login`           | 10 requests  | 5 minutos | Previne brute-force de senhas      |
+| `/api/auth/reset-password`  | 5 requests   | 5 minutos | Previne enumeração de emails       |
+| `/api/auth/signup`          | 5 requests   | 5 minutos | Previne criação em massa de contas |
+| `/__nuxt_content/**`        | Desabilitado | —         | API interna do Nuxt Content        |
+| `/api/_content/**`          | Desabilitado | —         | API interna do Nuxt Content        |
+
+---
+
+## CSRF (Cross-Site Request Forgery)
+
+CSRF é um ataque onde um site malicioso faz o navegador do usuário enviar requisições autenticadas para a aplicação sem o consentimento do usuário.
+
+### Como funciona a proteção
+
+O módulo `nuxt-security` usa `nuxt-csurf` internamente para gerar e verificar tokens CSRF:
+
+1. O servidor gera um token CSRF e envia ao client via cookie
+2. O client inclui o token nos headers das requisições mutativas
+3. O servidor compara o token do header com o do cookie
+
+### Métodos protegidos
+
+`POST`, `PUT`, `PATCH`, `DELETE` — todas as operações que modificam dados.
+
+### Rotas com CSRF desabilitado
+
+| Rota                       | Motivo                                                   |
+| -------------------------- | -------------------------------------------------------- |
+| `/api/auth/login`          | Protegida por rate limiting + cookies `SameSite: strict` |
+| `/api/auth/logout`         | Protegida por cookies `SameSite: strict`                 |
+| `/api/auth/refresh`        | Protegida por cookies `SameSite: strict`                 |
+| `/api/auth/reset-password` | Protegida por rate limiting                              |
+| `/api/auth/signup`         | Protegida por rate limiting                              |
+| `/api/usuarios/**`         | Protegida por cookies `SameSite: strict` + requireAuth   |
+| `/api/rumores/admin/**`    | Protegida por cookies `SameSite: strict` + requireAdmin  |
+| `/__nuxt_content/**`       | API interna do Nuxt Content (POST para queries)          |
+| `/api/_content/**`         | API interna do Nuxt Content                              |
+
+::docs-tip
+As rotas de auth e usuários usam `SameSite: strict`, o que significa que os cookies **não são enviados** em requisições vindas de outros sites. Isso torna o CSRF inviável mesmo sem token CSRF.
+::
+
+---
+
+## XSS Validator
+
+Sanitiza automaticamente inputs de usuário para prevenir **Cross-Site Scripting** (XSS) — ataques onde um atacante injeta scripts maliciosos via campos de formulário.
+
+Configurado com defaults do `nuxt-security` (sem personalização adicional).
+
+---
+
+## Limite de Tamanho de Request
+
+Previne ataques de **resource exhaustion** limitando o tamanho do body das requisições:
+
+| Tipo              | Limite | Uso                            |
+| ----------------- | ------ | ------------------------------ |
+| Request geral     | 2 MB   | Bodies JSON, formulários       |
+| Upload de arquivo | 8 MB   | Uploads de imagens, documentos |
+
+---
+
+## Headers Adicionais
+
+| Header                         | Valor                            | Efeito                                              |
+| ------------------------------ | -------------------------------- | --------------------------------------------------- |
+| `Cross-Origin-Resource-Policy` | `same-origin`                    | Recursos só podem ser carregados pelo mesmo domínio |
+| `Cross-Origin-Opener-Policy`   | `same-origin`                    | Isola a janela de outros contextos de navegação     |
+| `Cross-Origin-Embedder-Policy` | `credentialless` (prod)          | Controla carregamento de recursos cross-origin      |
+| `X-Powered-By`                 | Removido (`hidePoweredBy: true`) | Não revela tecnologia do servidor                   |
+| `X-XSS-Protection`             | `0`                              | Desabilitado (obsoleto — CSP é a proteção moderna)  |
+
+::docs-info
+O `X-XSS-Protection: 0` está desabilitado intencionalmente. Este header é legado e [pode introduzir vulnerabilidades](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection). O CSP é a proteção adequada contra XSS.
+::
+
+---
+
+<!-- source: content/docs/seguranca/visao-geral.md -->
+
+# Segurança — Visão Geral
+
+O Detecta Alerta utiliza múltiplas camadas de segurança para proteger dados epidemiológicos sensíveis e garantir a integridade da plataforma. Esta página oferece um panorama rápido de tudo que está implementado.
+
+## Arquitetura de Segurança
+
+Toda requisição passa por uma cadeia de proteções antes de chegar ao handler da rota:
+
+::docs-mermaid{title="Fluxo de uma requisição"}
+graph TD
+A["Browser"] --> B
+
+subgraph B["nuxt-security (automático)"]
+B1["Rate Limiter\n150 req/5min"]
+B2["CSRF Token"]
+B3["XSS Validator"]
+B4["Request Size\nLimiter (2MB)"]
+end
+
+B --> C
+
+subgraph C["Server Middlewares"]
+C1["01.auth.ts\nJWT + Refresh"] --> C2["02.admin.ts\nVerifica grupo"]
+end
+
+C --> D
+
+subgraph D["Handler do Endpoint"]
+D1["requireAuth\nrequireAdmin"]
+D2["validateBody\nvalidateParam"]
+D3["handleSinapseRequest\ntry/catch + Zod"]
+end
+
+D --> E["Resposta\nCSP · HSTS · X-Frame-Options\nReferrer-Policy · Permissions-Policy"]
+::
+
+---
+
+## Camadas de Proteção
+
+| Proteção                          | O que faz                                                     | Onde está configurado                                       | Status                             |
+| --------------------------------- | ------------------------------------------------------------- | ----------------------------------------------------------- | ---------------------------------- |
+| **CSP (Content Security Policy)** | Controla quais scripts, estilos e recursos podem carregar     | `nuxt.config.ts` → `security.headers.contentSecurityPolicy` | ✅ Enforcing                       |
+| **CSP Report-Only (nonce)**       | Testa política restritiva sem bloquear — violações no console | `server/plugins/csp-report-only.ts`                         | ✅ Monitorando                     |
+| **HSTS**                          | Força HTTPS por 1 ano, incluindo subdomínios                  | `security.headers.strictTransportSecurity`                  | ✅ Ativo                           |
+| **X-Frame-Options**               | Previne clickjacking (iframes)                                | `security.headers.xFrameOptions`                            | ✅ SAMEORIGIN                      |
+| **X-Content-Type-Options**        | Previne MIME sniffing                                         | `security.headers.xContentTypeOptions`                      | ✅ nosniff                         |
+| **Referrer-Policy**               | Controla dados enviados no header Referer                     | `security.headers.referrerPolicy`                           | ✅ strict-origin-when-cross-origin |
+| **Permissions-Policy**            | Bloqueia acesso a câmera, microfone, geolocalização           | `security.headers.permissionsPolicy`                        | ✅ Bloqueadas                      |
+| **Rate Limiting**                 | Limita requisições por IP (150/5min global)                   | `security.rateLimiter`                                      | ✅ Ativo                           |
+| **CSRF Protection**               | Token anti-CSRF em POST/PUT/PATCH/DELETE                      | `security.csrf`                                             | ✅ Ativo                           |
+| **XSS Validator**                 | Sanitiza inputs contra XSS                                    | `security.xssValidator`                                     | ✅ Ativo                           |
+| **Request Size Limiter**          | Limita body a 2MB (8MB uploads)                               | `security.requestSizeLimiter`                               | ✅ Ativo                           |
+| **Auth (httpOnly cookies)**       | Tokens JWT em cookies httpOnly + SameSite strict              | `layers/auth/server/utils/auth.ts`                          | ✅ Ativo                           |
+| **Auto-refresh de tokens**        | Renova JWT automaticamente antes de expirar                   | `layers/auth/server/middleware/01.auth.ts`                  | ✅ Ativo                           |
+| **Validação Zod (server)**        | Valida body e respostas com schemas tipados                   | `layers/base/server/utils/validation.ts`                    | ✅ Ativo                           |
+| **Query whitelist**               | Aceita apenas query params conhecidos                         | `layers/base/server/utils/query-builder.ts`                 | ✅ Ativo                           |
+| **Route param validation**        | Aceita apenas IDs numéricos ou UUIDs                          | `layers/base/server/utils/validation.ts`                    | ✅ Ativo                           |
+| **hidePoweredBy**                 | Remove header X-Powered-By                                    | `security.hidePoweredBy`                                    | ✅ Ativo                           |
+| **upgrade-insecure-requests**     | Redireciona HTTP → HTTPS automaticamente                      | CSP directive                                               | ✅ Ativo                           |
+
+---
+
+## Arquivos de Segurança Pública
+
+| Arquivo                           | Propósito                                                                     | Referência                                  |
+| --------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------- |
+| `public/.well-known/security.txt` | Contato para reporte de vulnerabilidades (RFC 9116)                           | [securitytxt.org](https://securitytxt.org/) |
+| `robots.txt`                      | Gerado automaticamente pelo módulo `@nuxtjs/seo`                              | Configurado no `nuxt.config.ts`             |
+| `X-Robots-Tag`                    | Headers `noindex, nofollow` em rotas internas (`/auth/**`, `/admin/**`, etc.) | `routeRules` no `nuxt.config.ts`            |
+
+---
+
+## Próximos Passos
+
+Para entender cada camada em detalhe, consulte:
+
+- [Autenticação](/docs/seguranca/autenticacao) — fluxo de login, cookies httpOnly, refresh automático
+- [Headers e Proteções](/docs/seguranca/headers-protecoes) — CSP, HSTS, rate limiting, CSRF e mais
+- [Guia para Desenvolvedores](/docs/seguranca/guia-desenvolvimento) — receitas práticas e checklist de segurança
+
+---
+
+<!-- source: content/docs/paginas/homepage-casos-de-uso.md -->
+
+# Casos de Uso
+
+User stories e critérios de aceite para a homepage. Cada caso de uso representa uma jornada real de um usuário da plataforma.
+
+---
+
+## UC-01: Visualizar panorama nacional
+
+> Como **visitante**, quero ver o panorama geral de lotação de saúde no Brasil para entender se há risco de surtos.
+
+**Fluxo principal:**
+
+1. Visitante acessa a homepage
+2. A página carrega com dados nacionais (região "Brasil" selecionada por padrão)
+3. O panorama exibe porcentagem, nível de risco e tendência
+4. O gráfico mostra as últimas 8 semanas
+
+**Critérios de aceite:**
+
+- [ ] A página carrega com dados nacionais (região "Brasil") por padrão
+- [ ] O panorama exibe porcentagem de estabelecimentos acima da média, nível de risco e tendência
+- [ ] O gráfico mostra as últimas 8 semanas de lotação vs. média histórica
+- [ ] A tabela exibe comparativo das 5 regiões
+
+---
+
+## UC-02: Filtrar por região
+
+> Como **gestor de saúde**, quero filtrar os dados por região ou estado para ver informações relevantes à minha área de atuação.
+
+**Fluxo principal:**
+
+1. Gestor clica na tab "Nordeste" no seletor de região
+2. Todos os painéis (panorama, gráfico, tabela, mapa) atualizam para Nordeste
+3. Gestor refina selecionando "Bahia" no dropdown de estado
+4. Os dados são filtrados para a Bahia
+
+**Fluxo alternativo — via mapa:**
+
+1. Gestor clica no estado da Bahia no mapa interativo
+2. O dropdown de estado atualiza automaticamente para "Bahia"
+3. Os painéis são filtrados
+
+**Critérios de aceite:**
+
+- [ ] As tabs de região (Brasil, Norte, Nordeste, Centro-Oeste, Sudeste, Sul) filtram todos os painéis
+- [ ] Os dropdowns de estado e semana epidemiológica refinam os dados exibidos
+- [ ] O mapa destaca visualmente a região/estado selecionado
+- [ ] Clique no mapa sincroniza com os dropdowns de filtro
+
+---
+
+## UC-03: Analisar tendências no gráfico
+
+> Como **epidemiologista**, quero comparar a lotação semanal com a média histórica para detectar padrões anormais.
+
+**Fluxo principal:**
+
+1. Epidemiologista observa o gráfico de lotação semanal
+2. Ativa "mostrar variação" para ver a amplitude
+3. Filtra apenas "UPA" para isolar o tipo de estabelecimento
+4. Identifica que UPAs da região Sudeste estão com tendência de alta
+5. Lê a análise de especialistas para contexto
+
+**Critérios de aceite:**
+
+- [ ] O gráfico de linhas mostra lotação atual vs. média móvel
+- [ ] Posso alternar visualização por tipo de estabelecimento (UBS, UPA, Drogaria)
+- [ ] Posso ativar/desativar a linha de variação e a linha de média
+- [ ] A análise de especialistas contextualiza os dados exibidos
+- [ ] Link "ir para rumores" direciona para `/rumores`
+
+---
+
+## UC-04: Comparar regiões na tabela
+
+> Como **pesquisador**, quero comparar a lotação entre regiões e tipos de estabelecimento em uma tabela consolidada.
+
+**Fluxo principal:**
+
+1. Pesquisador rola até a tabela de "Lotação por Estabelecimento"
+2. Visualiza as 5 regiões lado a lado
+3. Ordena por coluna "UPA" para identificar quais regiões têm mais pressão nas UPAs
+4. Clica no ícone (i) para entender a metodologia de cálculo
+
+**Critérios de aceite:**
+
+- [ ] A tabela exibe as 5 regiões com nível, porcentagem e tendência
+- [ ] Cada tipo de estabelecimento (Drogarias, UPA, UBS) tem coluna própria
+- [ ] Colunas são ordenáveis (sort)
+- [ ] Ícones (i) exibem tooltip com explicação
+
+---
+
+## UC-05: Navegar para detalhes do município
+
+> Como **gestor municipal**, quero acessar rapidamente a página do meu município a partir da homepage.
+
+**Fluxo principal:**
+
+1. Gestor visualiza o panorama nacional
+2. Quer ver os dados específicos da sua cidade
+3. Clica no CTA "ir para Meu Município"
+4. É redirecionado para `/municipio`
+
+**Critérios de aceite:**
+
+- [x] O CTA "Meu Município" é visível após a seção do dashboard
+- [x] O botão direciona para `/municipio`
+- [x] O design tem destaque visual adequado (fundo pontilhado, botão outline)
+
+---
+
+## UC-06: Login para acesso completo
+
+> Como **usuário cadastrado**, quero fazer login para acessar funcionalidades completas da plataforma.
+
+**Fluxo principal:**
+
+1. Usuário acessa a homepage
+2. Dialog de login aparece por cima da página (conteúdo visível desfocado ao fundo)
+3. Preenche email e senha
+4. Clica em "Entrar"
+5. Dialog fecha, página carrega dados completos
+
+**Fluxo alternativo — esqueci a senha:**
+
+1. Usuário clica em "Esqueci minha senha"
+2. É redirecionado para `/auth/reset-password`
+3. Informa o email e solicita recuperação
+
+**Critérios de aceite:**
+
+- [x] O dialog de login aparece ao acessar a plataforma
+- [x] Posso fazer login com email e senha
+- [x] Após login, o dialog fecha e a página carrega os dados
+- [x] O link "Esqueci minha senha" direciona para recuperação
+- [x] Toggle de visibilidade da senha funcional
+- [x] Botão "Entrar" desabilitado até preencher os campos
+
+---
+
+## UC-07: Monitorar indicadores regionais
+
+> Como **gestor de saúde**, quero ver rapidamente o nível de risco de cada região sem precisar rolar a página.
+
+**Fluxo principal:**
+
+1. Gestor acessa a homepage
+2. Na barra superior fixa, visualiza os 5 indicadores regionais
+3. Identifica que "Norte" está com nível "Alto" e tendência de subida
+4. Decide filtrar por "Norte" para ver mais detalhes
+
+**Critérios de aceite:**
+
+- [x] A barra de indicadores está fixa no topo
+- [x] Exibe as 5 regiões com nível, variação percentual e seta de tendência
+- [x] Cores semânticas indicam o nível (verde/amarelo/vermelho)
+- [ ] Dados atualizados em tempo real via API
+
+---
+
+<!-- source: content/docs/paginas/homepage-componentes.md -->
+
+# Mapa de Componentes
+
+Todos os componentes envolvidos na homepage, com status de implementação e detalhes técnicos.
+
+---
+
+## Visão da Página
+
+Hierarquia de componentes na homepage (`layers/home/app/pages/index.vue`):
+
+```
+index.vue
+├── HomeHero
+├── HomeDashboard (orquestrador)
+│   ├── HomeRegionTabs
+│   ├── HomeMap (sticky, coluna esquerda)
+│   └── (coluna direita, scroll)
+│       ├── HomeFilters
+│       ├── HomePanorama
+│       ├── HomeChart
+│       └── HomeTable
+└── HomeCtaMunicipio
+```
+
+Componentes globais (presentes em todas as páginas via layout):
+
+```
+default.vue (layout)
+├── AppTopBar
+├── AppHeader
+└── AppFooter
+```
+
+---
+
+## Status por Componente
+
+### Componentes Globais (layer base)
+
+| Componente  | Arquivo                | Status          | Dados      | Observação            |
+| ----------- | ---------------------- | --------------- | ---------- | --------------------- |
+| `AppTopBar` | `common/AppTopBar.vue` | ✅ Implementado | Mock       | TODO: integrar API    |
+| `AppHeader` | `common/AppHeader.vue` | ✅ Implementado | Store auth | Pronto para produção  |
+| `AppFooter` | `common/AppFooter.vue` | ✅ Implementado | Hardcoded  | Links Sinapse com `#` |
+
+### Componentes Home (layer home)
+
+| Componente         | Arquivo                | Status          | Dados         | Observação                            |
+| ------------------ | ---------------------- | --------------- | ------------- | ------------------------------------- |
+| `HomeHero`         | `HomeHero.vue`         | ✅ Implementado | Estático      | Pronto para produção                  |
+| `HomeDashboard`    | `HomeDashboard.vue`    | ✅ Implementado | State interno | Orquestrador: gerencia `activeRegion` |
+| `HomeRegionTabs`   | `HomeRegionTabs.vue`   | ✅ Implementado | Hardcoded     | 6 tabs com v-model bidirecional       |
+| `HomeMap`          | `HomeMap.vue`          | 🔧 Esqueleto    | —             | MapLibre GL não integrado                 |
+| `HomeFilters`      | `HomeFilters.vue`      | ✅ Implementado | Mock          | 27 UFs + 4 semanas fixas              |
+| `HomePanorama`     | `HomePanorama.vue`     | 🎭 Mockado      | Mock          | UI pronta, aguarda API                |
+| `HomeChart`        | `HomeChart.vue`        | 🔧 Esqueleto    | —             | ApexCharts não integrado              |
+| `HomeTable`        | `HomeTable.vue`        | ✅ Implementado | Mock          | 5 regiões com dados simulados         |
+| `HomeCtaMunicipio` | `HomeCtaMunicipio.vue` | ✅ Implementado | Estático      | Pronto para produção                  |
+
+### Componentes Auth (layer auth)
+
+| Componente      | Arquivo             | Status          | Dados    | Observação                |
+| --------------- | ------------------- | --------------- | -------- | ------------------------- |
+| `AuthLoginForm` | `AuthLoginForm.vue` | ✅ Implementado | API real | Login funcional via store |
+
+---
+
+## Legenda de Status
+
+| Ícone | Status       | Significado                                                   |
+| ----- | ------------ | ------------------------------------------------------------- |
+| ✅    | Implementado | Componente funcional, pode ter dados mock                     |
+| 🎭    | Mockado      | UI completa, dados hardcoded, pronto para integração API      |
+| 🔧    | Esqueleto    | Estrutura visual existe mas funcionalidade principal pendente |
+| 🔲    | Pendente     | Ainda não criado                                              |
+
+---
+
+## Comunicação entre Componentes
+
+### Estado compartilhado
+
+O `HomeDashboard` é o orquestrador central. Ele gerencia:
+
+```
+HomeDashboard
+  └── activeRegion (ref)
+        │
+        ├── HomeRegionTabs (v-model: lê e escreve)
+        ├── HomeMap (prop: lê, emit: escreve ao clicar estado)
+        ├── HomeFilters (prop: lê região para filtrar estados)
+        ├── HomePanorama (prop: lê para buscar dados da região)
+        ├── HomeChart (prop: lê para filtrar dados do gráfico)
+        └── HomeTable (prop: lê para destacar região ativa)
+```
+
+### Fluxo ao trocar região
+
+```
+1. Usuário clica na tab "Nordeste"
+2. HomeRegionTabs emite update:modelValue
+3. HomeDashboard atualiza activeRegion
+4. Todos os componentes filhos recebem nova prop e reagem
+5. (Futuro) Store dispara fetch para API com nova região
+```
+
+---
+
+## Componentes Pendentes
+
+Componentes que existem no PRD mas ainda não foram criados:
+
+| Componente          | Seção | Descrição                                                         | Prioridade |
+| ------------------- | ----- | ----------------------------------------------------------------- | ---------- |
+| `HomeMapLegend`     | 3.5a  | Legenda separada do mapa (atualmente inline)                      | Baixa      |
+| `HomeChartControls` | 3.5d  | Controles extraídos do HomeChart (atualmente inline)              | Baixa      |
+| `HomeAnalysis`      | 3.5d  | Card "Análise dos Especialistas" (atualmente dentro do HomeChart) | Média      |
+
+---
+
+## Dependências Externas
+
+| Biblioteca              | Uso                                   | Status no projeto         |
+| ----------------------- | ------------------------------------- | ------------------------- |
+| **MapLibre GL**             | Mapa interativo SVG do Brasil         | 🔲 Não instalado          |
+| **ApexCharts**          | Gráfico de linhas (lotação vs. média) | 🔲 Não instalado          |
+| **@tanstack/vue-table** | Tabela com sort/filter                | ✅ Instalado (disponível) |
+| **shadcn-vue (Tabs)**   | Tabs de região                        | ✅ Instalado (usado)      |
+| **shadcn-vue (Select)** | Dropdowns de filtro                   | ✅ Instalado (usado)      |
+| **shadcn-vue (Switch)** | Toggles do gráfico                    | ✅ Instalado (usado)      |
+| **vue-sonner**          | Toasts de erro/feedback               | ✅ Instalado (disponível) |
+
+---
+
+<!-- source: content/docs/paginas/homepage-dados.md -->
+
+# Dados e APIs
+
+Fontes de dados consumidas pela homepage, frequência de atualização e status de integração.
+
+---
+
+## Fontes de Dados
+
+| Dado                     | Origem                                     | Frequência                | Status                    |
+| ------------------------ | ------------------------------------------ | ------------------------- | ------------------------- |
+| Indicadores regionais    | API Sinapse                                | Tempo real                | 🔲 Mock                   |
+| Mapa de estados          | TopoJSON local (`public/geo/`) + dados API | Por semana epidemiológica | 🔲 Pendente               |
+| Panorama / Risco         | Cálculo baseado em z-score da lotação      | Por semana epidemiológica | 🔲 Mock                   |
+| Gráfico de lotação       | Histórico de 8 semanas via API             | Semanal                   | 🔲 Pendente               |
+| Análise de especialistas | Gerada via API (possivelmente IA)          | Por atualização           | 🔲 Pendente               |
+| Tabela de lotação        | Agregação por região e tipo via API        | Por semana epidemiológica | 🔲 Mock                   |
+| Lista de estados         | Hardcoded (27 UFs com sigla e nome)        | Estática                  | ✅                        |
+| Semanas epidemiológicas  | API Sinapse                                | Dinâmica                  | 🔲 Mock (4 semanas fixas) |
+
+---
+
+## Fluxo de Dados
+
+```
+API Sinapse ──→ BFF (server/api/) ──→ Composable/Store ──→ Componente
+                    │                       │
+                    ├─ Valida com Zod       ├─ ref() / computed()
+                    ├─ Trata erros         └─ Reatividade Vue
+                    └─ Cache (se aplicável)
+```
+
+### Padrão de integração
+
+Cada fonte de dados segue o mesmo padrão:
+
+1. **Endpoint BFF** em `layers/home/server/api/home/` — proxy para API Sinapse
+2. **Service** (`useHomeApi()`) — funções `$fetch` para chamar o BFF
+3. **Store** (`useHomeStore()`) — estado reativo com Pinia
+4. **Componente** — consome a store e renderiza
+
+---
+
+## Endpoints Necessários (BFF)
+
+Endpoints a serem criados em `layers/home/server/api/home/`:
+
+| Endpoint                | Método | Descrição                        | Parâmetros                 | Status      |
+| ----------------------- | ------ | -------------------------------- | -------------------------- | ----------- |
+| `/api/home/indicadores` | GET    | Indicadores regionais (topbar)   | —                          | 🔲 Pendente |
+| `/api/home/panorama`    | GET    | Resumo de risco por região       | `?regiao=&estado=&semana=` | 🔲 Pendente |
+| `/api/home/lotacao`     | GET    | Dados do gráfico (8 semanas)     | `?regiao=&tipo=&semana=`   | 🔲 Pendente |
+| `/api/home/tabela`      | GET    | Lotação por região e tipo        | `?semana=`                 | 🔲 Pendente |
+| `/api/home/mapa`        | GET    | Dados de nível por estado        | `?semana=`                 | 🔲 Pendente |
+| `/api/home/semanas`     | GET    | Lista de semanas epidemiológicas | —                          | 🔲 Pendente |
+| `/api/home/analise`     | GET    | Análise de especialistas         | `?regiao=&semana=`         | 🔲 Pendente |
+
+### Exemplo de resposta — Indicadores
+
+```json
+{
+  "data": [
+    { "regiao": "Norte", "nivel": "Medio", "variacao": -1, "tendencia": "alta" },
+    { "regiao": "Nordeste", "nivel": "Alto", "variacao": -1, "tendencia": "estavel" },
+    { "regiao": "Centro-Oeste", "nivel": "Medio", "variacao": 6, "tendencia": "alta" },
+    { "regiao": "Sudeste", "nivel": "Baixo", "variacao": -3, "tendencia": "queda" },
+    { "regiao": "Sul", "nivel": "Medio", "variacao": 2, "tendencia": "alta" }
+  ]
+}
+```
+
+### Exemplo de resposta — Panorama
+
+```json
+{
+  "data": {
+    "porcentagem": 44.7,
+    "nivel": "Medio",
+    "tendencia": "alta",
+    "descricao": "dos estabelecimentos acima da média histórica",
+    "analise": "Centro-Oeste mostra variação moderada...",
+    "estabelecimentos": {
+      "total": 3365,
+      "drogarias": 880,
+      "ubs": 510,
+      "upas": 244
+    }
+  }
+}
+```
+
+---
+
+## Dados Mock Atuais
+
+Componentes que usam dados hardcoded e precisam de integração:
+
+| Componente     | Dados mock                         | Localização no código                                       |
+| -------------- | ---------------------------------- | ----------------------------------------------------------- |
+| `AppTopBar`    | 5 indicadores regionais            | Variável local no componente                                |
+| `HomePanorama` | 44.7%, 3365 estabelecimentos       | Comentário: "Mock data — será substituído por dados da API" |
+| `HomeChart`    | Controles sem dados                | Comentário: "ApexCharts — integração futura"                |
+| `HomeTable`    | 5 linhas com níveis e porcentagens | Variável local no componente                                |
+| `HomeFilters`  | 4 semanas epidemiológicas fixas    | Array hardcoded                                             |
+
+---
+
+## Cache e Atualização
+
+| Dado                     | Estratégia de cache            | TTL        |
+| ------------------------ | ------------------------------ | ---------- |
+| Indicadores regionais    | Cache no BFF                   | 5 minutos  |
+| Panorama                 | Cache no BFF por região        | 15 minutos |
+| Gráfico (8 semanas)      | Cache no BFF por região + tipo | 1 hora     |
+| Tabela                   | Cache no BFF                   | 15 minutos |
+| Mapa                     | Cache no BFF                   | 15 minutos |
+| Semanas epidemiológicas  | Cache no BFF                   | 24 horas   |
+| Análise de especialistas | Sem cache (conteúdo dinâmico)  | —          |
+
+---
+
+<!-- source: content/docs/paginas/homepage-estados-ui.md -->
+
+# Estados da UI
+
+Definição de como a homepage se comporta visualmente nos diferentes estados: loading, vazio, erro e sucesso.
+
+---
+
+## Loading (carregamento)
+
+Quando os dados estão sendo buscados da API, cada seção exibe um skeleton animado com pulso.
+
+| Seção        | Comportamento                                                             |
+| ------------ | ------------------------------------------------------------------------- |
+| **Top Bar**  | 5 retângulos cinza pulsando no lugar dos indicadores                      |
+| **Panorama** | Skeleton com blocos para porcentagem, badge de nível e contadores         |
+| **Gráfico**  | Retângulo cinza na área do gráfico + controles visíveis mas desabilitados |
+| **Tabela**   | 5 linhas skeleton com larguras variadas simulando dados                   |
+| **Mapa**     | Silhueta do mapa em cinza claro sem cores por estado                      |
+| **Filtros**  | Dropdowns visíveis com placeholder mas desabilitados                      |
+
+### Regras
+
+- O skeleton aparece **apenas na primeira carga** — ao trocar filtro, os dados anteriores permanecem visíveis enquanto os novos carregam
+- Transição suave (fade) ao substituir skeleton por dados reais
+- Tempo máximo de loading: **10 segundos** — após isso, exibir estado de erro
+
+---
+
+## Vazio (sem dados)
+
+Quando a API retorna resposta válida mas sem dados para a seleção atual.
+
+| Seção        | Mensagem                                | Comportamento                                              |
+| ------------ | --------------------------------------- | ---------------------------------------------------------- |
+| **Panorama** | "Dados indisponíveis para esta região." | Card com ícone informativo e mensagem centralizada         |
+| **Gráfico**  | "Sem dados para o período selecionado." | Área do gráfico com mensagem + sugestão de alterar filtros |
+| **Tabela**   | "Nenhum dado encontrado."               | Mensagem centralizada na área da tabela                    |
+| **Mapa**     | Mapa cinza sem coloração                | Tooltip: "Sem dados disponíveis para esta semana"          |
+
+### Regras
+
+- O estado vazio **nunca** deve deixar uma seção em branco — sempre exibir mensagem explicativa
+- Sugerir ação ao usuário quando possível (ex: "Tente selecionar outra semana epidemiológica")
+
+---
+
+## Erro
+
+Quando a API falha ou retorna erro.
+
+| Cenário              | Comportamento                                                      | Ação do usuário          |
+| -------------------- | ------------------------------------------------------------------ | ------------------------ |
+| **Erro de rede**     | Toast com "Falha ao carregar dados. Verifique sua conexão."        | Botão "Tentar novamente" |
+| **Erro 500**         | Toast com "Erro interno. Tente novamente em instantes."            | Botão "Tentar novamente" |
+| **Timeout (> 10s)**  | Exibe último dado disponível + aviso "Dados de X minutos atrás"    | Atualiza automaticamente |
+| **API indisponível** | Banner discreto no topo: "Alguns dados podem estar desatualizados" | —                        |
+
+### Regras
+
+- Erros **não devem travar** a página — cada seção é independente
+- Se o panorama falha mas a tabela carrega, exibir a tabela normalmente
+- Toasts de erro usam `vue-sonner` com duração de 5 segundos
+- Retry automático: 1 tentativa após 5 segundos em caso de erro de rede
+- Máximo de 2 retries por seção
+
+---
+
+## Sucesso
+
+Estado padrão quando os dados estão carregados e disponíveis.
+
+| Seção        | Indicador visual                                          |
+| ------------ | --------------------------------------------------------- |
+| **Top Bar**  | Indicadores com cores semânticas (verde/amarelo/vermelho) |
+| **Mapa**     | Estados coloridos conforme nível de movimento             |
+| **Panorama** | Porcentagem, badge de nível e contadores preenchidos      |
+| **Gráfico**  | Linhas renderizadas com dados de 8 semanas                |
+| **Tabela**   | 5 linhas com dados completos e setas de tendência         |
+| **Fonte**    | "Dados via Sinapse, há X minutos." com indicador verde    |
+
+### Regras
+
+- O indicador de "última atualização" deve mostrar tempo relativo (ex: "há 3 minutos")
+- Indicador verde de status confirma que os dados estão frescos
+
+---
+
+## Transições entre estados
+
+```
+[Inicial] ──→ [Loading] ──→ [Sucesso]
+                  │              │
+                  ├──→ [Erro] ──→ [Retry] ──→ [Sucesso]
+                  │                   │
+                  │                   └──→ [Erro final] (exibe toast)
+                  │
+                  └──→ [Vazio] (dados carregaram mas sem resultado)
+```
+
+### Ao trocar filtro
+
+```
+[Sucesso atual] ──→ [Loading overlay sutil] ──→ [Novo sucesso]
+                          │
+                          └──→ [Erro] ──→ [Mantém dados anteriores + toast]
+```
+
+- Dados anteriores **não são limpos** durante transição de filtro
+- Loading overlay sutil (opacity 0.5) sobre o conteúdo atual
+- Se o novo request falha, mantém os dados anteriores e exibe toast de erro
+
+---
+
+<!-- source: content/docs/paginas/homepage-nao-funcionais.md -->
+
+# Requisitos Não-Funcionais
+
+Requisitos transversais que afetam a qualidade da homepage independentemente das funcionalidades.
+
+---
+
+## Performance
+
+| Requisito                               | Meta            | Como medir              | Status                   |
+| --------------------------------------- | --------------- | ----------------------- | ------------------------ |
+| First Contentful Paint (FCP)            | < 1.5s          | Lighthouse              | 🔲 Não medido            |
+| Largest Contentful Paint (LCP)          | < 2.5s          | Lighthouse / Web Vitals | 🔲 Não medido            |
+| Time to Interactive (TTI)               | < 3s            | Lighthouse              | 🔲 Não medido            |
+| Cumulative Layout Shift (CLS)           | < 0.1           | Lighthouse / Web Vitals | 🔲 Não medido            |
+| Mapa SVG carrega sem travar UI          | < 2s            | Manual                  | 🔲 Pendente (MapLibre GL)    |
+| Gráfico renderiza sem delay perceptível | < 1s            | Manual                  | 🔲 Pendente (ApexCharts) |
+| Bundle JS da homepage                   | < 200KB gzipped | Build analysis          | 🔲 Não medido            |
+
+### Estratégias de performance
+
+- **SSR** — página renderizada no servidor para FCP rápido
+- **Lazy loading** — mapa e gráfico carregados sob demanda (quando visíveis no viewport)
+- **Skeleton loading** — placeholders visuais enquanto dados carregam
+- **Cache** — dados de indicadores regionais cacheados por 5 minutos
+- **Compressão** — Nitro com `compressPublicAssets: true`
+
+---
+
+## Responsividade
+
+| Breakpoint  | Largura        | Comportamento                                                                |
+| ----------- | -------------- | ---------------------------------------------------------------------------- |
+| **Mobile**  | < 640px        | Colunas empilhadas, topbar com scroll horizontal, menu hamburger, TOC oculto |
+| **Tablet**  | 640px — 1024px | 2 colunas no dashboard, mapa e dados empilhados                              |
+| **Desktop** | > 1024px       | Mapa sticky à esquerda, dados scrolláveis à direita, layout completo         |
+
+### Detalhes por seção
+
+| Seção       | Mobile                               | Desktop                                |
+| ----------- | ------------------------------------ | -------------------------------------- |
+| Top Bar     | Scroll horizontal                    | Linha única                            |
+| Header      | Hamburger + Sheet                    | Nav horizontal                         |
+| Hero        | Empilhado (título → CTA → descrição) | 3 colunas                              |
+| Region Tabs | Scroll horizontal                    | Linha única                            |
+| Dashboard   | Empilhado (mapa → filtros → dados)   | 2 colunas (mapa sticky + dados scroll) |
+| Tabela      | Scroll horizontal                    | Largura total                          |
+| CTA         | Empilhado                            | Título à esquerda, botão à direita     |
+| Footer      | Colunas empilhadas                   | 4 colunas                              |
+
+---
+
+## SEO
+
+| Item                | Implementação                                      | Status |
+| ------------------- | -------------------------------------------------- | ------ |
+| Title e Description | `useSeoPage()` com título e descrição dinâmicos    | ✅     |
+| Open Graph          | Gerado automaticamente pelo `useSeoPage()`         | ✅     |
+| Twitter Cards       | Gerado automaticamente pelo `useSeoPage()`         | ✅     |
+| Schema.org JSON-LD  | `defineWebSite()` com nome, URL e descrição        | ✅     |
+| Canonical URL       | Gerado automaticamente                             | ✅     |
+| SSR                 | Conteúdo renderizado no servidor                   | ✅     |
+| Sitemap             | Gerado em `/sitemap.xml` pelo módulo `@nuxtjs/seo` | ✅     |
+| Robots              | `X-Robots-Tag` configurado em `routeRules`         | ✅     |
+| HTML semântico      | h1, h2, section, nav, main, footer                 | ✅     |
+| Lang attribute      | `<html lang="pt-BR">`                              | ✅     |
+
+---
+
+## Acessibilidade
+
+| Requisito                                       | Nível WCAG | Status                             |
+| ----------------------------------------------- | ---------- | ---------------------------------- |
+| Navegação por teclado nos tabs e filtros        | AA         | 🔲 Não validado                    |
+| Contraste mínimo nas cores de texto             | AA (4.5:1) | 🔲 Não validado                    |
+| Contraste em elementos gráficos (mapa, gráfico) | AA (3:1)   | 🔲 Não validado                    |
+| Labels associados a inputs e selects            | A          | ✅                                 |
+| Alt text em imagens informativas                | A          | 🔲 Não validado                    |
+| `aria-hidden` em ícones decorativos             | A          | ✅ (Nuxt Icon faz automaticamente) |
+| Roles semânticos (tablist, tab, tabpanel)       | A          | 🔲 Não validado                    |
+| Foco visível em elementos interativos           | AA         | 🔲 Não validado                    |
+| Leitor de tela: dados da tabela acessíveis      | A          | 🔲 Não validado                    |
+| Redução de movimento (`prefers-reduced-motion`) | AAA        | 🔲 Não implementado                |
+
+---
+
+## Segurança
+
+| Requisito                              | Implementação                         | Status |
+| -------------------------------------- | ------------------------------------- | ------ |
+| CSP headers                            | Módulo `nuxt-security`                | ✅     |
+| Rate limiting                          | 150 req/5min (global)                 | ✅     |
+| Login rate limiting                    | 10 req/5min                           | ✅     |
+| CSRF protection                        | `nuxt-csurf` em POST/PUT/PATCH/DELETE | ✅     |
+| XSS protection                         | Validator habilitado                  | ✅     |
+| Tokens em cookies httpOnly             | `setCookie` com secure + sameSite     | ✅     |
+| Dados sensíveis não expostos no client | Validação no BFF                      | ✅     |
+
+---
+
+## Compatibilidade de Navegadores
+
+| Navegador               | Versão mínima | Suporte |
+| ----------------------- | ------------- | ------- |
+| Chrome                  | 90+           | ✅      |
+| Firefox                 | 90+           | ✅      |
+| Safari                  | 15+           | ✅      |
+| Edge                    | 90+           | ✅      |
+| Mobile Chrome (Android) | 90+           | ✅      |
+| Mobile Safari (iOS)     | 15+           | ✅      |
+
+---
+
+<!-- source: content/docs/paginas/homepage-requisitos.md -->
+
+# Requisitos Funcionais
+
+Especificação detalhada das 8 seções da homepage, com elementos, comportamento e critérios de aceite.
+
+---
+
+## 3.1 Barra de Indicadores Regionais (Top Bar)
+
+**Status:** ✅ Implementado (dados mock)
+**Componente:** `AppTopBar`
+
+Barra fixa no topo da página com indicadores resumidos por região.
+
+| Elemento         | Descrição                                                          |
+| ---------------- | ------------------------------------------------------------------ |
+| Label            | "Indicadores Regionais"                                            |
+| Regiões          | Norte, Nordeste, Centro-Oeste, Sudeste, Sul                        |
+| Dados por região | Nível (Baixo/Médio/Alto) + variação percentual + seta de tendência |
+
+**Exemplo:** `Norte: Médio -1% ↑` · `Nordeste: Alto -1%` · `Centro-Oeste: Médio +6% ↑`
+
+**Comportamento:**
+
+- A barra rola horizontalmente em telas menores
+- Os indicadores são atualizados em tempo real via API
+- Cores semânticas: success (baixo), alert (médio), danger (alto)
+
+**Critérios de aceite:**
+
+- [x] Exibe as 5 regiões com nível, variação e tendência
+- [x] Scroll horizontal no mobile
+- [ ] Dados vêm da API Sinapse (atualmente mock)
+
+---
+
+## 3.2 Header / Navegação
+
+**Status:** ✅ Implementado
+**Componente:** `AppHeader`
+
+Barra de navegação principal com logos e menu.
+
+| Elemento     | Descrição                                               |
+| ------------ | ------------------------------------------------------- |
+| Logo ITpS    | Link para home (`/`)                                    |
+| Logo Detecta | Link para home (`/`)                                    |
+| Menu         | Home, Meu Município, Mapa de Risco, Rumores, Relatórios |
+| Usuário      | Avatar + nome (quando logado) com dropdown              |
+
+**Comportamento:**
+
+- Item ativo recebe destaque visual (ícone losango + cor)
+- Menu do usuário: perfil, admin e logout
+- Mobile: hamburger menu com Sheet (drawer)
+
+**Critérios de aceite:**
+
+- [x] Navegação funcional desktop e mobile
+- [x] Menu do usuário com autenticação integrada
+- [x] Destaque visual no item ativo
+
+---
+
+## 3.3 Hero Section
+
+**Status:** ✅ Implementado
+**Componente:** `HomeHero`
+
+Seção de destaque com a pergunta principal e explicação da plataforma.
+
+| Elemento        | Descrição                                                                          |
+| --------------- | ---------------------------------------------------------------------------------- |
+| Título (h1)     | "Quais os riscos de Surtos ou Epidemias no Brasil?"                                |
+| CTA central     | "selecione sua região" com seta para baixo                                         |
+| Subtexto        | "Não se preocupe! Os dados são abertos. ;)"                                        |
+| Descrição       | Texto explicativo sobre o que o Detecta Alerta faz                                 |
+| Fonte dos dados | "\*Dados públicos coletados do Google Maps e parcerias com instituições públicas." |
+
+**Layout:** 3 colunas em desktop — título à esquerda, CTA no centro, descrição à direita. Fundo branco.
+
+**Critérios de aceite:**
+
+- [x] Layout 3 colunas em desktop, empilhado no mobile
+- [x] Conteúdo estático exibido corretamente
+
+---
+
+## 3.4 Seletor de Região (Tabs)
+
+**Status:** ✅ Implementado
+**Componente:** `HomeRegionTabs`
+
+Barra azul escura com tabs para selecionar a região do Brasil.
+
+| Elemento | Descrição                                                                |
+| -------- | ------------------------------------------------------------------------ |
+| Label    | "Selecione uma Região:"                                                  |
+| Tabs     | Brasil (default, com ícone), Norte, Nordeste, Centro-Oeste, Sudeste, Sul |
+
+**Comportamento:**
+
+- Tab selecionada tem fundo branco e borda
+- Tab "Brasil" é a padrão e tem ícone especial
+- Ao selecionar uma região, todos os dados da página (mapa, panorama, gráfico, tabela) são filtrados
+
+**Fundo:** Azul escuro (secondary-900), com tabs em container arredondado branco.
+
+**Critérios de aceite:**
+
+- [x] 6 tabs funcionais com v-model bidirecional
+- [x] Tab "Brasil" como padrão
+- [ ] Seleção de região filtra todos os painéis abaixo (integração parcial)
+
+---
+
+## 3.5 Painel Principal (Mapa + Dados)
+
+Seção dividida em duas colunas: mapa à esquerda (sticky) e dados à direita (scroll).
+
+**Componente orquestrador:** `HomeDashboard`
+
+### 3.5a Mapa Interativo
+
+**Status:** 🔧 Esqueleto (MapLibre GL pendente)
+**Componente:** `HomeMap`
+
+| Elemento | Descrição                                                                      |
+| -------- | ------------------------------------------------------------------------------ |
+| Legenda  | "Nível de Movimento:" — Normal (cinza), Moderado (amarelo), Elevado (vermelho) |
+| Mapa SVG | Mapa do Brasil dividido por estados, coloridos conforme nível                  |
+| Tooltip  | "Clique na região — Selecione uma área no mapa para ver os detalhes."          |
+| Fonte    | "Dados via Sinapse, há X minutos." com indicador verde de status               |
+
+**Comportamento:**
+
+- Estados coloridos conforme nível de movimento
+- Clique em estado atualiza os dados à direita
+- Suporte a zoom e pan
+
+**Critérios de aceite:**
+
+- [x] Estrutura visual com legenda e tooltip
+- [ ] Renderização do mapa SVG/MapLibre GL com dados reais
+- [ ] Interação: clique no estado filtra dados
+- [ ] Cores dinâmicas baseadas no nível de movimento
+
+### 3.5b Filtros
+
+**Status:** ✅ Implementado (dados mock)
+**Componente:** `HomeFilters`
+
+| Elemento              | Descrição                                                                     |
+| --------------------- | ----------------------------------------------------------------------------- |
+| Estado                | Dropdown com os 27 estados + "Todos os Estados"                               |
+| Semana Epidemiológica | Dropdown com semana + intervalo de datas (ex: "Semana 4 (25 a 31 jan. 2026)") |
+
+**Critérios de aceite:**
+
+- [x] Dropdown de estado com lista completa de UFs (value/label)
+- [x] Dropdown de semana epidemiológica com componente Select do shadcn
+- [ ] Semanas carregadas dinamicamente da API
+- [ ] Seleção de filtro atualiza todos os painéis
+
+### 3.5c Panorama — Resumo de Risco
+
+**Status:** 🎭 Mockado (pronto para API)
+**Componente:** `HomePanorama`
+
+Card com o resumo do risco epidemiológico.
+
+| Elemento            | Descrição                                                                    |
+| ------------------- | ---------------------------------------------------------------------------- |
+| Header              | "Panorama - Brasil" + link "como é feito o cálculo" (abre modal)             |
+| Indicador principal | Porcentagem (ex: "44.7%") + badge de nível ("Médio")                         |
+| Descrição           | "dos estabelecimentos acima da média histórica. Tendência de alta."          |
+| Análise textual     | Texto descrevendo o cenário (ex: "Centro-Oeste mostra variação moderada...") |
+| Estabelecimentos    | Total + breakdown por tipo (drogarias, UBS, UPAs) com ícones                 |
+| Botão info          | "Mais informações"                                                           |
+
+**Critérios de aceite:**
+
+- [x] Layout com indicador principal, nível de risco e breakdown
+- [x] Exibe total e contagem por tipo de estabelecimento
+- [ ] Dados vêm da API (atualmente mock: 44.7%, 3365 estabelecimentos)
+- [ ] Atualiza ao trocar região/filtro
+- [ ] Modal "como é feito o cálculo" implementado
+
+### 3.5d Gráfico — Lotação Semanal vs. Média Histórica
+
+**Status:** 🔧 Esqueleto (ApexCharts pendente)
+**Componente:** `HomeChart`
+
+| Elemento  | Descrição                                                                                |
+| --------- | ---------------------------------------------------------------------------------------- |
+| Header    | "Lotação Semanal vs. Média Histórica"                                                    |
+| Subtítulo | "Últimas 8 semanas. Para acessar o histórico completo, acesse aqui" (link → /relatorios) |
+| Controles | Switches: "mostrar variação", "mostrar média"                                            |
+| Filtros   | Toggle por tipo: UBS, UPA, Drogaria                                                      |
+| Gráfico   | Linhas com eixo Y em % (0-100%), eixo X com datas semanais                               |
+| Legenda   | Lotação Atual (linha sólida azul), Média Móvel (tracejada), cores por nível              |
+| Análise   | Card "Análise dos Especialistas" com texto descritivo + link "ir para rumores"           |
+
+**Dados do gráfico:** Cada ponto representa a porcentagem de estabelecimentos com lotação acima da média naquela semana. A linha tracejada é a média móvel histórica.
+
+**Critérios de aceite:**
+
+- [x] Controles de visualização funcionais (switches, filtros por tipo)
+- [ ] Gráfico de linhas renderizado com ApexCharts
+- [ ] Dados de 8 semanas vindos da API
+- [ ] Linha de variação e média toggleáveis
+- [ ] Card de análise de especialistas com conteúdo dinâmico
+
+### 3.5e Tabela — Lotação por Estabelecimento
+
+**Status:** ✅ Implementado (dados mock)
+**Componente:** `HomeTable`
+
+| Coluna    | Descrição                                                |
+| --------- | -------------------------------------------------------- |
+| Região    | Centro-Oeste, Nordeste, Norte, Sudeste, Sul              |
+| Todos     | Nível + porcentagem + tendência (todos os tipos somados) |
+| Drogarias | Nível + porcentagem + tendência (sortable)               |
+| UPA       | Nível + porcentagem + tendência (sortable)               |
+| UBS       | Nível + porcentagem + tendência (sortable)               |
+
+**Formato das células:** `Nível · porcentagem% seta` (ex: "Médio · 46.5% ↑", "Baixo · 42% →")
+
+Cada coluna tem botão (i) de "Mais informações" com tooltip explicativo.
+
+**Critérios de aceite:**
+
+- [x] Tabela com 5 regiões e 4 colunas de dados
+- [x] Exibe nível, porcentagem e seta de tendência
+- [ ] Dados vêm da API (atualmente mock)
+- [ ] Colunas ordenáveis (sort)
+
+---
+
+## 3.6 CTA — Meu Município
+
+**Status:** ✅ Implementado
+**Componente:** `HomeCtaMunicipio`
+
+Banner de call-to-action para a página "Meu Município".
+
+| Elemento    | Descrição                                             |
+| ----------- | ----------------------------------------------------- |
+| Título (h2) | "Quer saber sobre sua cidade?"                        |
+| Subtítulo   | "Explore os dados na página Meu Município."           |
+| Botão       | "ir para Meu Município →" (variant outline, com seta) |
+
+**Layout:** Fundo com padrão pontilhado sutil. Título à esquerda, botão à direita.
+
+**Critérios de aceite:**
+
+- [x] Banner com título, descrição e botão
+- [x] Botão direciona para `/municipio`
+
+---
+
+## 3.7 Footer
+
+**Status:** ✅ Implementado
+**Componente:** `AppFooter`
+
+Rodapé com informações institucionais.
+
+### Parte Superior
+
+| Elemento      | Descrição                                                                                                  |
+| ------------- | ---------------------------------------------------------------------------------------------------------- |
+| Logos         | Detecta Alerta + ITpS                                                                                      |
+| Descrição     | "Plataforma de monitoramento de movimento que acompanha a lotação de unidades de saúde em tempo oportuno." |
+| Redes sociais | Instagram, LinkedIn, YouTube (ícones circulares)                                                           |
+
+### Links de Navegação (3 colunas)
+
+| Explore             | Sinapse     | Suporte             |
+| ------------------- | ----------- | ------------------- |
+| Início              | Arboviroses | Documentação        |
+| Meu Município       | Clima       | Notas metodológicas |
+| Rumores             | CNES        |                     |
+| Lugares Monitorados | I.A.        |                     |
+| Relatórios          | Outros      |                     |
+
+### Parte Inferior
+
+| Elemento  | Descrição                                                              |
+| --------- | ---------------------------------------------------------------------- |
+| Copyright | "©Todos os Direitos Reservados Instituto Todos pela Saúde (ITpS)"      |
+| Endereço  | "Avenida Paulista, 1.938 - 16º andar, CEP: 01310-942 - São Paulo (SP)" |
+| Link      | "Termos de Uso e Aviso de Privacidade"                                 |
+
+**Critérios de aceite:**
+
+- [x] Footer completo com 3 colunas de links
+- [x] Redes sociais com ícones
+- [x] Link para termos de uso funcional
+- [ ] Links da coluna "Sinapse" apontam para URLs reais (atualmente `#`)
+
+---
+
+## 3.8 Login Overlay (Dialog)
+
+**Status:** ✅ Implementado
+**Componente:** `AuthLoginForm`
+
+Modal de login que aparece por cima da página.
+
+| Elemento    | Descrição                                                                  |
+| ----------- | -------------------------------------------------------------------------- |
+| Título      | "Detecta Alerta"                                                           |
+| Subtítulo   | "Sistema de vigilância epidemiológica"                                     |
+| Campo email | Input com ícone de envelope, placeholder "seu@email.com"                   |
+| Campo senha | Input com ícone de cadeado, placeholder "••••••••", toggle de visibilidade |
+| Link        | "Esqueci minha senha"                                                      |
+| Botão       | "Entrar" (desabilitado até preencher campos)                               |
+
+**Comportamento:** O dialog aparece ao acessar a plataforma. O conteúdo da home é visível (desfocado) por trás. Após login, o dialog fecha e a página carrega os dados completos.
+
+**Critérios de aceite:**
+
+- [x] Dialog renderiza sobre a homepage
+- [x] Autenticação funcional via API
+- [x] Toggle de visibilidade da senha
+- [x] Link "Esqueci minha senha" funcional
+
+---
+
+<!-- source: content/docs/paginas/homepage.md -->
+
+# Homepage — Visão Geral
+
+## Contexto
+
+O **Detecta Alerta** é uma plataforma de vigilância epidemiológica em tempo real para o Brasil, desenvolvida pelo Instituto Todos pela Saúde (ITpS). A plataforma centraliza dados de lotação de estabelecimentos de saúde — Drogarias, UBS e UPAs — para análise de padrões epidemiológicos e detecção precoce de surtos.
+
+A homepage é a **porta de entrada** da plataforma. É a primeira página que qualquer visitante vê e precisa comunicar imediatamente o valor do produto: transformar dados dispersos de saúde em informação visual e acionável.
+
+## Problema
+
+Gestores de saúde, epidemiologistas e o público geral não têm uma forma unificada e visual de acompanhar a lotação de estabelecimentos de saúde por região. Os dados existem mas estão dispersos em sistemas diferentes, com formatos incompatíveis e sem contexto histórico para comparação.
+
+**Consequências:**
+
+- Surtos são detectados tardiamente por falta de visão consolidada
+- Gestores não conseguem comparar sua região com o panorama nacional
+- Decisões de alocação de recursos são baseadas em dados desatualizados
+- O público não tem acesso a informações compreensíveis sobre o cenário epidemiológico
+
+## Objetivo da Homepage
+
+Apresentar um **panorama nacional da vigilância epidemiológica** de forma clara e acessível, permitindo que qualquer pessoa:
+
+1. **Entenda o cenário atual** — nível de risco, tendência e comparativo regional
+2. **Explore por região** — filtre dados por região geográfica, estado e semana epidemiológica
+3. **Analise tendências** — compare lotação semanal com a média histórica
+4. **Tome decisão** — acesse análises de especialistas e dados detalhados por tipo de estabelecimento
+
+## Público-alvo
+
+| Perfil                        | Necessidade principal                                  | Como usa a homepage                                               | Frequência     |
+| ----------------------------- | ------------------------------------------------------ | ----------------------------------------------------------------- | -------------- |
+| **Gestor de saúde municipal** | Monitorar lotação na sua região para tomada de decisão | Filtra por estado, analisa panorama e tabela comparativa          | Diária/Semanal |
+| **Epidemiologista**           | Analisar tendências e detectar surtos precocemente     | Usa gráfico de tendência, cruza dados por tipo de estabelecimento | Semanal        |
+| **Público geral**             | Entender o cenário epidemiológico do país              | Visualiza panorama nacional e mapa, lê análise de especialistas   | Eventual       |
+| **Jornalista / Pesquisador**  | Acessar dados abertos para reportagens e estudos       | Consulta tabela e gráficos, exporta informações                   | Eventual       |
+
+## Proposta de Valor
+
+A homepage se diferencia por:
+
+- **Visão consolidada** — todos os dados de lotação em uma única tela, filtráveis por região
+- **Contexto histórico** — gráfico de 8 semanas comparando com média móvel (não só o dado atual)
+- **Análise humana** — textos de especialistas que contextualizam os números
+- **Dados abertos** — acesso público sem necessidade de cadastro para visualizar o panorama
+
+## Escopo
+
+### Dentro do escopo (homepage)
+
+- Panorama nacional e regional de lotação
+- Mapa interativo do Brasil por estados
+- Gráfico de tendência (lotação semanal vs. média histórica)
+- Tabela comparativa por região e tipo de estabelecimento
+- Filtros por região, estado e semana epidemiológica
+- Indicadores regionais no topo
+- CTA para "Meu Município"
+- Login overlay
+
+### Fora do escopo (outras páginas)
+
+- Dados por município individual → **Meu Município** (`/municipio`)
+- Feed de notícias epidemiológicas → **Rumores** (`/rumores`)
+- Mapa de calor detalhado → **Mapa de Risco** (`/mapa-risco`)
+- Exportação de relatórios → **Relatórios** (`/relatorios`)
+- Gestão de usuários e permissões → **Admin** (`/admin`)
+
+## Métricas de Sucesso
+
+| Métrica                                | Meta                             | Como medir                |
+| -------------------------------------- | -------------------------------- | ------------------------- |
+| Tempo até primeira interação           | < 3 segundos                     | Lighthouse / Web Vitals   |
+| Taxa de clique nas tabs de região      | > 30% dos visitantes             | Analytics                 |
+| Taxa de conversão para "Meu Município" | > 10% dos visitantes             | Analytics (clique no CTA) |
+| Tempo médio na página                  | > 2 minutos                      | Analytics                 |
+| Taxa de login a partir da homepage     | > 20% dos visitantes recorrentes | Analytics                 |
+
+## Premissas e Dependências
+
+### Premissas
+
+- Os dados da API Sinapse são atualizados semanalmente (por semana epidemiológica)
+- O visitante tem navegador moderno com JavaScript habilitado
+- A homepage é acessível sem login (dados públicos), login desbloqueia funcionalidades extras
+
+### Dependências
+
+| Dependência                        | Tipo       | Status                  |
+| ---------------------------------- | ---------- | ----------------------- |
+| API Sinapse (`/api/v1`)            | Backend    | ✅ Disponível (staging) |
+| TopoJSON do Brasil (`public/geo/`) | Asset      | ✅ Disponível           |
+| MapLibre GL (mapa interativo)          | Biblioteca | 🔲 Não integrado        |
+| ApexCharts (gráficos)              | Biblioteca | 🔲 Não integrado        |
+| Dados de semanas epidemiológicas   | API        | 🔲 Endpoint não mapeado |
+| Análise de especialistas           | API/IA     | 🔲 Endpoint não mapeado |
+
+## Informações Técnicas
+
+| Item           | Valor                                        |
+| -------------- | -------------------------------------------- |
+| **Rota**       | `/`                                          |
+| **Layer**      | `home`                                       |
+| **Acesso**     | Público (com login overlay)                  |
+| **Página**     | `layers/home/app/pages/index.vue`            |
+| **SEO**        | `useSeoPage()` + `defineWebSite()` (JSON-LD) |
+| **Middleware** | `auth-guard`                                 |
+
+## Estrutura da Página
+
+A homepage é composta por **8 seções** principais, detalhadas na página de [Requisitos](/docs/paginas/homepage-requisitos):
+
+1. Barra de Indicadores Regionais (Top Bar)
+2. Header / Navegação
+3. Hero Section
+4. Seletor de Região (Tabs)
+5. Painel Principal (Mapa + Filtros + Panorama + Gráfico + Tabela)
+6. CTA — Meu Município
+7. Footer
+8. Login Overlay (Dialog)
+
+---
+
+<!-- source: content/docs/paginas/meu-municipio.md -->
+
+# Meu Município — Visão Geral
+
+## Contexto
+
+A página **Meu Município** é o painel de vigilância epidemiológica local do Detecta Alerta. Enquanto a homepage oferece visão nacional/regional, esta página foca em um **município específico**, combinando mapa interativo, indicadores de lotação e feed de rumores epidemiológicos.
+
+## Informações Técnicas
+
+| Item           | Valor                                     |
+| -------------- | ----------------------------------------- |
+| **Rota**       | `/meu-municipio`                          |
+| **Layer**      | `layers/meu-municipio/`                   |
+| **Acesso**     | Autenticado (`auth-guard`)                |
+| **Mapa**       | MapLibre GL (estilo OpenFreeMap Liberty)   |
+| **Geo**        | TopoJSON estados (`public/geo/`)          |
+| **Estado**     | Pinia (`useMeuMunicipioStore`)            |
+
+## Arquitetura da Layer
+
+Segue o padrão feature layer do projeto:
+
+```
+layers/meu-municipio/
+├── app/
+│   ├── composables/
+│   │   ├── types.ts                    — AlertCity, Noticia, MunicipioSelecionado, AsideTab
+│   │   ├── useMeuMunicipioStore.ts     — Estado centralizado (Pinia)
+│   │   ├── useMeuMunicipioMap.ts       — Orquestrador do mapa (96 linhas)
+│   │   ├── useEpidemiologicalWeek.ts   — Composable reativo (delega ao VO)
+│   │   └── mocks.ts                    — Dados temporários de notícias
+│   ├── utils/
+│   │   ├── semana-epidemiologica.ts    — Value Object (fonte de verdade)
+│   │   ├── map-config.ts              — BRAZIL_CENTER, ZOOM, VECTOR_STYLE
+│   │   ├── map-colors.ts             — Cores centralizadas + expressões MapLibre
+│   │   ├── map-layers.ts             — Funções para adicionar camadas ao mapa
+│   │   ├── map-connections.ts        — Construção de arcos GeoJSON
+│   │   └── map-mock-data.ts          — Dados mock de alertas e conexões
+│   ├── components/                    — 17 componentes (prefixo MeuMunicipio*)
+│   └── pages/meu-municipio/index.vue
+└── nuxt.config.ts
+```
+
+### Store (`useMeuMunicipioStore`)
+
+Estado centralizado da página:
+
+| Campo | Tipo | Descrição |
+| --- | --- | --- |
+| `municipio` | `MunicipioSelecionado \| null` | Município ativo (mock: São Paulo) |
+| `showOnboarding` | `boolean` | Exibe modal de seleção |
+| `activeTab` | `'resumo' \| 'rumores'` | Aba ativa no aside |
+| `noticias` | `Noticia[]` | Feed de rumores |
+
+Computed: `hasMunicipio`, `municipioDisplay` (nome + subtítulo formatado).
+
+### Mapa (MapLibre GL)
+
+O composable `useMeuMunicipioMap` orquestra a instância MapLibre e delega para funções puras em `utils/`:
+
+| Módulo | Responsabilidade |
+| --- | --- |
+| `map-config.ts` | Constantes: centro do Brasil, zoom, URL do estilo |
+| `map-colors.ts` | Cores por nível (alto/medio/baixo) e região, expressões MapLibre |
+| `map-layers.ts` | `addStateLayers`, `addAlertLayers`, `addConnectionLayers`, `addHeatmapLayer`, `startPulseAnimation` |
+| `map-connections.ts` | `buildConnectionLines` — gera arcos GeoJSON entre cidades |
+| `map-mock-data.ts` | 12 cidades com alertas mock, 10 conexões |
+
+Camadas do mapa:
+1. **States** — Preenchimento por região (Norte, Nordeste, etc.) com hover
+2. **Alerts** — Círculos pulsantes por nível de alerta + labels com contagem
+3. **Connections** — Linhas tracejadas entre cidades (rotas de propagação)
+4. **Heatmap** — Mapa de calor baseado em número de casos
+
+### Semana Epidemiológica
+
+Duas camadas complementares:
+
+- **Value Object** (`utils/semana-epidemiologica.ts`): `createSemanaEpidemiologica()`, `semanaEpidemiologicaFromDate()` — lógica pura, testada
+- **Composable** (`useEpidemiologicalWeek`): adiciona reatividade Vue (`ref`, `computed`), delega cálculos ao VO
+
+## Layout Atual
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ Header (navegação global)                                      │
+├──────────────────┬──────────────────────────────────────────────┤
+│ [Busca município]│ [Seletor Semana Epidemiológica]             │
+├──────────────────┴──────────┬───────────────────────────────────┤
+│                             │ Nome do município (do store)      │
+│                             │ Estado, UF — Região               │
+│                             │ [resumo] [rumores]                │
+│   MAPA INTERATIVO           ├───────────────────────────────────┤
+│   (MapLibre GL)             │ Filtros: Drogaria | UBS | UPA    │
+│                             │ Lotação: [placeholder]            │
+│   - Estados coloridos       │ Alerta: [card estático]           │
+│   - Círculos de alerta      │ Rumores: [3 cards mock]           │
+│   - Linhas de conexão       │                                   │
+│   - Heatmap de casos        │                                   │
+├─────────────────────────────┤                                   │
+│ Nav | Sinapse | Trocar local│                                   │
+└─────────────────────────────┴───────────────────────────────────┘
+```
+
+## Componentes (17)
+
+| Componente | Linhas | Descrição |
+| --- | --- | --- |
+| `MeuMunicipioMap` | 10 | Wrapper do composable `useMeuMunicipioMap` |
+| `MeuMunicipioEpiWeekSelector` | 351 | Calendário com seleção de semana epidemiológica |
+| `MeuMunicipioSearchField` | 216 | Busca de município com dropdown (mock) |
+| `MeuMunicipioOnboarding` | 208 | Modal de seleção inicial (geolocalização + busca) |
+| `MeuMunicipioAside` | 74 | Painel lateral com tabs e header dinâmico |
+| `MeuMunicipioAsideResumo` | 8 | Container dos 4 sub-componentes do resumo |
+| `MeuMunicipioAsideRumores` | 23 | Lista de rumores (tab rumores) |
+| `MeuMunicipioFiltros` | 65 | Filtros UBS/UPA/Drogaria (mock) |
+| `MeuMunicipioLotacao` | 20 | Card de lotação (placeholder) |
+| `MeuMunicipioAlerta` | 20 | Card de alerta epidemiológico (mock) |
+| `MeuMunicipioRumoresPreview` | 23 | Preview dos 3 primeiros rumores |
+| `MeuMunicipioRumorCard` | 61 | Card de notícia/rumor |
+| `MeuMunicipioMapNavigation` | 28 | Botões de navegação do mapa |
+| `MeuMunicipioMapZoom` | 30 | Controles de zoom |
+| `MeuMunicipioMapSinapseStatus` | 18 | Badge "Dados via Sinapse" |
+| `MeuMunicipioMapChangeLocation` | 17 | Botão "Trocar local" |
+
+## O que está implementado vs planejado
+
+### Implementado
+
+- [x] Layout mapa + aside responsivo
+- [x] Mapa MapLibre com 4 camadas (estados, alertas, conexões, heatmap)
+- [x] Animação de pulso nos alertas
+- [x] Hover nos estados com popup
+- [x] Click nos alertas com popup + flyTo
+- [x] Seletor de semana epidemiológica (calendário completo)
+- [x] Store centralizado com município, onboarding, tabs
+- [x] Aside dinâmico (nome do município vem do store)
+- [x] Domain errors definidos (`MeuMunicipioErrors`)
+- [x] Value Object `SemanaEpidemiologica` com testes
+
+### Planejado (requer integração com API)
+
+- [ ] `useMeuMunicipioApi.ts` — service stateless com `$fetch`
+- [ ] Endpoints BFF em `server/api/meu-municipio/`
+- [ ] Busca de municípios com autocomplete real (API ou lista local)
+- [ ] Geolocalização ("Usar minha localização")
+- [ ] Marcadores de unidades de saúde no mapa (UBS, UPA, Drogaria)
+- [ ] Gráficos de lotação (ApexCharts — linha e faixa)
+- [ ] Drill-down em unidade individual (popup + aside com detalhes)
+- [ ] Filtros funcionais por tipo de estabelecimento
+- [ ] Botões de navegação do mapa (centralizar, fullscreen, etc.)
+- [ ] Compartilhar e imprimir
+
+## APIs a Consumir (quando disponível)
+
+| Endpoint | Método | Uso |
+| --- | --- | --- |
+| `/api/v1/detecta_alerta/epidemiological/aggregations` | GET | Dados de lotação (município e unidade) |
+| `/api/v1/detecta_alerta/units/{placeId}` | GET | Detalhes de uma unidade |
+| `/api/v1/cnes/by-place-id/{placeId}` | GET | Dados CNES da unidade |
+| `/api/v1/noticias/` | GET | Rumores filtrados por estado |
+
+## Complexidade
+
+Esta é a página **mais complexa** da plataforma — quando completa terá:
+
+- 3 níveis de visualização (inicial → município → unidade)
+- Múltiplas fontes de dados (epidemiológico, unidades, CNES, notícias)
+- Mapa interativo com marcadores tipados e popups
+- 2 tipos de gráfico (linha + faixa)
+- Painel lateral com navegação interna (tabs + drill-down)
+- Busca com autocomplete (~5570 municípios)
+
+---
+
+<!-- source: content/docs/api/overview.md -->
+
+# API
+
+O Detecta Alerta consome a API Sinapse para dados epidemiológicos.
+
+---
+
+<!-- source: content/docs/projeto/backlog.md -->
+
+# Backlog
+
+Itens pendentes identificados durante a auditoria de seguranca e bugs realizada em fevereiro de 2026. Organizados por severidade.
+
+## Alta prioridade
+
+| Item | Titulo                                           | Categoria | Descricao                                                                                                                                             |
+| ---- | ------------------------------------------------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| H2   | Respostas de rumores sem validacao Zod           | Backend   | Endpoints em `layers/rumores/server/api/rumores/` repassam dados da API Sinapse sem schema Zod. Adicionar validacao em todos os endpoints de rumores. |
+| H4   | CSP com unsafe-inline e unsafe-eval              | Infra     | `nuxt.config.ts` usa `'unsafe-inline'` e `'unsafe-eval'` no CSP, anulando protecao contra XSS. Substituir por nonces (requer investigacao).           |
+| M1   | Token refresh sem protecao contra race condition | Backend   | `layers/auth/server/utils/auth.ts` pode disparar multiplos refreshes simultaneos. Implementar lock/mutex.                                             |
+
+## Media prioridade
+
+| Item        | Titulo                                        | Categoria | Descricao                                                                                                                              |
+| ----------- | --------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| M3          | HSTS sem preload flag                         | Infra     | Header HSTS em `nuxt.config.ts` sem diretiva `preload`. Adicionar e submeter ao HSTS preload list.                                     |
+| M4          | Rate limiting no upload de foto               | Backend   | Endpoint de upload em `layers/usuarios/server/api/usuarios/perfil/upload-foto.post.ts` sem rate limiting dedicado.                     |
+| POTENTIAL-3 | isLoading compartilhado causa race conditions | Frontend  | Stores de usuarios, grupos e permissoes usam flag `isLoading` compartilhada — acoes concorrentes podem resetar o estado.               |
+| POTENTIAL-4 | Paginacao nao sincroniza ao filtrar           | Frontend  | `default-page` do componente de paginacao nao reseta para 1 ao aplicar novos filtros.                                                  |
+| POTENTIAL-7 | Filtros persistidos nao refletem na UI        | Frontend  | Ao recarregar a pagina, filtros salvos no `localStorage` (via pinia-plugin-persistedstate) nao sao refletidos nos controles de filtro. |
+
+## Baixa prioridade (code quality)
+
+| Item | Titulo                                        | Categoria | Descricao                                                                                          |
+| ---- | --------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------- |
+| CQ-2 | `as never` type casts                         | Frontend  | Type casts suprimem erros de tipo em vez de corrigi-los. Revisar e substituir por tipagem correta. |
+| CQ-3 | DeleteConfirmDialog permite duplo-clique      | Frontend  | Falta prop `loading` para desabilitar botao durante a acao.                                        |
+| CQ-4 | Texto sem acentuacao em dialogs               | Frontend  | Dialogs de exclusao usam texto sem acentos (`Excluir usuario` em vez de `Excluir usuario`).        |
+| CQ-5 | Upload sem validacao MIME client-side         | Frontend  | Componente de upload aceita qualquer tipo de arquivo antes de enviar ao servidor.                  |
+| CQ-6 | `as Record<string, unknown>` em body validado | Backend   | Cast desnecessario em bodies ja validados por Zod. Remover e usar inferencia de tipo.              |
+
+## Itens resolvidos
+
+Itens corrigidos na sprint de fevereiro de 2026:
+
+- **C1** — Signup movido para `/api/auth/signup` com rate limiting
+- **C2** — Validacao regex em todos os route params (`/^\d+$/`)
+- **C3** — Query param `limit` sanitizado como numero
+- **H1/BUG-1** — Admin check unificado (`requireAdmin` usa `event.context`)
+- **H3** — Validacao MIME/tamanho no upload (server-side)
+- **BUG-3** — `useAsyncData` com `watch: [slug]` no docs catch-all
+- **BUG-4** — `error.vue` usando `useSeoPage`
+- **BUG-5** — Await movido para `onMounted` na pagina de rumores
+- **M2** — Non-null assertions substituidas por validacao
+- **POTENTIAL-1** — `useDebounce` com `onScopeDispose`
+- **POTENTIAL-2** — Fallback para descricao/conteudo null no `RumoresCard`
+- **CQ-1** — Lista UF extraida para `base/app/utils/constants.ts`
+- **CQ-7** — `fetchSinapse` agora suporta FormData (upload)
+
+---
+
+<!-- source: content/docs/projeto/decisoes.md -->
+
+# Decisoes Tecnicas
+
+Registro de decisoes tecnicas relevantes, no estilo ADR (Architecture Decision Record) simplificado.
+
+## 2026-03
+
+### Migracao de Leaflet para MapLibre GL
+
+- **Contexto:** A pagina meu-municipio precisava de mapa interativo. Leaflet era a escolha inicial, mas MapLibre GL oferece melhor performance com WebGL, estilos vetoriais e sem dependencia de tiles raster.
+- **Decisao:** Usar MapLibre GL com estilo OpenFreeMap (Liberty). Mapa carrega TopoJSON dos estados do Brasil a partir de `public/geo/`.
+- **Consequencias:** Mapa vetorial com animacoes fluidas (fly, pulse), heatmap nativo, suporte a pitch/bearing. Sem API key necessaria (OpenFreeMap gratuito).
+
+### Composable do mapa quebrado em modulos utils
+
+- **Contexto:** `useMeuMunicipioMap.ts` tinha 496 linhas com multiplas responsabilidades (setup, camadas, cores, dados mock, animacao). Impossivel testar ou manter.
+- **Decisao:** Extrair para 5 funcoes puras em `utils/`: `map-config`, `map-colors`, `map-layers`, `map-connections`, `map-mock-data`. Composable ficou como orquestrador (~96 linhas).
+- **Consequencias:** Funcoes puras testaveis. Cores centralizadas em arquivo unico. Dados mock isolados para facil substituicao por API real.
+
+### Domain errors centralizados por modulo
+
+- **Contexto:** Mensagens de erro espalhadas como strings em stores e server routes. Sem consistencia entre client e server.
+- **Decisao:** Criar objetos `as const` por dominio em `#shared/domain/errors.ts` — `AuthErrors`, `UsuariosErrors`, `HomeErrors`, `MeuMunicipioErrors`, etc. Usado como segundo argumento do `withStoreAction` e em `handleSinapseRequest`.
+- **Consequencias:** Erro tipado com autocomplete. Mesma mensagem no client e server. Facil adicionar novo dominio.
+
+## 2026-02
+
+### Signup movido para /api/auth/
+
+- **Contexto:** O endpoint de signup estava em `/api/usuarios/admin/signup.post.ts`, dentro da rota `/api/usuarios/**` que tem CSRF desabilitado globalmente. Isso expunha o endpoint publico a ataques CSRF e criacao massiva de contas.
+- **Decisao:** Mover para `/api/auth/signup.post.ts` onde o CSRF esta habilitado e o rate limiting de auth se aplica (5 req/5min).
+- **Consequencias:** Endpoint agora protegido por CSRF e rate limiting. Rota semanticamente correta dentro do dominio de autenticacao.
+
+### requireAdmin sincrono via event.context
+
+- **Contexto:** `requireAdmin()` fazia uma segunda chamada a API Sinapse para verificar permissoes, duplicando a chamada ja feita pelo middleware `02.admin.ts`.
+- **Decisao:** `requireAdmin()` agora le `event.context.isAdmin` setado pelo middleware, sem chamada extra.
+- **Consequencias:** Eliminada duplicacao de chamada API em todos os endpoints admin (~23 endpoints). Performance melhorada em ~50% por request admin.
+
+### Validacao de route params com regex
+
+- **Contexto:** Parametros de rota (`[id]`, `[userId]`, `[permId]`) eram interpolados na URL da API Sinapse sem validacao, permitindo path traversal.
+- **Decisao:** Todos os route params numericos validados com `/^\d+$/` antes do uso. Criada funcao `validateRouteId()` em `layers/base/server/utils/validation.ts`.
+- **Consequencias:** Path traversal bloqueado. Funcao reutilizavel disponivel para novos endpoints.
+
+### Utils compartilhados em base
+
+- **Contexto:** Codigo duplicado em multiplas layers — `extractErrorMessage` em 4 stores, error handling em 23+ endpoints, `buildQueryString` em 3 endpoints.
+- **Decisao:** Extrair para utils compartilhados em `layers/base/`: `app/utils/error.ts`, `server/utils/api-handler.ts`, `server/utils/validation.ts`, `server/utils/query-builder.ts`.
+- **Consequencias:** ~410 linhas de duplicacao eliminadas. Padrao DRY aplicado. Novos endpoints usam utils prontos.
+
+### Nuxt Content para documentacao
+
+- **Contexto:** Projeto precisava de documentacao tecnica acessivel e navegavel, integrada ao site principal.
+- **Decisao:** Criar layer `docs` com Nuxt Content v3, layout 3 colunas (sidebar + conteudo + TOC), componentes MDC customizados.
+- **Consequencias:** Documentacao versionada junto ao codigo. Markdown com componentes ricos. Navegacao automatica via composable.
+
+### Layers com nomes semânticos e extends explícito
+
+- **Contexto:** Nuxt layers tem ordem de prioridade — layers posteriores sobrescrevem anteriores. Inicialmente usava-se prefixo numérico (`0-base`, `1-auth`, etc.) com auto-scan.
+- **Decisao:** Migrar para nomes semânticos (`base`, `auth`, `home`, etc.) com `extends` explícito no `nuxt.config.ts`. A ordem é controlada pela posição no array, não pelo nome.
+- **Consequencias:** Nomes mais claros. Layers portáveis (podem ser compostas em outros projetos). Sem acoplamento ao sistema de nomes.
+
+### Result como discriminated union (não classe DDD)
+
+- **Contexto:** Proposta de adotar DDD classico (classes `Result<T>`, `ValueObject<T>`, `Entity<Type, Props>`, `UseCase<IN, OUT>`, `Repository`) para o projeto. O documento `ARCHITECTURE-ISSUES.md` sugeria 7 issues com 4 semanas de trabalho.
+- **Decisao:** Rejeitar a abordagem enterprise com classes/heranca. Implementar apenas `Result` como discriminated union leve (`{ ok: true, value: T } | { ok: false, error: E }`) com funcoes puras (`ok()`, `fail()`, `combineResults()`, `unwrap()`, `unwrapOr()`). Manter VOs no padrao funcional existente (factory + Object.freeze) e adicionar `tryCreate*()` retornando `Result` para validacao reativa.
+- **Motivacao:** (1) O projeto ja tinha VOs funcionais consolidados — classes criariam dois estilos incompativeis. (2) `withStoreAction` ja resolve error handling nos stores. (3) Repository/UseCase/Entity adicionam indirencao sem ganho em um BFF proxy. (4) Principio ETC: abstracao prematura dificulta mudancas futuras.
+- **Consequencias:** Tipo `Result` disponivel em `#shared/domain/result`. Email VO com `tryCreateEmail()`. Composable `useVoField()` conecta VOs a formularios. Sem mudancas nos stores ou server routes existentes.
+
+### Value Objects com tryCreate (validacao client+server)
+
+- **Contexto:** Validacao de formularios era manual (computed inline) e desconectada da validacao server-side. VOs existentes usavam apenas throw (sem retorno de erro tipado).
+- **Decisao:** VOs novos devem ter `tryCreate*()` retornando `Result<T>` alem do `create*()` que lanca excecao. Composable `useVoField()` conecta tryCreate a formularios reativos.
+- **Consequencias:** Mesma regra de validacao reutilizavel em client (formularios) e server (endpoints BFF). VOs antigos mantidos inalterados — migracao sob demanda.
+
+### pinia-plugin-persistedstate com pick explicito
+
+- **Contexto:** Stores precisam persistir preferencias do usuario (filtros, tema) entre navegacoes, mas dados de API e auth nao devem ser persistidos.
+- **Decisao:** Usar `pinia-plugin-persistedstate` com `pick` explicito — sempre declarar exatamente quais campos persistir.
+- **Consequencias:** Apenas dados intencionais sao persistidos. Dados de API sempre frescos. Auth continua em cookies httpOnly.
+
+---

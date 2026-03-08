@@ -30,7 +30,8 @@
     "geo:convert": "node scripts/convert-geo.mjs",
     "api:lint": "spectral lint https://staging.sinapse.org.br/openapi.json",
     "api:generate": "kubb",
-    "api:watch": "kubb --watch"
+    "api:watch": "kubb --watch",
+    "docs:llms": "node scripts/generate-llms-full.mjs"
   },
   "lint-staged": {
     "*.{js,ts,vue}": [

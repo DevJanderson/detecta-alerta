@@ -61,6 +61,7 @@ npm run api:generate     # Gera cliente a partir do OpenAPI
 npm run api:watch        # Regenera tipos ao detectar mudanças no OpenAPI
 npm run api:lint         # Valida OpenAPI spec com Spectral
 npm run geo:convert      # Converte GeoJSON → TopoJSON (public/geo/)
+npm run docs:llms        # Gera public/llms-full.txt (docs para IA)
 ```
 
 ---

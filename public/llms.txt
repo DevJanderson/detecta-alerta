@@ -1,0 +1,43 @@
+# Detecta Alerta
+
+> Plataforma de vigilância e monitoramento epidemiológico em tempo real para o Brasil. Centraliza dados de estabelecimentos de saúde (UBS, UPA, Drogarias) para análise de padrões epidemiológicos e detecção precoce de surtos.
+
+Stack: Nuxt 4, Vue 3, Tailwind CSS v4, shadcn-vue, Pinia, MapLibre GL, Vitest, Playwright.
+
+## Arquitetura
+
+- [Visão Geral](https://alerta.sinapse.org.br/docs/arquitetura/visao-geral): Estrutura Nuxt Layers, fluxo de dados, princípios de design (ETC)
+- [Feature Layer Pattern](https://alerta.sinapse.org.br/docs/arquitetura/feature-layer): Padrão types → API composable → Pinia store → componentes
+- [Domain Primitives](https://alerta.sinapse.org.br/docs/arquitetura/domain-primitives): Result type, Value Objects com tryCreate, useVoField
+- [Error Handling](https://alerta.sinapse.org.br/docs/arquitetura/error-handling): Domain errors tipados, withStoreAction, fluxo servidor→UI
+
+## Segurança
+
+- [Visão Geral](https://alerta.sinapse.org.br/docs/seguranca/visao-geral): 16 camadas de proteção (CSP, HSTS, CSRF, rate limiting, Zod)
+- [Autenticação](https://alerta.sinapse.org.br/docs/seguranca/autenticacao): Fluxo BFF, tokens httpOnly, refresh automático, middlewares
+- [Headers e Proteções](https://alerta.sinapse.org.br/docs/seguranca/headers-protecoes): CSP, HSTS, X-Frame-Options, rate limiting, CSRF
+- [Guia de Desenvolvimento](https://alerta.sinapse.org.br/docs/seguranca/guia-desenvolvimento): Receitas para endpoints seguros, validação, anti-patterns
+
+## Páginas
+
+- [Homepage — Visão Geral](https://alerta.sinapse.org.br/docs/paginas/homepage): Estrutura das 8 seções, layout, componentes
+- [Homepage — Requisitos](https://alerta.sinapse.org.br/docs/paginas/homepage-requisitos): Requisitos funcionais detalhados por seção
+- [Homepage — Não-Funcionais](https://alerta.sinapse.org.br/docs/paginas/homepage-nao-funcionais): Performance, responsividade, SEO, acessibilidade
+- [Homepage — Componentes](https://alerta.sinapse.org.br/docs/paginas/homepage-componentes): Mapa técnico dos 11 componentes e seus status
+- [Homepage — Dados e APIs](https://alerta.sinapse.org.br/docs/paginas/homepage-dados): 7 endpoints BFF pendentes, dados mock, cache
+- [Homepage — Estados UI](https://alerta.sinapse.org.br/docs/paginas/homepage-estados-ui): Loading, vazio, erro, sucesso, transições
+- [Homepage — Casos de Uso](https://alerta.sinapse.org.br/docs/paginas/homepage-casos-de-uso): 7 user stories principais
+- [Meu Município](https://alerta.sinapse.org.br/docs/paginas/meu-municipio): WebGIS com MapLibre GL, store centralizado, módulos do mapa
+
+## Projeto
+
+- [Decisões Técnicas](https://alerta.sinapse.org.br/docs/projeto/decisoes): ADRs simplificados (MapLibre, composable modular, Result type)
+- [Backlog](https://alerta.sinapse.org.br/docs/projeto/backlog): Itens pendentes por severidade (segurança, frontend, infra)
+
+## API
+
+- [Visão Geral](https://alerta.sinapse.org.br/docs/api/overview): API Sinapse para dados epidemiológicos
+
+## Optional
+
+- [llms-full.txt](https://alerta.sinapse.org.br/llms-full.txt): Documentação completa em texto único

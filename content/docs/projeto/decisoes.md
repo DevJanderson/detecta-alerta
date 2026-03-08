@@ -7,6 +7,26 @@ description: Registro de decisoes tecnicas do projeto Detecta Alerta.
 
 Registro de decisoes tecnicas relevantes, no estilo ADR (Architecture Decision Record) simplificado.
 
+## 2026-03
+
+### Migracao de Leaflet para MapLibre GL
+
+- **Contexto:** A pagina meu-municipio precisava de mapa interativo. Leaflet era a escolha inicial, mas MapLibre GL oferece melhor performance com WebGL, estilos vetoriais e sem dependencia de tiles raster.
+- **Decisao:** Usar MapLibre GL com estilo OpenFreeMap (Liberty). Mapa carrega TopoJSON dos estados do Brasil a partir de `public/geo/`.
+- **Consequencias:** Mapa vetorial com animacoes fluidas (fly, pulse), heatmap nativo, suporte a pitch/bearing. Sem API key necessaria (OpenFreeMap gratuito).
+
+### Composable do mapa quebrado em modulos utils
+
+- **Contexto:** `useMeuMunicipioMap.ts` tinha 496 linhas com multiplas responsabilidades (setup, camadas, cores, dados mock, animacao). Impossivel testar ou manter.
+- **Decisao:** Extrair para 5 funcoes puras em `utils/`: `map-config`, `map-colors`, `map-layers`, `map-connections`, `map-mock-data`. Composable ficou como orquestrador (~96 linhas).
+- **Consequencias:** Funcoes puras testaveis. Cores centralizadas em arquivo unico. Dados mock isolados para facil substituicao por API real.
+
+### Domain errors centralizados por modulo
+
+- **Contexto:** Mensagens de erro espalhadas como strings em stores e server routes. Sem consistencia entre client e server.
+- **Decisao:** Criar objetos `as const` por dominio em `#shared/domain/errors.ts` — `AuthErrors`, `UsuariosErrors`, `HomeErrors`, `MeuMunicipioErrors`, etc. Usado como segundo argumento do `withStoreAction` e em `handleSinapseRequest`.
+- **Consequencias:** Erro tipado com autocomplete. Mesma mensagem no client e server. Facil adicionar novo dominio.
+
 ## 2026-02
 
 ### Signup movido para /api/auth/

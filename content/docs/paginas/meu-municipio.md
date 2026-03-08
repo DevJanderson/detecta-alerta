@@ -1,6 +1,6 @@
 ---
 title: 'Meu Município — Visão Geral'
-description: 'Contexto, objetivo, layout e escopo da página Meu Município do Detecta Alerta.'
+description: 'Arquitetura, implementação atual e roadmap da página Meu Município.'
 order: 1
 ---
 
@@ -8,220 +8,171 @@ order: 1
 
 ## Contexto
 
-A página **Meu Município** é o painel de vigilância epidemiológica local do Detecta Alerta. Enquanto a homepage oferece visão nacional/regional, esta página foca em um **município específico**, mostrando as unidades de saúde no mapa, a lotação ao longo das semanas e os rumores epidemiológicos relevantes.
-
-É a página mais rica em dados e interações da plataforma — combina mapa interativo, gráficos temporais, feed de rumores e detalhes de unidades individuais.
-
-## Objetivo
-
-Permitir que o usuário:
-
-1. **Selecione seu município** — via busca por nome ou geolocalização
-2. **Visualize as unidades de saúde** — marcadores no mapa com ícones por tipo (UBS, UPA, Drogaria)
-3. **Analise a lotação** — gráfico de linha ou faixa com evolução semanal
-4. **Filtre por tipo de estabelecimento** — Drogaria, UBS, UPA com indicadores de tendência
-5. **Acompanhe rumores** — notícias epidemiológicas relevantes para a região
-6. **Inspecione unidades individuais** — clique num marcador para ver detalhes específicos
-
-## Layout
-
-A página segue um layout **mapa + painel lateral**:
-
-```
-┌───────────────────────────────────────────────────────────────────┐
-│ Header (navegação global)                                         │
-├──────────────────┬────────────────────────────────────────────────┤
-│ Barra de Busca   │ Seletor Semana Epidemiológica                 │
-├──────────────────┴──────────┬─────────────────────────────────────┤
-│                             │ Título: "Aracaju, SE"               │
-│                             │ 36 unidades ativas                  │
-│                             │ [resumo] [rumores]                  │
-│                             ├─────────────────────────────────────┤
-│                             │ Filtrar: Drogaria(21) UBS(14) UPA(1)│
-│     MAPA INTERATIVO         │                                     │
-│     (Leaflet)               │ Lotação: [Baixo/Médio/Alto]         │
-│                             │ [gráfico linha] [gráfico faixa]     │
-│     Marcadores por tipo:    │                                     │
-│     - UBS (stethoscope)     │ Rumor destacado (resumo IA)         │
-│     - UPA (hospital)        │ "ver todos os rumores →"            │
-│     - Drogaria (pill)       │                                     │
-│                             │ Últimos rumores (5 cards)           │
-│                             │ "ir para rumores →"                 │
-├─────────────────────────────┤                                     │
-│ Controles | Dados Sinapse   │                                     │
-└─────────────────────────────┴─────────────────────────────────────┘
-```
-
-## Estados da Página
-
-### 1. Estado Inicial (sem município selecionado)
-
-- Mapa mostra o Brasil inteiro
-- Card central "Meu Município" com:
-  - Combobox de busca com autocomplete
-  - Botão "Usar minha localização"
-- Painel lateral **não** aparece
-
-### 2. Município Selecionado (visão geral)
-
-- Mapa centraliza no município com marcadores das unidades
-- Painel lateral abre com:
-  - **Header**: nome do município, total de unidades ativas, botões compartilhar/imprimir/colapsar
-  - **Tabs**: "resumo" e "rumores"
-  - **Filtros por tipo**: Drogaria, UBS, UPA — cada um com contagem e porcentagem de variação
-  - **Lotação**: nível de risco (Baixo/Médio/Alto) + gráfico temporal (linha ou faixa)
-  - **Rumor destacado**: resumo gerado por IA com título, descrição e link
-  - **Últimos rumores**: lista de 5 artigos com título, fonte, data e tags
-
-### 3. Unidade de Saúde Selecionada (clique no marcador)
-
-- Popup no mapa com nome, tipo e ocupação
-- Painel lateral troca para detalhes da unidade:
-  - **Header**: botão "Voltar", nome da unidade, endereço, tipo (UBS/UPA/Drogaria)
-  - **Tabs**: "resumo", "rumores", "sobre"
-  - **Resumo**: gráfico de lotação individual (barras por semana) + rumor relacionado
-  - **Sobre**: localização (endereço, cidade, estado) + status (tipo, dados em tempo real, ativa)
-
-## Seções e Componentes
-
-### Barra Superior (Top Bar)
-
-| Elemento              | Descrição                                                             |
-| --------------------- | --------------------------------------------------------------------- |
-| Busca município       | Input com autocomplete, exibe resultados como "Cidade, Estado (UF)"   |
-| Botão limpar          | Aparece após seleção, reseta para estado inicial                      |
-| Semana Epidemiológica | Picker customizado com calendário mensal + numeração de SE na lateral |
-
-### Mapa Interativo
-
-| Elemento   | Descrição                                                |
-| ---------- | -------------------------------------------------------- |
-| Base       | Mapa Leaflet com tiles (OpenStreetMap ou similar)        |
-| Polígono   | Contorno do município selecionado (azul claro)           |
-| Marcadores | Ícones por tipo de unidade de saúde                      |
-| Popup      | Ao clicar: nome, tipo e percentual de ocupação           |
-| Controles  | Centralizar, Mostrar meu Local, Tela cheia, Trocar Mapa  |
-| Footer     | "Dados via Sinapse, há X minutos" + botão "Trocar local" |
-
-### Painel Lateral — Aba Resumo (Município)
-
-| Elemento           | Descrição                                                                     |
-| ------------------ | ----------------------------------------------------------------------------- |
-| Filtros por tipo   | Botões toggle: Drogaria, UBS, UPA — com contagem e tendência (% + seta)       |
-| Card Lotação       | Título + subtítulo + badge de risco (Baixo/Médio/Alto)                        |
-| Gráfico de Lotação | Tabs "linha" e "faixa" — eixo X: semanas epidemiológicas, eixo Y: % ocupação  |
-| Rumor Destacado    | Card com fundo salmão, título, descrição resumida, tags e link                |
-| Últimos Rumores    | Lista de articles com h4, fonte (favicon + nome), data relativa e "ver rumor" |
-
-### Painel Lateral — Aba Rumores (Município)
-
-| Elemento | Descrição                                                          |
-| -------- | ------------------------------------------------------------------ |
-| Título   | "Rumores Recentes" + subtítulo com nome do município               |
-| Lista    | ~20 articles com título, fonte, data, tags (doenças + localidades) |
-
-### Painel Lateral — Aba Resumo (Unidade)
-
-| Elemento          | Descrição                                                |
-| ----------------- | -------------------------------------------------------- |
-| Card Lotação      | Título + nível de risco (texto, sem badge)               |
-| Gráfico           | Barras por semana (SE 51 a SE 7), cores variam por nível |
-| Menu gráfico      | Download SVG, PNG, CSV                                   |
-| Rumor relacionado | Card com título, resumo IA, tags e link                  |
-
-### Painel Lateral — Aba Sobre (Unidade)
-
-| Elemento    | Descrição                                                                                       |
-| ----------- | ----------------------------------------------------------------------------------------------- |
-| Localização | Endereço, Cidade, Estado                                                                        |
-| Status      | Tipo de estabelecimento, Dados em tempo real (Disponível/Indisponível), Unidade ativa (Sim/Não) |
-| Disclaimer  | Nota sobre dados baseados no CNES                                                               |
-
-## APIs Consumidas
-
-### Dados Epidemiológicos
-
-| Endpoint                                              | Método | Parâmetros                                                                  | Uso                                 |
-| ----------------------------------------------------- | ------ | --------------------------------------------------------------------------- | ----------------------------------- |
-| `/api/v1/detecta_alerta/epidemiological/aggregations` | GET    | `aggregation_level=city`, `ibge_code`, `weeks`, `direction`                 | Dados de lotação do município       |
-| `/api/v1/detecta_alerta/epidemiological/aggregations` | GET    | `aggregation_level=unit`, `ibge_code`, `weeks`, `direction`, `limit`        | Lista de unidades e ocupação        |
-| `/api/v1/detecta_alerta/epidemiological/aggregations` | GET    | `aggregation_level=unit`, `aggregation_key={placeId}`, `weeks`, `direction` | Histórico de lotação de uma unidade |
-
-### Unidades de Saúde
-
-| Endpoint                                 | Método | Parâmetros                  | Uso                                       |
-| ---------------------------------------- | ------ | --------------------------- | ----------------------------------------- |
-| `/api/v1/detecta_alerta/units/{placeId}` | GET    | `placeId` (Google Place ID) | Detalhes de uma unidade específica        |
-| `/api/v1/cnes/by-place-id/{placeId}`     | GET    | `placeId`                   | Dados CNES da unidade (pode retornar 404) |
-
-### Rumores (Notícias)
-
-| Endpoint            | Método | Parâmetros                              | Uso                                   |
-| ------------------- | ------ | --------------------------------------- | ------------------------------------- |
-| `/api/v1/noticias/` | GET    | `limit`, `status=active`, `states={UF}` | Rumores filtrados por estado          |
-| `/api/v1/noticias/` | GET    | `limit`, `status=active`                | Rumores gerais (sem filtro de estado) |
-
-### GeoJSON
-
-| Recurso                              | Uso                                         |
-| ------------------------------------ | ------------------------------------------- |
-| `/geojson/brazil_simplified.geojson` | Polígonos de estados/municípios para o mapa |
-
-## Interações
-
-| Ação do Usuário                          | Resultado                                                            |
-| ---------------------------------------- | -------------------------------------------------------------------- |
-| Digitar no campo de busca                | Autocomplete com municípios (nome + UF)                              |
-| Selecionar município                     | Mapa centraliza, carrega marcadores, painel lateral abre             |
-| Clicar botão limpar (×)                  | Volta ao estado inicial                                              |
-| Trocar semana epidemiológica             | Recarrega dados de lotação e rumores                                 |
-| Clicar filtro de tipo (Drogaria/UBS/UPA) | Filtra marcadores no mapa                                            |
-| Clicar marcador no mapa                  | Popup com nome/tipo/ocupação + painel troca para detalhes da unidade |
-| Clicar "Voltar" na unidade               | Retorna ao nível do município                                        |
-| Alternar gráfico linha/faixa             | Muda visualização do gráfico de lotação                              |
-| Clicar "ver rumor"                       | Navega para a notícia no feed de rumores                             |
-| Clicar "ir para rumores"                 | Navega para `/rumores`                                               |
-| Clicar "Compartilhar"                    | Copia link da página                                                 |
-| Clicar "Imprimir"                        | Abre diálogo de impressão                                            |
-| Clicar "Colapsar menu"                   | Esconde painel lateral, maximiza mapa                                |
-| Clicar "Trocar local"                    | Reabre card de seleção de município                                  |
-| Clicar "Usar minha localização"          | Solicita geolocalização do navegador                                 |
-| Clicar controles do mapa                 | Centralizar, localizar, fullscreen, trocar tiles                     |
+A página **Meu Município** é o painel de vigilância epidemiológica local do Detecta Alerta. Enquanto a homepage oferece visão nacional/regional, esta página foca em um **município específico**, combinando mapa interativo, indicadores de lotação e feed de rumores epidemiológicos.
 
 ## Informações Técnicas
 
-| Item           | Valor                                  |
-| -------------- | -------------------------------------- |
-| **Rota**       | `/meu-municipio`                       |
-| **Layer**      | `meu-municipio` (a criar)              |
-| **Acesso**     | Autenticado (requer login)             |
-| **Middleware** | `auth-guard`                           |
-| **SEO**        | `useSeoPage()`                         |
-| **Mapa**       | Leaflet                                |
-| **Gráficos**   | ApexCharts (linha, faixa/area, barras) |
+| Item       | Valor                                    |
+| ---------- | ---------------------------------------- |
+| **Rota**   | `/meu-municipio`                         |
+| **Layer**  | `layers/meu-municipio/`                  |
+| **Acesso** | Autenticado (`auth-guard`)               |
+| **Mapa**   | MapLibre GL (estilo OpenFreeMap Liberty) |
+| **Geo**    | TopoJSON estados (`public/geo/`)         |
+| **Estado** | Pinia (`useMeuMunicipioStore`)           |
 
-## Dependências
+## Arquitetura da Layer
 
-| Dependência                             | Tipo       | Status                 |
-| --------------------------------------- | ---------- | ---------------------- |
-| API Sinapse (`/api/v1/detecta_alerta/`) | Backend    | Disponível             |
-| API Notícias (`/api/v1/noticias/`)      | Backend    | Disponível             |
-| GeoJSON municípios                      | Asset      | A mapear               |
-| Leaflet (mapa)                          | Biblioteca | A integrar             |
-| ApexCharts (gráficos)                   | Biblioteca | A integrar             |
-| Busca de municípios (autocomplete)      | API/Local  | A definir fonte        |
-| Google Places API (placeId)             | Externo    | Usado pela API Sinapse |
+Segue o padrão feature layer do projeto:
+
+```
+layers/meu-municipio/
+├── app/
+│   ├── composables/
+│   │   ├── types.ts                    — AlertCity, Noticia, MunicipioSelecionado, AsideTab
+│   │   ├── useMeuMunicipioStore.ts     — Estado centralizado (Pinia)
+│   │   ├── useMeuMunicipioMap.ts       — Orquestrador do mapa (96 linhas)
+│   │   ├── useEpidemiologicalWeek.ts   — Composable reativo (delega ao VO)
+│   │   └── mocks.ts                    — Dados temporários de notícias
+│   ├── utils/
+│   │   ├── semana-epidemiologica.ts    — Value Object (fonte de verdade)
+│   │   ├── map-config.ts              — BRAZIL_CENTER, ZOOM, VECTOR_STYLE
+│   │   ├── map-colors.ts             — Cores centralizadas + expressões MapLibre
+│   │   ├── map-layers.ts             — Funções para adicionar camadas ao mapa
+│   │   ├── map-connections.ts        — Construção de arcos GeoJSON
+│   │   └── map-mock-data.ts          — Dados mock de alertas e conexões
+│   ├── components/                    — 17 componentes (prefixo MeuMunicipio*)
+│   └── pages/meu-municipio/index.vue
+└── nuxt.config.ts
+```
+
+### Store (`useMeuMunicipioStore`)
+
+Estado centralizado da página:
+
+| Campo            | Tipo                           | Descrição                         |
+| ---------------- | ------------------------------ | --------------------------------- |
+| `municipio`      | `MunicipioSelecionado \| null` | Município ativo (mock: São Paulo) |
+| `showOnboarding` | `boolean`                      | Exibe modal de seleção            |
+| `activeTab`      | `'resumo' \| 'rumores'`        | Aba ativa no aside                |
+| `noticias`       | `Noticia[]`                    | Feed de rumores                   |
+
+Computed: `hasMunicipio`, `municipioDisplay` (nome + subtítulo formatado).
+
+### Mapa (MapLibre GL)
+
+O composable `useMeuMunicipioMap` orquestra a instância MapLibre e delega para funções puras em `utils/`:
+
+| Módulo               | Responsabilidade                                                                                    |
+| -------------------- | --------------------------------------------------------------------------------------------------- |
+| `map-config.ts`      | Constantes: centro do Brasil, zoom, URL do estilo                                                   |
+| `map-colors.ts`      | Cores por nível (alto/medio/baixo) e região, expressões MapLibre                                    |
+| `map-layers.ts`      | `addStateLayers`, `addAlertLayers`, `addConnectionLayers`, `addHeatmapLayer`, `startPulseAnimation` |
+| `map-connections.ts` | `buildConnectionLines` — gera arcos GeoJSON entre cidades                                           |
+| `map-mock-data.ts`   | 12 cidades com alertas mock, 10 conexões                                                            |
+
+Camadas do mapa:
+
+1. **States** — Preenchimento por região (Norte, Nordeste, etc.) com hover
+2. **Alerts** — Círculos pulsantes por nível de alerta + labels com contagem
+3. **Connections** — Linhas tracejadas entre cidades (rotas de propagação)
+4. **Heatmap** — Mapa de calor baseado em número de casos
+
+### Semana Epidemiológica
+
+Duas camadas complementares:
+
+- **Value Object** (`utils/semana-epidemiologica.ts`): `createSemanaEpidemiologica()`, `semanaEpidemiologicaFromDate()` — lógica pura, testada
+- **Composable** (`useEpidemiologicalWeek`): adiciona reatividade Vue (`ref`, `computed`), delega cálculos ao VO
+
+## Layout Atual
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ Header (navegação global)                                      │
+├──────────────────┬──────────────────────────────────────────────┤
+│ [Busca município]│ [Seletor Semana Epidemiológica]             │
+├──────────────────┴──────────┬───────────────────────────────────┤
+│                             │ Nome do município (do store)      │
+│                             │ Estado, UF — Região               │
+│                             │ [resumo] [rumores]                │
+│   MAPA INTERATIVO           ├───────────────────────────────────┤
+│   (MapLibre GL)             │ Filtros: Drogaria | UBS | UPA    │
+│                             │ Lotação: [placeholder]            │
+│   - Estados coloridos       │ Alerta: [card estático]           │
+│   - Círculos de alerta      │ Rumores: [3 cards mock]           │
+│   - Linhas de conexão       │                                   │
+│   - Heatmap de casos        │                                   │
+├─────────────────────────────┤                                   │
+│ Nav | Sinapse | Trocar local│                                   │
+└─────────────────────────────┴───────────────────────────────────┘
+```
+
+## Componentes (17)
+
+| Componente                      | Linhas | Descrição                                         |
+| ------------------------------- | ------ | ------------------------------------------------- |
+| `MeuMunicipioMap`               | 10     | Wrapper do composable `useMeuMunicipioMap`        |
+| `MeuMunicipioEpiWeekSelector`   | 351    | Calendário com seleção de semana epidemiológica   |
+| `MeuMunicipioSearchField`       | 216    | Busca de município com dropdown (mock)            |
+| `MeuMunicipioOnboarding`        | 208    | Modal de seleção inicial (geolocalização + busca) |
+| `MeuMunicipioAside`             | 74     | Painel lateral com tabs e header dinâmico         |
+| `MeuMunicipioAsideResumo`       | 8      | Container dos 4 sub-componentes do resumo         |
+| `MeuMunicipioAsideRumores`      | 23     | Lista de rumores (tab rumores)                    |
+| `MeuMunicipioFiltros`           | 65     | Filtros UBS/UPA/Drogaria (mock)                   |
+| `MeuMunicipioLotacao`           | 20     | Card de lotação (placeholder)                     |
+| `MeuMunicipioAlerta`            | 20     | Card de alerta epidemiológico (mock)              |
+| `MeuMunicipioRumoresPreview`    | 23     | Preview dos 3 primeiros rumores                   |
+| `MeuMunicipioRumorCard`         | 61     | Card de notícia/rumor                             |
+| `MeuMunicipioMapNavigation`     | 28     | Botões de navegação do mapa                       |
+| `MeuMunicipioMapZoom`           | 30     | Controles de zoom                                 |
+| `MeuMunicipioMapSinapseStatus`  | 18     | Badge "Dados via Sinapse"                         |
+| `MeuMunicipioMapChangeLocation` | 17     | Botão "Trocar local"                              |
+
+## O que está implementado vs planejado
+
+### Implementado
+
+- [x] Layout mapa + aside responsivo
+- [x] Mapa MapLibre com 4 camadas (estados, alertas, conexões, heatmap)
+- [x] Animação de pulso nos alertas
+- [x] Hover nos estados com popup
+- [x] Click nos alertas com popup + flyTo
+- [x] Seletor de semana epidemiológica (calendário completo)
+- [x] Store centralizado com município, onboarding, tabs
+- [x] Aside dinâmico (nome do município vem do store)
+- [x] Domain errors definidos (`MeuMunicipioErrors`)
+- [x] Value Object `SemanaEpidemiologica` com testes
+
+### Planejado (requer integração com API)
+
+- [ ] `useMeuMunicipioApi.ts` — service stateless com `$fetch`
+- [ ] Endpoints BFF em `server/api/meu-municipio/`
+- [ ] Busca de municípios com autocomplete real (API ou lista local)
+- [ ] Geolocalização ("Usar minha localização")
+- [ ] Marcadores de unidades de saúde no mapa (UBS, UPA, Drogaria)
+- [ ] Gráficos de lotação (ApexCharts — linha e faixa)
+- [ ] Drill-down em unidade individual (popup + aside com detalhes)
+- [ ] Filtros funcionais por tipo de estabelecimento
+- [ ] Botões de navegação do mapa (centralizar, fullscreen, etc.)
+- [ ] Compartilhar e imprimir
+
+## APIs a Consumir (quando disponível)
+
+| Endpoint                                              | Método | Uso                                    |
+| ----------------------------------------------------- | ------ | -------------------------------------- |
+| `/api/v1/detecta_alerta/epidemiological/aggregations` | GET    | Dados de lotação (município e unidade) |
+| `/api/v1/detecta_alerta/units/{placeId}`              | GET    | Detalhes de uma unidade                |
+| `/api/v1/cnes/by-place-id/{placeId}`                  | GET    | Dados CNES da unidade                  |
+| `/api/v1/noticias/`                                   | GET    | Rumores filtrados por estado           |
 
 ## Complexidade
 
-Esta é a página **mais complexa** da plataforma:
+Esta é a página **mais complexa** da plataforma — quando completa terá:
 
-- **3 níveis de visualização**: estado inicial → município → unidade
-- **Múltiplas fontes de dados**: epidemiológico, unidades, CNES, notícias, GeoJSON
-- **Mapa interativo**: Leaflet com polígonos, marcadores tipados e popups
-- **2 tipos de gráfico**: linha e faixa com séries temporais
-- **Painel lateral com navegação interna**: tabs + drill-down em unidades
-- **Busca com autocomplete**: municípios brasileiros (~5570)
-- **Picker de semana epidemiológica**: calendário customizado
-
-Estimativa: **Large** — múltiplas layers de componentes, integrações com mapa e gráficos, vários endpoints de API.
+- 3 níveis de visualização (inicial → município → unidade)
+- Múltiplas fontes de dados (epidemiológico, unidades, CNES, notícias)
+- Mapa interativo com marcadores tipados e popups
+- 2 tipos de gráfico (linha + faixa)
+- Painel lateral com navegação interna (tabs + drill-down)
+- Busca com autocomplete (~5570 municípios)

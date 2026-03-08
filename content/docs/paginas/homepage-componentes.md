@@ -56,7 +56,7 @@ default.vue (layout)
 | `HomeHero`         | `HomeHero.vue`         | ✅ Implementado | Estático      | Pronto para produção                  |
 | `HomeDashboard`    | `HomeDashboard.vue`    | ✅ Implementado | State interno | Orquestrador: gerencia `activeRegion` |
 | `HomeRegionTabs`   | `HomeRegionTabs.vue`   | ✅ Implementado | Hardcoded     | 6 tabs com v-model bidirecional       |
-| `HomeMap`          | `HomeMap.vue`          | 🔧 Esqueleto    | —             | Leaflet não integrado                 |
+| `HomeMap`          | `HomeMap.vue`          | 🔧 Esqueleto    | —             | MapLibre GL não integrado             |
 | `HomeFilters`      | `HomeFilters.vue`      | ✅ Implementado | Mock          | 27 UFs + 4 semanas fixas              |
 | `HomePanorama`     | `HomePanorama.vue`     | 🎭 Mockado      | Mock          | UI pronta, aguarda API                |
 | `HomeChart`        | `HomeChart.vue`        | 🔧 Esqueleto    | —             | ApexCharts não integrado              |
@@ -128,7 +128,7 @@ Componentes que existem no PRD mas ainda não foram criados:
 
 | Biblioteca              | Uso                                   | Status no projeto         |
 | ----------------------- | ------------------------------------- | ------------------------- |
-| **Leaflet**             | Mapa interativo SVG do Brasil         | 🔲 Não instalado          |
+| **MapLibre GL**         | Mapa interativo SVG do Brasil         | 🔲 Não instalado          |
 | **ApexCharts**          | Gráfico de linhas (lotação vs. média) | 🔲 Não instalado          |
 | **@tanstack/vue-table** | Tabela com sort/filter                | ✅ Instalado (disponível) |
 | **shadcn-vue (Tabs)**   | Tabs de região                        | ✅ Instalado (usado)      |

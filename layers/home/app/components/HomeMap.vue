@@ -41,11 +41,11 @@
       <span class="size-2 rounded-full bg-success-600" />
     </div>
 
-    <!-- Placeholder do mapa (Leaflet será integrado depois) -->
+    <!-- Placeholder do mapa (MapLibre GL será integrado depois) -->
     <CommonPlaceholderBox
       icon="lucide:map"
       label="Mapa interativo"
-      sublabel="(Leaflet — integração futura)"
+      sublabel="(MapLibre GL — integração futura)"
       class="absolute inset-0 z-10 border-0"
     />
   </div>
