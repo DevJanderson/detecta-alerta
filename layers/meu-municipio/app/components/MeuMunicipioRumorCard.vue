@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { MockNoticia } from '../composables/mocks'
+import type { Noticia } from '../composables/types'
 
 interface Props {
-  noticia: MockNoticia
+  noticia: Noticia
   showTags?: boolean
   clickable?: boolean
 }

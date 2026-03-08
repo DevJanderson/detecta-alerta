@@ -1,15 +1,4 @@
-interface AlertCity {
-  name: string
-  coords: Coordenadas
-  level: string
-  cases: number
-  trend: string
-}
-
-interface CityConnection {
-  from: string
-  to: string
-}
+import type { AlertCity, CityConnection } from './types'
 
 export const BRAZIL_CENTER: Coordenadas = Object.freeze({ lng: -51.9253, lat: -14.235 })
 export const BRAZIL_ZOOM = 4

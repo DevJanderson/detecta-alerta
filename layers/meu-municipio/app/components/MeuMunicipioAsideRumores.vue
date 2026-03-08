@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const store = useMeuMunicipioStore()
 const noticias = mockNoticias
 </script>
 
@@ -6,7 +7,7 @@ const noticias = mockNoticias
   <div class="flex flex-col gap-6 p-6 pb-8">
     <div>
       <h3 class="font-heading text-base font-semibold text-base-950">Rumores Recentes</h3>
-      <p class="mt-0.5 text-xs text-base-600">São Paulo</p>
+      <p class="mt-0.5 text-xs text-base-600">{{ store.municipioDisplay?.nome ?? '' }}</p>
     </div>
 
     <div class="flex flex-col gap-3">

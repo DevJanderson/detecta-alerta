@@ -92,6 +92,16 @@ export const HomeErrors = {
 } as const
 
 // ============================================================================
+// MEU MUNICÍPIO
+// ============================================================================
+
+export const MeuMunicipioErrors = {
+  FETCH_ALERTAS_FAILED: 'Erro ao carregar alertas do município',
+  FETCH_NOTICIAS_FAILED: 'Erro ao carregar notícias',
+  MUNICIPIO_NOT_FOUND: 'Município não encontrado'
+} as const
+
+// ============================================================================
 // VALIDAÇÃO
 // ============================================================================
 

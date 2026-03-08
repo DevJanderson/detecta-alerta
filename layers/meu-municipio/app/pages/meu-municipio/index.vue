@@ -9,10 +9,7 @@ useSeoPage({
     'Acompanhe dados epidemiológicos do seu município em tempo real. Monitore unidades de saúde, lotação e alertas.'
 })
 
-// Mock: mostrar onboarding (quando não tem município selecionado)
-// TODO: habilitar quando fluxo de seleção de município estiver pronto
-const showOnboarding = ref(false)
-
+const store = useMeuMunicipioStore()
 const mapRef = useTemplateRef('map')
 </script>
 
@@ -31,7 +28,7 @@ const mapRef = useTemplateRef('map')
       <div class="absolute bottom-6 left-4 z-1000 flex items-end gap-4">
         <MeuMunicipioMapNavigation />
         <MeuMunicipioMapSinapseStatus />
-        <MeuMunicipioMapChangeLocation @click="showOnboarding = true" />
+        <MeuMunicipioMapChangeLocation @click="store.openOnboarding()" />
       </div>
 
       <!-- Zoom controls -->
@@ -40,7 +37,7 @@ const mapRef = useTemplateRef('map')
       </div>
 
       <!-- Onboarding (seleção inicial de município) -->
-      <MeuMunicipioOnboarding v-if="showOnboarding" />
+      <MeuMunicipioOnboarding v-if="store.showOnboarding" />
     </div>
     <MeuMunicipioAside />
   </div>

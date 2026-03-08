@@ -1,12 +1,6 @@
-export interface MockNoticia {
-  id: string
-  title: string
-  source: string
-  time: string
-  tags?: { diseases: string[]; regions: string[] }
-}
+import type { Noticia } from './types'
 
-export const mockNoticias: MockNoticia[] = [
+export const mockNoticias: Noticia[] = [
   {
     id: '1',
     title: 'Aumento de casos de dengue preocupa autoridades em São Paulo',
