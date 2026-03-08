@@ -114,7 +114,7 @@ layers/                 # TUDO fica aqui (incluindo server/)
   base/                 # Fundação: Tailwind CSS, paleta, shadcn-vue, app.vue, error.vue, utils, tipos
   auth/                 # Autenticação BFF (Backend-for-Frontend)
   home/                 # Landing page
-  meu-municipio/        # Página do município (mapa Leaflet + aside com dados)
+  meu-municipio/        # Página do município (mapa MapLibre GL + aside com dados)
   mapa-risco/           # Mapa de risco epidemiológico
   usuarios/             # Gestão de perfil, usuários, grupos e permissões
   rumores/              # Feed de rumores epidemiológicos (notícias de saúde)
@@ -188,6 +188,18 @@ Preciso criar...
 - **Utils** (`layers/base/app/utils/`): Funções puras, sem estado Vue
 - **Composables** (`layers/base/app/composables/`): Lógica com `ref`, `computed`
 
+### Shared Domain (`#shared/domain`)
+
+Primitivas de domínio compartilhadas entre client e server:
+
+- **Result** (`shared/domain/result.ts`): Discriminated union para tratamento de erros tipado
+- **Value Objects com tryCreate**: VOs que retornam `Result<T>` em vez de lançar exceção
+
+```typescript
+import { ok, fail, combineResults, unwrap, unwrapOr } from '#shared/domain/result'
+import type { Result } from '#shared/domain/result'
+```
+
 ---
 
 ## 7. COMO CONSTRUIR
@@ -250,6 +262,34 @@ export const useExampleStore = defineStore(
 | ---------- | ------------------------------ | --- |
 | `useFetch` | Carregamento inicial (páginas) | Sim |
 | `$fetch`   | Eventos do usuário (cliques)   | Não |
+
+### Value Object (com validação reativa)
+
+VOs seguem o padrão funcional: `create*()` (throw) + `tryCreate*()` (Result) + `Object.freeze()`.
+
+```typescript
+// layers/base/app/utils/email.ts
+import { ok, fail } from '#shared/domain/result'
+import type { Result } from '#shared/domain/result'
+
+export function createEmail(value: string): Email {
+  /* throw se inválido */
+}
+export function tryCreateEmail(value: string): Result<Email> {
+  /* retorna ok/fail */
+}
+export function isValidEmail(value: string): boolean
+export function emailEquals(a: Email, b: Email): boolean
+```
+
+### useVoField (validação reativa em formulários)
+
+```typescript
+// No componente Vue:
+const email = ref('')
+const { isValid, error, value } = useVoField(email, tryCreateEmail)
+// isValid: ComputedRef<boolean>, error: ComputedRef<string | null>, value: ComputedRef<Email | null>
+```
 
 ### VeeValidate
 
@@ -589,7 +629,7 @@ Componentes ficam em `layers/base/app/components/ui/` (auto-import). O shadcn-vu
 | ------------------------- | ----------------------------------------------- |
 | `vue-sonner`              | Toasts/notificações (módulo Nuxt, sem CSS)      |
 | `@tanstack/vue-table`     | Tabelas com sort/filter/pagination              |
-| `leaflet`                 | Mapas interativos (API direta, sem módulo Nuxt) |
+| `maplibre-gl`             | Mapas interativos (API direta, sem módulo Nuxt) |
 | `maska`                   | Máscaras de input (CPF, telefone, etc.)         |
 | `@vueuse/core`            | Composables utilitários Vue                     |
 | `@tailwindcss/typography` | Plugin prose para Markdown                      |

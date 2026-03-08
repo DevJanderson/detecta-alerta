@@ -46,6 +46,15 @@ scaffoldVersion: '2.0.0'
 | **fetchSinapse** | Server-side utility to make authenticated requests to Sinapse API                                              |
 | **Kubb**         | Code generation tool that creates TypeScript types and Zod schemas from OpenAPI spec                           |
 
+### Domain Primitives
+
+| Term             | Definition                                                                                                                       |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Result**       | Discriminated union `{ ok: true, value: T } \| { ok: false, error: E }` for typed error handling without exceptions              |
+| **Value Object** | Immutable domain object created via factory function + `Object.freeze()`. Pure functions, no classes                             |
+| **tryCreate**    | Convention: VO factory that returns `Result<T>` instead of throwing. Enables reactive form validation via `useVoField()`         |
+| **useVoField**   | Composable that connects a `tryCreate*()` function to a reactive ref, providing `isValid`, `error`, and `value` computed outputs |
+
 ### Composable Patterns
 
 | Pattern     | Convention             | Example                                                          |

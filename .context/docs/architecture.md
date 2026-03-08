@@ -24,16 +24,18 @@ Browser → Nuxt Server (BFF) → Sinapse API (FastAPI)
 
 ## Architectural Layers
 
-Layers are auto-registered from `~/layers` and ordered by numeric prefix. Higher number = higher priority = overrides lower layers.
+Layers use semantic names and explicit `extends` in `nuxt.config.ts`. Order in the array defines priority (last = highest).
 
-| Layer      | Purpose                                                              | Key Directories                                                               |
-| ---------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `base`     | Foundation: app.vue, error.vue, CSS, shadcn-vue, shared types, utils | `app/components/ui/`, `app/composables/`, `shared/types/`                     |
-| `auth`     | Authentication BFF: login, logout, signup, JWT cookies, middleware   | `server/api/auth/`, `server/utils/auth.ts`, `app/composables/useAuthStore.ts` |
-| `home`     | Landing page, public pages                                           | `app/pages/`                                                                  |
-| `usuarios` | User profile, admin management of users, groups, permissions         | `server/api/usuarios/`, `app/composables/useUsuarios*.ts`                     |
-| `rumores`  | Epidemiological rumors feed, filters, CRUD                           | `server/api/rumores/`, `app/composables/useRumores*.ts`                       |
-| `docs`     | Project documentation via Nuxt Content                               | `app/pages/docs/`, `app/composables/useDocsNavigation.ts`                     |
+| Layer           | Purpose                                                                     | Key Directories                                                               |
+| --------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `base`          | Foundation: app.vue, error.vue, CSS, shadcn-vue, shared types/domain, utils | `app/components/ui/`, `app/composables/`, `shared/types/`, `shared/domain/`   |
+| `auth`          | Authentication BFF: login, logout, signup, JWT cookies, middleware          | `server/api/auth/`, `server/utils/auth.ts`, `app/composables/useAuthStore.ts` |
+| `home`          | Landing page, public pages                                                  | `app/pages/`, `app/composables/useHome*.ts`                                   |
+| `meu-municipio` | Municipal surveillance page (MapLibre GL map + sidebar)                     | `app/pages/meu-municipio/`, `app/composables/useMeuMunicipio*.ts`             |
+| `mapa-risco`    | Epidemiological risk map                                                    | `app/pages/mapa-risco/`                                                       |
+| `usuarios`      | User profile, admin management of users, groups, permissions                | `server/api/usuarios/`, `app/composables/useUsuarios*.ts`                     |
+| `rumores`       | Epidemiological rumors feed, filters, CRUD                                  | `server/api/rumores/`, `app/composables/useRumores*.ts`                       |
+| `docs`          | Project documentation via Nuxt Content                                      | `app/pages/docs/`, `app/composables/useDocsNavigation.ts`                     |
 
 > See [`codebase-map.json`](./codebase-map.json) for complete symbol counts and dependency graphs.
 
@@ -44,7 +46,7 @@ Layers are auto-registered from `~/layers` and ordered by numeric prefix. Higher
 | BFF Proxy               | 95%        | `layers/*/server/api/`                  | Server endpoints proxy to Sinapse API with auth headers |
 | Composition API Store   | 95%        | `useAuthStore`, `useRumoresStore`, etc. | Pinia stores using `defineStore` with setup function    |
 | Service Layer           | 90%        | `use*Api.ts` composables                | Thin $fetch wrappers separating API calls from state    |
-| Feature Layer           | 90%        | `layers/{N}-{feature}/`                 | Each feature is an isolated Nuxt layer                  |
+| Feature Layer           | 90%        | `layers/{feature}/`                     | Each feature is an isolated Nuxt layer                  |
 | Server Middleware Chain | 85%        | `01.auth.ts`, `02.admin.ts`             | Numeric prefixes define middleware execution order      |
 
 ## Entry Points
@@ -53,11 +55,21 @@ Layers are auto-registered from `~/layers` and ordered by numeric prefix. Higher
 - [`layers/base/app/app.vue`](../../layers/base/app/app.vue) - Root Vue component
 - [`layers/auth/server/middleware/01.auth.ts`](../../layers/auth/server/middleware/01.auth.ts) - Auth middleware (runs on every request)
 
+## Shared Domain Layer
+
+`layers/base/shared/domain/` contains domain primitives shared between client (`app/`) and server (`server/`):
+
+- **Result** (`result.ts`): Discriminated union for typed error handling. Used by Value Objects' `tryCreate*()` functions.
+- **Value Objects**: Immutable objects via factory function + `Object.freeze()`. Located in `app/utils/` (auto-imported). Each VO has `create*()` (throws) and `tryCreate*()` (returns `Result<T>`).
+
+Import via `#shared/domain/result` (alias configured in Nuxt and Vitest).
+
 ## Internal System Boundaries
 
 - **Auth boundary**: `layers/auth/server/` owns all token management. Client-side code never accesses tokens directly.
 - **Admin boundary**: `layers/usuarios/server/middleware/02.admin.ts` guards admin routes.
 - **Generated code boundary**: `generated/sinapse/` is auto-generated by Kubb. Never edit manually.
+- **Domain boundary**: `layers/base/shared/domain/` contains pure domain logic with no framework dependencies.
 
 ## External Service Dependencies
 
@@ -72,10 +84,10 @@ Layers are auto-registered from `~/layers` and ordered by numeric prefix. Higher
 
 ## Top Directories Snapshot
 
-- `layers/` - 6 feature layers (~150 files)
+- `layers/` - 8 feature layers (~150 files)
 - `generated/sinapse/` - Auto-generated API client (~800 files)
 - `tests/` - Unit, integration, E2E tests (~20 files)
-- `content/docs/` - Markdown documentation (~10 files)
+- `content/docs/` - Markdown documentation (~15 files)
 
 ## Related Resources
 

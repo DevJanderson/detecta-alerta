@@ -45,6 +45,19 @@ Registro de decisoes tecnicas relevantes, no estilo ADR (Architecture Decision R
 - **Decisao:** Migrar para nomes semânticos (`base`, `auth`, `home`, etc.) com `extends` explícito no `nuxt.config.ts`. A ordem é controlada pela posição no array, não pelo nome.
 - **Consequencias:** Nomes mais claros. Layers portáveis (podem ser compostas em outros projetos). Sem acoplamento ao sistema de nomes.
 
+### Result como discriminated union (não classe DDD)
+
+- **Contexto:** Proposta de adotar DDD classico (classes `Result<T>`, `ValueObject<T>`, `Entity<Type, Props>`, `UseCase<IN, OUT>`, `Repository`) para o projeto. O documento `ARCHITECTURE-ISSUES.md` sugeria 7 issues com 4 semanas de trabalho.
+- **Decisao:** Rejeitar a abordagem enterprise com classes/heranca. Implementar apenas `Result` como discriminated union leve (`{ ok: true, value: T } | { ok: false, error: E }`) com funcoes puras (`ok()`, `fail()`, `combineResults()`, `unwrap()`, `unwrapOr()`). Manter VOs no padrao funcional existente (factory + Object.freeze) e adicionar `tryCreate*()` retornando `Result` para validacao reativa.
+- **Motivacao:** (1) O projeto ja tinha VOs funcionais consolidados — classes criariam dois estilos incompativeis. (2) `withStoreAction` ja resolve error handling nos stores. (3) Repository/UseCase/Entity adicionam indirencao sem ganho em um BFF proxy. (4) Principio ETC: abstracao prematura dificulta mudancas futuras.
+- **Consequencias:** Tipo `Result` disponivel em `#shared/domain/result`. Email VO com `tryCreateEmail()`. Composable `useVoField()` conecta VOs a formularios. Sem mudancas nos stores ou server routes existentes.
+
+### Value Objects com tryCreate (validacao client+server)
+
+- **Contexto:** Validacao de formularios era manual (computed inline) e desconectada da validacao server-side. VOs existentes usavam apenas throw (sem retorno de erro tipado).
+- **Decisao:** VOs novos devem ter `tryCreate*()` retornando `Result<T>` alem do `create*()` que lanca excecao. Composable `useVoField()` conecta tryCreate a formularios reativos.
+- **Consequencias:** Mesma regra de validacao reutilizavel em client (formularios) e server (endpoints BFF). VOs antigos mantidos inalterados — migracao sob demanda.
+
 ### pinia-plugin-persistedstate com pick explicito
 
 - **Contexto:** Stores precisam persistir preferencias do usuario (filtros, tema) entre navegacoes, mas dados de API e auth nao devem ser persistidos.
