@@ -18,7 +18,7 @@ const navLinks = [
   { label: 'meu município', to: '/meu-municipio', icon: 'lucide:map-pin' },
   { label: 'mapa de risco', to: '/mapa-risco', icon: 'lucide:map' },
   { label: 'rumores', to: '/rumores', icon: 'lucide:message-circle' },
-  { label: 'relatórios', to: '/relatorios', icon: 'lucide:file-text' }
+  { label: 'relatórios', to: '#', icon: 'lucide:file-text' }
 ]
 
 // Verifica se o link está ativo
