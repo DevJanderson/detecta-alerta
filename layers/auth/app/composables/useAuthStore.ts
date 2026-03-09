@@ -71,6 +71,8 @@ export const useAuthStore = defineStore('auth', () => {
       async () => {
         const response = await api.login(credentials)
         user.value = createUserModel(response.user as AuthUser)
+        isInitialized.value = true
+        lastFetchAt.value = Date.now()
         return true
       },
       false
