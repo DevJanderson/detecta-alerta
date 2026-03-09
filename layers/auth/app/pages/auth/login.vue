@@ -18,30 +18,31 @@ const redirectTo = computed(() => {
 </script>
 
 <template>
-  <main class="flex min-h-screen items-center justify-center bg-base-50 px-4 py-12">
-    <div class="w-full max-w-md">
+  <main class="relative flex min-h-screen items-center justify-center px-4 py-12">
+    <!-- Background image -->
+    <div
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      style="background-image: url('/home-bg.png')"
+    />
+    <div class="absolute inset-0 bg-base-950/60" />
+
+    <Card class="relative z-10 w-full max-w-md">
       <!-- Logo/Título -->
-      <div class="mb-8 text-center">
+      <CardHeader class="space-y-1 text-center">
         <h1 class="text-2xl font-bold text-primary-950">Detecta Alerta</h1>
         <p class="mt-2 text-sm text-muted-foreground">Plataforma de vigilância epidemiológica</p>
-      </div>
+      </CardHeader>
 
-      <!-- Card de Login -->
-      <Card>
-        <CardHeader class="space-y-1 text-center">
-          <CardTitle class="text-xl">Entrar na conta</CardTitle>
-          <CardDescription> Digite suas credenciais para acessar o sistema </CardDescription>
-        </CardHeader>
-
-        <CardContent>
-          <AuthLoginForm :redirect-to="redirectTo" />
-        </CardContent>
-      </Card>
+      <CardContent>
+        <AuthLoginForm :redirect-to="redirectTo" />
+      </CardContent>
 
       <!-- Footer -->
-      <p class="mt-6 text-center text-xs text-muted-foreground">
-        &copy; {{ new Date().getFullYear() }} ITpS - Instituto Todos pela Saúde
-      </p>
-    </div>
+      <CardFooter class="justify-center">
+        <p class="text-xs text-muted-foreground">
+          &copy; {{ new Date().getFullYear() }} ITpS - Instituto Todos pela Saúde
+        </p>
+      </CardFooter>
+    </Card>
   </main>
 </template>
