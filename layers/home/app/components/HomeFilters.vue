@@ -14,7 +14,7 @@ function onSemanaChange(event: Event) {
 
 <template>
   <div
-    class="flex flex-col items-start justify-start gap-4 border-b border-base-50 px-6 pt-6 pb-4 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:pt-8 lg:pb-6"
+    class="flex flex-col items-start justify-start gap-4 px-6 pt-6 pb-4 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:pt-8 lg:pb-6"
   >
     <!-- Filtro de Estado -->
     <div class="flex flex-col gap-1 lg:flex-row lg:items-center lg:gap-2">
