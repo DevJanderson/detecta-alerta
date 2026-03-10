@@ -89,7 +89,7 @@ Valor guia do projeto, inspirado no livro "The Pragmatic Programmer". Antes de c
 
 ### ESLint
 
-- `no-console`: apenas `console.warn` e `console.error` permitidos
+- `no-console`: `warn` — apenas `console.warn` e `console.error` permitidos (não bloqueia, mas evitar `console.log`)
 - `prefer-const`: obrigatório (`error`) - usar `const` quando não reatribui
 - Variáveis prefixadas com `_` são ignoradas pelo `no-unused-vars`
 - `vue/html-self-closing`: sempre auto-fechar componentes (`<MyComp />`)
