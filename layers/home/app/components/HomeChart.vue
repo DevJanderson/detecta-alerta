@@ -83,8 +83,8 @@ const activeFilter = ref('drogaria')
           </label>
           <!-- Legenda: barrinhas de variação -->
           <span class="flex items-end gap-0.5">
-            <span class="inline-block h-[22px] w-[5px] bg-tertiary-100" />
-            <span class="inline-block h-[18px] w-[5px] bg-tertiary-500" />
+            <span class="inline-block h-5.5 w-1.25 bg-tertiary-100" />
+            <span class="inline-block h-4.5 w-1.25 bg-tertiary-500" />
           </span>
         </div>
       </div>
