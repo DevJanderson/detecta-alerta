@@ -6,13 +6,11 @@ const email = ref('')
 const isSubmitted = ref(false)
 const successMessage = ref('')
 
+// Validação reativa via Value Object
+const { isValid: isValidEmail, error: emailError } = useVoField(email, tryCreateEmail)
+
 // Computed
 const canSubmit = computed(() => email.value.trim() && !authStore.isLoading)
-
-const isValidEmail = computed(() => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email.value)
-})
 
 // Methods
 async function handleSubmit() {
@@ -95,7 +93,7 @@ function resetForm() {
           role="alert"
           class="text-sm text-danger-600"
         >
-          Digite um email válido
+          {{ emailError }}
         </p>
       </div>
 
