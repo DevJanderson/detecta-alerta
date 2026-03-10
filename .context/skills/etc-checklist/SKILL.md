@@ -1,7 +1,7 @@
 ---
-name: ETC Checklist
+name: etc-checklist
 description: Checklist do princípio Easier to Change adaptado ao Detecta Alerta — usar antes de criar ou modificar código
-phases: [P, R, E, V]
+disable-model-invocation: true
 ---
 
 # ETC Checklist — Detecta Alerta

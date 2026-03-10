@@ -1,13 +1,6 @@
 ---
-type: skill
-name: Figma to Code
+name: figma-to-code
 description: Converte designs do Figma em componentes Vue seguindo as convenções do Detecta Alerta. Usar quando o usuário fornecer um link do Figma ou pedir para implementar um design.
-skillSlug: figma-to-code
-phases: [E]
-generated: 2026-02-25
-updated: 2026-03-03
-status: filled
-scaffoldVersion: '2.0.0'
 ---
 
 # Figma to Code — Detecta Alerta

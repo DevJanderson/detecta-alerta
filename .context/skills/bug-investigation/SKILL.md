@@ -1,12 +1,7 @@
 ---
-type: skill
-name: Bug Investigation
+name: bug-investigation
 description: Systematic bug investigation and root cause analysis
-skillSlug: bug-investigation
-phases: [E, V]
-generated: 2026-02-24
-status: filled
-scaffoldVersion: '2.0.0'
+allowed-tools: Read, Grep, Glob, Bash
 ---
 
 ## Bug Investigation Skill

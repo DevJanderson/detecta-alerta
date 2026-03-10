@@ -1,12 +1,7 @@
 ---
-type: skill
-name: Documentation
+name: documentation
 description: Generate and update technical documentation
-skillSlug: documentation
-phases: [P, C]
-generated: 2026-02-24
-status: filled
-scaffoldVersion: '2.0.0'
+disable-model-invocation: true
 ---
 
 ## Documentation Skill

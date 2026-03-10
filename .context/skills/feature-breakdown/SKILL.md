@@ -1,13 +1,6 @@
 ---
-type: skill
-name: Feature Breakdown
+name: feature-breakdown
 description: Break down features into implementable tasks following project patterns
-skillSlug: feature-breakdown
-phases: [P, E]
-generated: 2026-02-24
-updated: 2026-03-03
-status: filled
-scaffoldVersion: '2.0.0'
 ---
 
 ## Feature Breakdown Skill
