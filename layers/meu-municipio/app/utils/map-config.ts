@@ -1,12 +1,9 @@
 /**
- * Configuração do mapa — constantes de posição e estilo
+ * @deprecated Migrado para layers/base/app/utils/map-config.ts (auto-importado)
+ *
+ * BRAZIL_CENTER, BRAZIL_ZOOM, VECTOR_STYLE, REGION_CENTERS
+ * agora são auto-importados pelo Nuxt via base layer.
+ *
+ * Este arquivo será removido após confirmar que tudo funciona.
  */
-
-/** Centro geográfico do Brasil */
-export const BRAZIL_CENTER: Coordenadas = Object.freeze({ lng: -51.9253, lat: -14.235 })
-
-/** Zoom padrão para visão nacional */
-export const BRAZIL_ZOOM = 4
-
-/** Estilo vetorial gratuito (OpenFreeMap — sem API key) */
-export const VECTOR_STYLE = 'https://tiles.openfreemap.org/styles/liberty'
+export {}
