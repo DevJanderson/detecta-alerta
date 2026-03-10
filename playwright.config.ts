@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test'
 
+/** Resolução da tela do dev (detectada via xrandr) */
+const SCREEN = { width: 1920, height: 1200 }
+
 /**
  * Playwright Configuration for E2E Tests
  * @see https://playwright.dev/docs/test-configuration
@@ -28,6 +31,9 @@ export default defineConfig({
     // Base URL to use in actions like `await page.goto('/')`
     baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3000',
 
+    // Viewport padrão: resolução da tela do dev
+    viewport: SCREEN,
+
     // Collect trace when retrying the failed test
     trace: 'on-first-retry',
 
@@ -43,12 +49,12 @@ export default defineConfig({
   projects: [
     {
       name: 'Desktop Chrome',
-      use: { ...devices['Desktop Chrome'], viewport: { width: 1920, height: 1200 } }
+      use: { ...devices['Desktop Chrome'], viewport: SCREEN }
     },
 
     {
       name: 'Desktop Firefox',
-      use: { ...devices['Desktop Firefox'], viewport: { width: 1920, height: 1200 } }
+      use: { ...devices['Desktop Firefox'], viewport: SCREEN }
     },
 
     {
