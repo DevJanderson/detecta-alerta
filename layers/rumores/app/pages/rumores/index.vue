@@ -8,17 +8,29 @@ useSeoPage({
   description:
     'Acompanhe rumores e notícias epidemiológicas do Brasil em tempo real. Monitore surtos, tendências e alertas de saúde pública.'
 })
+
+const activeView = ref('galeria')
 </script>
 
 <template>
-  <div
-    class="container mx-auto flex min-h-[60vh] flex-col items-center justify-center px-4 py-12 text-center"
-  >
-    <Icon name="lucide:newspaper" class="size-16 text-base-300" />
-    <h1 class="mt-6 text-2xl font-bold text-foreground">Rumores Epidemiológicos</h1>
-    <p class="mt-2 max-w-md text-base-500">
-      Notícias e rumores sobre eventos de saúde pública no Brasil. Em breve você poderá acompanhar
-      tudo por aqui.
-    </p>
+  <div>
+    <RumoresHero v-model="activeView" />
+
+    <!-- Galeria (cards por região) -->
+    <div v-if="activeView === 'galeria'" class="flex flex-col gap-16 px-6 pt-20 pb-20 lg:px-40">
+      <RumoresSection region="Região Nordeste" />
+      <RumoresOutrasRegioes />
+      <RumoresSection region="Outros países" />
+    </div>
+
+    <!-- Feed (coluna única cronológica) -->
+    <div v-else-if="activeView === 'feed'" class="px-6 pt-20 pb-20 lg:px-40">
+      <RumoresFeed />
+    </div>
+
+    <!-- Lista (tabela com filtros) -->
+    <div v-else-if="activeView === 'lista'" class="px-6 pt-20 pb-20 lg:px-40">
+      <RumoresList />
+    </div>
   </div>
 </template>
