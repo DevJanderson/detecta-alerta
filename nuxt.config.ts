@@ -52,6 +52,7 @@ export default defineNuxtConfig({
     './layers/mapa-risco',
     './layers/usuarios',
     './layers/rumores',
+    './layers/relatorios',
     './layers/docs'
   ],
 

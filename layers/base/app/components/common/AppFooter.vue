@@ -6,7 +6,7 @@ const exploreLinks = [
   { label: 'Meu Município', to: '/meu-municipio' },
   { label: 'Rumores', to: '/rumores' },
   { label: 'Lugares Monitorados', to: '#' },
-  { label: 'Relatórios', to: '#' }
+  { label: 'Relatórios', to: '/relatorios' }
 ]
 
 const sinapseLinks = [
