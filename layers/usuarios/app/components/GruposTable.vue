@@ -15,33 +15,35 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <Table>
-    <TableHeader>
-      <TableRow>
-        <TableHead>Nome</TableHead>
-        <TableHead>Descricao</TableHead>
-        <TableHead>Status</TableHead>
-        <TableHead class="text-right">Acoes</TableHead>
-      </TableRow>
-    </TableHeader>
-    <TableBody>
-      <TableEmpty v-if="grupos.length === 0" :colspan="4"> Nenhum grupo encontrado. </TableEmpty>
-      <TableRow v-for="grupo in grupos" :key="grupo.id">
-        <TableCell class="font-medium">{{ grupo.nome }}</TableCell>
-        <TableCell class="text-muted-foreground">
-          {{ grupo.descricao || '-' }}
-        </TableCell>
-        <TableCell>
-          <StatusBadge :active="grupo.ativo !== false" />
-        </TableCell>
-        <TableCell class="text-right">
-          <TableActions
-            @view="emit('view', grupo.id)"
-            @edit="emit('edit', grupo)"
-            @delete="emit('delete', grupo)"
-          />
-        </TableCell>
-      </TableRow>
-    </TableBody>
-  </Table>
+  <div class="overflow-x-auto">
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Nome</TableHead>
+          <TableHead>Descricao</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead class="text-right">Acoes</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableEmpty v-if="grupos.length === 0" :colspan="4"> Nenhum grupo encontrado. </TableEmpty>
+        <TableRow v-for="grupo in grupos" :key="grupo.id">
+          <TableCell class="font-medium">{{ grupo.nome }}</TableCell>
+          <TableCell class="text-muted-foreground">
+            {{ grupo.descricao || '-' }}
+          </TableCell>
+          <TableCell>
+            <StatusBadge :active="grupo.ativo !== false" />
+          </TableCell>
+          <TableCell class="text-right">
+            <TableActions
+              @view="emit('view', grupo.id)"
+              @edit="emit('edit', grupo)"
+              @delete="emit('delete', grupo)"
+            />
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  </div>
 </template>

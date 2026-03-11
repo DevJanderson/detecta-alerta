@@ -41,9 +41,9 @@ function handleRemoveFromReview(placeId: string) {
 </script>
 
 <template>
-  <div class="flex h-[calc(100vh-5.5rem)] w-full">
+  <div class="flex h-[calc(100vh-5.5rem)] w-full flex-col-reverse sm:flex-row">
     <!-- Mapa (placeholder — integração futura com marcadores) -->
-    <div class="relative flex-1 min-w-0">
+    <div class="relative hidden min-w-0 flex-1 sm:block">
       <div class="flex h-full items-center justify-center bg-base-50">
         <div class="text-center">
           <Icon name="lucide:map" class="mx-auto size-16 text-base-200" />
@@ -76,7 +76,9 @@ function handleRemoveFromReview(placeId: string) {
     </div>
 
     <!-- Aside (painel lateral) -->
-    <aside class="flex h-full w-[420px] shrink-0 flex-col border-l border-base-100 bg-white">
+    <aside
+      class="flex h-full w-full shrink-0 flex-col border-l border-base-100 bg-white sm:w-80 md:w-96 lg:w-[420px]"
+    >
       <!-- Header -->
       <div class="flex items-center justify-between border-b border-base-100 px-4 py-3">
         <div class="flex items-center gap-2">

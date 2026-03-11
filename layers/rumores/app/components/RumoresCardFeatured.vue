@@ -19,7 +19,7 @@ defineProps<{
     class="group flex flex-col overflow-hidden rounded-xl bg-white transition-shadow hover:shadow-lg"
   >
     <!-- Imagem -->
-    <div class="h-80 w-full overflow-hidden rounded-t-sm">
+    <div class="h-52 w-full overflow-hidden rounded-t-sm sm:h-80">
       <div
         v-if="image"
         class="size-full bg-cover bg-center transition-transform group-hover:scale-105"
@@ -41,10 +41,10 @@ defineProps<{
     </div>
 
     <!-- Conteúdo -->
-    <div class="flex flex-1 flex-col gap-4 p-6">
+    <div class="flex flex-1 flex-col gap-3 p-4 sm:gap-4 sm:p-6">
       <!-- Título + Descrição -->
       <div class="flex flex-col gap-2">
-        <h3 class="text-[28px] font-semibold leading-snug text-base-950">
+        <h3 class="text-xl font-semibold leading-snug text-base-950 sm:text-[28px]">
           {{ title }}
         </h3>
         <p class="text-base leading-normal text-base-800">

@@ -15,40 +15,42 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <Table>
-    <TableHeader>
-      <TableRow>
-        <TableHead>Nome</TableHead>
-        <TableHead>Email</TableHead>
-        <TableHead>Status</TableHead>
-        <TableHead>Grupos</TableHead>
-        <TableHead class="text-right">Acoes</TableHead>
-      </TableRow>
-    </TableHeader>
-    <TableBody>
-      <TableEmpty v-if="!usuarios.length" :colspan="5"> Nenhum usuario encontrado. </TableEmpty>
-      <TableRow v-for="u in usuarios" :key="u.id">
-        <TableCell class="font-medium">{{ u.nome }}</TableCell>
-        <TableCell>{{ u.email }}</TableCell>
-        <TableCell>
-          <StatusBadge :active="u.ativo !== false" />
-        </TableCell>
-        <TableCell>
-          <div class="flex flex-wrap gap-1">
-            <Badge v-for="g in u.grupos" :key="g.id" variant="outline">
-              {{ g.nome }}
-            </Badge>
-            <span v-if="!u.grupos?.length" class="text-sm text-muted-foreground">--</span>
-          </div>
-        </TableCell>
-        <TableCell class="text-right">
-          <TableActions
-            @view="emit('view', u.id)"
-            @edit="emit('edit', u)"
-            @delete="emit('delete', u)"
-          />
-        </TableCell>
-      </TableRow>
-    </TableBody>
-  </Table>
+  <div class="overflow-x-auto">
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Nome</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead>Grupos</TableHead>
+          <TableHead class="text-right">Acoes</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableEmpty v-if="!usuarios.length" :colspan="5"> Nenhum usuario encontrado. </TableEmpty>
+        <TableRow v-for="u in usuarios" :key="u.id">
+          <TableCell class="font-medium">{{ u.nome }}</TableCell>
+          <TableCell>{{ u.email }}</TableCell>
+          <TableCell>
+            <StatusBadge :active="u.ativo !== false" />
+          </TableCell>
+          <TableCell>
+            <div class="flex flex-wrap gap-1">
+              <Badge v-for="g in u.grupos" :key="g.id" variant="outline">
+                {{ g.nome }}
+              </Badge>
+              <span v-if="!u.grupos?.length" class="text-sm text-muted-foreground">--</span>
+            </div>
+          </TableCell>
+          <TableCell class="text-right">
+            <TableActions
+              @view="emit('view', u.id)"
+              @edit="emit('edit', u)"
+              @delete="emit('delete', u)"
+            />
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  </div>
 </template>

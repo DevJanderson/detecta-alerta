@@ -87,12 +87,12 @@ const smallCards = [
 <template>
   <section class="flex flex-col gap-6">
     <!-- Título da região -->
-    <div class="flex items-center gap-6 pl-6">
+    <div class="flex items-center gap-3 sm:gap-6 sm:pl-6">
       <!-- Ícone decorativo (losango vermelho) -->
-      <svg class="size-4 text-primary-950" viewBox="0 0 16 16" fill="currentColor">
+      <svg class="size-3 text-primary-950 sm:size-4" viewBox="0 0 16 16" fill="currentColor">
         <path d="M8 0L16 8L8 16L0 8Z" />
       </svg>
-      <h2 class="text-[28px] font-semibold leading-tight text-secondary-900">
+      <h2 class="text-xl font-semibold leading-tight text-secondary-900 sm:text-[28px]">
         {{ region }}
       </h2>
     </div>

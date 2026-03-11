@@ -10,10 +10,10 @@ useSeoPage({
 </script>
 
 <template>
-  <main class="flex min-h-screen items-center justify-center bg-base-50 px-4 py-12">
+  <main class="flex min-h-screen items-center justify-center bg-base-50 px-4 py-6 sm:py-12">
     <div class="w-full max-w-md">
       <!-- Logo/Título -->
-      <div class="mb-8 text-center">
+      <div class="mb-6 text-center sm:mb-8">
         <h1 class="text-2xl font-bold text-primary-950">Detecta Alerta</h1>
         <p class="mt-2 text-sm text-muted-foreground">Plataforma de vigilância epidemiológica</p>
       </div>

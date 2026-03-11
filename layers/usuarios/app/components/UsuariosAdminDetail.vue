@@ -26,7 +26,7 @@ const emit = defineEmits<{
     </CardHeader>
 
     <CardContent class="space-y-4">
-      <div class="grid grid-cols-2 gap-4 text-sm">
+      <div class="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
         <div>
           <span class="text-muted-foreground">Telefone</span>
           <p>{{ usuario.telefone || '--' }}</p>
@@ -77,7 +77,7 @@ const emit = defineEmits<{
 
       <Separator />
 
-      <div class="grid grid-cols-2 gap-4 text-sm">
+      <div class="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
         <div>
           <span class="text-muted-foreground">Criado em</span>
           <p>{{ formatDate(usuario.created_at) }}</p>
