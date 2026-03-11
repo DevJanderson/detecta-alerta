@@ -17,13 +17,13 @@ const activeFilter = ref('drogaria')
     <!-- ============================================================
          HEADER: Título + Card de destaque
          ============================================================ -->
-    <header class="flex items-start justify-between">
+    <header class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
       <div class="flex flex-col gap-1">
-        <h2 class="text-xl font-semibold text-base-950">Lotação vs. Média Histórica</h2>
+        <h2 class="text-lg font-semibold text-base-950 sm:text-xl">Lotação vs. Média Histórica</h2>
         <p class="text-sm text-base-800">Confira quando a lotação está acima da média histórica.</p>
       </div>
       <div
-        class="flex flex-col items-end gap-1 rounded-lg border border-secondary-100 bg-secondary-50 px-4 py-2.5"
+        class="flex flex-col items-start gap-1 rounded-lg border border-secondary-100 bg-secondary-50 px-4 py-2.5 sm:items-end"
       >
         <p class="flex items-center gap-1.5 text-xs font-semibold text-alert-950">
           23% mais alto que o normal
@@ -58,7 +58,7 @@ const activeFilter = ref('drogaria')
     </div>
 
     <!-- Checkboxes + filtros -->
-    <div class="flex h-10 flex-wrap items-center justify-between gap-4 px-6">
+    <div class="flex flex-wrap items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6">
       <div class="flex items-center gap-5">
         <div class="flex items-center gap-2">
           <label class="flex cursor-pointer items-center gap-2 text-base text-base-800">
@@ -113,7 +113,9 @@ const activeFilter = ref('drogaria')
     <!-- ============================================================
          CARD "ANÁLISE DOS ESPECIALISTAS"
          ============================================================ -->
-    <div class="flex items-start gap-4 rounded-xl border border-secondary-100 bg-secondary-50 p-6">
+    <div
+      class="flex flex-col gap-4 rounded-xl border border-secondary-100 bg-secondary-50 p-4 sm:flex-row sm:items-start sm:gap-4 sm:p-6"
+    >
       <!-- Ícone avatar -->
       <div
         class="flex size-10 shrink-0 items-center justify-center rounded-full border border-secondary-200 bg-base-0"
@@ -121,7 +123,7 @@ const activeFilter = ref('drogaria')
         <Icon name="lucide:user-round" class="size-5 text-secondary-900" />
       </div>
       <!-- Conteúdo -->
-      <div class="flex-1">
+      <div class="min-w-0 flex-1">
         <h3 class="text-base font-semibold text-secondary-900">Análise dos Especialistas</h3>
         <p class="mt-1 text-sm leading-relaxed text-base-800">
           Após 3 semanas com elevado movimento, em 18 de outubro iniciou tendência de estabilidade.
@@ -148,7 +150,9 @@ const activeFilter = ref('drogaria')
     <!-- ============================================================
          SOURCE BOX
          ============================================================ -->
-    <div class="flex items-center justify-between text-xs text-base-600">
+    <div
+      class="flex flex-col gap-2 text-xs text-base-600 sm:flex-row sm:items-center sm:justify-between"
+    >
       <p class="flex items-center gap-3">
         <span>
           <span class="font-semibold">Fonte</span>: <span class="underline">Sinapse</span>, 2026

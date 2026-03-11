@@ -8,11 +8,11 @@
          HEADER AMARELO
          ============================================================ -->
     <div
-      class="flex items-start justify-between border-b border-secondary-100 bg-alert-50 px-6 py-8"
+      class="flex flex-col gap-4 border-b border-secondary-100 bg-alert-50 px-4 py-6 sm:px-6 sm:py-8 md:flex-row md:items-start md:justify-between"
     >
       <!-- Texto esquerdo -->
       <div class="flex flex-1 flex-col gap-4">
-        <h3 class="text-xl font-semibold leading-tight text-alert-950">
+        <h3 class="text-lg font-semibold leading-tight text-alert-950 sm:text-xl">
           Movimento em estabelecimentos de saúde
         </h3>
         <p class="flex items-start gap-2 text-xs leading-normal text-base-800">
@@ -28,7 +28,7 @@
 
       <!-- Tag direita -->
       <span
-        class="flex shrink-0 items-center gap-2 rounded-full border border-alert-200 bg-alert-900 px-4 py-1.5 text-sm font-semibold text-base-950"
+        class="flex shrink-0 items-center gap-2 self-start rounded-full border border-alert-200 bg-alert-900 px-3 py-1.5 text-xs font-semibold text-base-950 sm:px-4 sm:text-sm"
       >
         <Icon name="lucide:arrow-up" class="size-4" />
         23% mais alto que o normal
@@ -38,8 +38,8 @@
     <!-- ============================================================
          BARRA DE ESTABELECIMENTOS
          ============================================================ -->
-    <div class="flex items-center justify-between bg-alert-200 px-6 py-2">
-      <div class="flex items-center gap-4">
+    <div class="flex flex-wrap items-center justify-between gap-2 bg-alert-200 px-4 py-2 sm:px-6">
+      <div class="flex flex-wrap items-center gap-3 sm:gap-4">
         <!-- Drogarias -->
         <span class="flex items-center gap-1.5 text-xs text-base-800">
           <Icon name="lucide:pill" class="size-3" />
@@ -69,15 +69,15 @@
         </span>
       </div>
 
-      <span class="text-xs text-base-800">940 estabelecimentos analisados</span>
+      <span class="hidden text-xs text-base-800 sm:inline">940 estabelecimentos analisados</span>
     </div>
 
     <!-- ============================================================
          AGRAVOS SECTION
          ============================================================ -->
-    <div class="bg-white px-6 pt-6 pb-8">
+    <div class="bg-white px-4 pt-6 pb-8 sm:px-6">
       <!-- Titulo + fonte -->
-      <div class="flex items-start justify-between gap-8">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
         <h4 class="shrink-0 text-base font-semibold leading-tight text-base-950">
           Número de casos por agravo
         </h4>
@@ -96,7 +96,7 @@
       <!-- ========================================================
            CARDS DE AGRAVOS (3 colunas)
            ======================================================== -->
-      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         <!-- ── Card 1: Arboviroses (azul / secondary) ── -->
         <div class="flex flex-col gap-3">
           <h5 class="px-4 text-sm font-semibold text-base-950">Arboviroses</h5>

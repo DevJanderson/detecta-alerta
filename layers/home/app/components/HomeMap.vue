@@ -31,7 +31,7 @@ defineExpose({ map })
 
       <!-- Legenda (canto superior esquerdo) -->
       <div
-        class="absolute top-4 left-4 flex flex-col items-start gap-1.5 rounded-md border border-base-100 bg-base-0/90 p-3 shadow-sm backdrop-blur-sm"
+        class="absolute top-4 left-4 hidden flex-col items-start gap-1.5 rounded-md border border-base-100 bg-base-0/90 p-3 shadow-sm backdrop-blur-sm sm:flex"
       >
         <span class="text-xs font-semibold text-base-700">
           Movimento em<br />estabelecimentos de saúde
@@ -55,7 +55,7 @@ defineExpose({ map })
 
       <!-- Tooltip "Mapa interativo!" (canto superior direito) -->
       <div
-        class="absolute top-4 right-4 flex w-52 items-start gap-3 rounded-lg border border-danger-200 bg-base-0/90 px-3 py-2.5 shadow-sm backdrop-blur-sm"
+        class="absolute top-4 right-4 hidden w-52 items-start gap-3 rounded-lg border border-danger-200 bg-base-0/90 px-3 py-2.5 shadow-sm backdrop-blur-sm sm:flex"
       >
         <Icon name="lucide:navigation" class="mt-0.5 size-4 shrink-0 text-danger-500" />
         <div>
@@ -82,10 +82,10 @@ defineExpose({ map })
 
       <!-- Status "Dados via Sinapse" (canto inferior direito) -->
       <div
-        class="absolute right-4 bottom-4 flex items-center gap-2 rounded-full border border-success-200 bg-base-0/90 px-3 py-1.5 shadow-sm backdrop-blur-sm"
+        class="absolute right-2 bottom-2 flex items-center gap-2 rounded-full border border-success-200 bg-base-0/90 px-2 py-1 shadow-sm backdrop-blur-sm sm:right-4 sm:bottom-4 sm:px-3 sm:py-1.5"
       >
         <span class="size-2 rounded-full bg-success-500" />
-        <span class="text-xs text-base-500">Dados via Sinapse, há 3 minutos.</span>
+        <span class="text-[10px] text-base-500 sm:text-xs">Dados via Sinapse, há 3 minutos.</span>
       </div>
     </div>
   </div>

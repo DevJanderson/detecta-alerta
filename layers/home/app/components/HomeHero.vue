@@ -1,7 +1,7 @@
 <template>
-  <section class="px-4 py-16 sm:px-6 lg:px-20 lg:py-32">
+  <section class="px-4 py-10 sm:px-6 sm:py-16 lg:px-20 lg:py-32">
     <div
-      class="mx-auto flex flex-col items-center gap-10 lg:grid lg:grid-cols-[1fr_34rem_1fr] lg:items-start lg:gap-6"
+      class="mx-auto flex flex-col items-center gap-8 sm:gap-10 lg:grid lg:grid-cols-[1fr_34rem_1fr] lg:items-start lg:gap-6"
     >
       <!-- Titulo principal (esquerda) -->
       <h1 class="text-3xl font-bold leading-tight text-primary-950 sm:text-4xl lg:text-6xl">
@@ -25,7 +25,7 @@
 
         <!-- Seta para baixo -->
         <svg
-          class="h-20 text-primary-700"
+          class="h-12 text-primary-700 sm:h-16 lg:h-20"
           viewBox="0 0 15 82"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

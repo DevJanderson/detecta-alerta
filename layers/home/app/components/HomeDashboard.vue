@@ -25,8 +25,10 @@ onMounted(async () => {
       <HomeFilters />
 
       <!-- Titulo da seção -->
-      <header class="flex items-center justify-between px-6 pt-20">
-        <h2 class="text-[28px] font-semibold leading-[1.4] text-base-950">
+      <header
+        class="flex flex-col gap-3 px-4 pt-10 sm:px-6 sm:pt-14 md:flex-row md:items-center md:justify-between lg:pt-20"
+      >
+        <h2 class="text-2xl font-semibold leading-[1.4] text-base-950 sm:text-[28px]">
           Panorama &bull; {{ store.regionLabel }}
         </h2>
         <NuxtLink
@@ -39,13 +41,15 @@ onMounted(async () => {
       </header>
 
       <!-- Overview Box (Panorama) -->
-      <div class="px-6 pt-6">
+      <div class="px-4 pt-6 sm:px-6">
         <HomePanorama />
       </div>
 
       <!-- Source box -->
-      <div class="flex items-center justify-between px-6 pt-4">
-        <p class="flex items-center gap-3 text-xs text-base-600">
+      <div
+        class="flex flex-col gap-2 px-4 pt-4 sm:flex-row sm:items-center sm:justify-between sm:px-6"
+      >
+        <p class="flex flex-wrap items-center gap-3 text-xs text-base-600">
           <span>
             <span class="font-semibold">Fontes</span>: <span class="underline">Google Maps</span>,
             <span class="underline">Sinapse</span>,
@@ -68,12 +72,12 @@ onMounted(async () => {
       </div>
 
       <!-- Seção: Lotação vs. Média Histórica (Gráfico) -->
-      <div class="px-6 pt-20">
+      <div class="px-4 pt-10 sm:px-6 sm:pt-14 lg:pt-20">
         <HomeChart />
       </div>
 
       <!-- Seção: Lotação por estabelecimento (Tabela) -->
-      <div class="pt-20 pb-20">
+      <div class="pt-10 pb-10 sm:pt-14 sm:pb-14 lg:pt-20 lg:pb-20">
         <HomeTable />
       </div>
     </div>

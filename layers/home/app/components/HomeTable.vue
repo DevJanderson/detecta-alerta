@@ -32,16 +32,16 @@ function cellColor(level: Level) {
     <!-- ============================================================
          HEADER: Título + Contadores
          ============================================================ -->
-    <header class="flex items-start justify-between px-6">
+    <header class="flex flex-col gap-4 px-4 sm:px-6 md:flex-row md:items-start md:justify-between">
       <div class="flex flex-col gap-2">
-        <h2 class="text-xl font-semibold leading-tight text-base-950">
+        <h2 class="text-lg font-semibold leading-tight text-base-950 sm:text-xl">
           Lotação por estabelecimento
         </h2>
         <p class="text-sm text-base-800">Confira locais com lotação acima da média esperada.</p>
       </div>
 
       <!-- Contadores de estabelecimentos -->
-      <div class="flex items-start gap-2 rounded-md bg-secondary-50 px-3 py-2">
+      <div class="flex flex-wrap items-start gap-2 rounded-md bg-secondary-50 px-3 py-2">
         <!-- Drogarias -->
         <span class="flex items-center gap-2 text-xs text-base-800">
           <Icon name="lucide:pill" class="size-3" />
@@ -81,8 +81,8 @@ function cellColor(level: Level) {
     <!-- ============================================================
          TABELA
          ============================================================ -->
-    <div class="overflow-x-auto overflow-y-visible px-6">
-      <table class="w-full min-w-150 text-sm">
+    <div class="overflow-x-auto overflow-y-visible px-4 sm:px-6">
+      <table class="w-full min-w-[600px] text-sm">
         <thead>
           <tr class="border-b border-base-100">
             <th class="px-4 py-3 text-left font-medium text-secondary-900">
@@ -131,9 +131,9 @@ function cellColor(level: Level) {
          CARD "ANÁLISE DOS ESPECIALISTAS"
          ============================================================ -->
     <div
-      class="mx-6 flex items-center justify-between rounded-xl border border-secondary-100 bg-secondary-50 p-4"
+      class="mx-4 flex flex-col gap-4 rounded-xl border border-secondary-100 bg-secondary-50 p-4 sm:mx-6 sm:flex-row sm:items-start"
     >
-      <div class="flex flex-1 items-start gap-3">
+      <div class="flex min-w-0 flex-1 items-start gap-3">
         <!-- Ícone avatar -->
         <div
           class="flex size-8 shrink-0 items-center justify-center rounded-full border border-secondary-100 bg-base-0"
@@ -141,11 +141,11 @@ function cellColor(level: Level) {
           <Icon name="lucide:user" class="size-4 text-secondary-900" />
         </div>
         <!-- Conteúdo -->
-        <div class="flex max-w-200 flex-1 flex-col gap-2 pr-10">
+        <div class="min-w-0 flex-1 flex-col gap-2">
           <h3 class="text-base font-semibold leading-tight text-secondary-900">
             Análise dos Especialistas
           </h3>
-          <p class="text-sm leading-relaxed text-base-950">
+          <p class="mt-2 text-sm leading-relaxed text-base-950">
             A Região Sul encontra-se em cenário de epidemia há 6 semanas. Rumores indicam
             <NuxtLink to="/rumores" class="text-primary-950 underline">
               forte surto de influenza e superlotação em UPAs e UBS</NuxtLink
@@ -167,7 +167,9 @@ function cellColor(level: Level) {
     <!-- ============================================================
          SOURCE BOX
          ============================================================ -->
-    <div class="flex items-center justify-between px-6 text-xs text-base-600">
+    <div
+      class="flex flex-col gap-2 px-4 text-xs text-base-600 sm:flex-row sm:items-center sm:justify-between sm:px-6"
+    >
       <p class="flex items-center gap-3">
         <span>
           <span class="font-semibold">Fonte</span>: <span class="underline">Sinapse</span>, 2026
