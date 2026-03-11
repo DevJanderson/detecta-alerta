@@ -24,9 +24,3 @@ export interface PaginatedResponse<T> {
     lastPage: number
   }
 }
-
-export interface RequestOptions {
-  showError?: boolean
-  showSuccess?: boolean
-  successMessage?: string
-}
