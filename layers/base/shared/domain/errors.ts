@@ -88,6 +88,7 @@ export const PermissoesErrors = {
 export const HomeErrors = {
   PANORAMA_FAILED: 'Erro ao carregar panorama',
   TABLE_FAILED: 'Erro ao carregar tabela',
+  CHART_FAILED: 'Erro ao carregar gráfico',
   DATA_FAILED: 'Erro ao carregar dados'
 } as const
 

@@ -5,8 +5,6 @@
  * Funções puras (sem estado) — todo estado fica no composable.
  */
 import maplibregl from 'maplibre-gl'
-import { feature } from 'topojson-client'
-import type { Topology } from 'topojson-specification'
 import type { AlertCity, CityConnection } from '../composables/types'
 // LEVEL_COLORS, LEVEL_LABELS, LEVEL_COLOR_EXPRESSION, DEFAULT_REGION_COLOR
 // vêm auto-importados de layers/base/app/utils/map-colors.ts
@@ -22,12 +20,8 @@ interface StateHoverHandler {
 }
 
 export async function addStateLayers(m: maplibregl.Map, hover: StateHoverHandler) {
-  const response = await fetch('/geo/brazil_states.topojson')
-  const topo = await response.json()
-  const geojson = feature(
-    topo as Topology,
-    topo.objects.states
-  ) as unknown as GeoJSON.FeatureCollection
+  const response = await fetch('/geo/brazil_simplified.geojson')
+  const geojson = (await response.json()) as GeoJSON.FeatureCollection
 
   geojson.features.forEach((f, i) => {
     f.id = i

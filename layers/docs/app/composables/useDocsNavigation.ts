@@ -9,30 +9,9 @@ export function useDocsNavigation() {
       items: [
         { title: 'Visão Geral', path: '/docs/paginas/homepage', icon: 'lucide:home' },
         {
-          title: 'Casos de Uso',
-          path: '/docs/paginas/homepage-casos-de-uso',
-          icon: 'lucide:users'
-        },
-        {
-          title: 'Requisitos',
-          path: '/docs/paginas/homepage-requisitos',
-          icon: 'lucide:list-checks'
-        },
-        {
-          title: 'Não-Funcionais',
-          path: '/docs/paginas/homepage-nao-funcionais',
-          icon: 'lucide:gauge'
-        },
-        { title: 'Dados e APIs', path: '/docs/paginas/homepage-dados', icon: 'lucide:database' },
-        {
-          title: 'Estados da UI',
-          path: '/docs/paginas/homepage-estados-ui',
-          icon: 'lucide:layers'
-        },
-        {
-          title: 'Componentes',
-          path: '/docs/paginas/homepage-componentes',
-          icon: 'lucide:component'
+          title: 'AppTopBar',
+          path: '/docs/paginas/homepage-apptopbar',
+          icon: 'lucide:bar-chart-2'
         }
       ]
     },
@@ -48,21 +27,31 @@ export function useDocsNavigation() {
           title: 'Visão Geral',
           path: '/docs/arquitetura/visao-geral',
           icon: 'lucide:blocks'
+        }
+      ]
+    },
+    {
+      title: 'Padrões de Código',
+      items: [
+        {
+          title: 'Visão Geral',
+          path: '/docs/padroes',
+          icon: 'lucide:book-marked'
+        },
+        {
+          title: 'Feature Layer',
+          path: '/docs/padroes/feature-layer',
+          icon: 'lucide:layers'
         },
         {
           title: 'Domain Primitives',
-          path: '/docs/arquitetura/domain-primitives',
+          path: '/docs/padroes/domain-primitives',
           icon: 'lucide:diamond'
         },
         {
           title: 'Error Handling',
-          path: '/docs/arquitetura/error-handling',
+          path: '/docs/padroes/error-handling',
           icon: 'lucide:alert-triangle'
-        },
-        {
-          title: 'Padrão Feature Layer',
-          path: '/docs/arquitetura/feature-layer',
-          icon: 'lucide:layers'
         }
       ]
     },

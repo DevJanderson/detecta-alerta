@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import type { TrendType } from '#shared/types/sinapse'
+import type { ChartUnitType } from '../composables/types'
+
+const store = useHomeStore()
+
 const chartTypes = [
   { id: 'line', label: 'gráfico de linha', icon: 'lucide:chart-line' },
   { id: 'area', label: 'gráfico de faixa', icon: 'lucide:chart-area' }
@@ -8,8 +13,43 @@ const activeChart = ref('line')
 const showAverage = ref(true)
 const showVariation = ref(false)
 
-const filters = ['drogaria', 'UPA', 'UBS']
-const activeFilter = ref('drogaria')
+const unitTypeFilters: { key: ChartUnitType; label: string }[] = [
+  { key: 'all', label: 'todos' },
+  { key: 'drogarias', label: 'drogaria' },
+  { key: 'upa', label: 'UPA' },
+  { key: 'ubs', label: 'UBS' }
+]
+
+const trendIcons: Record<TrendType, string> = {
+  up: 'lucide:trending-up',
+  down: 'lucide:trending-down',
+  stable: 'lucide:minus'
+}
+
+const trendColors: Record<TrendType, string> = {
+  up: 'text-primary-950',
+  down: 'text-success-900',
+  stable: 'text-base-600'
+}
+
+function trendLabel(trend: TrendType): string {
+  if (trend === 'up') return 'Tendência de aumento nas próximas semanas.'
+  if (trend === 'down') return 'Tendência de diminuição nas próximas semanas.'
+  return 'Tendência estável nas próximas semanas.'
+}
+
+function formatVariation(value: number): string {
+  if (!Number.isFinite(value)) return '--%'
+  const abs = Math.round(Math.abs(value))
+  return `${abs}%`
+}
+
+function variationLabel(value: number, trend: TrendType): string {
+  const pct = formatVariation(value)
+  if (trend === 'up') return `${pct} mais alto que o normal`
+  if (trend === 'down') return `${pct} mais baixo que o normal`
+  return 'dentro do normal'
+}
 </script>
 
 <template>
@@ -23,13 +63,21 @@ const activeFilter = ref('drogaria')
         <p class="text-sm text-base-800">Confira quando a lotação está acima da média histórica.</p>
       </div>
       <div
+        v-if="store.chartData"
         class="flex flex-col items-start gap-1 rounded-lg border border-secondary-100 bg-secondary-50 px-4 py-2.5 sm:items-end"
       >
-        <p class="flex items-center gap-1.5 text-xs font-semibold text-alert-950">
-          23% mais alto que o normal
-          <Icon name="lucide:trending-up" class="size-3.5 text-alert-950" />
+        <p
+          class="flex items-center gap-1.5 text-xs font-semibold"
+          :class="trendColors[store.chartData.currentWeekTrend]"
+        >
+          {{
+            variationLabel(store.chartData.currentWeekVariation, store.chartData.currentWeekTrend)
+          }}
+          <Icon :name="trendIcons[store.chartData.currentWeekTrend]" class="size-3.5" />
         </p>
-        <p class="text-[10px] text-secondary-900">Tendência de aumento nas próximas semanas.</p>
+        <p class="text-[10px] text-secondary-900">
+          {{ trendLabel(store.chartData.currentWeekTrend) }}
+        </p>
       </div>
     </header>
 
@@ -94,23 +142,28 @@ const activeFilter = ref('drogaria')
       <div class="flex items-center gap-2">
         <span class="text-xs font-semibold text-base-800">Filtrar por:</span>
         <button
-          v-for="filter in filters"
-          :key="filter"
+          v-for="filter in unitTypeFilters"
+          :key="filter.key"
           class="flex h-7 items-center justify-center rounded-full px-3 text-xs font-semibold transition-colors sm:h-8 sm:px-4"
           :class="
-            activeFilter === filter
+            store.chartUnitType === filter.key
               ? 'bg-secondary-900 text-base-0'
               : 'bg-secondary-50 text-secondary-900 hover:bg-secondary-100'
           "
-          @click="activeFilter = filter"
+          @click="store.setChartUnitType(filter.key)"
         >
-          {{ filter }}
+          {{ filter.label }}
         </button>
       </div>
     </div>
 
     <!-- Gráfico ECharts -->
-    <HomeChartLine :show-average="showAverage" :show-variation="showVariation" />
+    <HomeChartLine
+      :chart-data="store.chartData"
+      :chart-type="activeChart"
+      :show-average="showAverage"
+      :show-variation="showVariation"
+    />
 
     <!-- ============================================================
          CARD "ANÁLISE DOS ESPECIALISTAS"

@@ -1,4 +1,12 @@
-import type { PanoramaData, RegionRow, HomeFilters, SelectOption, RegionOption } from './types'
+import type {
+  PanoramaData,
+  RegionRow,
+  HomeFilters,
+  SelectOption,
+  ChartSeriesData,
+  ChartUnitType
+} from './types'
+import { HOME_REGIONS } from './types'
 import { HomeErrors } from '#shared/domain/errors'
 
 export const useHomeStore = defineStore(
@@ -9,6 +17,7 @@ export const useHomeStore = defineStore(
     // === Estado principal ===
     const panorama = ref<PanoramaData | null>(null)
     const regionRows = shallowRef<RegionRow[]>([])
+    const chartData = ref<ChartSeriesData | null>(null)
     const isLoading = ref(false)
     const error = ref<string | null>(null)
 
@@ -16,18 +25,21 @@ export const useHomeStore = defineStore(
     const filtros = ref<HomeFilters>({
       region: 'brasil',
       estado: '',
-      semana: '4'
+      semana: ''
     })
 
-    // === Lookups (carregados uma vez) ===
-    const estados = shallowRef<SelectOption[]>([])
+    // === Filtro local do gráfico ===
+    const chartUnitType = ref<ChartUnitType>('all')
+
+    // === Lookups ===
+    const estados = shallowRef<SelectOption[]>(api.getEstados())
     const semanas = shallowRef<SelectOption[]>([])
-    const regions = shallowRef<RegionOption[]>([])
+    const regions = HOME_REGIONS
     const lookupsLoaded = ref(false)
 
     // === Computed ===
     const regionLabel = computed(() => {
-      const found = regions.value.find(r => r.id === filtros.value.region)
+      const found = regions.find(r => r.id === filtros.value.region)
       return found?.label ?? 'Brasil'
     })
 
@@ -37,13 +49,15 @@ export const useHomeStore = defineStore(
       if (lookupsLoaded.value) return
 
       try {
-        const [e, s] = await Promise.all([api.getEstados(), api.getSemanas()])
-        estados.value = e
+        const s = await api.getSemanas()
         semanas.value = s
-        regions.value = api.getRegions()
+        // Definir semana mais recente como padrão se não tiver
+        if (!filtros.value.semana && s.length > 0 && s[0]) {
+          filtros.value.semana = s[0].value
+        }
         lookupsLoaded.value = true
       } catch {
-        // Lookups sao opcionais — nao bloqueia a pagina
+        // Lookups são opcionais — não bloqueia a página
       }
     }
 
@@ -60,14 +74,26 @@ export const useHomeStore = defineStore(
     async function fetchRegionTable() {
       return withStoreAction({ isLoading, error }, HomeErrors.TABLE_FAILED, async () => {
         regionRows.value = await api.getRegionTable({
+          region: filtros.value.region,
           estado: filtros.value.estado,
           semana: filtros.value.semana
         })
       })
     }
 
+    async function fetchChartData() {
+      return withStoreAction({ isLoading, error }, HomeErrors.CHART_FAILED, async () => {
+        chartData.value = await api.getChartSeries({
+          region: filtros.value.region,
+          estado: filtros.value.estado,
+          unitType: chartUnitType.value
+        })
+      })
+    }
+
     async function fetchAll() {
       return withStoreAction({ isLoading, error }, HomeErrors.DATA_FAILED, async () => {
+        // Panorama e tabela são críticos; gráfico é independente (falha não bloqueia)
         const [p, r] = await Promise.all([
           api.getPanorama({
             region: filtros.value.region,
@@ -75,12 +101,24 @@ export const useHomeStore = defineStore(
             semana: filtros.value.semana
           }),
           api.getRegionTable({
+            region: filtros.value.region,
             estado: filtros.value.estado,
             semana: filtros.value.semana
           })
         ])
         panorama.value = p
         regionRows.value = r
+
+        // Gráfico: falha isolada não impede panorama/tabela
+        try {
+          chartData.value = await api.getChartSeries({
+            region: filtros.value.region,
+            estado: filtros.value.estado,
+            unitType: chartUnitType.value
+          })
+        } catch {
+          chartData.value = null
+        }
       })
     }
 
@@ -88,7 +126,7 @@ export const useHomeStore = defineStore(
 
     async function setRegion(region: string) {
       filtros.value.region = region
-      await fetchPanorama()
+      await fetchAll()
     }
 
     async function setEstado(estado: string) {
@@ -101,13 +139,21 @@ export const useHomeStore = defineStore(
       await fetchAll()
     }
 
+    async function setChartUnitType(unitType: ChartUnitType) {
+      chartUnitType.value = unitType
+      await fetchChartData()
+    }
+
     return {
       // Estado
       panorama,
       regionRows,
+      chartData,
       isLoading,
       error,
       filtros,
+      // Filtro local gráfico
+      chartUnitType,
       // Lookups
       estados,
       semanas,
@@ -119,10 +165,12 @@ export const useHomeStore = defineStore(
       fetchLookups,
       fetchPanorama,
       fetchRegionTable,
+      fetchChartData,
       fetchAll,
       setRegion,
       setEstado,
-      setSemana
+      setSemana,
+      setChartUnitType
     }
   },
   {

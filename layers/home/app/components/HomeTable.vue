@@ -15,6 +15,12 @@ const trendIcons: Record<Trend, string> = {
   stable: 'lucide:minus'
 }
 
+const trendColors: Record<Trend, string> = {
+  up: 'text-primary-950',
+  down: 'text-success-900',
+  stable: 'text-base-600'
+}
+
 const columns = [
   { key: 'todos', label: 'todos' },
   { key: 'drogarias', label: 'drogarias' },
@@ -25,6 +31,24 @@ const columns = [
 function cellColor(level: Level) {
   return levelColors[level]
 }
+
+function formatVariation(value: number): string {
+  if (!Number.isFinite(value)) return '--%'
+  return `${Math.round(Math.abs(value))}%`
+}
+
+const UNIT_TYPES = [
+  { key: 'drogarias' as const, icon: 'lucide:pill', label: 'drogarias' },
+  { key: 'ubs' as const, icon: 'lucide:stethoscope', label: 'UBS' },
+  { key: 'upas' as const, icon: 'lucide:hospital', label: 'UPAs' }
+]
+
+const unitStats = computed(() => {
+  if (!store.panorama) return []
+  return UNIT_TYPES.map(u => ({ ...u, stats: store.panorama![u.key] })).filter(
+    u => u.stats.count > 0
+  )
+})
 </script>
 
 <template>
@@ -42,41 +66,24 @@ function cellColor(level: Level) {
 
       <!-- Contadores de estabelecimentos -->
       <div
+        v-if="unitStats.length"
         class="flex flex-col gap-1.5 rounded-md bg-secondary-50 px-3 py-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2"
       >
-        <!-- Drogarias -->
-        <span class="flex items-center gap-2 text-xs text-base-800">
-          <Icon name="lucide:pill" class="size-3" />
-          900 drogarias:
-          <span class="flex items-center gap-1 text-primary-950">
-            40%
-            <Icon name="lucide:arrow-up" class="size-3" />
+        <template v-for="(unit, idx) in unitStats" :key="unit.key">
+          <span v-if="idx > 0" class="hidden h-3 w-px bg-base-300 sm:inline-block" />
+          <span class="flex items-center gap-2 text-xs text-base-800">
+            <Icon :name="unit.icon" class="size-3" />
+            {{ unit.stats.count }} {{ unit.label }}:
+            <span class="flex items-center gap-1" :class="trendColors[unit.stats.trend]">
+              {{ formatVariation(unit.stats.variation) }}
+              <Icon
+                v-if="unit.stats.trend !== 'stable'"
+                :name="trendIcons[unit.stats.trend]"
+                class="size-3"
+              />
+            </span>
           </span>
-        </span>
-
-        <span class="hidden h-3 w-px bg-base-300 sm:inline-block" />
-
-        <!-- UBS -->
-        <span class="flex items-center gap-2 text-xs text-base-800">
-          <Icon name="lucide:stethoscope" class="size-3" />
-          20 UBS:
-          <span class="flex items-center gap-1 text-alert-950">
-            7%
-            <Icon name="lucide:arrow-up" class="size-3" />
-          </span>
-        </span>
-
-        <span class="hidden h-3 w-px bg-base-300 sm:inline-block" />
-
-        <!-- UPAs -->
-        <span class="flex items-center gap-2 text-xs text-base-800">
-          <Icon name="lucide:hospital" class="size-3" />
-          20 UPAs:
-          <span class="flex items-center gap-1 text-secondary-900">
-            4%
-            <Icon name="lucide:arrow-down" class="size-3" />
-          </span>
-        </span>
+        </template>
       </div>
     </header>
 

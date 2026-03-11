@@ -1,14 +1,89 @@
 <script setup lang="ts">
-// TODO: substituir por dados da API quando disponível
+import type { AlertStatus, TrendType } from '#shared/types/sinapse'
+
+const store = useHomeStore()
+
+const alertBorderColors: Record<AlertStatus, string> = {
+  green: 'border-success-200',
+  yellow: 'border-alert-200',
+  red: 'border-primary-200'
+}
+
+const alertHeaderBg: Record<AlertStatus, string> = {
+  green: 'bg-success-50',
+  yellow: 'bg-alert-50',
+  red: 'bg-primary-50'
+}
+
+const alertTagBg: Record<AlertStatus, string> = {
+  green: 'bg-success-200',
+  yellow: 'bg-alert-200',
+  red: 'bg-primary-200'
+}
+
+const alertTagBorder: Record<AlertStatus, string> = {
+  green: 'border-success-300',
+  yellow: 'border-alert-300',
+  red: 'border-primary-300'
+}
+
+const alertBarBg: Record<AlertStatus, string> = {
+  green: 'bg-success-100',
+  yellow: 'bg-alert-200',
+  red: 'bg-primary-100'
+}
+
+const trendIcons: Record<TrendType, string | null> = {
+  up: 'lucide:arrow-up',
+  down: 'lucide:arrow-down',
+  stable: null
+}
+
+const trendColors: Record<TrendType, string> = {
+  up: 'text-primary-950',
+  down: 'text-success-900',
+  stable: 'text-base-600'
+}
+
+function formatVariation(value: number): string {
+  if (!Number.isFinite(value)) return '--%'
+  return `${Math.round(Math.abs(value))}%`
+}
+
+function trendLabel(trend: TrendType): string {
+  if (trend === 'up') return 'mais alto que o normal'
+  if (trend === 'down') return 'mais baixo que o normal'
+  return 'estável'
+}
+
+const UNIT_TYPES = [
+  { key: 'drogarias' as const, icon: 'lucide:pill', label: 'drogarias' },
+  { key: 'ubs' as const, icon: 'lucide:stethoscope', label: 'UBS' },
+  { key: 'upas' as const, icon: 'lucide:hospital', label: 'UPAs' }
+]
+
+const unitTypes = computed(() => {
+  if (!store.panorama) return []
+  return UNIT_TYPES.map(u => ({ ...u, stats: store.panorama![u.key] })).filter(
+    u => u.stats.count > 0
+  )
+})
+
+const alertStatus = computed(() => store.panorama?.alertStatus ?? 'green')
 </script>
 
 <template>
-  <div class="overflow-hidden rounded-xl border border-alert-200">
+  <div
+    v-if="store.panorama"
+    class="overflow-hidden rounded-xl border"
+    :class="alertBorderColors[alertStatus]"
+  >
     <!-- ============================================================
-         HEADER AMARELO
+         HEADER
          ============================================================ -->
     <div
-      class="flex flex-col gap-4 border-b border-secondary-100 bg-alert-50 px-4 py-5 sm:px-6 sm:py-8 md:flex-row md:items-start md:justify-between"
+      class="flex flex-col gap-4 border-b border-secondary-100 px-4 py-5 sm:px-6 sm:py-8 md:flex-row md:items-start md:justify-between"
+      :class="alertHeaderBg[alertStatus]"
     >
       <!-- Texto esquerdo -->
       <div class="flex flex-1 flex-col gap-3 sm:gap-4">
@@ -28,10 +103,15 @@
 
       <!-- Tag direita -->
       <span
-        class="flex shrink-0 items-center gap-2 self-start rounded-full border border-alert-200 bg-alert-900 px-3 py-1.5 text-xs font-semibold text-base-950 sm:px-4 sm:text-sm"
+        class="flex shrink-0 items-center gap-2 self-start rounded-full border px-3 py-1.5 text-xs font-semibold text-base-950 sm:px-4 sm:text-sm"
+        :class="[alertTagBg[alertStatus], alertTagBorder[alertStatus]]"
       >
-        <Icon name="lucide:arrow-up" class="size-3.5 sm:size-4" />
-        23% mais alto que o normal
+        <Icon
+          v-if="trendIcons[store.panorama.trend]"
+          :name="trendIcons[store.panorama.trend]!"
+          class="size-3.5 sm:size-4"
+        />
+        {{ formatVariation(store.panorama.variation) }} {{ trendLabel(store.panorama.trend) }}
       </span>
     </div>
 
@@ -39,43 +119,35 @@
          BARRA DE ESTABELECIMENTOS
          ============================================================ -->
     <div
-      class="flex flex-col gap-2 bg-alert-200 px-4 py-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-2 sm:px-6"
+      class="flex flex-col gap-2 px-4 py-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-2 sm:px-6"
+      :class="alertBarBg[alertStatus]"
     >
       <div class="flex flex-wrap items-center gap-2 sm:gap-3 md:gap-4">
-        <!-- Drogarias -->
-        <span class="flex items-center gap-1.5 text-xs text-base-800">
-          <Icon name="lucide:pill" class="size-3" />
-          900 drogarias:
-          <span class="font-medium text-primary-950">40%</span>
-          <Icon name="lucide:arrow-up" class="size-3 text-primary-950" />
-        </span>
-
-        <span class="hidden h-3 w-px bg-base-300 sm:inline-block" />
-
-        <!-- UBS -->
-        <span class="flex items-center gap-1.5 text-xs text-base-800">
-          <Icon name="lucide:stethoscope" class="size-3" />
-          20 UBS:
-          <span class="font-medium text-alert-950">7%</span>
-          <Icon name="lucide:arrow-up" class="size-3 text-alert-950" />
-        </span>
-
-        <span class="hidden h-3 w-px bg-base-300 sm:inline-block" />
-
-        <!-- UPAs -->
-        <span class="flex items-center gap-1.5 text-xs text-base-800">
-          <Icon name="lucide:hospital" class="size-3" />
-          20 UPAs:
-          <span class="font-medium text-secondary-900">4%</span>
-          <Icon name="lucide:arrow-down" class="size-3 text-secondary-900" />
-        </span>
+        <template v-for="(unit, idx) in unitTypes" :key="unit.key">
+          <span v-if="idx > 0" class="hidden h-3 w-px bg-base-300 sm:inline-block" />
+          <span class="flex items-center gap-1.5 text-xs text-base-800">
+            <Icon :name="unit.icon" class="size-3" />
+            {{ unit.stats.count }} {{ unit.label }}:
+            <span class="font-medium" :class="trendColors[unit.stats.trend]">
+              {{ formatVariation(unit.stats.variation) }}
+            </span>
+            <Icon
+              v-if="trendIcons[unit.stats.trend]"
+              :name="trendIcons[unit.stats.trend]!"
+              class="size-3"
+              :class="trendColors[unit.stats.trend]"
+            />
+          </span>
+        </template>
       </div>
 
-      <span class="text-xs text-base-800">940 estabelecimentos analisados</span>
+      <span class="text-xs text-base-800">
+        {{ store.panorama.totalEstabelecimentos }} estabelecimentos analisados
+      </span>
     </div>
 
     <!-- ============================================================
-         AGRAVOS SECTION
+         AGRAVOS SECTION (mock — aguardando API)
          ============================================================ -->
     <div class="bg-white px-4 pt-6 pb-8 sm:px-6">
       <!-- Titulo + fonte -->
@@ -96,16 +168,14 @@
       <hr class="my-6 border-base-100" />
 
       <!-- ========================================================
-           CARDS DE AGRAVOS (3 colunas)
+           CARDS DE AGRAVOS (3 colunas) — mock aguardando API
            ======================================================== -->
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         <!-- ── Card 1: Arboviroses (azul / secondary) ── -->
         <div class="flex flex-col gap-3">
           <h5 class="px-4 text-sm font-semibold text-base-950">Arboviroses</h5>
           <div class="overflow-hidden rounded-md border border-secondary-100 shadow-sm">
-            <!-- Chart area (azul) -->
             <div class="bg-secondary-50 px-4 pt-4 pb-3">
-              <!-- Destaque principal -->
               <div class="flex items-start justify-between pb-2">
                 <div>
                   <p class="text-xs font-semibold text-base-800">Dengue</p>
@@ -117,19 +187,16 @@
                   <Icon name="lucide:arrow-up" class="inline size-3 text-primary-950" />
                 </span>
               </div>
-              <!-- Placeholder mini-chart -->
               <div
                 class="flex h-24 items-center justify-center rounded border border-dashed border-secondary-200"
               >
                 <Icon name="lucide:chart-line" class="size-8 text-secondary-300" />
               </div>
-              <!-- Trend -->
               <p class="mt-3 text-center text-[10px] text-secondary-900">
                 Diminuiu em Todo o Brasil
                 <Icon name="lucide:trending-down" class="inline size-3" />
               </p>
             </div>
-            <!-- Sub-items -->
             <div class="flex flex-col px-4 py-4">
               <div class="flex items-center justify-between border-b border-base-50 py-2">
                 <div>
@@ -161,7 +228,6 @@
         <div class="flex flex-col gap-3">
           <h5 class="px-4 text-sm font-semibold text-base-950">Síndromes Respiratórias</h5>
           <div class="overflow-hidden rounded-md border border-alert-200 shadow-sm">
-            <!-- Chart area (amarelo) -->
             <div class="bg-alert-50 px-4 pt-4 pb-3">
               <div class="flex items-start justify-between pb-2">
                 <div>
@@ -184,7 +250,6 @@
                 <Icon name="lucide:trending-up" class="inline size-3" />
               </p>
             </div>
-            <!-- Sub-items -->
             <div class="flex flex-col px-4 py-4">
               <div class="flex items-center justify-between border-b border-base-50 py-2">
                 <div>
@@ -216,7 +281,6 @@
         <div class="flex flex-col gap-3">
           <h5 class="px-4 text-sm font-semibold text-base-950">Outras síndromes</h5>
           <div class="overflow-hidden rounded-md border border-danger-200 shadow-sm">
-            <!-- Chart area (vermelho) -->
             <div class="bg-danger-50 px-4 pt-4 pb-3">
               <div class="flex items-start justify-between pb-2">
                 <div>
@@ -239,7 +303,6 @@
                 <Icon name="lucide:trending-up" class="inline size-3" />
               </p>
             </div>
-            <!-- Sub-items -->
             <div class="flex flex-col px-4 py-4">
               <div class="flex items-center justify-between border-b border-base-50 py-2">
                 <div>
@@ -268,5 +331,13 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Loading state -->
+  <div
+    v-else-if="store.isLoading"
+    class="flex items-center justify-center rounded-xl border border-base-100 py-20"
+  >
+    <Icon name="lucide:loader-2" class="size-6 animate-spin text-base-400" />
   </div>
 </template>

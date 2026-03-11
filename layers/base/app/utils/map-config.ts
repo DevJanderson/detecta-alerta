@@ -4,6 +4,11 @@
  * Usado por: home (mapa de regiões), meu-municipio (mapa de alertas)
  */
 
+export interface Coordenadas {
+  readonly lng: number
+  readonly lat: number
+}
+
 /** Centro geográfico do Brasil */
 export const BRAZIL_CENTER: Coordenadas = Object.freeze({ lng: -51.9253, lat: -14.235 })
 

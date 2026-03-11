@@ -42,585 +42,17 @@ API RESTful com documentação OpenAPI e cliente TypeScript gerado automaticamen
 
 ## Stack tecnológica
 
-| Tecnologia          | Uso                                        |
-| ------------------- | ------------------------------------------ |
-| **Nuxt 4**          | Framework fullstack (SSR + SPA)            |
-| **Vue 3**           | Framework reativo de UI                    |
-| **Tailwind CSS v4** | Estilização utility-first                  |
-| **shadcn-vue**      | Componentes UI acessíveis                  |
-| **Pinia**           | Gerenciamento de estado                    |
-| **MapLibre GL**     | Mapas interativos vetoriais                |
-| **Vitest**          | Testes unitários e de integração           |
-| **Playwright**      | Testes end-to-end                          |
-| **Zod**             | Validação de dados e tipos da API          |
-
----
-
-<!-- source: content/docs/arquitetura/domain-primitives.md -->
-
-# Arquitetura — Domain Primitives
-
-Domain primitives são os blocos fundamentais de tipagem e validação do projeto. Vivem em `layers/base/shared/domain/` e `layers/base/app/utils/`.
-
-## Result
-
-Discriminated union leve para representar sucesso ou falha **sem exceções**.
-
-```typescript
-import { ok, fail } from '#shared/domain/result'
-import type { Result } from '#shared/domain/result'
-
-// Sucesso
-const result = ok(42) // Result<number, never>
-
-// Falha
-const error = fail('Dados inválidos') // Result<never, string>
-
-// Narrowing
-if (result.ok) {
-  console.log(result.value) // 42
-} else {
-  console.log(result.error) // string
-}
-```
-
-### Helpers
-
-| Função                       | Descrição                                               |
-| ---------------------------- | ------------------------------------------------------- |
-| `ok(value)`                  | Cria Result de sucesso                                  |
-| `fail(error)`                | Cria Result de falha                                    |
-| `combineResults(results)`    | Combina múltiplos Results — falha se qualquer um falhar |
-| `unwrap(result)`             | Extrai valor ou lança erro                              |
-| `unwrapOr(result, fallback)` | Extrai valor ou retorna fallback                        |
-
-### Quando usar
-
-| Cenário                                | Usar Result?                    |
-| -------------------------------------- | ------------------------------- |
-| Use case no server (lógica de negócio) | ✅ Sim                          |
-| Factory `tryCreate*()` de Value Object | ✅ Sim                          |
-| Store action (fetch de API)            | ❌ Não — usar `withStoreAction` |
-| Validação simples de campo             | ❌ Não — usar Zod direto        |
-
-### Por que não classes?
-
-O projeto rejeitou a abordagem DDD clássica com `class Result<T>` porque:
-
-- VOs já usavam padrão funcional (factory + `Object.freeze`) — classes criariam dois estilos
-- Discriminated unions têm narrowing nativo do TypeScript (sem `.isOk()`)
-- Sem herança, sem métodos — apenas funções puras composáveis
-
-## Value Objects
-
-Value Objects encapsulam regras de validação e formatação de dados do domínio. Seguem o padrão funcional:
-
-```typescript
-// Factory que lança exceção (uso em código confiável)
-const email = createEmail('user@example.com')
-
-// Factory que retorna Result (uso em formulários e validação)
-const result = tryCreateEmail('invalido')
-if (!result.ok) {
-  console.log(result.error) // 'Formato de email inválido'
-}
-```
-
-### Padrão de implementação
-
-```typescript
-// 1. Tipo branded (opaco)
-export type Email = string & { readonly __brand: unique symbol }
-
-// 2. Factory com throw (uso interno)
-export function createEmail(value: string): Email {
-  const trimmed = value.trim().toLowerCase()
-  if (!isValidEmail(trimmed)) throw new Error('Email inválido')
-  return trimmed as Email
-}
-
-// 3. Factory com Result (uso em formulários)
-export function tryCreateEmail(value: string): Result<Email> {
-  const trimmed = value.trim().toLowerCase()
-  if (!trimmed) return fail('Email é obrigatório')
-  if (!isValidEmail(trimmed)) return fail('Formato de email inválido')
-  return ok(trimmed as Email)
-}
-
-// 4. Funções puras associadas
-export function emailEquals(a: Email, b: Email): boolean {
-  return a === b
-}
-```
-
-### VOs existentes
-
-| Value Object           | Local                                              | Uso                                                |
-| ---------------------- | -------------------------------------------------- | -------------------------------------------------- |
-| `Email`                | `base/app/utils/email.ts`                          | Validação de formato, comparação                   |
-| `CodigoIBGE`           | `base/app/utils/codigo-ibge.ts`                    | Validação 7 dígitos, extração UF                   |
-| `Coordenadas`          | `base/app/utils/coordenadas.ts`                    | Ranges válidos, bounds Brasil, distância haversine |
-| `SemanaEpidemiologica` | `meu-municipio/app/utils/semana-epidemiologica.ts` | Cálculo padrão brasileiro (domingo–sábado)         |
-
-### Onde posicionar
-
-VOs são funções puras → vão em `utils/` (não `composables/`).
-
-- **Cross-layer** (usado por 2+ layers) → `layers/base/app/utils/`
-- **Feature-specific** → `layers/{feature}/app/utils/`
-
-## useVoField — Validação Reativa
-
-Composable que conecta `tryCreate*()` a formulários Vue reativos:
-
-```typescript
-const input = ref('')
-const { isValid, error, value } = useVoField(input, tryCreateEmail)
-
-// Template
-// <Input v-model="input" />
-// <span v-if="error">{{ error }}</span>
-// <Button :disabled="!isValid" />
-```
-
-### API
-
-```typescript
-function useVoField<T>(
-  input: Ref<string> | ComputedRef<string>,
-  factory: (value: string) => Result<T>
-): {
-  isValid: ComputedRef<boolean>
-  error: ComputedRef<string | null>
-  value: ComputedRef<T | null>
-}
-```
-
-**Vantagem**: a mesma regra de validação do `tryCreate` é reutilizada no client (formulário) e no server (endpoint BFF). Uma única fonte de verdade.
-
-## Domain Models
-
-Domain Models enriquecem DTOs da API com lógica de negócio. Mesmo padrão funcional dos VOs:
-
-```typescript
-// Factory + Object.freeze
-const model = createUserModel(authUserDTO)
-
-// Campos derivados
-model.initials // "JS"
-model.isAdmin // true
-model.permissions // ["dashboard.view", "reports.export"]
-
-// Funções puras associadas
-userHasPermission(model, 'dashboard.view') // true
-userHasAnyGroup(model, ['admin', 'editor']) // true
-```
-
-### Models existentes
-
-| Model       | Local                          | Enriquece                                               |
-| ----------- | ------------------------------ | ------------------------------------------------------- |
-| `UserModel` | `auth/app/utils/user-model.ts` | `AuthUser` DTO → initials, permissions, groups, isAdmin |
-
-### Quando criar novo model
-
-Quando um DTO da API precisa de lógica derivada (cálculos, formatações, verificações) que aparece em 2+ lugares. Não criar para DTOs usados apenas para exibição direta.
-
----
-
-<!-- source: content/docs/arquitetura/error-handling.md -->
-
-# Arquitetura — Error Handling
-
-O projeto usa **domain errors tipados** — constantes `as const` organizadas por domínio, compartilhadas entre client e server via `#shared/domain/errors`.
-
-## Domain Errors
-
-Cada domínio tem seu objeto de erros em `layers/base/shared/domain/errors.ts`:
-
-| Objeto             | Domínio       | Exemplos                                                 |
-| ------------------ | ------------- | -------------------------------------------------------- |
-| `AuthErrors`       | Autenticação  | `LOGIN_FAILED`, `INVALID_CREDENTIALS`, `SESSION_EXPIRED` |
-| `UsuariosErrors`   | Usuários      | `LIST_FAILED`, `CREATE_FAILED`, `PHOTO_TOO_LARGE`        |
-| `GruposErrors`     | Grupos        | `LIST_FAILED`, `ADD_USER_FAILED`                         |
-| `PermissoesErrors` | Permissões    | `LIST_FAILED`, `ADD_TO_USER_FAILED`                      |
-| `HomeErrors`       | Homepage      | `PANORAMA_FAILED`, `TABLE_FAILED`                        |
-| `ValidationErrors` | Validação BFF | `INVALID_BODY`, `INVALID_PARAM(name)`                    |
-
-### Uso
-
-```typescript
-import { UsuariosErrors } from '#shared/domain/errors'
-
-// No store (client)
-withStoreAction(refs, UsuariosErrors.LIST_FAILED, async () => { ... })
-
-// No server route
-throw createError({ statusCode: 400, statusMessage: UsuariosErrors.CREATE_FAILED })
-
-// No componente (reação a código específico)
-if (error.value === AuthErrors.INVALID_CREDENTIALS) {
-  // mostrar mensagem específica
-}
-```
-
-### Tipos utilitários
-
-```typescript
-type AuthErrorCode = (typeof AuthErrors)[keyof typeof AuthErrors]
-// => 'Credenciais inválidas' | 'Sessão expirada...' | ...
-```
-
-## Client: Stores
-
-### `withStoreAction()`
-
-Wrapper que elimina boilerplate de `isLoading` / `error` / `try-catch` em todas as actions de store:
-
-```typescript
-// Sem retorno (void)
-async function fetchAll(): Promise<void> {
-  return withStoreAction(refs, UsuariosErrors.LIST_FAILED, async () => {
-    items.value = await api.listar()
-  })
-}
-
-// Com retorno e defaultValue
-async function criar(data: CreateData): Promise<boolean> {
-  return withStoreAction(
-    refs,
-    UsuariosErrors.CREATE_FAILED,
-    async () => {
-      await api.criar(data)
-      return true
-    },
-    false
-  ) // retorna false em caso de erro
-}
-```
-
-**Todos os stores do projeto** seguem este padrão. O segundo argumento é sempre um domain error.
-
-### `extractErrorMessage()`
-
-Função pura que extrai string de qualquer tipo de erro (`Error`, `FetchError`, `string`, `unknown`). Usada internamente pelo `withStoreAction` e diretamente em stores com fluxo customizado.
-
-## Server: Endpoints BFF
-
-### Validação
-
-Utilitários auto-importados em `layers/base/server/utils/validation.ts`:
-
-```typescript
-// Valida body com Zod → 400 + ValidationErrors.INVALID_BODY
-const data = await validateBody(event, myZodSchema)
-
-// Valida param numérico → 400 + ValidationErrors.INVALID_PARAM
-const id = validateRouteParam(event, 'id')
-
-// Valida param UUID
-const uuid = validateUniqueId(event, 'uniqueId')
-```
-
-### Chamadas à API Sinapse
-
-```typescript
-// handleSinapseRequest — wrapper com tratamento de erros
-return handleSinapseRequest({
-  fn: () => fetchSinapse(`/usuarios/${id}`, { accessToken }),
-  errorContext: UsuariosErrors.UPDATE_FAILED,
-  schema: myZodSchema // validação Zod opcional
-})
-```
-
-### Auth helpers
-
-```typescript
-requireAuth(event) // → 401 + AuthErrors.NOT_AUTHENTICATED
-requireAdmin(event) // → 403 + AuthErrors.ADMIN_ONLY
-```
-
-## Server: Use Cases
-
-Para lógica de negócio complexa, use cases retornam `Result<T>` em vez de lançar exceções:
-
-```typescript
-// Use case puro e testável
-export async function executeLogin(input: LoginInput): Promise<Result<LoginOutput>> {
-  try {
-    const tokens = await fetchSinapse('/auth/login', { method: 'POST', body: input })
-    const user = await fetchSinapse('/usuarios/me', { accessToken: tokens.access_token })
-    return ok({ user, accessToken: tokens.access_token, refreshToken: tokens.refresh_token })
-  } catch (error) {
-    if (isCredentialsError(error)) return fail(AuthErrors.INVALID_CREDENTIALS)
-    return fail(AuthErrors.LOGIN_FAILED)
-  }
-}
-
-// Adapter HTTP converte Result → resposta H3
-export function handleLoginResult(event: H3Event, result: Result<LoginOutput>) {
-  if (!result.ok) {
-    throw createError({ statusCode: 401, statusMessage: result.error })
-  }
-  setAuthCookies(event, result.value.accessToken, result.value.refreshToken)
-  return { user: result.value.user }
-}
-```
-
-## Fluxo Completo
-
-::docs-mermaid{title="Fluxo de erro do servidor até a UI"}
-graph TD
-A["API Sinapse"] -->|FetchError| B["Server Route"]
-B -->|createError + domain error| C["$fetch no client"]
-C -->|FetchError| D["withStoreAction"]
-D -->|extractErrorMessage| E["store.error.value"]
-E --> F["Componente exibe erro"]
-::
-
-```
-Sinapse retorna erro
-  → Server route captura, lança createError(statusCode, domain error)
-    → $fetch no client recebe FetchError
-      → withStoreAction captura, extractErrorMessage → error.value
-        → Componente exibe error.value ao usuário
-```
-
-## Como adicionar erros para novo domínio
-
-1. Criar objeto `as const` em `layers/base/shared/domain/errors.ts`:
-
-```typescript
-export const RumoresErrors = {
-  LIST_FAILED: 'Erro ao listar rumores',
-  CREATE_FAILED: 'Erro ao criar rumor'
-} as const
-```
-
-2. Exportar no barrel `layers/base/shared/domain/index.ts`
-3. Importar nos stores: `import { RumoresErrors } from '#shared/domain/errors'`
-4. Usar como segundo argumento do `withStoreAction()`
-5. Usar nos server routes com `handleSinapseRequest({ errorContext: RumoresErrors.X })`
-
----
-
-<!-- source: content/docs/arquitetura/feature-layer.md -->
-
-# Arquitetura — Padrão Feature Layer
-
-Toda funcionalidade do Detecta Alerta segue o mesmo padrão de organização dentro de uma layer. Este documento descreve o fluxo `types → api → store → componentes`.
-
-## Estrutura
-
-```
-layers/{feature}/
-├── nuxt.config.ts                  # Obrigatório (pode ser vazio)
-├── app/
-│   ├── components/                 # Prefixo: {Feature}NomeComponente.vue
-│   ├── composables/
-│   │   ├── types.ts                # Interfaces e tipos da feature
-│   │   ├── use{Feature}Api.ts      # Service stateless ($fetch)
-│   │   └── use{Feature}Store.ts    # Pinia store (estado + actions)
-│   ├── pages/{feature}/            # Rotas
-│   └── utils/                      # Funções puras, Value Objects
-└── server/api/{feature}/           # Endpoints BFF
-```
-
-## 1. Types (`types.ts`)
-
-Define interfaces da feature. Pode importar tipos compartilhados da API:
-
-```typescript
-import type { UsuarioSchemaDetalhes } from '#shared/types/sinapse'
-
-export interface ListarUsuariosParams {
-  page?: number
-  search?: string
-}
-
-export type UsuarioSchemaList = Pick<UsuarioSchemaDetalhes, 'id' | 'nome' | 'email' | 'ativo'>
-```
-
-## 2. API Composable (`use{Feature}Api.ts`)
-
-Service stateless que encapsula chamadas `$fetch` ao BFF:
-
-```typescript
-export function useUsuariosApi() {
-  async function listar(params?: ListarUsuariosParams) {
-    return $fetch('/api/usuarios/admin', { params })
-  }
-
-  async function criar(data: UsuarioSchemaCreate) {
-    return $fetch('/api/usuarios/admin', { method: 'POST', body: data })
-  }
-
-  async function obter(id: number) {
-    return $fetch(`/api/usuarios/admin/${id}`)
-  }
-
-  return { listar, criar, obter }
-}
-```
-
-**Regras:**
-
-- Sem estado (`ref`, `computed`) — isso é papel do store
-- Sem tratamento de erro — o store faz isso via `withStoreAction`
-- Instanciado dentro do `setup` do store (não no topo do módulo)
-
-## 3. Store (`use{Feature}Store.ts`)
-
-Pinia store com Composition API que gerencia estado e actions:
-
-```typescript
-import type { UsuarioSchemaList, ListarUsuariosParams } from './types'
-import { UsuariosErrors } from '#shared/domain/errors'
-
-export const useUsuariosStore = defineStore('usuarios', () => {
-  // Estado
-  const items = shallowRef<UsuarioSchemaList[]>([])
-  const isLoading = ref(false)
-  const error = ref<string | null>(null)
-
-  // API instanciada no setup
-  const api = useUsuariosApi()
-  const refs = { isLoading, error }
-
-  // Actions — sempre usam withStoreAction + domain error
-  async function fetchAll(params?: ListarUsuariosParams): Promise<void> {
-    return withStoreAction(refs, UsuariosErrors.LIST_FAILED, async () => {
-      const response = await api.listar(params)
-      items.value = response.usuarios
-    })
-  }
-
-  async function criar(data: UsuarioSchemaCreate): Promise<boolean> {
-    return withStoreAction(
-      refs,
-      UsuariosErrors.CREATE_FAILED,
-      async () => {
-        await api.criar(data)
-        return true
-      },
-      false
-    )
-  }
-
-  return { items, isLoading, error, fetchAll, criar }
-})
-```
-
-### Padrões do store
-
-| Padrão                           | Descrição                                                   |
-| -------------------------------- | ----------------------------------------------------------- |
-| `shallowRef` para listas         | Performance — evita deep reactivity em arrays grandes       |
-| `withStoreAction` + domain error | Gerencia `isLoading`, `error` e `try-catch` automaticamente |
-| `defaultValue: false`            | Actions que retornam `boolean` usam `false` como fallback   |
-| `refs = { isLoading, error }`    | Objeto reutilizado em todas as actions                      |
-
-### Persistência
-
-Para filtros e preferências do usuário, usar `pinia-plugin-persistedstate` com `pick` explícito:
-
-```typescript
-export const useHomeStore = defineStore(
-  'home',
-  () => {
-    const filtros = ref({ region: 'brasil', estado: '', semana: '4' })
-    const panorama = ref(null) // NÃO persistir dados de API
-
-    return { filtros, panorama }
-  },
-  {
-    persist: { pick: ['filtros'] } // Apenas filtros
-  }
-)
-```
-
-## 4. Componentes
-
-Componentes leem do store diretamente — sem props de dados do store:
-
-```vue
-<script setup lang="ts">
-const store = useUsuariosStore()
-
-onMounted(() => {
-  store.fetchAll()
-})
-</script>
-
-<template>
-  <div v-if="store.isLoading">Carregando...</div>
-  <div v-else-if="store.error">{{ store.error }}</div>
-  <div v-else>
-    <UsuarioCard v-for="u in store.items" :key="u.id" :usuario="u" />
-  </div>
-</template>
-```
-
-### Filtros com setters async
-
-Filtros usam `@change` + setters async do store (não `v-model` direto no filtro que dispara fetch):
-
-```vue
-<select @change="store.setEstado($event.target.value)">
-  <option v-for="e in store.estados" :key="e.value" :value="e.value">
-    {{ e.label }}
-  </option>
-</select>
-```
-
-```typescript
-// No store
-async function setEstado(estado: string) {
-  filtros.value.estado = estado
-  await fetchAll() // Re-fetch com novo filtro
-}
-```
-
-## 5. Server Routes (BFF)
-
-Endpoints seguem padrão consistente:
-
-```typescript
-import { UsuariosErrors } from '#shared/domain/errors'
-
-export default defineEventHandler(async event => {
-  // 1. Auth
-  requireAdmin(event)
-
-  // 2. Validação
-  const id = validateRouteParam(event, 'id')
-  const body = await validateBody(event, updateSchema)
-
-  // 3. Chamada à API Sinapse
-  return handleSinapseRequest({
-    fn: () =>
-      fetchSinapse(`/usuarios/${id}`, {
-        method: 'PUT',
-        body,
-        accessToken: event.context.auth.accessToken
-      }),
-    errorContext: UsuariosErrors.UPDATE_FAILED
-  })
-})
-```
-
-## Checklist para nova feature
-
-- [ ] Criar `layers/{feature}/nuxt.config.ts`
-- [ ] Adicionar layer ao array `extends` do `nuxt.config.ts` raiz
-- [ ] Criar `types.ts` com interfaces
-- [ ] Criar `use{Feature}Api.ts` (service stateless)
-- [ ] Criar `use{Feature}Store.ts` (Pinia + withStoreAction)
-- [ ] Adicionar domain errors em `#shared/domain/errors.ts`
-- [ ] Criar server routes em `server/api/{feature}/`
-- [ ] Criar componentes com prefixo `{Feature}*`
-- [ ] Criar página em `pages/{feature}/`
-- [ ] Adicionar testes unitários
+| Tecnologia          | Uso                               |
+| ------------------- | --------------------------------- |
+| **Nuxt 4**          | Framework fullstack (SSR + SPA)   |
+| **Vue 3**           | Framework reativo de UI           |
+| **Tailwind CSS v4** | Estilização utility-first         |
+| **shadcn-vue**      | Componentes UI acessíveis         |
+| **Pinia**           | Gerenciamento de estado           |
+| **MapLibre GL**     | Mapas interativos vetoriais       |
+| **Vitest**          | Testes unitários e de integração  |
+| **Playwright**      | Testes end-to-end                 |
+| **Zod**             | Validação de dados e tipos da API |
 
 ---
 
@@ -653,7 +85,7 @@ ETC não é uma regra rígida — é um filtro mental aplicado em toda decisão 
 
 | Conceito          | Implementação no projeto                                     | Estilo                                         |
 | ----------------- | ------------------------------------------------------------ | ---------------------------------------------- |
-| **Value Objects** | `createEmail()`, `createCodigoIBGE()`, `createCoordenadas()` | Factory + `Object.freeze()` (não classes)      |
+| **Value Objects** | `createEmail()`, `createUserModel()`                         | Factory + `Object.freeze()` (não classes)      |
 | **Result type**   | `ok()`, `fail()`, `unwrap()`, `combineResults()`             | Discriminated union (não classe `Result<T>`)   |
 | **Domain Errors** | `AuthErrors`, `HomeErrors`, `MeuMunicipioErrors`             | Objetos `as const` (não exceções tipadas)      |
 | **Domain Models** | `createUserModel()` enriquece DTO com lógica derivada        | Factory + `Object.freeze()` (mesmo padrão VOs) |
@@ -661,7 +93,7 @@ ETC não é uma regra rígida — é um filtro mental aplicado em toda decisão 
 
 **Padrão funcional**: tudo é função pura + objeto imutável. Sem classes, sem herança, sem `this`. Mais idiomático no Vue/TypeScript e mais fácil de testar.
 
-Detalhes de implementação: [Domain Primitives](/docs/arquitetura/domain-primitives)
+Detalhes de implementação: [Domain Primitives](/docs/padroes/domain-primitives)
 
 ### Do Clean Code
 
@@ -741,9 +173,9 @@ Nenhuma dessas opções se aplica?
 
 ## Referências
 
-- [Domain Primitives](/docs/arquitetura/domain-primitives) — Result, Value Objects, useVoField, Domain Models
-- [Error Handling](/docs/arquitetura/error-handling) — domain errors, withStoreAction, fluxo completo
-- [Padrão Feature Layer](/docs/arquitetura/feature-layer) — types → api → store → componentes
+- [Domain Primitives](/docs/padroes/domain-primitives) — Result, Value Objects, useVoField, Domain Models
+- [Error Handling](/docs/padroes/error-handling) — domain errors, withStoreAction, fluxo completo
+- [Padrão Feature Layer](/docs/padroes/feature-layer) — types → api → store → componentes
 - [Decisões Técnicas](/docs/projeto/decisoes) — ADRs com contexto e motivação de cada escolha
 
 ---
@@ -832,11 +264,11 @@ layers/base/shared/
     └── api.ts          # ApiResponse<T>, PaginatedResponse<T>
 ```
 
-Para detalhes sobre cada primitivo, veja:
+Para detalhes sobre como usar cada primitivo na prática, veja os [Padrões de Código](/docs/padroes):
 
-- [Domain Primitives](/docs/arquitetura/domain-primitives) — Result, Value Objects, tryCreate
-- [Error Handling](/docs/arquitetura/error-handling) — domain errors, withStoreAction, fluxo completo
-- [Padrão Feature Layer](/docs/arquitetura/feature-layer) — types → api → store → componentes
+- [Domain Primitives](/docs/padroes/domain-primitives) — Result, Value Objects, tryCreate
+- [Error Handling](/docs/padroes/error-handling) — domain errors, withStoreAction, fluxo completo
+- [Padrão Feature Layer](/docs/padroes/feature-layer) — types → api → store → componentes
 
 ## Tecnologias Principais
 
@@ -1669,1108 +1101,906 @@ Para entender cada camada em detalhe, consulte:
 
 ---
 
-<!-- source: content/docs/paginas/homepage-casos-de-uso.md -->
+<!-- source: content/docs/paginas/homepage-apptopbar.md -->
 
-# Casos de Uso
+# AppTopBar
 
-User stories e critérios de aceite para a homepage. Cada caso de uso representa uma jornada real de um usuário da plataforma.
-
----
-
-## UC-01: Visualizar panorama nacional
-
-> Como **visitante**, quero ver o panorama geral de lotação de saúde no Brasil para entender se há risco de surtos.
-
-**Fluxo principal:**
-
-1. Visitante acessa a homepage
-2. A página carrega com dados nacionais (região "Brasil" selecionada por padrão)
-3. O panorama exibe porcentagem, nível de risco e tendência
-4. O gráfico mostra as últimas 8 semanas
-
-**Critérios de aceite:**
-
-- [ ] A página carrega com dados nacionais (região "Brasil") por padrão
-- [ ] O panorama exibe porcentagem de estabelecimentos acima da média, nível de risco e tendência
-- [ ] O gráfico mostra as últimas 8 semanas de lotação vs. média histórica
-- [ ] A tabela exibe comparativo das 5 regiões
+Barra fixa no topo de todas as páginas. Exibe o **movimento em estabelecimentos de saúde comparado à semana anterior**, por região do Brasil.
 
 ---
 
-## UC-02: Filtrar por região
+## O que exibe
 
-> Como **gestor de saúde**, quero filtrar os dados por região ou estado para ver informações relevantes à minha área de atuação.
+Para cada região (Norte, Nordeste, Centro-Oeste, Sudeste, Sul):
 
-**Fluxo principal:**
+| Elemento           | Exemplo                    | Cor                                                                |
+| ------------------ | -------------------------- | ------------------------------------------------------------------ |
+| Nome da região     | `Norte:`                   | Branco                                                             |
+| Nível de alerta    | `Baixo` / `Médio` / `Alto` | Severidade — verde / amarelo / vermelho                            |
+| Variação semanal   | `42%`                      | Tendência — subindo: vermelho, descendo: verde, estável: branco/60 |
+| Ícone de tendência | ↑ ou ↓                     | Mesma cor da variação. Só aparece quando não é estável             |
 
-1. Gestor clica na tab "Nordeste" no seletor de região
-2. Todos os painéis (panorama, gráfico, tabela, mapa) atualizam para Nordeste
-3. Gestor refina selecionando "Bahia" no dropdown de estado
-4. Os dados são filtrados para a Bahia
-
-**Fluxo alternativo — via mapa:**
-
-1. Gestor clica no estado da Bahia no mapa interativo
-2. O dropdown de estado atualiza automaticamente para "Bahia"
-3. Os painéis são filtrados
-
-**Critérios de aceite:**
-
-- [ ] As tabs de região (Brasil, Norte, Nordeste, Centro-Oeste, Sudeste, Sul) filtram todos os painéis
-- [ ] Os dropdowns de estado e semana epidemiológica refinam os dados exibidos
-- [ ] O mapa destaca visualmente a região/estado selecionado
-- [ ] Clique no mapa sincroniza com os dropdowns de filtro
+O nível de alerta e a variação usam **cores independentes** para evitar ambiguidade. Um nível "Baixo" (verde) pode ter variação alta em vermelho — significa que o nível está ok mas está subindo.
 
 ---
 
-## UC-03: Analisar tendências no gráfico
+## API Sinapse
 
-> Como **epidemiologista**, quero comparar a lotação semanal com a média histórica para detectar padrões anormais.
+**Endpoint API Proxy:** `GET /api/epidemiological/aggregations`
 
-**Fluxo principal:**
+| Parâmetro           | Valor    | Descrição                              |
+| ------------------- | -------- | -------------------------------------- |
+| `aggregation_level` | `region` | Agrupa por região                      |
+| `unit_type`         | `all`    | Todos os tipos de unidade consolidados |
+| `weeks`             | `1`      | Semana mais recente                    |
+| `direction`         | `desc`   | Mais recente primeiro                  |
+| `limit`             | `10`     | 5 regiões esperadas                    |
 
-1. Epidemiologista observa o gráfico de lotação semanal
-2. Ativa "mostrar variação" para ver a amplitude
-3. Filtra apenas "UPA" para isolar o tipo de estabelecimento
-4. Identifica que UPAs da região Sudeste estão com tendência de alta
-5. Lê a análise de especialistas para contexto
+A API retorna **um registro por região** com `unit_type: "all"` — dados já consolidados pelo backend. O frontend não faz nenhum cálculo, apenas mapeia os campos.
 
-**Critérios de aceite:**
+### Campos utilizados
 
-- [ ] O gráfico de linhas mostra lotação atual vs. média móvel
-- [ ] Posso alternar visualização por tipo de estabelecimento (UBS, UPA, Drogaria)
-- [ ] Posso ativar/desativar a linha de variação e a linha de média
-- [ ] A análise de especialistas contextualiza os dados exibidos
-- [ ] Link "ir para rumores" direciona para `/rumores`
+| Campo da API                       | Valores                    | Uso no componente                |
+| ---------------------------------- | -------------------------- | -------------------------------- |
+| `aggregation_key`                  | `N`, `NE`, `CO`, `SE`, `S` | Nome da região                   |
+| `metrics.alert_status`             | `green`, `yellow`, `red`   | Nível: Baixo, Médio, Alto        |
+| `metrics.trend_weekday`            | `up`, `down`, `stable`     | Cor da variação e ícone ↑↓       |
+| `metrics.vs_previous_week_weekday` | Número (ex: `42.38`)       | Variação arredondada (ex: `42%`) |
 
----
-
-## UC-04: Comparar regiões na tabela
-
-> Como **pesquisador**, quero comparar a lotação entre regiões e tipos de estabelecimento em uma tabela consolidada.
-
-**Fluxo principal:**
-
-1. Pesquisador rola até a tabela de "Lotação por Estabelecimento"
-2. Visualiza as 5 regiões lado a lado
-3. Ordena por coluna "UPA" para identificar quais regiões têm mais pressão nas UPAs
-4. Clica no ícone (i) para entender a metodologia de cálculo
-
-**Critérios de aceite:**
-
-- [ ] A tabela exibe as 5 regiões com nível, porcentagem e tendência
-- [ ] Cada tipo de estabelecimento (Drogarias, UPA, UBS) tem coluna própria
-- [ ] Colunas são ordenáveis (sort)
-- [ ] Ícones (i) exibem tooltip com explicação
-
----
-
-## UC-05: Navegar para detalhes do município
-
-> Como **gestor municipal**, quero acessar rapidamente a página do meu município a partir da homepage.
-
-**Fluxo principal:**
-
-1. Gestor visualiza o panorama nacional
-2. Quer ver os dados específicos da sua cidade
-3. Clica no CTA "ir para Meu Município"
-4. É redirecionado para `/municipio`
-
-**Critérios de aceite:**
-
-- [x] O CTA "Meu Município" é visível após a seção do dashboard
-- [x] O botão direciona para `/municipio`
-- [x] O design tem destaque visual adequado (fundo pontilhado, botão outline)
-
----
-
-## UC-06: Login para acesso completo
-
-> Como **usuário cadastrado**, quero fazer login para acessar funcionalidades completas da plataforma.
-
-**Fluxo principal:**
-
-1. Usuário acessa a homepage
-2. Dialog de login aparece por cima da página (conteúdo visível desfocado ao fundo)
-3. Preenche email e senha
-4. Clica em "Entrar"
-5. Dialog fecha, página carrega dados completos
-
-**Fluxo alternativo — esqueci a senha:**
-
-1. Usuário clica em "Esqueci minha senha"
-2. É redirecionado para `/auth/reset-password`
-3. Informa o email e solicita recuperação
-
-**Critérios de aceite:**
-
-- [x] O dialog de login aparece ao acessar a plataforma
-- [x] Posso fazer login com email e senha
-- [x] Após login, o dialog fecha e a página carrega os dados
-- [x] O link "Esqueci minha senha" direciona para recuperação
-- [x] Toggle de visibilidade da senha funcional
-- [x] Botão "Entrar" desabilitado até preencher os campos
-
----
-
-## UC-07: Monitorar indicadores regionais
-
-> Como **gestor de saúde**, quero ver rapidamente o nível de risco de cada região sem precisar rolar a página.
-
-**Fluxo principal:**
-
-1. Gestor acessa a homepage
-2. Na barra superior fixa, visualiza os 5 indicadores regionais
-3. Identifica que "Norte" está com nível "Alto" e tendência de subida
-4. Decide filtrar por "Norte" para ver mais detalhes
-
-**Critérios de aceite:**
-
-- [x] A barra de indicadores está fixa no topo
-- [x] Exibe as 5 regiões com nível, variação percentual e seta de tendência
-- [x] Cores semânticas indicam o nível (verde/amarelo/vermelho)
-- [ ] Dados atualizados em tempo real via API
-
----
-
-<!-- source: content/docs/paginas/homepage-componentes.md -->
-
-# Mapa de Componentes
-
-Todos os componentes envolvidos na homepage, com status de implementação e detalhes técnicos.
-
----
-
-## Visão da Página
-
-Hierarquia de componentes na homepage (`layers/home/app/pages/index.vue`):
-
-```
-index.vue
-├── HomeHero
-├── HomeDashboard (orquestrador)
-│   ├── HomeRegionTabs
-│   ├── HomeMap (sticky, coluna esquerda)
-│   └── (coluna direita, scroll)
-│       ├── HomeFilters
-│       ├── HomePanorama
-│       ├── HomeChart
-│       └── HomeTable
-└── HomeCtaMunicipio
-```
-
-Componentes globais (presentes em todas as páginas via layout):
-
-```
-default.vue (layout)
-├── AppTopBar
-├── AppHeader
-└── AppFooter
-```
-
----
-
-## Status por Componente
-
-### Componentes Globais (layer base)
-
-| Componente  | Arquivo                | Status          | Dados      | Observação            |
-| ----------- | ---------------------- | --------------- | ---------- | --------------------- |
-| `AppTopBar` | `common/AppTopBar.vue` | ✅ Implementado | Mock       | TODO: integrar API    |
-| `AppHeader` | `common/AppHeader.vue` | ✅ Implementado | Store auth | Pronto para produção  |
-| `AppFooter` | `common/AppFooter.vue` | ✅ Implementado | Hardcoded  | Links Sinapse com `#` |
-
-### Componentes Home (layer home)
-
-| Componente         | Arquivo                | Status          | Dados         | Observação                            |
-| ------------------ | ---------------------- | --------------- | ------------- | ------------------------------------- |
-| `HomeHero`         | `HomeHero.vue`         | ✅ Implementado | Estático      | Pronto para produção                  |
-| `HomeDashboard`    | `HomeDashboard.vue`    | ✅ Implementado | State interno | Orquestrador: gerencia `activeRegion` |
-| `HomeRegionTabs`   | `HomeRegionTabs.vue`   | ✅ Implementado | Hardcoded     | 6 tabs com v-model bidirecional       |
-| `HomeMap`          | `HomeMap.vue`          | 🔧 Esqueleto    | —             | MapLibre GL não integrado             |
-| `HomeFilters`      | `HomeFilters.vue`      | ✅ Implementado | Mock          | 27 UFs + 4 semanas fixas              |
-| `HomePanorama`     | `HomePanorama.vue`     | 🎭 Mockado      | Mock          | UI pronta, aguarda API                |
-| `HomeChart`        | `HomeChart.vue`        | 🔧 Esqueleto    | —             | ApexCharts não integrado              |
-| `HomeTable`        | `HomeTable.vue`        | ✅ Implementado | Mock          | 5 regiões com dados simulados         |
-| `HomeCtaMunicipio` | `HomeCtaMunicipio.vue` | ✅ Implementado | Estático      | Pronto para produção                  |
-
-### Componentes Auth (layer auth)
-
-| Componente      | Arquivo             | Status          | Dados    | Observação                |
-| --------------- | ------------------- | --------------- | -------- | ------------------------- |
-| `AuthLoginForm` | `AuthLoginForm.vue` | ✅ Implementado | API real | Login funcional via store |
-
----
-
-## Legenda de Status
-
-| Ícone | Status       | Significado                                                   |
-| ----- | ------------ | ------------------------------------------------------------- |
-| ✅    | Implementado | Componente funcional, pode ter dados mock                     |
-| 🎭    | Mockado      | UI completa, dados hardcoded, pronto para integração API      |
-| 🔧    | Esqueleto    | Estrutura visual existe mas funcionalidade principal pendente |
-| 🔲    | Pendente     | Ainda não criado                                              |
-
----
-
-## Comunicação entre Componentes
-
-### Estado compartilhado
-
-O `HomeDashboard` é o orquestrador central. Ele gerencia:
-
-```
-HomeDashboard
-  └── activeRegion (ref)
-        │
-        ├── HomeRegionTabs (v-model: lê e escreve)
-        ├── HomeMap (prop: lê, emit: escreve ao clicar estado)
-        ├── HomeFilters (prop: lê região para filtrar estados)
-        ├── HomePanorama (prop: lê para buscar dados da região)
-        ├── HomeChart (prop: lê para filtrar dados do gráfico)
-        └── HomeTable (prop: lê para destacar região ativa)
-```
-
-### Fluxo ao trocar região
-
-```
-1. Usuário clica na tab "Nordeste"
-2. HomeRegionTabs emite update:modelValue
-3. HomeDashboard atualiza activeRegion
-4. Todos os componentes filhos recebem nova prop e reagem
-5. (Futuro) Store dispara fetch para API com nova região
-```
-
----
-
-## Componentes Pendentes
-
-Componentes que existem no PRD mas ainda não foram criados:
-
-| Componente          | Seção | Descrição                                                         | Prioridade |
-| ------------------- | ----- | ----------------------------------------------------------------- | ---------- |
-| `HomeMapLegend`     | 3.5a  | Legenda separada do mapa (atualmente inline)                      | Baixa      |
-| `HomeChartControls` | 3.5d  | Controles extraídos do HomeChart (atualmente inline)              | Baixa      |
-| `HomeAnalysis`      | 3.5d  | Card "Análise dos Especialistas" (atualmente dentro do HomeChart) | Média      |
-
----
-
-## Dependências Externas
-
-| Biblioteca              | Uso                                   | Status no projeto         |
-| ----------------------- | ------------------------------------- | ------------------------- |
-| **MapLibre GL**         | Mapa interativo SVG do Brasil         | 🔲 Não instalado          |
-| **ApexCharts**          | Gráfico de linhas (lotação vs. média) | 🔲 Não instalado          |
-| **@tanstack/vue-table** | Tabela com sort/filter                | ✅ Instalado (disponível) |
-| **shadcn-vue (Tabs)**   | Tabs de região                        | ✅ Instalado (usado)      |
-| **shadcn-vue (Select)** | Dropdowns de filtro                   | ✅ Instalado (usado)      |
-| **shadcn-vue (Switch)** | Toggles do gráfico                    | ✅ Instalado (usado)      |
-| **vue-sonner**          | Toasts de erro/feedback               | ✅ Instalado (disponível) |
-
----
-
-<!-- source: content/docs/paginas/homepage-dados.md -->
-
-# Dados e APIs
-
-Fontes de dados consumidas pela homepage, frequência de atualização e status de integração.
-
----
-
-## Fontes de Dados
-
-| Dado                     | Origem                                     | Frequência                | Status                    |
-| ------------------------ | ------------------------------------------ | ------------------------- | ------------------------- |
-| Indicadores regionais    | API Sinapse                                | Tempo real                | 🔲 Mock                   |
-| Mapa de estados          | TopoJSON local (`public/geo/`) + dados API | Por semana epidemiológica | 🔲 Pendente               |
-| Panorama / Risco         | Cálculo baseado em z-score da lotação      | Por semana epidemiológica | 🔲 Mock                   |
-| Gráfico de lotação       | Histórico de 8 semanas via API             | Semanal                   | 🔲 Pendente               |
-| Análise de especialistas | Gerada via API (possivelmente IA)          | Por atualização           | 🔲 Pendente               |
-| Tabela de lotação        | Agregação por região e tipo via API        | Por semana epidemiológica | 🔲 Mock                   |
-| Lista de estados         | Hardcoded (27 UFs com sigla e nome)        | Estática                  | ✅                        |
-| Semanas epidemiológicas  | API Sinapse                                | Dinâmica                  | 🔲 Mock (4 semanas fixas) |
-
----
-
-## Fluxo de Dados
-
-```
-API Sinapse ──→ BFF (server/api/) ──→ Composable/Store ──→ Componente
-                    │                       │
-                    ├─ Valida com Zod       ├─ ref() / computed()
-                    ├─ Trata erros         └─ Reatividade Vue
-                    └─ Cache (se aplicável)
-```
-
-### Padrão de integração
-
-Cada fonte de dados segue o mesmo padrão:
-
-1. **Endpoint BFF** em `layers/home/server/api/home/` — proxy para API Sinapse
-2. **Service** (`useHomeApi()`) — funções `$fetch` para chamar o BFF
-3. **Store** (`useHomeStore()`) — estado reativo com Pinia
-4. **Componente** — consome a store e renderiza
-
----
-
-## Endpoints Necessários (BFF)
-
-Endpoints a serem criados em `layers/home/server/api/home/`:
-
-| Endpoint                | Método | Descrição                        | Parâmetros                 | Status      |
-| ----------------------- | ------ | -------------------------------- | -------------------------- | ----------- |
-| `/api/home/indicadores` | GET    | Indicadores regionais (topbar)   | —                          | 🔲 Pendente |
-| `/api/home/panorama`    | GET    | Resumo de risco por região       | `?regiao=&estado=&semana=` | 🔲 Pendente |
-| `/api/home/lotacao`     | GET    | Dados do gráfico (8 semanas)     | `?regiao=&tipo=&semana=`   | 🔲 Pendente |
-| `/api/home/tabela`      | GET    | Lotação por região e tipo        | `?semana=`                 | 🔲 Pendente |
-| `/api/home/mapa`        | GET    | Dados de nível por estado        | `?semana=`                 | 🔲 Pendente |
-| `/api/home/semanas`     | GET    | Lista de semanas epidemiológicas | —                          | 🔲 Pendente |
-| `/api/home/analise`     | GET    | Análise de especialistas         | `?regiao=&semana=`         | 🔲 Pendente |
-
-### Exemplo de resposta — Indicadores
+### Exemplo de resposta
 
 ```json
 {
   "data": [
-    { "regiao": "Norte", "nivel": "Medio", "variacao": -1, "tendencia": "alta" },
-    { "regiao": "Nordeste", "nivel": "Alto", "variacao": -1, "tendencia": "estavel" },
-    { "regiao": "Centro-Oeste", "nivel": "Medio", "variacao": 6, "tendencia": "alta" },
-    { "regiao": "Sudeste", "nivel": "Baixo", "variacao": -3, "tendencia": "queda" },
-    { "regiao": "Sul", "nivel": "Medio", "variacao": 2, "tendencia": "alta" }
+    {
+      "aggregation_level": "region",
+      "aggregation_key": "N",
+      "unit_type": "all",
+      "week_ending_date": "2026-02-28",
+      "metrics": {
+        "alert_status": "green",
+        "trend_weekday": "stable",
+        "vs_previous_week_weekday": 42.38
+      },
+      "units_count": 171
+    }
   ]
 }
 ```
 
-### Exemplo de resposta — Panorama
+---
 
-```json
-{
-  "data": {
-    "porcentagem": 44.7,
-    "nivel": "Medio",
-    "tendencia": "alta",
-    "descricao": "dos estabelecimentos acima da média histórica",
-    "analise": "Centro-Oeste mostra variação moderada...",
-    "estabelecimentos": {
-      "total": 3365,
-      "drogarias": 880,
-      "ubs": 510,
-      "upas": 244
-    }
-  }
-}
+## Fluxo de dados
+
+```
+API Sinapse
+  ↓
+API Proxy: layers/home/server/api/epidemiological/aggregations.get.ts
+  - Valida token (getAccessToken)
+  - Proxy com buildQueryString
+  ↓
+Composable: layers/base/app/composables/useRegionStats.ts
+  - Filtra unit_type=all
+  - Mapeia campos direto (sem cálculos)
+  - Ordena: Norte → Nordeste → Centro-Oeste → Sudeste → Sul
+  ↓
+Componente: layers/base/app/components/common/AppTopBar.vue
+  - Renderiza indicadores com cores separadas (nível vs tendência)
 ```
 
 ---
 
-## Dados Mock Atuais
+## Estados da UI
 
-Componentes que usam dados hardcoded e precisam de integração:
-
-| Componente     | Dados mock                         | Localização no código                                       |
-| -------------- | ---------------------------------- | ----------------------------------------------------------- |
-| `AppTopBar`    | 5 indicadores regionais            | Variável local no componente                                |
-| `HomePanorama` | 44.7%, 3365 estabelecimentos       | Comentário: "Mock data — será substituído por dados da API" |
-| `HomeChart`    | Controles sem dados                | Comentário: "ApexCharts — integração futura"                |
-| `HomeTable`    | 5 linhas com níveis e porcentagens | Variável local no componente                                |
-| `HomeFilters`  | 4 semanas epidemiológicas fixas    | Array hardcoded                                             |
+| Estado          | Condição           | O que aparece                         |
+| --------------- | ------------------ | ------------------------------------- |
+| Carregando      | `isLoading = true` | Spinner + "Carregando..."             |
+| Erro            | `error !== null`   | Mensagem em vermelho                  |
+| Não autenticado | Usuário não logado | Valores padrão: Baixo / --% / estável |
+| Com dados       | Resposta ok        | Dados reais por região                |
 
 ---
 
-## Cache e Atualização
+## Arquivos
 
-| Dado                     | Estratégia de cache            | TTL        |
-| ------------------------ | ------------------------------ | ---------- |
-| Indicadores regionais    | Cache no BFF                   | 5 minutos  |
-| Panorama                 | Cache no BFF por região        | 15 minutos |
-| Gráfico (8 semanas)      | Cache no BFF por região + tipo | 1 hora     |
-| Tabela                   | Cache no BFF                   | 15 minutos |
-| Mapa                     | Cache no BFF                   | 15 minutos |
-| Semanas epidemiológicas  | Cache no BFF                   | 24 horas   |
-| Análise de especialistas | Sem cache (conteúdo dinâmico)  | —          |
+| Arquivo                                                      | Responsabilidade                        |
+| ------------------------------------------------------------ | --------------------------------------- |
+| `layers/base/app/components/common/AppTopBar.vue`            | Template e estilos                      |
+| `layers/base/app/composables/useRegionStats.ts`              | Fetch e mapeamento dos dados            |
+| `layers/home/server/api/epidemiological/aggregations.get.ts` | Endpoint API Proxy (proxy para Sinapse) |
+| `layers/base/shared/types/sinapse/epidemiological.ts`        | Tipos e schemas Zod                     |
 
 ---
 
-<!-- source: content/docs/paginas/homepage-estados-ui.md -->
+<!-- source: content/docs/paginas/homepage-backlog.md -->
 
-# Estados da UI
+# Backlog de Integração — Homepage
 
-Definição de como a homepage se comporta visualmente nos diferentes estados: loading, vazio, erro e sucesso.
-
----
-
-## Loading (carregamento)
-
-Quando os dados estão sendo buscados da API, cada seção exibe um skeleton animado com pulso.
-
-| Seção        | Comportamento                                                             |
-| ------------ | ------------------------------------------------------------------------- |
-| **Top Bar**  | 5 retângulos cinza pulsando no lugar dos indicadores                      |
-| **Panorama** | Skeleton com blocos para porcentagem, badge de nível e contadores         |
-| **Gráfico**  | Retângulo cinza na área do gráfico + controles visíveis mas desabilitados |
-| **Tabela**   | 5 linhas skeleton com larguras variadas simulando dados                   |
-| **Mapa**     | Silhueta do mapa em cinza claro sem cores por estado                      |
-| **Filtros**  | Dropdowns visíveis com placeholder mas desabilitados                      |
-
-### Regras
-
-- O skeleton aparece **apenas na primeira carga** — ao trocar filtro, os dados anteriores permanecem visíveis enquanto os novos carregam
-- Transição suave (fade) ao substituir skeleton por dados reais
-- Tempo máximo de loading: **10 segundos** — após isso, exibir estado de erro
+Itens que ainda usam **dados mock** ou estão incompletos na homepage. Para cada item: o que falta, por que ainda não foi feito e o que é necessário para implementar.
 
 ---
 
-## Vazio (sem dados)
+## 1. Agravos (HomePanorama)
 
-Quando a API retorna resposta válida mas sem dados para a seleção atual.
+**O que é:** Seção "Número de casos por agravo" dentro do `HomePanorama.vue` — 3 cards (Arboviroses, Síndromes Respiratórias, Outras síndromes) com dados de Dengue, Chikungunya, Zika, Covid-19, Influenza A/B, etc.
 
-| Seção        | Mensagem                                | Comportamento                                              |
-| ------------ | --------------------------------------- | ---------------------------------------------------------- |
-| **Panorama** | "Dados indisponíveis para esta região." | Card com ícone informativo e mensagem centralizada         |
-| **Gráfico**  | "Sem dados para o período selecionado." | Área do gráfico com mensagem + sugestão de alterar filtros |
-| **Tabela**   | "Nenhum dado encontrado."               | Mensagem centralizada na área da tabela                    |
-| **Mapa**     | Mapa cinza sem coloração                | Tooltip: "Sem dados disponíveis para esta semana"          |
+**Status:** Mock hardcoded no template (linhas 170–332 do `HomePanorama.vue`).
 
-### Regras
+**Por que não foi feito:** A API Sinapse ainda não expõe um endpoint de agregações por agravo/doença. O endpoint atual (`/epidemiological/aggregations`) retorna dados de **movimento em estabelecimentos**, não de casos por doença.
 
-- O estado vazio **nunca** deve deixar uma seção em branco — sempre exibir mensagem explicativa
-- Sugerir ação ao usuário quando possível (ex: "Tente selecionar outra semana epidemiológica")
-
----
-
-## Erro
-
-Quando a API falha ou retorna erro.
-
-| Cenário              | Comportamento                                                      | Ação do usuário          |
-| -------------------- | ------------------------------------------------------------------ | ------------------------ |
-| **Erro de rede**     | Toast com "Falha ao carregar dados. Verifique sua conexão."        | Botão "Tentar novamente" |
-| **Erro 500**         | Toast com "Erro interno. Tente novamente em instantes."            | Botão "Tentar novamente" |
-| **Timeout (> 10s)**  | Exibe último dado disponível + aviso "Dados de X minutos atrás"    | Atualiza automaticamente |
-| **API indisponível** | Banner discreto no topo: "Alguns dados podem estar desatualizados" | —                        |
-
-### Regras
-
-- Erros **não devem travar** a página — cada seção é independente
-- Se o panorama falha mas a tabela carrega, exibir a tabela normalmente
-- Toasts de erro usam `vue-sonner` com duração de 5 segundos
-- Retry automático: 1 tentativa após 5 segundos em caso de erro de rede
-- Máximo de 2 retries por seção
+**O que é necessário:**
+- Endpoint na API Sinapse para dados de agravos (provavelmente `/noticias/agregacoes` ou similar)
+- Definir tipos/schemas em `layers/base/shared/types/sinapse/`
+- Criar método no `useHomeApi.ts` (ex: `getAgravos()`)
+- Adicionar state na store (`agravos`) e integrar no `fetchAll()`
+- Substituir o HTML mock por template dinâmico com `v-for`
 
 ---
 
-## Sucesso
+## 2. Análise dos Especialistas (HomeChart + HomeTable)
 
-Estado padrão quando os dados estão carregados e disponíveis.
+**O que é:** Card "Análise dos Especialistas" que aparece tanto no `HomeChart.vue` (linhas 171–203) quanto no `HomeTable.vue` (linhas 141–174). Texto descritivo com análise contextual sobre a situação epidemiológica.
 
-| Seção        | Indicador visual                                          |
-| ------------ | --------------------------------------------------------- |
-| **Top Bar**  | Indicadores com cores semânticas (verde/amarelo/vermelho) |
-| **Mapa**     | Estados coloridos conforme nível de movimento             |
-| **Panorama** | Porcentagem, badge de nível e contadores preenchidos      |
-| **Gráfico**  | Linhas renderizadas com dados de 8 semanas                |
-| **Tabela**   | 5 linhas com dados completos e setas de tendência         |
-| **Fonte**    | "Dados via Sinapse, há X minutos." com indicador verde    |
+**Status:** Texto fixo hardcoded no template.
 
-### Regras
+**Por que não foi feito:** Não há endpoint na API que retorne texto de análise. Esse conteúdo pode vir de:
+- Um endpoint de análises/relatórios da API Sinapse
+- Um CMS ou campo editorial no backend
+- Geração automática baseada nos dados (ex: IA)
 
-- O indicador de "última atualização" deve mostrar tempo relativo (ex: "há 3 minutos")
-- Indicador verde de status confirma que os dados estão frescos
+A decisão de produto sobre a fonte desse conteúdo ainda não foi definida.
+
+**O que é necessário:**
+- Definir fonte do conteúdo (API, CMS, gerado)
+- Criar endpoint/método de busca
+- Substituir texto fixo por dados dinâmicos
+- Considerar estado vazio (quando não há análise disponível)
 
 ---
 
-## Transições entre estados
+## 3. Gráficos de linha nos cards de Agravos
+
+**O que é:** Dentro de cada card de agravo (item 1), o agravo principal tem um placeholder de gráfico de linha (ícone `chart-line` com borda tracejada).
+
+**Status:** Placeholder visual, sem gráfico real.
+
+**Por que não foi feito:** Depende do item 1 (endpoint de agravos). Sem dados históricos por agravo, não há série temporal para renderizar.
+
+**O que é necessário:**
+- Resolver item 1 (endpoint de agravos com série temporal)
+- Definir se usa ECharts (como `HomeChartLine`) ou sparkline mais leve
+- Implementar componente de mini-gráfico para os cards
+
+---
+
+## Prioridade sugerida
+
+| # | Item | Impacto | Dependência |
+| --- | --- | --- | --- |
+| 1 | Agravos | Alto — seção grande com dados mock visíveis | Endpoint na API Sinapse |
+| 2 | Análise dos Especialistas | Médio — texto contextual | Decisão de produto sobre fonte |
+| 3 | Gráficos dos agravos | Baixo — depende do item 1 | Item 1 resolvido |
+
+---
+
+<!-- source: content/docs/paginas/homepage-chart-line.md -->
+
+# HomeChartLine
+
+Componente **client-only** (`.client.vue`) que renderiza o gráfico temporal usando **ECharts** via `vue-echarts`. Recebe dados e configurações via props do `HomeChart`.
+
+---
+
+## O que exibe
+
+Gráfico com até 10 semanas epidemiológicas no eixo X e porcentagem de ocupação no eixo Y.
+
+### Elementos visuais
+
+| Elemento | Descrição | Controlado por |
+| --- | --- | --- |
+| Linha principal | Ocupação por semana. Pontos coloridos por alert status | Sempre visível |
+| Área gradiente | Preenchimento sob a linha (azul translúcido) | `chartType = 'area'` |
+| Linha tracejada | Média móvel histórica | `showAverage = true` |
+| Barras duplas | Variação semanal (barra atual + barra anterior) | `showVariation = true` |
+| Tooltip | Semana, lotação, média, status | Hover sobre ponto |
+
+### Cores por alert status
+
+Cada ponto da série usa cor baseada no `alert_status` da API:
+
+| Alert Status | Cor do ponto | Cor da barra atual | Cor da barra anterior |
+| --- | --- | --- | --- |
+| `green` (normal) | Azul `secondary-900` | Azul claro `secondary-400` | Azul pálido `secondary-200` |
+| `yellow` (alerta) | Amarelo `alert-900` | Amarelo `alert-900` | Amarelo claro `alert-200` |
+| `red` (elevado) | Vermelho `primary-950` | Vermelho `danger-800` | Vermelho claro `danger-200` |
+
+Pontos com status `alert` ou `danger` têm tamanho maior (14px vs 10px) para chamar atenção.
+
+---
+
+## Conexão com outros componentes
 
 ```
-[Inicial] ──→ [Loading] ──→ [Sucesso]
-                  │              │
-                  ├──→ [Erro] ──→ [Retry] ──→ [Sucesso]
-                  │                   │
-                  │                   └──→ [Erro final] (exibe toast)
-                  │
-                  └──→ [Vazio] (dados carregaram mas sem resultado)
+HomeChart (pai)
+  └─ Props:
+       ├─ chartData   ← store.chartData (série temporal da API)
+       ├─ chartType   ← 'line' | 'area' (estado local do HomeChart)
+       ├─ showAverage  ← boolean (checkbox do HomeChart)
+       └─ showVariation ← boolean (checkbox do HomeChart)
+            └─ HomeChartLine
+                 └─ Computa ECharts option reativo
 ```
 
-### Ao trocar filtro
+O componente é **puramente presentacional** — não acessa a store diretamente. Toda interação passa pelo `HomeChart` via props.
+
+---
+
+## Props
+
+| Prop | Tipo | Descrição |
+| --- | --- | --- |
+| `chartData` | `ChartSeriesData \| null` | Dados da série temporal |
+| `chartType` | `string` | `'line'` ou `'area'` |
+| `showAverage` | `boolean` | Exibir linha da média móvel |
+| `showVariation` | `boolean` | Exibir barras de variação |
+
+---
+
+## Detalhes técnicos
+
+### ECharts (tree-shaking)
+
+Importa apenas os módulos necessários para reduzir bundle:
 
 ```
-[Sucesso atual] ──→ [Loading overlay sutil] ──→ [Novo sucesso]
-                          │
-                          └──→ [Erro] ──→ [Mantém dados anteriores + toast]
+CanvasRenderer, LineChart, BarChart, GridComponent, TooltipComponent
 ```
 
-- Dados anteriores **não são limpos** durante transição de filtro
-- Loading overlay sutil (opacity 0.5) sobre o conteúdo atual
-- Se o novo request falha, mantém os dados anteriores e exibe toast de erro
+### Eixo Y dinâmico
+
+O range do eixo Y é calculado automaticamente com margem de 30% sobre os dados:
+
+```
+min = floor(dataMin - margem)
+max = ceil(dataMax + margem)
+```
+
+### Eixo X formatado
+
+Cada tick mostra duas linhas:
+- **Semana**: `SE 09` (bold)
+- **Datas**: `(24/02 a 02/03)` (light)
 
 ---
 
-<!-- source: content/docs/paginas/homepage-nao-funcionais.md -->
+## Estados da UI
 
-# Requisitos Não-Funcionais
-
-Requisitos transversais que afetam a qualidade da homepage independentemente das funcionalidades.
-
----
-
-## Performance
-
-| Requisito                               | Meta            | Como medir              | Status                    |
-| --------------------------------------- | --------------- | ----------------------- | ------------------------- |
-| First Contentful Paint (FCP)            | < 1.5s          | Lighthouse              | 🔲 Não medido             |
-| Largest Contentful Paint (LCP)          | < 2.5s          | Lighthouse / Web Vitals | 🔲 Não medido             |
-| Time to Interactive (TTI)               | < 3s            | Lighthouse              | 🔲 Não medido             |
-| Cumulative Layout Shift (CLS)           | < 0.1           | Lighthouse / Web Vitals | 🔲 Não medido             |
-| Mapa SVG carrega sem travar UI          | < 2s            | Manual                  | 🔲 Pendente (MapLibre GL) |
-| Gráfico renderiza sem delay perceptível | < 1s            | Manual                  | 🔲 Pendente (ApexCharts)  |
-| Bundle JS da homepage                   | < 200KB gzipped | Build analysis          | 🔲 Não medido             |
-
-### Estratégias de performance
-
-- **SSR** — página renderizada no servidor para FCP rápido
-- **Lazy loading** — mapa e gráfico carregados sob demanda (quando visíveis no viewport)
-- **Skeleton loading** — placeholders visuais enquanto dados carregam
-- **Cache** — dados de indicadores regionais cacheados por 5 minutos
-- **Compressão** — Nitro com `compressPublicAssets: true`
+| Estado | Condição | O que aparece |
+| --- | --- | --- |
+| Carregando | `chartData = null` | Spinner centralizado |
+| Sem dados | `chartData.points` vazio | "Sem dados para o período selecionado" |
+| Com dados | `chartData.points` preenchido | Gráfico ECharts interativo |
 
 ---
 
-## Responsividade
+## Arquivos
 
-| Breakpoint  | Largura        | Comportamento                                                                |
-| ----------- | -------------- | ---------------------------------------------------------------------------- |
-| **Mobile**  | < 640px        | Colunas empilhadas, topbar com scroll horizontal, menu hamburger, TOC oculto |
-| **Tablet**  | 640px — 1024px | 2 colunas no dashboard, mapa e dados empilhados                              |
-| **Desktop** | > 1024px       | Mapa sticky à esquerda, dados scrolláveis à direita, layout completo         |
-
-### Detalhes por seção
-
-| Seção       | Mobile                               | Desktop                                |
-| ----------- | ------------------------------------ | -------------------------------------- |
-| Top Bar     | Scroll horizontal                    | Linha única                            |
-| Header      | Hamburger + Sheet                    | Nav horizontal                         |
-| Hero        | Empilhado (título → CTA → descrição) | 3 colunas                              |
-| Region Tabs | Scroll horizontal                    | Linha única                            |
-| Dashboard   | Empilhado (mapa → filtros → dados)   | 2 colunas (mapa sticky + dados scroll) |
-| Tabela      | Scroll horizontal                    | Largura total                          |
-| CTA         | Empilhado                            | Título à esquerda, botão à direita     |
-| Footer      | Colunas empilhadas                   | 4 colunas                              |
+| Arquivo | Responsabilidade |
+| --- | --- |
+| `layers/home/app/components/HomeChartLine.client.vue` | Configuração ECharts + renderização |
+| `layers/home/app/composables/types.ts` | `ChartSeriesData`, `ChartPointData` |
 
 ---
 
-## SEO
+<!-- source: content/docs/paginas/homepage-chart.md -->
 
-| Item                | Implementação                                      | Status |
-| ------------------- | -------------------------------------------------- | ------ |
-| Title e Description | `useSeoPage()` com título e descrição dinâmicos    | ✅     |
-| Open Graph          | Gerado automaticamente pelo `useSeoPage()`         | ✅     |
-| Twitter Cards       | Gerado automaticamente pelo `useSeoPage()`         | ✅     |
-| Schema.org JSON-LD  | `defineWebSite()` com nome, URL e descrição        | ✅     |
-| Canonical URL       | Gerado automaticamente                             | ✅     |
-| SSR                 | Conteúdo renderizado no servidor                   | ✅     |
-| Sitemap             | Gerado em `/sitemap.xml` pelo módulo `@nuxtjs/seo` | ✅     |
-| Robots              | `X-Robots-Tag` configurado em `routeRules`         | ✅     |
-| HTML semântico      | h1, h2, section, nav, main, footer                 | ✅     |
-| Lang attribute      | `<html lang="pt-BR">`                              | ✅     |
+# HomeChart
+
+Seção "Lotação vs. Média Histórica". Contém o **header com variação atual**, os **controles** (tipo de gráfico, checkboxes, filtro de unidade) e delega a renderização ao `HomeChartLine`.
 
 ---
 
-## Acessibilidade
+## O que exibe
 
-| Requisito                                       | Nível WCAG | Status                             |
-| ----------------------------------------------- | ---------- | ---------------------------------- |
-| Navegação por teclado nos tabs e filtros        | AA         | 🔲 Não validado                    |
-| Contraste mínimo nas cores de texto             | AA (4.5:1) | 🔲 Não validado                    |
-| Contraste em elementos gráficos (mapa, gráfico) | AA (3:1)   | 🔲 Não validado                    |
-| Labels associados a inputs e selects            | A          | ✅                                 |
-| Alt text em imagens informativas                | A          | 🔲 Não validado                    |
-| `aria-hidden` em ícones decorativos             | A          | ✅ (Nuxt Icon faz automaticamente) |
-| Roles semânticos (tablist, tab, tabpanel)       | A          | 🔲 Não validado                    |
-| Foco visível em elementos interativos           | AA         | 🔲 Não validado                    |
-| Leitor de tela: dados da tabela acessíveis      | A          | 🔲 Não validado                    |
-| Redução de movimento (`prefers-reduced-motion`) | AAA        | 🔲 Não implementado                |
+### Header
 
----
+| Elemento | Exemplo | Descrição |
+| --- | --- | --- |
+| Título | "Lotação vs. Média Histórica" | Fixo |
+| Subtítulo | "Confira quando a lotação está acima da média histórica." | Fixo |
+| Card de variação | `12% mais alto que o normal ↑` | Dados da semana mais recente do `store.chartData` |
+| Descrição da tendência | "Tendência de aumento nas próximas semanas." | Baseado no `currentWeekTrend` |
 
-## Segurança
+### Controles
 
-| Requisito                              | Implementação                         | Status |
-| -------------------------------------- | ------------------------------------- | ------ |
-| CSP headers                            | Módulo `nuxt-security`                | ✅     |
-| Rate limiting                          | 150 req/5min (global)                 | ✅     |
-| Login rate limiting                    | 10 req/5min                           | ✅     |
-| CSRF protection                        | `nuxt-csurf` em POST/PUT/PATCH/DELETE | ✅     |
-| XSS protection                         | Validator habilitado                  | ✅     |
-| Tokens em cookies httpOnly             | `setCookie` com secure + sameSite     | ✅     |
-| Dados sensíveis não expostos no client | Validação no BFF                      | ✅     |
+| Controle | Tipo | Efeito |
+| --- | --- | --- |
+| Content Switcher | Pill com 2 opções: `gráfico de linha` / `gráfico de faixa` | Altera `chartType` (line/area) — estado **local** |
+| Checkbox "média" | Toggle | Mostra/oculta linha tracejada da média histórica — estado **local** |
+| Checkbox "variação" | Toggle | Mostra/oculta barras de variação — estado **local** |
+| Filtro "tipo de unidade" | 4 botões: `todos` / `drogaria` / `UPA` / `UBS` | Chama `store.setChartUnitType()` — estado **na store** |
+
+### Seções fixas
+
+- **Card "Análise dos Especialistas"** — texto mock aguardando API
+- **Source box** — fonte e link "como são feitos os cálculos"
 
 ---
 
-## Compatibilidade de Navegadores
+## Conexão com outros componentes
 
-| Navegador               | Versão mínima | Suporte |
-| ----------------------- | ------------- | ------- |
-| Chrome                  | 90+           | ✅      |
-| Firefox                 | 90+           | ✅      |
-| Safari                  | 15+           | ✅      |
-| Edge                    | 90+           | ✅      |
-| Mobile Chrome (Android) | 90+           | ✅      |
-| Mobile Safari (iOS)     | 15+           | ✅      |
+```
+HomeChart
+  ├─ Lê store.chartData (alimentado por fetchAll / fetchChartData)
+  ├─ Controles locais (chartType, showAverage, showVariation)
+  │    └─ Props para HomeChartLine
+  └─ store.setChartUnitType(key)
+       └─ store.fetchChartData()  ← fetch ISOLADO (não recarrega panorama/tabela)
+            └─ HomeChartLine reage via props
+```
 
----
+### Filtro de tipo de unidade vs. filtros globais
 
-<!-- source: content/docs/paginas/homepage-requisitos.md -->
+| Filtro | Escopo | Afeta |
+| --- | --- | --- |
+| Região (switcher) | Global | Panorama + Tabela + Gráfico |
+| Estado (select) | Global | Panorama + Tabela + Gráfico |
+| Semana (select) | Global | Panorama + Tabela (gráfico mostra série completa) |
+| Tipo de unidade | **Local do gráfico** | Apenas o gráfico |
 
-# Requisitos Funcionais
-
-Especificação detalhada das 8 seções da homepage, com elementos, comportamento e critérios de aceite.
-
----
-
-## 3.1 Barra de Indicadores Regionais (Top Bar)
-
-**Status:** ✅ Implementado (dados mock)
-**Componente:** `AppTopBar`
-
-Barra fixa no topo da página com indicadores resumidos por região.
-
-| Elemento         | Descrição                                                          |
-| ---------------- | ------------------------------------------------------------------ |
-| Label            | "Indicadores Regionais"                                            |
-| Regiões          | Norte, Nordeste, Centro-Oeste, Sudeste, Sul                        |
-| Dados por região | Nível (Baixo/Médio/Alto) + variação percentual + seta de tendência |
-
-**Exemplo:** `Norte: Médio -1% ↑` · `Nordeste: Alto -1%` · `Centro-Oeste: Médio +6% ↑`
-
-**Comportamento:**
-
-- A barra rola horizontalmente em telas menores
-- Os indicadores são atualizados em tempo real via API
-- Cores semânticas: success (baixo), alert (médio), danger (alto)
-
-**Critérios de aceite:**
-
-- [x] Exibe as 5 regiões com nível, variação e tendência
-- [x] Scroll horizontal no mobile
-- [ ] Dados vêm da API Sinapse (atualmente mock)
+O filtro de tipo de unidade chama `fetchChartData()` — **não** `fetchAll()`. Isso evita recarregar panorama e tabela quando só o gráfico muda.
 
 ---
 
-## 3.2 Header / Navegação
+## API Sinapse
 
-**Status:** ✅ Implementado
-**Componente:** `AppHeader`
+O `HomeChart` não faz chamadas direto. Usa `store.chartData` preenchido por `getChartSeries()`.
 
-Barra de navegação principal com logos e menu.
+**Endpoint:** `GET /api/epidemiological/aggregations`
 
-| Elemento     | Descrição                                               |
-| ------------ | ------------------------------------------------------- |
-| Logo ITpS    | Link para home (`/`)                                    |
-| Logo Detecta | Link para home (`/`)                                    |
-| Menu         | Home, Meu Município, Mapa de Risco, Rumores, Relatórios |
-| Usuário      | Avatar + nome (quando logado) com dropdown              |
-
-**Comportamento:**
-
-- Item ativo recebe destaque visual (ícone losango + cor)
-- Menu do usuário: perfil, admin e logout
-- Mobile: hamburger menu com Sheet (drawer)
-
-**Critérios de aceite:**
-
-- [x] Navegação funcional desktop e mobile
-- [x] Menu do usuário com autenticação integrada
-- [x] Destaque visual no item ativo
+| Parâmetro | Valor | Descrição |
+| --- | --- | --- |
+| `aggregation_level` | `region` ou `state` | Conforme filtro de região/estado |
+| `unit_type` | `all`, `drogarias`, `ubs`, `upa` | Conforme filtro local |
+| `weeks` | `10` | Últimas 10 semanas |
 
 ---
 
-## 3.3 Hero Section
+## Estados da UI
 
-**Status:** ✅ Implementado
-**Componente:** `HomeHero`
-
-Seção de destaque com a pergunta principal e explicação da plataforma.
-
-| Elemento        | Descrição                                                                          |
-| --------------- | ---------------------------------------------------------------------------------- |
-| Título (h1)     | "Quais os riscos de Surtos ou Epidemias no Brasil?"                                |
-| CTA central     | "selecione sua região" com seta para baixo                                         |
-| Subtexto        | "Não se preocupe! Os dados são abertos. ;)"                                        |
-| Descrição       | Texto explicativo sobre o que o Detecta Alerta faz                                 |
-| Fonte dos dados | "\*Dados públicos coletados do Google Maps e parcerias com instituições públicas." |
-
-**Layout:** 3 colunas em desktop — título à esquerda, CTA no centro, descrição à direita. Fundo branco.
-
-**Critérios de aceite:**
-
-- [x] Layout 3 colunas em desktop, empilhado no mobile
-- [x] Conteúdo estático exibido corretamente
+| Estado | O que aparece |
+| --- | --- |
+| Carregando | Header sem card de variação, gráfico com spinner |
+| Com dados | Header com variação + controles + gráfico renderizado |
+| Falha no gráfico | Panorama e tabela continuam funcionando (gráfico isolado no `fetchAll`) |
 
 ---
 
-## 3.4 Seletor de Região (Tabs)
+## Arquivos
 
-**Status:** ✅ Implementado
-**Componente:** `HomeRegionTabs`
-
-Barra azul escura com tabs para selecionar a região do Brasil.
-
-| Elemento | Descrição                                                                |
-| -------- | ------------------------------------------------------------------------ |
-| Label    | "Selecione uma Região:"                                                  |
-| Tabs     | Brasil (default, com ícone), Norte, Nordeste, Centro-Oeste, Sudeste, Sul |
-
-**Comportamento:**
-
-- Tab selecionada tem fundo branco e borda
-- Tab "Brasil" é a padrão e tem ícone especial
-- Ao selecionar uma região, todos os dados da página (mapa, panorama, gráfico, tabela) são filtrados
-
-**Fundo:** Azul escuro (secondary-900), com tabs em container arredondado branco.
-
-**Critérios de aceite:**
-
-- [x] 6 tabs funcionais com v-model bidirecional
-- [x] Tab "Brasil" como padrão
-- [ ] Seleção de região filtra todos os painéis abaixo (integração parcial)
+| Arquivo | Responsabilidade |
+| --- | --- |
+| `layers/home/app/components/HomeChart.vue` | Header, controles, layout |
+| `layers/home/app/components/HomeChartLine.client.vue` | Renderização ECharts (ver doc dedicada) |
+| `layers/home/app/composables/useHomeStore.ts` | `chartData`, `chartUnitType`, `setChartUnitType()` |
+| `layers/home/app/composables/useHomeApi.ts` | `getChartSeries()` |
+| `layers/home/app/composables/types.ts` | `ChartSeriesData`, `ChartPointData`, `ChartUnitType` |
 
 ---
 
-## 3.5 Painel Principal (Mapa + Dados)
+<!-- source: content/docs/paginas/homepage-filters.md -->
 
-Seção dividida em duas colunas: mapa à esquerda (sticky) e dados à direita (scroll).
+# HomeFilters
 
-**Componente orquestrador:** `HomeDashboard`
-
-### 3.5a Mapa Interativo
-
-**Status:** 🔧 Esqueleto (MapLibre GL pendente)
-**Componente:** `HomeMap`
-
-| Elemento | Descrição                                                                      |
-| -------- | ------------------------------------------------------------------------------ |
-| Legenda  | "Nível de Movimento:" — Normal (cinza), Moderado (amarelo), Elevado (vermelho) |
-| Mapa SVG | Mapa do Brasil dividido por estados, coloridos conforme nível                  |
-| Tooltip  | "Clique na região — Selecione uma área no mapa para ver os detalhes."          |
-| Fonte    | "Dados via Sinapse, há X minutos." com indicador verde de status               |
-
-**Comportamento:**
-
-- Estados coloridos conforme nível de movimento
-- Clique em estado atualiza os dados à direita
-- Suporte a zoom e pan
-
-**Critérios de aceite:**
-
-- [x] Estrutura visual com legenda e tooltip
-- [ ] Renderização do mapa SVG/MapLibre GL com dados reais
-- [ ] Interação: clique no estado filtra dados
-- [ ] Cores dinâmicas baseadas no nível de movimento
-
-### 3.5b Filtros
-
-**Status:** ✅ Implementado (dados mock)
-**Componente:** `HomeFilters`
-
-| Elemento              | Descrição                                                                     |
-| --------------------- | ----------------------------------------------------------------------------- |
-| Estado                | Dropdown com os 27 estados + "Todos os Estados"                               |
-| Semana Epidemiológica | Dropdown com semana + intervalo de datas (ex: "Semana 4 (25 a 31 jan. 2026)") |
-
-**Critérios de aceite:**
-
-- [x] Dropdown de estado com lista completa de UFs (value/label)
-- [x] Dropdown de semana epidemiológica com componente Select do shadcn
-- [ ] Semanas carregadas dinamicamente da API
-- [ ] Seleção de filtro atualiza todos os painéis
-
-### 3.5c Panorama — Resumo de Risco
-
-**Status:** 🎭 Mockado (pronto para API)
-**Componente:** `HomePanorama`
-
-Card com o resumo do risco epidemiológico.
-
-| Elemento            | Descrição                                                                    |
-| ------------------- | ---------------------------------------------------------------------------- |
-| Header              | "Panorama - Brasil" + link "como é feito o cálculo" (abre modal)             |
-| Indicador principal | Porcentagem (ex: "44.7%") + badge de nível ("Médio")                         |
-| Descrição           | "dos estabelecimentos acima da média histórica. Tendência de alta."          |
-| Análise textual     | Texto descrevendo o cenário (ex: "Centro-Oeste mostra variação moderada...") |
-| Estabelecimentos    | Total + breakdown por tipo (drogarias, UBS, UPAs) com ícones                 |
-| Botão info          | "Mais informações"                                                           |
-
-**Critérios de aceite:**
-
-- [x] Layout com indicador principal, nível de risco e breakdown
-- [x] Exibe total e contagem por tipo de estabelecimento
-- [ ] Dados vêm da API (atualmente mock: 44.7%, 3365 estabelecimentos)
-- [ ] Atualiza ao trocar região/filtro
-- [ ] Modal "como é feito o cálculo" implementado
-
-### 3.5d Gráfico — Lotação Semanal vs. Média Histórica
-
-**Status:** 🔧 Esqueleto (ApexCharts pendente)
-**Componente:** `HomeChart`
-
-| Elemento  | Descrição                                                                                |
-| --------- | ---------------------------------------------------------------------------------------- |
-| Header    | "Lotação Semanal vs. Média Histórica"                                                    |
-| Subtítulo | "Últimas 8 semanas. Para acessar o histórico completo, acesse aqui" (link → /relatorios) |
-| Controles | Switches: "mostrar variação", "mostrar média"                                            |
-| Filtros   | Toggle por tipo: UBS, UPA, Drogaria                                                      |
-| Gráfico   | Linhas com eixo Y em % (0-100%), eixo X com datas semanais                               |
-| Legenda   | Lotação Atual (linha sólida azul), Média Móvel (tracejada), cores por nível              |
-| Análise   | Card "Análise dos Especialistas" com texto descritivo + link "ir para rumores"           |
-
-**Dados do gráfico:** Cada ponto representa a porcentagem de estabelecimentos com lotação acima da média naquela semana. A linha tracejada é a média móvel histórica.
-
-**Critérios de aceite:**
-
-- [x] Controles de visualização funcionais (switches, filtros por tipo)
-- [ ] Gráfico de linhas renderizado com ApexCharts
-- [ ] Dados de 8 semanas vindos da API
-- [ ] Linha de variação e média toggleáveis
-- [ ] Card de análise de especialistas com conteúdo dinâmico
-
-### 3.5e Tabela — Lotação por Estabelecimento
-
-**Status:** ✅ Implementado (dados mock)
-**Componente:** `HomeTable`
-
-| Coluna    | Descrição                                                |
-| --------- | -------------------------------------------------------- |
-| Região    | Centro-Oeste, Nordeste, Norte, Sudeste, Sul              |
-| Todos     | Nível + porcentagem + tendência (todos os tipos somados) |
-| Drogarias | Nível + porcentagem + tendência (sortable)               |
-| UPA       | Nível + porcentagem + tendência (sortable)               |
-| UBS       | Nível + porcentagem + tendência (sortable)               |
-
-**Formato das células:** `Nível · porcentagem% seta` (ex: "Médio · 46.5% ↑", "Baixo · 42% →")
-
-Cada coluna tem botão (i) de "Mais informações" com tooltip explicativo.
-
-**Critérios de aceite:**
-
-- [x] Tabela com 5 regiões e 4 colunas de dados
-- [x] Exibe nível, porcentagem e seta de tendência
-- [ ] Dados vêm da API (atualmente mock)
-- [ ] Colunas ordenáveis (sort)
+Barra com dois selects que refinam os dados exibidos em toda a página: **Estado** e **Semana Epidemiológica**.
 
 ---
 
-## 3.6 CTA — Meu Município
+## O que exibe
 
-**Status:** ✅ Implementado
-**Componente:** `HomeCtaMunicipio`
+| Elemento | Valores | Fonte |
+| --- | --- | --- |
+| Select "Estado" | `Todos os Estados`, `Acre` ... `Tocantins` (27 UFs) | Constante `ESTADOS_BRASIL` em `useHomeApi.ts` |
+| Select "Semana Epidemiológica" | `Semana 09 (24 fev a 02 mar. 2026)` | API via `store.semanas` (carregadas no `fetchLookups`) |
 
-Banner de call-to-action para a página "Meu Município".
-
-| Elemento    | Descrição                                             |
-| ----------- | ----------------------------------------------------- |
-| Título (h2) | "Quer saber sobre sua cidade?"                        |
-| Subtítulo   | "Explore os dados na página Meu Município."           |
-| Botão       | "ir para Meu Município →" (variant outline, com seta) |
-
-**Layout:** Fundo com padrão pontilhado sutil. Título à esquerda, botão à direita.
-
-**Critérios de aceite:**
-
-- [x] Banner com título, descrição e botão
-- [x] Botão direciona para `/municipio`
+A semana mais recente é selecionada automaticamente ao carregar a página.
 
 ---
 
-## 3.7 Footer
+## Conexão com outros componentes
 
-**Status:** ✅ Implementado
-**Componente:** `AppFooter`
+```
+HomeFilters
+  ├─ store.setEstado(value)
+  │    └─ store.fetchAll()
+  │         ├─ HomePanorama  ← dados filtrados por estado
+  │         ├─ HomeTable     ← linha única com o estado selecionado
+  │         └─ HomeChart     ← série temporal do estado
+  │
+  └─ store.setSemana(value)
+       └─ store.fetchAll()
+            ├─ HomePanorama  ← dados da semana específica
+            ├─ HomeTable     ← dados da semana específica
+            └─ HomeChart     ← série temporal (não usa filtro de semana)
+```
 
-Rodapé com informações institucionais.
+### Combinação com HomeRegionTabs
 
-### Parte Superior
+Os filtros funcionam **em conjunto** com o switcher de região:
 
-| Elemento      | Descrição                                                                                                  |
-| ------------- | ---------------------------------------------------------------------------------------------------------- |
-| Logos         | Detecta Alerta + ITpS                                                                                      |
-| Descrição     | "Plataforma de monitoramento de movimento que acompanha a lotação de unidades de saúde em tempo oportuno." |
-| Redes sociais | Instagram, LinkedIn, YouTube (ícones circulares)                                                           |
+| Região | Estado | Semana | Resultado |
+| --- | --- | --- | --- |
+| Brasil | Todos | Mais recente | Visão nacional, semana atual |
+| Sul | Todos | Mais recente | Estados do Sul, semana atual |
+| Brasil | SP | Mais recente | Dados de São Paulo, semana atual |
+| Sul | Todos | Semana 05 | Estados do Sul, semana 05 |
 
-### Links de Navegação (3 colunas)
-
-| Explore             | Sinapse     | Suporte             |
-| ------------------- | ----------- | ------------------- |
-| Início              | Arboviroses | Documentação        |
-| Meu Município       | Clima       | Notas metodológicas |
-| Rumores             | CNES        |                     |
-| Lugares Monitorados | I.A.        |                     |
-| Relatórios          | Outros      |                     |
-
-### Parte Inferior
-
-| Elemento  | Descrição                                                              |
-| --------- | ---------------------------------------------------------------------- |
-| Copyright | "©Todos os Direitos Reservados Instituto Todos pela Saúde (ITpS)"      |
-| Endereço  | "Avenida Paulista, 1.938 - 16º andar, CEP: 01310-942 - São Paulo (SP)" |
-| Link      | "Termos de Uso e Aviso de Privacidade"                                 |
-
-**Critérios de aceite:**
-
-- [x] Footer completo com 3 colunas de links
-- [x] Redes sociais com ícones
-- [x] Link para termos de uso funcional
-- [ ] Links da coluna "Sinapse" apontam para URLs reais (atualmente `#`)
+Quando um **estado é selecionado**, ele tem prioridade sobre a região — a API busca `aggregation_level=state` com o UF específico.
 
 ---
 
-## 3.8 Login Overlay (Dialog)
+## API Sinapse
 
-**Status:** ✅ Implementado
-**Componente:** `AuthLoginForm`
+Os selects não fazem chamadas próprias. Ao mudar valor:
 
-Modal de login que aparece por cima da página.
+- `setEstado()` e `setSemana()` atualizam `filtros` na store e chamam `fetchAll()`
+- Os parâmetros de filtro são passados para `getPanorama()`, `getRegionTable()` e `getChartSeries()`
 
-| Elemento    | Descrição                                                                  |
-| ----------- | -------------------------------------------------------------------------- |
-| Título      | "Detecta Alerta"                                                           |
-| Subtítulo   | "Sistema de vigilância epidemiológica"                                     |
-| Campo email | Input com ícone de envelope, placeholder "seu@email.com"                   |
-| Campo senha | Input com ícone de cadeado, placeholder "••••••••", toggle de visibilidade |
-| Link        | "Esqueci minha senha"                                                      |
-| Botão       | "Entrar" (desabilitado até preencher campos)                               |
+As **opções de semana** são carregadas uma única vez no `fetchLookups()`:
 
-**Comportamento:** O dialog aparece ao acessar a plataforma. O conteúdo da home é visível (desfocado) por trás. Após login, o dialog fecha e a página carrega os dados completos.
+| Parâmetro | Valor | Descrição |
+| --- | --- | --- |
+| `aggregation_level` | `region` | Buscar semanas disponíveis |
+| `unit_type` | `all` | Consolidado |
+| `weeks` | `10` | Últimas 10 semanas |
 
-**Critérios de aceite:**
+---
 
-- [x] Dialog renderiza sobre a homepage
-- [x] Autenticação funcional via API
-- [x] Toggle de visibilidade da senha
-- [x] Link "Esqueci minha senha" funcional
+## Estados da UI
+
+| Estado | O que aparece |
+| --- | --- |
+| Carregando semanas | Select de semana vazio até `fetchLookups` completar |
+| Semana selecionada | Label formatado: "Semana XX (DD mmm a DD mmm. AAAA)" |
+| Estado selecionado | Nome do estado no select |
+
+---
+
+## Arquivos
+
+| Arquivo | Responsabilidade |
+| --- | --- |
+| `layers/home/app/components/HomeFilters.vue` | Template dos selects |
+| `layers/home/app/composables/useHomeStore.ts` | `setEstado()`, `setSemana()`, `fetchLookups()` |
+| `layers/home/app/composables/useHomeApi.ts` | `getEstados()` (constante), `getSemanas()` (API) |
+
+---
+
+<!-- source: content/docs/paginas/homepage-panorama.md -->
+
+# HomePanorama
+
+Card principal do dashboard. Mostra o **nível de alerta geral**, a **variação semanal** e contadores por tipo de estabelecimento (drogarias, UBS, UPAs).
+
+---
+
+## O que exibe
+
+### Header
+
+| Elemento | Exemplo | Cor |
+| --- | --- | --- |
+| Título | "Movimento em estabelecimentos de saúde" | Texto escuro |
+| Dica explicativa | Ícone `lightbulb` + texto sobre o significado | `text-base-800` |
+| Tag de variação | `42% mais alto que o normal ↑` | Tendência: up=vermelho, down=verde, stable=cinza |
+
+O **fundo do header** e a **borda do card** mudam conforme o `alertStatus`:
+
+| Alert Status | Fundo | Borda | Tag |
+| --- | --- | --- | --- |
+| `green` | `bg-success-50` | `border-success-200` | `bg-success-200` |
+| `yellow` | `bg-alert-50` | `border-alert-200` | `bg-alert-200` |
+| `red` | `bg-primary-50` | `border-primary-200` | `bg-primary-200` |
+
+### Barra de estabelecimentos
+
+Para cada tipo de unidade com `count > 0`:
+
+| Elemento | Exemplo | Descrição |
+| --- | --- | --- |
+| Ícone | `pill` / `stethoscope` / `hospital` | Tipo de unidade |
+| Contagem | `45 drogarias:` | Quantidade de unidades |
+| Variação | `12%` ↑ | Porcentagem + ícone de tendência |
+| Total | `171 estabelecimentos analisados` | Soma de todas as unidades |
+
+### Seção "Agravos" (mock)
+
+Cards de agravos por categoria (Arboviroses, Síndromes Respiratórias, Outras). **Ainda com dados mock** — aguardando endpoint de notícias/agregações da API.
+
+---
+
+## Conexão com outros componentes
+
+```
+HomeRegionTabs / HomeFilters
+  └─ store.fetchAll()
+       └─ api.getPanorama({ region, estado, semana })
+            └─ store.panorama  ← HomePanorama reage
+```
+
+O componente é **consumidor passivo** — não faz fetch próprio. Lê `store.panorama` que é alimentado pelo `fetchAll()` disparado pelos filtros.
+
+O `HomePanorama` também fornece dados para o header da `HomeTable` (contadores de unidades).
+
+---
+
+## API Sinapse
+
+**Endpoint:** `GET /api/epidemiological/aggregations`
+
+### Parâmetros conforme contexto
+
+| Contexto | `aggregation_level` | Filtro extra |
+| --- | --- | --- |
+| Brasil | `region` | Nenhum — soma todas as regiões |
+| Região (ex: Sul) | `region` | Filtra client-side por `aggregation_key` |
+| Estado (ex: SP) | `state` | `state=SP` |
+
+### Campos utilizados
+
+| Campo da API | Uso no componente |
+| --- | --- |
+| `metrics.alert_status` | Cor do card (green/yellow/red) |
+| `metrics.trend_weekday` | Ícone ↑↓ e cor da variação |
+| `metrics.vs_previous_week_weekday` | Porcentagem de variação |
+| `metrics.average_occupancy_weekday` | Taxa de ocupação |
+| `units_count` | Contagem por tipo de unidade |
+
+### Lógica de agregação (Brasil)
+
+Quando a visão é "Brasil", os dados vêm de 5 registros (um por região). O `useHomeApi` calcula:
+
+- **Variação**: média ponderada por `units_count`
+- **Alert status**: pior entre as regiões (`green < yellow < red`)
+- **Trend**: tendência da maioria das regiões
+- **Total**: soma de `units_count`
+
+---
+
+## Estados da UI
+
+| Estado | Condição | O que aparece |
+| --- | --- | --- |
+| Carregando | `store.isLoading` | Spinner centralizado |
+| Com dados | `store.panorama` preenchido | Card completo com cores dinâmicas |
+| Sem dados | `store.panorama` null | Nada renderizado (`v-if`) |
+
+---
+
+## Arquivos
+
+| Arquivo | Responsabilidade |
+| --- | --- |
+| `layers/home/app/components/HomePanorama.vue` | Template com cores dinâmicas |
+| `layers/home/app/composables/useHomeStore.ts` | `panorama` ref + `fetchPanorama()` |
+| `layers/home/app/composables/useHomeApi.ts` | `getPanorama()` — fetch + agregação |
+| `layers/home/app/composables/types.ts` | `PanoramaData`, `UnitTypeStats` |
+
+---
+
+<!-- source: content/docs/paginas/homepage-region-tabs.md -->
+
+# HomeRegionTabs
+
+Barra de seleção de região no topo da coluna esquerda do dashboard. Permite alternar entre **Brasil** (visão nacional) e as 5 regiões.
+
+---
+
+## O que exibe
+
+| Elemento | Exemplo | Comportamento |
+| --- | --- | --- |
+| Botão por região | `Brasil`, `Norte`, `Nordeste`, `Centro-Oeste`, `Sudeste`, `Sul` | Pill arredondado. Ativo: fundo azul escuro com ícone `map-pin`. Inativo: transparente |
+| Label | "Selecione uma Região:" | Texto branco acima dos botões |
+
+As opções vêm de `HOME_REGIONS` (constante em `types.ts`), não da API.
+
+---
+
+## Conexão com outros componentes
+
+```
+HomeRegionTabs
+  └─ store.setRegion(region.id)
+       └─ store.fetchAll()
+            ├─ HomePanorama  ← atualiza card de alert status
+            ├─ HomeTable     ← brasil: linhas por região / região: linhas por estado
+            └─ HomeChart     ← atualiza série temporal
+```
+
+Ao clicar em uma região:
+
+1. Atualiza `filtros.region` na store
+2. Chama `fetchAll()` que busca panorama + tabela em paralelo, depois gráfico
+3. **Todos os componentes** da página reagem porque consomem a mesma store
+
+---
+
+## Interação com a tabela
+
+| Região selecionada | O que a tabela exibe |
+| --- | --- |
+| Brasil | Uma linha por região (Norte, Nordeste, etc.) |
+| Norte, Nordeste, etc. | Uma linha por estado da região (ex: Sul → PR, SC, RS) |
+
+---
+
+## Estados da UI
+
+| Estado | O que aparece |
+| --- | --- |
+| Brasil selecionado (padrão) | Botão "Brasil" ativo com fundo `secondary-900` |
+| Região selecionada | Botão da região ativo, demais inativos |
+| Mobile | Scroll horizontal nos botões |
+
+---
+
+## Arquivos
+
+| Arquivo | Responsabilidade |
+| --- | --- |
+| `layers/home/app/components/HomeRegionTabs.vue` | Template e interação |
+| `layers/home/app/composables/useHomeStore.ts` | `setRegion()` → `fetchAll()` |
+| `layers/home/app/composables/types.ts` | `HOME_REGIONS` — lista fixa de regiões |
+
+---
+
+<!-- source: content/docs/paginas/homepage-tabela.md -->
+
+# HomeTable
+
+Seção "Lotação por estabelecimento". Tabela que mostra o nível de alerta e variação por tipo de unidade (todos, drogarias, UPA, UBS), com linhas que mudam conforme os filtros.
+
+---
+
+## O que exibe
+
+### Header
+
+| Elemento | Descrição |
+| --- | --- |
+| Título | "Lotação por estabelecimento" |
+| Subtítulo | "Confira locais com lotação acima da média esperada." |
+| Contadores | Quantidade e variação por tipo de unidade (dados do `store.panorama`) |
+
+Os contadores no header usam os mesmos dados do `HomePanorama` — ambos lêem `store.panorama`.
+
+### Tabela
+
+| Coluna | Descrição |
+| --- | --- |
+| Região/Estado | Nome da linha (região ou estado, conforme filtro) |
+| Todos | Nível + variação de todas as unidades |
+| Drogarias | Nível + variação de drogarias |
+| UPA | Nível + variação de UPAs |
+| UBS | Nível + variação de UBS |
+
+Cada célula exibe:
+
+| Elemento | Exemplo | Cor |
+| --- | --- | --- |
+| Nível | `Normal` / `Moderado` / `Elevado` | Verde / Amarelo / Vermelho |
+| Variação | `12%` | Mesma cor do nível |
+| Ícone tendência | ↑ ↓ — | Mesma cor do nível |
+
+### Comportamento das linhas conforme filtro
+
+| Região (switcher) | Estado (select) | Linhas da tabela |
+| --- | --- | --- |
+| Brasil | Todos | 5 linhas: Norte, Nordeste, Centro-Oeste, Sudeste, Sul |
+| Sul | Todos | 3 linhas: Paraná, Santa Catarina, Rio Grande do Sul |
+| Nordeste | Todos | 9 linhas: estados do Nordeste em ordem alfabética |
+| Qualquer | SP | 1 linha: São Paulo |
+
+Esta é a lógica mais importante do componente — a tabela **adapta suas linhas** conforme a combinação de filtros.
+
+### Seções fixas
+
+- **Card "Análise dos Especialistas"** — texto mock aguardando API
+- **Source box** — fonte e link "como são feitos os cálculos"
+
+---
+
+## Conexão com outros componentes
+
+```
+HomeRegionTabs / HomeFilters
+  └─ store.fetchAll()
+       └─ api.getRegionTable({ region, estado, semana })
+            └─ store.regionRows  ← HomeTable reage
+
+HomePanorama (dados compartilhados)
+  └─ store.panorama
+       └─ HomeTable header (contadores de unidades)
+```
+
+O componente é **consumidor passivo** — lê `store.regionRows` e `store.panorama`. Não faz fetch próprio.
+
+---
+
+## API Sinapse
+
+**Endpoint:** `GET /api/epidemiological/aggregations`
+
+### Parâmetros conforme contexto
+
+| Contexto | `aggregation_level` | Filtro extra | Resultado |
+| --- | --- | --- | --- |
+| Brasil | `region` | — | 5 regiões |
+| Região (ex: Sul) | `state` | `region=S` | Estados da região |
+| Estado (ex: SP) | `state` | `state=SP` | Estado único |
+
+### Campos utilizados
+
+| Campo da API | Uso na tabela |
+| --- | --- |
+| `aggregation_key` | Identificador da linha (UF ou código de região) |
+| `unit_type` | Coluna (`all`, `drogarias`, `upa`, `ubs`) |
+| `metrics.alert_status` | Nível: Normal (green), Moderado (yellow), Elevado (red) |
+| `metrics.trend_weekday` | Ícone de tendência ↑↓— |
+| `metrics.vs_previous_week_weekday` | Porcentagem de variação |
+
+### Lógica de agrupamento no `useHomeApi.ts`
+
+- **Brasil**: agrupa por `aggregation_key` → mapeia para nome da região (`N` → Norte)
+- **Região**: agrupa por `aggregation_key` → mapeia para nome do estado (`PR` → Paraná), ordena alfabeticamente
+- **Estado**: filtra pelo UF → retorna linha única
+
+---
+
+## Estados da UI
+
+| Estado | O que aparece |
+| --- | --- |
+| Carregando | Tabela vazia (linhas aparecem quando `regionRows` é preenchido) |
+| Com dados | Tabela com linhas coloridas por nível de alerta |
+| Sem contadores | Header sem contadores (quando `panorama` não tem dados de unidades) |
+
+---
+
+## Arquivos
+
+| Arquivo | Responsabilidade |
+| --- | --- |
+| `layers/home/app/components/HomeTable.vue` | Template da tabela + header com contadores |
+| `layers/home/app/composables/useHomeStore.ts` | `regionRows` ref + `fetchRegionTable()` |
+| `layers/home/app/composables/useHomeApi.ts` | `getRegionTable()` — fetch + agrupamento por região/estado |
+| `layers/home/app/composables/types.ts` | `RegionRow`, `CellData`, `Level`, `Trend` |
 
 ---
 
 <!-- source: content/docs/paginas/homepage.md -->
 
-# Homepage — Visão Geral
+# Homepage
 
-## Contexto
+Página principal da plataforma Detecta Alerta. Apresenta o panorama nacional de vigilância epidemiológica com dados de lotação de estabelecimentos de saúde.
 
-O **Detecta Alerta** é uma plataforma de vigilância epidemiológica em tempo real para o Brasil, desenvolvida pelo Instituto Todos pela Saúde (ITpS). A plataforma centraliza dados de lotação de estabelecimentos de saúde — Drogarias, UBS e UPAs — para análise de padrões epidemiológicos e detecção precoce de surtos.
+**Rota:** `/` · **Layer:** `home` · **Página:** `layers/home/app/pages/index.vue`
 
-A homepage é a **porta de entrada** da plataforma. É a primeira página que qualquer visitante vê e precisa comunicar imediatamente o valor do produto: transformar dados dispersos de saúde em informação visual e acionável.
-
-## Problema
-
-Gestores de saúde, epidemiologistas e o público geral não têm uma forma unificada e visual de acompanhar a lotação de estabelecimentos de saúde por região. Os dados existem mas estão dispersos em sistemas diferentes, com formatos incompatíveis e sem contexto histórico para comparação.
-
-**Consequências:**
-
-- Surtos são detectados tardiamente por falta de visão consolidada
-- Gestores não conseguem comparar sua região com o panorama nacional
-- Decisões de alocação de recursos são baseadas em dados desatualizados
-- O público não tem acesso a informações compreensíveis sobre o cenário epidemiológico
-
-## Objetivo da Homepage
-
-Apresentar um **panorama nacional da vigilância epidemiológica** de forma clara e acessível, permitindo que qualquer pessoa:
-
-1. **Entenda o cenário atual** — nível de risco, tendência e comparativo regional
-2. **Explore por região** — filtre dados por região geográfica, estado e semana epidemiológica
-3. **Analise tendências** — compare lotação semanal com a média histórica
-4. **Tome decisão** — acesse análises de especialistas e dados detalhados por tipo de estabelecimento
-
-## Público-alvo
-
-| Perfil                        | Necessidade principal                                  | Como usa a homepage                                               | Frequência     |
-| ----------------------------- | ------------------------------------------------------ | ----------------------------------------------------------------- | -------------- |
-| **Gestor de saúde municipal** | Monitorar lotação na sua região para tomada de decisão | Filtra por estado, analisa panorama e tabela comparativa          | Diária/Semanal |
-| **Epidemiologista**           | Analisar tendências e detectar surtos precocemente     | Usa gráfico de tendência, cruza dados por tipo de estabelecimento | Semanal        |
-| **Público geral**             | Entender o cenário epidemiológico do país              | Visualiza panorama nacional e mapa, lê análise de especialistas   | Eventual       |
-| **Jornalista / Pesquisador**  | Acessar dados abertos para reportagens e estudos       | Consulta tabela e gráficos, exporta informações                   | Eventual       |
-
-## Proposta de Valor
-
-A homepage se diferencia por:
-
-- **Visão consolidada** — todos os dados de lotação em uma única tela, filtráveis por região
-- **Contexto histórico** — gráfico de 8 semanas comparando com média móvel (não só o dado atual)
-- **Análise humana** — textos de especialistas que contextualizam os números
-- **Dados abertos** — acesso público sem necessidade de cadastro para visualizar o panorama
-
-## Escopo
-
-### Dentro do escopo (homepage)
-
-- Panorama nacional e regional de lotação
-- Mapa interativo do Brasil por estados
-- Gráfico de tendência (lotação semanal vs. média histórica)
-- Tabela comparativa por região e tipo de estabelecimento
-- Filtros por região, estado e semana epidemiológica
-- Indicadores regionais no topo
-- CTA para "Meu Município"
-- Login overlay
-
-### Fora do escopo (outras páginas)
-
-- Dados por município individual → **Meu Município** (`/municipio`)
-- Feed de notícias epidemiológicas → **Rumores** (`/rumores`)
-- Mapa de calor detalhado → **Mapa de Risco** (`/mapa-risco`)
-- Exportação de relatórios → **Relatórios** (`/relatorios`)
-- Gestão de usuários e permissões → **Admin** (`/admin`)
-
-## Métricas de Sucesso
-
-| Métrica                                | Meta                             | Como medir                |
-| -------------------------------------- | -------------------------------- | ------------------------- |
-| Tempo até primeira interação           | < 3 segundos                     | Lighthouse / Web Vitals   |
-| Taxa de clique nas tabs de região      | > 30% dos visitantes             | Analytics                 |
-| Taxa de conversão para "Meu Município" | > 10% dos visitantes             | Analytics (clique no CTA) |
-| Tempo médio na página                  | > 2 minutos                      | Analytics                 |
-| Taxa de login a partir da homepage     | > 20% dos visitantes recorrentes | Analytics                 |
-
-## Premissas e Dependências
-
-### Premissas
-
-- Os dados da API Sinapse são atualizados semanalmente (por semana epidemiológica)
-- O visitante tem navegador moderno com JavaScript habilitado
-- A homepage é acessível sem login (dados públicos), login desbloqueia funcionalidades extras
-
-### Dependências
-
-| Dependência                        | Tipo       | Status                  |
-| ---------------------------------- | ---------- | ----------------------- |
-| API Sinapse (`/api/v1`)            | Backend    | ✅ Disponível (staging) |
-| TopoJSON do Brasil (`public/geo/`) | Asset      | ✅ Disponível           |
-| MapLibre GL (mapa interativo)      | Biblioteca | 🔲 Não integrado        |
-| ApexCharts (gráficos)              | Biblioteca | 🔲 Não integrado        |
-| Dados de semanas epidemiológicas   | API        | 🔲 Endpoint não mapeado |
-| Análise de especialistas           | API/IA     | 🔲 Endpoint não mapeado |
-
-## Informações Técnicas
-
-| Item           | Valor                                        |
-| -------------- | -------------------------------------------- |
-| **Rota**       | `/`                                          |
-| **Layer**      | `home`                                       |
-| **Acesso**     | Público (com login overlay)                  |
-| **Página**     | `layers/home/app/pages/index.vue`            |
-| **SEO**        | `useSeoPage()` + `defineWebSite()` (JSON-LD) |
-| **Middleware** | `auth-guard`                                 |
+---
 
 ## Estrutura da Página
 
-A homepage é composta por **8 seções** principais, detalhadas na página de [Requisitos](/docs/paginas/homepage-requisitos):
+```
+default.vue (layout)
+├── AppTopBar ← indicadores regionais (API real)
+├── AppHeader
+├── HomeHero (estático)
+├── HomeDashboard (orquestrador — ver abaixo)
+│   ├── HomeRegionTabs ← switcher de regiões
+│   ├── HomeMap (MapLibre GL + GeoJSON — mock)
+│   ├── HomeFilters ← selects estado/semana
+│   ├── HomePanorama ← card de alert status
+│   ├── HomeChart ← controles do gráfico
+│   │   └── HomeChartLine ← renderização ECharts
+│   └── HomeTable ← tabela de lotação
+├── HomeCtaMunicipio (estático)
+└── AppFooter
+```
 
-1. Barra de Indicadores Regionais (Top Bar)
-2. Header / Navegação
-3. Hero Section
-4. Seletor de Região (Tabs)
-5. Painel Principal (Mapa + Filtros + Panorama + Gráfico + Tabela)
-6. CTA — Meu Município
-7. Footer
-8. Login Overlay (Dialog)
+---
+
+## HomeDashboard (orquestrador)
+
+O `HomeDashboard.vue` não é um componente visual — é o **orquestrador** que monta o layout e dispara o carregamento inicial dos dados.
+
+No `onMounted`:
+
+1. `store.fetchLookups()` — carrega opções de semana epidemiológica
+2. `store.fetchAll()` — busca panorama + tabela em paralelo, depois gráfico
+
+O layout divide a tela em duas colunas no desktop:
+
+| Coluna | Conteúdo | Comportamento |
+| --- | --- | --- |
+| Esquerda (45%) | `HomeRegionTabs` + `HomeMap` | Sticky (acompanha scroll) |
+| Direita (55%) | `HomeFilters` + `HomePanorama` + `HomeChart` + `HomeTable` | Scroll natural |
+
+---
+
+## Como tudo se conecta
+
+```
+                    useHomeStore (Pinia)
+                    ┌──────────────────────────────────────────┐
+                    │  filtros: { region, estado, semana }     │
+                    │  chartUnitType: 'all'|'drogarias'|...    │
+                    │                                          │
+                    │  panorama ──────────► HomePanorama        │
+                    │       └──────────────► HomeTable (header) │
+                    │  regionRows ────────► HomeTable (linhas)  │
+                    │  chartData ─────────► HomeChart/ChartLine │
+                    └──────────────────────────────────────────┘
+                          ▲                    ▲
+            setRegion()   │   setEstado()       │  setChartUnitType()
+            setSemana()   │                     │
+                ┌─────────┘                     └──────────┐
+                │                                          │
+        HomeRegionTabs                              HomeChart
+        HomeFilters                          (filtro local de unidade)
+```
+
+### Fluxo de um clique no switcher de região
+
+```
+1. Usuário clica "Sul" no HomeRegionTabs
+2. store.setRegion('sul')
+3. filtros.region = 'sul'
+4. store.fetchAll()
+   ├─ api.getPanorama({ region: 'sul', ... })
+   │    → aggregation_level=region, filtra client-side por key 'S'
+   │    → store.panorama atualiza → HomePanorama reage
+   │
+   ├─ api.getRegionTable({ region: 'sul', ... })
+   │    → aggregation_level=state, region=S
+   │    → retorna estados: PR, SC, RS
+   │    → store.regionRows atualiza → HomeTable reage
+   │
+   └─ api.getChartSeries({ region: 'sul', ... })
+        → aggregation_level=region, filtra por key 'S'
+        → store.chartData atualiza → HomeChart/ChartLine reage
+```
+
+### Isolamento de falhas
+
+O `fetchAll()` isola o gráfico: se a chamada de `getChartSeries` falhar, panorama e tabela continuam funcionando normalmente. O gráfico fica com `chartData = null` (spinner).
+
+---
+
+## Documentação por componente
+
+- [AppTopBar](/docs/paginas/homepage-apptopbar) — indicadores regionais no topo
+- [HomeRegionTabs](/docs/paginas/homepage-region-tabs) — switcher Brasil / regiões
+- [HomeFilters](/docs/paginas/homepage-filters) — selects de estado e semana
+- [HomePanorama](/docs/paginas/homepage-panorama) — card de alert status e contadores
+- [HomeChart](/docs/paginas/homepage-chart) — controles do gráfico temporal
+- [HomeChartLine](/docs/paginas/homepage-chart-line) — renderização ECharts
+- [HomeTable](/docs/paginas/homepage-tabela) — tabela de lotação por região/estado
+- [Backlog de Integração](/docs/paginas/homepage-backlog) — itens pendentes (agravos, análise, mapa)
+
+---
+
+## Arquivos principais
+
+| Arquivo | Responsabilidade |
+| --- | --- |
+| `layers/home/app/pages/index.vue` | Página / rota |
+| `layers/home/app/components/HomeDashboard.vue` | Orquestrador (layout + fetch inicial) |
+| `layers/home/app/composables/useHomeStore.ts` | Store centralizada (estado + actions) |
+| `layers/home/app/composables/useHomeApi.ts` | Service (chamadas à API + transformação) |
+| `layers/home/app/composables/types.ts` | Tipos TypeScript da feature |
+| `layers/home/server/api/epidemiological/aggregations.get.ts` | BFF proxy para API Sinapse |
 
 ---
 
@@ -3053,13 +2283,13 @@ index.vue (página)
 
 # Dados e APIs
 
-Estado atual dos dados consumidos pela página Meu Município e endpoints BFF a implementar.
+Estado atual dos dados consumidos pela página Meu Município e endpoints API Proxy a implementar.
 
 ---
 
 ## Estado Atual: Mock
 
-Toda a página funciona com dados mock. Não há endpoints BFF nem chamadas à API Sinapse.
+Toda a página funciona com dados mock. Não há endpoints API Proxy nem chamadas à API Sinapse.
 
 | Dado                       | Fonte atual           | Arquivo                       | Substituir por                   |
 | -------------------------- | --------------------- | ----------------------------- | -------------------------------- |
@@ -3074,7 +2304,7 @@ Toda a página funciona com dados mock. Não há endpoints BFF nem chamadas à A
 
 ---
 
-## Endpoints BFF a Implementar
+## Endpoints API Proxy a Implementar
 
 Quando a integração com a API Sinapse for feita, criar estes endpoints em `layers/meu-municipio/server/api/meu-municipio/`:
 
@@ -3159,7 +2389,7 @@ Alertas epidemiológicos ativos para o município.
 
 ## Service a Implementar
 
-Criar `layers/meu-municipio/app/composables/useMeuMunicipioApi.ts` seguindo o [padrão feature layer](/docs/arquitetura/feature-layer):
+Criar `layers/meu-municipio/app/composables/useMeuMunicipioApi.ts` seguindo o [padrão feature layer](/docs/padroes/feature-layer):
 
 ```typescript
 export function useMeuMunicipioApi() {
@@ -3566,7 +2796,7 @@ Duas camadas complementares:
 ### Planejado (requer integração com API)
 
 - [ ] `useMeuMunicipioApi.ts` — service stateless com `$fetch`
-- [ ] Endpoints BFF em `server/api/meu-municipio/`
+- [ ] Endpoints API Proxy em `server/api/meu-municipio/`
 - [ ] Busca de municípios com autocomplete real (API ou lista local)
 - [ ] Geolocalização ("Usar minha localização")
 - [ ] Marcadores de unidades de saúde no mapa (UBS, UPA, Drogaria)
