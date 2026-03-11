@@ -47,3 +47,12 @@ export interface RegionOption {
   id: string
   label: string
 }
+
+export const HOME_REGIONS: RegionOption[] = [
+  { id: 'brasil', label: 'Brasil' },
+  { id: 'norte', label: 'Norte' },
+  { id: 'nordeste', label: 'Nordeste' },
+  { id: 'centro-oeste', label: 'Centro-Oeste' },
+  { id: 'sudeste', label: 'Sudeste' },
+  { id: 'sul', label: 'Sul' }
+]

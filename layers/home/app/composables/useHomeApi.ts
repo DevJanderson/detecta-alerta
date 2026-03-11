@@ -1,4 +1,4 @@
-import type { PanoramaData, RegionRow, SelectOption, RegionOption } from './types'
+import type { PanoramaData, RegionRow, SelectOption } from './types'
 
 export function useHomeApi() {
   // TODO: substituir por $fetch('/api/home/panorama', { query: params })
@@ -101,16 +101,5 @@ export function useHomeApi() {
     ]
   }
 
-  function getRegions(): RegionOption[] {
-    return [
-      { id: 'brasil', label: 'Brasil' },
-      { id: 'norte', label: 'Norte' },
-      { id: 'nordeste', label: 'Nordeste' },
-      { id: 'centro-oeste', label: 'Centro-Oeste' },
-      { id: 'sudeste', label: 'Sudeste' },
-      { id: 'sul', label: 'Sul' }
-    ]
-  }
-
-  return { getPanorama, getRegionTable, getEstados, getSemanas, getRegions }
+  return { getPanorama, getRegionTable, getEstados, getSemanas }
 }

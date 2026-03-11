@@ -1,4 +1,5 @@
-import type { PanoramaData, RegionRow, HomeFilters, SelectOption, RegionOption } from './types'
+import type { PanoramaData, RegionRow, HomeFilters, SelectOption } from './types'
+import { HOME_REGIONS } from './types'
 import { HomeErrors } from '#shared/domain/errors'
 
 export const useHomeStore = defineStore(
@@ -22,12 +23,12 @@ export const useHomeStore = defineStore(
     // === Lookups (carregados uma vez) ===
     const estados = shallowRef<SelectOption[]>([])
     const semanas = shallowRef<SelectOption[]>([])
-    const regions = shallowRef<RegionOption[]>([])
+    const regions = HOME_REGIONS
     const lookupsLoaded = ref(false)
 
     // === Computed ===
     const regionLabel = computed(() => {
-      const found = regions.value.find(r => r.id === filtros.value.region)
+      const found = regions.find(r => r.id === filtros.value.region)
       return found?.label ?? 'Brasil'
     })
 
@@ -40,7 +41,6 @@ export const useHomeStore = defineStore(
         const [e, s] = await Promise.all([api.getEstados(), api.getSemanas()])
         estados.value = e
         semanas.value = s
-        regions.value = api.getRegions()
         lookupsLoaded.value = true
       } catch {
         // Lookups sao opcionais — nao bloqueia a pagina
