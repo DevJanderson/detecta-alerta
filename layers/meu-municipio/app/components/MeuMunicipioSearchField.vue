@@ -105,7 +105,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="relative w-full max-w-md">
+  <div class="relative w-full sm:max-w-md">
     <!-- Search Input -->
     <div
       class="flex items-center gap-2 rounded-full border border-base-200 bg-base-0 px-3 py-2 shadow-sm transition-colors hover:border-primary-300 hover:bg-base-50 focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500/20"
