@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { NATIONAL_MOVEMENT } from '../utils/home-map-data'
-
 const mapContainer = ref<HTMLElement | null>(null)
 const { map } = useHomeMap(mapContainer)
 
@@ -23,9 +21,7 @@ defineExpose({ map })
           class="inline-flex items-center gap-1.5 rounded-full border border-secondary-200 bg-base-0/90 px-3 py-1 shadow-sm backdrop-blur-sm"
         >
           <span class="text-xs font-semibold text-secondary-700">↑</span>
-          <span class="text-xs font-semibold text-secondary-700">{{
-            NATIONAL_MOVEMENT.label
-          }}</span>
+          <span class="text-xs font-semibold text-secondary-700">+9 mil visitas</span>
         </div>
       </div>
 
