@@ -14,7 +14,7 @@ defineProps<{
 <template>
   <article class="overflow-hidden rounded-xl border border-secondary-200 bg-white p-4 shadow-sm">
     <!-- Imagem grande -->
-    <div class="h-120 w-full overflow-hidden rounded-xl">
+    <div class="h-52 w-full overflow-hidden rounded-xl sm:h-80 lg:h-120">
       <NuxtImg v-if="image" :src="image" class="size-full object-cover" loading="lazy" />
       <div v-else class="flex size-full items-center justify-center bg-secondary-200">
         <div
@@ -30,10 +30,10 @@ defineProps<{
     </div>
 
     <!-- Conteúdo -->
-    <div class="flex flex-col gap-10 p-8">
+    <div class="flex flex-col gap-6 p-4 sm:gap-8 sm:p-6 lg:gap-10 lg:p-8">
       <!-- Header: título + fontes -->
-      <div class="flex flex-col gap-4">
-        <h3 class="text-4xl font-semibold leading-snug text-base-950">
+      <div class="flex flex-col gap-3 sm:gap-4">
+        <h3 class="text-2xl font-semibold leading-snug text-base-950 sm:text-3xl lg:text-4xl">
           {{ title }}
         </h3>
 

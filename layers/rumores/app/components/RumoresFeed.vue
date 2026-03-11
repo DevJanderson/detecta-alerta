@@ -49,33 +49,35 @@ const feedItems = [
     <!-- Busca e filtros -->
     <div class="flex flex-col gap-4">
       <!-- Linha de busca + dropdowns -->
-      <div class="flex gap-4">
+      <div class="flex flex-col gap-3 sm:flex-row sm:gap-4">
         <div
-          class="flex flex-1 items-center gap-3 rounded-full border border-base-100 bg-white px-6 py-3.5"
+          class="flex flex-1 items-center gap-3 rounded-full border border-base-100 bg-white px-4 py-3 sm:px-6 sm:py-3.5"
         >
           <Icon name="lucide:search" class="size-5 text-base-400" />
-          <span class="text-base text-secondary-400">Busque por notícia ou município...</span>
+          <span class="text-sm text-secondary-400 sm:text-base"
+            >Busque por notícia ou município...</span
+          >
         </div>
 
         <button
-          class="flex w-70 items-center gap-2 rounded-full border border-base-100 bg-white px-4 py-3.5"
+          class="flex w-full items-center gap-2 rounded-full border border-base-100 bg-white px-4 py-3 sm:w-70 sm:py-3.5"
         >
           <Icon name="lucide:cross" class="size-5 text-secondary-500" />
-          <span class="flex-1 text-left text-base text-base-950">Todos os sintomas</span>
+          <span class="flex-1 text-left text-sm text-base-950 sm:text-base">Todos os sintomas</span>
           <Icon name="lucide:chevron-down" class="size-5 text-base-400" />
         </button>
 
         <button
-          class="flex w-70 items-center gap-2 rounded-full border border-base-100 bg-white px-4 py-3.5"
+          class="flex w-full items-center gap-2 rounded-full border border-base-100 bg-white px-4 py-3 sm:w-70 sm:py-3.5"
         >
           <Icon name="lucide:map-pin" class="size-5 text-secondary-500" />
-          <span class="flex-1 text-left text-base text-base-950">Todo o Brasil</span>
+          <span class="flex-1 text-left text-sm text-base-950 sm:text-base">Todo o Brasil</span>
           <Icon name="lucide:chevron-down" class="size-5 text-base-400" />
         </button>
       </div>
 
       <!-- Quick filter chips -->
-      <div class="flex items-center gap-2 px-6">
+      <div class="flex flex-wrap items-center gap-2 sm:px-6">
         <span class="text-xs font-semibold text-base-600">Filtrar por:</span>
         <button
           v-for="chip in diseaseChips"
@@ -92,13 +94,15 @@ const feedItems = [
     </div>
 
     <!-- Container de notícias (fundo azul claro) -->
-    <div class="flex flex-col items-center gap-6 rounded-2xl bg-secondary-50 py-20">
+    <div
+      class="flex flex-col items-center gap-6 rounded-2xl bg-secondary-50 px-4 py-10 sm:px-6 sm:py-20"
+    >
       <!-- Título da seção -->
-      <div class="flex w-full max-w-264.5 items-center gap-6 pl-6">
-        <svg class="size-4 text-primary-950" viewBox="0 0 16 16" fill="currentColor">
+      <div class="flex w-full max-w-264.5 items-center gap-3 sm:gap-6 sm:pl-6">
+        <svg class="size-3 text-primary-950 sm:size-4" viewBox="0 0 16 16" fill="currentColor">
           <path d="M8 0L16 8L8 16L0 8Z" />
         </svg>
-        <h2 class="text-[28px] font-semibold leading-tight text-secondary-600">
+        <h2 class="text-xl font-semibold leading-tight text-secondary-600 sm:text-[28px]">
           As mais Recentes do Nordeste
         </h2>
       </div>
@@ -111,7 +115,7 @@ const feedItems = [
       <!-- Carregar mais -->
       <div class="pt-6">
         <button
-          class="flex items-center gap-2 rounded-full border border-primary-300 px-6 py-3.5 text-xl font-semibold text-secondary-600 transition-colors hover:bg-white"
+          class="flex items-center gap-2 rounded-full border border-primary-300 px-4 py-2.5 text-base font-semibold text-secondary-600 transition-colors hover:bg-white sm:px-6 sm:py-3.5 sm:text-xl"
         >
           <Icon name="lucide:plus" class="size-6" />
           carregar mais notícias

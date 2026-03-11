@@ -24,7 +24,7 @@ const relevanceClasses: Record<string, string> = {
 <template>
   <NuxtLink
     to="/rumores/1"
-    class="group flex items-center gap-10 border-b border-base-50 px-2 py-8 transition-colors hover:bg-base-50/50"
+    class="group flex min-w-[800px] items-center gap-10 border-b border-base-50 px-2 py-6 transition-colors hover:bg-base-50/50 sm:py-8"
   >
     <!-- Notícia (imagem + conteúdo) -->
     <div class="flex flex-1 items-center gap-6 pr-20">

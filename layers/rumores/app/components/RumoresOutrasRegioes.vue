@@ -35,11 +35,13 @@ const subRegions = ['Norte', 'Centro-Oeste', 'Sudeste', 'Sul']
 <template>
   <section class="flex flex-col gap-6">
     <!-- Título da seção -->
-    <div class="flex items-center gap-6 pl-6">
-      <svg class="size-4 text-primary-950" viewBox="0 0 16 16" fill="currentColor">
+    <div class="flex items-center gap-3 sm:gap-6 sm:pl-6">
+      <svg class="size-3 text-primary-950 sm:size-4" viewBox="0 0 16 16" fill="currentColor">
         <path d="M8 0L16 8L8 16L0 8Z" />
       </svg>
-      <h2 class="text-[28px] font-semibold leading-tight text-secondary-900">Outras Regiões</h2>
+      <h2 class="text-xl font-semibold leading-tight text-secondary-900 sm:text-[28px]">
+        Outras Regiões
+      </h2>
     </div>
 
     <!-- Cards destaque (top row) -->
