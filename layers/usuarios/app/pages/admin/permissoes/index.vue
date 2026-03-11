@@ -76,10 +76,10 @@ async function handleDeleteConfirm(id: number) {
 </script>
 
 <template>
-  <div class="mx-auto max-w-6xl px-4 py-8">
+  <div class="mx-auto max-w-6xl px-4 py-4 sm:py-8">
     <!-- Header -->
-    <div class="mb-6 flex items-center justify-between">
-      <h1 class="text-2xl font-bold text-foreground">Permissoes</h1>
+    <div class="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
+      <h1 class="text-xl font-bold text-foreground sm:text-2xl">Permissoes</h1>
       <Button variant="brand-outline" size="brand-md" @click="handleCreate">
         <Icon name="lucide:plus" class="mr-2 size-4" />
         Nova Permissao
