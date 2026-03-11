@@ -1,6 +1,6 @@
 // === Tipos de dados da Home ===
 
-export type Level = 'Baixo' | 'Médio' | 'Alto'
+export type Level = 'Normal' | 'Moderado' | 'Elevado'
 export type Trend = 'up' | 'down' | 'stable'
 
 export interface CellData {

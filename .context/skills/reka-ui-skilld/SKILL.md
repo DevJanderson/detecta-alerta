@@ -1,9 +1,7 @@
 ---
 name: reka-ui-skilld
 description: 'ALWAYS use when writing code importing "reka-ui". Consult for debugging, best practices, or modifying reka-ui, reka ui.'
-metadata:
-  version: 2.8.0
-  generated_by: Gemini CLI · Gemini 3 Flash
+user-invocable: false
 ---
 
 # unovue/reka-ui `reka-ui`

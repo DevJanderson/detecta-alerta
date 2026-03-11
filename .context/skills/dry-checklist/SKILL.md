@@ -1,7 +1,7 @@
 ---
-name: DRY Checklist
+name: dry-checklist
 description: Checklist do princípio Don't Repeat Yourself adaptado ao Detecta Alerta — usar antes de criar ou modificar código
-phases: [P, R, E, V]
+disable-model-invocation: true
 ---
 
 # DRY Checklist — Detecta Alerta

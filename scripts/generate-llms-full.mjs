@@ -62,7 +62,7 @@ const parts = [
   '> Gerado automaticamente a partir de content/docs/.',
   '',
   '---',
-  '',
+  ''
 ]
 
 const files = buildOrderedFiles()
