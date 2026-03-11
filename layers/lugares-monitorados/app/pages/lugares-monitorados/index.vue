@@ -56,7 +56,7 @@ onMounted(() => {
 
       <!-- Toggle painel -->
       <button
-        class="absolute top-4 right-4 z-10 flex size-10 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-base-50"
+        class="absolute top-3 right-3 z-30 flex size-10 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-base-50 sm:top-4 sm:right-4"
         :title="store.isPanelOpen ? 'Fechar painel' : 'Abrir painel'"
         @click="store.togglePanel()"
       >

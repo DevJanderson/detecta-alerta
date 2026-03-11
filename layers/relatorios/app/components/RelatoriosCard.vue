@@ -12,7 +12,7 @@ defineProps<{
 <template>
   <NuxtLink
     to="#"
-    class="relative flex h-101 flex-col items-center gap-8 overflow-hidden rounded-xl bg-secondary-50 px-6 pb-6 pt-8 transition-shadow hover:shadow-lg"
+    class="relative flex h-80 flex-col items-center gap-5 overflow-hidden rounded-xl bg-secondary-50 px-4 pb-4 pt-6 transition-shadow hover:shadow-lg sm:h-101 sm:gap-8 sm:px-6 sm:pb-6 sm:pt-8"
     :class="isNew ? 'border border-secondary-200' : ''"
   >
     <!-- Fundo colorido inferior -->

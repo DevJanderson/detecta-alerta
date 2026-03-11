@@ -29,9 +29,9 @@ defineExpose({ map })
         </div>
       </div>
 
-      <!-- Legenda (canto superior esquerdo) -->
+      <!-- Legenda (canto superior esquerdo — compacta no mobile) -->
       <div
-        class="absolute top-4 left-4 hidden flex-col items-start gap-1.5 rounded-md border border-base-100 bg-base-0/90 p-3 shadow-sm backdrop-blur-sm sm:flex"
+        class="absolute bottom-20 left-4 flex flex-col items-start gap-1 rounded-md border border-base-100 bg-base-0/90 p-2 shadow-sm backdrop-blur-sm sm:top-4 sm:bottom-auto sm:gap-1.5 sm:p-3"
       >
         <span class="text-xs font-semibold text-base-700">
           Movimento em<br />estabelecimentos de saúde
@@ -55,7 +55,7 @@ defineExpose({ map })
 
       <!-- Tooltip "Mapa interativo!" (canto superior direito) -->
       <div
-        class="absolute top-4 right-4 hidden w-52 items-start gap-3 rounded-lg border border-danger-200 bg-base-0/90 px-3 py-2.5 shadow-sm backdrop-blur-sm sm:flex"
+        class="absolute top-4 right-4 flex w-40 items-start gap-2 rounded-lg border border-danger-200 bg-base-0/90 px-2.5 py-2 shadow-sm backdrop-blur-sm sm:w-52 sm:gap-3 sm:px-3 sm:py-2.5"
       >
         <Icon name="lucide:navigation" class="mt-0.5 size-4 shrink-0 text-danger-500" />
         <div>

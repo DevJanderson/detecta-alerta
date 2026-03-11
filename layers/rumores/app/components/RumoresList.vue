@@ -122,44 +122,48 @@ const rows = [
     <!-- Busca e filtros -->
     <div class="flex flex-col gap-4">
       <!-- Linha de busca + dropdowns -->
-      <div class="flex gap-4">
+      <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
         <!-- Search -->
         <div
-          class="flex flex-1 items-center gap-3 rounded-full border border-base-100 bg-white px-6 py-3.5"
+          class="flex flex-1 items-center gap-3 rounded-full border border-base-100 bg-white px-4 py-3 sm:px-6 sm:py-3.5"
         >
           <Icon name="lucide:search" class="size-5 text-base-400" />
-          <span class="text-base text-secondary-400">Busque por notícia ou município...</span>
+          <span class="text-sm text-secondary-400 sm:text-base"
+            >Busque por notícia ou município...</span
+          >
         </div>
 
         <!-- Dropdown: Relevância -->
         <button
-          class="flex w-60 items-center gap-2 rounded-full border border-base-100 bg-white px-4 py-3.5"
+          class="flex w-full items-center gap-2 rounded-full border border-base-100 bg-white px-4 py-3 sm:w-60 sm:py-3.5"
         >
-          <span class="flex-1 text-left text-base text-base-950">Qualquer relevância</span>
+          <span class="flex-1 text-left text-sm text-base-950 sm:text-base"
+            >Qualquer relevância</span
+          >
           <Icon name="lucide:chevron-down" class="size-5 text-base-400" />
         </button>
 
         <!-- Dropdown: Sintomas -->
         <button
-          class="flex w-70 items-center gap-2 rounded-full border border-base-100 bg-white px-4 py-3.5"
+          class="flex w-full items-center gap-2 rounded-full border border-base-100 bg-white px-4 py-3 sm:w-70 sm:py-3.5"
         >
           <Icon name="lucide:cross" class="size-5 text-secondary-500" />
-          <span class="flex-1 text-left text-base text-base-950">Todos os sintomas</span>
+          <span class="flex-1 text-left text-sm text-base-950 sm:text-base">Todos os sintomas</span>
           <Icon name="lucide:chevron-down" class="size-5 text-base-400" />
         </button>
 
         <!-- Dropdown: Localização -->
         <button
-          class="flex w-70 items-center gap-2 rounded-full border border-base-100 bg-white px-4 py-3.5"
+          class="flex w-full items-center gap-2 rounded-full border border-base-100 bg-white px-4 py-3 sm:w-70 sm:py-3.5"
         >
           <Icon name="lucide:map-pin" class="size-5 text-secondary-500" />
-          <span class="flex-1 text-left text-base text-base-950">Todo o Brasil</span>
+          <span class="flex-1 text-left text-sm text-base-950 sm:text-base">Todo o Brasil</span>
           <Icon name="lucide:chevron-down" class="size-5 text-base-400" />
         </button>
       </div>
 
       <!-- Quick filter chips -->
-      <div class="flex items-center gap-2 px-6">
+      <div class="flex flex-wrap items-center gap-2 sm:px-6">
         <span class="text-xs font-semibold text-base-600">Filtrar por:</span>
         <button
           v-for="chip in diseaseChips"
@@ -176,9 +180,9 @@ const rows = [
     </div>
 
     <!-- Tabela -->
-    <div class="flex flex-col">
+    <div class="flex flex-col overflow-x-auto">
       <!-- Header -->
-      <div class="flex items-center gap-10 rounded-t-md bg-secondary-50 px-2 py-3">
+      <div class="flex min-w-[800px] items-center gap-10 rounded-t-md bg-secondary-50 px-2 py-3">
         <div
           v-for="header in tableHeaders"
           :key="header.label"

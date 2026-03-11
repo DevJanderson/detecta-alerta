@@ -16,8 +16,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="mx-auto max-w-3xl px-4 py-8">
-    <h1 class="mb-6 text-2xl font-bold text-foreground">Meu Perfil</h1>
+  <div class="mx-auto max-w-3xl px-4 py-4 sm:py-8">
+    <h1 class="mb-4 text-xl font-bold text-foreground sm:mb-6 sm:text-2xl">Meu Perfil</h1>
 
     <Tabs default-value="dados" class="w-full">
       <TabsList class="mb-6">

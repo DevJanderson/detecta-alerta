@@ -74,7 +74,7 @@ async function handleDeleteConfirm() {
 </script>
 
 <template>
-  <div class="mx-auto max-w-4xl px-4 py-8">
+  <div class="mx-auto max-w-4xl px-4 py-4 sm:py-8">
     <!-- Loading -->
     <CommonLoadingSpinner v-if="isLoading" />
 

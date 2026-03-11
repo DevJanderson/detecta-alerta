@@ -3,9 +3,12 @@ const store = useLugaresMonitoradosStore()
 </script>
 
 <template>
-  <aside v-if="store.isPanelOpen" class="flex h-full w-[520px] flex-col overflow-hidden bg-white">
+  <aside
+    v-if="store.isPanelOpen"
+    class="absolute inset-y-0 right-0 z-20 flex h-full w-full flex-col overflow-hidden bg-white sm:w-80 md:w-96 lg:static lg:w-[520px] lg:shrink-0"
+  >
     <!-- Ações -->
-    <div class="flex gap-2 px-4 pb-3 pt-4">
+    <div class="flex gap-2 px-3 pb-3 pt-3 sm:px-4 sm:pt-4">
       <NuxtLink
         to="/lugares-monitorados/tabela"
         class="flex h-10 flex-1 items-center justify-center gap-2 rounded-full border border-base-200 text-sm font-semibold text-secondary-900 transition-colors hover:bg-base-50"

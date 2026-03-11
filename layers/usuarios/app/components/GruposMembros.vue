@@ -95,9 +95,9 @@ watch(
           class="flex w-full items-center justify-between px-3 py-2 text-sm hover:bg-muted"
           @click="handleAdd(usuario.id)"
         >
-          <div>
+          <div class="min-w-0">
             <span class="font-medium">{{ usuario.nome }}</span>
-            <span class="ml-2 text-muted-foreground">{{ usuario.email }}</span>
+            <span class="ml-2 hidden text-muted-foreground sm:inline">{{ usuario.email }}</span>
           </div>
           <Icon name="lucide:plus" class="size-4 text-secondary-800" />
         </button>
@@ -119,9 +119,11 @@ watch(
         :key="membro.id"
         class="flex items-center justify-between rounded-md border px-3 py-2"
       >
-        <div>
+        <div class="min-w-0">
           <span class="text-sm font-medium">{{ membro.nome }}</span>
-          <span class="ml-2 text-sm text-muted-foreground">{{ membro.email }}</span>
+          <span class="ml-2 hidden text-sm text-muted-foreground sm:inline">{{
+            membro.email
+          }}</span>
         </div>
         <Button
           variant="ghost"

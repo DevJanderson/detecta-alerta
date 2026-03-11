@@ -185,7 +185,7 @@ watch(
     <!-- Trigger Button -->
     <button
       type="button"
-      class="flex cursor-pointer items-center gap-2 rounded-full border border-base-200 bg-base-0 px-4 py-2.5 shadow-sm transition-colors hover:border-primary-300 hover:bg-base-50"
+      class="flex w-full cursor-pointer items-center gap-2 rounded-full border border-base-200 bg-base-0 px-3 py-2 shadow-sm transition-colors hover:border-primary-300 hover:bg-base-50 sm:w-auto sm:px-4 sm:py-2.5"
       :aria-expanded="isOpen"
       aria-haspopup="dialog"
       @click="handleToggle"
@@ -196,7 +196,7 @@ watch(
         class="size-4 shrink-0 text-primary-500"
         aria-hidden="true"
       />
-      <span class="whitespace-nowrap text-sm font-medium text-base-700">
+      <span class="truncate text-xs font-medium text-base-700 sm:whitespace-nowrap sm:text-sm">
         {{ displayText }}
       </span>
       <Icon
@@ -220,7 +220,7 @@ watch(
     >
       <div
         v-if="isOpen"
-        class="epi-calendar-dropdown absolute left-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-secondary-200 bg-base-0 shadow-lg"
+        class="epi-calendar-dropdown absolute right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-secondary-200 bg-base-0 shadow-lg sm:left-0 sm:right-auto"
         role="dialog"
         aria-label="Selecionar semana epidemiológica"
       >

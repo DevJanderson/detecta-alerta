@@ -17,19 +17,28 @@ const activeView = ref('galeria')
     <RumoresHero v-model="activeView" />
 
     <!-- Galeria (cards por região) -->
-    <div v-if="activeView === 'galeria'" class="flex flex-col gap-16 px-6 pt-20 pb-20 lg:px-40">
+    <div
+      v-if="activeView === 'galeria'"
+      class="flex flex-col gap-10 px-4 pb-16 pt-14 sm:gap-16 sm:px-6 sm:pb-20 sm:pt-20 lg:px-40"
+    >
       <RumoresSection region="Região Nordeste" />
       <RumoresOutrasRegioes />
       <RumoresSection region="Outros países" />
     </div>
 
     <!-- Feed (coluna única cronológica) -->
-    <div v-else-if="activeView === 'feed'" class="px-6 pt-20 pb-20 lg:px-40">
+    <div
+      v-else-if="activeView === 'feed'"
+      class="px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20 lg:px-40"
+    >
       <RumoresFeed />
     </div>
 
     <!-- Lista (tabela com filtros) -->
-    <div v-else-if="activeView === 'lista'" class="px-6 pt-20 pb-20 lg:px-40">
+    <div
+      v-else-if="activeView === 'lista'"
+      class="px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20 lg:px-40"
+    >
       <RumoresList />
     </div>
   </div>

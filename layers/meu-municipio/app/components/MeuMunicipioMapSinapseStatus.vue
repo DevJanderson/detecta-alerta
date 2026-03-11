@@ -5,14 +5,16 @@ const lastUpdate = ref('3 minutos')
 
 <template>
   <div
-    class="flex flex-row items-center gap-3 rounded-full border border-success-200 bg-base-0 px-3 py-2"
+    class="flex flex-row items-center gap-2 rounded-full border border-success-200 bg-base-0 px-2.5 py-1.5 sm:gap-3 sm:px-3 sm:py-2"
   >
-    <img src="/brand/sinapse.webp" alt="Sinapse" class="h-4 shrink-0" />
-    <span class="whitespace-nowrap text-xs font-normal text-success-900">
-      Dados via Sinapse, há {{ lastUpdate }}.
+    <img src="/brand/sinapse.webp" alt="Sinapse" class="h-3.5 shrink-0 sm:h-4" />
+    <span class="truncate text-[11px] font-normal text-success-900 sm:whitespace-nowrap sm:text-xs">
+      Sinapse, há {{ lastUpdate }}
     </span>
-    <div class="flex size-4 shrink-0 items-center justify-center rounded-full bg-success-200">
-      <div class="size-2 rounded-full bg-success-800" />
+    <div
+      class="flex size-3.5 shrink-0 items-center justify-center rounded-full bg-success-200 sm:size-4"
+    >
+      <div class="size-1.5 rounded-full bg-success-800 sm:size-2" />
     </div>
   </div>
 </template>

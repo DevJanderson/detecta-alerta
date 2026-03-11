@@ -93,9 +93,11 @@ function scrollToSection(sectionId: string) {
 </script>
 
 <template>
-  <div class="px-6 pb-20 pt-10 lg:px-40">
+  <div class="px-4 pb-16 pt-6 sm:px-6 sm:pb-20 sm:pt-10 lg:px-40">
     <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 pb-10 text-sm text-base-400">
+    <nav
+      class="flex flex-wrap items-center gap-1.5 pb-6 text-xs text-base-400 sm:gap-2 sm:pb-10 sm:text-sm"
+    >
       <NuxtLink to="/" class="transition-colors hover:text-base-600"> Home </NuxtLink>
       <Icon name="lucide:chevron-right" class="size-4" />
       <NuxtLink to="/rumores" class="transition-colors hover:text-base-600"> Rumores </NuxtLink>
@@ -104,18 +106,20 @@ function scrollToSection(sectionId: string) {
     </nav>
 
     <!-- Conteúdo + Sidebar -->
-    <div class="flex gap-16">
+    <div class="flex gap-10 lg:gap-16">
       <!-- Conteúdo principal -->
       <div class="flex flex-1 flex-col">
         <!-- Header -->
-        <div class="flex flex-col gap-6 pb-10">
+        <div class="flex flex-col gap-4 pb-6 sm:gap-6 sm:pb-10">
           <!-- Título -->
-          <h1 class="max-w-4xl text-4xl font-semibold leading-snug text-primary-600">
+          <h1
+            class="max-w-4xl text-2xl font-semibold leading-snug text-primary-600 sm:text-3xl lg:text-4xl"
+          >
             {{ article.title }}
           </h1>
 
           <!-- Subtítulo -->
-          <p class="max-w-3xl text-lg text-base-600">
+          <p class="max-w-3xl text-sm text-base-600 sm:text-base lg:text-lg">
             {{ article.subtitle }}
           </p>
 
@@ -177,7 +181,7 @@ function scrollToSection(sectionId: string) {
         </div>
 
         <!-- Imagem hero -->
-        <div class="h-135 w-full overflow-hidden rounded-2xl">
+        <div class="h-52 w-full overflow-hidden rounded-xl sm:h-80 lg:h-135 lg:rounded-2xl">
           <div class="flex size-full items-center justify-center bg-secondary-200">
             <div
               class="flex size-80 -rotate-45 items-center justify-center rounded-[40px] bg-secondary-300/40"
@@ -192,7 +196,7 @@ function scrollToSection(sectionId: string) {
         </div>
 
         <!-- Seções do artigo -->
-        <div class="flex flex-col gap-16 pt-16">
+        <div class="flex flex-col gap-10 pt-10 sm:gap-16 sm:pt-16">
           <!-- Resumo -->
           <section id="resumo" class="flex flex-col gap-8">
             <div class="flex items-center gap-4">
@@ -202,14 +206,16 @@ function scrollToSection(sectionId: string) {
               <h2 class="text-2xl font-semibold text-secondary-600">Resumo</h2>
             </div>
 
-            <div class="flex flex-col gap-8 text-xl leading-[1.7] text-base-700">
+            <div
+              class="flex flex-col gap-6 text-base leading-[1.7] text-base-700 sm:gap-8 sm:text-xl"
+            >
               <p v-for="(paragraph, i) in article.content.split('\n\n')" :key="i">
                 {{ paragraph }}
               </p>
 
               <!-- Citação destacada -->
               <blockquote
-                class="rounded-2xl bg-primary-50 px-8 py-6 text-lg font-medium leading-relaxed text-primary-800"
+                class="rounded-xl bg-primary-50 px-5 py-4 text-base font-medium leading-relaxed text-primary-800 sm:rounded-2xl sm:px-8 sm:py-6 sm:text-lg"
               >
                 "{{ article.highlightQuote }}"
               </blockquote>
@@ -225,12 +231,12 @@ function scrollToSection(sectionId: string) {
               <h2 class="text-2xl font-semibold text-secondary-600">Doenças Relacionadas</h2>
             </div>
 
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-wrap gap-3 sm:gap-4">
               <NuxtLink
                 v-for="disease in article.diseases"
                 :key="disease.slug"
                 to="#"
-                class="flex items-center gap-2 text-lg font-semibold text-secondary-600 transition-colors hover:text-secondary-800"
+                class="flex items-center gap-2 text-base font-semibold text-secondary-600 transition-colors hover:text-secondary-800 sm:text-lg"
               >
                 {{ disease.name }}
                 <Icon name="lucide:external-link" class="size-5" />
@@ -251,7 +257,7 @@ function scrollToSection(sectionId: string) {
               <span
                 v-for="symptom in article.symptoms"
                 :key="symptom"
-                class="flex items-center gap-2 rounded-full border border-secondary-100 bg-secondary-50 px-6 py-3 text-base font-semibold text-secondary-600"
+                class="flex items-center gap-2 rounded-full border border-secondary-100 bg-secondary-50 px-4 py-2 text-sm font-semibold text-secondary-600 sm:px-6 sm:py-3 sm:text-base"
               >
                 <Icon name="lucide:cross" class="size-4 text-secondary-500" />
                 {{ symptom }}
@@ -268,15 +274,15 @@ function scrollToSection(sectionId: string) {
               <h2 class="text-2xl font-semibold text-secondary-600">Notícias</h2>
             </div>
 
-            <div class="grid grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
               <NuxtLink
                 v-for="news in article.relatedNews"
                 :key="news.title"
                 to="#"
-                class="group flex items-start gap-5 rounded-xl bg-white p-3 transition-shadow hover:shadow-md"
+                class="group flex items-start gap-4 rounded-xl bg-white p-3 transition-shadow hover:shadow-md sm:gap-5"
               >
                 <!-- Imagem losango -->
-                <div class="relative flex size-28 shrink-0 items-center justify-center">
+                <div class="relative hidden size-28 shrink-0 items-center justify-center sm:flex">
                   <div
                     class="absolute inset-3 rotate-45 overflow-hidden rounded-2xl bg-secondary-200"
                   >

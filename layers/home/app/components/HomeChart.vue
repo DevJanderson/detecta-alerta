@@ -58,13 +58,15 @@ const activeFilter = ref('drogaria')
     </div>
 
     <!-- Checkboxes + filtros -->
-    <div class="flex flex-wrap items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6">
-      <div class="flex items-center gap-5">
+    <div
+      class="flex flex-col gap-3 px-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4 sm:px-6"
+    >
+      <div class="flex items-center gap-4 sm:gap-5">
         <div class="flex items-center gap-2">
-          <label class="flex cursor-pointer items-center gap-2 text-base text-base-800">
+          <label class="flex cursor-pointer items-center gap-2 text-sm text-base-800 sm:text-base">
             <Checkbox
               :checked="showAverage"
-              class="size-6 rounded-sm border-base-100 data-[state=checked]:border-secondary-950 data-[state=checked]:bg-secondary-950"
+              class="size-5 rounded-sm border-base-100 data-[state=checked]:border-secondary-950 data-[state=checked]:bg-secondary-950 sm:size-6"
               @update:checked="showAverage = $event"
             />
             média
@@ -73,10 +75,10 @@ const activeFilter = ref('drogaria')
           <span class="inline-block w-5 border-t-2 border-dashed border-secondary-400 opacity-50" />
         </div>
         <div class="flex items-center gap-2">
-          <label class="flex cursor-pointer items-center gap-2 text-base text-base-800">
+          <label class="flex cursor-pointer items-center gap-2 text-sm text-base-800 sm:text-base">
             <Checkbox
               :checked="showVariation"
-              class="size-6 rounded-sm border-base-100"
+              class="size-5 rounded-sm border-base-100 sm:size-6"
               @update:checked="showVariation = $event"
             />
             variação
@@ -94,7 +96,7 @@ const activeFilter = ref('drogaria')
         <button
           v-for="filter in filters"
           :key="filter"
-          class="flex h-8 items-center justify-center rounded-full px-4 text-xs font-semibold transition-colors"
+          class="flex h-7 items-center justify-center rounded-full px-3 text-xs font-semibold transition-colors sm:h-8 sm:px-4"
           :class="
             activeFilter === filter
               ? 'bg-secondary-900 text-base-0'

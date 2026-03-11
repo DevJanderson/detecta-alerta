@@ -26,7 +26,7 @@ onMounted(async () => {
 
       <!-- Titulo da seção -->
       <header
-        class="flex flex-col gap-3 px-4 pt-10 sm:px-6 sm:pt-14 md:flex-row md:items-center md:justify-between lg:pt-20"
+        class="flex flex-col gap-3 px-4 pt-8 sm:px-6 sm:pt-10 md:flex-row md:items-center md:justify-between lg:pt-20"
       >
         <h2 class="text-2xl font-semibold leading-[1.4] text-base-950 sm:text-[28px]">
           Panorama &bull; {{ store.regionLabel }}
