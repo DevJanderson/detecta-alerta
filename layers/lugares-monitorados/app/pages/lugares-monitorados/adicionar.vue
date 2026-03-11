@@ -31,9 +31,9 @@ useSeoPage({
 </script>
 
 <template>
-  <div class="mx-auto max-w-4xl px-6 py-10">
+  <div class="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10">
     <!-- Header -->
-    <div class="mb-6 flex items-center justify-between">
+    <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <div class="mb-1 flex items-center gap-1.5 text-sm text-base-400">
           <NuxtLink to="/lugares-monitorados" class="hover:text-secondary-700"
@@ -42,21 +42,21 @@ useSeoPage({
           <Icon name="lucide:chevron-right" class="size-3.5" />
           <span class="text-base-600">{{ isEditMode ? 'Editar' : 'Novo Local' }}</span>
         </div>
-        <h1 class="text-2xl font-semibold text-base-900">
+        <h1 class="text-xl font-semibold text-base-900 sm:text-2xl">
           {{ isEditMode ? 'Editar Local' : 'Novo Local' }}
         </h1>
         <p class="mt-1 text-sm text-base-500">Preencha os dados da unidade de saúde.</p>
       </div>
       <div class="flex items-center gap-2">
         <button
-          class="inline-flex items-center gap-1.5 rounded-full border border-base-200 px-4 py-2 text-sm font-medium text-secondary-900 transition-colors hover:bg-base-50"
+          class="inline-flex items-center gap-1.5 rounded-full border border-base-200 px-3 py-1.5 text-sm font-medium text-secondary-900 transition-colors hover:bg-base-50 sm:px-4 sm:py-2"
           @click="navigateBack"
         >
           <Icon name="lucide:x" class="size-4" />
           Cancelar
         </button>
         <button
-          class="inline-flex items-center gap-1.5 rounded-full bg-primary-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-800 disabled:opacity-50"
+          class="inline-flex items-center gap-1.5 rounded-full bg-primary-900 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-primary-800 disabled:opacity-50 sm:px-4 sm:py-2"
           :disabled="isSubmitting"
           @click="handleSubmit"
         >

@@ -37,24 +37,24 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="mx-auto max-w-7xl px-6 py-10">
+  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10">
     <!-- Header -->
-    <div class="mb-6 flex items-center justify-between">
+    <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <h1 class="text-2xl font-semibold text-base-900">Locais Monitorados</h1>
+        <h1 class="text-xl font-semibold text-base-900 sm:text-2xl">Locais Monitorados</h1>
         <p class="mt-1 text-sm text-base-500">Adicione ou edite locais monitorados.</p>
       </div>
       <div class="flex items-center gap-2">
         <NuxtLink
           to="/lugares-monitorados"
-          class="inline-flex items-center gap-1.5 rounded-full border border-base-200 px-4 py-2 text-sm font-medium text-secondary-900 transition-colors hover:bg-base-50"
+          class="inline-flex items-center gap-1.5 rounded-full border border-base-200 px-3 py-1.5 text-sm font-medium text-secondary-900 transition-colors hover:bg-base-50 sm:px-4 sm:py-2"
         >
           <Icon name="lucide:map" class="size-4" />
-          Ver no mapa
+          <span class="hidden sm:inline">Ver no</span> mapa
         </NuxtLink>
         <NuxtLink
           to="/lugares-monitorados/adicionar"
-          class="inline-flex items-center gap-1.5 rounded-full bg-primary-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-800"
+          class="inline-flex items-center gap-1.5 rounded-full bg-primary-900 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-primary-800 sm:px-4 sm:py-2"
         >
           <Icon name="lucide:plus" class="size-4" />
           Novo
@@ -65,9 +65,9 @@ onMounted(() => {
     <!-- Filtros -->
     <div class="mb-4 space-y-3">
       <!-- Linha de filtros -->
-      <div class="flex flex-wrap items-center gap-3">
+      <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
         <!-- Busca -->
-        <div class="relative flex-1 min-w-[200px] max-w-sm">
+        <div class="relative w-full sm:min-w-[200px] sm:max-w-sm sm:flex-1">
           <Icon
             name="lucide:search"
             class="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-base-400"
@@ -80,45 +80,47 @@ onMounted(() => {
           />
         </div>
 
-        <!-- Estado -->
-        <select
-          v-model="selectedEstado"
-          class="h-9 rounded-lg border border-base-200 bg-white px-3 text-sm text-base-700 focus:border-secondary-300 focus:outline-none focus:ring-1 focus:ring-secondary-300"
-        >
-          <option value="">Estado</option>
-          <option v-for="uf in ESTADOS_BR" :key="uf" :value="uf">{{ uf }}</option>
-        </select>
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+          <!-- Estado -->
+          <select
+            v-model="selectedEstado"
+            class="h-9 flex-1 rounded-lg border border-base-200 bg-white px-3 text-sm text-base-700 focus:border-secondary-300 focus:outline-none focus:ring-1 focus:ring-secondary-300 sm:flex-none"
+          >
+            <option value="">Estado</option>
+            <option v-for="uf in ESTADOS_BR" :key="uf" :value="uf">{{ uf }}</option>
+          </select>
 
-        <!-- Monitoramento -->
-        <select
-          v-model="selectedMonitoramento"
-          class="h-9 rounded-lg border border-base-200 bg-white px-3 text-sm text-base-700 focus:border-secondary-300 focus:outline-none focus:ring-1 focus:ring-secondary-300"
-        >
-          <option value="">Monitoramento</option>
-          <option value="ativo">Ativo</option>
-          <option value="inativo">Inativo</option>
-        </select>
+          <!-- Monitoramento -->
+          <select
+            v-model="selectedMonitoramento"
+            class="h-9 flex-1 rounded-lg border border-base-200 bg-white px-3 text-sm text-base-700 focus:border-secondary-300 focus:outline-none focus:ring-1 focus:ring-secondary-300 sm:flex-none"
+          >
+            <option value="">Monitoramento</option>
+            <option value="ativo">Ativo</option>
+            <option value="inativo">Inativo</option>
+          </select>
 
-        <!-- Dados de lotação -->
-        <select
-          v-model="selectedDados"
-          class="h-9 rounded-lg border border-base-200 bg-white px-3 text-sm text-base-700 focus:border-secondary-300 focus:outline-none focus:ring-1 focus:ring-secondary-300"
-        >
-          <option value="">Dados</option>
-          <option value="tempo-real">Tempo real</option>
-          <option value="atualizado">Atualizado</option>
-          <option value="sem-dados">Sem dados</option>
-        </select>
+          <!-- Dados de lotação -->
+          <select
+            v-model="selectedDados"
+            class="h-9 flex-1 rounded-lg border border-base-200 bg-white px-3 text-sm text-base-700 focus:border-secondary-300 focus:outline-none focus:ring-1 focus:ring-secondary-300 sm:flex-none"
+          >
+            <option value="">Dados</option>
+            <option value="tempo-real">Tempo real</option>
+            <option value="atualizado">Atualizado</option>
+            <option value="sem-dados">Sem dados</option>
+          </select>
 
-        <!-- Limpar filtros -->
-        <button
-          v-if="hasActiveFilters"
-          class="inline-flex items-center gap-1 text-sm text-secondary-700 hover:text-secondary-900"
-          @click="clearFilters"
-        >
-          <Icon name="lucide:x" class="size-3.5" />
-          Limpar
-        </button>
+          <!-- Limpar filtros -->
+          <button
+            v-if="hasActiveFilters"
+            class="inline-flex items-center gap-1 text-sm text-secondary-700 hover:text-secondary-900"
+            @click="clearFilters"
+          >
+            <Icon name="lucide:x" class="size-3.5" />
+            Limpar
+          </button>
+        </div>
       </div>
 
       <!-- Chips de tipo -->
@@ -215,7 +217,9 @@ onMounted(() => {
       </div>
 
       <!-- Footer da tabela -->
-      <div class="flex items-center justify-between border-t border-base-200 px-4 py-3">
+      <div
+        class="flex flex-col gap-2 border-t border-base-200 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+      >
         <div class="text-sm text-base-500">
           <span v-if="selectedItems.size > 0">
             {{ selectedItems.size }} selecionada{{ selectedItems.size > 1 ? 's' : '' }}.

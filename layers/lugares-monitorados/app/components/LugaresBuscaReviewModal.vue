@@ -55,11 +55,11 @@ function updateField(placeId: string, field: string, event: Event) {
       @click.self="emit('close')"
     >
       <div
-        class="mx-4 flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-xl bg-white shadow-xl"
+        class="mx-3 flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-xl bg-white shadow-xl sm:mx-4 sm:max-h-[85vh]"
       >
         <!-- Header -->
         <div
-          class="flex items-center justify-between border-b border-base-100 bg-secondary-50 px-6 py-4"
+          class="flex items-center justify-between border-b border-base-100 bg-secondary-50 px-4 py-3 sm:px-6 sm:py-4"
         >
           <div class="flex items-center gap-2">
             <Icon name="lucide:file-check" class="size-5 text-secondary-700" />
@@ -79,7 +79,7 @@ function updateField(placeId: string, field: string, event: Event) {
         </div>
 
         <!-- Content -->
-        <div class="flex-1 overflow-y-auto p-6">
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6">
           <!-- Success -->
           <div v-if="importDone" class="flex flex-col items-center gap-3 py-8 text-center">
             <div class="flex size-12 items-center justify-center rounded-full bg-success-50">
@@ -175,8 +175,8 @@ function updateField(placeId: string, field: string, event: Event) {
                   />
                 </div>
 
-                <!-- Cidade, UF, Bairro, IBGE -->
-                <div class="grid grid-cols-4 gap-2">
+                <!-- Cidade, UF, Bairro, Avaliação -->
+                <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
                   <div>
                     <label class="mb-0.5 block text-xs text-base-400">Cidade</label>
                     <input
@@ -221,7 +221,9 @@ function updateField(placeId: string, field: string, event: Event) {
         </div>
 
         <!-- Footer -->
-        <div class="flex items-center justify-end gap-2 border-t border-base-100 px-6 py-3">
+        <div
+          class="flex flex-col-reverse gap-2 border-t border-base-100 px-4 py-3 sm:flex-row sm:items-center sm:justify-end sm:px-6"
+        >
           <button
             class="inline-flex items-center gap-1.5 rounded-lg border border-base-200 px-4 py-2 text-sm font-medium text-base-700 transition-colors hover:bg-base-50"
             @click="emit('close')"
