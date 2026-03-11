@@ -1,18 +1,20 @@
 <template>
-  <section class="px-4 py-10 sm:px-6 sm:py-16 lg:px-20 lg:py-32">
+  <section class="px-4 py-8 sm:px-6 sm:py-12 lg:px-20 lg:py-32">
     <div
-      class="mx-auto flex flex-col items-center gap-8 sm:gap-10 lg:grid lg:grid-cols-[1fr_34rem_1fr] lg:items-start lg:gap-6"
+      class="mx-auto flex flex-col items-center gap-6 sm:gap-8 lg:grid lg:max-w-screen-2xl lg:grid-cols-[1fr_minmax(auto,34rem)_1fr] lg:items-start lg:gap-6"
     >
       <!-- Titulo principal (esquerda) -->
-      <h1 class="text-3xl font-bold leading-tight text-primary-950 sm:text-4xl lg:text-6xl">
+      <h1
+        class="text-center text-2xl font-bold leading-tight text-primary-950 sm:text-3xl md:text-4xl lg:text-left lg:text-6xl"
+      >
         Qual o cenário das epidemias no Brasil?
       </h1>
 
       <!-- Seta + CTA (centro) -->
-      <div class="flex flex-col items-center gap-6 lg:self-center">
+      <div class="flex flex-col items-center gap-4 sm:gap-6 lg:self-center">
         <div class="flex flex-col items-center gap-2">
           <span
-            class="rounded-full bg-secondary-900 px-2 py-1 text-base font-semibold leading-tight text-white"
+            class="rounded-full bg-secondary-900 px-2 py-1 text-sm font-semibold leading-tight text-white sm:text-base"
           >
             selecione sua região
           </span>
@@ -25,7 +27,7 @@
 
         <!-- Seta para baixo -->
         <svg
-          class="h-12 text-primary-700 sm:h-16 lg:h-20"
+          class="h-10 text-primary-700 sm:h-16 lg:h-20"
           viewBox="0 0 15 82"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +40,9 @@
       </div>
 
       <!-- Resumo de dados (direita) -->
-      <div class="flex flex-col items-start gap-5 text-left">
+      <div
+        class="flex flex-col items-center gap-4 text-center sm:gap-5 lg:items-start lg:text-left"
+      >
         <!-- Tag de status -->
         <span
           class="inline-flex items-center gap-1 rounded-full border border-success-200 bg-white py-1 pl-1.5 pr-3 text-[10px] leading-normal text-success-700"
@@ -49,7 +53,7 @@
 
         <!-- Texto principal -->
         <div class="flex flex-col gap-3">
-          <p class="max-w-105 text-base leading-normal text-secondary-800">
+          <p class="max-w-105 text-sm leading-normal text-secondary-800 sm:text-base">
             <strong class="font-bold text-secondary-900">Brasil</strong>:
             <span class="text-secondary-600 underline">
               movimento 23% maior que o normal em drogarias e UBSs</span

@@ -8,11 +8,11 @@
          HEADER AMARELO
          ============================================================ -->
     <div
-      class="flex flex-col gap-4 border-b border-secondary-100 bg-alert-50 px-4 py-6 sm:px-6 sm:py-8 md:flex-row md:items-start md:justify-between"
+      class="flex flex-col gap-4 border-b border-secondary-100 bg-alert-50 px-4 py-5 sm:px-6 sm:py-8 md:flex-row md:items-start md:justify-between"
     >
       <!-- Texto esquerdo -->
-      <div class="flex flex-1 flex-col gap-4">
-        <h3 class="text-lg font-semibold leading-tight text-alert-950 sm:text-xl">
+      <div class="flex flex-1 flex-col gap-3 sm:gap-4">
+        <h3 class="text-base font-semibold leading-tight text-alert-950 sm:text-lg md:text-xl">
           Movimento em estabelecimentos de saúde
         </h3>
         <p class="flex items-start gap-2 text-xs leading-normal text-base-800">
@@ -30,7 +30,7 @@
       <span
         class="flex shrink-0 items-center gap-2 self-start rounded-full border border-alert-200 bg-alert-900 px-3 py-1.5 text-xs font-semibold text-base-950 sm:px-4 sm:text-sm"
       >
-        <Icon name="lucide:arrow-up" class="size-4" />
+        <Icon name="lucide:arrow-up" class="size-3.5 sm:size-4" />
         23% mais alto que o normal
       </span>
     </div>
@@ -38,8 +38,10 @@
     <!-- ============================================================
          BARRA DE ESTABELECIMENTOS
          ============================================================ -->
-    <div class="flex flex-wrap items-center justify-between gap-2 bg-alert-200 px-4 py-2 sm:px-6">
-      <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+    <div
+      class="flex flex-col gap-2 bg-alert-200 px-4 py-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-2 sm:px-6"
+    >
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3 md:gap-4">
         <!-- Drogarias -->
         <span class="flex items-center gap-1.5 text-xs text-base-800">
           <Icon name="lucide:pill" class="size-3" />
@@ -48,7 +50,7 @@
           <Icon name="lucide:arrow-up" class="size-3 text-primary-950" />
         </span>
 
-        <span class="inline-block h-3 w-px bg-base-300" />
+        <span class="hidden h-3 w-px bg-base-300 sm:inline-block" />
 
         <!-- UBS -->
         <span class="flex items-center gap-1.5 text-xs text-base-800">
@@ -58,7 +60,7 @@
           <Icon name="lucide:arrow-up" class="size-3 text-alert-950" />
         </span>
 
-        <span class="inline-block h-3 w-px bg-base-300" />
+        <span class="hidden h-3 w-px bg-base-300 sm:inline-block" />
 
         <!-- UPAs -->
         <span class="flex items-center gap-1.5 text-xs text-base-800">
@@ -69,7 +71,7 @@
         </span>
       </div>
 
-      <span class="hidden text-xs text-base-800 sm:inline">940 estabelecimentos analisados</span>
+      <span class="text-xs text-base-800">940 estabelecimentos analisados</span>
     </div>
 
     <!-- ============================================================
