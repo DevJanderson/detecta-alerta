@@ -27,6 +27,18 @@ const REGION_KEY_TO_NAME: Record<string, string> = {
 
 const REGION_DISPLAY_ORDER = ['Norte', 'Nordeste', 'Centro-Oeste', 'Sudeste', 'Sul']
 
+/** Mapeia ID do switcher UI (lowercase) para chave da API (N, NE, CO, SE, S) */
+const REGION_ID_TO_API_KEY: Record<string, string> = {
+  norte: 'N',
+  nordeste: 'NE',
+  'centro-oeste': 'CO',
+  sudeste: 'SE',
+  sul: 'S'
+}
+
+/** Mapeia UF para nome do estado (lookup rápido, populado após ESTADOS_BRASIL) */
+const UF_TO_STATE_NAME: Record<string, string> = {}
+
 const ALERT_TO_LEVEL: Record<AlertStatus, Level> = {
   green: 'Normal',
   yellow: 'Moderado',
@@ -63,6 +75,11 @@ const ESTADOS_BRASIL: SelectOption[] = [
   { value: 'SE', label: 'Sergipe' },
   { value: 'TO', label: 'Tocantins' }
 ]
+
+// Popular lookup UF → nome
+for (const e of ESTADOS_BRASIL) {
+  if (e.value) UF_TO_STATE_NAME[e.value] = e.label
+}
 
 // === Helpers ===
 
@@ -300,6 +317,11 @@ export function useHomeApi() {
     if (isEstado) {
       query.aggregation_level = 'state'
       query.state = params.estado
+    } else if (!isBrasil) {
+      // Região selecionada: buscar estados dessa região
+      query.aggregation_level = 'state'
+      const apiKey = REGION_ID_TO_API_KEY[params.region]
+      if (apiKey) query.region = apiKey
     } else {
       query.aggregation_level = 'region'
     }
@@ -339,17 +361,31 @@ export function useHomeApi() {
       ]
     }
 
-    // Filtrar por região específica se não for "brasil"
+    // Região selecionada: agrupar por estado
     if (!isBrasil) {
-      const regionKey = Object.entries(REGION_KEY_TO_NAME).find(
-        ([, name]) => name.toLowerCase() === params.region
-      )?.[0]
-      if (regionKey) {
-        allData = allData.filter(d => d.aggregation_key === regionKey)
+      const byState = new Map<string, EpidemiologicalAggregation[]>()
+      for (const item of allData) {
+        const list = byState.get(item.aggregation_key) ?? []
+        list.push(item)
+        byState.set(item.aggregation_key, list)
       }
+
+      return Array.from(byState.entries())
+        .sort(([a], [b]) => {
+          const nameA = UF_TO_STATE_NAME[a] ?? a
+          const nameB = UF_TO_STATE_NAME[b] ?? b
+          return nameA.localeCompare(nameB, 'pt-BR')
+        })
+        .map(([uf, items]) => ({
+          region: UF_TO_STATE_NAME[uf] ?? uf,
+          todos: buildCellData(findByType(items, 'all')),
+          drogarias: buildCellData(findByType(items, 'drogarias')),
+          upa: buildCellData(findByType(items, 'upa')),
+          ubs: buildCellData(findByType(items, 'ubs'))
+        }))
     }
 
-    // Agrupar por região
+    // Brasil: agrupar por região
     const byRegion = new Map<string, EpidemiologicalAggregation[]>()
     for (const item of allData) {
       const regionName = REGION_KEY_TO_NAME[item.aggregation_key]
@@ -359,7 +395,7 @@ export function useHomeApi() {
       byRegion.set(regionName, list)
     }
 
-    const rows: RegionRow[] = REGION_DISPLAY_ORDER.filter(name => byRegion.has(name)).map(name => {
+    return REGION_DISPLAY_ORDER.filter(name => byRegion.has(name)).map(name => {
       const items = byRegion.get(name)!
       return {
         region: name,
@@ -369,8 +405,6 @@ export function useHomeApi() {
         ubs: buildCellData(findByType(items, 'ubs'))
       }
     })
-
-    return rows
   }
 
   function getEstados(): SelectOption[] {
