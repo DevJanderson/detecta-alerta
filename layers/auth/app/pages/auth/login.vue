@@ -18,7 +18,7 @@ const redirectTo = computed(() => {
 </script>
 
 <template>
-  <main class="relative flex min-h-screen items-center justify-center px-4 py-12">
+  <main class="relative flex min-h-screen items-center justify-center px-4 py-6 sm:py-12">
     <!-- Background image -->
     <div
       class="absolute inset-0 bg-cover bg-center bg-no-repeat"
