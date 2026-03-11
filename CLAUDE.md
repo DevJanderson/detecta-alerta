@@ -57,7 +57,6 @@ npm run test:coverage    # Vitest com cobertura (v8)
 npm run test:ui          # Vitest UI (navegador)
 npm run test:e2e         # Playwright E2E
 npm run test:e2e:ui      # Playwright E2E com UI
-npm run api:lint         # Valida OpenAPI spec com Spectral
 npm run geo:convert      # Converte GeoJSON → TopoJSON (public/geo/)
 npm run docs:llms        # Gera public/llms-full.txt (docs para IA)
 ```
