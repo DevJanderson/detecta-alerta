@@ -180,6 +180,16 @@
   }
 }
 
+/* Pattern de dots reutilizável (usado na home map, etc.) */
+@utility bg-dot-grid {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-secondary-300) 50%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 4px 4px;
+}
+
 /* Esconde scrollbar nativo sem travar o scroll (Firefox + Chrome/Safari) */
 .scrollbar-hidden {
   scrollbar-width: none;

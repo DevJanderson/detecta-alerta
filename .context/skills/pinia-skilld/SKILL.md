@@ -1,10 +1,7 @@
 ---
 name: pinia-skilld
 description: 'ALWAYS use when writing code importing "pinia". Consult for debugging, best practices, or modifying pinia.'
-metadata:
-  version: 3.0.4
-  generated_by: Claude Code · Sonnet 4.5
-  generated_at: 2026-02-18
+user-invocable: false
 ---
 
 # vuejs/pinia `pinia`

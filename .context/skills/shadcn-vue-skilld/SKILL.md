@@ -1,10 +1,7 @@
 ---
 name: shadcn-vue-skilld
 description: 'ALWAYS use when writing code importing "shadcn-vue". Consult for debugging, best practices, or modifying shadcn-vue, shadcn vue.'
-metadata:
-  version: 2.4.3
-  generated_by: Gemini CLI · Gemini 3 Flash
-  generated_at: 2026-02-18
+user-invocable: false
 ---
 
 # unovue/shadcn-vue `shadcn-vue`

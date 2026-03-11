@@ -50,11 +50,14 @@ const ativo = ref(true)
 
 const store = useUsuariosStore()
 
+// Validação reativa via Value Object
+const { isValid: isValidEmail, error: emailError } = useVoField(email, tryCreateEmail)
+
 const isEdit = computed(() => props.mode === 'edit')
 const title = computed(() => (isEdit.value ? 'Editar Usuario' : 'Novo Usuario'))
 
 const canSubmit = computed(() => {
-  if (!nome.value.trim() || !email.value.trim()) return false
+  if (!nome.value.trim() || !isValidEmail.value) return false
   if (!isEdit.value && !senha.value) return false
   return !store.isLoading
 })
@@ -149,7 +152,22 @@ function handleSave() {
 
         <div class="space-y-2">
           <Label for="admin-email">Email</Label>
-          <Input id="admin-email" v-model="email" type="email" placeholder="email@exemplo.com" />
+          <Input
+            id="admin-email"
+            v-model="email"
+            type="email"
+            placeholder="email@exemplo.com"
+            :aria-invalid="email && !isValidEmail ? true : undefined"
+            :aria-describedby="email && !isValidEmail ? 'admin-email-error' : undefined"
+          />
+          <p
+            v-if="email && !isValidEmail"
+            id="admin-email-error"
+            role="alert"
+            class="text-sm text-danger-600"
+          >
+            {{ emailError }}
+          </p>
         </div>
 
         <div class="space-y-2">

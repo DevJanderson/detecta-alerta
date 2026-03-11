@@ -49,9 +49,10 @@ export default defineNuxtConfig({
     './layers/auth',
     './layers/home',
     './layers/meu-municipio',
-    './layers/mapa-risco',
+    './layers/lugares-monitorados',
     './layers/usuarios',
     './layers/rumores',
+    './layers/relatorios',
     './layers/docs'
   ],
 
@@ -275,7 +276,7 @@ export default defineNuxtConfig({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- @tailwindcss/vite type mismatch with Nuxt's bundled vite types
     plugins: [tailwindcss() as any],
 
-    // Performance - Excluir generated/ do file watcher (877 arquivos Kubb)
+    // Performance - Excluir generated/ do file watcher
     server: {
       watch: {
         ignored: ['**/generated/**']

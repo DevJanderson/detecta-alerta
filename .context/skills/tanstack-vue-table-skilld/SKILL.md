@@ -1,10 +1,7 @@
 ---
 name: tanstack-vue-table-skilld
 description: 'ALWAYS use when writing code importing "@tanstack/vue-table". Consult for debugging, best practices, or modifying @tanstack/vue-table, tanstack/vue-table, tanstack vue-table, tanstack vue table, table.'
-metadata:
-  version: 8.21.3
-  generated_by: Gemini CLI · Gemini 3 Flash
-  generated_at: 2026-02-18
+user-invocable: false
 ---
 
 # TanStack/table `@tanstack/vue-table`

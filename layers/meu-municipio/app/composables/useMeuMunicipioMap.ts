@@ -6,7 +6,7 @@
  */
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { BRAZIL_CENTER, BRAZIL_ZOOM, VECTOR_STYLE } from '../utils/map-config'
+// BRAZIL_CENTER, BRAZIL_ZOOM, VECTOR_STYLE auto-importados de base
 import { ALERT_CITIES, CONNECTIONS, MAX_CASES } from '../utils/map-mock-data'
 import {
   addStateLayers,

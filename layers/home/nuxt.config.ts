@@ -3,5 +3,8 @@
  * Homepage e páginas públicas
  */
 export default defineNuxtConfig({
-  // Configurações específicas da layer home
+  // ECharts precisa de transpile para funcionar com SSR/client-only
+  build: {
+    transpile: [/echarts/, /vue-echarts/]
+  }
 })

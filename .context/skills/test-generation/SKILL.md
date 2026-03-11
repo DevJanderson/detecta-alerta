@@ -1,12 +1,6 @@
 ---
-type: skill
-name: Test Generation
+name: test-generation
 description: Generate comprehensive test cases for code
-skillSlug: test-generation
-phases: [E, V]
-generated: 2026-02-24
-status: filled
-scaffoldVersion: '2.0.0'
 ---
 
 ## Test Generation Skill

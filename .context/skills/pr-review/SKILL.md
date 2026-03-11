@@ -1,12 +1,7 @@
 ---
-type: skill
-name: Pr Review
+name: pr-review
 description: Review pull requests against team standards and best practices
-skillSlug: pr-review
-phases: [R, V]
-generated: 2026-02-24
-status: filled
-scaffoldVersion: '2.0.0'
+allowed-tools: Read, Grep, Glob, Bash
 ---
 
 ## PR Review Skill

@@ -20,39 +20,39 @@ export function useHomeApi() {
   async function getRegionTable(_params?: Record<string, string>): Promise<RegionRow[]> {
     return [
       {
-        region: 'Centro-Oeste',
-        todos: { level: 'Médio', value: '46.5%', trend: 'up' },
-        drogarias: { level: 'Baixo', value: '46.9%', trend: 'up' },
-        upa: { level: 'Médio', value: '49.4%', trend: 'down' },
-        ubs: { level: 'Baixo', value: '43.4%', trend: 'up' }
+        region: 'Norte',
+        todos: { level: 'Normal', value: '4%', trend: 'down' },
+        drogarias: { level: 'Normal', value: '4%', trend: 'down' },
+        upa: { level: 'Normal', value: '4%', trend: 'down' },
+        ubs: { level: 'Normal', value: '4%', trend: 'down' }
       },
       {
         region: 'Nordeste',
-        todos: { level: 'Médio', value: '43.4%', trend: 'stable' },
-        drogarias: { level: 'Baixo', value: '45.5%', trend: 'stable' },
-        upa: { level: 'Médio', value: '49.7%', trend: 'up' },
-        ubs: { level: 'Baixo', value: '35%', trend: 'down' }
+        todos: { level: 'Moderado', value: '7%', trend: 'up' },
+        drogarias: { level: 'Moderado', value: '17%', trend: 'up' },
+        upa: { level: 'Normal', value: '4%', trend: 'up' },
+        ubs: { level: 'Normal', value: '4%', trend: 'up' }
       },
       {
-        region: 'Norte',
-        todos: { level: 'Médio', value: '44.3%', trend: 'up' },
-        drogarias: { level: 'Baixo', value: '46%', trend: 'stable' },
-        upa: { level: 'Médio', value: '47.7%', trend: 'up' },
-        ubs: { level: 'Baixo', value: '39.3%', trend: 'stable' }
+        region: 'Centro-Oeste',
+        todos: { level: 'Normal', value: '4%', trend: 'down' },
+        drogarias: { level: 'Normal', value: '4%', trend: 'down' },
+        upa: { level: 'Normal', value: '4%', trend: 'down' },
+        ubs: { level: 'Normal', value: '4%', trend: 'down' }
       },
       {
         region: 'Sudeste',
-        todos: { level: 'Médio', value: '44.8%', trend: 'up' },
-        drogarias: { level: 'Baixo', value: '42%', trend: 'stable' },
-        upa: { level: 'Médio', value: '48.9%', trend: 'up' },
-        ubs: { level: 'Baixo', value: '43.6%', trend: 'up' }
+        todos: { level: 'Normal', value: '4%', trend: 'down' },
+        drogarias: { level: 'Normal', value: '4%', trend: 'down' },
+        upa: { level: 'Normal', value: '4%', trend: 'down' },
+        ubs: { level: 'Normal', value: '4%', trend: 'down' }
       },
       {
         region: 'Sul',
-        todos: { level: 'Médio', value: '44.2%', trend: 'up' },
-        drogarias: { level: 'Baixo', value: '47.8%', trend: 'stable' },
-        upa: { level: 'Médio', value: '44.6%', trend: 'down' },
-        ubs: { level: 'Baixo', value: '41.4%', trend: 'up' }
+        todos: { level: 'Elevado', value: '421%', trend: 'up' },
+        drogarias: { level: 'Elevado', value: '421%', trend: 'up' },
+        upa: { level: 'Elevado', value: '421%', trend: 'up' },
+        ubs: { level: 'Elevado', value: '421%', trend: 'up' }
       }
     ]
   }

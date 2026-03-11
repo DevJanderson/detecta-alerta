@@ -1,12 +1,7 @@
 ---
-type: skill
-name: Commit Message
+name: commit-message
 description: Generate commit messages following conventional commits with scope detection
-skillSlug: commit-message
-phases: [E, C]
-generated: 2026-02-24
-status: filled
-scaffoldVersion: '2.0.0'
+user-invocable: false
 ---
 
 ## Commit Message Skill

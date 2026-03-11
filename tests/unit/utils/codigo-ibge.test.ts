@@ -3,7 +3,7 @@ import {
   createCodigoIBGE,
   isValidCodigoIBGE,
   codigoIBGEEquals
-} from '../../../layers/base/app/utils/codigo-ibge'
+} from '../../../layers/meu-municipio/app/utils/codigo-ibge'
 
 describe('CodigoIBGE', () => {
   describe('createCodigoIBGE', () => {

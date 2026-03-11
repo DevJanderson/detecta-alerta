@@ -8,14 +8,9 @@ import maplibregl from 'maplibre-gl'
 import { feature } from 'topojson-client'
 import type { Topology } from 'topojson-specification'
 import type { AlertCity, CityConnection } from '../composables/types'
-import {
-  LEVEL_COLORS,
-  LEVEL_LABELS,
-  LEVEL_COLOR_EXPRESSION,
-  REGION_COLORS,
-  REGION_FILL_EXPRESSION,
-  DEFAULT_REGION_COLOR
-} from './map-colors'
+// LEVEL_COLORS, LEVEL_LABELS, LEVEL_COLOR_EXPRESSION, DEFAULT_REGION_COLOR
+// vêm auto-importados de layers/base/app/utils/map-colors.ts
+import { REGION_COLORS, REGION_FILL_EXPRESSION } from './map-colors'
 import { buildConnectionLines } from './map-connections'
 
 // ============================================================================
@@ -45,7 +40,7 @@ export async function addStateLayers(m: maplibregl.Map, hover: StateHoverHandler
     type: 'fill',
     source: 'states',
     paint: {
-      'fill-color': REGION_FILL_EXPRESSION as unknown as maplibregl.ExpressionSpecification,
+      'fill-color': REGION_FILL_EXPRESSION,
       'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.25, 0.08]
     }
   })
@@ -68,7 +63,7 @@ export async function addStateLayers(m: maplibregl.Map, hover: StateHoverHandler
     layout: {
       'text-field': ['get', 'abbrev_state'],
       'text-size': ['interpolate', ['linear'], ['zoom'], 3, 8, 6, 12],
-      'text-font': ['Open Sans Semibold'],
+      'text-font': ['Noto Sans Bold'],
       'text-allow-overlap': false,
       'text-ignore-placement': false
     },
@@ -107,7 +102,9 @@ export async function addStateLayers(m: maplibregl.Map, hover: StateHoverHandler
     if (!feat) return
 
     const { name_state, abbrev_state, name_region } = feat.properties as Record<string, string>
-    const regionColor = (name_region && REGION_COLORS[name_region]) || DEFAULT_REGION_COLOR
+    const regionColor =
+      (name_region && REGION_COLORS[name_region as keyof typeof REGION_COLORS]) ||
+      DEFAULT_REGION_COLOR
 
     new maplibregl.Popup({ offset: 10, closeButton: false, maxWidth: '220px' })
       .setLngLat(e.lngLat)
@@ -237,7 +234,7 @@ export function addAlertLayers(m: maplibregl.Map, cities: AlertCity[]) {
         8,
         ['case', ['==', ['get', 'level'], 'alto'], 50, ['==', ['get', 'level'], 'medio'], 35, 25]
       ],
-      'circle-color': LEVEL_COLOR_EXPRESSION as unknown as maplibregl.ExpressionSpecification,
+      'circle-color': LEVEL_COLOR_EXPRESSION,
       'circle-opacity': 0.15,
       'circle-stroke-width': 0,
       'circle-blur': 0.8
@@ -258,7 +255,7 @@ export function addAlertLayers(m: maplibregl.Map, cities: AlertCity[]) {
         8,
         ['case', ['==', ['get', 'level'], 'alto'], 20, ['==', ['get', 'level'], 'medio'], 14, 10]
       ],
-      'circle-color': LEVEL_COLOR_EXPRESSION as unknown as maplibregl.ExpressionSpecification,
+      'circle-color': LEVEL_COLOR_EXPRESSION,
       'circle-opacity': 0.7,
       'circle-stroke-width': 2.5,
       'circle-stroke-color': '#ffffff'
@@ -277,7 +274,7 @@ export function addAlertLayers(m: maplibregl.Map, cities: AlertCity[]) {
         ['to-string', ['get', 'cases']]
       ],
       'text-size': ['interpolate', ['linear'], ['zoom'], 3, 9, 8, 13],
-      'text-font': ['Open Sans Bold'],
+      'text-font': ['Noto Sans Bold'],
       'text-allow-overlap': true
     },
     paint: {
@@ -296,7 +293,7 @@ export function addAlertLayers(m: maplibregl.Map, cities: AlertCity[]) {
       'text-size': ['interpolate', ['linear'], ['zoom'], 3, 10, 8, 13],
       'text-offset': [0, 1.8],
       'text-anchor': 'top',
-      'text-font': ['Open Sans Semibold']
+      'text-font': ['Noto Sans Bold']
     },
     paint: {
       'text-color': '#1e293b',
@@ -310,11 +307,11 @@ export function addAlertLayers(m: maplibregl.Map, cities: AlertCity[]) {
     const f = e.features?.[0]
     if (!f || f.geometry.type !== 'Point') return
 
-    const { name, level, cases, trend } = f.properties
-    const color = LEVEL_COLORS[level] || '#666'
-    const label = LEVEL_LABELS[level] || level
-    const trendColor = trend.startsWith('+') ? LEVEL_COLORS.alto : LEVEL_COLORS.baixo
-    const trendIcon = trend.startsWith('+') ? '&#9650;' : '&#9660;'
+    const props = f.properties as { name: string; level: string; cases: number; trend: string }
+    const color = LEVEL_COLORS[props.level as keyof typeof LEVEL_COLORS] || '#666'
+    const label = LEVEL_LABELS[props.level as keyof typeof LEVEL_LABELS] || props.level
+    const trendColor = props.trend.startsWith('+') ? LEVEL_COLORS.alto : LEVEL_COLORS.baixo
+    const trendIcon = props.trend.startsWith('+') ? '&#9650;' : '&#9660;'
     const coords = f.geometry.coordinates as [number, number]
 
     new maplibregl.Popup({ offset: 20, closeButton: false, maxWidth: '260px' })
@@ -322,18 +319,18 @@ export function addAlertLayers(m: maplibregl.Map, cities: AlertCity[]) {
       .setHTML(
         `<div style="font-family: system-ui; padding: 6px 2px;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <strong style="font-size: 15px;">${name}</strong>
+            <strong style="font-size: 15px;">${props.name}</strong>
             <span style="font-size: 11px; padding: 2px 8px; border-radius: 99px; background: ${color}18; color: ${color}; font-weight: 600;">${label}</span>
           </div>
           <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 8px 0;" />
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
             <div>
               <div style="font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Casos (SE)</div>
-              <div style="font-size: 20px; font-weight: 700; color: #1e293b;">${cases.toLocaleString('pt-BR')}</div>
+              <div style="font-size: 20px; font-weight: 700; color: #1e293b;">${props.cases.toLocaleString('pt-BR')}</div>
             </div>
             <div>
               <div style="font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Tendência</div>
-              <div style="font-size: 20px; font-weight: 700; color: ${trendColor};">${trendIcon} ${trend}</div>
+              <div style="font-size: 20px; font-weight: 700; color: ${trendColor};">${trendIcon} ${props.trend}</div>
             </div>
           </div>
           <div style="margin-top: 10px; padding: 6px 10px; background: #f8fafc; border-radius: 8px; font-size: 11px; color: #64748b;">

@@ -1,7 +1,7 @@
 ---
-name: Orthogonality Checklist
+name: orthogonality-checklist
 description: Checklist do princípio de Ortogonalidade adaptado ao Detecta Alerta — componentes independentes que não afetam uns aos outros
-phases: [P, R, E, V]
+disable-model-invocation: true
 ---
 
 # Orthogonality Checklist — Detecta Alerta

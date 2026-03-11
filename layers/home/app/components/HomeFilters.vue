@@ -14,7 +14,7 @@ function onSemanaChange(event: Event) {
 
 <template>
   <div
-    class="flex flex-col items-start justify-start gap-4 border-b border-base-50 px-6 pt-6 pb-4 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:pt-8 lg:pb-6"
+    class="flex flex-col items-start justify-start gap-4 px-6 pt-6 pb-4 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:pt-8 lg:pb-6"
   >
     <!-- Filtro de Estado -->
     <div class="flex flex-col gap-1 lg:flex-row lg:items-center lg:gap-2">
@@ -23,7 +23,7 @@ function onSemanaChange(event: Event) {
         <select
           id="state-select"
           :value="store.filtros.estado"
-          class="h-10 min-w-48 cursor-pointer appearance-none rounded-full border border-base-100 bg-base-0 pr-10 pl-5 text-sm text-base-950 focus:ring-2 focus:ring-primary-500 focus:outline-none lg:w-60"
+          class="h-10 w-full cursor-pointer appearance-none rounded-full border border-base-100 bg-base-0 pr-10 pl-5 text-sm text-base-950 focus:ring-2 focus:ring-primary-500 focus:outline-none sm:w-48 lg:w-60"
           @change="onEstadoChange"
         >
           <option v-for="estado in store.estados" :key="estado.value" :value="estado.value">
@@ -53,7 +53,7 @@ function onSemanaChange(event: Event) {
         <select
           id="week-select"
           :value="store.filtros.semana"
-          class="h-10 min-w-64 cursor-pointer appearance-none rounded-full border border-base-100 bg-base-0 pr-10 pl-11 text-sm text-base-950 focus:ring-2 focus:ring-primary-500 focus:outline-none lg:w-80"
+          class="h-10 w-full cursor-pointer appearance-none rounded-full border border-base-100 bg-base-0 pr-10 pl-11 text-sm text-base-950 focus:ring-2 focus:ring-primary-500 focus:outline-none sm:w-64 lg:w-80"
           @change="onSemanaChange"
         >
           <option v-for="semana in store.semanas" :key="semana.value" :value="semana.value">
