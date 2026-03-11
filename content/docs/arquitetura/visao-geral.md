@@ -86,11 +86,11 @@ layers/base/shared/
     └── api.ts          # ApiResponse<T>, PaginatedResponse<T>
 ```
 
-Para detalhes sobre cada primitivo, veja:
+Para detalhes sobre como usar cada primitivo na prática, veja os [Padrões de Código](/docs/padroes):
 
-- [Domain Primitives](/docs/arquitetura/domain-primitives) — Result, Value Objects, tryCreate
-- [Error Handling](/docs/arquitetura/error-handling) — domain errors, withStoreAction, fluxo completo
-- [Padrão Feature Layer](/docs/arquitetura/feature-layer) — types → api → store → componentes
+- [Domain Primitives](/docs/padroes/domain-primitives) — Result, Value Objects, tryCreate
+- [Error Handling](/docs/padroes/error-handling) — domain errors, withStoreAction, fluxo completo
+- [Padrão Feature Layer](/docs/padroes/feature-layer) — types → api → store → componentes
 
 ## Tecnologias Principais
 

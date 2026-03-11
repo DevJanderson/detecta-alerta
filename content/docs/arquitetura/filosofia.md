@@ -29,17 +29,17 @@ ETC não é uma regra rígida — é um filtro mental aplicado em toda decisão 
 
 ### Do DDD (estilo funcional)
 
-| Conceito          | Implementação no projeto                                     | Estilo                                         |
-| ----------------- | ------------------------------------------------------------ | ---------------------------------------------- |
-| **Value Objects** | `createEmail()`, `createCodigoIBGE()`, `createCoordenadas()` | Factory + `Object.freeze()` (não classes)      |
-| **Result type**   | `ok()`, `fail()`, `unwrap()`, `combineResults()`             | Discriminated union (não classe `Result<T>`)   |
-| **Domain Errors** | `AuthErrors`, `HomeErrors`, `MeuMunicipioErrors`             | Objetos `as const` (não exceções tipadas)      |
-| **Domain Models** | `createUserModel()` enriquece DTO com lógica derivada        | Factory + `Object.freeze()` (mesmo padrão VOs) |
-| **Use Cases**     | `executeLogin()` retorna `Result<T>`                         | Função async pura (não classe `UseCase<I,O>`)  |
+| Conceito          | Implementação no projeto                              | Estilo                                         |
+| ----------------- | ----------------------------------------------------- | ---------------------------------------------- |
+| **Value Objects** | `createEmail()`, `createUserModel()`                  | Factory + `Object.freeze()` (não classes)      |
+| **Result type**   | `ok()`, `fail()`, `unwrap()`, `combineResults()`      | Discriminated union (não classe `Result<T>`)   |
+| **Domain Errors** | `AuthErrors`, `HomeErrors`, `MeuMunicipioErrors`      | Objetos `as const` (não exceções tipadas)      |
+| **Domain Models** | `createUserModel()` enriquece DTO com lógica derivada | Factory + `Object.freeze()` (mesmo padrão VOs) |
+| **Use Cases**     | `executeLogin()` retorna `Result<T>`                  | Função async pura (não classe `UseCase<I,O>`)  |
 
 **Padrão funcional**: tudo é função pura + objeto imutável. Sem classes, sem herança, sem `this`. Mais idiomático no Vue/TypeScript e mais fácil de testar.
 
-Detalhes de implementação: [Domain Primitives](/docs/arquitetura/domain-primitives)
+Detalhes de implementação: [Domain Primitives](/docs/padroes/domain-primitives)
 
 ### Do Clean Code
 
@@ -119,7 +119,7 @@ Nenhuma dessas opções se aplica?
 
 ## Referências
 
-- [Domain Primitives](/docs/arquitetura/domain-primitives) — Result, Value Objects, useVoField, Domain Models
-- [Error Handling](/docs/arquitetura/error-handling) — domain errors, withStoreAction, fluxo completo
-- [Padrão Feature Layer](/docs/arquitetura/feature-layer) — types → api → store → componentes
+- [Domain Primitives](/docs/padroes/domain-primitives) — Result, Value Objects, useVoField, Domain Models
+- [Error Handling](/docs/padroes/error-handling) — domain errors, withStoreAction, fluxo completo
+- [Padrão Feature Layer](/docs/padroes/feature-layer) — types → api → store → componentes
 - [Decisões Técnicas](/docs/projeto/decisoes) — ADRs com contexto e motivação de cada escolha

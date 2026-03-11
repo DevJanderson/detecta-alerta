@@ -112,7 +112,7 @@ Alertas epidemiológicos ativos para o município.
 
 ## Service a Implementar
 
-Criar `layers/meu-municipio/app/composables/useMeuMunicipioApi.ts` seguindo o [padrão feature layer](/docs/arquitetura/feature-layer):
+Criar `layers/meu-municipio/app/composables/useMeuMunicipioApi.ts` seguindo o [padrão feature layer](/docs/padroes/feature-layer):
 
 ```typescript
 export function useMeuMunicipioApi() {

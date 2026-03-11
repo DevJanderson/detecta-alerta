@@ -27,21 +27,31 @@ export function useDocsNavigation() {
           title: 'Visão Geral',
           path: '/docs/arquitetura/visao-geral',
           icon: 'lucide:blocks'
+        }
+      ]
+    },
+    {
+      title: 'Padrões de Código',
+      items: [
+        {
+          title: 'Visão Geral',
+          path: '/docs/padroes',
+          icon: 'lucide:book-marked'
+        },
+        {
+          title: 'Feature Layer',
+          path: '/docs/padroes/feature-layer',
+          icon: 'lucide:layers'
         },
         {
           title: 'Domain Primitives',
-          path: '/docs/arquitetura/domain-primitives',
+          path: '/docs/padroes/domain-primitives',
           icon: 'lucide:diamond'
         },
         {
           title: 'Error Handling',
-          path: '/docs/arquitetura/error-handling',
+          path: '/docs/padroes/error-handling',
           icon: 'lucide:alert-triangle'
-        },
-        {
-          title: 'Padrão Feature Layer',
-          path: '/docs/arquitetura/feature-layer',
-          icon: 'lucide:layers'
         }
       ]
     },
