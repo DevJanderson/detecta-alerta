@@ -1,23 +1,5 @@
 <script setup lang="ts">
-interface RegionIndicator {
-  name: string
-  level: 'Baixo' | 'Médio' | 'Alto'
-  variation: string
-  trend: 'up' | 'down' | 'stable'
-}
-
-defineProps<{
-  regions?: RegionIndicator[]
-}>()
-
-// TODO: substituir por dados da API
-const mockRegions: RegionIndicator[] = [
-  { name: 'Norte', level: 'Médio', variation: '-1%', trend: 'up' },
-  { name: 'Nordeste', level: 'Alto', variation: '-1%', trend: 'stable' },
-  { name: 'Centro-Oeste', level: 'Médio', variation: '+6%', trend: 'up' },
-  { name: 'Sudeste', level: 'Médio', variation: '+4%', trend: 'up' },
-  { name: 'Sul', level: 'Médio', variation: '+5%', trend: 'up' }
-]
+const { regions, isLoading, error } = useRegionStats()
 
 const levelClasses: Record<string, string> = {
   Baixo: 'text-success-400',
@@ -25,21 +7,41 @@ const levelClasses: Record<string, string> = {
   Alto: 'text-primary-400'
 }
 
-const trendIcons: Record<RegionIndicator['trend'], string> = {
+const trendClasses: Record<string, string> = {
+  up: 'text-primary-400',
+  down: 'text-success-400',
+  stable: 'text-white/60'
+}
+
+const trendIcons: Record<string, string> = {
   up: 'lucide:trending-up',
-  down: 'lucide:trending-down',
-  stable: 'lucide:minus'
+  down: 'lucide:trending-down'
 }
 </script>
 
 <template>
   <div class="bg-secondary-950 text-xs text-white">
     <div class="flex items-center gap-4 px-4 py-2 sm:px-6 lg:px-20">
-      <span class="shrink-0 font-medium">Indicadores Regionais</span>
+      <span class="shrink-0 font-medium">
+        Movimento em estabelecimentos de saúde
+        <span class="font-normal text-white/60">(comparado à semana anterior)</span>
+      </span>
 
-      <div class="ml-auto flex items-center gap-4 overflow-x-auto sm:gap-6">
+      <!-- Loading -->
+      <div v-if="isLoading" class="ml-auto flex items-center gap-2">
+        <Icon name="lucide:loader-2" class="size-3 animate-spin text-base-400" />
+        <span class="text-base-400">Carregando...</span>
+      </div>
+
+      <!-- Error -->
+      <div v-else-if="error" class="ml-auto">
+        <span class="text-danger-400">{{ error }}</span>
+      </div>
+
+      <!-- Regiões -->
+      <div v-else class="ml-auto flex items-center gap-4 overflow-x-auto sm:gap-6">
         <div
-          v-for="region in regions ?? mockRegions"
+          v-for="region in regions"
           :key="region.name"
           class="flex shrink-0 items-center gap-1.5"
         >
@@ -47,12 +49,13 @@ const trendIcons: Record<RegionIndicator['trend'], string> = {
           <span :class="levelClasses[region.level]" class="font-semibold">
             {{ region.level }}
           </span>
-          <span :class="levelClasses[region.level]" class="font-medium">
+          <span :class="trendClasses[region.trend]" class="font-medium">
             {{ region.variation }}
           </span>
           <Icon
-            :name="trendIcons[region.trend]"
-            :class="levelClasses[region.level]"
+            v-if="trendIcons[region.trend]"
+            :name="trendIcons[region.trend]!"
+            :class="trendClasses[region.trend]"
             class="size-3"
           />
         </div>

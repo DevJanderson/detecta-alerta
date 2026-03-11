@@ -57,7 +57,6 @@ npm run test:coverage    # Vitest com cobertura (v8)
 npm run test:ui          # Vitest UI (navegador)
 npm run test:e2e         # Playwright E2E
 npm run test:e2e:ui      # Playwright E2E com UI
-npm run geo:convert      # Converte GeoJSON → TopoJSON (public/geo/)
 npm run docs:llms        # Gera public/llms-full.txt (docs para IA)
 ```
 
@@ -115,6 +114,7 @@ layers/                 # TUDO fica aqui (incluindo server/)
   lugares-monitorados/  # Gestão de unidades de saúde monitoradas (mapa + tabela + busca)
   usuarios/             # Gestão de perfil, usuários, grupos e permissões
   rumores/              # Feed de rumores epidemiológicos (notícias de saúde)
+  relatorios/           # Relatórios epidemiológicos (listagem + detalhe)
   docs/                 # Documentação do projeto (Nuxt Content)
 content/docs/           # Arquivos markdown da documentação
 tests/                  # unit/, integration/, e2e/
@@ -129,7 +129,7 @@ tests/                  # unit/, integration/, e2e/
 Definida pela ordem no array `extends` do `nuxt.config.ts` (último = maior prioridade):
 
 ```
-docs > rumores > usuarios > lugares-monitorados > meu-municipio > home > auth > base
+docs > relatorios > rumores > usuarios > lugares-monitorados > meu-municipio > home > auth > base
 ```
 
 ### Fluxo de Dados
@@ -455,7 +455,7 @@ git push -u origin feat/nova-feature
   - Nomes de função/classe (PascalCase) só no body, nunca no subject
   - Limites: subject ≤ 72 chars, body ≤ 100 chars por linha
   - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`, `revert`
-  - Scopes sugeridos (não enforced pelo commitlint): `auth`, `home`, `meu-municipio`, `lugares-monitorados`, `usuarios`, `rumores`, `docs`, `base`, `deps`
+  - Scopes sugeridos (não enforced pelo commitlint): `auth`, `home`, `meu-municipio`, `lugares-monitorados`, `usuarios`, `rumores`, `relatorios`, `docs`, `base`, `deps`
 
 ### PR Template
 

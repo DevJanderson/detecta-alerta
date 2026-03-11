@@ -8,9 +8,12 @@ Stack: Nuxt 4, Vue 3, Tailwind CSS v4, shadcn-vue, Pinia, MapLibre GL, Vitest, P
 
 - [Filosofia e Estilo](https://alerta.sinapse.org.br/docs/arquitetura/filosofia): DDD Funcional Leve, ETC, o que adotamos e rejeitamos
 - [Visão Geral](https://alerta.sinapse.org.br/docs/arquitetura/visao-geral): Estrutura Nuxt Layers, fluxo de dados
-- [Feature Layer Pattern](https://alerta.sinapse.org.br/docs/arquitetura/feature-layer): Padrão types → API composable → Pinia store → componentes
-- [Domain Primitives](https://alerta.sinapse.org.br/docs/arquitetura/domain-primitives): Result type, Value Objects com tryCreate, useVoField
-- [Error Handling](https://alerta.sinapse.org.br/docs/arquitetura/error-handling): Domain errors tipados, withStoreAction, fluxo servidor→UI
+
+## Padrões de Código
+
+- [Feature Layer](https://alerta.sinapse.org.br/docs/padroes/feature-layer): Padrão types → API composable → Pinia store → componentes
+- [Domain Primitives](https://alerta.sinapse.org.br/docs/padroes/domain-primitives): Result type, Value Objects com tryCreate, useVoField
+- [Error Handling](https://alerta.sinapse.org.br/docs/padroes/error-handling): Domain errors tipados, withStoreAction, fluxo servidor→UI
 
 ## Segurança
 

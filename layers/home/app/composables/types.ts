@@ -1,5 +1,7 @@
 // === Tipos de dados da Home ===
 
+import type { AlertStatus, TrendType } from '#shared/types/sinapse'
+
 export type Level = 'Normal' | 'Moderado' | 'Elevado'
 export type Trend = 'up' | 'down' | 'stable'
 
@@ -17,15 +19,46 @@ export interface RegionRow {
   ubs: CellData
 }
 
+// === Panorama (dados consolidados da API) ===
+
+export interface UnitTypeStats {
+  count: number
+  variation: number
+  trend: TrendType
+  alertStatus: AlertStatus
+}
+
 export interface PanoramaData {
-  percentage: string
-  level: string
-  description: string
-  insight: string
+  occupancyRate: number
+  alertStatus: AlertStatus
+  trend: TrendType
+  variation: number
   totalEstabelecimentos: number
-  drogarias: number
-  ubs: number
-  upas: number
+  drogarias: UnitTypeStats
+  ubs: UnitTypeStats
+  upas: UnitTypeStats
+  epidemiologicalWeek: string
+  weekEndingDate: string
+}
+
+// === Gráfico (série temporal) ===
+
+export interface ChartPointData {
+  week: string
+  weekLabel: string
+  dateRange: string
+  occupancy: number
+  movingAvg: number
+  variation: number
+  alertStatus: AlertStatus
+}
+
+export type ChartUnitType = 'all' | 'drogarias' | 'ubs' | 'upa'
+
+export interface ChartSeriesData {
+  points: ChartPointData[]
+  currentWeekVariation: number
+  currentWeekTrend: TrendType
 }
 
 // === Filtros ===
@@ -47,3 +80,12 @@ export interface RegionOption {
   id: string
   label: string
 }
+
+export const HOME_REGIONS: RegionOption[] = [
+  { id: 'brasil', label: 'Brasil' },
+  { id: 'norte', label: 'Norte' },
+  { id: 'nordeste', label: 'Nordeste' },
+  { id: 'centro-oeste', label: 'Centro-Oeste' },
+  { id: 'sudeste', label: 'Sudeste' },
+  { id: 'sul', label: 'Sul' }
+]

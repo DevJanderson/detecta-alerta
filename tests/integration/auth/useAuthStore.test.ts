@@ -30,7 +30,8 @@ mockNuxtImport('useRouter', () => () => ({
 
 const { useAuthStore } = await import('~/layers/auth/app/composables/useAuthStore')
 
-const mockUser = {
+/** Dados brutos da API (DTO AuthUser) */
+const mockApiUser = {
   id: 1,
   nome: 'João Silva',
   email: 'joao@exemplo.com',
@@ -46,6 +47,19 @@ const mockUser = {
     { id: 2, codigo: 'reports.view', nome: 'Ver Relatórios' }
   ],
   grupos: [{ id: 1, nome: 'administradores', descricao: 'Administradores do sistema' }]
+}
+
+/** UserModel esperado após createUserModel(mockApiUser) */
+const expectedUserModel = {
+  raw: mockApiUser,
+  id: 1,
+  nome: 'João Silva',
+  email: 'joao@exemplo.com',
+  ativo: true,
+  initials: 'JS',
+  permissions: ['dashboard.view', 'reports.view'],
+  groups: ['administradores'],
+  isAdmin: true
 }
 
 describe('useAuthStore', () => {
@@ -71,7 +85,7 @@ describe('useAuthStore', () => {
 
   describe('login', () => {
     it('deve fazer login com sucesso', async () => {
-      mockLogin.mockResolvedValue({ user: mockUser })
+      mockLogin.mockResolvedValue({ user: mockApiUser })
 
       const store = useAuthStore()
       const success = await store.login({
@@ -80,7 +94,7 @@ describe('useAuthStore', () => {
       })
 
       expect(success).toBe(true)
-      expect(store.user).toEqual(mockUser)
+      expect(store.user).toEqual(expectedUserModel)
       expect(store.isAuthenticated).toBe(true)
       expect(store.error).toBeNull()
     })
@@ -119,7 +133,7 @@ describe('useAuthStore', () => {
 
       expect(store.isLoading).toBe(true)
 
-      resolveLogin!({ user: mockUser })
+      resolveLogin!({ user: mockApiUser })
       await loginPromise
 
       expect(store.isLoading).toBe(false)
@@ -128,7 +142,7 @@ describe('useAuthStore', () => {
 
   describe('logout', () => {
     it('deve fazer logout e limpar estado', async () => {
-      mockLogin.mockResolvedValue({ user: mockUser })
+      mockLogin.mockResolvedValue({ user: mockApiUser })
       mockLogout.mockResolvedValue(undefined)
 
       const store = useAuthStore()
@@ -146,7 +160,7 @@ describe('useAuthStore', () => {
     })
 
     it('deve limpar estado mesmo se API falhar', async () => {
-      mockLogin.mockResolvedValue({ user: mockUser })
+      mockLogin.mockResolvedValue({ user: mockApiUser })
       mockLogout.mockRejectedValue(new Error('Erro de rede'))
 
       const store = useAuthStore()
@@ -164,12 +178,12 @@ describe('useAuthStore', () => {
 
   describe('fetchUser', () => {
     it('deve buscar dados do usuário', async () => {
-      mockGetMe.mockResolvedValue({ user: mockUser })
+      mockGetMe.mockResolvedValue({ user: mockApiUser })
 
       const store = useAuthStore()
       await store.fetchUser()
 
-      expect(store.user).toEqual(mockUser)
+      expect(store.user).toEqual(expectedUserModel)
       expect(store.isInitialized).toBe(true)
     })
 
@@ -186,7 +200,7 @@ describe('useAuthStore', () => {
 
   describe('Getters de usuário', () => {
     beforeEach(async () => {
-      mockLogin.mockResolvedValue({ user: mockUser })
+      mockLogin.mockResolvedValue({ user: mockApiUser })
     })
 
     it('deve retornar userName', async () => {
@@ -212,7 +226,7 @@ describe('useAuthStore', () => {
 
     it('deve retornar userInitials com uma palavra', async () => {
       mockLogin.mockResolvedValue({
-        user: { ...mockUser, nome: 'João' }
+        user: { ...mockApiUser, nome: 'João' }
       })
 
       const store = useAuthStore()
@@ -224,7 +238,7 @@ describe('useAuthStore', () => {
 
   describe('Permissões', () => {
     beforeEach(async () => {
-      mockLogin.mockResolvedValue({ user: mockUser })
+      mockLogin.mockResolvedValue({ user: mockApiUser })
     })
 
     it('deve verificar hasPermission corretamente', async () => {
