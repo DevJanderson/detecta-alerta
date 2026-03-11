@@ -1,0 +1,34 @@
+<script setup lang="ts">
+definePageMeta({
+  middleware: 'auth-guard'
+})
+
+useSeoPage({
+  title: 'Adicionar Unidade - Detecta Alerta',
+  description: 'Cadastre manualmente uma nova unidade de saúde para monitoramento.'
+})
+</script>
+
+<template>
+  <div class="mx-auto max-w-7xl px-6 py-10">
+    <div class="mb-6 flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-semibold text-base-900">Adicionar Unidade</h1>
+        <p class="mt-1 text-sm text-base-500">Cadastro manual de unidade de saúde</p>
+      </div>
+      <NuxtLink
+        to="/lugares-monitorados"
+        class="inline-flex items-center gap-1.5 rounded-full border border-base-200 px-4 py-2 text-sm font-medium text-secondary-900 transition-colors hover:bg-base-50"
+      >
+        <Icon name="lucide:arrow-left" class="size-4" />
+        Voltar ao mapa
+      </NuxtLink>
+    </div>
+    <CommonPlaceholderBox
+      icon="lucide:plus-circle"
+      label="Formulário de cadastro"
+      sublabel="(em desenvolvimento)"
+      class="h-96"
+    />
+  </div>
+</template>

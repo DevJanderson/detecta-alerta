@@ -20,7 +20,16 @@ export const BRAZIL_BOUNDS: [[number, number], [number, number]] = [
 ]
 
 /** Estilo vetorial gratuito (OpenFreeMap — sem API key) */
-export const VECTOR_STYLE = 'https://tiles.openfreemap.org/styles/liberty'
+export const VECTOR_STYLE = 'https://tiles.openfreemap.org/styles/positron'
+
+/** Estilos de mapa disponíveis (OpenFreeMap — sem API key) */
+export const MAP_STYLES = [
+  { id: 'liberty', label: 'Padrão', url: 'https://tiles.openfreemap.org/styles/liberty' },
+  { id: 'bright', label: 'Claro', url: 'https://tiles.openfreemap.org/styles/bright' },
+  { id: 'positron', label: 'Minimalista', url: 'https://tiles.openfreemap.org/styles/positron' }
+] as const
+
+export type MapStyleId = (typeof MAP_STYLES)[number]['id']
 
 /** Coordenadas centrais aproximadas de cada macro-região */
 export const REGION_CENTERS: Record<string, Coordenadas> = {

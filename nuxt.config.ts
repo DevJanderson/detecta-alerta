@@ -49,7 +49,7 @@ export default defineNuxtConfig({
     './layers/auth',
     './layers/home',
     './layers/meu-municipio',
-    './layers/mapa-risco',
+    './layers/lugares-monitorados',
     './layers/usuarios',
     './layers/rumores',
     './layers/relatorios',

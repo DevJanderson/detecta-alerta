@@ -113,7 +113,7 @@ layers/                 # TUDO fica aqui (incluindo server/)
   auth/                 # Autenticação BFF (Backend-for-Frontend)
   home/                 # Landing page
   meu-municipio/        # Página do município (mapa MapLibre GL + aside com dados)
-  mapa-risco/           # Mapa de risco epidemiológico
+  lugares-monitorados/  # Gestão de unidades de saúde monitoradas (mapa + tabela + busca)
   usuarios/             # Gestão de perfil, usuários, grupos e permissões
   rumores/              # Feed de rumores epidemiológicos (notícias de saúde)
   docs/                 # Documentação do projeto (Nuxt Content)
@@ -130,7 +130,7 @@ tests/                  # unit/, integration/, e2e/
 Definida pela ordem no array `extends` do `nuxt.config.ts` (último = maior prioridade):
 
 ```
-docs > rumores > usuarios > mapa-risco > meu-municipio > home > auth > base
+docs > rumores > usuarios > lugares-monitorados > meu-municipio > home > auth > base
 ```
 
 ### Fluxo de Dados
@@ -456,7 +456,7 @@ git push -u origin feat/nova-feature
   - Nomes de função/classe (PascalCase) só no body, nunca no subject
   - Limites: subject ≤ 72 chars, body ≤ 100 chars por linha
   - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`, `revert`
-  - Scopes sugeridos (não enforced pelo commitlint): `auth`, `home`, `meu-municipio`, `mapa-risco`, `usuarios`, `rumores`, `docs`, `base`, `deps`
+  - Scopes sugeridos (não enforced pelo commitlint): `auth`, `home`, `meu-municipio`, `lugares-monitorados`, `usuarios`, `rumores`, `docs`, `base`, `deps`
 
 ### PR Template
 
