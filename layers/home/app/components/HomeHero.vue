@@ -1,11 +1,11 @@
 <template>
-  <section class="px-4 py-16 sm:px-6 lg:px-20 lg:py-32">
+  <section class="px-4 py-10 sm:px-6 sm:py-16 lg:px-20 lg:py-32">
     <div
-      class="mx-auto flex flex-col items-center gap-10 lg:grid lg:grid-cols-[1fr_34rem_1fr] lg:items-start lg:gap-6"
+      class="mx-auto flex flex-col items-center gap-8 sm:gap-10 lg:grid lg:grid-cols-[1fr_34rem_1fr] lg:items-start lg:gap-6"
     >
       <!-- Titulo principal (esquerda) -->
       <h1 class="text-3xl font-bold leading-tight text-primary-950 sm:text-4xl lg:text-6xl">
-        Quais os riscos de Surtos ou Epidemias no Brasil?
+        Qual o cenário das epidemias no Brasil?
       </h1>
 
       <!-- Seta + CTA (centro) -->
@@ -25,7 +25,7 @@
 
         <!-- Seta para baixo -->
         <svg
-          class="h-20 text-primary-700"
+          class="h-12 text-primary-700 sm:h-16 lg:h-20"
           viewBox="0 0 15 82"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -37,16 +37,38 @@
         </svg>
       </div>
 
-      <!-- Descricao (direita) -->
-      <div class="flex flex-col items-center gap-4 text-center lg:items-end lg:pt-12 lg:text-right">
-        <p class="text-xl leading-relaxed text-secondary-900">
-          O Detecta Alerta identifica, através da frequência de visitas em diferentes
-          estabelecimentos, padrões que podem indicar
-          <strong>potencial risco de epidemias</strong>.
-        </p>
-        <p class="text-sm leading-normal text-secondary-700">
-          *Dados públicos coletados do Google Maps e parcerias com instituições públicas.
-        </p>
+      <!-- Resumo de dados (direita) -->
+      <div class="flex flex-col items-start gap-5 text-left">
+        <!-- Tag de status -->
+        <span
+          class="inline-flex items-center gap-1 rounded-full border border-success-200 bg-white py-1 pl-1.5 pr-3 text-[10px] leading-normal text-success-700"
+        >
+          <span class="size-1.5 rounded-full bg-success-500" />
+          Atualizado há 2 minutos
+        </span>
+
+        <!-- Texto principal -->
+        <div class="flex flex-col gap-3">
+          <p class="max-w-105 text-base leading-normal text-secondary-800">
+            <strong class="font-bold text-secondary-900">Brasil</strong>:
+            <span class="text-secondary-600 underline">
+              movimento 23% maior que o normal em drogarias e UBSs</span
+            >, especialmente nas regiões Sul e Sudeste. Além disso, houve
+            <span class="text-secondary-600 underline">
+              aumento de 3% nos rumores relacionados à Dengue e Influenza A</span
+            >.
+          </p>
+
+          <!-- Fonte -->
+          <p class="text-xs leading-normal text-base-500">
+            <span class="font-semibold">Fonte</span>: <span class="underline">Sinapse</span> e
+            <span class="underline">Google Maps</span>, 2026
+            <span class="ml-2 inline-flex items-center">
+              <span class="mx-2 inline-block h-3 w-px rotate-90 bg-base-300" />
+              <Icon name="lucide:lock" class="size-2.5 text-base-400" />
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   </section>

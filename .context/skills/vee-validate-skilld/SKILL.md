@@ -1,10 +1,7 @@
 ---
 name: vee-validate-skilld
 description: 'ALWAYS use when writing code importing "vee-validate". Consult for debugging, best practices, or modifying vee-validate, vee validate.'
-metadata:
-  version: 4.15.1
-  generated_by: Gemini CLI · Gemini 3 Flash
-  generated_at: 2026-02-18
+user-invocable: false
 ---
 
 # logaretm/vee-validate `vee-validate`

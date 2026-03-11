@@ -16,7 +16,7 @@ watch(
 const navLinks = [
   { label: 'home', to: '/', icon: 'lucide:house' },
   { label: 'meu município', to: '/meu-municipio', icon: 'lucide:map-pin' },
-  { label: 'mapa de risco', to: '/mapa-risco', icon: 'lucide:map' },
+  { label: 'lugares monitorados', to: '/lugares-monitorados', icon: 'lucide:map' },
   { label: 'rumores', to: '/rumores', icon: 'lucide:message-circle' },
   { label: 'relatórios', to: '/relatorios', icon: 'lucide:file-text' }
 ]

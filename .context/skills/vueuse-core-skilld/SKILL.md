@@ -1,10 +1,7 @@
 ---
 name: vueuse-core-skilld
 description: 'ALWAYS use when writing code importing "@vueuse/core". Consult for debugging, best practices, or modifying @vueuse/core, vueuse/core, vueuse core, vueuse.'
-metadata:
-  version: 14.2.1
-  generated_by: Claude Code · Sonnet 4.5
-  generated_at: 2026-02-18
+user-invocable: false
 ---
 
 # vueuse/vueuse `@vueuse/core`

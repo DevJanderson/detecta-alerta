@@ -1,7 +1,7 @@
 ---
-name: Reversibility Checklist
+name: reversibility-checklist
 description: Checklist do princípio de Reversibilidade adaptado ao Detecta Alerta — decisões fáceis de desfazer ou trocar
-phases: [P, R, E, V]
+disable-model-invocation: true
 ---
 
 # Reversibility Checklist — Detecta Alerta

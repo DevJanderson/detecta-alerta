@@ -1,10 +1,7 @@
 ---
 name: vue-skilld
 description: 'ALWAYS use when editing or working with *.vue files or code importing "vue". Consult for debugging, best practices, or modifying vue, core.'
-metadata:
-  version: 3.6.0-beta.6
-  generated_by: Claude Code · Sonnet 4.5
-  generated_at: 2026-02-18
+user-invocable: false
 ---
 
 # vuejs/core `vue`

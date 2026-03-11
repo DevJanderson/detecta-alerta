@@ -54,6 +54,7 @@
     "better-sqlite3": "^12.6.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "echarts": "^6.0.0",
     "lucide-vue-next": "^0.562.0",
     "maplibre-gl": "^5.19.0",
     "maska": "^3.2.0",
@@ -66,6 +67,7 @@
     "tailwind-merge": "^3.4.0",
     "topojson-client": "^3.1.0",
     "vue": "^3.5.26",
+    "vue-echarts": "^8.0.1",
     "vue-router": "^4.6.4",
     "vue-sonner": "^2.0.9",
     "zod": "^3.25.76"

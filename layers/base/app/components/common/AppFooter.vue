@@ -5,7 +5,7 @@ const exploreLinks = [
   { label: 'Início', to: '/' },
   { label: 'Meu Município', to: '/meu-municipio' },
   { label: 'Rumores', to: '/rumores' },
-  { label: 'Lugares Monitorados', to: '/lugares-monitorados' },
+  { label: 'Lugares Monitorados', to: '#' },
   { label: 'Relatórios', to: '/relatorios' }
 ]
 
