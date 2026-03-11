@@ -4,10 +4,13 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart, BarChart } from 'echarts/charts'
 import { GridComponent, TooltipComponent } from 'echarts/components'
 import VChart from 'vue-echarts'
+import type { ChartSeriesData } from '../composables/types'
 
 use([CanvasRenderer, LineChart, BarChart, GridComponent, TooltipComponent])
 
 const props = defineProps<{
+  chartData: ChartSeriesData | null
+  chartType: string
   showAverage: boolean
   showVariation: boolean
 }>()
@@ -30,65 +33,13 @@ const COLORS = {
   base100: '#f0f0f0'
 }
 
-// --- Dados mock ---
 type PointStatus = 'normal' | 'alert' | 'danger'
 
-const weeks = [
-  'SE 39',
-  'SE 40',
-  'SE 41',
-  'SE 42',
-  'SE 43',
-  'SE 44',
-  'SE 45',
-  'SE 46',
-  'SE 47',
-  'SE 48'
-]
-const weekDates = [
-  '(21 a 27/09)',
-  '(28/09 a 04/10)',
-  '(05 a 11/10)',
-  '(12 a 18/10)',
-  '(19 a 25/10)',
-  '(26/10 a 01/11)',
-  '(02 a 08/11)',
-  '(09 a 15/11)',
-  '(26 a 22/11)',
-  '(23 a 29/11)'
-]
-
-const mainData = [41.3, 41.3, 40.5, 38.6, 37.8, 38.3, 41.0, 41.3, 40.3, 40.6]
-const averageData = [40.3, 40.3, 40.2, 39.9, 39.6, 39.7, 40.1, 40.3, 40.3, 40.3]
-
-const pointStatus: PointStatus[] = [
-  'normal',
-  'normal',
-  'normal',
-  'normal',
-  'normal',
-  'alert',
-  'danger',
-  'alert',
-  'normal',
-  'alert'
-]
-
-// Barras de variação (período atual vs anterior)
-const barCurrentData = [24.5, 24.5, 26.4, 24.5, 24.5, 9.6, 24.5, 25.7, 21.4, 22.1]
-const barPreviousData = [22.8, 22.8, 22.8, 22.8, 28.4, 22.8, 28.0, 22.8, 22.8, 23.8]
-const barStatus: PointStatus[] = [
-  'normal',
-  'normal',
-  'normal',
-  'normal',
-  'normal',
-  'alert',
-  'danger',
-  'alert',
-  'normal',
-  'alert'
-]
+const ALERT_TO_STATUS: Record<string, PointStatus> = {
+  green: 'normal',
+  yellow: 'alert',
+  red: 'danger'
+}
 
 const STATUS_COLORS: Record<PointStatus, string> = {
   normal: COLORS.secondary900,
@@ -108,16 +59,27 @@ const STATUS_BAR_PREVIOUS: Record<PointStatus, string> = {
   danger: COLORS.danger200
 }
 
-function getStatus(i: number): PointStatus {
-  return pointStatus[i] ?? 'normal'
-}
-
-function getBarStatus(i: number): PointStatus {
-  return barStatus[i] ?? 'normal'
-}
-
 // --- ECharts option ---
 const option = computed(() => {
+  const points = props.chartData?.points ?? []
+  if (!points.length) return {}
+
+  const weeks = points.map(p => p.week)
+  const dateRanges = points.map(p => p.dateRange)
+  const mainData = points.map(p => p.occupancy)
+  const averageData = points.map(p => p.movingAvg)
+  const statuses = points.map(p => ALERT_TO_STATUS[p.alertStatus] ?? 'normal')
+
+  // Calcular eixo Y dinâmico com margem
+  const allValues = [...mainData, ...averageData]
+  const dataMin = Math.min(...allValues)
+  const dataMax = Math.max(...allValues)
+  const margin = Math.max((dataMax - dataMin) * 0.3, 1)
+  const yMin = Math.floor(dataMin - margin)
+  const yMax = Math.ceil(dataMax + margin)
+
+  const isArea = props.chartType === 'area'
+
   const series: unknown[] = [
     // Linha principal com área
     {
@@ -125,11 +87,11 @@ const option = computed(() => {
       data: mainData.map((val, i) => ({
         value: val,
         itemStyle: {
-          color: STATUS_COLORS[getStatus(i)],
-          borderColor: STATUS_COLORS[getStatus(i)],
+          color: STATUS_COLORS[statuses[i]!],
+          borderColor: STATUS_COLORS[statuses[i]!],
           borderWidth: 2
         },
-        symbolSize: getStatus(i) === 'normal' ? 10 : 14
+        symbolSize: statuses[i] === 'normal' ? 10 : 14
       })),
       smooth: 0.4,
       symbol: 'circle',
@@ -138,12 +100,14 @@ const option = computed(() => {
         color: COLORS.secondary900,
         width: 3
       },
-      areaStyle: {
-        color: new graphic.LinearGradient(0, 0, 0, 1, [
-          { offset: 0, color: 'rgba(25, 97, 172, 0.25)' },
-          { offset: 1, color: 'rgba(25, 97, 172, 0.02)' }
-        ])
-      },
+      areaStyle: isArea
+        ? {
+            color: new graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: 'rgba(25, 97, 172, 0.25)' },
+              { offset: 1, color: 'rgba(25, 97, 172, 0.02)' }
+            ])
+          }
+        : undefined,
       z: 4
     }
   ]
@@ -167,24 +131,24 @@ const option = computed(() => {
 
   // Barras de variação
   if (props.showVariation) {
+    const variationData = points.map(p => Math.abs(p.variation))
+    // Barra de variação com cor por status
     series.push(
-      // Barra período atual
       {
         type: 'bar',
-        data: barCurrentData.map((val, i) => ({
+        data: variationData.map((val, i) => ({
           value: val,
-          itemStyle: { color: STATUS_BAR_CURRENT[getBarStatus(i)] }
+          itemStyle: { color: STATUS_BAR_CURRENT[statuses[i]!] }
         })),
         barWidth: 16,
         barGap: '0%',
         z: 1
       },
-      // Barra período anterior
       {
         type: 'bar',
-        data: barPreviousData.map((val, i) => ({
-          value: val,
-          itemStyle: { color: STATUS_BAR_PREVIOUS[getBarStatus(i)] }
+        data: variationData.map((val, i) => ({
+          value: val * 0.85,
+          itemStyle: { color: STATUS_BAR_PREVIOUS[statuses[i]!] }
         })),
         barWidth: 16,
         z: 1
@@ -204,12 +168,8 @@ const option = computed(() => {
       type: 'category',
       data: weeks,
       boundaryGap: false,
-      axisLine: {
-        show: false
-      },
-      axisTick: {
-        show: false
-      },
+      axisLine: { show: false },
+      axisTick: { show: false },
       axisLabel: {
         color: COLORS.secondary900,
         fontSize: 11,
@@ -218,7 +178,7 @@ const option = computed(() => {
         margin: 8,
         interval: 0,
         formatter: (value: string, index: number) => {
-          return `{semana|${value}}\n{data|${weekDates[index] ?? ''}}`
+          return `{semana|${value}}\n{data|${dateRanges[index] ?? ''}}`
         },
         rich: {
           semana: {
@@ -237,25 +197,17 @@ const option = computed(() => {
           }
         }
       },
-      splitLine: {
-        show: false
-      }
+      splitLine: { show: false }
     },
     yAxis: {
       type: 'value',
-      min: 37,
-      max: 43,
-      interval: 1,
+      min: yMin,
+      max: yMax,
       axisLine: {
         show: true,
-        lineStyle: {
-          color: COLORS.secondary100,
-          width: 1
-        }
+        lineStyle: { color: COLORS.secondary100, width: 1 }
       },
-      axisTick: {
-        show: false
-      },
+      axisTick: { show: false },
       axisLabel: {
         color: COLORS.secondary900,
         fontSize: 12,
@@ -264,11 +216,7 @@ const option = computed(() => {
       },
       splitLine: {
         show: true,
-        lineStyle: {
-          color: COLORS.secondary100,
-          type: 'dashed',
-          width: 1
-        }
+        lineStyle: { color: COLORS.secondary100, type: 'dashed', width: 1 }
       }
     },
     tooltip: {
@@ -287,12 +235,12 @@ const option = computed(() => {
         const idx = first.dataIndex
         const main = mainData[idx] ?? 0
         const avg = averageData[idx] ?? 0
-        const status = getStatus(idx)
+        const status = statuses[idx] ?? 'normal'
         const statusLabel =
           status === 'normal' ? 'Normal' : status === 'alert' ? 'Alerta' : 'Elevado'
-        return `<div style="font-weight:600">${weeks[idx] ?? ''} ${weekDates[idx] ?? ''}</div>
-          <div style="margin-top:4px">Lotação: <b>${main}%</b></div>
-          <div>Média: ${avg}%</div>
+        return `<div style="font-weight:600">${weeks[idx] ?? ''} ${dateRanges[idx] ?? ''}</div>
+          <div style="margin-top:4px">Lotação: <b>${main.toFixed(1)}%</b></div>
+          <div>Média: ${avg.toFixed(1)}%</div>
           <div style="color:${STATUS_COLORS[status]}">Status: ${statusLabel}</div>`
       }
     },
@@ -303,6 +251,17 @@ const option = computed(() => {
 
 <template>
   <div class="h-64 w-full sm:h-80 lg:h-96">
-    <VChart :option="option" autoresize style="width: 100%; height: 100%" />
+    <VChart
+      v-if="chartData?.points.length"
+      :option="option"
+      autoresize
+      style="width: 100%; height: 100%"
+    />
+    <div v-else-if="!chartData" class="flex h-full items-center justify-center">
+      <Icon name="lucide:loader-2" class="size-6 animate-spin text-base-400" />
+    </div>
+    <div v-else class="flex h-full items-center justify-center text-sm text-base-400">
+      Sem dados para o período selecionado
+    </div>
   </div>
 </template>
