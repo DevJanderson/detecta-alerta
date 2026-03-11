@@ -1,18 +1,18 @@
 ---
 title: 'Meu Município — Dados e APIs'
-description: 'Endpoints BFF necessários, dados mock atuais e estratégia de cache.'
+description: 'Endpoints API Proxy necessários, dados mock atuais e estratégia de cache.'
 order: 5
 ---
 
 # Dados e APIs
 
-Estado atual dos dados consumidos pela página Meu Município e endpoints BFF a implementar.
+Estado atual dos dados consumidos pela página Meu Município e endpoints API Proxy a implementar.
 
 ---
 
 ## Estado Atual: Mock
 
-Toda a página funciona com dados mock. Não há endpoints BFF nem chamadas à API Sinapse.
+Toda a página funciona com dados mock. Não há endpoints API Proxy nem chamadas à API Sinapse.
 
 | Dado                       | Fonte atual           | Arquivo                       | Substituir por                   |
 | -------------------------- | --------------------- | ----------------------------- | -------------------------------- |
@@ -27,7 +27,7 @@ Toda a página funciona com dados mock. Não há endpoints BFF nem chamadas à A
 
 ---
 
-## Endpoints BFF a Implementar
+## Endpoints API Proxy a Implementar
 
 Quando a integração com a API Sinapse for feita, criar estes endpoints em `layers/meu-municipio/server/api/meu-municipio/`:
 

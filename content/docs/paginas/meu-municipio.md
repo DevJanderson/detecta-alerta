@@ -147,7 +147,7 @@ Duas camadas complementares:
 ### Planejado (requer integração com API)
 
 - [ ] `useMeuMunicipioApi.ts` — service stateless com `$fetch`
-- [ ] Endpoints BFF em `server/api/meu-municipio/`
+- [ ] Endpoints API Proxy em `server/api/meu-municipio/`
 - [ ] Busca de municípios com autocomplete real (API ou lista local)
 - [ ] Geolocalização ("Usar minha localização")
 - [ ] Marcadores de unidades de saúde no mapa (UBS, UPA, Drogaria)

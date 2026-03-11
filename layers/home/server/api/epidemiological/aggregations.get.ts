@@ -1,14 +1,14 @@
 /**
  * GET /api/epidemiological/aggregations
  *
- * Proxy BFF para o endpoint de agregações epidemiológicas da API Sinapse.
+ * API Proxy para o endpoint de agregações epidemiológicas da API Sinapse.
  * Retorna dados agregados por região/estado/cidade com métricas de ocupação.
  */
 
 export default defineEventHandler(async event => {
   const accessToken = getAccessToken(event)
   if (!accessToken) {
-    throw createError({ statusCode: 401, statusMessage: 'Não autenticado' })
+    throw createError({ statusCode: 401, message: 'Não autenticado' })
   }
 
   const qs = buildQueryString(getQuery(event), [
