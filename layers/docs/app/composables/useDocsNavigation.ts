@@ -12,6 +12,41 @@ export function useDocsNavigation() {
           title: 'AppTopBar',
           path: '/docs/paginas/homepage-apptopbar',
           icon: 'lucide:bar-chart-2'
+        },
+        {
+          title: 'Switcher de Regiões',
+          path: '/docs/paginas/homepage-region-tabs',
+          icon: 'lucide:map'
+        },
+        {
+          title: 'Filtros',
+          path: '/docs/paginas/homepage-filters',
+          icon: 'lucide:filter'
+        },
+        {
+          title: 'Panorama',
+          path: '/docs/paginas/homepage-panorama',
+          icon: 'lucide:activity'
+        },
+        {
+          title: 'Gráfico',
+          path: '/docs/paginas/homepage-chart',
+          icon: 'lucide:bar-chart-3'
+        },
+        {
+          title: 'Gráfico (Linha)',
+          path: '/docs/paginas/homepage-chart-line',
+          icon: 'lucide:trending-up'
+        },
+        {
+          title: 'Tabela',
+          path: '/docs/paginas/homepage-tabela',
+          icon: 'lucide:table'
+        },
+        {
+          title: 'Backlog',
+          path: '/docs/paginas/homepage-backlog',
+          icon: 'lucide:clipboard-list'
         }
       ]
     },
