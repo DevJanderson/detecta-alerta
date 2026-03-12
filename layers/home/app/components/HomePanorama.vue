@@ -4,31 +4,31 @@ import type { AlertStatus, TrendType } from '#shared/types/sinapse'
 const store = useHomeStore()
 
 const alertBorderColors: Record<AlertStatus, string> = {
-  green: 'border-success-200',
+  green: 'border-secondary-200',
   yellow: 'border-alert-200',
   red: 'border-primary-200'
 }
 
 const alertHeaderBg: Record<AlertStatus, string> = {
-  green: 'bg-success-50',
+  green: 'bg-secondary-50',
   yellow: 'bg-alert-50',
   red: 'bg-primary-50'
 }
 
 const alertTagBg: Record<AlertStatus, string> = {
-  green: 'bg-success-200',
+  green: 'bg-secondary-200',
   yellow: 'bg-alert-200',
   red: 'bg-primary-200'
 }
 
 const alertTagBorder: Record<AlertStatus, string> = {
-  green: 'border-success-300',
+  green: 'border-secondary-300',
   yellow: 'border-alert-300',
   red: 'border-primary-300'
 }
 
 const alertBarBg: Record<AlertStatus, string> = {
-  green: 'bg-success-100',
+  green: 'bg-secondary-100',
   yellow: 'bg-alert-200',
   red: 'bg-primary-100'
 }
@@ -40,8 +40,8 @@ const trendIcons: Record<TrendType, string | null> = {
 }
 
 const trendColors: Record<TrendType, string> = {
-  up: 'text-primary-950',
-  down: 'text-success-900',
+  up: 'text-primary-900',
+  down: 'text-secondary-400',
   stable: 'text-base-600'
 }
 
@@ -170,7 +170,21 @@ const alertStatus = computed(() => store.panorama?.alertStatus ?? 'green')
       <!-- ========================================================
            CARDS DE AGRAVOS (3 colunas) — mock aguardando API
            ======================================================== -->
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div class="group relative grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <!-- Overlay desabilitado + hover "em construção" -->
+        <div
+          class="absolute inset-0 z-10 flex cursor-not-allowed flex-col items-center justify-center gap-3 rounded-lg bg-white/60 backdrop-blur-[1px] transition-all duration-300 group-hover:bg-white/85 group-hover:backdrop-blur-sm"
+        >
+          <div
+            class="flex flex-col items-center gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          >
+            <Icon name="lucide:construction" class="size-10 text-alert-500" />
+            <p class="text-sm font-semibold text-base-800">Em construção</p>
+            <p class="max-w-xs text-center text-xs text-base-500">
+              Dados de agravos estarão disponíveis em breve.
+            </p>
+          </div>
+        </div>
         <!-- ── Card 1: Arboviroses (azul / secondary) ── -->
         <div class="flex flex-col gap-3">
           <h5 class="px-4 text-sm font-semibold text-base-950">Arboviroses</h5>

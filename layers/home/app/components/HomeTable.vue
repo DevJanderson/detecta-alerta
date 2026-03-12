@@ -4,9 +4,9 @@ import type { Level, Trend } from '../composables/types'
 const store = useHomeStore()
 
 const levelColors: Record<Level, string> = {
-  Normal: 'text-success-900',
-  Moderado: 'text-alert-950',
-  Elevado: 'text-primary-950'
+  Normal: 'text-secondary-400',
+  Moderado: 'text-alert-900',
+  Elevado: 'text-primary-900'
 }
 
 const trendIcons: Record<Trend, string> = {
@@ -16,8 +16,8 @@ const trendIcons: Record<Trend, string> = {
 }
 
 const trendColors: Record<Trend, string> = {
-  up: 'text-primary-950',
-  down: 'text-success-900',
+  up: 'text-primary-900',
+  down: 'text-secondary-400',
   stable: 'text-base-600'
 }
 

@@ -27,8 +27,8 @@ const trendIcons: Record<TrendType, string> = {
 }
 
 const trendColors: Record<TrendType, string> = {
-  up: 'text-primary-950',
-  down: 'text-success-900',
+  up: 'text-primary-900',
+  down: 'text-secondary-400',
   stable: 'text-base-600'
 }
 

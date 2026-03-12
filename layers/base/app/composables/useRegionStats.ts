@@ -14,7 +14,7 @@ import type {
 
 export interface RegionIndicator {
   name: string
-  level: 'Baixo' | 'Médio' | 'Alto'
+  level: 'Normal' | 'Moderado' | 'Elevado'
   variation: string
   trend: TrendType
 }
@@ -29,10 +29,10 @@ const REGION_KEY_TO_NAME: Record<string, string> = {
 
 const REGION_DISPLAY_ORDER = ['Norte', 'Nordeste', 'Centro-Oeste', 'Sudeste', 'Sul']
 
-const ALERT_TO_LABEL: Record<AlertStatus, 'Baixo' | 'Médio' | 'Alto'> = {
-  green: 'Baixo',
-  yellow: 'Médio',
-  red: 'Alto'
+const ALERT_TO_LABEL: Record<AlertStatus, 'Normal' | 'Moderado' | 'Elevado'> = {
+  green: 'Normal',
+  yellow: 'Moderado',
+  red: 'Elevado'
 }
 
 function formatWeekChange(change: number): string {
@@ -52,7 +52,7 @@ function mapAggregation(item: EpidemiologicalAggregation): RegionIndicator {
 function defaultRegions(): RegionIndicator[] {
   return REGION_DISPLAY_ORDER.map(name => ({
     name,
-    level: 'Baixo',
+    level: 'Normal',
     variation: '--%',
     trend: 'stable' as TrendType
   }))

@@ -2,14 +2,14 @@
 const { regions, isLoading, error } = useRegionStats()
 
 const levelClasses: Record<string, string> = {
-  Baixo: 'text-success-400',
-  Médio: 'text-alert-600',
-  Alto: 'text-primary-400'
+  Normal: 'text-secondary-400',
+  Moderado: 'text-alert-400',
+  Elevado: 'text-primary-400'
 }
 
 const trendClasses: Record<string, string> = {
   up: 'text-primary-400',
-  down: 'text-success-400',
+  down: 'text-secondary-400',
   stable: 'text-white/60'
 }
 
