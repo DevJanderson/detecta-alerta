@@ -4,6 +4,7 @@ const mapContainer = ref<HTMLElement | null>(null)
 const { map } = useHomeMap(mapContainer)
 
 const headerTitle = computed(() => {
+  if (store.filtros.estado) return store.regionLabel
   if (store.filtros.region === 'brasil') return 'Todo o Brasil'
   return store.regionLabel
 })

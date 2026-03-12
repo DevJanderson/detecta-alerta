@@ -42,6 +42,11 @@ export const useHomeStore = defineStore(
 
     // === Computed ===
     const regionLabel = computed(() => {
+      // Se um estado está selecionado, exibir o nome do estado
+      if (filtros.value.estado) {
+        const estado = api.getEstados().find(e => e.value === filtros.value.estado)
+        if (estado) return estado.label
+      }
       const found = regions.find(r => r.id === filtros.value.region)
       return found?.label ?? 'Brasil'
     })
@@ -56,6 +61,9 @@ export const useHomeStore = defineStore(
       if (lookupsLoaded.value) return
 
       try {
+        // Resetar estado persistido — é filtro transiente, não deve sobreviver entre sessões
+        filtros.value.estado = ''
+
         const s = await api.getSemanas()
         semanas.value = s
 
@@ -102,6 +110,10 @@ export const useHomeStore = defineStore(
 
     async function fetchAll() {
       const version = ++fetchVersion.value
+
+      // Manter dados antigos visíveis durante o carregamento (isLoading já sinaliza loading).
+      // Setar para null causa erros de patch do Vue quando componentes Icon tentam
+      // renderizar com name undefined durante a transição do v-if.
 
       return withStoreAction({ isLoading, error }, HomeErrors.DATA_FAILED, async () => {
         // Panorama e tabela são críticos; gráfico é independente (falha não bloqueia)
@@ -200,7 +212,7 @@ export const useHomeStore = defineStore(
   },
   {
     persist: {
-      pick: ['filtros']
+      pick: ['filtros.region']
     }
   }
 )

@@ -90,7 +90,26 @@ const unitStats = computed(() => {
     <!-- ============================================================
          TABELA
          ============================================================ -->
-    <div class="overflow-x-auto overflow-y-visible px-4 sm:px-6">
+    <!-- Loading -->
+    <div
+      v-if="store.isLoading && !store.regionRows.length"
+      class="flex items-center justify-center px-4 py-16 sm:px-6"
+    >
+      <Icon name="lucide:loader-2" class="size-6 animate-spin text-base-400" />
+    </div>
+
+    <!-- Empty state -->
+    <div
+      v-else-if="!store.regionRows.length"
+      class="flex flex-col items-center justify-center gap-3 px-4 py-16 sm:px-6"
+    >
+      <Icon name="lucide:inbox" class="size-8 text-base-300" />
+      <p class="text-sm font-medium text-base-600">Dados indisponíveis para esta seleção</p>
+      <p class="text-xs text-base-400">Tente selecionar outra semana ou região.</p>
+    </div>
+
+    <!-- Tabela com dados -->
+    <div v-else class="overflow-x-auto overflow-y-visible px-4 sm:px-6">
       <table class="w-full min-w-[600px] text-sm">
         <thead>
           <tr class="border-b border-base-100">
@@ -125,6 +144,7 @@ const unitStats = computed(() => {
                   {{ row[col.key].value }}
                 </span>
                 <Icon
+                  v-if="row[col.key]?.trend"
                   :name="trendIcons[row[col.key].trend]"
                   :class="cellColor(row[col.key].level)"
                   class="size-3"
