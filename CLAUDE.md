@@ -596,22 +596,3 @@ Componentes ficam em `layers/base/app/components/ui/` (auto-import). O shadcn-vu
 | `maska`                   | Máscaras de input (CPF, telefone, etc.)         |
 | `@vueuse/core`            | Composables utilitários Vue                     |
 | `@tailwindcss/typography` | Plugin prose para Markdown                      |
-
-### ai-context (Context Engineering)
-
-Projeto usa **`@ai-coders/context`** via MCP para planejamento e execução estruturada de tarefas. Pasta `.context/` na raiz é a fonte de verdade (docs, agents, plans, skills, workflow).
-
-#### Regras
-
-- **SEMPRE usar ai-context** para planejar e executar tarefas não-triviais
-- **NÃO criar planos manualmente** em `.context/plans/` — usar MCP tools
-- **NÃO usar `sync({ action: "exportContext" })`** — sobrescreve o CLAUDE.md
-- Para tarefas triviais (typo, single-line fix), pode pular o workflow
-
-#### Workflow PREVC
-
-Escalas: `QUICK` (E→V), `SMALL` (P→E→V), `MEDIUM` (P→R→E→V), `LARGE` (P→R→E→V→C).
-
-Fluxo típico: `context({ action: "check" })` → `context({ action: "scaffoldPlan" })` → `workflow-init()` → `workflow-advance()`.
-
-Ferramentas MCP disponíveis: `context`, `explore`, `plan`, `agent`, `skill`, `sync`, `workflow-init`, `workflow-status`, `workflow-advance`, `workflow-manage`. Detalhes em `.context/docs/`.
