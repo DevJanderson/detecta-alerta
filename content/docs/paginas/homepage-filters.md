@@ -12,12 +12,14 @@ Barra com dois selects que refinam os dados exibidos em toda a página: **Estado
 
 ## O que exibe
 
-| Elemento                       | Valores                                             | Fonte                                                  |
-| ------------------------------ | --------------------------------------------------- | ------------------------------------------------------ |
-| Select "Estado"                | `Todos os Estados`, `Acre` ... `Tocantins` (27 UFs) | Constante `ESTADOS_BRASIL` em `useHomeApi.ts`          |
-| Select "Semana Epidemiológica" | `Semana 09 (24 fev a 02 mar. 2026)`                 | API via `store.semanas` (carregadas no `fetchLookups`) |
+| Elemento                       | Valores                                            | Fonte                                                     |
+| ------------------------------ | -------------------------------------------------- | --------------------------------------------------------- |
+| Select "Estado"                | `Todos os Estados` + estados da região selecionada | `store.filteredEstados` (filtrado por `REGION_TO_STATES`) |
+| Select "Semana Epidemiológica" | `Semana 09 (24 fev a 02 mar. 2026)`                | API via `store.semanas` (carregadas no `fetchLookups`)    |
 
-A semana mais recente é selecionada automaticamente ao carregar a página.
+O select de estados **filtra automaticamente** conforme a região selecionada no switcher. Ex: ao selecionar "Norte", mostra apenas AC, AM, AP, PA, RO, RR, TO. Na visão "Brasil", mostra todos os 27 estados.
+
+A semana mais recente é selecionada automaticamente ao carregar a página. Se a semana persistida no localStorage não existir mais na lista de semanas disponíveis (ex: após semanas sem uso), é resetada para a mais recente.
 
 ---
 
@@ -51,6 +53,8 @@ Os filtros funcionam **em conjunto** com o switcher de região:
 
 Quando um **estado é selecionado**, ele tem prioridade sobre a região — a API busca `aggregation_level=state` com o UF específico.
 
+Ao trocar de região, se o estado selecionado **não pertence** à nova região (ex: SP selecionado e troca para Norte), o estado é resetado para "Todos os Estados".
+
 ---
 
 ## API Sinapse
@@ -82,8 +86,8 @@ As **opções de semana** são carregadas uma única vez no `fetchLookups()`:
 
 ## Arquivos
 
-| Arquivo                                       | Responsabilidade                                 |
-| --------------------------------------------- | ------------------------------------------------ |
-| `layers/home/app/components/HomeFilters.vue`  | Template dos selects                             |
-| `layers/home/app/composables/useHomeStore.ts` | `setEstado()`, `setSemana()`, `fetchLookups()`   |
-| `layers/home/app/composables/useHomeApi.ts`   | `getEstados()` (constante), `getSemanas()` (API) |
+| Arquivo                                       | Responsabilidade                                                         |
+| --------------------------------------------- | ------------------------------------------------------------------------ |
+| `layers/home/app/components/HomeFilters.vue`  | Template dos selects (usa `store.filteredEstados`)                       |
+| `layers/home/app/composables/useHomeStore.ts` | `setEstado()`, `setSemana()`, `fetchLookups()`, `filteredEstados`        |
+| `layers/home/app/composables/useHomeApi.ts`   | `getEstados()`, `getEstadosByRegion()` (constante), `getSemanas()` (API) |

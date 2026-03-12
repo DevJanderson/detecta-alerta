@@ -79,13 +79,15 @@ O layout divide a tela em duas colunas no desktop:
 1. Usuário clica "Sul" no HomeRegionTabs
 2. store.setRegion('sul')
 3. filtros.region = 'sul'
-4. store.fetchAll()
+4. Se estado selecionado não pertence à região Sul → reset para ''
+5. Dropdown de estados filtra para PR, SC, RS (via filteredEstados)
+6. store.fetchAll() (com proteção de versão contra race condition)
    ├─ api.getPanorama({ region: 'sul', ... })
    │    → aggregation_level=region, filtra client-side por key 'S'
    │    → store.panorama atualiza → HomePanorama reage
    │
    ├─ api.getRegionTable({ region: 'sul', ... })
-   │    → aggregation_level=state, region=S
+   │    → aggregation_level=state, filtra client-side por REGION_TO_STATES
    │    → retorna estados: PR, SC, RS
    │    → store.regionRows atualiza → HomeTable reage
    │
@@ -93,6 +95,10 @@ O layout divide a tela em duas colunas no desktop:
         → aggregation_level=region, filtra por key 'S'
         → store.chartData atualiza → HomeChart/ChartLine reage
 ```
+
+### Proteção contra race condition
+
+O `fetchAll()` usa um **contador de versão** (`fetchVersion`). Se o usuário trocar de região enquanto um fetch ainda está em andamento, a resposta stale é descartada — apenas o resultado mais recente é aplicado ao estado.
 
 ### Isolamento de falhas
 

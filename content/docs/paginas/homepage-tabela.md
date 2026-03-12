@@ -81,11 +81,13 @@ O componente é **consumidor passivo** — lê `store.regionRows` e `store.panor
 
 ### Parâmetros conforme contexto
 
-| Contexto         | `aggregation_level` | Filtro extra | Resultado         |
-| ---------------- | ------------------- | ------------ | ----------------- |
-| Brasil           | `region`            | —            | 5 regiões         |
-| Região (ex: Sul) | `state`             | `region=S`   | Estados da região |
-| Estado (ex: SP)  | `state`             | `state=SP`   | Estado único      |
+| Contexto         | `aggregation_level` | Filtro extra                     | Resultado         |
+| ---------------- | ------------------- | -------------------------------- | ----------------- |
+| Brasil           | `region`            | —                                | 5 regiões         |
+| Região (ex: Sul) | `state`             | Client-side via REGION_TO_STATES | Estados da região |
+| Estado (ex: SP)  | `state`             | `state=SP`                       | Estado único      |
+
+> **Nota:** A filtragem por região usa `REGION_TO_STATES` client-side em vez de enviar `region=S` à API (a API Sinapse não suporta esse parâmetro com `aggregation_level=state`).
 
 ### Campos utilizados
 

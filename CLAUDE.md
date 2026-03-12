@@ -593,6 +593,8 @@ Componentes ficam em `layers/base/app/components/ui/` (auto-import). O shadcn-vu
 | `vue-sonner`              | Toasts/notificações (módulo Nuxt, sem CSS)      |
 | `@tanstack/vue-table`     | Tabelas com sort/filter/pagination              |
 | `maplibre-gl`             | Mapas interativos (API direta, sem módulo Nuxt) |
+| `echarts` + `vue-echarts` | Gráficos (barras, linhas, pizza, etc.)          |
+| `lucide-vue-next`         | Ícones SVG (complementa `@nuxt/icon`)           |
 | `maska`                   | Máscaras de input (CPF, telefone, etc.)         |
 | `@vueuse/core`            | Composables utilitários Vue                     |
 | `@tailwindcss/typography` | Plugin prose para Markdown                      |

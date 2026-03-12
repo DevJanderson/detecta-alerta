@@ -35,8 +35,10 @@ HomeRegionTabs
 Ao clicar em uma região:
 
 1. Atualiza `filtros.region` na store
-2. Chama `fetchAll()` que busca panorama + tabela em paralelo, depois gráfico
-3. **Todos os componentes** da página reagem porque consomem a mesma store
+2. Se o estado selecionado não pertence à nova região → reseta para "Todos os Estados"
+3. O dropdown de estados (`HomeFilters`) filtra para mostrar apenas estados da região
+4. Chama `fetchAll()` que busca panorama + tabela em paralelo, depois gráfico
+5. **Todos os componentes** da página reagem porque consomem a mesma store
 
 ---
 
