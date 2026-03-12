@@ -354,4 +354,14 @@ const alertStatus = computed(() => store.panorama?.alertStatus ?? 'green')
   >
     <Icon name="lucide:loader-2" class="size-6 animate-spin text-base-400" />
   </div>
+
+  <!-- Empty state -->
+  <div
+    v-else
+    class="flex flex-col items-center justify-center gap-3 rounded-xl border border-base-100 py-16"
+  >
+    <Icon name="lucide:inbox" class="size-8 text-base-300" />
+    <p class="text-sm font-medium text-base-600">Dados indisponíveis para esta seleção</p>
+    <p class="text-xs text-base-400">Tente selecionar outra semana ou região.</p>
+  </div>
 </template>

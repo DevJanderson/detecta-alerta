@@ -6,9 +6,9 @@
  */
 
 export default defineEventHandler(async event => {
-  // Usar token do contexto (já renovado pelo middleware 01.auth),
-  // fallback para cookie direto apenas se contexto não disponível
-  const accessToken = event.context.auth?.accessToken ?? getAccessToken(event)
+  // Usar token do contexto (já renovado pelo middleware 01.auth)
+  // Sem fallback para cookie: se o middleware não injetou token, o usuário não está autenticado
+  const accessToken = event.context.auth?.accessToken
   if (!accessToken) {
     throw createError({ statusCode: 401, message: 'Não autenticado' })
   }

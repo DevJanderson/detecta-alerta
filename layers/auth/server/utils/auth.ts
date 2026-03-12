@@ -188,7 +188,7 @@ export function createAuthHeaders(accessToken: string): Record<string, string> {
 }
 
 // ============================================================================
-// REFRESH DE TOKENS (centralizado)
+// REFRESH DE TOKENS (centralizado, com dedup para requests concorrentes)
 // ============================================================================
 
 /**
@@ -201,8 +201,37 @@ export interface RefreshResult {
 }
 
 /**
+ * Cache de refresh em andamento, keyed por refresh token.
+ * Quando múltiplas requests chegam ao servidor simultaneamente com o mesmo
+ * token expirado (ex: Promise.all no client), apenas UMA chamada de refresh
+ * é feita à API Sinapse. As demais aguardam o mesmo resultado.
+ */
+const pendingRefreshes = new Map<string, Promise<Token | null>>()
+
+/** Executa o refresh na API Sinapse (chamado uma única vez por token) */
+async function executeRefresh(refreshToken: string): Promise<Token | null> {
+  try {
+    const sinapseApiUrl = getSinapseApiUrl()
+
+    const rawResponse = await $fetch(`${sinapseApiUrl}/auth/refresh`, {
+      method: 'POST',
+      body: { refresh_token: refreshToken },
+      timeout: DEFAULT_FETCH_TIMEOUT
+    })
+
+    const tokenResponse = tokenSchema.parse(rawResponse)
+    logger.debug('Token renovado com sucesso')
+    return tokenResponse
+  } catch (error) {
+    logAuthError('Falha ao renovar tokens', error)
+    return null
+  }
+}
+
+/**
  * Tenta renovar os tokens de autenticação.
- * Função centralizada para evitar duplicação de código.
+ * Função centralizada com dedup: requests concorrentes com o mesmo refresh token
+ * compartilham uma única chamada à API Sinapse.
  *
  * @returns RefreshResult com o novo access token ou erro
  */
@@ -222,29 +251,26 @@ export async function tryRefreshTokens(event: H3Event): Promise<RefreshResult> {
     return { success: false, error: AuthErrors.REFRESH_TOKEN_MISSING }
   }
 
-  try {
-    const sinapseApiUrl = getSinapseApiUrl()
+  // Dedup: reusar refresh em andamento para o mesmo token
+  let refreshPromise = pendingRefreshes.get(refreshToken)
+  if (!refreshPromise) {
+    refreshPromise = executeRefresh(refreshToken)
+    pendingRefreshes.set(refreshToken, refreshPromise)
+    // Limpar após resolução (todas as requests concorrentes já receberam o resultado)
+    refreshPromise.finally(() => pendingRefreshes.delete(refreshToken))
+  }
 
-    const rawResponse = await $fetch(`${sinapseApiUrl}/auth/refresh`, {
-      method: 'POST',
-      body: { refresh_token: refreshToken },
-      timeout: DEFAULT_FETCH_TIMEOUT
-    })
+  const tokenResponse = await refreshPromise
 
-    // Validar resposta com schema Zod (garante que API não mudou)
-    const tokenResponse = tokenSchema.parse(rawResponse)
-
-    // Atualizar cookies com novos tokens
-    setAuthCookies(event, tokenResponse.access_token, tokenResponse.refresh_token)
-
-    logger.debug('Token renovado com sucesso')
-
-    return { success: true, accessToken: tokenResponse.access_token }
-  } catch (error) {
-    logAuthError('Falha ao renovar tokens', error)
+  if (!tokenResponse) {
     clearAuthCookies(event)
     return { success: false, error: AuthErrors.SESSION_EXPIRED }
   }
+
+  // Atualizar cookies em CADA response (cada request precisa do Set-Cookie header)
+  setAuthCookies(event, tokenResponse.access_token, tokenResponse.refresh_token)
+
+  return { success: true, accessToken: tokenResponse.access_token }
 }
 
 // ============================================================================
