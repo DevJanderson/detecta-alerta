@@ -21,7 +21,7 @@ const emit = defineEmits<{
           <CardTitle>{{ usuario.nome }}</CardTitle>
           <CardDescription>{{ usuario.email }}</CardDescription>
         </div>
-        <StatusBadge :active="usuario.ativo !== false" />
+        <UsuariosStatusBadge :active="usuario.ativo !== false" />
       </div>
     </CardHeader>
 

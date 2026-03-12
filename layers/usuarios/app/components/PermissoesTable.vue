@@ -33,7 +33,7 @@ const emit = defineEmits<{
             {{ permissao.descricao || '-' }}
           </TableCell>
           <TableCell class="text-right">
-            <TableActions
+            <UsuariosTableActions
               :show-view="false"
               @edit="emit('edit', permissao)"
               @delete="emit('delete', permissao)"

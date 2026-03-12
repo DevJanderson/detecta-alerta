@@ -32,7 +32,7 @@ const emit = defineEmits<{
           <TableCell class="font-medium">{{ u.nome }}</TableCell>
           <TableCell>{{ u.email }}</TableCell>
           <TableCell>
-            <StatusBadge :active="u.ativo !== false" />
+            <UsuariosStatusBadge :active="u.ativo !== false" />
           </TableCell>
           <TableCell>
             <div class="flex flex-wrap gap-1">
@@ -43,7 +43,7 @@ const emit = defineEmits<{
             </div>
           </TableCell>
           <TableCell class="text-right">
-            <TableActions
+            <UsuariosTableActions
               @view="emit('view', u.id)"
               @edit="emit('edit', u)"
               @delete="emit('delete', u)"

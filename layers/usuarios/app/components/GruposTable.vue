@@ -33,10 +33,10 @@ const emit = defineEmits<{
             {{ grupo.descricao || '-' }}
           </TableCell>
           <TableCell>
-            <StatusBadge :active="grupo.ativo !== false" />
+            <UsuariosStatusBadge :active="grupo.ativo !== false" />
           </TableCell>
           <TableCell class="text-right">
-            <TableActions
+            <UsuariosTableActions
               @view="emit('view', grupo.id)"
               @edit="emit('edit', grupo)"
               @delete="emit('delete', grupo)"

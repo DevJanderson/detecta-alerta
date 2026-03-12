@@ -47,7 +47,7 @@ function handleSave() {
 </script>
 
 <template>
-  <CrudFormDialog
+  <UsuariosCrudFormDialog
     v-model:open="open"
     :mode="mode"
     :title="titulo"
@@ -74,5 +74,5 @@ function handleSave() {
       <Switch id="grupo-ativo" :checked="ativo" @update:checked="ativo = $event" />
       <Label for="grupo-ativo">Ativo</Label>
     </div>
-  </CrudFormDialog>
+  </UsuariosCrudFormDialog>
 </template>

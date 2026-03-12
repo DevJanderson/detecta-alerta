@@ -45,7 +45,7 @@ function handleSave() {
 </script>
 
 <template>
-  <CrudFormDialog
+  <UsuariosCrudFormDialog
     v-model:open="open"
     :mode="mode"
     :title="titulo"
@@ -72,5 +72,5 @@ function handleSave() {
         :disabled="isLoading"
       />
     </div>
-  </CrudFormDialog>
+  </UsuariosCrudFormDialog>
 </template>
