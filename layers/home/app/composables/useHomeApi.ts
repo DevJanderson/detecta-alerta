@@ -27,13 +27,13 @@ const REGION_KEY_TO_NAME: Record<string, string> = {
 
 const REGION_DISPLAY_ORDER = ['Norte', 'Nordeste', 'Centro-Oeste', 'Sudeste', 'Sul']
 
-/** Mapeia ID do switcher UI (lowercase) para chave da API (N, NE, CO, SE, S) */
-const REGION_ID_TO_API_KEY: Record<string, string> = {
-  norte: 'N',
-  nordeste: 'NE',
-  'centro-oeste': 'CO',
-  sudeste: 'SE',
-  sul: 'S'
+/** Mapeia ID do switcher UI (lowercase) para UFs que pertencem à região */
+const REGION_TO_STATES: Record<string, string[]> = {
+  norte: ['AC', 'AM', 'AP', 'PA', 'RO', 'RR', 'TO'],
+  nordeste: ['AL', 'BA', 'CE', 'MA', 'PB', 'PE', 'PI', 'RN', 'SE'],
+  'centro-oeste': ['DF', 'GO', 'MS', 'MT'],
+  sudeste: ['ES', 'MG', 'RJ', 'SP'],
+  sul: ['PR', 'RS', 'SC']
 }
 
 /** Mapeia UF para nome do estado (lookup rápido, populado após ESTADOS_BRASIL) */
@@ -318,10 +318,9 @@ export function useHomeApi() {
       query.aggregation_level = 'state'
       query.state = params.estado
     } else if (!isBrasil) {
-      // Região selecionada: buscar estados dessa região
+      // Região selecionada: buscar todos os estados e filtrar client-side
+      // (a API Sinapse não suporta o param `region` com aggregation_level=state)
       query.aggregation_level = 'state'
-      const apiKey = REGION_ID_TO_API_KEY[params.region]
-      if (apiKey) query.region = apiKey
     } else {
       query.aggregation_level = 'region'
     }
@@ -344,6 +343,14 @@ export function useHomeApi() {
       )
       if (latestWeek) {
         allData = allData.filter(d => d.metrics.epidemiological_week === latestWeek)
+      }
+    }
+
+    // Filtrar por estados da região selecionada (client-side)
+    if (!isEstado && !isBrasil) {
+      const regionStates = REGION_TO_STATES[params.region]
+      if (regionStates) {
+        allData = allData.filter(d => regionStates.includes(d.aggregation_key))
       }
     }
 
@@ -409,6 +416,16 @@ export function useHomeApi() {
 
   function getEstados(): SelectOption[] {
     return ESTADOS_BRASIL
+  }
+
+  function getEstadosByRegion(region: string): SelectOption[] {
+    if (region === 'brasil') return ESTADOS_BRASIL
+    const allowedUFs = REGION_TO_STATES[region]
+    if (!allowedUFs) return ESTADOS_BRASIL
+    return [
+      { value: '', label: 'Todos os Estados' },
+      ...ESTADOS_BRASIL.filter(e => e.value && allowedUFs.includes(e.value))
+    ]
   }
 
   async function getSemanas(): Promise<SelectOption[]> {
@@ -572,5 +589,5 @@ export function useHomeApi() {
     }
   }
 
-  return { getPanorama, getRegionTable, getChartSeries, getEstados, getSemanas }
+  return { getPanorama, getRegionTable, getChartSeries, getEstados, getEstadosByRegion, getSemanas }
 }

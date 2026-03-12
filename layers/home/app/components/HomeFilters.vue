@@ -26,7 +26,7 @@ function onSemanaChange(event: Event) {
           class="h-10 w-full cursor-pointer appearance-none rounded-full border border-base-100 bg-base-0 pr-10 pl-5 text-sm text-base-950 focus:ring-2 focus:ring-primary-500 focus:outline-none lg:w-60"
           @change="onEstadoChange"
         >
-          <option v-for="estado in store.estados" :key="estado.value" :value="estado.value">
+          <option v-for="estado in store.filteredEstados" :key="estado.value" :value="estado.value">
             {{ estado.label }}
           </option>
         </select>

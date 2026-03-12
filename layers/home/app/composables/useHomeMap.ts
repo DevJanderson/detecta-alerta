@@ -37,10 +37,10 @@ const STORE_ID_TO_GEOREGION: Record<string, string> = {
   sul: 'Sul'
 }
 
-/** Cores por alert status (alinhado ao design system) */
+/** Cores por alert status (alinhado ao design system: secondary-400, alert-900, primary-900) */
 const ALERT_FILL_COLORS: Record<AlertStatus, string> = {
-  green: '#B3D5A7',
-  yellow: '#F0C653',
+  green: '#88b1dd',
+  yellow: '#f0c653',
   red: '#EB5E57'
 }
 
@@ -65,29 +65,39 @@ export function useHomeMap(container: Ref<HTMLElement | null>) {
   // Popup para hover
   let popup: maplibregl.Popup | null = null
 
+  /** Nomes de região válidos no GeoJSON (usados para validar pares do match) */
+  const VALID_GEO_REGIONS = new Set(Object.values(STORE_ID_TO_GEOREGION))
+
   /** Constrói expressão match MapLibre para colorir estados por alert status da região */
   function buildAlertColorExpression(): maplibregl.ExpressionSpecification {
     const pairs: (string | maplibregl.ExpressionSpecification)[] = ['match', ['get', 'name_region']]
 
-    if (store.regionRows.length > 0) {
-      // Quando temos regionRows, cada row é uma região com alert status
+    if (store.filtros.region === 'brasil' && store.regionRows.length > 0) {
+      // Visão Brasil: regionRows são regiões (Norte, Nordeste, etc.)
       for (const row of store.regionRows) {
-        // row.region pode ser "Norte", "Nordeste", etc. ou nome de estado
-        // Aqui usamos quando é visão brasil (linhas = regiões)
-        const alertStatus =
-          row.todos.level === 'Elevado'
-            ? 'red'
-            : row.todos.level === 'Moderado'
-              ? 'yellow'
-              : 'green'
-        pairs.push(row.region, ALERT_FILL_COLORS[alertStatus])
+        // Só adicionar se o nome corresponde a uma região válida do GeoJSON
+        if (VALID_GEO_REGIONS.has(row.region)) {
+          const alertStatus =
+            row.todos.level === 'Elevado'
+              ? 'red'
+              : row.todos.level === 'Moderado'
+                ? 'yellow'
+                : 'green'
+          pairs.push(row.region, ALERT_FILL_COLORS[alertStatus])
+        }
       }
     } else if (store.panorama) {
-      // Fallback: usar alert status geral para todas as regiões
+      // Região selecionada ou sem regionRows: usar alert status do panorama
       const color = ALERT_FILL_COLORS[store.panorama.alertStatus]
       for (const geoName of Object.values(STORE_ID_TO_GEOREGION)) {
         pairs.push(geoName, color)
       }
+    }
+
+    // MapLibre match exige no mínimo 4 args: ['match', input, value, output, fallback]
+    // Se não temos pares (só ['match', input]), usar cor padrão diretamente
+    if (pairs.length <= 2) {
+      return DEFAULT_FILL_COLOR as unknown as maplibregl.ExpressionSpecification
     }
 
     pairs.push(DEFAULT_FILL_COLOR)

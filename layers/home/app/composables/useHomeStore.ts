@@ -21,6 +21,9 @@ export const useHomeStore = defineStore(
     const isLoading = ref(false)
     const error = ref<string | null>(null)
 
+    // Controle de versão para evitar race condition entre fetches concorrentes
+    const fetchVersion = ref(0)
+
     // === Filtros centralizados ===
     const filtros = ref<HomeFilters>({
       region: 'brasil',
@@ -43,6 +46,10 @@ export const useHomeStore = defineStore(
       return found?.label ?? 'Brasil'
     })
 
+    const filteredEstados = computed(() => {
+      return api.getEstadosByRegion(filtros.value.region)
+    })
+
     // === Actions ===
 
     async function fetchLookups() {
@@ -51,8 +58,10 @@ export const useHomeStore = defineStore(
       try {
         const s = await api.getSemanas()
         semanas.value = s
-        // Definir semana mais recente como padrão se não tiver
-        if (!filtros.value.semana && s.length > 0 && s[0]) {
+
+        // Sempre resetar para a semana mais recente ao carregar
+        // (semana persistida pode estar desatualizada após dias sem uso)
+        if (s.length > 0 && s[0]) {
           filtros.value.semana = s[0].value
         }
         lookupsLoaded.value = true
@@ -92,6 +101,8 @@ export const useHomeStore = defineStore(
     }
 
     async function fetchAll() {
+      const version = ++fetchVersion.value
+
       return withStoreAction({ isLoading, error }, HomeErrors.DATA_FAILED, async () => {
         // Panorama e tabela são críticos; gráfico é independente (falha não bloqueia)
         const [p, r] = await Promise.all([
@@ -106,6 +117,10 @@ export const useHomeStore = defineStore(
             semana: filtros.value.semana
           })
         ])
+
+        // Descartar resultado se outra chamada mais recente já foi disparada
+        if (fetchVersion.value !== version) return
+
         panorama.value = p
         regionRows.value = r
 
@@ -117,7 +132,9 @@ export const useHomeStore = defineStore(
             unitType: chartUnitType.value
           })
         } catch {
-          chartData.value = null
+          if (fetchVersion.value === version) {
+            chartData.value = null
+          }
         }
       })
     }
@@ -126,6 +143,13 @@ export const useHomeStore = defineStore(
 
     async function setRegion(region: string) {
       filtros.value.region = region
+      // Resetar estado se não pertence à nova região
+      if (filtros.value.estado) {
+        const validEstados = api.getEstadosByRegion(region)
+        if (!validEstados.some(e => e.value === filtros.value.estado)) {
+          filtros.value.estado = ''
+        }
+      }
       await fetchAll()
     }
 
@@ -161,6 +185,7 @@ export const useHomeStore = defineStore(
       lookupsLoaded,
       // Computed
       regionLabel,
+      filteredEstados,
       // Actions
       fetchLookups,
       fetchPanorama,
